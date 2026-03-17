@@ -643,15 +643,21 @@
   }
   .ma-dot {
     display: inline-block;
-    width: 8px;
+    width: 10px;
     height: 3px;
     border-radius: 1px;
   }
-  .ma-dot.sma20 { background: var(--cyan); }
-  .ma-dot.sma50 { background: var(--orange); width: 8px; border-top: 2px dashed var(--orange); background: none; }
-  .ma-dot.w20 { background: var(--purple); width: 8px; border-top: 2px dotted var(--purple); background: none; }
-  .ma-dot.sma100 { background: #78909c; }
-  .ma-dot.sma200 { background: #546e7a; }
+  /* Daily SMA20: thick cyan solid — THE key exit level */
+  .ma-dot.d-sma20 { background: var(--cyan); height: 4px; }
+  /* Daily SMA50: orange dashed */
+  .ma-dot.d-sma50 { background: none; border-top: 2px dashed var(--orange); }
+  /* Weekly SMA20: cyan thin solid */
+  .ma-dot.w-sma20 { background: var(--cyan); height: 2px; }
+  /* Weekly SMA50: orange dotted */
+  .ma-dot.w-sma50 { background: none; border-top: 2px dotted var(--orange); }
+  /* Weekly SMA100/200 */
+  .ma-dot.sma100 { background: #78909c; height: 2px; }
+  .ma-dot.sma200 { background: #546e7a; height: 1px; }
 
   .detail-grid {
     display: grid;
@@ -1244,8 +1250,8 @@
           <div class="chart-label">
             Daily
             <div class="ma-legend">
-              <span><span class="ma-dot sma20"></span> SMA 20</span>
-              <span><span class="ma-dot sma50"></span> SMA 50</span>
+              <span><span class="ma-dot d-sma20"></span> SMA 20</span>
+              <span><span class="ma-dot d-sma50"></span> SMA 50</span>
             </div>
           </div>
           <div id="modal-chart-daily" style="height:400px;"></div>
@@ -1254,8 +1260,8 @@
           <div class="chart-label">
             Weekly
             <div class="ma-legend">
-              <span><span class="ma-dot sma20"></span> 20</span>
-              <span><span class="ma-dot sma50"></span> 50</span>
+              <span><span class="ma-dot w-sma20"></span> 20</span>
+              <span><span class="ma-dot w-sma50"></span> 50</span>
               <span><span class="ma-dot sma100"></span> 100</span>
               <span><span class="ma-dot sma200"></span> 200</span>
             </div>
@@ -1410,7 +1416,7 @@ function openDetail(ticker) {
     ],
     studies_overrides: {
       'moving average.ma.color': '#00d4aa',
-      'moving average.ma.linewidth': 2,
+      'moving average.ma.linewidth': 3,
       'moving average_1.ma.color': '#ffa726',
       'moving average_1.ma.linewidth': 1
     },
