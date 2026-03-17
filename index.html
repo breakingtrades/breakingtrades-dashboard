@@ -1412,15 +1412,14 @@ function loadWeeklyChart(exchange, ticker) {
       'mainSeriesProperties.sessionId': 'regular'
     },
     studies: [
-      {id: 'MASimple@tv-basicstudies', inputs: {length: 20}},
-      {id: 'MASimple@tv-basicstudies', inputs: {length: 50}},
+      'MASimple@tv-basicstudies',
+      'MASimple@tv-basicstudies',
       'Volume@tv-basicstudies'
     ],
     studies_overrides: {
+      'moving average.length': 20,
       'moving average.ma.color': '#9e9e9e',
-      'moving average.ma.linewidth': 1,
-      'moving average_1.ma.color': '#ffeb3b',
-      'moving average_1.ma.linewidth': 1
+      'moving average.ma.linewidth': 1
     },
     range: '60M'
   });
@@ -1464,16 +1463,15 @@ function openDetail(ticker) {
       'mainSeriesProperties.sessionId': 'regular'
     },
     studies: [
-      {id: 'MASimple@tv-basicstudies', inputs: {length: 20}},
-      {id: 'MASimple@tv-basicstudies', inputs: {length: 50}},
+      'MASimple@tv-basicstudies',
+      'MASimple@tv-basicstudies',
       'RSI@tv-basicstudies',
       'Volume@tv-basicstudies'
     ],
     studies_overrides: {
+      'moving average.length': 20,
       'moving average.ma.color': '#9e9e9e',
-      'moving average.ma.linewidth': 1,
-      'moving average_1.ma.color': '#ffeb3b',
-      'moving average_1.ma.linewidth': 1
+      'moving average.ma.linewidth': 1
     },
     range: '12M'
   });
