@@ -167,41 +167,53 @@ openspec init
 
 ## Phased Roadmap
 
-### Phase 0: Foundation (Week 1)
-- [x] Create repo
-- [ ] Install OpenSpec, init project
-- [ ] Set up AGENTS.md / copilot-instructions
-- [ ] Define initial specs via OpenSpec
-- [ ] Choose tech stack (static vs Next.js)
-- [ ] Design system: colors, typography, component tokens
+### Phase 0: Foundation ✅ DONE
+- [x] Create repo + GitHub org (`breakingtrades`)
+- [x] Install OpenSpec, init project
+- [x] Set up AGENTS.md / copilot-instructions
+- [x] Define initial specs via OpenSpec (5 changes: data-pipeline, dashboard-ui, tom-chat, watchlist-page, market-page)
+- [x] Choose tech stack: static HTML + vanilla JS on GitHub Pages
+- [x] Design system: docs/DESIGN_SYSTEM.md, docs/UX_DESIGN_SPEC.md
+- [x] TradingView embed integration guide: docs/TRADINGVIEW_EMBED_GUIDE.md
 
-### Phase 1: Watchlist MVP (Week 1-2)
-- [ ] Data pipeline: scrape → compute → JSON
-- [ ] Watchlist grid view with EMA bias badges
-- [ ] Ticker detail page with TradingView charts
-- [ ] Key levels + trade setup cards
-- [ ] Responsive dark theme
+### Phase 1: Signals MVP ✅ DONE
+- [x] Signals page (`index.html`) with trade setup cards
+- [x] Status lifecycle: Approaching → Active → Exit → Watching
+- [x] Detail modal with daily + weekly TradingView charts (sequential loading)
+- [x] Macro strip (VIX, DXY, US10Y, Oil, BTC)
+- [x] 12 pair ratios in scrollable row
+- [x] Status tab filters with badge counts
+- [x] Timezone selector (9 presets, localStorage persistence)
+- [x] Market regime panel + sector strength + daily briefing
+- [x] Dark terminal theme, responsive
+- [x] Deployed to GitHub Pages: https://breakingtrades.github.io/breakingtrades-dashboard/
 
-### Phase 2: Charts & Analysis (Week 2-3)
-- [ ] Multi-timeframe chart layout (Daily + 4H + Weekly)
-- [ ] Technical analysis gauges
-- [ ] Sector comparison widgets
-- [ ] Macro context panel
-- [ ] Sector rotation heatmap
+### Phase 2: Multi-Page Dashboard (CURRENT)
+- [ ] **Shared navigation** — top nav bar across all pages (Signals | Watchlist | Market)
+- [ ] **Watchlist page** (`watchlist.html`) — TradingView Market Overview widget + sortable table
+- [ ] **Market page** (`market.html`) — Sector heatmap + Fear & Greed gauge + pair ratios
+- [ ] Extract shared CSS/JS from index.html into `css/` and `js/` files
+- [ ] Add Fear & Greed scraper to pipeline (`data/fear-greed.json`)
 
-### Phase 3: Tom Agent (Week 3-4)
+### Phase 3: Data Pipeline
+- [ ] Build `scripts/export-dashboard-data.py` — signal computation, trade lifecycle, pair ratios, macro, Fear & Greed
+- [ ] Generate: `data/watchlist.json`, `data/setups.json`, `data/macro.json`, `data/pairs.json`, `data/fear-greed.json`
+- [ ] Wire dashboard pages to load JSON dynamically instead of hardcoded data
+- [ ] Cron: 9:35 AM + 4:00 PM ET weekdays → git commit+push → GitHub Pages serves
+
+### Phase 4: Tom Agent
 - [ ] Tom system prompt + methodology context
-- [ ] Daily briefing generation (cached)
-- [ ] Chat widget UI
-- [ ] API endpoint for live Q&A
-- [ ] "Tom's Take" cards on each ticker
+- [ ] Daily briefing generation (cached as `data/tom/briefing.json`)
+- [ ] Per-ticker analysis (`data/tom/takes/{TICKER}.json`)
+- [ ] Chat widget UI (floating, Tier 1+2: cached JSON + dashboard actions)
+- [ ] Live LLM chat deferred to Phase 5
 
-### Phase 4: Polish & Deploy (Week 4-5)
+### Phase 5: Polish & Extend
 - [ ] Animations, transitions, loading states
-- [ ] Mobile optimization
-- [ ] PWA support
-- [ ] Deploy to Vercel or GitHub Pages
-- [ ] Automated data refresh (cron/GitHub Actions)
+- [ ] Mobile optimization + PWA
+- [ ] Automated data refresh (GitHub Actions cron)
+- [ ] Custom domain (breakingtrades.com?)
+- [ ] Live Tom chat via Cloudflare Worker
 
 ---
 

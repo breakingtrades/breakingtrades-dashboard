@@ -1,10 +1,16 @@
 # AGENTS.md — BreakingTrades Dashboard
 
-AI assistants: read this file, then `docs/DECISIONS.md` for architecture decisions, then `docs/PLAN.md` for roadmap.
+AI assistants: read this file, then `docs/PLAN.md` for roadmap, then `docs/MULTI_PAGE_ARCHITECTURE.md` for page structure.
 
 ## What This Is
 
-**A presentation layer** for the BreakingTrades trading system. This repo does NOT own data — it consumes existing data from the parent BreakingTrades project and renders it as a professional dashboard on GitHub Pages.
+**A multi-page trading intelligence dashboard** on GitHub Pages. Three pages:
+
+1. **Signals** (`index.html`) — Trade setup cards with lifecycle tracking, detail modals with TradingView charts ✅ LIVE
+2. **Watchlist** (`watchlist.html`) — Full ~70 symbol tracker with TradingView Market Overview + sortable table 📋 SPEC'D
+3. **Market** (`market.html`) — Sector heatmap, Fear & Greed gauge, market health dashboard 📋 SPEC'D
+
+**Live URL:** https://breakingtrades.github.io/breakingtrades-dashboard/
 
 ## Architecture (Critical — Read This)
 
@@ -39,25 +45,43 @@ AI assistants: read this file, then `docs/DECISIONS.md` for architecture decisio
 
 | File | What |
 |------|------|
-| `docs/DECISIONS.md` | Architecture decisions — **read this first** |
-| `docs/PLAN.md` | Roadmap, modules, tech stack |
+| `docs/PLAN.md` | Roadmap, phases, current status |
+| `docs/MULTI_PAGE_ARCHITECTURE.md` | Pages, navigation, TradingView widget configs |
+| `docs/TRADINGVIEW_EMBED_GUIDE.md` | **MUST READ** — Valid params, gotchas, multi-chart pattern |
+| `docs/TRADE_LIFECYCLE.md` | 9-state trade lifecycle + retest detection |
+| `docs/UX_DESIGN_SPEC.md` | Design tokens, wireframes, component specs |
+| `docs/DATA_ARCHITECTURE.md` | Static site data delivery analysis |
+| `docs/FILTER_SYSTEM.md` | Filter bar, tabs, search, timezone |
 | `docs/DESIGN_SYSTEM.md` | Colors, typography, components |
-| `docs/ARCHITECTURE.md` | System diagrams, data flow |
+| `docs/TOM_CHAT_SPEC.md` | Tom chat 3-tier architecture |
 | `openspec/changes/` | Feature proposals with specs/design/tasks |
-| `tom/README.md` | How Tom agent integration works |
+
+## OpenSpec Changes
+
+| Change | Status | Focus |
+|--------|--------|-------|
+| `data-pipeline` | Designed (proposal + specs + design + tasks) | Python pipeline for signal computation |
+| `dashboard-ui` | Designed | Data-driven rendering, filters, card variants |
+| `tom-chat` | Designed | AI chat widget, intent router, cached responses |
+| `watchlist-page` | Proposed (proposal + specs) | TradingView Market Overview + sortable table |
+| `market-page` | Proposed (proposal + specs) | Sector heatmap + F&G gauge + shared nav |
 
 ## Moving Average Config (Tom's Actual System)
 
-### Daily Charts
-- **SMA 20** — Primary. Solid cyan. "King for exits."
-- **SMA 50** — Trend. Dashed orange.
-- **Weekly SMA 20** — Mean reversion. Dotted purple. (Side-by-side for MVP)
+### TradingView Chart Settings (Idan's config)
+| SMA | Color | Width |
+|-----|-------|-------|
+| 20 | Gray (`#9e9e9e`) | 2 |
+| 50 | Yellow (`#ffeb3b`) | 3 |
+| 100 | Red | 4 |
+| 150 | Orange | 4 |
+| 200 | Purple | 4 |
 
-### Weekly Charts
-- **SMA 20** — THE weekly level. Solid cyan.
-- **SMA 50** — Dashed orange.
-- **SMA 100** — Dotted gray.
-- **SMA 200** — Dotted dim gray.
+### Dashboard Charts (embed widget limitations)
+- **Daily:** SMA 20 (gray, width 2) + SMA 50 (TV default) + Volume. Range: `12M`
+- **Weekly:** SMA 20 (gray, width 2) + SMA 50 (TV default) + Volume. Range: `60M`
+- ⚠️ Embed widget can only override first MA instance. Second MA gets TV default color.
+- ⚠️ See `docs/TRADINGVIEW_EMBED_GUIDE.md` for all gotchas before touching chart code.
 
 ### Bias Determination
 - **BULLISH:** Price > SMA 20 > SMA 50, AND price > Weekly SMA 20
