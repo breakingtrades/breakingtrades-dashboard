@@ -383,6 +383,107 @@ On mobile (< 768px):
 
 ---
 
+## Timezone Selection
+
+Users across different timezones (e.g. Israel IST, UK GMT, US ET/CT/PT) should see all time-related data in their local timezone.
+
+### Affected Elements
+
+| Element | Default (ET) | Behavior |
+|---------|-------------|----------|
+| Top bar timestamp | `Mar 17, 2026 • 2:15 PM ET` | Converts to selected TZ |
+| TradingView chart widgets | `America/New_York` | Pass selected TZ to widget `timezone` param |
+| "Last updated" on cards | `Updated 2:30 PM` | Converts to selected TZ |
+| Daily briefing date header | `Daily Briefing — Mar 17` | Date may shift for TZ ahead of ET (after midnight ET) |
+| Data pipeline timestamps (JSON) | Always stored as UTC ISO-8601 | Converted client-side |
+
+### UI — Timezone Picker
+
+Location: **top bar**, right side, next to the market open/closed indicator.
+
+```
+Market: OPEN  |  🕐 ET ▾  |  Mar 17, 2026 • 2:15 PM ET
+```
+
+Dropdown options (most common trading timezones):
+
+| Label | IANA Timezone | Offset (winter) |
+|-------|--------------|-----------------|
+| ET (New York) | `America/New_York` | UTC-5 |
+| CT (Chicago) | `America/Chicago` | UTC-6 |
+| PT (Los Angeles) | `America/Los_Angeles` | UTC-8 |
+| GMT (London) | `Europe/London` | UTC+0 |
+| CET (Frankfurt) | `Europe/Berlin` | UTC+1 |
+| IST (Israel) | `Asia/Jerusalem` | UTC+2 |
+| JST (Tokyo) | `Asia/Tokyo` | UTC+9 |
+| AEST (Sydney) | `Australia/Sydney` | UTC+11 |
+| UTC | `UTC` | UTC+0 |
+
+### Behavior
+
+1. **Default:** Auto-detect from browser via `Intl.DateTimeFormat().resolvedOptions().timeZone`. If the detected TZ matches one of the preset options, select it. Otherwise default to `America/New_York` (market TZ).
+2. **Persistence:** Save selection to `localStorage` key `bt_timezone`. On load, restore from localStorage before auto-detect.
+3. **On change:**
+   - Re-format all displayed timestamps using the new TZ
+   - Destroy and recreate TradingView widgets with the new `timezone` parameter
+   - Update URL hash: `#tz=Asia/Jerusalem&...`
+4. **Market status indicator** (`OPEN`/`CLOSED`/`PRE-MARKET`/`AFTER-HOURS`) is always based on NYSE hours in ET — not affected by user timezone. The label should clarify: `Market: OPEN (NYSE)`.
+
+### Implementation
+
+```javascript
+// Timezone state
+const TZ_OPTIONS = [
+  { label: 'ET', tz: 'America/New_York' },
+  { label: 'CT', tz: 'America/Chicago' },
+  { label: 'PT', tz: 'America/Los_Angeles' },
+  { label: 'GMT', tz: 'Europe/London' },
+  { label: 'CET', tz: 'Europe/Berlin' },
+  { label: 'IST', tz: 'Asia/Jerusalem' },
+  { label: 'JST', tz: 'Asia/Tokyo' },
+  { label: 'AEST', tz: 'Australia/Sydney' },
+  { label: 'UTC', tz: 'UTC' }
+];
+
+let userTZ = localStorage.getItem('bt_timezone')
+  || detectBrowserTZ()
+  || 'America/New_York';
+
+function formatTime(isoString) {
+  return new Date(isoString).toLocaleString('en-US', {
+    timeZone: userTZ,
+    month: 'short', day: 'numeric', year: 'numeric',
+    hour: 'numeric', minute: '2-digit', hour12: true
+  }) + ' ' + getTZLabel(userTZ);
+}
+
+function detectBrowserTZ() {
+  const browserTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const match = TZ_OPTIONS.find(o => o.tz === browserTZ);
+  return match ? match.tz : null;
+}
+
+function getTZLabel(tz) {
+  const match = TZ_OPTIONS.find(o => o.tz === tz);
+  return match ? match.label : 'ET';
+}
+```
+
+### TradingView Widget Integration
+
+When creating widgets, pass the user's timezone:
+
+```javascript
+new TradingView.widget({
+  // ...existing config...
+  timezone: userTZ,  // was hardcoded 'America/New_York'
+});
+```
+
+When user changes timezone and modal is open, destroy and recreate both charts with the new TZ.
+
+---
+
 ## Implementation Notes
 
 1. **All cards rendered from JS** — no hardcoded card HTML in the page
