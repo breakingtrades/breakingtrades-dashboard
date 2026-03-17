@@ -43,13 +43,10 @@ Semantic Colors
   --purple:         #ab47bc    (weekly SMA20 on charts)
   --retest-orange:  #ff6e40    (retest pulse, highest urgency)
 
-Chart-Specific
-  Daily SMA20:      #00d4aa    (cyan, 3px solid — THE key level, thick)
-  Daily SMA50:      #ffa726    (orange, 1px solid — thinner, secondary)
-  Weekly SMA20:     #ff4757    (RED, 3px solid — strongest resistance/support, dominates)
-  Weekly SMA50:     #ffa726    (orange, 1px solid)
-  --sma100:         #78909c    (gray, 1px)
-  --sma200:         #546e7a    (dim gray, 1px)
+Chart-Specific (deeper MA = thicker line)
+  Daily SMA20:      #00d4aa    (cyan, 2px — fast/shallow, thinner)
+  Daily SMA50:      #ffa726    (orange, 3px — deeper MA, thicker)
+  Weekly SMA20:     #ff4757    (RED, 3px — only MA on weekly chart, strongest level)
   --chart-bg:       #0a0a12
   --chart-grid:     #1a1a2e
 ```

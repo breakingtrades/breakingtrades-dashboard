@@ -647,17 +647,12 @@
     height: 3px;
     border-radius: 1px;
   }
-  /* Daily SMA20: thick cyan solid — THE key exit level */
-  .ma-dot.d-sma20 { background: var(--cyan); height: 4px; }
-  /* Daily SMA50: orange dashed */
-  .ma-dot.d-sma50 { background: none; border-top: 2px dashed var(--orange); }
-  /* Weekly SMA20: RED thick — THE most important level (stronger than daily MAs) */
+  /* Daily SMA20: cyan, 1px — fast/shallow MA */
+  .ma-dot.d-sma20 { background: var(--cyan); height: 2px; }
+  /* Daily SMA50: orange, thicker — deeper MA = thicker line */
+  .ma-dot.d-sma50 { background: var(--orange); height: 4px; }
+  /* Weekly SMA20: RED thick — THE most important level (weekly timeframe) */
   .ma-dot.w-sma20 { background: var(--red); height: 4px; }
-  /* Weekly SMA50: orange dotted */
-  .ma-dot.w-sma50 { background: none; border-top: 2px dotted var(--orange); }
-  /* Weekly SMA100/200 */
-  .ma-dot.sma100 { background: #78909c; height: 2px; }
-  .ma-dot.sma200 { background: #546e7a; height: 1px; }
 
   .detail-grid {
     display: grid;
@@ -1260,10 +1255,7 @@
           <div class="chart-label">
             Weekly
             <div class="ma-legend">
-              <span><span class="ma-dot w-sma20"></span> 20</span>
-              <span><span class="ma-dot w-sma50"></span> 50</span>
-              <span><span class="ma-dot sma100"></span> 100</span>
-              <span><span class="ma-dot sma200"></span> 200</span>
+              <span><span class="ma-dot w-sma20"></span> SMA 20</span>
             </div>
           </div>
           <div id="modal-chart-weekly" style="height:400px;"></div>
@@ -1416,9 +1408,9 @@ function openDetail(ticker) {
     ],
     studies_overrides: {
       'moving average.ma.color': '#00d4aa',
-      'moving average.ma.linewidth': 3,
+      'moving average.ma.linewidth': 2,
       'moving average_1.ma.color': '#ffa726',
-      'moving average_1.ma.linewidth': 1
+      'moving average_1.ma.linewidth': 3
     },
     range: '6M'
   });
@@ -1447,25 +1439,16 @@ function openDetail(ticker) {
       gridColor: '#1a1a2e',
       studies: [
         {id: 'MASimple@tv-basicstudies', inputs: {length: 20}},
-        {id: 'MASimple@tv-basicstudies', inputs: {length: 50}},
-        {id: 'MASimple@tv-basicstudies', inputs: {length: 100}},
-        {id: 'MASimple@tv-basicstudies', inputs: {length: 200}},
         'Volume@tv-basicstudies'
       ],
       studies_overrides: {
         'moving average.ma.color': '#ff4757',
-        'moving average.ma.linewidth': 3,
-        'moving average_1.ma.color': '#ffa726',
-        'moving average_1.ma.linewidth': 1,
-        'moving average_2.ma.color': '#78909c',
-        'moving average_2.ma.linewidth': 1,
-        'moving average_3.ma.color': '#546e7a',
-        'moving average_3.ma.linewidth': 1
+        'moving average.ma.linewidth': 3
       },
       range: '3Y'
     });
     _weeklyChartTimer = null;
-  }, 1500);
+  }, 2500);
 }
 
 function closeDetail() {
