@@ -1380,8 +1380,42 @@ document.querySelectorAll('.status-tab').forEach(tab => {
   });
 });
 
-// Modal — stagger chart creation to avoid TradingView WebSocket race
+// Modal — sequential chart loading (daily finishes → then weekly starts)
 let _weeklyChartTimer = null;
+
+function loadWeeklyChart(exchange, ticker) {
+  // Guard: if modal was closed before we get here, skip
+  if (!document.getElementById('modal').classList.contains('open')) return;
+  
+  document.getElementById('modal-chart-weekly').innerHTML = '';
+  new TradingView.widget({
+    autosize: true,
+    symbol: exchange + ':' + ticker,
+    interval: 'W',
+    timezone: userTZ,
+    theme: 'dark',
+    style: '1',
+    locale: 'en',
+    hide_top_toolbar: false,
+    hide_legend: false,
+    allow_symbol_change: false,
+    container_id: 'modal-chart-weekly',
+    height: 400,
+    width: '100%',
+    backgroundColor: '#0a0a12',
+    gridColor: '#1a1a2e',
+    studies: [
+      {id: 'MASimple@tv-basicstudies', inputs: {length: 20}},
+      'Volume@tv-basicstudies'
+    ],
+    studies_overrides: {
+      'moving average.ma.color': '#ff4757',
+      'moving average.ma.linewidth': 3
+    },
+    range: '3Y'
+  });
+  _weeklyChartTimer = null;
+}
 
 function openDetail(ticker) {
   document.getElementById('modal').classList.add('open');
@@ -1395,11 +1429,11 @@ function openDetail(ticker) {
   document.getElementById('modal-chart-daily').innerHTML = '';
   document.getElementById('modal-chart-weekly').innerHTML = '';
   
-  // Show a loading placeholder in weekly while we wait
-  document.getElementById('modal-chart-weekly').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#555;font-size:12px;">Loading weekly chart…</div>';
+  // Show a loading placeholder in weekly while we wait for daily to finish
+  document.getElementById('modal-chart-weekly').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#555;font-size:12px;">Waiting for daily chart…</div>';
   
-  // 1) Daily chart — loads immediately
-  new TradingView.widget({
+  // 1) Daily chart — loads first
+  var dailyWidget = new TradingView.widget({
     autosize: true,
     symbol: exchange + ':' + ticker,
     interval: 'D',
@@ -1430,40 +1464,34 @@ function openDetail(ticker) {
     range: '6M'
   });
   
-  // 2) Weekly chart — delayed 1.5s to let daily widget finish initializing
-  _weeklyChartTimer = setTimeout(() => {
-    // Guard: if modal was closed before timer fires, skip
-    if (!document.getElementById('modal').classList.contains('open')) return;
-    
-    document.getElementById('modal-chart-weekly').innerHTML = '';
-    new TradingView.widget({
-      autosize: true,
-      symbol: exchange + ':' + ticker,
-      interval: 'W',
-      timezone: userTZ,
-      theme: 'dark',
-      style: '1',
-      locale: 'en',
-      hide_top_toolbar: false,
-      hide_legend: false,
-      allow_symbol_change: false,
-      container_id: 'modal-chart-weekly',
-      height: 400,
-      width: '100%',
-      backgroundColor: '#0a0a12',
-      gridColor: '#1a1a2e',
-      studies: [
-        {id: 'MASimple@tv-basicstudies', inputs: {length: 20}},
-        'Volume@tv-basicstudies'
-      ],
-      studies_overrides: {
-        'moving average.ma.color': '#ff4757',
-        'moving average.ma.linewidth': 3
-      },
-      range: '3Y'
-    });
-    _weeklyChartTimer = null;
-  }, 2500);
+  // 2) Weekly chart — waits for daily iframe to fully load, then adds extra buffer
+  // Listen for the daily chart's iframe to fire its load event
+  var dailyContainer = document.getElementById('modal-chart-daily');
+  var observer = new MutationObserver(function(mutations) {
+    var iframe = dailyContainer.querySelector('iframe');
+    if (iframe) {
+      observer.disconnect();
+      iframe.addEventListener('load', function() {
+        // Daily iframe loaded — wait 1s more for WebSocket to stabilize, then load weekly
+        document.getElementById('modal-chart-weekly').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#555;font-size:12px;">Loading weekly chart…</div>';
+        _weeklyChartTimer = setTimeout(function() {
+          loadWeeklyChart(exchange, ticker);
+        }, 1000);
+      });
+    }
+  });
+  observer.observe(dailyContainer, { childList: true, subtree: true });
+  
+  // Fallback: if iframe never appears (edge case), load weekly after 5s anyway
+  setTimeout(function() {
+    if (_weeklyChartTimer === null && document.getElementById('modal').classList.contains('open')) {
+      observer.disconnect();
+      document.getElementById('modal-chart-weekly').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#555;font-size:12px;">Loading weekly chart…</div>';
+      _weeklyChartTimer = setTimeout(function() {
+        loadWeeklyChart(exchange, ticker);
+      }, 500);
+    }
+  }, 5000);
 }
 
 function closeDetail() {
