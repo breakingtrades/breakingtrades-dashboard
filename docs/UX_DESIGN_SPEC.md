@@ -46,7 +46,7 @@ Semantic Colors
 Chart-Specific
   Daily SMA20:      #00d4aa    (cyan, 3px solid — THE key level, thick)
   Daily SMA50:      #ffa726    (orange, 1px solid — thinner, secondary)
-  Weekly SMA20:     #00d4aa    (cyan, 2px solid — thinner than daily SMA20)
+  Weekly SMA20:     #ff4757    (RED, 3px solid — strongest resistance/support, dominates)
   Weekly SMA50:     #ffa726    (orange, 1px solid)
   --sma100:         #78909c    (gray, 1px)
   --sma200:         #546e7a    (dim gray, 1px)

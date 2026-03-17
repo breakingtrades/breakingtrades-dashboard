@@ -651,8 +651,8 @@
   .ma-dot.d-sma20 { background: var(--cyan); height: 4px; }
   /* Daily SMA50: orange dashed */
   .ma-dot.d-sma50 { background: none; border-top: 2px dashed var(--orange); }
-  /* Weekly SMA20: cyan thin solid */
-  .ma-dot.w-sma20 { background: var(--cyan); height: 2px; }
+  /* Weekly SMA20: RED thick — THE most important level (stronger than daily MAs) */
+  .ma-dot.w-sma20 { background: var(--red); height: 4px; }
   /* Weekly SMA50: orange dotted */
   .ma-dot.w-sma50 { background: none; border-top: 2px dotted var(--orange); }
   /* Weekly SMA100/200 */
@@ -1453,8 +1453,8 @@ function openDetail(ticker) {
         'Volume@tv-basicstudies'
       ],
       studies_overrides: {
-        'moving average.ma.color': '#00d4aa',
-        'moving average.ma.linewidth': 2,
+        'moving average.ma.color': '#ff4757',
+        'moving average.ma.linewidth': 3,
         'moving average_1.ma.color': '#ffa726',
         'moving average_1.ma.linewidth': 1,
         'moving average_2.ma.color': '#78909c',
