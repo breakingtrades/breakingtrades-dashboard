@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D — Dominion Energy | Trading Dashboard</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --card: #12121a;
+    --border: #1e1e2e;
+    --accent: #00d4aa;
+    --accent2: #00b894;
+    --red: #ef5350;
+    --orange: #ffa726;
+    --text: #e0e0e0;
+    --muted: #6b7280;
+    --sidebar-w: 200px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; }
+
+  /* Ticker Tape */
+  .ticker-tape { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 46px; background: #0d0d14; border-bottom: 1px solid var(--border); }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed; top: 46px; left: 0; width: var(--sidebar-w); height: calc(100vh - 46px);
+    background: #0d0d14; border-right: 1px solid var(--border); padding: 20px 0; z-index: 50;
+    overflow-y: auto;
+  }
+  .sidebar .logo { padding: 0 20px 20px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .sidebar .logo .ticker-name { font-size: 22px; font-weight: 700; color: #fff; }
+  .sidebar .logo .ticker-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .sidebar .logo .bias-badge {
+    display: inline-block; margin-top: 8px; padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    background: rgba(0,212,170,0.12); color: var(--accent); border: 1px solid rgba(0,212,170,0.3);
+  }
+  .sidebar nav a {
+    display: flex; align-items: center; gap: 10px; padding: 10px 20px;
+    color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500;
+    transition: all 0.2s; border-left: 3px solid transparent;
+  }
+  .sidebar nav a:hover, .sidebar nav a.active {
+    color: var(--accent); background: rgba(0,212,170,0.05); border-left-color: var(--accent);
+  }
+  .sidebar nav a .icon { font-size: 16px; width: 20px; text-align: center; }
+
+  /* Main Content */
+  .main { margin-left: var(--sidebar-w); margin-top: 46px; padding: 24px; }
+
+  /* Section */
+  .section { margin-bottom: 32px; scroll-margin-top: 70px; }
+  .section-title {
+    font-size: 15px; font-weight: 600; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 1.5px; margin-bottom: 16px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; transition: border-color 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    min-height: 200px;
+    display: flex; flex-direction: column;
+  }
+  .card:hover { border-color: rgba(0,212,170,0.3); }
+  .card-head {
+    padding: 12px 16px; border-bottom: 1px solid var(--border);
+    font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px;
+    flex-shrink: 0;
+  }
+  /* Explicit min-height for chart containers inside cards */
+  #chart_daily, #chart_4h { min-height: 600px; flex-grow: 1; }
+
+  /* Grid layouts */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .full { grid-column: 1 / -1; }
+
+  /* Key Levels */
+  .levels-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; padding: 24px; }
+  .level-item { text-align: center; }
+  .level-item .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .level-item .value { font-size: 22px; font-weight: 700; }
+  .level-item .value.price { color: #fff; }
+  .level-item .value.green { color: var(--accent); }
+  .level-item .value.red { color: var(--red); }
+
+  /* EMA Status */
+  .ema-status { display: flex; align-items: center; gap: 24px; padding: 16px 20px; }
+  .ema-dot-group { display: flex; align-items: center; gap: 8px; }
+  .ema-dot {
+    width: 12px; height: 12px; border-radius: 50%; position: relative;
+  }
+  .ema-dot.bull { background: var(--accent); box-shadow: 0 0 8px rgba(0,212,170,0.5); }
+  .ema-dot.bear { background: var(--red); box-shadow: 0 0 8px rgba(239,83,80,0.5); }
+  .ema-dot-label { font-size: 12px; color: var(--muted); }
+  .ema-dot-value { font-size: 13px; font-weight: 600; color: var(--text); margin-left: 4px; }
+  .ema-connector { width: 24px; height: 2px; background: var(--accent); opacity: 0.4; }
+
+  /* Trade Setup Range Bar */
+  .trade-setup { padding: 24px; }
+  .range-bar-container { position: relative; margin: 60px 0 30px; }
+  .range-bar {
+    height: 8px; background: #1e1e2e; border-radius: 4px; position: relative; overflow: visible;
+  }
+  .range-zone {
+    position: absolute; height: 100%; border-radius: 4px;
+  }
+  .range-zone.stop { background: rgba(239,83,80,0.4); left: 0; }
+  .range-zone.entry { background: rgba(0,212,170,0.3); }
+  .range-zone.target { background: rgba(0,184,148,0.2); }
+  .range-marker {
+    position: absolute; top: -30px; transform: translateX(-50%);
+    font-size: 11px; font-weight: 600; white-space: nowrap;
+  }
+  .range-marker .marker-line {
+    width: 2px; height: 16px; margin: 4px auto 0; border-radius: 1px;
+  }
+  
+  /* Stagger markers to avoid overlap */
+  .range-marker:nth-of-type(2), .range-marker:nth-of-type(4), .range-marker:nth-of-type(6) {
+    top: -55px;
+  }
+  .range-marker:nth-of-type(2) .marker-line, 
+  .range-marker:nth-of-type(4) .marker-line, 
+  .range-marker:nth-of-type(6) .marker-line {
+    height: 40px;
+  }
+
+  .setup-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+  .setup-stat { text-align: center; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 8px; }
+  .setup-stat .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .setup-stat .stat-value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+
+  /* Animations */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .card { animation: fadeInUp 0.4s ease-out both; }
+  .grid-2 .card:nth-child(2) { animation-delay: 0.1s; }
+  .grid-3 .card:nth-child(2) { animation-delay: 0.1s; }
+  .grid-3 .card:nth-child(3) { animation-delay: 0.2s; }
+
+  /* Pulse animation for live price */
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; animation: pulse 2s infinite; margin-right: 6px; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .levels-grid { grid-template-columns: repeat(3, 1fr); }
+    .setup-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Timestamp */
+  .footer { text-align: center; padding: 24px; color: var(--muted); font-size: 11px; }
+</style>
+</head>
+<body>
+
+<!-- Ticker Tape -->
+<div class="ticker-tape">
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        {"proName": "NYSE:D", "title": "Dominion"},
+        {"proName": "AMEX:XLU", "title": "Utilities ETF"},
+        {"proName": "NYSE:NEE", "title": "NextEra"},
+        {"proName": "NYSE:SO", "title": "Southern Co"},
+        {"proName": "NYSE:DUK", "title": "Duke Energy"},
+        {"proName": "AMEX:SPY", "title": "S&P 500"},
+        {"proName": "NASDAQ:QQQ", "title": "Nasdaq"},
+        {"proName": "TVC:VIX", "title": "VIX"},
+        {"proName": "TVC:US10Y", "title": "10Y Yield"}
+      ],
+      "showSymbolLogo": true,
+      "isTransparent": true,
+      "displayMode": "adaptive",
+      "colorTheme": "dark",
+      "locale": "en"
+    }
+    </script>
+  </div>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="logo">
+    <div class="ticker-name">D</div>
+    <div class="ticker-sub">Dominion Energy · NYSE</div>
+    <div class="ticker-sub">Utilities — Regulated Electric</div>
+    <div class="bias-badge">● BULLISH</div>
+  </div>
+  <nav>
+    <a href="#overview" class="active"><span class="icon">📊</span> Overview</a>
+    <a href="#charts"><span class="icon">📈</span> Charts</a>
+    <a href="#technicals"><span class="icon">🎯</span> Technical Analysis</a>
+    <a href="#trade-setup"><span class="icon">💰</span> Trade Setup</a>
+    <a href="#sector"><span class="icon">⚡</span> Sector Comparison</a>
+    <a href="#fundamentals"><span class="icon">📋</span> Fundamentals</a>
+  </nav>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+  <!-- OVERVIEW -->
+  <div class="section" id="overview">
+    <div class="section-title"><span class="live-dot"></span>Overview</div>
+
+    <!-- Key Levels -->
+    <div class="card full" style="margin-bottom:16px">
+      <div class="card-head">Key Levels</div>
+      <div class="levels-grid">
+        <div class="level-item">
+          <div class="label">Current Price</div>
+          <div class="value price">$63.60</div>
+        </div>
+        <div class="level-item">
+          <div class="label">6mo High</div>
+          <div class="value red">$66.86</div>
+        </div>
+        <div class="level-item">
+          <div class="label">6mo Low</div>
+          <div class="value green">$55.26</div>
+        </div>
+        <div class="level-item">
+          <div class="label">EMA 8</div>
+          <div class="value green">$63.14</div>
+        </div>
+        <div class="level-item">
+          <div class="label">EMA 21</div>
+          <div class="value green">$62.93</div>
+        </div>
+        <div class="level-item">
+          <div class="label">EMA 50</div>
+          <div class="value green">$61.96</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMA Status -->
+    <div class="card full">
+      <div class="card-head">EMA Alignment Status</div>
+      <div class="ema-status">
+        <div class="ema-dot-group">
+          <div class="ema-dot bull"></div>
+          <div><span class="ema-dot-label">EMA 8</span><span class="ema-dot-value">$63.14</span></div>
+        </div>
+        <div class="ema-connector"></div>
+        <div class="ema-dot-group">
+          <div class="ema-dot bull"></div>
+          <div><span class="ema-dot-label">EMA 21</span><span class="ema-dot-value">$62.93</span></div>
+        </div>
+        <div class="ema-connector"></div>
+        <div class="ema-dot-group">
+          <div class="ema-dot bull"></div>
+          <div><span class="ema-dot-label">EMA 50</span><span class="ema-dot-value">$61.96</span></div>
+        </div>
+        <div style="margin-left:auto; font-size:13px; color:var(--accent); font-weight:600;">
+          ✅ Price > EMA8 > EMA21 > EMA50 — Full Bullish Stack
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="section" id="charts">
+    <div class="section-title">Charts</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head">Daily · 6 Months</div>
+        <div id="chart_daily"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">4 Hour · 1 Month</div>
+        <div id="chart_4h"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECHNICAL ANALYSIS -->
+  <div class="section" id="technicals">
+    <div class="section-title">Technical Analysis</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head">Daily Gauge</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {
+            "interval": "1D",
+            "width": "100%",
+            "isTransparent": true,
+            "height": 500,
+            "symbol": "NYSE:D",
+            "showIntervalTabs": true,
+            "displayMode": "single",
+            "locale": "en",
+            "colorTheme": "dark"
+          }
+          </script>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Weekly Gauge</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {
+            "interval": "1W",
+            "width": "100%",
+            "isTransparent": true,
+            "height": 500,
+            "symbol": "NYSE:D",
+            "showIntervalTabs": true,
+            "displayMode": "single",
+            "locale": "en",
+            "colorTheme": "dark"
+          }
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRADE SETUP -->
+  <div class="section" id="trade-setup">
+    <div class="section-title">Trade Setup</div>
+    <div class="card">
+      <div class="card-head">Long Setup — Pullback to EMA Support</div>
+      <div class="trade-setup">
+        <!-- Visual Range Bar -->
+        <div class="range-bar-container">
+          <!-- Scale: $60 to $71 = 11 range -->
+          <div class="range-bar">
+            <!-- Stop zone: 60-61.50 = 13.6% -->
+            <div class="range-zone stop" style="left:0; width:13.6%"></div>
+            <!-- Entry zone: 62.50-63.00 = 4.5% -->
+            <div class="range-zone entry" style="left:22.7%; width:4.5%"></div>
+            <!-- Target zone: 66.86-70 = 28.5% -->
+            <div class="range-zone target" style="left:62.4%; width:28.5%"></div>
+          </div>
+
+          <!-- Markers -->
+          <div class="range-marker" style="left:13.6%; color:var(--red);">
+            $61.50 Stop
+            <div class="marker-line" style="background:var(--red);"></div>
+          </div>
+          <div class="range-marker" style="left:24.5%; color:var(--accent);">
+            $62.50–63.00 Entry
+            <div class="marker-line" style="background:var(--accent);"></div>
+          </div>
+          <div class="range-marker" style="left:32.7%; color:#fff;">
+            $63.60 ●
+            <div class="marker-line" style="background:#fff;"></div>
+          </div>
+          <div class="range-marker" style="left:62.4%; color:var(--accent2);">
+            $66.86 T1
+            <div class="marker-line" style="background:var(--accent2);"></div>
+          </div>
+          <div class="range-marker" style="left:90.9%; color:var(--accent2);">
+            $70.00 T2
+            <div class="marker-line" style="background:var(--accent2);"></div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="setup-stats">
+          <div class="setup-stat">
+            <div class="stat-label">Entry Zone</div>
+            <div class="stat-value" style="color:var(--accent);">$62.50–$63.00</div>
+          </div>
+          <div class="setup-stat">
+            <div class="stat-label">Stop Loss</div>
+            <div class="stat-value" style="color:var(--red);">$61.50</div>
+          </div>
+          <div class="setup-stat">
+            <div class="stat-label">Target 1 / Target 2</div>
+            <div class="stat-value" style="color:var(--accent2);">$66.86 / $70.00</div>
+          </div>
+          <div class="setup-stat">
+            <div class="stat-label">Risk : Reward</div>
+            <div class="stat-value" style="color:var(--accent);">1 : 3</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px; padding:12px; background:rgba(0,212,170,0.05); border:1px solid rgba(0,212,170,0.15); border-radius:8px; font-size:13px; color:var(--muted);">
+          <strong style="color:var(--accent);">Thesis:</strong> Bullish EMA stack with price near highs. Look for pullback to EMA8/21 confluence ($62.50–$63.00) for low-risk entry. Stop below EMA50. First target is 6mo high retest, second target at $70 round number. Utilities showing relative strength in risk-off environment.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR COMPARISON -->
+  <div class="section" id="sector">
+    <div class="section-title">Sector Comparison</div>
+    <div class="card">
+      <div class="card-head">D vs Utility Peers (12 Months)</div>
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
+        {
+          "symbols": [
+            ["Dominion", "NYSE:D|12M"],
+            ["XLU ETF", "AMEX:XLU|12M"],
+            ["NextEra", "NYSE:NEE|12M"],
+            ["Southern Co", "NYSE:SO|12M"],
+            ["Duke Energy", "NYSE:DUK|12M"]
+          ],
+          "chartOnly": false,
+          "width": "100%",
+          "height": 450,
+          "locale": "en",
+          "colorTheme": "dark",
+          "autosize": false,
+          "showVolume": true,
+          "showMA": true,
+          "hideDateRanges": false,
+          "hideMarketStatus": false,
+          "hideSymbolLogo": false,
+          "scalePosition": "right",
+          "scaleMode": "Normal",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, sans-serif",
+          "fontSize": "10",
+          "noTimeScale": false,
+          "valuesTracking": "1",
+          "changeMode": "price-and-percent",
+          "chartType": "area",
+          "maLineColor": "#00d4aa",
+          "maLineWidth": 1,
+          "maLength": 21,
+          "isTransparent": true
+        }
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUNDAMENTALS -->
+  <div class="section" id="fundamentals">
+    <div class="section-title">Fundamentals</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head">Financial Data</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>
+          {
+            "isTransparent": true,
+            "largeChartUrl": "",
+            "displayMode": "regular",
+            "width": "100%",
+            "height": 500,
+            "colorTheme": "dark",
+            "symbol": "NYSE:D",
+            "locale": "en"
+          }
+          </script>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Company Profile</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js" async>
+          {
+            "width": "100%",
+            "height": 500,
+            "isTransparent": true,
+            "colorTheme": "dark",
+            "symbol": "NYSE:D",
+            "locale": "en"
+          }
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Generated by Kash · <span id="ts"></span> · Data from TradingView & yfinance
+  </div>
+</div>
+
+<!-- TradingView Charts (tv.js) -->
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script type="text/javascript">
+// Daily Chart
+new TradingView.widget({
+  "autosize": true,
+  "symbol": "NYSE:D",
+  "interval": "D",
+  "timezone": "America/New_York",
+  "theme": "dark",
+  "style": "1",
+  "locale": "en",
+  "hide_top_toolbar": false,
+  "hide_legend": false,
+  "allow_symbol_change": false,
+  "save_image": true,
+  "container_id": "chart_daily",
+  "height": 600,
+  "width": "100%",
+  "backgroundColor": "#12121a",
+  "gridColor": "#1e1e2e",
+  "studies": [
+    {"id":"MAExp@tv-basicstudies","inputs":{"length":8}},
+    {"id":"MAExp@tv-basicstudies","inputs":{"length":21}},
+    {"id":"MAExp@tv-basicstudies","inputs":{"length":50}},
+    "RSI@tv-basicstudies"
+  ],
+  "range": "6M"
+});
+
+// 4H Chart
+new TradingView.widget({
+  "autosize": true,
+  "symbol": "NYSE:D",
+  "interval": "240",
+  "timezone": "America/New_York",
+  "theme": "dark",
+  "style": "1",
+  "locale": "en",
+  "hide_top_toolbar": false,
+  "hide_legend": false,
+  "allow_symbol_change": false,
+  "save_image": true,
+  "container_id": "chart_4h",
+  "height": 600,
+  "width": "100%",
+  "backgroundColor": "#12121a",
+  "gridColor": "#1e1e2e",
+  "studies": [
+    {"id":"MAExp@tv-basicstudies","inputs":{"length":8}},
+    {"id":"MAExp@tv-basicstudies","inputs":{"length":21}},
+    {"id":"MAExp@tv-basicstudies","inputs":{"length":50}}
+  ],
+  "range": "1M"
+});
+
+// Timestamp
+document.getElementById('ts').textContent = new Date().toLocaleString('en-US', {timeZone:'America/New_York'});
+
+// Active nav highlight on scroll
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.sidebar nav a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const active = document.querySelector(`.sidebar nav a[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-100px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
