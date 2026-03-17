@@ -1402,11 +1402,15 @@ function loadWeeklyChart(exchange, ticker) {
     hide_top_toolbar: false,
     hide_legend: false,
     allow_symbol_change: false,
+    save_image: false,
     container_id: 'modal-chart-weekly',
     height: 400,
     width: '100%',
     backgroundColor: '#0a0a12',
     gridColor: '#1a1a2e',
+    overrides: {
+      'mainSeriesProperties.sessionId': 'regular'
+    },
     studies: [
       {id: 'MASimple@tv-basicstudies', inputs: {length: 20}},
       {id: 'MASimple@tv-basicstudies', inputs: {length: 50}},
@@ -1418,7 +1422,7 @@ function loadWeeklyChart(exchange, ticker) {
       'moving average_1.ma.color': '#ffa726',
       'moving average_1.ma.linewidth': 3
     },
-    range: 'ALL'
+    range: '60M'
   });
   _weeklyChartTimer = null;
 }
@@ -1450,11 +1454,15 @@ function openDetail(ticker) {
     hide_top_toolbar: false,
     hide_legend: false,
     allow_symbol_change: false,
+    save_image: false,
     container_id: 'modal-chart-daily',
     height: 400,
     width: '100%',
     backgroundColor: '#0a0a12',
     gridColor: '#1a1a2e',
+    overrides: {
+      'mainSeriesProperties.sessionId': 'regular'
+    },
     studies: [
       {id: 'MASimple@tv-basicstudies', inputs: {length: 20}},
       {id: 'MASimple@tv-basicstudies', inputs: {length: 50}},
@@ -1467,7 +1475,7 @@ function openDetail(ticker) {
       'moving average_1.ma.color': '#ffa726',
       'moving average_1.ma.linewidth': 3
     },
-    range: '6M'
+    range: '12M'
   });
   
   // 2) Weekly chart — waits for daily iframe to fully load, then adds extra buffer
