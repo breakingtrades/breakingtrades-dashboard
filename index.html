@@ -775,11 +775,11 @@
     
     <!-- Status Filter -->
     <div class="status-tabs">
-      <div class="status-tab active">All <span class="badge">13</span></div>
-      <div class="status-tab">🟡 Approaching <span class="badge">2</span></div>
-      <div class="status-tab">🟢 Active <span class="badge">3</span></div>
-      <div class="status-tab">⚠️ Exit Signal <span class="badge">5</span></div>
-      <div class="status-tab">👁 Watching <span class="badge">3</span></div>
+      <div class="status-tab active" data-filter="all">All <span class="badge">13</span></div>
+      <div class="status-tab" data-filter="approaching">🟡 Approaching <span class="badge">2</span></div>
+      <div class="status-tab" data-filter="active">🟢 Active <span class="badge">3</span></div>
+      <div class="status-tab" data-filter="exit">⚠️ Exit Signal <span class="badge">4</span></div>
+      <div class="status-tab" data-filter="watching">👁 Watching <span class="badge">4</span></div>
     </div>
 
     <!-- APPROACHING SETUPS -->
@@ -789,7 +789,7 @@
     </div>
 
     <!-- PFE Card - Approaching -->
-    <div class="setup-card approaching" onclick="openDetail('PFE')">
+    <div class="setup-card approaching" data-status="approaching" onclick="openDetail('PFE')">
       <div class="card-top">
         <div>
           <div class="card-ticker">PFE</div>
@@ -828,7 +828,7 @@
     </div>
 
     <!-- ABBV Card - Approaching -->
-    <div class="setup-card approaching" onclick="openDetail('ABBV')">
+    <div class="setup-card approaching" data-status="approaching" onclick="openDetail('ABBV')">
       <div class="card-top">
         <div>
           <div class="card-ticker">ABBV</div>
@@ -873,7 +873,7 @@
     </div>
 
     <!-- XLU Card - Active -->
-    <div class="setup-card active" onclick="openDetail('XLU')">
+    <div class="setup-card active" data-status="active" onclick="openDetail('XLU')">
       <div class="card-top">
         <div>
           <div class="card-ticker">XLU</div>
@@ -911,7 +911,7 @@
     </div>
 
     <!-- AR Card - Active -->
-    <div class="setup-card active" onclick="openDetail('AR')">
+    <div class="setup-card active" data-status="active" onclick="openDetail('AR')">
       <div class="card-top">
         <div>
           <div class="card-ticker">AR</div>
@@ -952,7 +952,7 @@
     </div>
 
     <!-- DELL Card - Active -->
-    <div class="setup-card active" onclick="openDetail('DELL')">
+    <div class="setup-card active" data-status="active" onclick="openDetail('DELL')">
       <div class="card-top">
         <div>
           <div class="card-ticker">DELL</div>
@@ -986,7 +986,7 @@
     </div>
 
     <!-- AAPL Card -->
-    <div class="setup-card watching" onclick="openDetail('AAPL')">
+    <div class="setup-card exit" data-status="exit" onclick="openDetail('AAPL')">
       <div class="card-top">
         <div>
           <div class="card-ticker">AAPL</div>
@@ -1013,7 +1013,7 @@
     </div>
 
     <!-- MSFT Card -->
-    <div class="setup-card watching" onclick="openDetail('MSFT')">
+    <div class="setup-card exit" data-status="exit" onclick="openDetail('MSFT')">
       <div class="card-top">
         <div>
           <div class="card-ticker">MSFT</div>
@@ -1039,7 +1039,7 @@
     </div>
 
     <!-- NVDA Card -->
-    <div class="setup-card watching" onclick="openDetail('NVDA')">
+    <div class="setup-card exit" data-status="exit" onclick="openDetail('NVDA')">
       <div class="card-top">
         <div>
           <div class="card-ticker">NVDA</div>
@@ -1066,7 +1066,7 @@
     </div>
 
     <!-- META Card (compact) -->
-    <div class="setup-card watching">
+    <div class="setup-card exit" data-status="exit">
       <div class="card-top">
         <div><div class="card-ticker">META</div><div class="card-name">Meta Platforms</div></div>
         <div class="card-price"><div class="price down">$627.45</div><div class="change down">-20.7%</div></div>
@@ -1079,7 +1079,7 @@
     </div>
 
     <!-- AMZN Card (compact) -->
-    <div class="setup-card watching">
+    <div class="setup-card watching" data-status="watching">
       <div class="card-top">
         <div><div class="card-ticker">AMZN</div><div class="card-name">Amazon</div></div>
         <div class="card-price"><div class="price down">$211.74</div><div class="change down">-18.1%</div></div>
@@ -1097,7 +1097,7 @@
       <span class="count">3</span>
     </div>
 
-    <div class="setup-card watching">
+    <div class="setup-card watching" data-status="watching">
       <div class="card-top">
         <div><div class="card-ticker">COIN</div><div class="card-name">Coinbase · Crypto</div></div>
         <div class="card-price"><div class="price up">$203.32</div><div class="change up">+10.3%</div></div>
@@ -1109,7 +1109,7 @@
       </div>
     </div>
 
-    <div class="setup-card watching">
+    <div class="setup-card watching" data-status="watching">
       <div class="card-top">
         <div><div class="card-ticker">ARM</div><div class="card-name">Arm Holdings · Semiconductors</div></div>
         <div class="card-price"><div class="price down">$121.70</div><div class="change down">-33.6%</div></div>
@@ -1121,7 +1121,7 @@
       </div>
     </div>
 
-    <div class="setup-card watching">
+    <div class="setup-card watching" data-status="watching">
       <div class="card-top">
         <div><div class="card-ticker">GOOG</div><div class="card-name">Alphabet · Technology</div></div>
         <div class="card-price"><div class="price down">$308.57</div><div class="change down">-11.9%</div></div>
@@ -1361,7 +1361,22 @@ document.querySelectorAll('.status-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
-    // TODO: filter cards by status
+    const filter = tab.dataset.filter;
+    document.querySelectorAll('.setup-card').forEach(card => {
+      if (filter === 'all' || card.dataset.status === filter) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    // Also hide/show section headers based on visible cards
+    document.querySelectorAll('.section-header').forEach(header => {
+      if (filter === 'all') {
+        header.style.display = '';
+      } else {
+        header.style.display = 'none';
+      }
+    });
   });
 });
 
