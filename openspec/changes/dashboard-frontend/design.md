@@ -1,147 +1,162 @@
 # Design: Dashboard Frontend
 
-## Page Architecture
+## Chart Configuration — Tom's Moving Averages
 
-```
-src/
-├── index.html              ← Watchlist grid (home page)
-├── ticker.html             ← Ticker detail page (query param: ?s=D)
-├── css/
-│   ├── tokens.css          ← Design system variables
-│   ├── layout.css          ← Grid, sidebar, responsive
-│   ├── components.css      ← Cards, badges, range bars
-│   └── tradingview.css     ← TradingView widget overrides
-├── js/
-│   ├── app.js              ← Entry point, router, data fetch
-│   ├── watchlist.js        ← Grid rendering, sort/filter
-│   ├── ticker-detail.js    ← Detail page rendering
-│   ├── tradingview.js      ← TradingView widget initialization
-│   └── utils.js            ← Formatters, helpers
-└── assets/
-    └── logo.svg
-```
+### Daily Chart
+| MA | Type | Style | Color | Purpose |
+|----|------|-------|-------|---------|
+| SMA 20 | Simple | Solid, 2px | `#00d4aa` (cyan) | Tom's primary — "King for exits" |
+| SMA 50 | Simple | Dashed, 1.5px | `#ffa726` (orange) | Trend direction |
+| Weekly SMA 20 | Simple | Dotted, 2px | `#ab47bc` (purple) | Mean reversion level (projected onto daily) |
 
-## Component Design
+### Weekly Chart
+| MA | Type | Style | Color | Purpose |
+|----|------|-------|-------|---------|
+| SMA 20 | Simple | Solid, 2px | `#00d4aa` (cyan) | THE weekly level |
+| SMA 50 | Simple | Dashed, 1.5px | `#ffa726` (orange) | Intermediate trend |
+| SMA 100 | Simple | Dotted, 1px | `#78909c` (gray) | Structure |
+| SMA 200 | Simple | Dotted, 1px | `#546e7a` (dim gray) | Long-term trend |
 
-### Watchlist Card (Grid Item)
-```
-┌──────────────────────┐
-│  AAPL          ● Bull│
-│  Apple Inc.          │
-│  $187.44    +1.24%   │
-│  ───── mini chart ───│
-│  RSI: 62  EMA: ●●●  │
-└──────────────────────┘
-```
-- Background: `var(--card)` with `var(--border)` border
-- Bias badge: green for Bull, red for Bear, orange for Mixed
-- Mini chart: TradingView Symbol Overview (compact) or CSS sparkline
-- Hover: border glow `rgba(0,212,170,0.3)`
-
-### Ticker Detail Layout
-```
-┌─────────┬─────────────────────────────────────┐
-│ Sidebar  │  Ticker Tape (fixed top)            │
-│          ├─────────────────────────────────────┤
-│ D        │  Key Levels Strip                   │
-│ Dominion │  EMA Alignment Status               │
-│ ● BULL   ├─────────────────────────────────────┤
-│          │  Daily Chart (TradingView)           │
-│ Sections │                                      │
-│ ▸ Levels │                                      │
-│ ▸ Daily  ├─────────────────────────────────────┤
-│ ▸ 4H     │  4H Chart (TradingView)             │
-│ ▸ Setup  │                                      │
-│ ▸ TA     ├──────────────┬──────────────────────┤
-│          │  TA Gauge     │  Symbol Overview     │
-│          ├──────────────┴──────────────────────┤
-│          │  Trade Setup Card + Range Bar        │
-│          │  Entry | Stop | T1 | T2 | R:R       │
-└──────────┴─────────────────────────────────────┘
-```
-
-### Trade Setup Range Bar
-- Full-width horizontal bar showing price range from stop → targets
-- Color zones: red (stop area), green (entry zone), light green (target area)
-- Marker labels staggered to avoid overlap (alternating above/below)
-- Stats grid below: Entry, Stop, Target 1, R:R ratio
-
-### EMA Alignment Dots
-- Three dots (EMA 8, 21, 50) with connectors
-- Green dots + line = bullish alignment
-- Red dots + line = bearish alignment
-- Mixed = orange dots, no connector
-
-## TradingView Widget Configuration
-
-### Advanced Chart (Daily)
+### TradingView Widget Studies Config
 ```javascript
-{
-  "autosize": true,
-  "symbol": "NYSE:D",
-  "interval": "D",
-  "timezone": "America/New_York",
-  "theme": "dark",
-  "style": "1",
-  "locale": "en",
-  "backgroundColor": "rgba(18, 18, 26, 1)",
-  "gridColor": "rgba(30, 30, 46, 0.5)",
-  "hide_top_toolbar": false,
-  "hide_legend": false,
-  "save_image": false,
-  "studies": [
-    { "id": "MAExp@tv-basicstudies", "inputs": { "length": 8 } },
-    { "id": "MAExp@tv-basicstudies", "inputs": { "length": 21 } },
-    { "id": "MAExp@tv-basicstudies", "inputs": { "length": 50 } }
-  ]
-}
+// Daily
+"studies": [
+  {"id": "MASimple@tv-basicstudies", "inputs": {"length": 20}},
+  {"id": "MASimple@tv-basicstudies", "inputs": {"length": 50}},
+  "RSI@tv-basicstudies"
+]
+
+// Weekly
+"studies": [
+  {"id": "MASimple@tv-basicstudies", "inputs": {"length": 20}},
+  {"id": "MASimple@tv-basicstudies", "inputs": {"length": 50}},
+  {"id": "MASimple@tv-basicstudies", "inputs": {"length": 100}},
+  {"id": "MASimple@tv-basicstudies", "inputs": {"length": 200}}
+]
 ```
 
-### Ticker Tape
-```javascript
-{
-  "symbols": [/* dynamic from watchlist */],
-  "showSymbolLogo": true,
-  "isTransparent": true,
-  "displayMode": "adaptive",
-  "colorTheme": "dark"
-}
+**Note:** Free TradingView embeds have limited style control. MA colors/line styles may not be configurable via the widget API. We may need to:
+1. Accept TV's default MA colors (research what's available)
+2. Add a legend/key explaining which MA is which
+3. Consider TradingView Lightweight Charts library for full control (more work but full styling)
+
+### Weekly SMA 20 on Daily Chart
+TradingView embeds don't support cross-timeframe MAs natively. Options:
+- **Option A:** Pre-compute weekly SMA 20 value and display as horizontal line annotation (static, updates daily)
+- **Option B:** Use TradingView Lightweight Charts (open-source, full control) instead of embeds for the main chart
+- **Option C:** Show weekly chart side-by-side with its own SMA 20 (current approach, simpler)
+
+**Recommendation:** Option C for MVP (side-by-side), explore Option B for v2.
+
+---
+
+## Page Structure
+
+### Home — Watchlist Grid
+```
+┌─────────────────────────────────────────────────────────┐
+│ Ticker Tape (scrolling)                                  │
+├──────┬──────────────────────────────────────────────────┤
+│      │  ┌─── Status Filter ──────────────────────────┐  │
+│  S   │  │ ALL | APPROACHING | ACTIVE | WATCHING      │  │
+│  I   │  └────────────────────────────────────────────┘  │
+│  D   │                                                   │
+│  E   │  ┌── Approaching (urgent) ─────────────────┐    │
+│  B   │  │  🟡 D    $63.60  Entry: $62.50  1.7% away │  │
+│  A   │  │  🟡 ADM  $72.34  Entry: $70.00  3.2% away │  │
+│  R   │  └─────────────────────────────────────────────┘  │
+│      │                                                   │
+│  N   │  ┌── Active (monitoring) ──────────────────┐    │
+│  A   │  │  🟢 XLU  $47.30  +2.1%  Trail stop      │  │
+│  V   │  │  🟢 AR   $41.35  +1.8%                   │  │
+│      │  └─────────────────────────────────────────────┘  │
+│      │                                                   │
+│      │  ┌── Watching ─────────────────────────────┐    │
+│      │  │  ⚪ NEE  $92.55  BULL  5.2% to entry     │  │
+│      │  │  ⚪ DELL $154.01 BULL  8.0% to entry     │  │
+│      │  └─────────────────────────────────────────────┘  │
+├──────┴──────────────────────────────────────────────────┤
+│  Macro Bar: VIX 22.5 | DXY 103.5 | 10Y 4.25 | XLY/XLP↓│
+└─────────────────────────────────────────────────────────┘
 ```
 
-## Data Flow
-
+### Ticker Detail Page
 ```
-Page Load
-    │
-    ├── fetch('data/output/watchlist.json')
-    │       │
-    │       ▼
-    │   Parse JSON → Render watchlist grid
-    │
-    ├── fetch('data/output/setups.json')
-    │       │
-    │       ▼
-    │   Parse JSON → Attach setup data to ticker cards
-    │
-    └── Initialize TradingView widgets
-            │
-            ▼
-        Ticker tape, charts, gauges render via embed scripts
+┌─────────────────────────────────────────────────────────┐
+│ ← Back    D — Dominion Energy    🟢 BULLISH    $63.60   │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ┌── Daily Chart (SMA 20/50 + RSI) ──────────────────┐ │
+│  │                                                     │ │
+│  │              [TradingView Widget]                    │ │
+│  │                   600px                              │ │
+│  └─────────────────────────────────────────────────────┘ │
+│                                                          │
+│  ┌── Weekly Chart (SMA 20/50/100/200) ───────────────┐ │
+│  │              [TradingView Widget]                    │ │
+│  │                   500px                              │ │
+│  └─────────────────────────────────────────────────────┘ │
+│                                                          │
+│  ┌── Setup Status ───────┐  ┌── Tom's Take ──────────┐ │
+│  │  Status: APPROACHING   │  │  "Bullish SMA stack.    │ │
+│  │  Entry: $62.50-63.00   │  │   Entry on pullback to  │ │
+│  │  Stop: $61.50          │  │   SMA20. Utilities show  │ │
+│  │  T1: $66.86  T2: $70   │  │   relative strength..."  │ │
+│  │  R:R: 1:3              │  │  Action: WATCH for pull  │ │
+│  │  [Visual Range Bar]    │  │  Key level: $63.14 SMA20│ │
+│  └────────────────────────┘  └─────────────────────────┘ │
+│                                                          │
+│  ┌── Key Levels ─────────────────────────────────────┐  │
+│  │  SMA20: $63.14  SMA50: $61.96  Weekly20: $62.50   │  │
+│  │  6mo Hi: $66.86  6mo Lo: $55.26  RSI: 58.3       │  │
+│  │  Exit Signal: NO  Days below SMA20: 0             │  │
+│  └───────────────────────────────────────────────────┘  │
+│                                                          │
+│  ┌── Technical Analysis Gauge ──┐  ┌── Sector ────────┐│
+│  │  [TradingView TA Widget]      │  │  D vs XLU vs NEE ││
+│  └───────────────────────────────┘  └──────────────────┘│
+└─────────────────────────────────────────────────────────┘
 ```
 
-## Responsive Strategy
+### Macro Dashboard (separate page or tab)
+- VIX regime gauge
+- DXY chart
+- Yield curve visualization
+- Pair ratio cards (XLY/XLP, HYG/SPY, RSP/SPY, IWF/IWD)
+- Sector rotation heatmap
+- Tom's macro briefing
 
-| Breakpoint | Layout |
-|-----------|--------|
-| ≥ 1440px | 4-column grid, sidebar visible, full charts |
-| 1024-1439px | 3-column grid, sidebar visible, full charts |
-| 768-1023px | 2-column grid, sidebar hidden, stacked charts |
-| < 768px | 1-column grid, sidebar hidden, stacked charts |
+---
 
-## CSS Architecture
+## Setup Card Component
 
-- All colors via CSS custom properties (from `tokens.css`)
-- No external frameworks — pure CSS Grid + Flexbox
-- Card animations: `fadeInUp` with staggered delays
-- Transitions: 0.2-0.3s ease for hovers and state changes
-- Dark theme only — no light mode toggle
+### States & Visual Treatment
+```
+┌─────────────────────────────────────┐
+│ 🟡 APPROACHING        D  $63.60    │  ← Yellow pulse animation
+│ Dominion Energy · Utilities          │
+│                                      │
+│ Entry: $62.50-63.00  (1.7% away)    │  ← Distance highlighted
+│ Stop: $61.50  T1: $66.86  R:R 1:3  │
+│                                      │
+│ [═══════●════════════════════]       │  ← Range bar with price dot
+│  stop   entry    price    t1    t2  │
+│                                      │
+│ SMA20: $63.14 ● SMA50: $61.96 ●    │  ← Green dots = above
+│ Weekly20: $62.50 ●                   │
+│                                      │
+│ Tom: "Bullish stack. Watch for pull  │
+│  to SMA20 for entry."               │
+└─────────────────────────────────────┘
+```
+
+### Color by Status
+| Status | Card Border | Badge Color | Animation |
+|--------|------------|-------------|-----------|
+| APPROACHING | `#ffa726` (orange) | Yellow | Gentle pulse |
+| TRIGGERED | `#00d4aa` (cyan) | Green | Flash once |
+| ACTIVE | `#00d4aa` (cyan) | Green | Steady glow |
+| TRAILING | `#42a5f5` (blue) | Blue | None |
+| WATCHING | `#2a2a2a` (dim) | Gray | None |
+| STOPPED | `#ef5350` (red) | Red | None |
+| TARGET HIT | `#ffd700` (gold) | Gold | None |
