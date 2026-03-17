@@ -110,7 +110,7 @@ studies_overrides: {
   // SMA length + appearance
   'moving average.length': 20,
   'moving average.ma.color': '#9e9e9e',
-  'moving average.ma.linewidth': 1,
+  'moving average.ma.linewidth': 2,
   
   // RSI
   'relative strength index.length': 14,
@@ -268,7 +268,7 @@ new TradingView.widget({
   studies_overrides: {
     'moving average.length': 20,
     'moving average.ma.color': '#9e9e9e',
-    'moving average.ma.linewidth': 1
+    'moving average.ma.linewidth': 2
   },
   range: '12M'
 });
