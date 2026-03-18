@@ -491,28 +491,39 @@ def fetch_fear_greed():
     """Fetch CNN Fear & Greed Index, with VIX-based approximation as fallback."""
     import urllib.request
 
+    def _rating(score):
+        if score is None: return ""
+        if score >= 75: return "extreme greed"
+        elif score >= 55: return "greed"
+        elif score >= 45: return "neutral"
+        elif score >= 25: return "fear"
+        else: return "extreme fear"
+
     # Try CNN API first
     try:
         url = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
         req = urllib.request.Request(url, headers={
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+            "Referer": "https://www.cnn.com/markets/fear-and-greed",
             "Accept": "application/json",
         })
         with urllib.request.urlopen(req, timeout=10) as resp:
             data = json.loads(resp.read())
 
-        def parse_hist(d, key):
-            val = d.get(key)
-            return int(val) if val is not None else None
+        fg = data["fear_and_greed"]
+        current = round(fg["score"], 1)
+
+        def hist_entry(val):
+            if val is None: return {"value": None, "label": ""}
+            v = round(val, 1)
+            return {"value": v, "label": _rating(v)}
 
         result = {
-            "current": {"value": int(data["fear_and_greed"]["score"]), "label": data["fear_and_greed"]["rating"]},
-            "previousClose": {"value": parse_hist(data.get("fear_and_greed_historical", {}), "previousClose"),
-                              "label": data.get("fear_and_greed_historical", {}).get("previousOneDay", "")},
-            "oneWeekAgo": {"value": parse_hist(data.get("fear_and_greed_historical", {}), "oneWeekAgo"),
-                           "label": data.get("fear_and_greed_historical", {}).get("previousOneWeek", "")},
-            "oneMonthAgo": {"value": parse_hist(data.get("fear_and_greed_historical", {}), "oneMonthAgo"),
-                            "label": data.get("fear_and_greed_historical", {}).get("previousOneMonth", "")},
+            "current": {"value": current, "label": fg.get("rating", _rating(current))},
+            "previousClose": hist_entry(fg.get("previous_close")),
+            "oneWeekAgo": hist_entry(fg.get("previous_1_week")),
+            "oneMonthAgo": hist_entry(fg.get("previous_1_month")),
+            "oneYearAgo": hist_entry(fg.get("previous_1_year")),
             "updated": datetime.now(timezone.utc).isoformat(),
             "source": "cnn",
         }
