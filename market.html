@@ -63,17 +63,6 @@
   .timestamp { color: var(--text-dim); font-size: 11px; }
 
   /* === MACRO STRIP === */
-  .macro-strip {
-    display: flex; gap: 0; padding: 0; background: #0c0c18;
-    border-bottom: 1px solid var(--border); overflow-x: auto;
-  }
-  .macro-pill {
-    display: flex; align-items: center; gap: 8px; padding: 8px 16px;
-    border-right: 1px solid var(--border); white-space: nowrap; min-width: fit-content;
-  }
-  .macro-pill .label { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
-  .macro-pill .value { font-size: 14px; font-weight: 600; }
-  .macro-pill .change { font-size: 11px; }
   .vix-structure { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; }
   .vix-backwardation { background: rgba(239,83,80,0.1); color: var(--red); }
 
@@ -181,6 +170,15 @@
     .nav-bar { padding: 0 12px; height: 44px; }
     .pairs-grid { grid-template-columns: 1fr; }
   }
+
+  .ticker-tape-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.3);
+  }
+  .ticker-tape-wrap .tradingview-widget-container { pointer-events: auto; }
+
 </style>
 <style>.bt-icon{width:16px;height:16px;display:inline-block;vertical-align:-2px;margin-right:4px;flex-shrink:0;}</style>
 </head>
@@ -211,35 +209,7 @@
 </nav>
 
 <!-- MACRO STRIP -->
-<div class="macro-strip">
-  <div class="macro-pill">
-    <div><div class="label">S&P 500</div><div class="value down">5,638</div></div>
-    <div class="change down">▼ -1.2%</div>
-  </div>
-  <div class="macro-pill" style="gap:6px;">
-    <div><div class="label">VIX</div><div class="value" style="color:var(--red)">27.95</div></div>
-    <div>
-      <div class="change down">▲ +33.8%</div>
-      <span class="vix-structure vix-backwardation">Backwardation</span>
-    </div>
-  </div>
-  <div class="macro-pill">
-    <div><div class="label">DXY</div><div class="value">99.13</div></div>
-    <div class="change up">▲ SMA20: 97.94</div>
-  </div>
-  <div class="macro-pill">
-    <div><div class="label">10Y</div><div class="value">4.25%</div></div>
-    <div class="change neutral">→ stable</div>
-  </div>
-  <div class="macro-pill">
-    <div><div class="label">OIL</div><div class="value up">$94.47</div></div>
-    <div class="change up">▲ BREAKOUT</div>
-  </div>
-  <div class="macro-pill">
-    <div><div class="label">BTC</div><div class="value">$68,450</div></div>
-    <div class="change neutral">→ base</div>
-  </div>
-</div>
+<div id="tv-ticker-tape" class="ticker-tape-wrap"></div>
 
 <!-- MAIN CONTENT -->
 <div class="page-content">
@@ -564,6 +534,7 @@ initTimezone();
   });
 </script>
 <script src="js/icons.js"></script>
+<script src="js/ticker-tape.js"></script>
 <script src="js/market-status.js"></script>
 </body>
 </html>
