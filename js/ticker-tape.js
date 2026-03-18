@@ -35,9 +35,10 @@ function initTickerTape(containerId) {
     symbols,
     showSymbolLogo: false,
     isTransparent: true,
-    displayMode: "adaptive",
+    displayMode: "compact",
     colorTheme: "dark",
     locale: "en",
+    largeChartUrl: "",
   };
 
   const wrapper = document.createElement('div');
