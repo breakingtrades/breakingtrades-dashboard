@@ -348,7 +348,7 @@ async function loadMarketData() {
 
 // === RENDER FEAR & GREED ===
 function renderFearGreed() {
-  const val = fearGreedData.current.value;
+  const val = Math.round(fearGreedData.current.value);
   const cx = 150, cy = 140, r = 120, arcW = 22;
 
   const zones = [
@@ -401,12 +401,14 @@ function renderFearGreed() {
   const nb2 = polarToXY(needleAngle - Math.PI/2, 4);
   const valColor = val <= 25 ? '#ef5350' : val <= 45 ? '#ffa726' : val <= 55 ? '#ffeb3b' : val <= 75 ? '#8bc34a' : '#00d4aa';
   const glowPt = polarToXY(needleAngle, r * 0.5);
-  const prevVal = fearGreedData.previousClose.value;
-  const trendArrow = val > prevVal ? '▲' : val < prevVal ? '▼' : '→';
-  const trendColor = val > prevVal ? '#00d4aa' : val < prevVal ? '#ef5350' : '#8888aa';
-  const diff = val - prevVal;
-  function fgColor(v) { return v <= 25 ? '#ef5350' : v <= 45 ? '#ffa726' : v <= 55 ? '#ffeb3b' : v <= 75 ? '#8bc34a' : '#00d4aa'; }
-  function fgLabel(v) { return v <= 25 ? 'Extreme Fear' : v <= 45 ? 'Fear' : v <= 55 ? 'Neutral' : v <= 75 ? 'Greed' : 'Extreme Greed'; }
+  const prevVal = fearGreedData.previousClose?.value ?? null;
+  const hasPrev = prevVal != null;
+  const trendArrow = !hasPrev ? '—' : val > prevVal ? '▲' : val < prevVal ? '▼' : '→';
+  const trendColor = !hasPrev ? '#8888aa' : val > prevVal ? '#00d4aa' : val < prevVal ? '#ef5350' : '#8888aa';
+  const diff = hasPrev ? val - prevVal : 0;
+  function fgColor(v) { if (v == null) return '#555'; return v <= 25 ? '#ef5350' : v <= 45 ? '#ffa726' : v <= 55 ? '#ffeb3b' : v <= 75 ? '#8bc34a' : '#00d4aa'; }
+  function fgLabel(v) { if (v == null) return '—'; return v <= 25 ? 'Extreme Fear' : v <= 45 ? 'Fear' : v <= 55 ? 'Neutral' : v <= 75 ? 'Greed' : 'Extreme Greed'; }
+  function fgVal(v) { return v != null ? Math.round(v) : '—'; }
 
   document.getElementById('fg-gauge').innerHTML =
     `<div class="fg-gauge-container">
@@ -430,11 +432,11 @@ function renderFearGreed() {
         <div class="fg-value" style="color:${valColor}; text-shadow: 0 0 10px ${valColor}40;">${val}</div>
         <div class="fg-label" style="color:${valColor}">${fearGreedData.current.label}</div>
       </div>
-      <div class="fg-trend" style="color:${trendColor}">${trendArrow} ${diff > 0 ? '+' : ''}${diff} from yesterday</div>
+      <div class="fg-trend" style="color:${trendColor}">${hasPrev ? `${trendArrow} ${diff > 0 ? '+' : ''}${Math.round(diff)} from yesterday` : ''}</div>
       <div class="fg-history">
-        <div class="fg-history-item"><div class="fgh-label">Prev Close</div><div class="fgh-value" style="color:${fgColor(prevVal)}">${prevVal}</div><div class="fgh-sublabel">${fgLabel(prevVal)}</div></div>
-        <div class="fg-history-item"><div class="fgh-label">1 Week</div><div class="fgh-value" style="color:${fgColor(fearGreedData.oneWeekAgo.value)}">${fearGreedData.oneWeekAgo.value}</div><div class="fgh-sublabel">${fgLabel(fearGreedData.oneWeekAgo.value)}</div></div>
-        <div class="fg-history-item"><div class="fgh-label">1 Month</div><div class="fgh-value" style="color:${fgColor(fearGreedData.oneMonthAgo.value)}">${fearGreedData.oneMonthAgo.value}</div><div class="fgh-sublabel">${fgLabel(fearGreedData.oneMonthAgo.value)}</div></div>
+        <div class="fg-history-item"><div class="fgh-label">Prev Close</div><div class="fgh-value" style="color:${fgColor(prevVal)}">${fgVal(prevVal)}</div><div class="fgh-sublabel">${fgLabel(prevVal)}</div></div>
+        <div class="fg-history-item"><div class="fgh-label">1 Week</div><div class="fgh-value" style="color:${fgColor(fearGreedData.oneWeekAgo?.value)}">${fgVal(fearGreedData.oneWeekAgo?.value)}</div><div class="fgh-sublabel">${fgLabel(fearGreedData.oneWeekAgo?.value)}</div></div>
+        <div class="fg-history-item"><div class="fgh-label">1 Month</div><div class="fgh-value" style="color:${fgColor(fearGreedData.oneMonthAgo?.value)}">${fgVal(fearGreedData.oneMonthAgo?.value)}</div><div class="fgh-sublabel">${fgLabel(fearGreedData.oneMonthAgo?.value)}</div></div>
       </div>
     </div>`;
 }
