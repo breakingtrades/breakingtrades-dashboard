@@ -87,6 +87,20 @@ def fetch_watchlist():
     watchlist = json.loads(wl_path.read_text())
     symbols = [t["symbol"] for t in watchlist]
 
+    # Inject macro tickers if not already present (for context strip)
+    MACRO_TICKERS = {
+        "GLD": {"name": "Gold ETF", "sector": "Commodity", "group": "Macro"},
+        "SLV": {"name": "Silver ETF", "sector": "Commodity", "group": "Macro"},
+        "USO": {"name": "Oil ETF", "sector": "Commodity", "group": "Macro"},
+        "UUP": {"name": "US Dollar Index", "sector": "Currency", "group": "Macro"},
+        "BTC-USD": {"name": "Bitcoin", "sector": "Crypto", "group": "Macro"},
+        "IBIT": {"name": "Bitcoin ETF", "sector": "Crypto", "group": "Macro"},
+    }
+    for sym, meta in MACRO_TICKERS.items():
+        if sym not in symbols:
+            watchlist.append({"symbol": sym, **meta, "status": "watching", "bias": "neutral"})
+            symbols.append(sym)
+
     # Filter out non-yfinance symbols
     skip = set()
     for s in symbols:

@@ -1,6 +1,6 @@
 /**
  * BreakingTrades — Macro Context Strip
- * Editorial layer below the ticker tape: VIX regime, SPY/QQQ SMA context, F&G, DXY, Oil, BTC notes
+ * Primary data strip: key indices, volatility, rates, sentiment with editorial context
  * Reads from data/*.json files
  */
 (function() {
@@ -14,6 +14,20 @@
   function tag(text, cls) { return `<span class="ctx-tag ${cls}">${text}</span>`; }
   function note(text, cls) { return `<span class="ctx-note ${cls}">${text}</span>`; }
 
+  function smaNote(ticker) {
+    if (!ticker || !ticker.sma20 || !ticker.price) return null;
+    if (ticker.price > ticker.sma20) return note('▲ SMA20', 'ctx-up');
+    return note('▼ SMA20', 'ctx-down');
+  }
+
+  function changePct(ticker) {
+    if (!ticker || ticker.change == null || !ticker.price) return null;
+    const pct = ticker.change;
+    const cls = pct >= 0 ? 'ctx-up' : 'ctx-down';
+    const sign = pct >= 0 ? '+' : '';
+    return note(`${sign}${pct.toFixed(2)}%`, cls);
+  }
+
   Promise.all([
     fetch('data/vix.json').then(r => r.ok ? r.json() : null).catch(() => null),
     fetch('data/watchlist.json').then(r => r.ok ? r.json() : null).catch(() => null),
@@ -23,20 +37,25 @@
     const tickers = Array.isArray(wl) ? wl : [];
     const find = sym => tickers.find(t => (t.symbol || t.ticker) === sym);
 
-    // SPY context
+    // SPY
     const spy = find('SPY');
     if (spy && spy.price) {
-      const cls = spy.change >= 0 ? 'ctx-up' : 'ctx-down';
-      const arrow = spy.change >= 0 ? '▲' : '▼';
-      const notes = [];
-      if (spy.sma20) {
-        if (spy.price > spy.sma20) notes.push(note(`${arrow} Above SMA20`, 'ctx-up'));
-        else notes.push(note(`${arrow} Below SMA20`, 'ctx-down'));
-      }
-      pills.push(pill('S&P 500', spy.price.toLocaleString(), cls, notes));
+      pills.push(pill('S&P 500', spy.price.toLocaleString(), spy.change >= 0 ? 'ctx-up' : 'ctx-down', [changePct(spy), smaNote(spy)]));
     }
 
-    // VIX context  
+    // QQQ
+    const qqq = find('QQQ');
+    if (qqq && qqq.price) {
+      pills.push(pill('Nasdaq', qqq.price.toLocaleString(), qqq.change >= 0 ? 'ctx-up' : 'ctx-down', [changePct(qqq), smaNote(qqq)]));
+    }
+
+    // IWM
+    const iwm = find('IWM');
+    if (iwm && iwm.price) {
+      pills.push(pill('Russell', iwm.price.toLocaleString(), iwm.change >= 0 ? 'ctx-up' : 'ctx-down', [changePct(iwm)]));
+    }
+
+    // VIX
     if (vix && vix.current != null) {
       const v = vix.current;
       const cls = v > 25 ? 'ctx-down' : v > 18 ? 'ctx-warn' : 'ctx-up';
@@ -49,18 +68,7 @@
       pills.push(pill('VIX', v.toFixed(2), cls, notes));
     }
 
-    // DXY
-    const dxy = find('DXY') || find('UUP');
-    if (dxy && dxy.price) {
-      const notes = [];
-      if (dxy.sma20) {
-        if (dxy.price > dxy.sma20) notes.push(note(`▲ SMA20: ${dxy.sma20.toFixed(2)}`, 'ctx-up'));
-        else notes.push(note(`▼ SMA20: ${dxy.sma20.toFixed(2)}`, 'ctx-down'));
-      }
-      pills.push(pill('DXY', dxy.price, '', notes));
-    }
-
-    // F&G context
+    // F&G
     if (fg) {
       const v = Math.round(fg.current?.value ?? fg.value ?? fg.score ?? 0);
       if (v) {
@@ -70,36 +78,41 @@
       }
     }
 
-    // Oil — check for crude/CL/OIL in watchlist
-    const oil = find('CL') || find('OIL') || find('USO');
-    if (oil && oil.price) {
-      const cls = oil.change >= 0 ? 'ctx-up' : 'ctx-down';
-      const notes = [];
-      if (oil.sma20 && oil.price > oil.sma20 * 1.05) notes.push(tag('BREAKOUT', 'ctx-tag-green'));
-      else if (oil.sma20 && oil.price > oil.sma20) notes.push(note('▲ Above SMA20', 'ctx-up'));
-      else if (oil.sma20) notes.push(note('▼ Below SMA20', 'ctx-down'));
-      pills.push(pill('OIL', `$${oil.price}`, cls, notes));
+    // 10Y (TLT as proxy)
+    const tlt = find('TLT');
+    if (tlt && tlt.price) {
+      const notes = [changePct(tlt)];
+      if (tlt.change != null) {
+        const stable = Math.abs(tlt.change) < 0.3;
+        if (stable) notes.push(note('→ stable', 'ctx-neutral'));
+      }
+      pills.push(pill('10Y', tlt.price, '', notes));
     }
 
-    // 10Y
-    const ty = find('TLT') || find('US10Y');
-    if (ty && ty.price) {
-      const notes = [];
-      if (ty.change != null) {
-        const dir = Math.abs(ty.change) < 0.3 ? '→ stable' : ty.change > 0 ? '▲ rising' : '▼ falling';
-        const cls = Math.abs(ty.change) < 0.3 ? 'ctx-neutral' : ty.change > 0 ? 'ctx-down' : 'ctx-up';
-        notes.push(note(dir, cls));
-      }
-      pills.push(pill('10Y', ty.price, '', notes));
+    // DXY / UUP
+    const dxy = find('DXY') || find('UUP');
+    if (dxy && dxy.price) {
+      pills.push(pill('DXY', dxy.price, '', [changePct(dxy), smaNote(dxy)]));
+    }
+
+    // Gold
+    const gld = find('GLD') || find('GOLD');
+    if (gld && gld.price) {
+      pills.push(pill('Gold', `$${gld.price}`, gld.change >= 0 ? 'ctx-up' : 'ctx-down', [changePct(gld)]));
+    }
+
+    // Oil
+    const oil = find('USO') || find('CL') || find('OIL');
+    if (oil && oil.price) {
+      const notes = [changePct(oil)];
+      if (oil.sma20 && oil.price > oil.sma20 * 1.05) notes.push(tag('BREAKOUT', 'ctx-tag-green'));
+      pills.push(pill('Oil', `$${oil.price}`, oil.change >= 0 ? 'ctx-up' : 'ctx-down', notes));
     }
 
     // BTC
     const btc = find('BTC-USD') || find('BTC') || find('IBIT');
     if (btc && btc.price) {
-      const notes = [];
-      if (btc.sma20 && btc.price > btc.sma20) notes.push(note('▲ Above SMA20', 'ctx-up'));
-      else if (btc.sma20 && btc.price < btc.sma20) notes.push(note('→ base', 'ctx-neutral'));
-      pills.push(pill('BTC', `$${btc.price.toLocaleString()}`, '', notes));
+      pills.push(pill('BTC', `$${btc.price.toLocaleString()}`, btc.change >= 0 ? 'ctx-up' : 'ctx-down', [changePct(btc), smaNote(btc)]));
     }
 
     if (pills.length) el.innerHTML = pills.join('');
