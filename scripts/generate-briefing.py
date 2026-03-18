@@ -160,33 +160,46 @@ def build_system_prompt():
 
 
 def get_client():
-    """Get Azure OpenAI client, preferring DefaultAzureCredential, falling back to API key."""
+    """Get OpenAI-compatible client. Priority: GH_TOKEN (GitHub Models) → AZURE_OPENAI_API_KEY → DefaultAzureCredential."""
     try:
-        from openai import AzureOpenAI
+        from openai import OpenAI, AzureOpenAI
     except ImportError:
-        print("ERROR: openai package not installed. Run: pip install openai azure-identity")
+        print("ERROR: openai package not installed. Run: pip install openai")
         sys.exit(1)
 
+    # 1. GitHub Models API (uses PAT — simplest for CI)
+    gh_token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
+    if gh_token:
+        print("  Using GitHub Models API")
+        return OpenAI(
+            api_key=gh_token,
+            base_url="https://models.inference.ai.azure.com",
+        )
+
+    # 2. Azure OpenAI with API key
     api_key = os.environ.get("AZURE_OPENAI_API_KEY")
     if api_key:
+        print("  Using Azure OpenAI (API key)")
         return AzureOpenAI(
             api_key=api_key,
             api_version=API_VERSION,
             azure_endpoint=ENDPOINT,
         )
 
+    # 3. Azure OpenAI with DefaultAzureCredential (local dev)
     try:
         from azure.identity import DefaultAzureCredential, get_bearer_token_provider
         credential = DefaultAzureCredential()
         token_provider = get_bearer_token_provider(credential, "https://cognitiveservices.azure.com/.default")
+        print("  Using Azure OpenAI (DefaultAzureCredential)")
         return AzureOpenAI(
             azure_ad_token_provider=token_provider,
             api_version=API_VERSION,
             azure_endpoint=ENDPOINT,
         )
     except Exception as e:
-        print(f"ERROR: No API key and DefaultAzureCredential failed: {e}")
-        print("Set AZURE_OPENAI_API_KEY or ensure Azure CLI is logged in.")
+        print(f"ERROR: No auth method available. Set GH_TOKEN, AZURE_OPENAI_API_KEY, or log into Azure CLI.")
+        print(f"  DefaultAzureCredential error: {e}")
         sys.exit(1)
 
 
