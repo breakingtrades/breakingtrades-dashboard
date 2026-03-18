@@ -91,6 +91,7 @@ def fetch_watchlist():
     MACRO_TICKERS = {
         "GLD": {"name": "Gold ETF", "sector": "Commodity", "group": "Macro"},
         "SLV": {"name": "Silver ETF", "sector": "Commodity", "group": "Macro"},
+        "CL=F": {"name": "Crude Oil", "sector": "Commodity", "group": "Macro"},
         "USO": {"name": "Oil ETF", "sector": "Commodity", "group": "Macro"},
         "UUP": {"name": "US Dollar Index", "sector": "Currency", "group": "Macro"},
         "BTC-USD": {"name": "Bitcoin", "sector": "Crypto", "group": "Macro"},

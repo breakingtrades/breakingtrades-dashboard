@@ -102,7 +102,7 @@
     }
 
     // Oil
-    const oil = find('USO') || find('CL') || find('OIL');
+    const oil = find('CL=F') || find('USO') || find('CL') || find('OIL');
     if (oil && oil.price) {
       const notes = [changePct(oil)];
       if (oil.sma20 && oil.price > oil.sma20 * 1.05) notes.push(tag('BREAKOUT', 'ctx-tag-green'));
