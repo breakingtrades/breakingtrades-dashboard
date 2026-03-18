@@ -1,6 +1,7 @@
 # Change: Watchlist Ticker Detail Modal
 
-**Status:** 📝 SPEC (not started)
+**Status:** ✅ SHIPPED (2026-03-18)
+**Commits:** `42a220a`
 **Target pages:** `watchlist.html`
 
 ## Why
