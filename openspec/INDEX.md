@@ -14,6 +14,7 @@
 
 | Change | Status | Description |
 |--------|--------|-------------|
+| [Watchlist Detail Modal](changes/watchlist-detail-modal/) | Spec'd | Click ticker → TradingView charts + computed technicals + earnings markers |
 | [Data Pipeline](changes/data-pipeline/) | Partial | Core signals shipped; lifecycle classifier + per-ticker Tom pending |
 | [Dashboard UI](changes/dashboard-ui/) | Partial | Card variants + filters shipped; detail modal + responsive pending |
 | [Watchlist Page](changes/watchlist-page/) | Shipped | Widget + table views, TradingView embed |
