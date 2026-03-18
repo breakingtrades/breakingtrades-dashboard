@@ -12,6 +12,12 @@
     "color": "up"
   },
   {
+    "pair": "RSP/SPY",
+    "desc": "Breadth \u2014 equal vs cap weight",
+    "signal": "\u2192 FLAT",
+    "color": "neutral"
+  },
+  {
     "pair": "XLV/SPY",
     "desc": "Defensive rotation",
     "signal": "\u2198 FALLING",

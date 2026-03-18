@@ -198,7 +198,12 @@ def main():
         else: yf_symbols.append(s)
         
     print(f"Downloading daily data for {len(yf_symbols)} symbols...")
-    data = yf.download(tickers=yf_symbols, period="1y", interval="1d", group_by="ticker", auto_adjust=True, prepost=False, threads=True)
+    
+    # We need to make sure we download pairs that aren't in the watchlist
+    extra_pairs = ['RSP', 'SLV', 'GLD']
+    all_symbols = list(set(yf_symbols + extra_pairs))
+    
+    data = yf.download(tickers=all_symbols, period="1y", interval="1d", group_by="ticker", auto_adjust=True, prepost=False, threads=True)
     
     results = []
     
@@ -314,6 +319,52 @@ def main():
     if fg:
         with open(os.path.join(DATA_DIR, "fear-greed.json"), "w") as f:
             json.dump(fg, f, indent=2)
+            
+    # Process VIX
+    try:
+        vix_data = yf.download("^VIX", period="1y", interval="1d")
+        if len(vix_data) > 50:
+            v_curr = vix_data['Close'].iloc[-1].item()
+            v_sma20 = vix_data['Close'].rolling(20).mean().iloc[-1].item()
+            v_sma50 = vix_data['Close'].rolling(50).mean().iloc[-1].item()
+            v_hist = vix_data['Close'].iloc[-30:].values
+            v_pctile = int(np.sum(v_hist < v_curr) / len(v_hist) * 100)
+            
+            if v_curr < 15:
+                regime = "Complacency"
+                color = "#00d4aa"
+            elif v_curr < 20:
+                regime = "Normal"
+                color = "#8bc34a"
+            elif v_curr < 30:
+                regime = "Elevated"
+                color = "#ffa726"
+            elif v_curr < 40:
+                regime = "Fear"
+                color = "#ef5350"
+            else:
+                regime = "Panic"
+                color = "#d32f2f"
+                
+            desc = f"VIX is {regime.lower()}. "
+            if v_curr > v_sma20:
+                desc += f"Trending above SMA20 ({v_sma20:.2f}), showing rising volatility."
+            else:
+                desc += f"Trending below SMA20 ({v_sma20:.2f}), volatility is contracting."
+                
+            vix_out = {
+                "current": round(v_curr, 2),
+                "sma20": round(v_sma20, 2),
+                "sma50": round(v_sma50, 2),
+                "percentile30d": v_pctile,
+                "regime": regime,
+                "color": color,
+                "description": desc
+            }
+            with open(os.path.join(DATA_DIR, "vix.json"), "w") as f:
+                json.dump(vix_out, f, indent=2)
+    except Exception as e:
+        print(f"Error processing VIX: {e}")
             
     # Also write a meta/status file
     meta = {

@@ -275,22 +275,22 @@
 
 <script>
 // === FEAR & GREED DATA ===
-const fearGreedData = {
-  current: { value: 25, label: 'Extreme Fear' },
-  previousClose: { value: 28 },
-  oneWeekAgo: { value: 35 },
-  oneMonthAgo: { value: 52 }
+let fearGreedData = {
+  current: { value: 50, label: 'Loading...' },
+  previousClose: { value: 50 },
+  oneWeekAgo: { value: 50 },
+  oneMonthAgo: { value: 50 }
 };
 
 // === VIX DATA ===
-const vixData = {
-  current: 27.95,
-  sma20: 20.88,
-  sma50: 18.45,
-  percentile30d: 92,
-  regime: 'Elevated',
-  color: '#ffa726',
-  description: 'VIX well above SMA20 (20.88). Fear is elevated but not at panic levels. Expect wide intraday swings. Options premiums expensive — sellers\' market if you can manage risk.',
+let vixData = {
+  current: 0,
+  sma20: 0,
+  sma50: 0,
+  percentile30d: 0,
+  regime: 'Loading...',
+  color: '#888',
+  description: 'Loading real-time volatility metrics...',
   levels: [
     { label: 'Complacency', range: '<15', color: '#00d4aa' },
     { label: 'Normal', range: '15-20', color: '#8bc34a' },
@@ -301,35 +301,39 @@ const vixData = {
 };
 
 // === PAIR RATIOS ===
-const pairRatios = [
-  { pair: 'XLY/XLP', signal: '↘ FALLING', color: 'down', desc: 'Consumer weakening — risk-off rotation' },
-  { pair: 'HYG/SPY', signal: '→ FLAT', color: 'neutral', desc: 'Credit stable — no stress signals' },
-  { pair: 'RSP/SPY', signal: '→ FLAT', color: 'neutral', desc: 'Breadth neutral — mega-cap led' },
-  { pair: 'XLV/SPY', signal: '→ FLAT', color: 'neutral', desc: 'No defensive rotation yet' },
-  { pair: 'IWM/SPY', signal: '↘ FALLING', color: 'down', desc: 'Small caps underperforming — risk aversion' },
-  { pair: 'IWM/QQQ', signal: '↘ FALLING', color: 'down', desc: 'Growth crushing value — narrow market' },
-  { pair: 'XLE/SPY', signal: '↗ RISING', color: 'up', desc: 'Energy outperformance — commodity bid' },
-  { pair: 'GLD/SPY', signal: '↗ RISING', color: 'up', desc: 'Gold bid — safe haven demand' },
-  { pair: 'TLT/SPY', signal: '↗ RISING', color: 'up', desc: 'Flight to bonds — classic risk-off' },
-  { pair: 'SLV/GLD', signal: '↘ FALLING', color: 'down', desc: 'Silver lagging gold — no industrial demand' },
-  { pair: 'HYG/TLT', signal: '↘ FALLING', color: 'down', desc: 'Credit vs treasuries — stress building' },
-  { pair: 'IGV/QQQ', signal: '↘ FALLING', color: 'down', desc: 'Software underperforming tech — rotation out' }
-];
+let pairRatios = [];
 
 // === SECTOR RANKINGS ===
-const sectorRankings = [
-  { symbol: 'XLU', name: 'Utilities', change: 4.2, rs: 92 },
-  { symbol: 'XLE', name: 'Energy', change: 3.8, rs: 88 },
-  { symbol: 'XLP', name: 'Staples', change: 1.2, rs: 68 },
-  { symbol: 'XLRE', name: 'Real Estate', change: 0.8, rs: 55 },
-  { symbol: 'XLV', name: 'Healthcare', change: 0.3, rs: 50 },
-  { symbol: 'XLB', name: 'Materials', change: -0.5, rs: 42 },
-  { symbol: 'XLI', name: 'Industrials', change: -1.2, rs: 35 },
-  { symbol: 'XLF', name: 'Financials', change: -2.1, rs: 25 },
-  { symbol: 'XLC', name: 'Communication', change: -2.8, rs: 18 },
-  { symbol: 'XLY', name: 'Discretionary', change: -3.5, rs: 12 },
-  { symbol: 'XLK', name: 'Technology', change: -4.2, rs: 8 }
-];
+let sectorRankings = [];
+
+async function loadMarketData() {
+  try {
+    const fgRes = await fetch('data/fear-greed.json');
+    if(fgRes.ok) fearGreedData = await fgRes.json();
+    renderFearGreed();
+  } catch(e) { console.error(e); }
+
+  try {
+    const vixRes = await fetch('data/vix.json');
+    if(vixRes.ok) {
+      const liveVix = await vixRes.json();
+      vixData = { ...vixData, ...liveVix };
+    }
+    renderVixRegime();
+  } catch(e) { console.error(e); }
+
+  try {
+    const pairsRes = await fetch('data/pairs.json');
+    if(pairsRes.ok) pairRatios = await pairsRes.json();
+    renderPairs();
+  } catch(e) { console.error(e); }
+
+  try {
+    const srRes = await fetch('data/sectors.json');
+    if(srRes.ok) sectorRankings = await srRes.json();
+    renderSectorRankings();
+  } catch(e) { console.error(e); }
+}
 
 // === RENDER FEAR & GREED ===
 function renderFearGreed() {
@@ -529,10 +533,7 @@ function updateTimestamp() {
 }
 
 // === INIT ===
-renderFearGreed();
-renderVixRegime();
-renderPairs();
-renderSectorRankings();
+loadMarketData();
 initHeatmap();
 initTimezone();
 </script>
