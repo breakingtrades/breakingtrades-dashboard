@@ -14,6 +14,7 @@
 
 | Change | Status | Description |
 |--------|--------|-------------|
+| [AI-Ready Architecture](changes/ai-ready-architecture/) | **Proposed** | Tom agent multi-channel output: alerts, ticker notes, market pulse, feed panel |
 | [Watchlist Detail Modal](changes/watchlist-detail-modal/) | ✅ Shipped | Click ticker → TradingView charts + computed technicals + earnings markers |
 | [Data Pipeline](changes/data-pipeline/) | Partial | Core signals shipped; lifecycle classifier + per-ticker Tom pending |
 | [Dashboard UI](changes/dashboard-ui/) | Partial | Card variants + filters shipped; detail modal + responsive pending |
@@ -24,7 +25,7 @@
 
 | Change | Priority | Description |
 |--------|----------|-------------|
-| [Tom Chat Widget](changes/tom-chat/) | High | Interactive chat with Tom on dashboard |
+| [Tom Chat Widget](changes/tom-chat/) | Low | Interactive chat — deferred to Phase 3 of AI-Ready Architecture |
 | Mac Cron Push | Medium | IB Gateway data enrichment (expected moves, dark pool) |
 | Trade Lifecycle Engine | Medium | 9-state status classifier for ticker cards |
 | Per-Ticker Tom's Take | Low | Pre-generated LLM analysis per symbol |
