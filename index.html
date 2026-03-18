@@ -1089,18 +1089,12 @@ const tzPicker = document.getElementById('tz-picker');
 tzPicker.value = userTZ;
 
 function updateTimestamp() {
-  document.getElementById('ts').textContent = new Date().toLocaleString('en-US', {
-    timeZone: userTZ, month:'short', day:'numeric', year:'numeric',
-    hour:'numeric', minute:'2-digit', hour12:true
-  }) + ' ' + (TZ_LABELS[userTZ] || 'ET');
+  // Timestamp now handled by market-status.js
 }
 tzPicker.addEventListener('change', () => {
   userTZ = tzPicker.value;
   localStorage.setItem('bt_timezone', userTZ);
-  updateTimestamp();
 });
-updateTimestamp();
-setInterval(updateTimestamp, 30000);
 
 // === FILTER STATE ===
 let activeStatusFilter = 'all';

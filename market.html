@@ -537,10 +537,7 @@ function initTimezone() {
   setInterval(updateTimestamp, 60000);
 }
 function updateTimestamp() {
-  const tz = document.getElementById('tz-picker').value;
-  const label = TZ_LABELS[tz] || tz;
-  document.getElementById('ts').textContent =
-    new Date().toLocaleString('en-US', { timeZone: tz, month:'short', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit', hour12:true }) + ' ' + label;
+  // Timestamp now handled by market-status.js
 }
 
 // === INIT ===
