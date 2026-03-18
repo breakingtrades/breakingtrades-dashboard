@@ -259,7 +259,6 @@ Rules:
             {"role": "user", "content": user_prompt},
         ],
         max_completion_tokens=2000,
-        temperature=0.7,
         response_format={"type": "json_object"},
     )
 
