@@ -254,63 +254,18 @@
 
 <script>
 // === WATCHLIST DATA ===
-const watchlist = [
-  // Quality Stocks
-  { symbol:'AAPL', name:'Apple', sector:'Technology', price:252.62, change:-3.1, sma20:260.80, sma50:255.43, bias:'bear', status:'exit' },
-  { symbol:'MSFT', name:'Microsoft', sector:'Technology', price:399.95, change:-2.8, sma20:407.61, sma50:412.28, bias:'bear', status:'exit' },
-  { symbol:'NVDA', name:'NVIDIA', sector:'Technology', price:183.12, change:-4.5, sma20:192.88, sma50:198.64, bias:'bear', status:'exit' },
-  { symbol:'GOOGL', name:'Alphabet', sector:'Technology', price:180.17, change:-1.8, sma20:186.29, sma50:192.31, bias:'bear', status:'watching' },
-  { symbol:'AMZN', name:'Amazon', sector:'Technology', price:213.74, change:-3.3, sma20:220.40, sma50:225.68, bias:'bear', status:'watching' },
-  { symbol:'META', name:'Meta', sector:'Technology', price:627.43, change:-2.2, sma20:638.56, sma50:645.12, bias:'bear', status:'exit' },
-  { symbol:'DELL', name:'Dell', sector:'Technology', price:126.34, change:-1.5, sma20:128.55, sma50:130.88, bias:'bull', status:'active' },
-  { symbol:'COIN', name:'Coinbase', sector:'Financials', price:203.52, change:-4.7, sma20:215.30, sma50:228.45, bias:'bear', status:'watching' },
-  { symbol:'ARM', name:'ARM Holdings', sector:'Technology', price:121.78, change:-5.2, sma20:128.92, sma50:135.67, bias:'bear', status:'watching' },
-  // Healthcare
-  { symbol:'PFE', name:'Pfizer', sector:'Healthcare', price:26.61, change:-1.4, sma20:26.98, sma50:26.46, bias:'mixed', status:'approaching' },
-  { symbol:'ABBV', name:'AbbVie', sector:'Healthcare', price:221.45, change:-2.1, sma20:228.29, sma50:224.43, bias:'mixed', status:'approaching' },
-  // Sector ETFs
-  { symbol:'XLU', name:'Utilities Select', sector:'ETF', price:47.26, change:0.9, sma20:45.88, sma50:44.35, bias:'bull', status:'active' },
-  { symbol:'XLK', name:'Technology Select', sector:'ETF', price:210.33, change:-3.2, sma20:218.56, sma50:222.10, bias:'bear', status:'watching' },
-  { symbol:'XLE', name:'Energy Select', sector:'ETF', price:92.44, change:1.2, sma20:89.30, sma50:87.55, bias:'bull', status:'active' },
-  { symbol:'XLV', name:'Healthcare Select', sector:'ETF', price:145.67, change:-0.4, sma20:146.12, sma50:144.88, bias:'mixed', status:'watching' },
-  { symbol:'XLF', name:'Financials Select', sector:'ETF', price:43.28, change:-1.8, sma20:44.67, sma50:45.12, bias:'bear', status:'watching' },
-  { symbol:'XLP', name:'Staples Select', sector:'ETF', price:81.45, change:0.3, sma20:80.88, sma50:79.92, bias:'bull', status:'watching' },
-  { symbol:'XLY', name:'Discretionary Select', sector:'ETF', price:188.55, change:-2.1, sma20:194.33, sma50:198.45, bias:'bear', status:'watching' },
-  { symbol:'XLI', name:'Industrials Select', sector:'ETF', price:128.90, change:-0.9, sma20:130.55, sma50:131.20, bias:'mixed', status:'watching' },
-  { symbol:'XLC', name:'Communication Select', sector:'ETF', price:87.34, change:-1.5, sma20:89.23, sma50:90.67, bias:'bear', status:'watching' },
-  // Macro ETFs
-  { symbol:'SPY', name:'S&P 500 ETF', sector:'Index', price:563.80, change:-1.2, sma20:572.45, sma50:578.30, bias:'bear', status:'watching' },
-  { symbol:'QQQ', name:'Nasdaq 100 ETF', sector:'Index', price:475.20, change:-2.1, sma20:488.55, sma50:496.78, bias:'bear', status:'watching' },
-  { symbol:'IWM', name:'Russell 2000 ETF', sector:'Index', price:204.33, change:-1.8, sma20:208.44, sma50:211.67, bias:'bear', status:'watching' },
-  { symbol:'DIA', name:'Dow 30 ETF', sector:'Index', price:428.55, change:-0.8, sma20:432.88, sma50:435.12, bias:'mixed', status:'watching' },
-  { symbol:'HYG', name:'High Yield Bond', sector:'Bond', price:80.54, change:-0.3, sma20:80.77, sma50:81.12, bias:'mixed', status:'watching' },
-  { symbol:'TLT', name:'20+ Year Treasury', sector:'Bond', price:92.88, change:0.5, sma20:91.45, sma50:90.23, bias:'bull', status:'watching' },
-  // Energy
-  { symbol:'AR', name:'Antero Resources', sector:'Energy', price:40.82, change:2.3, sma20:38.90, sma50:37.55, bias:'bull', status:'active' },
-  { symbol:'OIH', name:'Oil Services ETF', sector:'Energy', price:312.50, change:1.5, sma20:308.88, sma50:305.44, bias:'bull', status:'watching' },
-  // Community Ideas - Bull
-  { symbol:'MOO', name:'Agribusiness ETF', sector:'Agriculture', price:62.33, change:0.4, sma20:61.55, sma50:60.88, bias:'bull', status:'watching' },
-  { symbol:'NEE', name:'NextEra Energy', sector:'Utilities', price:78.44, change:0.7, sma20:77.12, sma50:76.55, bias:'bull', status:'watching' },
-  { symbol:'TGT', name:'Target', sector:'Retail', price:128.90, change:-1.2, sma20:131.45, sma50:134.67, bias:'bear', status:'watching' },
-  { symbol:'D', name:'Dominion Energy', sector:'Utilities', price:57.88, change:0.5, sma20:57.12, sma50:56.34, bias:'bull', status:'watching' },
-  { symbol:'TMUS', name:'T-Mobile', sector:'Telecom', price:248.55, change:-0.3, sma20:250.12, sma50:247.88, bias:'mixed', status:'watching' },
-  { symbol:'BE', name:'Bloom Energy', sector:'Clean Energy', price:28.44, change:3.2, sma20:26.88, sma50:25.45, bias:'bull', status:'watching' },
-  { symbol:'AWK', name:'American Water', sector:'Utilities', price:142.33, change:0.2, sma20:141.55, sma50:140.12, bias:'bull', status:'watching' },
-  { symbol:'ADM', name:'Archer-Daniels', sector:'Agriculture', price:52.67, change:-0.8, sma20:53.45, sma50:54.12, bias:'mixed', status:'watching' },
-  { symbol:'SM', name:'SM Energy', sector:'Energy', price:44.55, change:1.8, sma20:43.12, sma50:42.33, bias:'bull', status:'watching' },
-  { symbol:'AA', name:'Alcoa', sector:'Materials', price:38.22, change:-2.3, sma20:39.88, sma50:41.12, bias:'bear', status:'watching' },
-  { symbol:'OMC', name:'Omnicom Group', sector:'Communication', price:88.90, change:-0.5, sma20:89.55, sma50:88.23, bias:'mixed', status:'watching' },
-  // Community Ideas - Bear
-  { symbol:'DHR', name:'Danaher', sector:'Healthcare', price:228.55, change:-1.8, sma20:234.12, sma50:238.67, bias:'bear', status:'watching' },
-  { symbol:'ZM', name:'Zoom Video', sector:'Technology', price:72.33, change:-2.5, sma20:75.88, sma50:78.45, bias:'bear', status:'watching' },
-  { symbol:'TAP', name:'Molson Coors', sector:'Staples', price:62.88, change:-0.6, sma20:63.55, sma50:64.12, bias:'bear', status:'watching' },
-  { symbol:'CAG', name:'ConAgra', sector:'Staples', price:28.44, change:-0.3, sma20:28.88, sma50:29.34, bias:'bear', status:'watching' },
-  // Community Ideas - Mixed
-  { symbol:'URA', name:'Uranium ETF', sector:'Energy', price:28.55, change:1.2, sma20:27.88, sma50:28.12, bias:'mixed', status:'watching' },
-  { symbol:'CHTR', name:'Charter Comms', sector:'Communication', price:358.90, change:-1.1, sma20:362.45, sma50:365.88, bias:'mixed', status:'watching' },
-  { symbol:'ADSK', name:'Autodesk', sector:'Technology', price:278.33, change:-2.0, sma20:284.55, sma50:288.12, bias:'bear', status:'watching' },
-  { symbol:'IGV', name:'Software ETF', sector:'Technology', price:88.67, change:-1.8, sma20:91.23, sma50:93.45, bias:'bear', status:'watching' },
-];
+let watchlist = [];
+
+async function loadWatchlist() {
+  try {
+    const res = await fetch('data/watchlist.json');
+    watchlist = await res.json();
+    renderTable();
+  } catch (err) {
+    console.error("Failed to load watchlist data:", err);
+    document.getElementById('wl-tbody').innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--red);">Error loading live data. Please check back later.</td></tr>';
+  }
+}
 
 // === VIEW TOGGLE ===
 function showView(view) {
@@ -483,7 +438,7 @@ function updateTimestamp() {
 }
 
 // === INIT ===
-renderTable();
+loadWatchlist();
 initTVWidget();
 initTimezone();
 </script>
