@@ -1,19 +1,19 @@
 {
   "title": "Daily Briefing \u2014 Mar 18",
-  "headline": "Extreme Fear, weak breadth, and tech flirting with breakdowns\u2014patience rules today.",
+  "headline": "Extreme fear + mean reversion signals = time to sharpen the shopping list, not panic.",
   "body": [
-    "Right, so we've got Fear & Greed parked at 25\u2014Extreme Fear territory. The market's limping along: SPY at $670.79, well below the 20 MA ($680.19). VIX is elevated at 21.55 but contracting, which means volatility is cooling off but still far from calm. If it's in the press, it's in the price; the crowd is spooked, but smart money usually shops here, not panics.",
-    "Sector rotation is messy\u2014Energy (XLE $58.51) is still leading but weakening, Utilities (XLU $47.13) and Staples (XLP $84.70) are rolling over, and Tech (XLK $139.54) is approaching the mean reversion zone, but bias is bear. Financials (XLF $49.56) remain elevated risk and haven't found support, which is the canary\u2014keep a close eye there.",
-    "Contrarian signals stacking: Extreme Fear (rule R013) is historically an opportunity zone, but SPY, QQQ, and most mega-cap tech names are below their daily 20 MAs (R006), so longs are off until we see a proper reclaim. No chasing. Abundance mindset\u2014let the flows come to you."
+    "Right, so the big picture: SPY sits at $670.79, firmly below its 20 MA ($680.19) and 50 MA ($685.88), with Fear & Greed at 25 \u2014 Extreme Fear territory. Volatility is elevated (VIX 21.55, just below its 20 MA), but contracting, which historically sets up mean reversion plays rather than breakdowns.",
+    "Sector rotation shows Energy (XLE $58.51, above all major MAs) and Materials (XLB $49.52, above 200 MA but weakening) holding up, while Technology and Discretionary are sliding but showing early signs of improvement. Healthcare and Financials are lagging \u2014 XLV and XLF both below 20/50 MAs, with Financials risk elevated. Watch the canary: XLF at $49.56 is flirting with its 200 MA ($52.60), not a healthy sign for the economy.",
+    "Contrarian radar is flashing. Fear & Greed < 25 is rare; last time we saw this, it marked major bottoms (see 2020, 2022). Most big names (AAPL, MSFT, NVDA, META) are trading below their 20 MAs \u2014 per rule R006, that's a trigger to exit longs or sit tight. Abundance mindset: don\u2019t chase, let price come to you. If bonds (HYG, LQD) start breaking down, that's your cue to reduce risk immediately, but for now, they're merely approaching \u2014 not confirmed."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $680.19 (20 MA) \u2014 Daily close above needed for longs<br>XLK: $139.54 (20 MA) \u2014 Mean reversion zone, but bias bear<br>XLF: $49.56 \u2014 Canary, needs support<br>XLE: $58.51 \u2014 Still leading, but momentum fading<br>VIX: 21.55 \u2014 Elevated, but below 20 MA<br>Fear & Greed: 25 \u2014 Extreme Fear (contrarian opportunity, but wait for confirmation)",
+  "callout_body": "SPY: $680.19 (20 MA) \u2014 daily close above needed for momentum<br>XLF: $52.60 (200 MA) \u2014 canary in coal mine, risk elevated<brXLK: $139.54 (20 MA) \u2014 watch for sector improvement<brNVDA: $177.83 (200 MA) \u2014 potential support zone<brFear & Greed: 25 \u2014 extreme fear, look for reversal setups<brHYG: $80.12 (20 MA) \u2014 bond breakdown risk<brVIX: 21.55 \u2014 elevated but contracting, watch for vol spike",
   "action_items": [
-    "Watch for daily closes above 20 MAs on SPY, XLK, QQQ before considering new longs\u2014no exceptions.",
-    "Monitor XLF for breakdown\u2014if Financials lose support, reduce equity exposure immediately (R001)."
+    "Rotate into Energy (XLE), Materials (XLB), and Agriculture (MOO, ADM) on pullbacks above 200 MA; avoid lagging Healthcare and Financials.",
+    "Watch SPY and QQQ for daily closes above 20 MA; until then, stay defensive and avoid chasing tech names below their MAs."
   ],
-  "closing_quote": "Less trades = more wins. If bonds freak out, everything breaks\u2014so don't force it.",
-  "generatedAt": "2026-03-18T19:22:07.483016+00:00",
+  "closing_quote": "If everyone's panicking, that's when you start shopping \u2014 but only if the flows agree.",
+  "generatedAt": "2026-03-18T19:24:05.794366+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
