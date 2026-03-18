@@ -1,19 +1,19 @@
 {
   "title": "Daily Briefing \u2014 Mar 18",
-  "headline": "Extreme fear + mean reversion signals = time to sharpen the shopping list, not panic.",
+  "headline": "Tech and financials cracking at the 20 MA, volatility rising, flows warn: Don't chase this drop.",
   "body": [
-    "Right, so the big picture: SPY sits at $670.79, firmly below its 20 MA ($680.19) and 50 MA ($685.88), with Fear & Greed at 25 \u2014 Extreme Fear territory. Volatility is elevated (VIX 21.55, just below its 20 MA), but contracting, which historically sets up mean reversion plays rather than breakdowns.",
-    "Sector rotation shows Energy (XLE $58.51, above all major MAs) and Materials (XLB $49.52, above 200 MA but weakening) holding up, while Technology and Discretionary are sliding but showing early signs of improvement. Healthcare and Financials are lagging \u2014 XLV and XLF both below 20/50 MAs, with Financials risk elevated. Watch the canary: XLF at $49.56 is flirting with its 200 MA ($52.60), not a healthy sign for the economy.",
-    "Contrarian radar is flashing. Fear & Greed < 25 is rare; last time we saw this, it marked major bottoms (see 2020, 2022). Most big names (AAPL, MSFT, NVDA, META) are trading below their 20 MAs \u2014 per rule R006, that's a trigger to exit longs or sit tight. Abundance mindset: don\u2019t chase, let price come to you. If bonds (HYG, LQD) start breaking down, that's your cue to reduce risk immediately, but for now, they're merely approaching \u2014 not confirmed."
+    "Right, so let's look at the flows. Markets are rolling over sharply\u2014SPY at $661.58 is now well below its 20 MA ($678.96), and the VIX has jumped to 24.39, trending above the 20 MA. Volatility is expanding and breadth is thinning, classic mean reversion territory. Most of big tech\u2014AAPL, MSFT, NVDA\u2014are breaking down below daily 20 MAs, and the indices are confirming a bearish bias.",
+    "Sector rotation's flashing new signals: Energy (XLE, $58.46) remains firmly leading and low risk, while Industrials (XLI, $165.13) cling to leadership, but everything else is sliding into lagging or weakening quadrants. Financials (XLF, $48.96) show elevated risk\u2014approaching daily 20 MA support, 'the canary' is not chirping. Tech is still improving on RRG, but price action says otherwise; XLK ($138.02) flirting with its 20 MA ($139.40), watch the level like a hawk.",
+    "Contrarian warning: No extreme sentiment triggers\u2014Fear & Greed is neutral at 48, so no panic or greed play today\u2014but the daily close below the 20 MA (R009) triggers defensive posture. VIX above 20 means risk-off until flows confirm support. Don't chase\u2014abundance mindset. Record retail demand is nowhere here, but financials breaking support is the macro risk flag. If bonds freak out (HYG/LQD both breaking lower), everything breaks; we're seeing early tremors, so keep your finger near the eject button."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $680.19 (20 MA) \u2014 daily close above needed for momentum<br>XLF: $52.60 (200 MA) \u2014 canary in coal mine, risk elevated<brXLK: $139.54 (20 MA) \u2014 watch for sector improvement<brNVDA: $177.83 (200 MA) \u2014 potential support zone<brFear & Greed: 25 \u2014 extreme fear, look for reversal setups<brHYG: $80.12 (20 MA) \u2014 bond breakdown risk<brVIX: 21.55 \u2014 elevated but contracting, watch for vol spike",
+  "callout_body": "SPY: $661.58 (below 20 MA $678.96, mean reversion zone)<br>QQQ: $594.92 (below 20 MA $604.83, watch for weekly reversion)<br>HYG: $79.42 (approaching SMA20 $80.06, risk when bonds break)<br>XLF: $48.96 (approaching SMA20 $50.68, financials weakness = macro warning)<br>XLK: $138.02 (watch SMA20 $139.40 for tech mean reversion)<br>XLE: $58.46 (leading, active rotation play)<br>VIX: 24.39 (elevated, risk-off regime)",
   "action_items": [
-    "Rotate into Energy (XLE), Materials (XLB), and Agriculture (MOO, ADM) on pullbacks above 200 MA; avoid lagging Healthcare and Financials.",
-    "Watch SPY and QQQ for daily closes above 20 MA; until then, stay defensive and avoid chasing tech names below their MAs."
+    "Reduce exposure to equities trading below their daily 20 MA\u2014especially SPY, QQQ, XLK, XLF per rule R009.",
+    "Look for possible rotational entry in Energy (XLE) as sector remains leading with low risk and strong price above MAs."
   ],
-  "closing_quote": "If everyone's panicking, that's when you start shopping \u2014 but only if the flows agree.",
-  "generatedAt": "2026-03-18T19:24:05.794366+00:00",
+  "closing_quote": "Patience, react, don\u2019t predict\u2014if it\u2019s in the press, it\u2019s in the price.",
+  "generatedAt": "2026-03-18T19:59:44.696926+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
