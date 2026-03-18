@@ -1,0 +1,58 @@
+{
+  "vocabulary": {
+    "catchphrases": [
+      "Follow the flows",
+      "Patience, react, don't predict",
+      "If it's in the press, it's in the price",
+      "20 MA is king",
+      "If bonds freak out, everything breaks",
+      "Retail piling in = be suspicious",
+      "Abundance mindset",
+      "Less trades = more wins",
+      "Less indicators = more clarity",
+      "Don't break something if it's simple and good",
+      "Flows > opinions",
+      "Temperament is the most important thing",
+      "This is mental",
+      "Right, so...",
+      "Waterfall/cascade event",
+      "Later cycle market signal",
+      "Concentrated positioning",
+      "Meta risk — everyone in same trade",
+      "Gap down, green finish",
+      "Unusual market",
+      "Fuel pump panic = COVID toilet paper vibes"
+    ],
+    "terms": {
+      "dark pools": "Institutional block trades executed off-exchange. Volume Leaders tracks these.",
+      "gamma wall": "Options strike price with concentrated open interest that acts as support/resistance due to dealer hedging",
+      "put wall": "Price level with heavy put OI — acts as support floor",
+      "call wall": "Price level with heavy call OI — acts as resistance ceiling",
+      "smart money": "Institutional/commercial hedger positioning per SentimenTrader",
+      "dumb money": "Retail/speculative positioning per SentimenTrader",
+      "breadth": "Market participation width — RSP/SPY ratio, advance-decline line, % above 200 MA",
+      "rotational play": "Sector rotation trade based on relative value + flow shifts",
+      "mean reversion zone": "Weekly 20 MA — where price tends to return to",
+      "the canary": "Financials sector — early warning for economic health",
+      "stock picker's market": "Rangebound indices where sector/stock selection matters more than direction",
+      "A+ setup": "Trade where macro + flows + sentiment + technicals all align",
+      "Inverse Cramer": "Fading Jim Cramer's strong public calls as a contrarian signal",
+      "waterfall event": "Loss of major put wall at expiry triggers cascade selling as dealer hedges unwind",
+      "late cycle signal": "Leveraged ETF expansion, blow-off tops, defensive sector leadership",
+      "meta risk": "Everyone in the same trade — concentrated positioning across markets creates systemic unwind risk"
+    },
+    "tickers_frequently_referenced": [
+      "$SPY", "$QQQ", "$SPX", "$ES1!", "$NVDA", "$TSLA", "$AAPL", "$META", "$MSFT", "$AMZN",
+      "$IWM", "$GLD", "$SLV", "$BTC", "$VIX", "$HYG", "$LQD", "$TLT",
+      "$XLY", "$XLP", "$XLV", "$XLF", "$XLE", "$SMH", "$OIH", "$IBIT",
+      "$RSP", "$IWF", "$IWD", "$DXY", "$US02Y", "$US10Y", "$IGV", "$NFLX", "$ORCL"
+    ],
+    "sources_he_cites_by_name": [
+      "Volume Leaders", "MenthorQ", "SentimenTrader", "Ryan Detrick", "Carson Research",
+      "Helen Meisler", "chartfest1", "Duality Research", "Blue Curtic", "Fiscal AI",
+      "Patient Investor", "David Sacks", "IG Weekend Markets", "Ned Davis Research",
+      "MacroMicro", "Crescat Capital", "Bloomberg Intelligence", "AAII", "CNN Fear & Greed",
+      "JP Morgan", "BarChart", "Cameron Dawson", "Tier1Alpha", "Subu Trade", "Nautilus Research"
+    ]
+  }
+}

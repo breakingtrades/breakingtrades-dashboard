@@ -842,23 +842,9 @@
     </div>
 
     <div class="toms-daily">
-      <h3>🎯 Daily Briefing — Mar 17</h3>
-      <div class="briefing-text">
-        <p><strong>Late-cycle playbook is working.</strong> Energy and utilities leading, tech and semis lagging. This is textbook rotation — follow the flows, don't fight them.</p>
-        <div class="callout">
-          <strong>Key levels today:</strong> S&P needs to hold 5,600 (weekly 50 MA). If lost, 5,500 is next support. VIX at 27.95 says fear is real — but hasn't spiked to 35+ capitulation yet.
-        </div>
-        <p><em>Oil at $94 is the story.</em> 11 consecutive weeks up before the Iran news. This was trending BEFORE geopolitics. If short-term oil problems become long-term → markets get crushed.</p>
-        <p><strong>Financials are the canary.</strong> XLF declining, private credit stress escalating (Morgan Stanley + BlackRock limiting withdrawals). If we lose financials, there's sickness in the economy.</p>
-        <div class="callout">
-          <strong>Action items:</strong><br>
-          • Trail AR stop to SMA20 ($36.98) — extended, RSI 83<br>
-          • Watch PFE at $26.46 SMA50 — entry on hold<br>
-          • ABBV approaching $218 entry zone<br>
-          • XLU — keep riding, raise stop to $46.82<br>
-          • NVDA — $170 is the line. Don't touch until resolved.
-        </div>
-        <p style="color:var(--text-dim);font-size:11px;margin-top:12px;">"Patience, react, don't predict. The setups will come to you."</p>
+      <h3 id="briefing-title">🎯 Daily Briefing</h3>
+      <div class="briefing-text" id="briefing-content">
+        <p style="color:var(--text-dim)">Loading briefing...</p>
       </div>
     </div>
 
@@ -1367,7 +1353,8 @@ function renderSectorRotation() {
   });
   html += '</div>';
 
-  document.getElementById('sector-quadrant').innerHTML = html;
+  const sqEl = document.getElementById('sector-quadrant');
+  if (sqEl) sqEl.innerHTML = html;
 }
 
 // === STATUS TABS ===
@@ -1784,6 +1771,25 @@ document.getElementById('modal').addEventListener('click', e => {
 });
 
 // === INIT ===
+function renderBriefing() {
+  fetch('data/briefing.json').then(r => r.ok ? r.json() : null).then(b => {
+    if (!b) return;
+    document.getElementById('briefing-title').textContent = '🎯 ' + (b.title || 'Daily Briefing');
+    let html = '';
+    if (b.headline) html += `<p><strong>${b.headline}</strong></p>`;
+    if (b.body) b.body.forEach(p => { html += `<p>${p}</p>`; });
+    if (b.callout_title) html += `<div class="callout"><strong>${b.callout_title}:</strong><br>${b.callout_body || ''}</div>`;
+    if (b.action_items && b.action_items.length) {
+      html += '<div class="callout"><strong>Action items:</strong><br>';
+      b.action_items.forEach(a => { html += `• ${a}<br>`; });
+      html += '</div>';
+    }
+    if (b.closing_quote) html += `<p style="color:var(--text-dim);font-size:11px;margin-top:12px;">"${b.closing_quote}"</p>`;
+    if (b.generatedAt) html += `<p style="color:var(--text-dim);font-size:9px;margin-top:6px;">Generated ${new Date(b.generatedAt).toLocaleString()} · ${b.model || ''}</p>`;
+    document.getElementById('briefing-content').innerHTML = html;
+  }).catch(() => {});
+}
+
 let _sectorRiskData = {};
 
 function init() {
@@ -1795,6 +1801,7 @@ function init() {
   renderVixGauge();
   renderFearGreedGauge();
   renderSectorRotation();
+  renderBriefing();
   renderStatusTabs();
   renderCards();
 }

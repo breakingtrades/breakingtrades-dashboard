@@ -72,6 +72,14 @@ def compute_rs_momentum(sector_closes, bench_closes, lookback):
 
 
 def main():
+    if not DATA_DIR.exists():
+        print(f"⚠️ Data dir {DATA_DIR} not found — skipping sector rotation export (using existing data)")
+        return
+    bench_file = DATA_DIR / f"{BENCHMARK}_weekly.csv"
+    if not bench_file.exists():
+        print(f"⚠️ Benchmark file {bench_file} not found — skipping sector rotation export")
+        return
+
     bench_data = read_weekly_close(BENCHMARK)
     bench_dates = [d for d, _ in bench_data]
     bench_closes = [c for _, c in bench_data]

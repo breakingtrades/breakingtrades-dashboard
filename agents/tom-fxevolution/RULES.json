@@ -1,0 +1,318 @@
+{
+  "rules": [
+    {
+      "id": "R001",
+      "category": "macro",
+      "rule": "If bonds (HYG/LQD) are breaking down, reduce equity exposure immediately",
+      "priority": "critical",
+      "source": "video_oHWaZKcuFXc + multiple",
+      "quote": "If bonds freak out, everything breaks"
+    },
+    {
+      "id": "R002",
+      "category": "flow",
+      "rule": "Never trade against institutional dark pool flows above $1B at a price level",
+      "priority": "critical",
+      "source": "video_oHWaZKcuFXc, x_1876781935831237000",
+      "quote": "5.86B right at the low"
+    },
+    {
+      "id": "R003",
+      "category": "sentiment",
+      "rule": "When SentimenTrader Smart Money < 0.3 AND Dumb Money > 0.7, shift to defensive",
+      "priority": "high",
+      "source": "x_images (6+ SentimenTrader posts), video transcripts",
+      "thresholds": {"smart_money_low": 0.3, "dumb_money_high": 0.7}
+    },
+    {
+      "id": "R004",
+      "category": "sentiment",
+      "rule": "When AAII Bulls > 50%, treat as contrarian sell signal",
+      "priority": "medium",
+      "source": "x_1735308601248657809",
+      "thresholds": {"aaii_bull_extreme": 50, "aaii_bear_extreme": 45, "aaii_bull_avg": 37.5}
+    },
+    {
+      "id": "R005",
+      "category": "flow",
+      "rule": "Record retail demand (>$80B rolling 1m) OR concentrated positioning confirmed by JP Morgan/BarChart is a contrarian WARNING, not confirmation",
+      "priority": "high",
+      "source": "x_1942771355352719381, video_BX6OMvFnYls",
+      "quote": "Retail piling in = be suspicious. Concentrated positioning across markets is the meta risk."
+    },
+    {
+      "id": "R006",
+      "category": "technical",
+      "rule": "Daily close below 20 MA = exit long positions",
+      "priority": "critical",
+      "source": "multiple videos + toms-methodology.md",
+      "quote": "20 MA is king"
+    },
+    {
+      "id": "R007",
+      "category": "technical",
+      "rule": "Weekly 20 MA is the mean reversion zone — most important weekly level",
+      "priority": "high",
+      "source": "video transcripts"
+    },
+    {
+      "id": "R008",
+      "category": "macro",
+      "rule": "Yield curve un-inversion is MORE dangerous than inversion. Recessions start AFTER.",
+      "priority": "high",
+      "source": "x_1828944623580110882 (US02Y/US10Y chart at 1.007%)",
+      "key_level": 1.0
+    },
+    {
+      "id": "R009",
+      "category": "sector",
+      "rule": "Financials breaking support = economy sickness. Canary in coal mine.",
+      "priority": "high",
+      "source": "video_oHWaZKcuFXc",
+      "quote": "If we lose financials, sickness in economy"
+    },
+    {
+      "id": "R010",
+      "category": "behavior",
+      "rule": "Don't chase. Missed move = find next opportunity. Abundance mindset.",
+      "priority": "high",
+      "source": "multiple videos",
+      "quote": "Abundance mindset — don't chase trades, move to the next one"
+    },
+    {
+      "id": "R011",
+      "category": "sentiment",
+      "rule": "Put/Call ratio > 0.93 AND SPX > 10% below 52-week high = strong buy (100% win rate 6-12mo, n=25)",
+      "priority": "high",
+      "source": "x_1901047262522077473 (DailyChartbook study)",
+      "stats": {"median_12mo_return": 22.6, "win_rate_6mo": 100, "win_rate_12mo": 100, "sample_size": 25}
+    },
+    {
+      "id": "R012",
+      "category": "macro",
+      "rule": "Track 6-month cycle: Tech Earnings + FOMC create rally windows on ES1!",
+      "priority": "medium",
+      "source": "x_1752100902025179314 (ES1! chart with 6-month annotations)"
+    },
+    {
+      "id": "R013",
+      "category": "sentiment",
+      "rule": "Fear & Greed > 75 (Extreme Greed) = reduce exposure. < 25 (Extreme Fear) = opportunity.",
+      "priority": "medium",
+      "source": "x_1736874930044915821 (CNN Fear & Greed at 77)"
+    },
+    {
+      "id": "R014",
+      "category": "flow",
+      "rule": "Record FINRA margin debt with record negative net investor credit = bubble risk",
+      "priority": "high",
+      "source": "x_1943095371015819667 (MacroMicro chart, -$556B)",
+      "quote": "2025 AI Bubble annotation on his chart"
+    },
+    {
+      "id": "R015",
+      "category": "sector",
+      "rule": "Use forward P/E by sector for rotation. Don't assume tech = expensive — compare.",
+      "priority": "medium",
+      "source": "video_oHWaZKcuFXc, Duality Research data",
+      "quote": "Technology is actually CHEAPER than many sectors on forward PE"
+    },
+    {
+      "id": "R016",
+      "category": "behavior",
+      "rule": "If it's in the press, it's in the price. Consensus narrative = already priced.",
+      "priority": "medium",
+      "source": "x_1613335285252902912 (2007 Reuters 'soft landing' article screenshot)",
+      "quote": "If it's in the press, it's in the price"
+    },
+    {
+      "id": "R017",
+      "category": "macro",
+      "rule": "Options gamma walls: Put wall = support floor. Call wall = resistance ceiling. Break = acceleration.",
+      "priority": "high",
+      "source": "video_oHWaZKcuFXc (MenthorQ data)",
+      "key_levels_example": {"spy_put_wall": 6780, "spy_call_wall": 7000, "tsla_put_wall": 390, "tsla_call_wall": 430, "cascade_on_break": true, "critical_expiry": "Mar 4-5"}
+    },
+    {
+      "id": "R018",
+      "category": "flow",
+      "rule": "Bloomberg Long/Short ETF AUM divergence = institutional positioning signal",
+      "priority": "medium",
+      "source": "x_1925032728556458466 (Long $101M vs Short $11B)"
+    },
+    {
+      "id": "R019",
+      "category": "behavior",
+      "rule": "Less trades = more wins. Less indicators = more clarity. Simple > complex.",
+      "priority": "high",
+      "source": "x_philosophy images + multiple videos"
+    },
+    {
+      "id": "R020",
+      "category": "contrarian",
+      "rule": "Inverse Cramer is a legitimate signal. Track Jim Cramer's strong calls and fade them.",
+      "priority": "low",
+      "source": "x_1958713669552152663 (PLTR: Cramer $200 call → -16.5% in 5 days)"
+    },
+    {
+      "id": "R021",
+      "category": "risk",
+      "rule": "Concentrated retail positioning confirmed by institutional sources (JP Morgan, BarChart) = increase contrarian risk score, watch for unwind",
+      "priority": "high",
+      "source": "video_BX6OMvFnYls",
+      "quote": "Record retail buying + concentrated positioning = warning"
+    },
+    {
+      "id": "R022",
+      "category": "options",
+      "rule": "Loss of massive put wall at major expiry triggers waterfall/cascade event. Immediate risk management.",
+      "priority": "critical",
+      "source": "video_BX6OMvFnYls",
+      "quote": "MASSIVE puts at 6780 for Mar 4-5 expiry. If lost = waterfall/cascade event"
+    },
+    {
+      "id": "R023",
+      "category": "breadth",
+      "rule": "Advanced decline line dropping for first time in extended period = early market warning",
+      "priority": "medium",
+      "source": "video_BX6OMvFnYls",
+      "quote": "Advanced decline line went down briefly — first time in a while"
+    },
+    {
+      "id": "R024",
+      "category": "fx",
+      "rule": "DXY making new highs above technical base with record short positions = short squeeze risk. Dollar strength = risk-off for equities.",
+      "priority": "high",
+      "source": "video_BX6OMvFnYls",
+      "quote": "Dollar made higher high above 9930. If dollar has based, massive short squeeze potential"
+    },
+    {
+      "id": "R025",
+      "category": "sector",
+      "rule": "Sector leadership shift to Energy/Materials/Staples/Defensives = tech risk rising. Overweight defensives accordingly.",
+      "priority": "high",
+      "source": "video_BX6OMvFnYls",
+      "quote": "2026 all about energy, materials, staples, and defensives"
+    },
+    {
+      "id": "R026",
+      "category": "risk",
+      "rule": "Rapid expansion of leveraged ETF exposure (2x-3x single stocks) = late cycle signal, systemic risk amplifier",
+      "priority": "high",
+      "source": "video_BX6OMvFnYls",
+      "quote": "Leveraged ETF exposure expanding massively. Later cycle market signal."
+    },
+    {
+      "id": "R027",
+      "category": "macro",
+      "rule": "Credit default swaps widening on AI/data center debt (Oracle CDS at 2009 levels) = canary for AI bubble stress. Bonds sniff out problems before stocks.",
+      "priority": "high",
+      "source": "video__jUxqQB4sVs",
+      "quote": "Oracle CDS back to widest since 2009. Someone believes there's risk around AI."
+    },
+    {
+      "id": "R028",
+      "category": "macro",
+      "rule": "Rising delinquencies (30-day, 60-day, auto loans, credit cards) = middle class stress. Track trajectory, not absolute level. 30-day rise is the leading signal.",
+      "priority": "high",
+      "source": "video__jUxqQB4sVs",
+      "quote": "It's the trajectory that's most concerning. 30 days late starting to rise."
+    },
+    {
+      "id": "R029",
+      "category": "flow",
+      "rule": "When oil/energy hits major resistance after months-long rally AND dark pool profit-taking appears, expect consolidation. Don't chase commodity moves that are already in the news.",
+      "priority": "medium",
+      "source": "video__jUxqQB4sVs",
+      "quote": "We've been talking about oil for 4 months. Wall Street already taking profit at supply zones."
+    },
+    {
+      "id": "R030",
+      "category": "flow",
+      "rule": "Massive short interest buildup on energy after multi-year highs = short squeeze fuel. Track hedge fund short positioning via Subu Trade data.",
+      "priority": "medium",
+      "source": "video__jUxqQB4sVs",
+      "quote": "Monster spike in short interest as we broke multi-year highs on energy. No wonder the market squeezed."
+    },
+    {
+      "id": "R031",
+      "category": "sector",
+      "rule": "Healthcare (XLV) breaking new weekly close highs during rangebound market = potential rotation target. Watch for sector momentum.",
+      "priority": "medium",
+      "source": "video__jUxqQB4sVs",
+      "quote": "Healthcare stocks actually broke a new weekly close high."
+    },
+    {
+      "id": "R032",
+      "category": "macro",
+      "rule": "100-year corporate bonds (Google) hitting the news = late-cycle excess. Last time a 100-yr bond made news preceded a bond market collapse.",
+      "priority": "medium",
+      "source": "video__jUxqQB4sVs",
+      "quote": "Last time I remember a 100-year bond in the news, it was near the end of the bonds market."
+    },
+    {
+      "id": "R033",
+      "category": "technical",
+      "rule": "NVDA head and shoulders pattern activates below 170. Massive head = massive measured move down. Loss of 170 = loss of the backbone.",
+      "priority": "critical",
+      "source": "video__jUxqQB4sVs",
+      "quote": "If we drop 170, head and shoulders, and the head is massive in length. Pretty nasty."
+    },
+    {
+      "id": "R034",
+      "category": "crypto",
+      "rule": "BTC needs 72K+ for bull confirmation. Cross-correlate with ETH (2150+), SOL, XRP — all must break simultaneously for conviction.",
+      "priority": "medium",
+      "source": "video__jUxqQB4sVs",
+      "quote": "72 is the key. You want to see all of them breaking at the same time."
+    },
+    {
+      "id": "R035",
+      "category": "macro",
+      "rule": "When 20W MA breaks, expect price to test 50W MA. Pattern: drop 20W → rally to 20W → reject → test 50W",
+      "priority": "high",
+      "source": "video_H1oEUsYpzvU",
+      "quote": "When you drop the 20, you go down, you rally up to the 20, then we may see weakness, and then we may hit the 50"
+    },
+    {
+      "id": "R036",
+      "category": "macro",
+      "rule": "When financials are worst sector with massive outflows + private debt stress, expect cockroach effect — more shoes to drop",
+      "priority": "critical",
+      "source": "video_H1oEUsYpzvU",
+      "quote": "Where there's one cockroach, there's usually more. $300B private debt starting to look shaky"
+    },
+    {
+      "id": "R037",
+      "category": "sentiment",
+      "rule": "When everyone is looking at something (record ETF attention), expect consolidation not continuation. Contrarian signal.",
+      "priority": "medium",
+      "source": "video_H1oEUsYpzvU",
+      "quote": "When everyone's looking at something, it's usually not as good"
+    },
+    {
+      "id": "R038",
+      "category": "macro",
+      "rule": "Oil-to-gold ratio trend break signals oil catching up to gold — inflation implications. Watch for $100 then $120 oil.",
+      "priority": "high",
+      "source": "video_H1oEUsYpzvU",
+      "quote": "If we break 120, things could get serious on the markets"
+    },
+    {
+      "id": "R039",
+      "category": "macro",
+      "rule": "Already beaten-down assets (software, crypto) can be relative safe havens in broad selloffs — fund flow rotation effect",
+      "priority": "medium",
+      "source": "video_H1oEUsYpzvU",
+      "quote": "When you have an asset that's really fallen off a cliff... people can move into it as a partial safe haven"
+    },
+    {
+      "id": "R040",
+      "category": "macro",
+      "rule": "First corporate bond flinch (HYG + LQD dropping together) after a long stable period = major warning signal",
+      "priority": "critical",
+      "source": "video_H1oEUsYpzvU",
+      "quote": "First flinch from the bonds market in almost a year — that is a huge deal"
+    }
+  ]
+}
