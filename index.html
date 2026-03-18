@@ -721,6 +721,7 @@
     .fg-gauge-svg { max-width: 260px; }
   }
 </style>
+<style>.bt-icon{width:16px;height:16px;display:inline-block;vertical-align:-2px;margin-right:4px;flex-shrink:0;}</style>
 </head>
 <body>
 
@@ -818,7 +819,7 @@
   <div class="right-panel">
 
     <div class="fear-greed-section">
-      <h3>🌡️ Fear & Greed Index</h3>
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 2a10 10 0 0 0-10 10"/><line x1="12" y1="12" x2="7" y2="7"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg> Fear & Greed Index</h3>
       <div id="fg-gauge"></div>
     </div>
 
@@ -827,10 +828,10 @@
     </div>
 
     <div class="briefing-panel">
-      <h3>📊 Market Regime</h3>
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg> Market Regime</h3>
       <div class="regime-card">
         <div class="regime-label">Current Regime</div>
-        <div class="regime-value" style="color:var(--orange);">⚠️ LATE CYCLE</div>
+        <div class="regime-value" style="color:var(--orange);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg> LATE CYCLE</div>
         <div class="regime-desc">6 months into Fed cutting cycle. Agriculture moving = classic late-cycle signal. Gold → copper/silver → energy → agriculture sequence playing out.</div>
       </div>
       <div class="regime-card">
@@ -841,7 +842,7 @@
     </div>
 
     <div class="toms-daily">
-      <h3 id="briefing-title">🎯 Daily Briefing</h3>
+      <h3 id="briefing-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg> Daily Briefing</h3>
       <div class="briefing-text" id="briefing-content">
         <p style="color:var(--text-dim)">Loading briefing...</p>
       </div>
@@ -875,7 +876,7 @@ const TICKERS = [
   {
     symbol:'NVDA', name:'NVIDIA', sector:'Semiconductors', exchange:'NASDAQ',
     price:183.22, change:-13.7, bias:'bear', status:'exit',
-    statusLabel:'EXIT SIGNAL', statusIcon:'⚠️', badgeClass:'exit-badge',
+    statusLabel:'EXIT SIGNAL', statusIcon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>', badgeClass:'exit-badge',
     sma20:184.80, sma50:185.33, w20:184.00, rsi:38.2,
     stop:170, entry:184, t1:210, t2:225,
     entryZone:null,
@@ -888,7 +889,7 @@ const TICKERS = [
   {
     symbol:'AAPL', name:'Apple', sector:'Technology', exchange:'NASDAQ',
     price:252.82, change:-12.4, bias:'mixed', status:'exit',
-    statusLabel:'EXIT SIGNAL', statusIcon:'⚠️', badgeClass:'exit-badge',
+    statusLabel:'EXIT SIGNAL', statusIcon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>', badgeClass:'exit-badge',
     sma20:262.45, sma50:262.26, w20:266.25, rsi:23.9,
     stop:235, entry:248, t1:275, t2:290,
     entryZone:null,
@@ -940,7 +941,7 @@ const TICKERS = [
   {
     symbol:'AR', name:'Antero Resources', sector:'Energy', exchange:'NYSE',
     price:41.03, change:11.0, bias:'bull', status:'active',
-    statusLabel:'TRAILING — Raise Stop', statusIcon:'📈', badgeClass:'trailing-badge',
+    statusLabel:'TRAILING — Raise Stop', statusIcon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>', badgeClass:'trailing-badge',
     sma20:36.98, sma50:35.00, w20:35.48, rsi:83.3,
     stop:35.00, entry:36.50, t1:42.00, t2:45.00,
     entryZone:null,
@@ -966,7 +967,7 @@ const TICKERS = [
   {
     symbol:'MSFT', name:'Microsoft', sector:'Technology', exchange:'NASDAQ',
     price:399.95, change:-27.8, bias:'bear', status:'exit',
-    statusLabel:'EXIT SIGNAL', statusIcon:'⚠️', badgeClass:'exit-badge',
+    statusLabel:'EXIT SIGNAL', statusIcon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>', badgeClass:'exit-badge',
     sma20:400.10, sma50:427.62, w20:440.75, rsi:35.0,
     stop:375, entry:390, t1:430, t2:450,
     entryZone:null,
@@ -979,7 +980,7 @@ const TICKERS = [
   {
     symbol:'META', name:'Meta Platforms', sector:'Technology', exchange:'NASDAQ',
     price:627.45, change:-20.7, bias:'bear', status:'exit',
-    statusLabel:'EXIT SIGNAL', statusIcon:'⚠️', badgeClass:'exit-badge',
+    statusLabel:'EXIT SIGNAL', statusIcon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>', badgeClass:'exit-badge',
     sma20:640.00, sma50:660.00, w20:670.00, rsi:46.1,
     stop:580, entry:600, t1:660, t2:700,
     entryZone:null,
@@ -1071,7 +1072,7 @@ const STATUS_ORDER = ['approaching','active','exit','watching'];
 const STATUS_CONFIG = {
   approaching: { icon:'🟡', label:'Approaching Entry', filter:'approaching' },
   active: { icon:'🟢', label:'Active / Bullish Stack', filter:'active' },
-  exit: { icon:'⚠️', label:'Exit Signals — Below SMA20', filter:'exit' },
+  exit: { icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>', label:'Exit Signals — Below SMA20', filter:'exit' },
   watching: { icon:'👁', label:'Watching', filter:'watching' }
 };
 
@@ -1379,7 +1380,7 @@ function renderCard(t, idx) {
     ? `<div class="distance-line">Entry zone: $${t.entryZone.low}–$${t.entryZone.high} — <strong>${t.entryZone.distance}% away</strong></div>` : '';
 
   const exitLine = t.exitWarning
-    ? `<div class="exit-warning">⚠️ ${t.exitWarning}</div>` : '';
+    ? `<div class="exit-warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg> ${t.exitWarning}</div>` : '';
 
   return `<div class="setup-card ${statusClass} card-animate" data-ticker="${t.symbol}" data-status="${t.status}" data-bias="${t.bias}" data-sector="${t.sector}" style="animation-delay:${idx * 0.04}s" onclick="openDetail('${t.symbol}')">
     <div class="card-top">
@@ -1395,9 +1396,9 @@ function renderCard(t, idx) {
     <div class="card-meta">
       <span class="status-badge ${t.badgeClass}">${t.statusIcon} ${t.statusLabel}</span>
       <span class="bias-badge ${bc}">${t.bias.toUpperCase()}</span>
-      <span class="pattern-badge ${patClass}">📊 ${t.pattern.abbr}</span>
-      <span class="volatility-badge ${volClass}">⚡ ${t.vol.rating}</span>
-      ${t._sectorRisk ? `<span class="sector-risk-badge sr-${t._sectorRisk.risk}" title="${t._sectorRisk.etf||''} ${t._sectorRisk.quadrant}">🔄 ${t._sectorRisk.quadrant}</span>` : ''}
+      <span class="pattern-badge ${patClass}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> ${t.pattern.abbr}</span>
+      <span class="volatility-badge ${volClass}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" stroke="none"/></svg> ${t.vol.rating}</span>
+      ${t._sectorRisk ? `<span class="sector-risk-badge sr-${t._sectorRisk.risk}" title="${t._sectorRisk.etf||''} ${t._sectorRisk.quadrant}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 6.36 2.64"/><path d="M18.36 5.64l-1.5-2.5M18.36 5.64l2.5-1.5"/><path d="M12 21a9 9 0 0 1-6.36-2.64"/><path d="M5.64 18.36l1.5 2.5M5.64 18.36l-2.5 1.5"/></svg> ${t._sectorRisk.quadrant}</span>` : ''}
     </div>
     ${distLine}
     <div class="range-bar-container">
@@ -1418,8 +1419,8 @@ function renderCard(t, idx) {
       <div class="level-pill"><span class="lbl"${rsiStyle}>RSI</span><span class="val"${rsiStyle}>${t.rsi}${rsiSuffix}</span></div>
     </div>
     <div class="card-stats">
-      <span>🎯 T1: $${t.t1} (${t1Pctg > 0 ? '+' : ''}${t1Pctg}%) · Stop: $${t.stop} (${stopPctg}%)</span>
-      <span>⚡ Vol: ${t.vol.current} (${t.vol.avgRatio}x avg) · ATR: $${t.vol.atr} (${t.vol.atrPct}%)</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg> T1: $${t.t1} (${t1Pctg > 0 ? '+' : ''}${t1Pctg}%) · Stop: $${t.stop} (${stopPctg}%)</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" stroke="none"/></svg> Vol: ${t.vol.current} (${t.vol.avgRatio}x avg) · ATR: $${t.vol.atr} (${t.vol.atrPct}%)</span>
     </div>
     ${exitLine}
     <div class="toms-take">
@@ -1516,7 +1517,7 @@ function openDetail(symbol) {
   const rr = ((t.t1 - t.entry) / (t.entry - t.stop)).toFixed(1);
   const fillColor = t.change >= 0 ? '#00d4aa' : '#ef5350';
   const patClass = t.pattern.type === 'Bearish' ? 'pat-bearish' : t.pattern.type.includes('Bullish') ? 'pat-bullish' : t.pattern.type === 'Caution' ? 'pat-caution' : 'pat-neutral';
-  const patIcon = t.pattern.type === 'Bearish' ? '📉' : t.pattern.type.includes('Bullish') ? '📈' : '📊';
+  const patIcon = t.pattern.type === 'Bearish' ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polyline points="3 7 9 13 13 9 21 17"/><polyline points="15 17 21 17 21 11"/></svg>' : t.pattern.type.includes('Bullish') ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
 
   document.getElementById('modal-body').innerHTML = `
     <div class="chart-row">
@@ -1554,7 +1555,7 @@ function openDetail(symbol) {
             <span class="range-marker stop" style="left:0%;font-size:10px;">🔴 $${t.stop}</span>
             <span class="range-marker entry" style="left:${entryPct}%;font-size:10px;">🟠 $${t.entry}</span>
             <span class="range-marker t1" style="left:${t1Pct}%;font-size:10px;">🟢 $${t.t1}</span>
-            <span class="range-marker t2" style="left:100%;font-size:10px;">🏆 $${t.t2}</span>
+            <span class="range-marker t2" style="left:100%;font-size:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M6 9V4h12v5a6 6 0 0 1-12 0z"/><line x1="12" y1="15" x2="12" y2="18"/><path d="M8 21h8"/></svg> $${t.t2}</span>
             <div class="range-fill" style="width:${pricePct}%;background:${fillColor};opacity:0.2;"></div>
             <div class="price-dot" style="left:${pricePct}%;width:14px;height:14px;top:-3px;transform:translateX(-7px);"></div>
           </div>
@@ -1604,7 +1605,7 @@ function openDetail(symbol) {
     <div class="modal-analysis" style="margin-top:16px;">
       <h4>Analysis — ${t.symbol}</h4>
       <p>${t.analysis}</p>
-      ${t.exitWarning ? `<p style="color:var(--red);font-weight:600;">⚠️ ${t.exitWarning}</p>` : ''}
+      ${t.exitWarning ? `<p style="color:var(--red);font-weight:600;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg> ${t.exitWarning}</p>` : ''}
     </div>
   `;
 
@@ -1729,7 +1730,7 @@ document.getElementById('modal').addEventListener('click', e => {
 function renderBriefing() {
   fetch('data/briefing.json').then(r => r.ok ? r.json() : null).then(b => {
     if (!b) return;
-    document.getElementById('briefing-title').textContent = '🎯 ' + (b.title || 'Daily Briefing');
+    document.getElementById('briefing-title').textContent = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg> ' + (b.title || 'Daily Briefing');
     let html = '';
     if (b.headline) html += `<p><strong>${b.headline}</strong></p>`;
     if (b.body) b.body.forEach(p => { html += `<p>${p}</p>`; });
@@ -1774,6 +1775,7 @@ init();
     storageKey: 'rrg-signals-collapsed',
   });
 </script>
+<script src="js/icons.js"></script>
 <script src="js/market-status.js"></script>
 </body>
 </html>

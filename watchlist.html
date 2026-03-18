@@ -217,6 +217,7 @@
     .nav-bar { padding: 0 12px; }
   }
 </style>
+<style>.bt-icon{width:16px;height:16px;display:inline-block;vertical-align:-2px;margin-right:4px;flex-shrink:0;}</style>
 </head>
 <body>
 
@@ -278,7 +279,7 @@
 <!-- MAIN CONTENT -->
 <div class="page-content">
   <div class="page-header">
-    <div class="page-title">📋 Watchlist — 70 Symbols</div>
+    <div class="page-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg> Watchlist — 70 Symbols</div>
     <div class="view-toggle">
       <button class="view-btn active" id="btn-widget" onclick="showView('widget')">Widget</button>
       <button class="view-btn" id="btn-table" onclick="showView('table')">Table</button>
@@ -570,7 +571,7 @@ function openDetail(symbol) {
 
   // Build volatility card
   const volItems = [
-    ['RSI (14)', t.rsi != null ? `${t.rsi}${t.rsi > 70 ? ' OB ⚠️' : t.rsi < 30 ? ' OS 🟢' : ''}` : '—',
+    ['RSI (14)', t.rsi != null ? `${t.rsi}${t.rsi > 70 ? ' OB <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>' : t.rsi < 30 ? ' OS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>' : ''}` : '—',
       t.rsi > 70 ? 'color:var(--red)' : t.rsi < 30 ? 'color:var(--cyan)' : ''],
     ['ATR (14)', t.atr != null ? `$${t.atr.toFixed(2)}` : '—', ''],
     ['ATR %', t.atrPct != null ? `${t.atrPct}%` : '—', ''],
@@ -630,7 +631,7 @@ function openDetail(symbol) {
     </div>
 
     <div class="signals-section">
-      <h4>📊 Technical Signals</h4>
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Technical Signals</h4>
       ${signalsHTML}
     </div>
   `;
@@ -724,28 +725,28 @@ function generateSignals(t) {
   const signals = [];
   // SMA crossover
   if (t.smaCrossover === 'death_cross') {
-    signals.push({ icon: '💀', text: `Death cross: SMA20 < SMA50${t.smaCrossoverDate ? ` (since ~${t.smaCrossoverDate})` : ''}`, cls: 'signal-warn', priority: 2 });
+    signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><circle cx="12" cy="10" r="8"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/><circle cx="15" cy="9" r="1.5" fill="currentColor"/><path d="M8 16h8"/></svg>', text: `Death cross: SMA20 < SMA50${t.smaCrossoverDate ? ` (since ~${t.smaCrossoverDate})` : ''}`, cls: 'signal-warn', priority: 2 });
   } else if (t.smaCrossover === 'golden_cross') {
     signals.push({ icon: '✨', text: `Golden cross: SMA20 > SMA50${t.smaCrossoverDate ? ` (since ~${t.smaCrossoverDate})` : ''}`, cls: 'signal-bull', priority: 2 });
   } else if (t.smaCrossover === 'compression') {
-    signals.push({ icon: '🔄', text: `SMA compression: 20/50 converging — watch for directional move`, cls: 'signal-neutral', priority: 3 });
+    signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15A9 9 0 0 0 18.36 18.36L23 14"/></svg>', text: `SMA compression: 20/50 converging — watch for directional move`, cls: 'signal-neutral', priority: 3 });
   }
   // Distance from 52w high
   if (t.pctFrom52wHigh != null) {
     if (t.pctFrom52wHigh < -20) {
-      signals.push({ icon: '📉', text: `Correction territory: ${t.pctFrom52wHigh.toFixed(1)}% below 52-week high ($${t.high52w})`, cls: 'signal-warn', priority: 1 });
+      signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polyline points="3 7 9 13 13 9 21 17"/><polyline points="15 17 21 17 21 11"/></svg>', text: `Correction territory: ${t.pctFrom52wHigh.toFixed(1)}% below 52-week high ($${t.high52w})`, cls: 'signal-warn', priority: 1 });
     } else if (t.pctFrom52wHigh < -10) {
-      signals.push({ icon: '📉', text: `Trading ${t.pctFrom52wHigh.toFixed(1)}% below 52-week high ($${t.high52w})`, cls: 'signal-neutral', priority: 4 });
+      signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polyline points="3 7 9 13 13 9 21 17"/><polyline points="15 17 21 17 21 11"/></svg>', text: `Trading ${t.pctFrom52wHigh.toFixed(1)}% below 52-week high ($${t.high52w})`, cls: 'signal-neutral', priority: 4 });
     } else if (t.pctFrom52wHigh > -2) {
       signals.push({ icon: '🏔️', text: `Near 52-week high (${t.pctFrom52wHigh.toFixed(1)}% from $${t.high52w})`, cls: 'signal-bull', priority: 3 });
     }
   }
   // RSI
   if (t.rsi != null) {
-    if (t.rsi > 70) signals.push({ icon: '⚠️', text: `RSI ${t.rsi} — overbought zone`, cls: 'signal-warn', priority: 1 });
+    if (t.rsi > 70) signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>', text: `RSI ${t.rsi} — overbought zone`, cls: 'signal-warn', priority: 1 });
     else if (t.rsi < 30) signals.push({ icon: '🟢', text: `RSI ${t.rsi} — oversold zone`, cls: 'signal-bull', priority: 1 });
-    else if (t.rsi > 60) signals.push({ icon: '📊', text: `RSI ${t.rsi} — bullish momentum`, cls: 'signal-bull', priority: 5 });
-    else if (t.rsi < 40) signals.push({ icon: '📊', text: `RSI ${t.rsi} — bearish momentum`, cls: 'signal-warn', priority: 5 });
+    else if (t.rsi > 60) signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>', text: `RSI ${t.rsi} — bullish momentum`, cls: 'signal-bull', priority: 5 });
+    else if (t.rsi < 40) signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>', text: `RSI ${t.rsi} — bearish momentum`, cls: 'signal-warn', priority: 5 });
   }
   // Bollinger squeeze
   if (t.bbWidthPercentile != null && t.bbWidthPercentile < 15) {
@@ -753,20 +754,20 @@ function generateSignals(t) {
   }
   // Volume
   if (t.volumeRatio != null) {
-    if (t.volumeRatio > 2.0) signals.push({ icon: '🔥', text: `Heavy volume (${t.volumeRatio}x average) — strong conviction`, cls: 'signal-bull', priority: 2 });
-    else if (t.volumeRatio > 1.5) signals.push({ icon: '📈', text: `Above-average volume (${t.volumeRatio}x) — watch for breakout`, cls: 'signal-bull', priority: 3 });
+    if (t.volumeRatio > 2.0) signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M12 22c4.97 0 8-3.58 8-8 0-6-8-12-8-12S4 8 4 14c0 4.42 3.03 8 8 8z"/></svg>', text: `Heavy volume (${t.volumeRatio}x average) — strong conviction`, cls: 'signal-bull', priority: 2 });
+    else if (t.volumeRatio > 1.5) signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>', text: `Above-average volume (${t.volumeRatio}x) — watch for breakout`, cls: 'signal-bull', priority: 3 });
     else if (t.volumeRatio < 0.5) signals.push({ icon: '🔇', text: `Very low volume (${t.volumeRatio}x average) — thin conviction`, cls: 'signal-warn', priority: 4 });
   }
   // SMA200 support
   if (t.sma200 && t.price) {
-    if (t.price < t.sma200) signals.push({ icon: '⚠️', text: `Below SMA200 ($${t.sma200.toFixed(0)}) — long-term support broken`, cls: 'signal-warn', priority: 2 });
+    if (t.price < t.sma200) signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>', text: `Below SMA200 ($${t.sma200.toFixed(0)}) — long-term support broken`, cls: 'signal-warn', priority: 2 });
     else if (t.sma20 && t.price > t.sma200 && t.price < t.sma20 * 1.02 && t.price > t.sma20 * 0.98) {
-      signals.push({ icon: '🎯', text: `Testing SMA20 — long-term trend intact (above SMA200)`, cls: 'signal-neutral', priority: 4 });
+      signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>', text: `Testing SMA20 — long-term trend intact (above SMA200)`, cls: 'signal-neutral', priority: 4 });
     }
   }
   // Earnings
   if (t.earningsDays != null && t.earningsDays <= 14) {
-    signals.push({ icon: '⚠️', text: `Earnings in ${t.earningsDays} day${t.earningsDays !== 1 ? 's' : ''} (${t.earningsDate}) — expect volatility`, cls: 'signal-warn', priority: 0 });
+    signals.push({ icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>', text: `Earnings in ${t.earningsDays} day${t.earningsDays !== 1 ? 's' : ''} (${t.earningsDate}) — expect volatility`, cls: 'signal-warn', priority: 0 });
   }
   // Sort by priority (lower = more important) and limit to 6
   signals.sort((a, b) => a.priority - b.priority);
@@ -780,6 +781,7 @@ function fmtVol(n) {
   return n.toString();
 }
 </script>
+<script src="js/icons.js"></script>
 <script src="js/market-status.js"></script>
 </body>
 </html>
