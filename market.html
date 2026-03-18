@@ -349,14 +349,15 @@ async function loadMarketData() {
 // === RENDER FEAR & GREED ===
 function renderFearGreed() {
   const val = Math.round(fearGreedData.current.value);
-  const cx = 150, cy = 140, r = 120, arcW = 22;
+  const cx = 150, cy = 145, r = 115, arcW = 28;
 
+  // CNN-style 5 zones with smoother gradient
   const zones = [
-    { start:0, end:25, color1:'#d32f2f', color2:'#ef5350', label:'Extreme Fear' },
-    { start:25, end:45, color1:'#ef5350', color2:'#ffa726', label:'Fear' },
-    { start:45, end:55, color1:'#ffa726', color2:'#ffeb3b', label:'Neutral' },
-    { start:55, end:75, color1:'#ffeb3b', color2:'#8bc34a', label:'Greed' },
-    { start:75, end:100, color1:'#8bc34a', color2:'#00d4aa', label:'Extreme Greed' }
+    { start:0, end:25, color:'#ef5350', label:'EXTREME FEAR' },
+    { start:25, end:45, color:'#ffa726', label:'FEAR' },
+    { start:45, end:55, color:'#ffeb3b', label:'NEUTRAL' },
+    { start:55, end:75, color:'#8bc34a', label:'GREED' },
+    { start:75, end:100, color:'#00d4aa', label:'EXTREME GREED' }
   ];
 
   function valToAngle(v) { return Math.PI - (v / 100) * Math.PI; }
@@ -369,38 +370,48 @@ function renderFearGreed() {
     const large = Math.abs(a1 - a2) > Math.PI ? 1 : 0;
     return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${radius} ${radius} 0 ${large} 0 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
   }
-
-  let defs = '', arcs = '';
-  zones.forEach((z, i) => {
-    const gId = `fgg${i}`;
-    const p1 = polarToXY(valToAngle(z.start), r), p2 = polarToXY(valToAngle(z.end), r);
-    defs += `<linearGradient id="${gId}" x1="${p1.x.toFixed(1)}" y1="${p1.y.toFixed(1)}" x2="${p2.x.toFixed(1)}" y2="${p2.y.toFixed(1)}" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="${z.color1}"/><stop offset="100%" stop-color="${z.color2}"/>
-    </linearGradient>`;
-    arcs += `<path d="${arcPath(z.start, z.end, r)}" fill="none" stroke="url(#${gId})" stroke-width="${arcW}" stroke-linecap="butt" opacity="0.7"/>`;
-  });
-
-  let ticks = '';
-  for (let v = 0; v <= 100; v += 10) {
-    const angle = valToAngle(v);
-    const outer = polarToXY(angle, r + 4);
-    const inner = polarToXY(angle, r - arcW - 4);
-    const isMajor = v % 25 === 0;
-    // Smoother ticks that extend beyond the arc
-    ticks += `<line x1="${outer.x.toFixed(1)}" y1="${outer.y.toFixed(1)}" x2="${inner.x.toFixed(1)}" y2="${inner.y.toFixed(1)}" stroke="${isMajor ? '#666' : '#2a2a40'}" stroke-width="${isMajor ? 1.5 : 1}"/>`;
-    if (isMajor) {
-      const pt = polarToXY(angle, r + 16);
-      ticks += `<text x="${pt.x.toFixed(1)}" y="${pt.y.toFixed(1)}" fill="#666" font-size="10" font-weight="600" text-anchor="middle" dominant-baseline="middle">${v}</text>`;
-    }
+  function textArcPath(v1, v2, radius) {
+    // Text paths go left-to-right, so we need to handle the arc direction
+    const a1 = valToAngle(v2), a2 = valToAngle(v1); // reversed for text direction
+    const p1 = polarToXY(a1, radius), p2 = polarToXY(a2, radius);
+    const large = Math.abs(a1 - a2) > Math.PI ? 1 : 0;
+    return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${radius} ${radius} 0 ${large} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
   }
 
+  // Build arc segments with gaps between them (CNN style)
+  let arcs = '', defs = '', textPaths = '';
+  zones.forEach((z, i) => {
+    const gap = 0.8; // small gap between segments
+    const s = z.start + (i === 0 ? 0 : gap);
+    const e = z.end - (i === zones.length - 1 ? 0 : gap);
+    arcs += `<path d="${arcPath(s, e, r)}" fill="none" stroke="${z.color}" stroke-width="${arcW}" stroke-linecap="round" opacity="0.85"/>`;
+
+    // Curved text labels along the arc
+    const textR = r - arcW/2 - 14;
+    const pathId = `fgtp${i}`;
+    defs += `<path id="${pathId}" d="${textArcPath(z.start + 1, z.end - 1, textR)}" fill="none"/>`;
+    textPaths += `<text><textPath href="#${pathId}" startOffset="50%" text-anchor="middle" fill="${z.color}" font-size="7" font-weight="700" letter-spacing="1.5" opacity="0.7">${z.label}</textPath></text>`;
+  });
+
+  // Tick marks at 0, 25, 50, 75, 100
+  let ticks = '';
+  [0, 25, 50, 75, 100].forEach(v => {
+    const angle = valToAngle(v);
+    const outer = polarToXY(angle, r + arcW/2 + 2);
+    const inner = polarToXY(angle, r + arcW/2 + 8);
+    ticks += `<line x1="${outer.x.toFixed(1)}" y1="${outer.y.toFixed(1)}" x2="${inner.x.toFixed(1)}" y2="${inner.y.toFixed(1)}" stroke="#444" stroke-width="1.5"/>`;
+    const pt = polarToXY(angle, r + arcW/2 + 18);
+    ticks += `<text x="${pt.x.toFixed(1)}" y="${pt.y.toFixed(1)}" fill="#555" font-size="9" font-weight="600" text-anchor="middle" dominant-baseline="middle">${v}</text>`;
+  });
+
+  // CNN-style long thin needle
   const needleAngle = valToAngle(val);
-  const needleTip = polarToXY(needleAngle, r - 6);
-  // Slimmer, longer needle with proper pivot base
-  const nb1 = polarToXY(needleAngle + Math.PI/2, 4);
-  const nb2 = polarToXY(needleAngle - Math.PI/2, 4);
+  const needleTip = polarToXY(needleAngle, r + arcW/2 - 4);
+  const needleBase = polarToXY(needleAngle + Math.PI, 12); // extends slightly past center
+  const nb1 = polarToXY(needleAngle + Math.PI/2, 3);
+  const nb2 = polarToXY(needleAngle - Math.PI/2, 3);
   const valColor = val <= 25 ? '#ef5350' : val <= 45 ? '#ffa726' : val <= 55 ? '#ffeb3b' : val <= 75 ? '#8bc34a' : '#00d4aa';
-  const glowPt = polarToXY(needleAngle, r * 0.5);
+
   const prevVal = fearGreedData.previousClose?.value ?? null;
   const hasPrev = prevVal != null;
   const trendArrow = !hasPrev ? '—' : val > prevVal ? '▲' : val < prevVal ? '▼' : '→';
@@ -412,25 +423,23 @@ function renderFearGreed() {
 
   document.getElementById('fg-gauge').innerHTML =
     `<div class="fg-gauge-container">
-      <svg viewBox="0 0 300 175" class="fg-gauge-svg" preserveAspectRatio="xMidYMid meet">
-        <defs>${defs}
-          <filter id="needleGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="${valColor}" stop-opacity="0.2"/><stop offset="100%" stop-color="${valColor}" stop-opacity="0"/></radialGradient>
+      <svg viewBox="0 0 300 185" class="fg-gauge-svg" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          ${defs}
+          <filter id="needleShadow"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.5"/></filter>
         </defs>
-        <path d="${arcPath(0, 100, r)}" fill="none" stroke="#1a1a2e" stroke-width="${arcW + 4}" stroke-linecap="butt"/>
-        ${arcs}${ticks}
-        <circle cx="${glowPt.x.toFixed(1)}" cy="${glowPt.y.toFixed(1)}" r="30" fill="url(#centerGrad)"/>
-        <g filter="url(#needleGlow)" style="animation:needleSweep 0.8s ease-out forwards,needleGlow 3s 1s ease-in-out infinite;">
-          <polygon points="${needleTip.x.toFixed(1)},${needleTip.y.toFixed(1)} ${nb1.x.toFixed(1)},${nb1.y.toFixed(1)} ${nb2.x.toFixed(1)},${nb2.y.toFixed(1)}" fill="#fff" opacity="0.9"/>
+        ${arcs}
+        ${textPaths}
+        ${ticks}
+        <g filter="url(#needleShadow)">
+          <line x1="${needleBase.x.toFixed(1)}" y1="${needleBase.y.toFixed(1)}" x2="${needleTip.x.toFixed(1)}" y2="${needleTip.y.toFixed(1)}" stroke="#e0e0e0" stroke-width="2.5" stroke-linecap="round"/>
         </g>
-        <circle cx="${cx}" cy="${cy}" r="8" fill="#0d0d1a" stroke="${valColor}" stroke-width="2"/>
-        <circle cx="${cx}" cy="${cy}" r="3" fill="${valColor}"/>
-        <text x="22" y="148" fill="#555" font-size="9" font-weight="700" letter-spacing="1">FEAR</text>
-        <text x="248" y="148" fill="#555" font-size="9" font-weight="700" letter-spacing="1">GREED</text>
+        <circle cx="${cx}" cy="${cy}" r="6" fill="#1a1a2e" stroke="#e0e0e0" stroke-width="2"/>
+        <circle cx="${cx}" cy="${cy}" r="2" fill="#e0e0e0"/>
       </svg>
       <div class="fg-value-wrap">
-        <div class="fg-value" style="color:${valColor}; text-shadow: 0 0 10px ${valColor}40;">${val}</div>
-        <div class="fg-label" style="color:${valColor}">${fearGreedData.current.label}</div>
+        <div class="fg-value" style="color:${valColor}; text-shadow: 0 0 20px ${valColor}30;">${val}</div>
+        <div class="fg-label" style="color:${valColor}; text-transform: capitalize;">${fearGreedData.current.label}</div>
       </div>
       <div class="fg-trend" style="color:${trendColor}">${hasPrev ? `${trendArrow} ${diff > 0 ? '+' : ''}${Math.round(diff)} from yesterday` : ''}</div>
       <div class="fg-history">
