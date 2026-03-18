@@ -16,6 +16,9 @@ import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
+import pandas as pd
+import numpy as np
+
 DASHBOARD_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = DASHBOARD_DIR / "data"
 
@@ -97,6 +100,7 @@ def fetch_watchlist():
 
     now = datetime.now(timezone.utc).isoformat()
 
+    # Also fetch OHLCV for ATR/BB/volume (need high/low/volume columns)
     for t in watchlist:
         sym = t["symbol"]
         if sym in skip:
@@ -109,6 +113,9 @@ def fetch_watchlist():
             if df.empty or len(df) < 20:
                 continue
             close = df["Close"].dropna()
+            high = df["High"].dropna()
+            low = df["Low"].dropna()
+            vol = df["Volume"].dropna()
             if close.empty:
                 continue
 
@@ -133,6 +140,114 @@ def fetch_watchlist():
             # Bias: price vs SMA20
             if t.get("sma20"):
                 t["bias"] = "bull" if t["price"] > t["sma20"] else "bear"
+
+            # --- NEW: Computed technicals for detail modal ---
+
+            # RSI-14 (Wilder's smoothing)
+            if len(close) >= 15:
+                delta = close.diff()
+                gain = delta.where(delta > 0, 0.0)
+                loss = (-delta.where(delta < 0, 0.0))
+                avg_gain = gain.ewm(alpha=1/14, min_periods=14).mean()
+                avg_loss = loss.ewm(alpha=1/14, min_periods=14).mean()
+                rs_val = avg_gain / avg_loss
+                rsi = 100 - (100 / (1 + rs_val))
+                t["rsi"] = round(float(rsi.iloc[-1]), 1)
+
+            # ATR-14
+            if len(close) >= 15 and len(high) >= 15 and len(low) >= 15:
+                common_idx = close.index.intersection(high.index).intersection(low.index)
+                c_aligned = close[common_idx]
+                h_aligned = high[common_idx]
+                l_aligned = low[common_idx]
+                if len(c_aligned) >= 15:
+                    prev_close = c_aligned.shift(1)
+                    tr = pd.concat([
+                        h_aligned - l_aligned,
+                        (h_aligned - prev_close).abs(),
+                        (l_aligned - prev_close).abs()
+                    ], axis=1).max(axis=1)
+                    atr = tr.ewm(alpha=1/14, min_periods=14).mean()
+                    atr_val = float(atr.iloc[-1])
+                    t["atr"] = round(atr_val, 2)
+                    t["atrPct"] = round(atr_val / t["price"] * 100, 2) if t["price"] else 0
+                    if t["atrPct"] < 1.5:
+                        t["volRating"] = "Low"
+                    elif t["atrPct"] < 3.0:
+                        t["volRating"] = "Medium"
+                    else:
+                        t["volRating"] = "High"
+
+            # Volume & ratio
+            if len(vol) >= 20:
+                t["volume"] = int(float(vol.iloc[-1]))
+                avg20 = float(vol.rolling(20).mean().iloc[-1])
+                t["volumeAvg20"] = int(avg20)
+                t["volumeRatio"] = round(float(vol.iloc[-1]) / avg20, 2) if avg20 > 0 else 1.0
+
+            # 52-week high/low
+            if len(close) >= 252:
+                year_data = close.iloc[-252:]
+            else:
+                year_data = close
+            t["high52w"] = round(float(year_data.max()), 2)
+            t["low52w"] = round(float(year_data.min()), 2)
+            if t["high52w"] > 0:
+                t["pctFrom52wHigh"] = round((t["price"] - t["high52w"]) / t["high52w"] * 100, 2)
+
+            # Bollinger Band width + percentile
+            if len(close) >= 20:
+                sma20_series = close.rolling(20).mean()
+                std20 = close.rolling(20).std()
+                bb_upper = sma20_series + 2 * std20
+                bb_lower = sma20_series - 2 * std20
+                bb_width = (bb_upper - bb_lower) / sma20_series * 100
+                bb_width_clean = bb_width.dropna()
+                if not bb_width_clean.empty:
+                    current_bbw = float(bb_width_clean.iloc[-1])
+                    t["bbWidth"] = round(current_bbw, 2)
+                    # 6-month percentile (126 trading days)
+                    lookback = bb_width_clean.iloc[-126:] if len(bb_width_clean) >= 126 else bb_width_clean
+                    t["bbWidthPercentile"] = int(round((lookback < current_bbw).mean() * 100))
+
+            # SMA crossover detection
+            if t.get("sma20") and t.get("sma50") and len(close) >= 60:
+                sma20_series = close.rolling(20).mean()
+                sma50_series = close.rolling(50).mean()
+                both = pd.concat([sma20_series, sma50_series], axis=1).dropna()
+                both.columns = ["sma20", "sma50"]
+                if len(both) >= 2:
+                    spread = (both["sma20"] - both["sma50"]).abs() / both["sma50"] * 100
+                    current_spread = float(spread.iloc[-1])
+                    if current_spread < 1.0:
+                        t["smaCrossover"] = "compression"
+                        t["smaCrossoverDate"] = None
+                    else:
+                        # Find last crossover
+                        above = both["sma20"] > both["sma50"]
+                        crossovers = above.ne(above.shift())
+                        cross_dates = crossovers[crossovers].index
+                        if len(cross_dates) > 0:
+                            last_cross = cross_dates[-1]
+                            if float(both.loc[last_cross:, "sma20"].iloc[-1]) > float(both.loc[last_cross:, "sma50"].iloc[-1]):
+                                t["smaCrossover"] = "golden_cross"
+                            else:
+                                t["smaCrossover"] = "death_cross"
+                            t["smaCrossoverDate"] = last_cross.strftime("%Y-%m-%d")
+
+            # Earnings date
+            try:
+                ticker_info = yf.Ticker(sym).info
+                earn_ts = ticker_info.get("earningsTimestampStart")
+                if earn_ts:
+                    from datetime import date
+                    earn_date = datetime.fromtimestamp(earn_ts, tz=timezone.utc).date()
+                    days_until = (earn_date - datetime.now(timezone.utc).date()).days
+                    if 0 <= days_until <= 90:
+                        t["earningsDate"] = earn_date.isoformat()
+                        t["earningsDays"] = days_until
+            except Exception:
+                pass  # earnings date is optional
 
             t["updated"] = now
         except Exception as e:

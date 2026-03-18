@@ -150,8 +150,70 @@
     border-bottom: 1px solid var(--border);
   }
 
+  /* === DETAIL MODAL === */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(4px);
+    display: flex; align-items: flex-start; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    overflow-y: auto; padding: 40px 16px;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .modal {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    width: 100%; max-width: 1100px;
+    transform: translateY(20px); opacity: 0;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); opacity: 1; }
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; border-bottom: 1px solid var(--border);
+  }
+  .modal-header .ticker-info { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .modal-header .modal-ticker { font-size: 22px; font-weight: 700; }
+  .modal-header .modal-name { font-size: 12px; color: var(--text-dim); }
+  .modal-header .modal-price-tag { font-size: 16px; font-weight: 600; }
+  .modal-close {
+    background: none; border: none; color: var(--text-dim); font-size: 24px;
+    cursor: pointer; padding: 4px 8px; border-radius: 4px; transition: all 0.15s;
+  }
+  .modal-close:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+  .modal-body { padding: 20px 24px; }
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .chart-box { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: #0c0c18; }
+  .chart-label {
+    padding: 8px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between;
+  }
+  .info-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .info-card {
+    border: 1px solid var(--border); border-radius: 6px; padding: 16px; background: #0c0c18;
+  }
+  .info-card h4 {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-dim); margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .detail-level { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; }
+  .dl-label { color: var(--text-dim); }
+  .dl-value { font-weight: 600; }
+  .signals-section {
+    border: 1px solid var(--border); border-radius: 6px; padding: 16px; background: #0c0c18;
+  }
+  .signals-section h4 {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-dim); margin: 0 0 12px;
+  }
+  .signal-item { padding: 6px 0; font-size: 12px; color: var(--text); border-bottom: 1px solid #151530; }
+  .signal-item:last-child { border-bottom: none; }
+  .signal-warn { color: var(--red); }
+  .signal-bull { color: var(--cyan); }
+  .signal-neutral { color: var(--text-dim); }
+
   @media (max-width: 768px) {
     .page-content { padding: 12px; }
+    .chart-row { grid-template-columns: 1fr; }
+    .info-row { grid-template-columns: 1fr; }
     .nav-bar { padding: 0 12px; }
   }
 </style>
@@ -251,6 +313,22 @@
   </div>
 </div>
 
+<!-- Detail Modal -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeDetail()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="ticker-info">
+        <span class="modal-ticker" id="modal-ticker"></span>
+        <span class="modal-name" id="modal-name"></span>
+        <span class="modal-price-tag" id="modal-price"></span>
+        <span class="bias-badge" id="modal-bias"></span>
+      </div>
+      <button class="modal-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
 <script>
 // === WATCHLIST DATA ===
 let watchlist = [];
@@ -293,7 +371,7 @@ function renderTable() {
     const dist50 = ((s.price - s.sma50) / s.sma50 * 100).toFixed(1);
     const d20Class = dist20 > 0 ? 'up' : 'down';
     const d50Class = dist50 > 0 ? 'up' : 'down';
-    return `<tr>
+    return `<tr onclick="openDetail('${s.symbol}')" style="cursor:pointer;">
       <td class="ticker-cell">${s.symbol}</td>
       <td style="color:var(--text-dim);font-size:11px;">${s.name}</td>
       <td class="sector-cell">${s.sector}</td>
@@ -437,6 +515,270 @@ function updateTimestamp() {
 loadWatchlist();
 initTVWidget();
 initTimezone();
+
+// === EXCHANGE MAP ===
+const EXCHANGE_MAP = {
+  'AAPL':'NASDAQ','AMZN':'NASDAQ','GOOG':'NASDAQ','GOOGL':'NASDAQ','MSFT':'NASDAQ','NVDA':'NASDAQ',
+  'META':'NASDAQ','COIN':'NASDAQ','ARM':'NASDAQ','DELL':'NYSE','TSLA':'NASDAQ','NFLX':'NASDAQ',
+  'AMD':'NASDAQ','AVGO':'NASDAQ','MU':'NASDAQ','QCOM':'NASDAQ','AMAT':'NASDAQ','LRCX':'NASDAQ',
+  'MRVL':'NASDAQ','CRDO':'NASDAQ','ANET':'NYSE','VRT':'NYSE','CIEN':'NYSE','APH':'NYSE',
+  'ADSK':'NASDAQ','CHTR':'NASDAQ','TMUS':'NASDAQ',
+  'SPY':'AMEX','QQQ':'NASDAQ','IWM':'AMEX','DIA':'AMEX','HYG':'AMEX','TLT':'NASDAQ',
+  'XLU':'AMEX','XLK':'AMEX','XLE':'AMEX','XLV':'AMEX','XLF':'AMEX','XLP':'AMEX',
+  'XLY':'AMEX','XLI':'AMEX','XLC':'AMEX','XLRE':'AMEX','RSP':'AMEX','IGV':'AMEX',
+  'IWF':'AMEX','IWD':'AMEX','GLD':'AMEX','SLV':'AMEX','URA':'AMEX','OIH':'AMEX','MOO':'AMEX',
+  'EQIX':'NASDAQ','DLR':'NYSE','AMT':'NYSE',
+};
+function getExchange(sym) { return EXCHANGE_MAP[sym] || 'NYSE'; }
+
+// === DETAIL MODAL ===
+function openDetail(symbol) {
+  const t = watchlist.find(x => x.symbol === symbol);
+  if (!t) return;
+
+  const modal = document.getElementById('modal');
+  const exchange = getExchange(symbol);
+  const pc = (t.change || 0) >= 0 ? 'up' : 'down';
+
+  document.getElementById('modal-ticker').textContent = t.symbol;
+  document.getElementById('modal-name').textContent = `${t.name || ''} · ${t.sector || ''}`;
+  document.getElementById('modal-price').innerHTML =
+    `<span class="${pc}">$${t.price?.toFixed(2) || '—'}</span>` +
+    ` <span class="${pc}" style="font-size:12px">${(t.change||0) >= 0 ? '▲' : '▼'} ${Math.abs(t.change||0).toFixed(2)}%</span>`;
+  document.getElementById('modal-bias').className = `bias-badge ${t.bias || 'mixed'}`;
+  document.getElementById('modal-bias').textContent = (t.bias || 'mixed').toUpperCase();
+
+  const tz = document.getElementById('tz-picker')?.value || 'America/New_York';
+  const tvSymbol = `${exchange}:${symbol}`;
+
+  // Build key levels
+  const levels = [
+    ['SMA 20', t.sma20],
+    ['SMA 50', t.sma50],
+    ['SMA 200', t.sma200],
+    ['Weekly 20', t.w20],
+    ['52w High', t.high52w],
+    ['52w Low', t.low52w],
+  ].filter(([_, v]) => v != null);
+
+  const levelsHTML = levels.map(([label, val]) => {
+    let color = 'var(--text)';
+    if (label === '52w High') color = 'var(--cyan)';
+    if (label === '52w Low') color = 'var(--red)';
+    return `<div class="detail-level"><span class="dl-label">${label}</span><span class="dl-value" style="color:${color}">$${val.toFixed(2)}</span></div>`;
+  }).join('');
+
+  // Build volatility card
+  const volItems = [
+    ['RSI (14)', t.rsi != null ? `${t.rsi}${t.rsi > 70 ? ' OB ⚠️' : t.rsi < 30 ? ' OS 🟢' : ''}` : '—',
+      t.rsi > 70 ? 'color:var(--red)' : t.rsi < 30 ? 'color:var(--cyan)' : ''],
+    ['ATR (14)', t.atr != null ? `$${t.atr.toFixed(2)}` : '—', ''],
+    ['ATR %', t.atrPct != null ? `${t.atrPct}%` : '—', ''],
+    ['Vol Rating', t.volRating || '—', ''],
+    ['Volume', t.volume != null ? fmtVol(t.volume) : '—', ''],
+    ['vs 20d Avg', t.volumeRatio != null ? `${t.volumeRatio}x` : '—',
+      t.volumeRatio > 1.5 ? 'color:var(--cyan)' : t.volumeRatio < 0.6 ? 'color:var(--red)' : ''],
+    ['BB Width %ile', t.bbWidthPercentile != null ? `${t.bbWidthPercentile}th` : '—',
+      t.bbWidthPercentile < 15 ? 'color:var(--orange)' : ''],
+    ['From 52w High', t.pctFrom52wHigh != null ? `${t.pctFrom52wHigh.toFixed(1)}%` : '—',
+      (t.pctFrom52wHigh||0) < -20 ? 'color:var(--red)' : (t.pctFrom52wHigh||0) < -10 ? 'color:var(--orange)' : ''],
+  ];
+  const volHTML = volItems.map(([label, val, style]) =>
+    `<div class="detail-level"><span class="dl-label">${label}</span><span class="dl-value"${style ? ` style="${style}"` : ''}>${val}</span></div>`
+  ).join('');
+
+  // Generate technical signals
+  const signals = generateSignals(t);
+  const signalsHTML = signals.map(s =>
+    `<div class="signal-item ${s.cls}">${s.icon} ${s.text}</div>`
+  ).join('') || '<div class="signal-item signal-neutral">No notable signals</div>';
+
+  // Earnings banner
+  const earningsHTML = t.earningsDays != null ?
+    `<div style="margin-bottom:16px;padding:10px 16px;border-radius:6px;border:1px solid ${t.earningsDays <= 14 ? 'var(--red)' : 'var(--orange)'};background:${t.earningsDays <= 14 ? 'rgba(239,83,80,0.1)' : 'rgba(255,167,38,0.08)'};">
+      <span style="font-size:12px;font-weight:600;color:${t.earningsDays <= 14 ? 'var(--red)' : 'var(--orange)'};">
+        📅 Earnings: ${t.earningsDate} (${t.earningsDays} day${t.earningsDays !== 1 ? 's' : ''})
+      </span>
+    </div>` : '';
+
+  document.getElementById('modal-body').innerHTML = `
+    ${earningsHTML}
+    <div class="chart-row">
+      <div class="chart-box">
+        <div class="chart-label">Daily</div>
+        <div id="modal-chart-daily" style="height:400px;"></div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-label">Weekly</div>
+        <div id="modal-chart-weekly" style="height:400px;"></div>
+      </div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-card">
+        <h4>Technical Analysis</h4>
+        <div id="modal-ta-widget" style="height:280px;"></div>
+      </div>
+      <div class="info-card">
+        <h4>Key Levels</h4>
+        ${levelsHTML}
+      </div>
+      <div class="info-card">
+        <h4>Volatility & Volume</h4>
+        ${volHTML}
+      </div>
+    </div>
+
+    <div class="signals-section">
+      <h4>📊 Technical Signals</h4>
+      ${signalsHTML}
+    </div>
+  `;
+
+  // Embed TradingView Advanced Charts
+  embedTVChart('modal-chart-daily', tvSymbol, 'D', tz);
+  embedTVChart('modal-chart-weekly', tvSymbol, 'W', tz);
+  embedTAWidget('modal-ta-widget', tvSymbol);
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+  // Clean up iframes
+  ['modal-chart-daily','modal-chart-weekly','modal-ta-widget'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = '';
+  });
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+function embedTVChart(containerId, symbol, interval, tz) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const script = document.createElement('script');
+  script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+  script.async = true;
+  script.innerHTML = JSON.stringify({
+    "symbol": symbol,
+    "interval": interval,
+    "timezone": tz,
+    "theme": "dark",
+    "style": "1",
+    "locale": "en",
+    "backgroundColor": "#0a0a0f",
+    "gridColor": "rgba(255,255,255,0.03)",
+    "hide_side_toolbar": false,
+    "allow_symbol_change": false,
+    "calendar": true,
+    "support_host": "https://www.tradingview.com",
+    "studies": [
+      "STD;SMA@tv-basicstudies|20",
+      "STD;SMA@tv-basicstudies|50"
+    ],
+    "width": "100%",
+    "height": "100%"
+  });
+  const wrapper = document.createElement('div');
+  wrapper.className = 'tradingview-widget-container';
+  wrapper.style.cssText = 'width:100%;height:100%;';
+  const inner = document.createElement('div');
+  inner.className = 'tradingview-widget-container__widget';
+  inner.style.cssText = 'width:100%;height:100%;';
+  wrapper.appendChild(inner);
+  wrapper.appendChild(script);
+  container.appendChild(wrapper);
+}
+
+function embedTAWidget(containerId, symbol) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const script = document.createElement('script');
+  script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
+  script.async = true;
+  script.innerHTML = JSON.stringify({
+    "interval": "1D",
+    "width": "100%",
+    "height": "100%",
+    "isTransparent": true,
+    "symbol": symbol,
+    "showIntervalTabs": true,
+    "colorTheme": "dark",
+    "locale": "en"
+  });
+  const wrapper = document.createElement('div');
+  wrapper.className = 'tradingview-widget-container';
+  wrapper.style.cssText = 'width:100%;height:100%;';
+  const inner = document.createElement('div');
+  inner.className = 'tradingview-widget-container__widget';
+  inner.style.cssText = 'width:100%;height:100%;';
+  wrapper.appendChild(inner);
+  wrapper.appendChild(script);
+  container.appendChild(wrapper);
+}
+
+function generateSignals(t) {
+  const signals = [];
+  // SMA crossover
+  if (t.smaCrossover === 'death_cross') {
+    signals.push({ icon: '💀', text: `Death cross: SMA20 < SMA50${t.smaCrossoverDate ? ` (since ~${t.smaCrossoverDate})` : ''}`, cls: 'signal-warn', priority: 2 });
+  } else if (t.smaCrossover === 'golden_cross') {
+    signals.push({ icon: '✨', text: `Golden cross: SMA20 > SMA50${t.smaCrossoverDate ? ` (since ~${t.smaCrossoverDate})` : ''}`, cls: 'signal-bull', priority: 2 });
+  } else if (t.smaCrossover === 'compression') {
+    signals.push({ icon: '🔄', text: `SMA compression: 20/50 converging — watch for directional move`, cls: 'signal-neutral', priority: 3 });
+  }
+  // Distance from 52w high
+  if (t.pctFrom52wHigh != null) {
+    if (t.pctFrom52wHigh < -20) {
+      signals.push({ icon: '📉', text: `Correction territory: ${t.pctFrom52wHigh.toFixed(1)}% below 52-week high ($${t.high52w})`, cls: 'signal-warn', priority: 1 });
+    } else if (t.pctFrom52wHigh < -10) {
+      signals.push({ icon: '📉', text: `Trading ${t.pctFrom52wHigh.toFixed(1)}% below 52-week high ($${t.high52w})`, cls: 'signal-neutral', priority: 4 });
+    } else if (t.pctFrom52wHigh > -2) {
+      signals.push({ icon: '🏔️', text: `Near 52-week high (${t.pctFrom52wHigh.toFixed(1)}% from $${t.high52w})`, cls: 'signal-bull', priority: 3 });
+    }
+  }
+  // RSI
+  if (t.rsi != null) {
+    if (t.rsi > 70) signals.push({ icon: '⚠️', text: `RSI ${t.rsi} — overbought zone`, cls: 'signal-warn', priority: 1 });
+    else if (t.rsi < 30) signals.push({ icon: '🟢', text: `RSI ${t.rsi} — oversold zone`, cls: 'signal-bull', priority: 1 });
+    else if (t.rsi > 60) signals.push({ icon: '📊', text: `RSI ${t.rsi} — bullish momentum`, cls: 'signal-bull', priority: 5 });
+    else if (t.rsi < 40) signals.push({ icon: '📊', text: `RSI ${t.rsi} — bearish momentum`, cls: 'signal-warn', priority: 5 });
+  }
+  // Bollinger squeeze
+  if (t.bbWidthPercentile != null && t.bbWidthPercentile < 15) {
+    signals.push({ icon: '🔋', text: `Bollinger squeeze (${t.bbWidthPercentile}th percentile) — expansion imminent`, cls: 'signal-neutral', priority: 2 });
+  }
+  // Volume
+  if (t.volumeRatio != null) {
+    if (t.volumeRatio > 2.0) signals.push({ icon: '🔥', text: `Heavy volume (${t.volumeRatio}x average) — strong conviction`, cls: 'signal-bull', priority: 2 });
+    else if (t.volumeRatio > 1.5) signals.push({ icon: '📈', text: `Above-average volume (${t.volumeRatio}x) — watch for breakout`, cls: 'signal-bull', priority: 3 });
+    else if (t.volumeRatio < 0.5) signals.push({ icon: '🔇', text: `Very low volume (${t.volumeRatio}x average) — thin conviction`, cls: 'signal-warn', priority: 4 });
+  }
+  // SMA200 support
+  if (t.sma200 && t.price) {
+    if (t.price < t.sma200) signals.push({ icon: '⚠️', text: `Below SMA200 ($${t.sma200.toFixed(0)}) — long-term support broken`, cls: 'signal-warn', priority: 2 });
+    else if (t.sma20 && t.price > t.sma200 && t.price < t.sma20 * 1.02 && t.price > t.sma20 * 0.98) {
+      signals.push({ icon: '🎯', text: `Testing SMA20 — long-term trend intact (above SMA200)`, cls: 'signal-neutral', priority: 4 });
+    }
+  }
+  // Earnings
+  if (t.earningsDays != null && t.earningsDays <= 14) {
+    signals.push({ icon: '⚠️', text: `Earnings in ${t.earningsDays} day${t.earningsDays !== 1 ? 's' : ''} (${t.earningsDate}) — expect volatility`, cls: 'signal-warn', priority: 0 });
+  }
+  // Sort by priority (lower = more important) and limit to 6
+  signals.sort((a, b) => a.priority - b.priority);
+  return signals.slice(0, 6);
+}
+
+function fmtVol(n) {
+  if (n >= 1e9) return (n / 1e9).toFixed(1) + 'B';
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(0) + 'K';
+  return n.toString();
+}
 </script>
 <script src="js/market-status.js"></script>
 </body>
