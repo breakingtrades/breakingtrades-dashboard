@@ -1167,7 +1167,7 @@ function renderVixGauge() {
 // === FEAR & GREED GAUGE ===
 function renderFearGreedGauge() {
   const val = Math.round(fearGreedData.current.value);
-  const cx = 150, cy = 145, r = 115, arcW = 28;
+  const cx = 150, cy = 150, r = 110, arcW = 28;
 
   const zones = [
     { start:0, end:25, color:'#ef5350', label:'EXTREME FEAR' },
@@ -1178,19 +1178,19 @@ function renderFearGreedGauge() {
   ];
 
   function valToAngle(v) { return Math.PI - (v / 100) * Math.PI; }
-  function polarToXY(angle, radius) {
+  function polar(angle, radius) {
     return { x: cx + radius * Math.cos(angle), y: cy - radius * Math.sin(angle) };
   }
   function arcPath(v1, v2, radius) {
-    const a1 = valToAngle(v1), a2 = valToAngle(v2);
-    const p1 = polarToXY(a1, radius), p2 = polarToXY(a2, radius);
-    const large = Math.abs(a1 - a2) > Math.PI ? 1 : 0;
-    return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${radius} ${radius} 0 ${large} 0 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
+    const p1 = polar(valToAngle(v1), radius), p2 = polar(valToAngle(v2), radius);
+    const span = Math.abs(v2 - v1);
+    const large = span > 50 ? 1 : 0;
+    return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${radius} ${radius} 0 ${large} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
   }
   function textArcPath(v1, v2, radius) {
-    const a1 = valToAngle(v2), a2 = valToAngle(v1);
-    const p1 = polarToXY(a1, radius), p2 = polarToXY(a2, radius);
-    const large = Math.abs(a1 - a2) > Math.PI ? 1 : 0;
+    const p1 = polar(valToAngle(v1), radius), p2 = polar(valToAngle(v2), radius);
+    const span = Math.abs(v2 - v1);
+    const large = span > 50 ? 1 : 0;
     return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${radius} ${radius} 0 ${large} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
   }
 
@@ -1200,25 +1200,25 @@ function renderFearGreedGauge() {
     const s = z.start + (i === 0 ? 0 : gap);
     const e = z.end - (i === zones.length - 1 ? 0 : gap);
     arcs += `<path d="${arcPath(s, e, r)}" fill="none" stroke="${z.color}" stroke-width="${arcW}" stroke-linecap="round" opacity="0.85"/>`;
-    const textR = r - arcW/2 - 14;
+    const textR = r - arcW/2 + 2;
     const pathId = `fgtp${i}`;
     defs += `<path id="${pathId}" d="${textArcPath(z.start + 1, z.end - 1, textR)}" fill="none"/>`;
-    textPaths += `<text><textPath href="#${pathId}" startOffset="50%" text-anchor="middle" fill="${z.color}" font-size="7" font-weight="700" letter-spacing="1.5" opacity="0.7">${z.label}</textPath></text>`;
+    textPaths += `<text><textPath href="#${pathId}" startOffset="50%" text-anchor="middle" fill="${z.color}" font-size="7" font-weight="700" letter-spacing="1.2" opacity="0.6">${z.label}</textPath></text>`;
   });
 
   let ticks = '';
   [0, 25, 50, 75, 100].forEach(v => {
     const angle = valToAngle(v);
-    const outer = polarToXY(angle, r + arcW/2 + 2);
-    const inner = polarToXY(angle, r + arcW/2 + 8);
+    const outer = polar(angle, r + arcW/2 + 3);
+    const inner = polar(angle, r + arcW/2 + 10);
     ticks += `<line x1="${outer.x.toFixed(1)}" y1="${outer.y.toFixed(1)}" x2="${inner.x.toFixed(1)}" y2="${inner.y.toFixed(1)}" stroke="#444" stroke-width="1.5"/>`;
-    const pt = polarToXY(angle, r + arcW/2 + 18);
+    const pt = polar(angle, r + arcW/2 + 20);
     ticks += `<text x="${pt.x.toFixed(1)}" y="${pt.y.toFixed(1)}" fill="#555" font-size="9" font-weight="600" text-anchor="middle" dominant-baseline="middle">${v}</text>`;
   });
 
   const needleAngle = valToAngle(val);
-  const needleTip = polarToXY(needleAngle, r + arcW/2 - 4);
-  const needleBase = polarToXY(needleAngle + Math.PI, 12);
+  const needleTip = polar(needleAngle, r + arcW/2 - 4);
+  const needleBack = polar(needleAngle + Math.PI, 10);
   const valColor = val <= 25 ? '#ef5350' : val <= 45 ? '#ffa726' : val <= 55 ? '#ffeb3b' : val <= 75 ? '#8bc34a' : '#00d4aa';
 
   const prevVal = fearGreedData.previousClose?.value ?? null;
@@ -1241,7 +1241,7 @@ function renderFearGreedGauge() {
         ${textPaths}
         ${ticks}
         <g filter="url(#needleShadow)">
-          <line x1="${needleBase.x.toFixed(1)}" y1="${needleBase.y.toFixed(1)}" x2="${needleTip.x.toFixed(1)}" y2="${needleTip.y.toFixed(1)}" stroke="#e0e0e0" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="${needleBack.x.toFixed(1)}" y1="${needleBack.y.toFixed(1)}" x2="${needleTip.x.toFixed(1)}" y2="${needleTip.y.toFixed(1)}" stroke="#e0e0e0" stroke-width="2.5" stroke-linecap="round"/>
         </g>
         <circle cx="${cx}" cy="${cy}" r="6" fill="#1a1a2e" stroke="#e0e0e0" stroke-width="2"/>
         <circle cx="${cx}" cy="${cy}" r="2" fill="#e0e0e0"/>
