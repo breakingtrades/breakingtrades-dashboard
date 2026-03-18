@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watchlist — BreakingTrades</title>
+<style>
+  :root {
+    --bg-primary: #0a0a12;
+    --bg-card: #111122;
+    --bg-card-hover: #161630;
+    --border: #1e1e3a;
+    --text: #e0e0e8;
+    --text-dim: #8888aa;
+    --text-bright: #ffffff;
+    --cyan: #00d4aa;
+    --orange: #ffa726;
+    --red: #ef5350;
+    --gold: #ffd700;
+    --blue: #42a5f5;
+    --purple: #ab47bc;
+    --yellow: #ffeb3b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg-primary);
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .up { color: var(--cyan); }
+  .down { color: var(--red); }
+  .neutral { color: var(--text-dim); }
+
+  /* === NAV BAR === */
+  .nav-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; height: 48px; background: #080810;
+    border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-size: 16px; font-weight: 700; color: var(--cyan); letter-spacing: 2px; }
+  .nav-logo span { color: var(--text-dim); font-weight: 400; }
+  .nav-links { display: flex; gap: 2px; }
+  .nav-link {
+    padding: 13px 16px; color: var(--text-dim); text-decoration: none;
+    font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;
+    border-bottom: 2px solid transparent; transition: all 0.2s; font-family: inherit;
+  }
+  .nav-link:hover { color: var(--text); }
+  .nav-link.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .tz-select {
+    padding: 2px 4px; border-radius: 3px; border: 1px solid var(--border);
+    background: #0c0c18; color: var(--text-dim); font-family: inherit;
+    font-size: 11px; cursor: pointer; outline: none;
+  }
+  .tz-select:hover { border-color: var(--cyan); color: var(--text); }
+  .timestamp { color: var(--text-dim); font-size: 11px; }
+
+  /* === MACRO STRIP === */
+  .macro-strip {
+    display: flex; gap: 0; padding: 0; background: #0c0c18;
+    border-bottom: 1px solid var(--border); overflow-x: auto;
+  }
+  .macro-pill {
+    display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+    border-right: 1px solid var(--border); white-space: nowrap; min-width: fit-content;
+  }
+  .macro-pill .label { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .macro-pill .value { font-size: 14px; font-weight: 600; }
+  .macro-pill .change { font-size: 11px; }
+  .vix-structure {
+    font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600;
+  }
+  .vix-backwardation { background: rgba(239,83,80,0.1); color: var(--red); }
+
+  /* === MAIN CONTENT === */
+  .page-content {
+    padding: 20px 24px;
+  }
+  .page-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+  }
+  .page-title {
+    font-size: 14px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--cyan); font-weight: 600;
+  }
+  .view-toggle {
+    display: flex; gap: 2px; background: var(--bg-card); border-radius: 4px; overflow: hidden;
+  }
+  .view-btn {
+    padding: 6px 14px; background: none; border: none; color: var(--text-dim);
+    font-family: inherit; font-size: 11px; cursor: pointer; transition: all 0.2s;
+  }
+  .view-btn:hover { color: var(--text); }
+  .view-btn.active { background: var(--cyan); color: var(--bg-primary); }
+
+  /* === TV WIDGET === */
+  .tv-widget-wrap {
+    border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+    background: var(--bg-card); margin-bottom: 24px;
+  }
+
+  /* === TABLE VIEW === */
+  .watchlist-table-wrap {
+    display: none; overflow-x: auto;
+  }
+  .watchlist-table {
+    width: 100%; border-collapse: collapse;
+  }
+  .watchlist-table th {
+    padding: 10px 12px; text-align: left; font-size: 10px; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-dim); border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+    background: #0c0c18; position: sticky; top: 48px; z-index: 10;
+  }
+  .watchlist-table th:hover { color: var(--cyan); }
+  .watchlist-table th .sort-arrow { margin-left: 4px; font-size: 8px; }
+  .watchlist-table td {
+    padding: 8px 12px; border-bottom: 1px solid #151530; white-space: nowrap;
+  }
+  .watchlist-table tr:hover td { background: var(--bg-card-hover); }
+  .watchlist-table .ticker-cell {
+    font-weight: 700; color: var(--text-bright); cursor: pointer;
+  }
+  .watchlist-table .ticker-cell:hover { color: var(--cyan); }
+  .watchlist-table .sector-cell { color: var(--text-dim); font-size: 11px; }
+  .bias-badge {
+    display: inline-block; padding: 1px 6px; border-radius: 3px;
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+  }
+  .bias-badge.bull { background: rgba(0,212,170,0.15); color: var(--cyan); }
+  .bias-badge.bear { background: rgba(239,83,80,0.15); color: var(--red); }
+  .bias-badge.mixed { background: rgba(255,167,38,0.15); color: var(--orange); }
+  .status-badge {
+    display: inline-block; padding: 1px 6px; border-radius: 3px;
+    font-size: 10px; font-weight: 600;
+  }
+  .status-badge.approaching { background: var(--orange-bg, rgba(255,167,38,0.1)); color: var(--orange); }
+  .status-badge.active { background: rgba(0,212,170,0.1); color: var(--cyan); }
+  .status-badge.exit { background: rgba(239,83,80,0.1); color: var(--red); }
+  .status-badge.watching { background: rgba(136,136,170,0.1); color: var(--text-dim); }
+
+  /* === SECTION HEADERS === */
+  .section-header {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--text-dim); margin: 24px 0 12px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .page-content { padding: 12px; }
+    .nav-bar { padding: 0 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV BAR -->
+<nav class="nav-bar">
+  <div class="nav-logo">BREAKING<span>TRADES</span></div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Signals</a>
+    <a href="watchlist.html" class="nav-link active">Watchlist</a>
+    <a href="market.html" class="nav-link">Market</a>
+  </div>
+  <div class="nav-right">
+    <div style="font-size:11px;color:var(--text-dim);">Market: <span style="color:var(--cyan);">OPEN</span></div>
+    <select class="tz-select" id="tz-picker" title="Timezone">
+      <option value="America/New_York">🕐 ET</option>
+      <option value="America/Chicago">CT</option>
+      <option value="America/Los_Angeles">PT</option>
+      <option value="Europe/London">GMT</option>
+      <option value="Europe/Berlin">CET</option>
+      <option value="Asia/Jerusalem">IST</option>
+      <option value="Asia/Tokyo">JST</option>
+      <option value="Australia/Sydney">AEST</option>
+      <option value="UTC">UTC</option>
+    </select>
+    <div class="timestamp" id="ts"></div>
+  </div>
+</nav>
+
+<!-- MACRO STRIP -->
+<div class="macro-strip">
+  <div class="macro-pill">
+    <div><div class="label">S&P 500</div><div class="value down">5,638</div></div>
+    <div class="change down">▼ -1.2%</div>
+  </div>
+  <div class="macro-pill" style="gap:6px;">
+    <div><div class="label">VIX</div><div class="value" style="color:var(--red)">27.95</div></div>
+    <div>
+      <div class="change down">▲ +33.8%</div>
+      <span class="vix-structure vix-backwardation">Backwardation</span>
+    </div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">DXY</div><div class="value">99.13</div></div>
+    <div class="change up">▲ SMA20: 97.94</div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">10Y</div><div class="value">4.25%</div></div>
+    <div class="change neutral">→ stable</div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">OIL</div><div class="value up">$94.47</div></div>
+    <div class="change up">▲ BREAKOUT</div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">BTC</div><div class="value">$68,450</div></div>
+    <div class="change neutral">→ base</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="page-content">
+  <div class="page-header">
+    <div class="page-title">📋 Watchlist — 70 Symbols</div>
+    <div class="view-toggle">
+      <button class="view-btn active" id="btn-widget" onclick="showView('widget')">Widget</button>
+      <button class="view-btn" id="btn-table" onclick="showView('table')">Table</button>
+    </div>
+  </div>
+
+  <!-- TradingView Market Overview Widget -->
+  <div class="tv-widget-wrap" id="tv-widget-view">
+    <div class="tradingview-widget-container" style="width:100%;height:600px;">
+      <div class="tradingview-widget-container__widget" id="tv-market-overview" style="width:100%;height:100%;"></div>
+    </div>
+  </div>
+
+  <!-- Custom Table View -->
+  <div class="watchlist-table-wrap" id="table-view">
+    <table class="watchlist-table" id="wl-table">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0)">Ticker <span class="sort-arrow">▼</span></th>
+          <th>Name</th>
+          <th onclick="sortTable(2)">Sector</th>
+          <th onclick="sortTable(3)">Price</th>
+          <th onclick="sortTable(4)">Change %</th>
+          <th onclick="sortTable(5)">SMA20</th>
+          <th onclick="sortTable(6)">SMA50</th>
+          <th onclick="sortTable(7)">Bias</th>
+          <th onclick="sortTable(8)">Status</th>
+        </tr>
+      </thead>
+      <tbody id="wl-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// === WATCHLIST DATA ===
+const watchlist = [
+  // Quality Stocks
+  { symbol:'AAPL', name:'Apple', sector:'Technology', price:252.62, change:-3.1, sma20:260.80, sma50:255.43, bias:'bear', status:'exit' },
+  { symbol:'MSFT', name:'Microsoft', sector:'Technology', price:399.95, change:-2.8, sma20:407.61, sma50:412.28, bias:'bear', status:'exit' },
+  { symbol:'NVDA', name:'NVIDIA', sector:'Technology', price:183.12, change:-4.5, sma20:192.88, sma50:198.64, bias:'bear', status:'exit' },
+  { symbol:'GOOGL', name:'Alphabet', sector:'Technology', price:180.17, change:-1.8, sma20:186.29, sma50:192.31, bias:'bear', status:'watching' },
+  { symbol:'AMZN', name:'Amazon', sector:'Technology', price:213.74, change:-3.3, sma20:220.40, sma50:225.68, bias:'bear', status:'watching' },
+  { symbol:'META', name:'Meta', sector:'Technology', price:627.43, change:-2.2, sma20:638.56, sma50:645.12, bias:'bear', status:'exit' },
+  { symbol:'DELL', name:'Dell', sector:'Technology', price:126.34, change:-1.5, sma20:128.55, sma50:130.88, bias:'bull', status:'active' },
+  { symbol:'COIN', name:'Coinbase', sector:'Financials', price:203.52, change:-4.7, sma20:215.30, sma50:228.45, bias:'bear', status:'watching' },
+  { symbol:'ARM', name:'ARM Holdings', sector:'Technology', price:121.78, change:-5.2, sma20:128.92, sma50:135.67, bias:'bear', status:'watching' },
+  // Healthcare
+  { symbol:'PFE', name:'Pfizer', sector:'Healthcare', price:26.61, change:-1.4, sma20:26.98, sma50:26.46, bias:'mixed', status:'approaching' },
+  { symbol:'ABBV', name:'AbbVie', sector:'Healthcare', price:221.45, change:-2.1, sma20:228.29, sma50:224.43, bias:'mixed', status:'approaching' },
+  // Sector ETFs
+  { symbol:'XLU', name:'Utilities Select', sector:'ETF', price:47.26, change:0.9, sma20:45.88, sma50:44.35, bias:'bull', status:'active' },
+  { symbol:'XLK', name:'Technology Select', sector:'ETF', price:210.33, change:-3.2, sma20:218.56, sma50:222.10, bias:'bear', status:'watching' },
+  { symbol:'XLE', name:'Energy Select', sector:'ETF', price:92.44, change:1.2, sma20:89.30, sma50:87.55, bias:'bull', status:'active' },
+  { symbol:'XLV', name:'Healthcare Select', sector:'ETF', price:145.67, change:-0.4, sma20:146.12, sma50:144.88, bias:'mixed', status:'watching' },
+  { symbol:'XLF', name:'Financials Select', sector:'ETF', price:43.28, change:-1.8, sma20:44.67, sma50:45.12, bias:'bear', status:'watching' },
+  { symbol:'XLP', name:'Staples Select', sector:'ETF', price:81.45, change:0.3, sma20:80.88, sma50:79.92, bias:'bull', status:'watching' },
+  { symbol:'XLY', name:'Discretionary Select', sector:'ETF', price:188.55, change:-2.1, sma20:194.33, sma50:198.45, bias:'bear', status:'watching' },
+  { symbol:'XLI', name:'Industrials Select', sector:'ETF', price:128.90, change:-0.9, sma20:130.55, sma50:131.20, bias:'mixed', status:'watching' },
+  { symbol:'XLC', name:'Communication Select', sector:'ETF', price:87.34, change:-1.5, sma20:89.23, sma50:90.67, bias:'bear', status:'watching' },
+  // Macro ETFs
+  { symbol:'SPY', name:'S&P 500 ETF', sector:'Index', price:563.80, change:-1.2, sma20:572.45, sma50:578.30, bias:'bear', status:'watching' },
+  { symbol:'QQQ', name:'Nasdaq 100 ETF', sector:'Index', price:475.20, change:-2.1, sma20:488.55, sma50:496.78, bias:'bear', status:'watching' },
+  { symbol:'IWM', name:'Russell 2000 ETF', sector:'Index', price:204.33, change:-1.8, sma20:208.44, sma50:211.67, bias:'bear', status:'watching' },
+  { symbol:'DIA', name:'Dow 30 ETF', sector:'Index', price:428.55, change:-0.8, sma20:432.88, sma50:435.12, bias:'mixed', status:'watching' },
+  { symbol:'HYG', name:'High Yield Bond', sector:'Bond', price:80.54, change:-0.3, sma20:80.77, sma50:81.12, bias:'mixed', status:'watching' },
+  { symbol:'TLT', name:'20+ Year Treasury', sector:'Bond', price:92.88, change:0.5, sma20:91.45, sma50:90.23, bias:'bull', status:'watching' },
+  // Energy
+  { symbol:'AR', name:'Antero Resources', sector:'Energy', price:40.82, change:2.3, sma20:38.90, sma50:37.55, bias:'bull', status:'active' },
+  { symbol:'OIH', name:'Oil Services ETF', sector:'Energy', price:312.50, change:1.5, sma20:308.88, sma50:305.44, bias:'bull', status:'watching' },
+  // Community Ideas - Bull
+  { symbol:'MOO', name:'Agribusiness ETF', sector:'Agriculture', price:62.33, change:0.4, sma20:61.55, sma50:60.88, bias:'bull', status:'watching' },
+  { symbol:'NEE', name:'NextEra Energy', sector:'Utilities', price:78.44, change:0.7, sma20:77.12, sma50:76.55, bias:'bull', status:'watching' },
+  { symbol:'TGT', name:'Target', sector:'Retail', price:128.90, change:-1.2, sma20:131.45, sma50:134.67, bias:'bear', status:'watching' },
+  { symbol:'D', name:'Dominion Energy', sector:'Utilities', price:57.88, change:0.5, sma20:57.12, sma50:56.34, bias:'bull', status:'watching' },
+  { symbol:'TMUS', name:'T-Mobile', sector:'Telecom', price:248.55, change:-0.3, sma20:250.12, sma50:247.88, bias:'mixed', status:'watching' },
+  { symbol:'BE', name:'Bloom Energy', sector:'Clean Energy', price:28.44, change:3.2, sma20:26.88, sma50:25.45, bias:'bull', status:'watching' },
+  { symbol:'AWK', name:'American Water', sector:'Utilities', price:142.33, change:0.2, sma20:141.55, sma50:140.12, bias:'bull', status:'watching' },
+  { symbol:'ADM', name:'Archer-Daniels', sector:'Agriculture', price:52.67, change:-0.8, sma20:53.45, sma50:54.12, bias:'mixed', status:'watching' },
+  { symbol:'SM', name:'SM Energy', sector:'Energy', price:44.55, change:1.8, sma20:43.12, sma50:42.33, bias:'bull', status:'watching' },
+  { symbol:'AA', name:'Alcoa', sector:'Materials', price:38.22, change:-2.3, sma20:39.88, sma50:41.12, bias:'bear', status:'watching' },
+  { symbol:'OMC', name:'Omnicom Group', sector:'Communication', price:88.90, change:-0.5, sma20:89.55, sma50:88.23, bias:'mixed', status:'watching' },
+  // Community Ideas - Bear
+  { symbol:'DHR', name:'Danaher', sector:'Healthcare', price:228.55, change:-1.8, sma20:234.12, sma50:238.67, bias:'bear', status:'watching' },
+  { symbol:'ZM', name:'Zoom Video', sector:'Technology', price:72.33, change:-2.5, sma20:75.88, sma50:78.45, bias:'bear', status:'watching' },
+  { symbol:'TAP', name:'Molson Coors', sector:'Staples', price:62.88, change:-0.6, sma20:63.55, sma50:64.12, bias:'bear', status:'watching' },
+  { symbol:'CAG', name:'ConAgra', sector:'Staples', price:28.44, change:-0.3, sma20:28.88, sma50:29.34, bias:'bear', status:'watching' },
+  // Community Ideas - Mixed
+  { symbol:'URA', name:'Uranium ETF', sector:'Energy', price:28.55, change:1.2, sma20:27.88, sma50:28.12, bias:'mixed', status:'watching' },
+  { symbol:'CHTR', name:'Charter Comms', sector:'Communication', price:358.90, change:-1.1, sma20:362.45, sma50:365.88, bias:'mixed', status:'watching' },
+  { symbol:'ADSK', name:'Autodesk', sector:'Technology', price:278.33, change:-2.0, sma20:284.55, sma50:288.12, bias:'bear', status:'watching' },
+  { symbol:'IGV', name:'Software ETF', sector:'Technology', price:88.67, change:-1.8, sma20:91.23, sma50:93.45, bias:'bear', status:'watching' },
+];
+
+// === VIEW TOGGLE ===
+function showView(view) {
+  document.getElementById('tv-widget-view').style.display = view === 'widget' ? 'block' : 'none';
+  document.getElementById('table-view').style.display = view === 'table' ? 'block' : 'none';
+  document.getElementById('btn-widget').classList.toggle('active', view === 'widget');
+  document.getElementById('btn-table').classList.toggle('active', view === 'table');
+}
+
+// === RENDER TABLE ===
+let sortCol = 0, sortAsc = true;
+function renderTable() {
+  const sorted = [...watchlist].sort((a, b) => {
+    const keys = ['symbol','name','sector','price','change','sma20','sma50','bias','status'];
+    const key = keys[sortCol];
+    let va = a[key], vb = b[key];
+    if (typeof va === 'string') { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+    if (va < vb) return sortAsc ? -1 : 1;
+    if (va > vb) return sortAsc ? 1 : -1;
+    return 0;
+  });
+
+  document.getElementById('wl-tbody').innerHTML = sorted.map(s => {
+    const chgClass = s.change > 0 ? 'up' : s.change < 0 ? 'down' : 'neutral';
+    const dist20 = ((s.price - s.sma20) / s.sma20 * 100).toFixed(1);
+    const dist50 = ((s.price - s.sma50) / s.sma50 * 100).toFixed(1);
+    const d20Class = dist20 > 0 ? 'up' : 'down';
+    const d50Class = dist50 > 0 ? 'up' : 'down';
+    return `<tr>
+      <td class="ticker-cell">${s.symbol}</td>
+      <td style="color:var(--text-dim);font-size:11px;">${s.name}</td>
+      <td class="sector-cell">${s.sector}</td>
+      <td>$${s.price.toFixed(2)}</td>
+      <td class="${chgClass}">${s.change > 0 ? '+' : ''}${s.change.toFixed(1)}%</td>
+      <td><span class="${d20Class}">${dist20 > 0 ? '+' : ''}${dist20}%</span> <span style="color:var(--text-dim);font-size:10px;">($${s.sma20.toFixed(0)})</span></td>
+      <td><span class="${d50Class}">${dist50 > 0 ? '+' : ''}${dist50}%</span> <span style="color:var(--text-dim);font-size:10px;">($${s.sma50.toFixed(0)})</span></td>
+      <td><span class="bias-badge ${s.bias}">${s.bias.toUpperCase()}</span></td>
+      <td><span class="status-badge ${s.status}">${s.status.toUpperCase()}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function sortTable(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = true; }
+  renderTable();
+}
+
+// === TRADINGVIEW WIDGET ===
+function initTVWidget() {
+  const script = document.createElement('script');
+  script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js';
+  script.async = true;
+  script.innerHTML = JSON.stringify({
+    "colorTheme": "dark",
+    "dateRange": "12M",
+    "showChart": true,
+    "locale": "en",
+    "width": "100%",
+    "height": "100%",
+    "largeChartUrl": "",
+    "isTransparent": true,
+    "showSymbolLogo": true,
+    "showFloatingTooltip": true,
+    "plotLineColorGrowing": "rgba(0, 212, 170, 1)",
+    "plotLineColorFalling": "rgba(255, 71, 87, 1)",
+    "tabs": [
+      {
+        "title": "Quality Stocks",
+        "symbols": [
+          {"s": "NASDAQ:AAPL", "d": "Apple"},
+          {"s": "NASDAQ:MSFT", "d": "Microsoft"},
+          {"s": "NASDAQ:NVDA", "d": "NVIDIA"},
+          {"s": "NASDAQ:GOOGL", "d": "Alphabet"},
+          {"s": "NASDAQ:AMZN", "d": "Amazon"},
+          {"s": "NASDAQ:META", "d": "Meta"},
+          {"s": "NYSE:DELL", "d": "Dell"},
+          {"s": "NASDAQ:COIN", "d": "Coinbase"},
+          {"s": "NASDAQ:ARM", "d": "ARM Holdings"}
+        ]
+      },
+      {
+        "title": "Healthcare",
+        "symbols": [
+          {"s": "NYSE:PFE", "d": "Pfizer"},
+          {"s": "NYSE:ABBV", "d": "AbbVie"},
+          {"s": "NYSE:DHR", "d": "Danaher"},
+          {"s": "AMEX:XLV", "d": "Healthcare ETF"}
+        ]
+      },
+      {
+        "title": "Sector ETFs",
+        "symbols": [
+          {"s": "AMEX:XLU", "d": "Utilities"},
+          {"s": "AMEX:XLK", "d": "Technology"},
+          {"s": "AMEX:XLE", "d": "Energy"},
+          {"s": "AMEX:XLV", "d": "Healthcare"},
+          {"s": "AMEX:XLF", "d": "Financials"},
+          {"s": "AMEX:XLP", "d": "Staples"},
+          {"s": "AMEX:XLY", "d": "Discretionary"},
+          {"s": "AMEX:XLI", "d": "Industrials"},
+          {"s": "AMEX:XLC", "d": "Communication"}
+        ]
+      },
+      {
+        "title": "Macro / Index",
+        "symbols": [
+          {"s": "AMEX:SPY", "d": "S&P 500"},
+          {"s": "NASDAQ:QQQ", "d": "Nasdaq 100"},
+          {"s": "AMEX:IWM", "d": "Russell 2000"},
+          {"s": "AMEX:DIA", "d": "Dow 30"},
+          {"s": "TVC:VIX", "d": "VIX"},
+          {"s": "TVC:DXY", "d": "Dollar Index"},
+          {"s": "AMEX:HYG", "d": "High Yield"},
+          {"s": "NASDAQ:TLT", "d": "Treasuries"}
+        ]
+      },
+      {
+        "title": "Energy & Commodities",
+        "symbols": [
+          {"s": "NYSE:AR", "d": "Antero Resources"},
+          {"s": "AMEX:OIH", "d": "Oil Services"},
+          {"s": "NYSE:SM", "d": "SM Energy"},
+          {"s": "AMEX:URA", "d": "Uranium"},
+          {"s": "NYSE:BE", "d": "Bloom Energy"},
+          {"s": "NYSE:AA", "d": "Alcoa"}
+        ]
+      },
+      {
+        "title": "Community Ideas",
+        "symbols": [
+          {"s": "AMEX:MOO", "d": "Agribusiness"},
+          {"s": "NYSE:NEE", "d": "NextEra Energy"},
+          {"s": "NYSE:TGT", "d": "Target"},
+          {"s": "NYSE:D", "d": "Dominion Energy"},
+          {"s": "NASDAQ:TMUS", "d": "T-Mobile"},
+          {"s": "NYSE:AWK", "d": "American Water"},
+          {"s": "NYSE:ADM", "d": "Archer-Daniels"},
+          {"s": "NYSE:OMC", "d": "Omnicom"},
+          {"s": "NASDAQ:CHTR", "d": "Charter"},
+          {"s": "NASDAQ:ADSK", "d": "Autodesk"}
+        ]
+      }
+    ]
+  });
+  document.getElementById('tv-market-overview').appendChild(script);
+}
+
+// === TIMEZONE ===
+const TZ_LABELS = {
+  'America/New_York':'ET','America/Chicago':'CT','America/Los_Angeles':'PT',
+  'Europe/London':'GMT','Europe/Berlin':'CET','Asia/Jerusalem':'IST',
+  'Asia/Tokyo':'JST','Australia/Sydney':'AEST','UTC':'UTC'
+};
+function initTimezone() {
+  const saved = localStorage.getItem('bt_timezone');
+  if (saved) document.getElementById('tz-picker').value = saved;
+  document.getElementById('tz-picker').addEventListener('change', e => {
+    localStorage.setItem('bt_timezone', e.target.value);
+    updateTimestamp();
+  });
+  updateTimestamp();
+  setInterval(updateTimestamp, 60000);
+}
+function updateTimestamp() {
+  const tz = document.getElementById('tz-picker').value;
+  const label = TZ_LABELS[tz] || tz;
+  document.getElementById('ts').textContent =
+    new Date().toLocaleString('en-US', { timeZone: tz, month:'short', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit', hour12:true }) + ' ' + label;
+}
+
+// === INIT ===
+renderTable();
+initTVWidget();
+initTimezone();
+</script>
+</body>
+</html>

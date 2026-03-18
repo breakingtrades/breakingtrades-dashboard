@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market — BreakingTrades</title>
+<style>
+  :root {
+    --bg-primary: #0a0a12;
+    --bg-card: #111122;
+    --bg-card-hover: #161630;
+    --border: #1e1e3a;
+    --text: #e0e0e8;
+    --text-dim: #8888aa;
+    --text-bright: #ffffff;
+    --cyan: #00d4aa;
+    --orange: #ffa726;
+    --red: #ef5350;
+    --gold: #ffd700;
+    --blue: #42a5f5;
+    --purple: #ab47bc;
+    --yellow: #ffeb3b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg-primary);
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .up { color: var(--cyan); }
+  .down { color: var(--red); }
+  .neutral { color: var(--text-dim); }
+
+  /* === NAV BAR === */
+  .nav-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; height: 48px; background: #080810;
+    border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-size: 16px; font-weight: 700; color: var(--cyan); letter-spacing: 2px; }
+  .nav-logo span { color: var(--text-dim); font-weight: 400; }
+  .nav-links { display: flex; gap: 2px; }
+  .nav-link {
+    padding: 13px 16px; color: var(--text-dim); text-decoration: none;
+    font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;
+    border-bottom: 2px solid transparent; transition: all 0.2s; font-family: inherit;
+  }
+  .nav-link:hover { color: var(--text); }
+  .nav-link.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .tz-select {
+    padding: 2px 4px; border-radius: 3px; border: 1px solid var(--border);
+    background: #0c0c18; color: var(--text-dim); font-family: inherit;
+    font-size: 11px; cursor: pointer; outline: none;
+  }
+  .tz-select:hover { border-color: var(--cyan); color: var(--text); }
+  .timestamp { color: var(--text-dim); font-size: 11px; }
+
+  /* === MACRO STRIP === */
+  .macro-strip {
+    display: flex; gap: 0; padding: 0; background: #0c0c18;
+    border-bottom: 1px solid var(--border); overflow-x: auto;
+  }
+  .macro-pill {
+    display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+    border-right: 1px solid var(--border); white-space: nowrap; min-width: fit-content;
+  }
+  .macro-pill .label { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .macro-pill .value { font-size: 14px; font-weight: 600; }
+  .macro-pill .change { font-size: 11px; }
+  .vix-structure { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; }
+  .vix-backwardation { background: rgba(239,83,80,0.1); color: var(--red); }
+
+  /* === PAGE LAYOUT === */
+  .page-content { padding: 20px 24px; }
+  .section-title {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--cyan); font-weight: 600; margin-bottom: 12px;
+  }
+
+  /* === HEATMAP === */
+  .heatmap-wrap {
+    border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+    background: var(--bg-card); margin-bottom: 24px;
+  }
+
+  /* === MID GRID === */
+  .mid-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+  }
+
+  /* === FEAR & GREED === */
+  .fg-gauge-container {
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
+    position: relative;
+  }
+  .fg-gauge-svg { width: 100%; max-width: 340px; height: auto; }
+  .fg-value-wrap { text-align: center; margin-top: -28px; position: relative; z-index: 2; }
+  .fg-value { font-size: 48px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+  .fg-label { font-size: 13px; margin-top: 2px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+  .fg-trend { font-size: 11px; margin-top: 6px; text-align: center; }
+  .fg-history { display: flex; gap: 0; margin-top: 14px; justify-content: center; width: 100%; }
+  .fg-history-item { text-align: center; flex: 1; padding: 8px 4px; position: relative; }
+  .fg-history-item:not(:last-child)::after {
+    content: ''; position: absolute; right: 0; top: 4px; bottom: 4px;
+    width: 1px; background: var(--border);
+  }
+  .fg-history-item .fgh-label { font-size: 9px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px; }
+  .fg-history-item .fgh-value { font-size: 18px; font-weight: 700; margin-top: 3px; }
+  .fg-history-item .fgh-sublabel { font-size: 8px; color: var(--text-dim); margin-top: 1px; }
+  @keyframes needleSweep { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes needleGlow { 0%,100% { filter: drop-shadow(0 0 3px rgba(255,255,255,0.3)); } 50% { filter: drop-shadow(0 0 8px rgba(255,255,255,0.6)); } }
+
+  /* === VIX REGIME === */
+  .vix-card { text-align: center; }
+  .vix-big-value { font-size: 56px; font-weight: 800; line-height: 1; }
+  .vix-regime-label { font-size: 14px; font-weight: 600; margin-top: 4px; text-transform: uppercase; letter-spacing: 2px; }
+  .vix-description { font-size: 12px; color: var(--text-dim); margin-top: 8px; line-height: 1.6; }
+  .vix-levels { display: flex; gap: 0; margin-top: 16px; width: 100%; }
+  .vix-level-item { flex: 1; text-align: center; padding: 8px 4px; position: relative; }
+  .vix-level-item:not(:last-child)::after {
+    content: ''; position: absolute; right: 0; top: 4px; bottom: 4px;
+    width: 1px; background: var(--border);
+  }
+  .vix-level-item .vl-label { font-size: 9px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px; }
+  .vix-level-item .vl-value { font-size: 14px; font-weight: 600; margin-top: 2px; }
+  .vix-bar-wrap { margin-top: 16px; }
+  .vix-bar { height: 8px; border-radius: 4px; background: linear-gradient(to right, #00d4aa 0%, #8bc34a 25%, #ffeb3b 45%, #ffa726 65%, #ef5350 85%, #d32f2f 100%); position: relative; }
+  .vix-needle { position: absolute; top: -4px; width: 3px; height: 16px; background: #fff; border-radius: 2px; transform: translateX(-50%); transition: left 0.5s; }
+
+  /* === PAIR RATIOS === */
+  .pairs-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+  }
+  .pair-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px;
+    padding: 12px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .pair-card .pair-name { font-size: 12px; font-weight: 600; color: var(--text-bright); }
+  .pair-card .pair-reading { font-size: 11px; }
+  .pair-card .pair-desc { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+  /* === SECTOR RANKINGS === */
+  .sector-rank-list { list-style: none; }
+  .sector-rank-item {
+    display: flex; align-items: center; gap: 12px; padding: 8px 0;
+    border-bottom: 1px solid #151530;
+  }
+  .sector-rank-item:last-child { border-bottom: none; }
+  .rank-num { width: 24px; font-weight: 700; color: var(--text-dim); font-size: 12px; }
+  .rank-name { flex: 1; font-weight: 600; font-size: 12px; }
+  .rank-bar-wrap { width: 120px; height: 6px; background: #1a1a2e; border-radius: 3px; overflow: hidden; }
+  .rank-bar { height: 100%; border-radius: 3px; transition: width 0.5s; }
+  .rank-change { width: 60px; text-align: right; font-size: 12px; font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .mid-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .page-content { padding: 12px; }
+    .nav-bar { padding: 0 12px; }
+    .pairs-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .nav-bar { padding: 0 12px; height: 44px; }
+    .pairs-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV BAR -->
+<nav class="nav-bar">
+  <div class="nav-logo">BREAKING<span>TRADES</span></div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Signals</a>
+    <a href="watchlist.html" class="nav-link">Watchlist</a>
+    <a href="market.html" class="nav-link active">Market</a>
+  </div>
+  <div class="nav-right">
+    <div style="font-size:11px;color:var(--text-dim);">Market: <span style="color:var(--cyan);">OPEN</span></div>
+    <select class="tz-select" id="tz-picker" title="Timezone">
+      <option value="America/New_York">🕐 ET</option>
+      <option value="America/Chicago">CT</option>
+      <option value="America/Los_Angeles">PT</option>
+      <option value="Europe/London">GMT</option>
+      <option value="Europe/Berlin">CET</option>
+      <option value="Asia/Jerusalem">IST</option>
+      <option value="Asia/Tokyo">JST</option>
+      <option value="Australia/Sydney">AEST</option>
+      <option value="UTC">UTC</option>
+    </select>
+    <div class="timestamp" id="ts"></div>
+  </div>
+</nav>
+
+<!-- MACRO STRIP -->
+<div class="macro-strip">
+  <div class="macro-pill">
+    <div><div class="label">S&P 500</div><div class="value down">5,638</div></div>
+    <div class="change down">▼ -1.2%</div>
+  </div>
+  <div class="macro-pill" style="gap:6px;">
+    <div><div class="label">VIX</div><div class="value" style="color:var(--red)">27.95</div></div>
+    <div>
+      <div class="change down">▲ +33.8%</div>
+      <span class="vix-structure vix-backwardation">Backwardation</span>
+    </div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">DXY</div><div class="value">99.13</div></div>
+    <div class="change up">▲ SMA20: 97.94</div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">10Y</div><div class="value">4.25%</div></div>
+    <div class="change neutral">→ stable</div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">OIL</div><div class="value up">$94.47</div></div>
+    <div class="change up">▲ BREAKOUT</div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">BTC</div><div class="value">$68,450</div></div>
+    <div class="change neutral">→ base</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="page-content">
+
+  <!-- S&P 500 HEATMAP -->
+  <div class="section-title">🗺️ S&P 500 Sector Heatmap</div>
+  <div class="heatmap-wrap">
+    <div class="tradingview-widget-container" style="width:100%;height:500px;">
+      <div class="tradingview-widget-container__widget" id="tv-heatmap" style="width:100%;height:100%;"></div>
+    </div>
+  </div>
+
+  <!-- FEAR & GREED + VIX REGIME -->
+  <div class="mid-grid">
+    <div class="card">
+      <div class="section-title">😱 Fear & Greed Index</div>
+      <div id="fg-gauge"></div>
+    </div>
+    <div class="card vix-card">
+      <div class="section-title">📊 VIX Regime</div>
+      <div id="vix-regime"></div>
+    </div>
+  </div>
+
+  <!-- PAIR RATIOS -->
+  <div class="section-title">⚖️ Pair Ratios — Market Health Signals</div>
+  <div class="pairs-grid" id="pairs-grid"></div>
+
+  <!-- SECTOR STRENGTH RANKINGS -->
+  <div style="margin-top:24px;">
+    <div class="section-title">🏆 Sector Strength Rankings</div>
+    <div class="card">
+      <ul class="sector-rank-list" id="sector-rankings"></ul>
+    </div>
+  </div>
+</div>
+
+<script>
+// === FEAR & GREED DATA ===
+const fearGreedData = {
+  current: { value: 25, label: 'Extreme Fear' },
+  previousClose: { value: 28 },
+  oneWeekAgo: { value: 35 },
+  oneMonthAgo: { value: 52 }
+};
+
+// === VIX DATA ===
+const vixData = {
+  current: 27.95,
+  sma20: 20.88,
+  sma50: 18.45,
+  percentile30d: 92,
+  regime: 'Elevated',
+  color: '#ffa726',
+  description: 'VIX well above SMA20 (20.88). Fear is elevated but not at panic levels. Expect wide intraday swings. Options premiums expensive — sellers\' market if you can manage risk.',
+  levels: [
+    { label: 'Complacency', range: '<15', color: '#00d4aa' },
+    { label: 'Normal', range: '15-20', color: '#8bc34a' },
+    { label: 'Elevated', range: '20-30', color: '#ffa726' },
+    { label: 'Fear', range: '30-40', color: '#ef5350' },
+    { label: 'Panic', range: '40+', color: '#d32f2f' }
+  ]
+};
+
+// === PAIR RATIOS ===
+const pairRatios = [
+  { pair: 'XLY/XLP', signal: '↘ FALLING', color: 'down', desc: 'Consumer weakening — risk-off rotation' },
+  { pair: 'HYG/SPY', signal: '→ FLAT', color: 'neutral', desc: 'Credit stable — no stress signals' },
+  { pair: 'RSP/SPY', signal: '→ FLAT', color: 'neutral', desc: 'Breadth neutral — mega-cap led' },
+  { pair: 'XLV/SPY', signal: '→ FLAT', color: 'neutral', desc: 'No defensive rotation yet' },
+  { pair: 'IWM/SPY', signal: '↘ FALLING', color: 'down', desc: 'Small caps underperforming — risk aversion' },
+  { pair: 'IWM/QQQ', signal: '↘ FALLING', color: 'down', desc: 'Growth crushing value — narrow market' },
+  { pair: 'XLE/SPY', signal: '↗ RISING', color: 'up', desc: 'Energy outperformance — commodity bid' },
+  { pair: 'GLD/SPY', signal: '↗ RISING', color: 'up', desc: 'Gold bid — safe haven demand' },
+  { pair: 'TLT/SPY', signal: '↗ RISING', color: 'up', desc: 'Flight to bonds — classic risk-off' },
+  { pair: 'SLV/GLD', signal: '↘ FALLING', color: 'down', desc: 'Silver lagging gold — no industrial demand' },
+  { pair: 'HYG/TLT', signal: '↘ FALLING', color: 'down', desc: 'Credit vs treasuries — stress building' },
+  { pair: 'IGV/QQQ', signal: '↘ FALLING', color: 'down', desc: 'Software underperforming tech — rotation out' }
+];
+
+// === SECTOR RANKINGS ===
+const sectorRankings = [
+  { symbol: 'XLU', name: 'Utilities', change: 4.2, rs: 92 },
+  { symbol: 'XLE', name: 'Energy', change: 3.8, rs: 88 },
+  { symbol: 'XLP', name: 'Staples', change: 1.2, rs: 68 },
+  { symbol: 'XLRE', name: 'Real Estate', change: 0.8, rs: 55 },
+  { symbol: 'XLV', name: 'Healthcare', change: 0.3, rs: 50 },
+  { symbol: 'XLB', name: 'Materials', change: -0.5, rs: 42 },
+  { symbol: 'XLI', name: 'Industrials', change: -1.2, rs: 35 },
+  { symbol: 'XLF', name: 'Financials', change: -2.1, rs: 25 },
+  { symbol: 'XLC', name: 'Communication', change: -2.8, rs: 18 },
+  { symbol: 'XLY', name: 'Discretionary', change: -3.5, rs: 12 },
+  { symbol: 'XLK', name: 'Technology', change: -4.2, rs: 8 }
+];
+
+// === RENDER FEAR & GREED ===
+function renderFearGreed() {
+  const val = fearGreedData.current.value;
+  const cx = 150, cy = 140, r = 120, arcW = 22;
+
+  const zones = [
+    { start:0, end:25, color1:'#d32f2f', color2:'#ef5350', label:'Extreme Fear' },
+    { start:25, end:45, color1:'#ef5350', color2:'#ffa726', label:'Fear' },
+    { start:45, end:55, color1:'#ffa726', color2:'#ffeb3b', label:'Neutral' },
+    { start:55, end:75, color1:'#ffeb3b', color2:'#8bc34a', label:'Greed' },
+    { start:75, end:100, color1:'#8bc34a', color2:'#00d4aa', label:'Extreme Greed' }
+  ];
+
+  function valToAngle(v) { return Math.PI - (v / 100) * Math.PI; }
+  function polarToXY(angle, radius) {
+    return { x: cx + radius * Math.cos(angle), y: cy - radius * Math.sin(angle) };
+  }
+  function arcPath(v1, v2, radius) {
+    const a1 = valToAngle(v1), a2 = valToAngle(v2);
+    const p1 = polarToXY(a1, radius), p2 = polarToXY(a2, radius);
+    const large = Math.abs(a1 - a2) > Math.PI ? 1 : 0;
+    return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${radius} ${radius} 0 ${large} 0 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
+  }
+
+  let defs = '', arcs = '';
+  zones.forEach((z, i) => {
+    const gId = `fgg${i}`;
+    const p1 = polarToXY(valToAngle(z.start), r), p2 = polarToXY(valToAngle(z.end), r);
+    defs += `<linearGradient id="${gId}" x1="${p1.x.toFixed(1)}" y1="${p1.y.toFixed(1)}" x2="${p2.x.toFixed(1)}" y2="${p2.y.toFixed(1)}" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="${z.color1}"/><stop offset="100%" stop-color="${z.color2}"/>
+    </linearGradient>`;
+    arcs += `<path d="${arcPath(z.start, z.end, r)}" fill="none" stroke="url(#${gId})" stroke-width="${arcW}" stroke-linecap="butt" opacity="0.7"/>`;
+  });
+
+  let ticks = '';
+  for (let v = 0; v <= 100; v += 10) {
+    const angle = valToAngle(v);
+    const outer = polarToXY(angle, r + 4);
+    const inner = polarToXY(angle, r - arcW - 4);
+    const isMajor = v % 25 === 0;
+    ticks += `<line x1="${outer.x.toFixed(1)}" y1="${outer.y.toFixed(1)}" x2="${inner.x.toFixed(1)}" y2="${inner.y.toFixed(1)}" stroke="${isMajor ? '#555' : '#333'}" stroke-width="${isMajor ? 1.5 : 0.8}"/>`;
+    if (isMajor) {
+      const pt = polarToXY(angle, r + 14);
+      ticks += `<text x="${pt.x.toFixed(1)}" y="${pt.y.toFixed(1)}" fill="#666" font-size="10" text-anchor="middle" dominant-baseline="middle">${v}</text>`;
+    }
+  }
+
+  const needleAngle = valToAngle(val);
+  const needleTip = polarToXY(needleAngle, r - 8);
+  const nb1 = polarToXY(needleAngle + 0.08, 8), nb2 = polarToXY(needleAngle - 0.08, 8);
+  const valColor = val <= 25 ? '#ef5350' : val <= 45 ? '#ffa726' : val <= 55 ? '#ffeb3b' : val <= 75 ? '#8bc34a' : '#00d4aa';
+  const glowPt = polarToXY(needleAngle, r * 0.5);
+  const prevVal = fearGreedData.previousClose.value;
+  const trendArrow = val > prevVal ? '▲' : val < prevVal ? '▼' : '→';
+  const trendColor = val > prevVal ? '#00d4aa' : val < prevVal ? '#ef5350' : '#8888aa';
+  const diff = val - prevVal;
+  function fgColor(v) { return v <= 25 ? '#ef5350' : v <= 45 ? '#ffa726' : v <= 55 ? '#ffeb3b' : v <= 75 ? '#8bc34a' : '#00d4aa'; }
+  function fgLabel(v) { return v <= 25 ? 'Extreme Fear' : v <= 45 ? 'Fear' : v <= 55 ? 'Neutral' : v <= 75 ? 'Greed' : 'Extreme Greed'; }
+
+  document.getElementById('fg-gauge').innerHTML =
+    `<div class="fg-gauge-container">
+      <svg viewBox="0 0 300 175" class="fg-gauge-svg" preserveAspectRatio="xMidYMid meet">
+        <defs>${defs}
+          <filter id="needleGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="${valColor}" stop-opacity="0.2"/><stop offset="100%" stop-color="${valColor}" stop-opacity="0"/></radialGradient>
+        </defs>
+        <path d="${arcPath(0, 100, r)}" fill="none" stroke="#1a1a2e" stroke-width="${arcW + 4}" stroke-linecap="butt"/>
+        ${arcs}${ticks}
+        <circle cx="${glowPt.x.toFixed(1)}" cy="${glowPt.y.toFixed(1)}" r="30" fill="url(#centerGrad)"/>
+        <g filter="url(#needleGlow)" style="animation:needleSweep 0.8s ease-out forwards,needleGlow 3s 1s ease-in-out infinite;">
+          <polygon points="${needleTip.x.toFixed(1)},${needleTip.y.toFixed(1)} ${nb1.x.toFixed(1)},${nb1.y.toFixed(1)} ${nb2.x.toFixed(1)},${nb2.y.toFixed(1)}" fill="#fff" opacity="0.9"/>
+        </g>
+        <circle cx="${cx}" cy="${cy}" r="6" fill="#0d0d1a" stroke="${valColor}" stroke-width="2"/>
+        <circle cx="${cx}" cy="${cy}" r="2.5" fill="${valColor}"/>
+        <text x="22" y="148" fill="#666" font-size="10" font-weight="600" letter-spacing="1">FEAR</text>
+        <text x="248" y="148" fill="#666" font-size="10" font-weight="600" letter-spacing="1">GREED</text>
+      </svg>
+      <div class="fg-value-wrap">
+        <div class="fg-value" style="color:${valColor}">${val}</div>
+        <div class="fg-label" style="color:${valColor}">${fearGreedData.current.label}</div>
+      </div>
+      <div class="fg-trend" style="color:${trendColor}">${trendArrow} ${diff > 0 ? '+' : ''}${diff} from yesterday</div>
+      <div class="fg-history">
+        <div class="fg-history-item"><div class="fgh-label">Prev Close</div><div class="fgh-value" style="color:${fgColor(prevVal)}">${prevVal}</div><div class="fgh-sublabel">${fgLabel(prevVal)}</div></div>
+        <div class="fg-history-item"><div class="fgh-label">1 Week</div><div class="fgh-value" style="color:${fgColor(fearGreedData.oneWeekAgo.value)}">${fearGreedData.oneWeekAgo.value}</div><div class="fgh-sublabel">${fgLabel(fearGreedData.oneWeekAgo.value)}</div></div>
+        <div class="fg-history-item"><div class="fgh-label">1 Month</div><div class="fgh-value" style="color:${fgColor(fearGreedData.oneMonthAgo.value)}">${fearGreedData.oneMonthAgo.value}</div><div class="fgh-sublabel">${fgLabel(fearGreedData.oneMonthAgo.value)}</div></div>
+      </div>
+    </div>`;
+}
+
+// === RENDER VIX REGIME ===
+function renderVixRegime() {
+  const v = vixData;
+  // Needle position: map VIX 10-50 to 0%-100%
+  const pct = Math.min(100, Math.max(0, ((v.current - 10) / 40) * 100));
+
+  document.getElementById('vix-regime').innerHTML =
+    `<div class="vix-big-value" style="color:${v.color}">${v.current.toFixed(2)}</div>
+     <div class="vix-regime-label" style="color:${v.color}">${v.regime}</div>
+     <div class="vix-bar-wrap">
+       <div class="vix-bar"><div class="vix-needle" style="left:${pct}%"></div></div>
+       <div style="display:flex;justify-content:space-between;margin-top:4px;">
+         <span style="font-size:9px;color:#00d4aa;">10</span>
+         <span style="font-size:9px;color:#8bc34a;">15</span>
+         <span style="font-size:9px;color:#ffeb3b;">20</span>
+         <span style="font-size:9px;color:#ffa726;">30</span>
+         <span style="font-size:9px;color:#ef5350;">40</span>
+         <span style="font-size:9px;color:#d32f2f;">50</span>
+       </div>
+     </div>
+     <div class="vix-description">${v.description}</div>
+     <div class="vix-levels">
+       <div class="vix-level-item"><div class="vl-label">SMA20</div><div class="vl-value">${v.sma20}</div></div>
+       <div class="vix-level-item"><div class="vl-label">SMA50</div><div class="vl-value">${v.sma50}</div></div>
+       <div class="vix-level-item"><div class="vl-label">30d %ile</div><div class="vl-value" style="color:${v.color}">${v.percentile30d}th</div></div>
+     </div>`;
+}
+
+// === RENDER PAIR RATIOS ===
+function renderPairs() {
+  document.getElementById('pairs-grid').innerHTML = pairRatios.map(p =>
+    `<div class="pair-card">
+       <div>
+         <div class="pair-name">${p.pair}</div>
+         <div class="pair-desc">${p.desc}</div>
+       </div>
+       <div class="pair-reading ${p.color}" style="font-weight:600;">${p.signal}</div>
+     </div>`
+  ).join('');
+}
+
+// === RENDER SECTOR RANKINGS ===
+function renderSectorRankings() {
+  document.getElementById('sector-rankings').innerHTML = sectorRankings.map((s, i) => {
+    const chgClass = s.change > 0 ? 'up' : s.change < 0 ? 'down' : 'neutral';
+    const barColor = s.change > 0 ? '#00d4aa' : '#ef5350';
+    const barWidth = Math.abs(s.rs);
+    return `<li class="sector-rank-item">
+      <span class="rank-num">${i + 1}</span>
+      <span class="rank-name">${s.symbol} <span style="color:var(--text-dim);font-weight:400;">${s.name}</span></span>
+      <div class="rank-bar-wrap"><div class="rank-bar" style="width:${barWidth}%;background:${barColor};"></div></div>
+      <span class="rank-change ${chgClass}">${s.change > 0 ? '+' : ''}${s.change.toFixed(1)}%</span>
+    </li>`;
+  }).join('');
+}
+
+// === TRADINGVIEW HEATMAP ===
+function initHeatmap() {
+  const script = document.createElement('script');
+  script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js';
+  script.async = true;
+  script.innerHTML = JSON.stringify({
+    "exchanges": [],
+    "dataSource": "SPY500",
+    "grouping": "sector",
+    "blockSize": "market_cap_basic",
+    "blockColor": "change",
+    "locale": "en",
+    "symbolUrl": "",
+    "colorTheme": "dark",
+    "hasTopBar": true,
+    "isDataSetEnabled": true,
+    "isZoomEnabled": true,
+    "hasSymbolTooltip": true,
+    "isMonoSize": false,
+    "width": "100%",
+    "height": 500
+  });
+  document.getElementById('tv-heatmap').appendChild(script);
+}
+
+// === TIMEZONE ===
+const TZ_LABELS = {
+  'America/New_York':'ET','America/Chicago':'CT','America/Los_Angeles':'PT',
+  'Europe/London':'GMT','Europe/Berlin':'CET','Asia/Jerusalem':'IST',
+  'Asia/Tokyo':'JST','Australia/Sydney':'AEST','UTC':'UTC'
+};
+function initTimezone() {
+  const saved = localStorage.getItem('bt_timezone');
+  if (saved) document.getElementById('tz-picker').value = saved;
+  document.getElementById('tz-picker').addEventListener('change', e => {
+    localStorage.setItem('bt_timezone', e.target.value);
+    updateTimestamp();
+  });
+  updateTimestamp();
+  setInterval(updateTimestamp, 60000);
+}
+function updateTimestamp() {
+  const tz = document.getElementById('tz-picker').value;
+  const label = TZ_LABELS[tz] || tz;
+  document.getElementById('ts').textContent =
+    new Date().toLocaleString('en-US', { timeZone: tz, month:'short', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit', hour12:true }) + ' ' + label;
+}
+
+// === INIT ===
+renderFearGreed();
+renderVixRegime();
+renderPairs();
+renderSectorRankings();
+initHeatmap();
+initTimezone();
+</script>
+</body>
+</html>

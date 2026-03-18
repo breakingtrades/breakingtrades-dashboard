@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BreakingTrades Dashboard</title>
+<style>
+  :root {
+    --bg-primary: #0a0a12;
+    --bg-card: #111122;
+    --bg-card-hover: #161630;
+    --border: #1e1e3a;
+    --text: #e0e0e8;
+    --text-dim: #8888aa;
+    --text-bright: #ffffff;
+    --cyan: #00d4aa;
+    --orange: #ffa726;
+    --red: #ef5350;
+    --gold: #ffd700;
+    --blue: #42a5f5;
+    --purple: #ab47bc;
+    --green-bg: rgba(0,212,170,0.08);
+    --red-bg: rgba(239,83,80,0.08);
+    --orange-bg: rgba(255,167,38,0.08);
+    --yellow: #ffeb3b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: var(--bg-primary);
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* === TOP BAR === */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: #080810;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .top-bar .logo {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cyan);
+    letter-spacing: 2px;
+  }
+  .top-bar .logo span { color: var(--text-dim); font-weight: 400; }
+  .top-bar .timestamp { color: var(--text-dim); font-size: 11px; }
+  .tz-select {
+    padding: 2px 4px; border-radius: 3px; border: 1px solid var(--border);
+    background: #0c0c18; color: var(--text-dim); font-family: inherit;
+    font-size: 11px; cursor: pointer; outline: none;
+  }
+  .tz-select:hover { border-color: var(--cyan); color: var(--text); }
+
+  /* === MACRO STRIP === */
+  .macro-strip {
+    display: flex;
+    gap: 0;
+    padding: 0;
+    background: #0c0c18;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .macro-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+    min-width: fit-content;
+  }
+  .macro-pill .label { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .macro-pill .value { font-size: 14px; font-weight: 600; }
+  .macro-pill .change { font-size: 11px; }
+  .up { color: var(--cyan); }
+  .down { color: var(--red); }
+  .neutral { color: var(--text-dim); }
+
+  /* === PAIR RATIOS === */
+  .ratios-strip {
+    display: flex;
+    gap: 0;
+    background: #080810;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .ratio-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-right: 1px solid var(--border);
+    font-size: 11px;
+  }
+  .ratio-pill .name { color: var(--text-dim); }
+  .ratio-pill .signal { font-weight: 600; }
+
+  /* === MAIN LAYOUT === */
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: calc(100vh - 120px);
+  }
+  
+  /* === WATCHLIST PANEL (LEFT) === */
+  .watchlist-panel {
+    padding: 16px 20px;
+    overflow-y: auto;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0 10px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-header h2 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  .section-header .count {
+    background: var(--border);
+    color: var(--text-dim);
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+  }
+
+  /* Status filter tabs */
+  .status-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .status-tab {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    transition: all 0.2s;
+  }
+  .status-tab:hover { border-color: var(--cyan); color: var(--text); }
+  .status-tab.active { background: rgba(0,212,170,0.15); border-color: var(--cyan); color: var(--cyan); }
+  .status-tab .badge {
+    display: inline-block;
+    background: var(--border);
+    padding: 0 5px;
+    border-radius: 6px;
+    margin-left: 4px;
+    font-size: 10px;
+  }
+  .status-tab.active .badge { background: rgba(0,212,170,0.3); }
+
+  /* === SETUP CARD === */
+  .setup-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .setup-card:hover {
+    background: var(--bg-card-hover);
+    border-color: #2a2a50;
+    transform: translateY(-1px);
+  }
+  .setup-card.card-hidden { display: none; }
+  
+  /* Status-specific borders */
+  .setup-card.s-retest { border-left: 3px solid #ff6e40; }
+  .setup-card.s-triggered { border-left: 3px solid var(--cyan); }
+  .setup-card.s-approaching { border-left: 3px solid var(--orange); }
+  .setup-card.s-active { border-left: 3px solid var(--cyan); }
+  .setup-card.s-trailing { border-left: 3px solid var(--blue); }
+  .setup-card.s-target_hit { border-left: 3px solid var(--gold); }
+  .setup-card.s-exit_sma20 { border-left: 3px solid var(--orange); }
+  .setup-card.s-exit_sma50 { border-left: 3px solid var(--red); }
+  .setup-card.s-exit_w20 { border-left: 3px solid var(--red); }
+  .setup-card.s-watching { border-left: 3px solid #2a2a50; }
+  .setup-card.s-stopped { border-left: 3px solid var(--red); opacity: 0.6; }
+  .setup-card.s-dormant { border-left: 3px solid #1a1a2e; opacity: 0.5; }
+
+  /* Retest pulse — strong */
+  .setup-card.s-retest {
+    animation: retestPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes retestPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,110,64,0); }
+    50% { box-shadow: 0 0 16px 3px rgba(255,110,64,0.2); }
+  }
+  /* Approaching pulse — gentle */
+  .setup-card.s-approaching {
+    animation: approachPulse 3s ease-in-out infinite;
+  }
+  @keyframes approachPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,167,38,0); }
+    50% { box-shadow: 0 0 12px 2px rgba(255,167,38,0.15); }
+  }
+
+  /* Retest-specific styles */
+  .retest-detail {
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    margin: 6px 0; font-size: 10px;
+  }
+  .retest-detail .retest-chip {
+    padding: 2px 8px; border-radius: 3px; font-weight: 600;
+  }
+  .retest-detail .holding { background: var(--green-bg); color: var(--cyan); }
+  .retest-detail .failing { background: var(--red-bg); color: var(--red); }
+  .retest-detail .vol-healthy { color: var(--cyan); }
+  .retest-detail .vol-caution { color: var(--orange); }
+  .confidence-high { color: var(--cyan); font-weight: 700; }
+  .confidence-medium { color: var(--orange); font-weight: 600; }
+  .confidence-low { color: var(--text-dim); }
+
+  /* Filter bar */
+  .filter-bar {
+    margin-bottom: 12px;
+  }
+  .filter-controls {
+    display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap;
+  }
+  .filter-search {
+    flex: 0 0 160px; padding: 4px 8px; border-radius: 4px;
+    border: 1px solid var(--border); background: #0c0c18; color: var(--text);
+    font-family: inherit; font-size: 11px; outline: none;
+  }
+  .filter-search:focus { border-color: var(--cyan); }
+  .filter-search::placeholder { color: #555; }
+  .bias-toggles { display: flex; gap: 3px; }
+  .bias-toggle {
+    padding: 3px 8px; border-radius: 3px; font-size: 10px; cursor: pointer;
+    border: 1px solid var(--border); background: transparent; font-weight: 600;
+    transition: all 0.15s; font-family: inherit;
+  }
+  .bias-toggle.on-bull { background: var(--green-bg); border-color: var(--cyan); color: var(--cyan); }
+  .bias-toggle.on-mixed { background: var(--orange-bg); border-color: var(--orange); color: var(--orange); }
+  .bias-toggle.on-bear { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+  .bias-toggle.off { background: transparent; border-color: var(--border); color: #444; }
+  .sort-select {
+    padding: 3px 6px; border-radius: 4px; border: 1px solid var(--border);
+    background: #0c0c18; color: var(--text-dim); font-family: inherit; font-size: 10px;
+    cursor: pointer; outline: none;
+  }
+  .sector-chips {
+    display: flex; gap: 3px; margin-top: 6px; flex-wrap: wrap;
+  }
+  .sector-chip {
+    padding: 2px 8px; border-radius: 3px; font-size: 10px; cursor: pointer;
+    border: 1px solid var(--border); background: transparent; color: var(--text-dim);
+    transition: all 0.15s; font-family: inherit;
+  }
+  .sector-chip:hover { border-color: var(--cyan); color: var(--text); }
+  .sector-chip.active { background: rgba(0,212,170,0.12); border-color: var(--cyan); color: var(--cyan); }
+  .group-header {
+    display: flex; align-items: center; gap: 8px;
+    margin: 16px 0 8px 0; padding-bottom: 4px;
+    border-bottom: 1px solid var(--border); cursor: pointer;
+  }
+  .group-header:first-child { margin-top: 0; }
+  .group-header h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--text-dim); font-weight: 500;
+  }
+  .group-header .cnt {
+    background: var(--border); color: var(--text-dim);
+    padding: 1px 6px; border-radius: 8px; font-size: 10px;
+  }
+  .empty-state {
+    padding: 40px 20px; text-align: center; color: var(--text-dim); font-size: 12px;
+  }
+  .empty-state button {
+    margin-top: 12px; padding: 6px 16px; border-radius: 4px;
+    border: 1px solid var(--cyan); background: transparent; color: var(--cyan);
+    cursor: pointer; font-family: inherit; font-size: 11px;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .card-ticker {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-bright);
+  }
+  .card-name {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 1px;
+  }
+  .card-price {
+    text-align: right;
+  }
+  .card-price .price {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .card-price .change {
+    font-size: 11px;
+  }
+
+  /* Status badge */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .status-badge.approaching-badge { background: var(--orange-bg); color: var(--orange); }
+  .status-badge.triggered-badge { background: var(--green-bg); color: var(--cyan); }
+  .status-badge.active-badge { background: var(--green-bg); color: var(--cyan); }
+  .status-badge.trailing-badge { background: rgba(66,165,245,0.1); color: var(--blue); }
+  .status-badge.watching-badge { background: rgba(136,136,170,0.1); color: var(--text-dim); }
+  .status-badge.stopped-badge { background: var(--red-bg); color: var(--red); }
+  .status-badge.target-badge { background: rgba(255,215,0,0.1); color: var(--gold); }
+
+  /* Bias badge */
+  .bias-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .bias-bull { background: var(--green-bg); color: var(--cyan); }
+  .bias-bear { background: var(--red-bg); color: var(--red); }
+  .bias-mixed { background: var(--orange-bg); color: var(--orange); }
+
+  /* Range bar */
+  .range-bar-container {
+    margin: 10px 0 6px 0;
+  }
+  .range-bar {
+    position: relative;
+    height: 6px;
+    background: #1a1a30;
+    border-radius: 3px;
+    margin: 4px 0;
+  }
+  .range-bar .fill {
+    position: absolute;
+    height: 100%;
+    border-radius: 3px;
+    top: 0;
+  }
+  .range-bar .price-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--text-bright);
+    border: 2px solid var(--cyan);
+    border-radius: 50%;
+    top: -2px;
+    transform: translateX(-5px);
+    z-index: 2;
+  }
+  .range-bar .marker {
+    position: absolute;
+    top: -14px;
+    font-size: 9px;
+    color: var(--text-dim);
+    transform: translateX(-50%);
+  }
+  .range-bar .marker.stop { color: var(--red); }
+  .range-bar .marker.entry { color: var(--orange); }
+  .range-bar .marker.t1 { color: var(--cyan); }
+  .range-bar .marker.t2 { color: var(--gold); }
+
+  /* Level pills */
+  .levels-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 8px 0 4px 0;
+  }
+  .level-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    background: #1a1a30;
+    border-radius: 3px;
+    font-size: 10px;
+  }
+  .level-pill .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+  .level-pill .dot.above { background: var(--cyan); }
+  .level-pill .dot.below { background: var(--red); }
+  .level-pill .dot.at { background: var(--orange); }
+  .level-pill .lbl { color: var(--text-dim); }
+  .level-pill .val { color: var(--text); font-weight: 500; }
+
+  /* Tom's take */
+  .toms-take {
+    margin-top: 8px;
+    padding: 8px 10px;
+    background: rgba(0,212,170,0.04);
+    border-left: 2px solid rgba(0,212,170,0.3);
+    border-radius: 0 4px 4px 0;
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .toms-take .take-header {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--cyan);
+    margin-bottom: 3px;
+    font-weight: 600;
+  }
+
+  /* Exit warning */
+  .exit-warning {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+    padding: 4px 8px;
+    background: var(--red-bg);
+    border-radius: 4px;
+    font-size: 10px;
+    color: var(--red);
+    font-weight: 600;
+  }
+
+  /* Distance indicator */
+  .distance {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  .distance strong { color: var(--orange); }
+
+  /* === RIGHT PANEL === */
+  .right-panel {
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  /* Briefing panel */
+  .briefing-panel {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .briefing-panel h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--cyan);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .regime-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  .regime-card .regime-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+  .regime-card .regime-value {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 4px 0;
+  }
+  .regime-card .regime-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* Sector bar */
+  .sector-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 11px;
+  }
+  .sector-bar .name { width: 50px; color: var(--text-dim); text-align: right; }
+  .sector-bar .bar-track {
+    flex: 1;
+    height: 4px;
+    background: #1a1a30;
+    border-radius: 2px;
+    position: relative;
+  }
+  .sector-bar .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+  }
+  .sector-bar .pct { width: 45px; font-weight: 500; font-size: 11px; }
+
+  /* Briefing text */
+  .briefing-text {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--text);
+    padding: 12px;
+  }
+  .briefing-text p { margin-bottom: 10px; }
+  .briefing-text .callout {
+    padding: 8px 10px;
+    background: var(--bg-card);
+    border-left: 2px solid var(--cyan);
+    border-radius: 0 4px 4px 0;
+    margin: 8px 0;
+    font-size: 11px;
+  }
+  .briefing-text strong { color: var(--cyan); }
+  .briefing-text em { color: var(--orange); font-style: normal; }
+
+  /* Tom's daily */
+  .toms-daily {
+    padding: 16px;
+    flex: 1;
+  }
+  .toms-daily h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--cyan);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  ::-webkit-scrollbar-thumb { background: #2a2a50; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #3a3a60; }
+
+  /* === DETAIL MODAL === */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 200;
+    padding: 40px;
+    overflow-y: auto;
+  }
+  .modal-overlay.open { display: block; }
+  .modal {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: #080810;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-header .ticker-info { display: flex; align-items: center; gap: 16px; }
+  .modal-header .modal-ticker { font-size: 22px; font-weight: 700; }
+  .modal-header .modal-name { color: var(--text-dim); }
+  .modal-close {
+    background: none; border: 1px solid var(--border); color: var(--text-dim);
+    width: 32px; height: 32px; border-radius: 6px; cursor: pointer;
+    font-size: 16px; display: flex; align-items: center; justify-content: center;
+  }
+  .modal-close:hover { border-color: var(--red); color: var(--red); }
+  .modal-body { padding: 20px 24px; }
+  .chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .chart-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .chart-box .chart-label {
+    padding: 8px 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+  }
+  .chart-box .chart-label .ma-legend {
+    float: right;
+    display: flex;
+    gap: 10px;
+  }
+  .chart-box .chart-label .ma-legend span {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .ma-dot {
+    display: inline-block;
+    width: 10px;
+    height: 3px;
+    border-radius: 1px;
+  }
+  /* Daily SMA20: gray, width 1 */
+  .ma-dot.d-sma20 { background: #9e9e9e; height: 2px; }
+  /* Daily SMA50: yellow, width 1 */
+  .ma-dot.d-sma50 { background: #ffeb3b; height: 3px; }
+  /* Weekly SMA20: gray, width 1 */
+  .ma-dot.w-sma20 { background: #9e9e9e; height: 2px; }
+  /* Weekly SMA50: yellow, width 1 */
+  .ma-dot.w-sma50 { background: #ffeb3b; height: 3px; }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .detail-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .detail-card h4 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .detail-levels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .detail-level {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(30,30,58,0.5);
+  }
+  .detail-level .dl-label { color: var(--text-dim); font-size: 11px; }
+  .detail-level .dl-value { font-weight: 600; font-size: 11px; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .main { grid-template-columns: 1fr; }
+    .right-panel { border-left: none; border-top: 1px solid var(--border); }
+    .chart-row { grid-template-columns: 1fr; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .modal-overlay { padding: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="logo">BREAKING<span>TRADES</span></div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div style="font-size:11px;color:var(--text-dim);">Market: <span style="color:var(--cyan);">OPEN</span></div>
+    <select class="tz-select" id="tz-picker" title="Timezone">
+      <option value="America/New_York">🕐 ET</option>
+      <option value="America/Chicago">CT</option>
+      <option value="America/Los_Angeles">PT</option>
+      <option value="Europe/London">GMT</option>
+      <option value="Europe/Berlin">CET</option>
+      <option value="Asia/Jerusalem">IST</option>
+      <option value="Asia/Tokyo">JST</option>
+      <option value="Australia/Sydney">AEST</option>
+      <option value="UTC">UTC</option>
+    </select>
+    <div class="timestamp" id="ts">Mar 17, 2026 • 2:15 PM ET</div>
+  </div>
+</div>
+
+<!-- MACRO STRIP -->
+<div class="macro-strip">
+  <div class="macro-pill">
+    <div><div class="label">S&P 500</div><div class="value down">5,638</div></div>
+    <div class="change down">▼ -1.2%</div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">VIX</div><div class="value down" style="color:var(--red)">27.95</div></div>
+    <div class="change down">▲ +33.8% <span style="font-size:9px">⚠️ FEAR</span></div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">DXY</div><div class="value">99.13</div></div>
+    <div class="change up">▲ SMA20: 97.94</div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">10Y</div><div class="value">4.25%</div></div>
+    <div class="change neutral">→ stable</div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">OIL</div><div class="value up">$94.47</div></div>
+    <div class="change up">▲ BREAKOUT</div>
+  </div>
+  <div class="macro-pill">
+    <div><div class="label">BTC</div><div class="value">$68,450</div></div>
+    <div class="change neutral">→ base</div>
+  </div>
+</div>
+
+<!-- PAIR RATIOS -->
+<div class="ratios-strip">
+  <div class="ratio-pill">
+    <span class="name">XLY/XLP</span>
+    <span class="signal down">↘ Consumer weakening</span>
+  </div>
+  <div class="ratio-pill">
+    <span class="name">HYG/SPY</span>
+    <span class="signal neutral">→ Credit stable</span>
+  </div>
+  <div class="ratio-pill">
+    <span class="name">RSP/SPY</span>
+    <span class="signal neutral">→ Breadth flat</span>
+  </div>
+  <div class="ratio-pill">
+    <span class="name">XLV/SPY</span>
+    <span class="signal neutral">→ No defensive rotation</span>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main">
+
+  <!-- LEFT: WATCHLIST -->
+  <div class="watchlist-panel">
+    
+    <!-- Status Filter -->
+    <div class="status-tabs">
+      <div class="status-tab active" data-filter="all">All <span class="badge">13</span></div>
+      <div class="status-tab" data-filter="approaching">🟡 Approaching <span class="badge">2</span></div>
+      <div class="status-tab" data-filter="active">🟢 Active <span class="badge">3</span></div>
+      <div class="status-tab" data-filter="exit">⚠️ Exit Signal <span class="badge">4</span></div>
+      <div class="status-tab" data-filter="watching">👁 Watching <span class="badge">4</span></div>
+    </div>
+
+    <!-- APPROACHING SETUPS -->
+    <div class="section-header">
+      <h2>🟡 Approaching Entry</h2>
+      <span class="count">2</span>
+    </div>
+
+    <!-- PFE Card - Approaching -->
+    <div class="setup-card approaching" data-status="approaching" onclick="openDetail('PFE')">
+      <div class="card-top">
+        <div>
+          <div class="card-ticker">PFE</div>
+          <div class="card-name">Pfizer · Healthcare</div>
+        </div>
+        <div class="card-price">
+          <div class="price down">$26.61</div>
+          <div class="change down">-1.4%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <span class="status-badge approaching-badge">⏳ APPROACHING</span>
+        <span class="bias-badge bias-mixed">MIXED</span>
+      </div>
+      <div class="distance">Entry zone: $25.80–$26.20 — <strong>1.6% away</strong></div>
+      <div class="range-bar-container">
+        <div class="range-bar">
+          <span class="marker stop" style="left:0%">$24.50</span>
+          <span class="marker entry" style="left:30%">$26.00</span>
+          <span class="marker t1" style="left:75%">$28.00</span>
+          <span class="marker t2" style="left:100%">$29.50</span>
+          <div class="fill" style="left:0;width:38%;background:linear-gradient(90deg, var(--red) 0%, var(--orange) 100%);opacity:0.3;"></div>
+          <div class="price-dot" style="left:38%"></div>
+        </div>
+      </div>
+      <div class="levels-row">
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">SMA20</span><span class="val">$26.98</span></div>
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">SMA50</span><span class="val">$26.46</span></div>
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">W20</span><span class="val">$26.06</span></div>
+        <div class="level-pill"><span class="lbl">RSI</span><span class="val">43.2</span></div>
+      </div>
+      <div class="toms-take">
+        <div class="take-header">Analysis</div>
+        Healthcare holding relative strength. PFE testing SMA50 support at $26.46. If it holds and reclaims SMA20 ($26.98), that's the entry. Stop below Weekly 20 at $24.50. Pharma flows showing accumulation.
+      </div>
+    </div>
+
+    <!-- ABBV Card - Approaching -->
+    <div class="setup-card approaching" data-status="approaching" onclick="openDetail('ABBV')">
+      <div class="card-top">
+        <div>
+          <div class="card-ticker">ABBV</div>
+          <div class="card-name">AbbVie · Healthcare</div>
+        </div>
+        <div class="card-price">
+          <div class="price down">$221.45</div>
+          <div class="change down">-2.1%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <span class="status-badge approaching-badge">⏳ APPROACHING</span>
+        <span class="bias-badge bias-mixed">MIXED</span>
+      </div>
+      <div class="distance">Entry zone: $218–$220 — <strong>0.7% away</strong></div>
+      <div class="range-bar-container">
+        <div class="range-bar">
+          <span class="marker stop" style="left:0%">$210</span>
+          <span class="marker entry" style="left:35%">$219</span>
+          <span class="marker t1" style="left:80%">$240</span>
+          <span class="marker t2" style="left:100%">$245</span>
+          <div class="fill" style="left:0;width:42%;background:linear-gradient(90deg, var(--red) 0%, var(--orange) 100%);opacity:0.3;"></div>
+          <div class="price-dot" style="left:42%"></div>
+        </div>
+      </div>
+      <div class="levels-row">
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">SMA20</span><span class="val">$228.29</span></div>
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">SMA50</span><span class="val">$224.43</span></div>
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">W20</span><span class="val">$226.37</span></div>
+        <div class="level-pill"><span class="lbl">RSI</span><span class="val">40.1</span></div>
+      </div>
+      <div class="toms-take">
+        <div class="take-header">Analysis</div>
+        Pulling back into value zone. All MAs above price = headwinds, but RSI 40 with healthcare relative strength says this is a dip-buy candidate. Need to see $218 hold. Pending setup from community.
+      </div>
+    </div>
+
+    <!-- ACTIVE SETUPS -->
+    <div class="section-header">
+      <h2>🟢 Active / Bullish Stack</h2>
+      <span class="count">3</span>
+    </div>
+
+    <!-- XLU Card - Active -->
+    <div class="setup-card active" data-status="active" onclick="openDetail('XLU')">
+      <div class="card-top">
+        <div>
+          <div class="card-ticker">XLU</div>
+          <div class="card-name">Utilities Select Sector · ETF</div>
+        </div>
+        <div class="card-price">
+          <div class="price up">$47.26</div>
+          <div class="change up">+0.9%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <span class="status-badge active-badge">✦ BULLISH STACK</span>
+        <span class="bias-badge bias-bull">BULL</span>
+      </div>
+      <div class="range-bar-container">
+        <div class="range-bar">
+          <span class="marker stop" style="left:0%">$44.50</span>
+          <span class="marker entry" style="left:25%">$45.50</span>
+          <span class="marker t1" style="left:70%">$47.75</span>
+          <span class="marker t2" style="left:100%">$49.00</span>
+          <div class="fill" style="left:0;width:82%;background:linear-gradient(90deg, var(--cyan) 0%, var(--cyan) 100%);opacity:0.2;"></div>
+          <div class="price-dot" style="left:82%"></div>
+        </div>
+      </div>
+      <div class="levels-row">
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">SMA20</span><span class="val">$46.82</span></div>
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">SMA50</span><span class="val">$44.68</span></div>
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">W20</span><span class="val">$44.50</span></div>
+        <div class="level-pill"><span class="lbl">RSI</span><span class="val">50.7</span></div>
+      </div>
+      <div class="toms-take">
+        <div class="take-header">Analysis</div>
+        Perfect bullish stack: Price > SMA20 > SMA50 > W20. Utilities leading in late-cycle rotation — this is the playbook. Only -1.1% from 6mo high. Raise stop to SMA20 ($46.82). Tom flagged utilities as sector leader.
+      </div>
+    </div>
+
+    <!-- AR Card - Active -->
+    <div class="setup-card active" data-status="active" onclick="openDetail('AR')">
+      <div class="card-top">
+        <div>
+          <div class="card-ticker">AR</div>
+          <div class="card-name">Antero Resources · Energy</div>
+        </div>
+        <div class="card-price">
+          <div class="price up">$41.03</div>
+          <div class="change up">+11.0%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <span class="status-badge trailing-badge">📈 TRAILING — Raise Stop</span>
+        <span class="bias-badge bias-bull">BULL</span>
+      </div>
+      <div class="range-bar-container">
+        <div class="range-bar">
+          <span class="marker stop" style="left:0%">$35.00</span>
+          <span class="marker entry" style="left:15%">$36.50</span>
+          <span class="marker t1" style="left:80%">$42.00</span>
+          <span class="marker t2" style="left:100%">$45.00</span>
+          <div class="fill" style="left:0;width:85%;background:linear-gradient(90deg, var(--cyan) 0%, var(--blue) 100%);opacity:0.2;"></div>
+          <div class="price-dot" style="left:85%"></div>
+        </div>
+      </div>
+      <div class="levels-row">
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">SMA20</span><span class="val">$36.98</span></div>
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">SMA50</span><span class="val">$35.00</span></div>
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">W20</span><span class="val">$35.48</span></div>
+        <div class="level-pill"><span class="lbl" style="color:var(--red)">RSI</span><span class="val" style="color:var(--red)">83.3 OB</span></div>
+      </div>
+      <div class="exit-warning">
+        ⚠️ RSI 83.3 — Overbought. Consider trailing stop to SMA20 ($36.98) or partial take profit at $42.
+      </div>
+      <div class="toms-take">
+        <div class="take-header">Analysis</div>
+        Energy is the best sector of 2026 — been tracking it 4+ months. AR extended but trend is powerful. Oil at $94 supports thesis. RSI overbought = don't chase, trail. Raise stop to $36.98 (SMA20). If daily close below $36.98, exit.
+      </div>
+    </div>
+
+    <!-- DELL Card - Active -->
+    <div class="setup-card active" data-status="active" onclick="openDetail('DELL')">
+      <div class="card-top">
+        <div>
+          <div class="card-ticker">DELL</div>
+          <div class="card-name">Dell Technologies · Technology</div>
+        </div>
+        <div class="card-price">
+          <div class="price up">$156.54</div>
+          <div class="change up">+14.5%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <span class="status-badge active-badge">✦ BULLISH STACK</span>
+        <span class="bias-badge bias-bull">BULL</span>
+      </div>
+      <div class="levels-row">
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">SMA20</span><span class="val">$136.72</span></div>
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">SMA50</span><span class="val">$126.05</span></div>
+        <div class="level-pill"><div class="dot above"></div><span class="lbl">W20</span><span class="val">$132.03</span></div>
+        <div class="level-pill"><span class="lbl" style="color:var(--red)">RSI</span><span class="val" style="color:var(--red)">80.0 OB</span></div>
+      </div>
+      <div class="toms-take">
+        <div class="take-header">Analysis</div>
+        Strong SMA stack but way extended — RSI 80. SMA20 is at $136 while price is $156. That's a 14.5% gap. Don't chase. If it pulls back to SMA20, that's the add. Current stop: SMA20 at $136.72.
+      </div>
+    </div>
+
+    <!-- EXIT SIGNAL -->
+    <div class="section-header">
+      <h2>⚠️ Exit Signals — Below SMA20</h2>
+      <span class="count">5</span>
+    </div>
+
+    <!-- AAPL Card -->
+    <div class="setup-card exit" data-status="exit" onclick="openDetail('AAPL')">
+      <div class="card-top">
+        <div>
+          <div class="card-ticker">AAPL</div>
+          <div class="card-name">Apple · Technology</div>
+        </div>
+        <div class="card-price">
+          <div class="price down">$252.82</div>
+          <div class="change down">-12.4%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <span class="status-badge stopped-badge">⚠️ EXIT SIGNAL</span>
+        <span class="bias-badge bias-mixed">MIXED</span>
+      </div>
+      <div class="exit-warning">
+        ⚠️ Below SMA20 ($262.45) — Daily close below 20 MA = exit. RSI 23.9 oversold.
+      </div>
+      <div class="levels-row">
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">SMA20</span><span class="val">$262.45</span></div>
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">SMA50</span><span class="val">$262.26</span></div>
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">W20</span><span class="val">$266.25</span></div>
+        <div class="level-pill"><span class="lbl" style="color:var(--cyan)">RSI</span><span class="val" style="color:var(--cyan)">23.9 OS</span></div>
+      </div>
+    </div>
+
+    <!-- MSFT Card -->
+    <div class="setup-card exit" data-status="exit" onclick="openDetail('MSFT')">
+      <div class="card-top">
+        <div>
+          <div class="card-ticker">MSFT</div>
+          <div class="card-name">Microsoft · Technology</div>
+        </div>
+        <div class="card-price">
+          <div class="price down">$399.95</div>
+          <div class="change down">-27.8%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <span class="status-badge stopped-badge">⚠️ EXIT SIGNAL</span>
+        <span class="bias-badge bias-bear">BEAR</span>
+      </div>
+      <div class="exit-warning">
+        ⚠️ Below ALL moving averages. SMA20 $400.10, SMA50 $427.62, W20 $440.75. Bearish structure.
+      </div>
+      <div class="levels-row">
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">SMA20</span><span class="val">$400.10</span></div>
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">SMA50</span><span class="val">$427.62</span></div>
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">W20</span><span class="val">$440.75</span></div>
+      </div>
+    </div>
+
+    <!-- NVDA Card -->
+    <div class="setup-card exit" data-status="exit" onclick="openDetail('NVDA')">
+      <div class="card-top">
+        <div>
+          <div class="card-ticker">NVDA</div>
+          <div class="card-name">NVIDIA · Semiconductors</div>
+        </div>
+        <div class="card-price">
+          <div class="price down">$183.22</div>
+          <div class="change down">-13.7%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <span class="status-badge stopped-badge">⚠️ EXIT SIGNAL</span>
+        <span class="bias-badge bias-bear">BEAR</span>
+      </div>
+      <div class="exit-warning">
+        ⚠️ Critical level: $170 H&S neckline. Below SMA20 ($184.80) and SMA50 ($185.33). Watching for break.
+      </div>
+      <div class="levels-row">
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">SMA20</span><span class="val">$184.80</span></div>
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">SMA50</span><span class="val">$185.33</span></div>
+        <div class="level-pill"><div class="dot below"></div><span class="lbl">W20</span><span class="val">$184.00</span></div>
+        <div class="level-pill"><span class="lbl" style="color:var(--orange)">KEY</span><span class="val" style="color:var(--orange)">$170</span></div>
+      </div>
+    </div>
+
+    <!-- META Card (compact) -->
+    <div class="setup-card exit" data-status="exit">
+      <div class="card-top">
+        <div><div class="card-ticker">META</div><div class="card-name">Meta Platforms</div></div>
+        <div class="card-price"><div class="price down">$627.45</div><div class="change down">-20.7%</div></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="status-badge stopped-badge">⚠️ EXIT</span>
+        <span class="bias-badge bias-bear">BEAR</span>
+        <span style="font-size:10px;color:var(--text-dim)">Below all MAs • RSI 46.1</span>
+      </div>
+    </div>
+
+    <!-- AMZN Card (compact) -->
+    <div class="setup-card watching" data-status="watching">
+      <div class="card-top">
+        <div><div class="card-ticker">AMZN</div><div class="card-name">Amazon</div></div>
+        <div class="card-price"><div class="price down">$211.74</div><div class="change down">-18.1%</div></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="status-badge watching-badge">👁 MIXED</span>
+        <span class="bias-badge bias-mixed">MIXED</span>
+        <span style="font-size:10px;color:var(--text-dim)">Above SMA20, below SMA50 • RSI 53.8</span>
+      </div>
+    </div>
+
+    <!-- WATCHING -->
+    <div class="section-header">
+      <h2>👁 Watching</h2>
+      <span class="count">3</span>
+    </div>
+
+    <div class="setup-card watching" data-status="watching">
+      <div class="card-top">
+        <div><div class="card-ticker">COIN</div><div class="card-name">Coinbase · Crypto</div></div>
+        <div class="card-price"><div class="price up">$203.32</div><div class="change up">+10.3%</div></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="status-badge watching-badge">👁 WATCHING</span>
+        <span class="bias-badge bias-mixed">MIXED</span>
+        <span style="font-size:10px;color:var(--text-dim)">Above SMA20/50 but below W20 ($220) • RSI 72.6</span>
+      </div>
+    </div>
+
+    <div class="setup-card watching" data-status="watching">
+      <div class="card-top">
+        <div><div class="card-ticker">ARM</div><div class="card-name">Arm Holdings · Semiconductors</div></div>
+        <div class="card-price"><div class="price down">$121.70</div><div class="change down">-33.6%</div></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="status-badge watching-badge">👁 WATCHING</span>
+        <span class="bias-badge bias-mixed">MIXED</span>
+        <span style="font-size:10px;color:var(--text-dim)">At W20 ($121.67) — potential bounce zone</span>
+      </div>
+    </div>
+
+    <div class="setup-card watching" data-status="watching">
+      <div class="card-top">
+        <div><div class="card-ticker">GOOG</div><div class="card-name">Alphabet · Technology</div></div>
+        <div class="card-price"><div class="price down">$308.57</div><div class="change down">-11.9%</div></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="status-badge watching-badge">👁 WATCHING</span>
+        <span class="bias-badge bias-mixed">MIXED</span>
+        <span style="font-size:10px;color:var(--text-dim)">Just above SMA20 ($306.80) — needs to hold</span>
+      </div>
+    </div>
+
+  </div><!-- /watchlist-panel -->
+
+  <!-- RIGHT: BRIEFING + TOM'S DAILY -->
+  <div class="right-panel">
+    
+    <div class="briefing-panel">
+      <h3>📊 Market Regime</h3>
+      
+      <div class="regime-card">
+        <div class="regime-label">Current Regime</div>
+        <div class="regime-value" style="color:var(--orange);">⚠️ LATE CYCLE</div>
+        <div class="regime-desc">
+          6 months into Fed cutting cycle. Agriculture moving = classic late-cycle signal. 
+          Gold → copper/silver → energy → agriculture sequence playing out.
+        </div>
+      </div>
+
+      <div class="regime-card">
+        <div class="regime-label">Risk Level</div>
+        <div class="regime-value" style="color:var(--red);">🔴 HIGH</div>
+        <div class="regime-desc">
+          VIX 27.95 (well above SMA20 of 20.89). Oil spike + global cross-correlation breakdown.
+          Bears in control at S&P 5,845 resistance. Bulls need 5,900 break.
+        </div>
+      </div>
+
+      <h3 style="margin-top:16px;">📈 Sector Strength</h3>
+      
+      <div class="sector-bar">
+        <span class="name">XLU</span>
+        <span class="bar-track"><span class="bar-fill" style="width:30%;right:50%;left:auto;background:var(--cyan);"></span></span>
+        <span class="pct up">+5.8%</span>
+      </div>
+      <div class="sector-bar">
+        <span class="name">XLE</span>
+        <span class="bar-track"><span class="bar-fill" style="width:25%;right:50%;left:auto;background:var(--cyan);"></span></span>
+        <span class="pct up">+4.2%</span>
+      </div>
+      <div class="sector-bar">
+        <span class="name">XLP</span>
+        <span class="bar-track"><span class="bar-fill" style="width:8%;right:50%;left:auto;background:var(--cyan);"></span></span>
+        <span class="pct up">+0.3%</span>
+      </div>
+      <div class="sector-bar">
+        <span class="name">XLF</span>
+        <span class="bar-track"><span class="bar-fill" style="width:15%;left:50%;background:var(--red);"></span></span>
+        <span class="pct down">-2.1%</span>
+      </div>
+      <div class="sector-bar">
+        <span class="name">XLK</span>
+        <span class="bar-track"><span class="bar-fill" style="width:30%;left:50%;background:var(--red);"></span></span>
+        <span class="pct down">-5.5%</span>
+      </div>
+      <div class="sector-bar">
+        <span class="name">SMH</span>
+        <span class="bar-track"><span class="bar-fill" style="width:35%;left:50%;background:var(--red);"></span></span>
+        <span class="pct down">-8.2%</span>
+      </div>
+    </div>
+
+    <div class="toms-daily">
+      <h3>🎯 Daily Briefing — Mar 17</h3>
+      <div class="briefing-text">
+        <p><strong>Late-cycle playbook is working.</strong> Energy and utilities leading, tech and semis lagging. This is textbook rotation — follow the flows, don't fight them.</p>
+        
+        <div class="callout">
+          <strong>Key levels today:</strong> S&P needs to hold 5,600 (weekly 50 MA). If lost, 5,500 is next support. VIX at 27.95 says fear is real — but hasn't spiked to 35+ capitulation yet.
+        </div>
+
+        <p><em>Oil at $94 is the story.</em> 11 consecutive weeks up before the Iran news. This was trending BEFORE geopolitics. If short-term oil problems become long-term → markets get crushed.</p>
+
+        <p><strong>Financials are the canary.</strong> XLF declining, private credit stress escalating (Morgan Stanley + BlackRock limiting withdrawals). If we lose financials, there's sickness in the economy.</p>
+
+        <div class="callout">
+          <strong>Action items:</strong><br>
+          • Trail AR stop to SMA20 ($36.98) — extended, RSI 83<br>
+          • Watch PFE at $26.46 SMA50 — entry on hold<br>
+          • ABBV approaching $218 entry zone<br>
+          • XLU — keep riding, raise stop to $46.82<br>
+          • NVDA — $170 is the line. Don't touch until resolved.
+        </div>
+
+        <p style="color:var(--text-dim);font-size:11px;margin-top:12px;">
+          "Patience, react, don't predict. The setups will come to you."
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /right-panel -->
+
+</div><!-- /main -->
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="ticker-info">
+        <span class="modal-ticker" id="modal-ticker">PFE</span>
+        <span class="modal-name" id="modal-name">Pfizer · Healthcare</span>
+        <span class="status-badge approaching-badge" id="modal-status">⏳ APPROACHING</span>
+        <span class="bias-badge bias-mixed" id="modal-bias">MIXED</span>
+      </div>
+      <button class="modal-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="modal-body">
+      
+      <!-- Charts -->
+      <div class="chart-row">
+        <div class="chart-box">
+          <div class="chart-label">
+            Daily
+            <div class="ma-legend">
+              <span><span class="ma-dot d-sma20"></span> SMA 20</span>
+              <span><span class="ma-dot d-sma50"></span> SMA 50</span>
+            </div>
+          </div>
+          <div id="modal-chart-daily" style="height:400px;"></div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-label">
+            Weekly
+            <div class="ma-legend">
+              <span><span class="ma-dot w-sma20"></span> SMA 20</span>
+              <span><span class="ma-dot w-sma50"></span> SMA 50</span>
+            </div>
+          </div>
+          <div id="modal-chart-weekly" style="height:400px;"></div>
+        </div>
+      </div>
+
+      <!-- Detail Grid -->
+      <div class="detail-grid">
+        <div class="detail-card">
+          <h4>Setup Levels</h4>
+          <div class="detail-levels">
+            <div class="detail-level"><span class="dl-label">Entry Zone</span><span class="dl-value" style="color:var(--orange)">$25.80 – $26.20</span></div>
+            <div class="detail-level"><span class="dl-label">Stop Loss</span><span class="dl-value" style="color:var(--red)">$24.50</span></div>
+            <div class="detail-level"><span class="dl-label">Target 1</span><span class="dl-value" style="color:var(--cyan)">$28.00</span></div>
+            <div class="detail-level"><span class="dl-label">Target 2</span><span class="dl-value" style="color:var(--gold)">$29.50</span></div>
+            <div class="detail-level"><span class="dl-label">Risk/Reward</span><span class="dl-value">1:2.3</span></div>
+            <div class="detail-level"><span class="dl-label">Risk per share</span><span class="dl-value" style="color:var(--red)">$1.50</span></div>
+          </div>
+        </div>
+        <div class="detail-card">
+          <h4>Technical Levels</h4>
+          <div class="detail-levels">
+            <div class="detail-level"><span class="dl-label">SMA 20</span><span class="dl-value">$26.98</span></div>
+            <div class="detail-level"><span class="dl-label">SMA 50</span><span class="dl-value">$26.46</span></div>
+            <div class="detail-level"><span class="dl-label">Weekly 20</span><span class="dl-value">$26.06</span></div>
+            <div class="detail-level"><span class="dl-label">SMA 100</span><span class="dl-value">—</span></div>
+            <div class="detail-level"><span class="dl-label">6mo High</span><span class="dl-value">$27.93</span></div>
+            <div class="detail-level"><span class="dl-label">6mo Low</span><span class="dl-value">$24.85</span></div>
+            <div class="detail-level"><span class="dl-label">RSI (14)</span><span class="dl-value">43.2</span></div>
+            <div class="detail-level"><span class="dl-label">% from High</span><span class="dl-value" style="color:var(--red)">-4.8%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tom's Take (detail) -->
+      <div style="margin-top:16px;">
+        <div class="detail-card" style="border-left:2px solid var(--cyan);">
+          <h4 style="color:var(--cyan);">Analysis — PFE</h4>
+          <div style="font-size:12px;line-height:1.7;">
+            <p>Healthcare holding relative strength as the market rotates defensive. PFE sitting right at SMA50 ($26.46) with Weekly 20 supporting below at $26.06. This is a <strong style="color:var(--cyan)">compression zone</strong> — SMA20, SMA50, and Weekly 20 all within $1 of each other.</p>
+            <p style="margin-top:8px;">RSI at 43.2 — not oversold, not overbought. Neutral territory with room to run if the bounce comes.</p>
+            <p style="margin-top:8px;"><strong style="color:var(--orange)">The play:</strong> Wait for a dip into $25.80–$26.20 entry zone. Stop below $24.50 (below Weekly 20 structure). First target at $28 (6mo high area), stretch target $29.50. That's a 1:2.3 risk/reward.</p>
+            <p style="margin-top:8px;"><strong style="color:var(--red)">What would invalidate:</strong> Daily close below $24.50 breaks the entire setup. Also watch HYG/LQD — if credit markets crack, healthcare won't be a safe haven.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TradingView Widget Script -->
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
+<script>
+// === Timezone support ===
+const TZ_LABELS = {
+  'America/New_York': 'ET', 'America/Chicago': 'CT', 'America/Los_Angeles': 'PT',
+  'Europe/London': 'GMT', 'Europe/Berlin': 'CET', 'Asia/Jerusalem': 'IST',
+  'Asia/Tokyo': 'JST', 'Australia/Sydney': 'AEST', 'UTC': 'UTC'
+};
+
+function initTimezone() {
+  // Priority: localStorage > browser detect > default ET
+  let tz = localStorage.getItem('bt_timezone');
+  if (!tz) {
+    const browserTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    tz = TZ_LABELS[browserTZ] ? browserTZ : 'America/New_York';
+  }
+  return tz;
+}
+
+let userTZ = initTimezone();
+const tzPicker = document.getElementById('tz-picker');
+tzPicker.value = userTZ;
+
+function getTZLabel() { return TZ_LABELS[userTZ] || 'ET'; }
+
+function updateTimestamp() {
+  document.getElementById('ts').textContent = new Date().toLocaleString('en-US', {
+    timeZone: userTZ,
+    month: 'short', day: 'numeric', year: 'numeric',
+    hour: 'numeric', minute: '2-digit', hour12: true
+  }) + ' ' + getTZLabel();
+}
+
+tzPicker.addEventListener('change', () => {
+  userTZ = tzPicker.value;
+  localStorage.setItem('bt_timezone', userTZ);
+  updateTimestamp();
+  // If modal is open, reload charts with new timezone
+  if (document.getElementById('modal').classList.contains('open')) {
+    const ticker = document.getElementById('modal-ticker').textContent;
+    if (ticker) { closeDetail(); setTimeout(() => openDetail(ticker), 100); }
+  }
+});
+
+updateTimestamp();
+// Refresh timestamp every 30s
+setInterval(updateTimestamp, 30000);
+
+// Status tab filtering
+document.querySelectorAll('.status-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const filter = tab.dataset.filter;
+    document.querySelectorAll('.setup-card').forEach(card => {
+      if (filter === 'all' || card.dataset.status === filter) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    // Also hide/show section headers based on visible cards
+    document.querySelectorAll('.section-header').forEach(header => {
+      if (filter === 'all') {
+        header.style.display = '';
+      } else {
+        header.style.display = 'none';
+      }
+    });
+  });
+});
+
+// Modal — sequential chart loading (daily finishes → then weekly starts)
+let _weeklyChartTimer = null;
+
+function loadWeeklyChart(exchange, ticker) {
+  // Guard: if modal was closed before we get here, skip
+  if (!document.getElementById('modal').classList.contains('open')) return;
+  
+  document.getElementById('modal-chart-weekly').innerHTML = '';
+  new TradingView.widget({
+    autosize: true,
+    symbol: exchange + ':' + ticker,
+    interval: 'W',
+    timezone: userTZ,
+    theme: 'dark',
+    style: '1',
+    locale: 'en',
+    hide_top_toolbar: false,
+    hide_legend: false,
+    allow_symbol_change: false,
+    save_image: false,
+    container_id: 'modal-chart-weekly',
+    height: 400,
+    width: '100%',
+    backgroundColor: '#0a0a12',
+    gridColor: '#1a1a2e',
+    overrides: {
+      'mainSeriesProperties.sessionId': 'regular'
+    },
+    studies: [
+      'MASimple@tv-basicstudies',
+      'MASimple@tv-basicstudies',
+      'Volume@tv-basicstudies'
+    ],
+    studies_overrides: {
+      'moving average.length': 20,
+      'moving average.ma.color': '#9e9e9e',
+      'moving average.ma.linewidth': 2
+    },
+    range: '60M'
+  });
+  _weeklyChartTimer = null;
+}
+
+function openDetail(ticker) {
+  document.getElementById('modal').classList.add('open');
+  document.getElementById('modal-ticker').textContent = ticker;
+  
+  const exchange = getExchange(ticker);
+  
+  // Clear any pending weekly chart timer from previous open
+  if (_weeklyChartTimer) { clearTimeout(_weeklyChartTimer); _weeklyChartTimer = null; }
+  
+  document.getElementById('modal-chart-daily').innerHTML = '';
+  document.getElementById('modal-chart-weekly').innerHTML = '';
+  
+  // Show a loading placeholder in weekly while we wait for daily to finish
+  document.getElementById('modal-chart-weekly').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#555;font-size:12px;">Waiting for daily chart…</div>';
+  
+  // 1) Daily chart — loads first
+  var dailyWidget = new TradingView.widget({
+    autosize: true,
+    symbol: exchange + ':' + ticker,
+    interval: 'D',
+    timezone: userTZ,
+    theme: 'dark',
+    style: '1',
+    locale: 'en',
+    hide_top_toolbar: false,
+    hide_legend: false,
+    allow_symbol_change: false,
+    save_image: false,
+    container_id: 'modal-chart-daily',
+    height: 400,
+    width: '100%',
+    backgroundColor: '#0a0a12',
+    gridColor: '#1a1a2e',
+    overrides: {
+      'mainSeriesProperties.sessionId': 'regular'
+    },
+    studies: [
+      'MASimple@tv-basicstudies',
+      'MASimple@tv-basicstudies',
+      'Volume@tv-basicstudies'
+    ],
+    studies_overrides: {
+      'moving average.length': 20,
+      'moving average.ma.color': '#9e9e9e',
+      'moving average.ma.linewidth': 2
+    },
+    range: '12M'
+  });
+  
+  // 2) Weekly chart — waits for daily iframe to fully load, then adds extra buffer
+  // Listen for the daily chart's iframe to fire its load event
+  var dailyContainer = document.getElementById('modal-chart-daily');
+  var observer = new MutationObserver(function(mutations) {
+    var iframe = dailyContainer.querySelector('iframe');
+    if (iframe) {
+      observer.disconnect();
+      iframe.addEventListener('load', function() {
+        // Daily iframe loaded — wait 1s more for WebSocket to stabilize, then load weekly
+        document.getElementById('modal-chart-weekly').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#555;font-size:12px;">Loading weekly chart…</div>';
+        _weeklyChartTimer = setTimeout(function() {
+          loadWeeklyChart(exchange, ticker);
+        }, 1000);
+      });
+    }
+  });
+  observer.observe(dailyContainer, { childList: true, subtree: true });
+  
+  // Fallback: if iframe never appears (edge case), load weekly after 5s anyway
+  setTimeout(function() {
+    if (_weeklyChartTimer === null && document.getElementById('modal').classList.contains('open')) {
+      observer.disconnect();
+      document.getElementById('modal-chart-weekly').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#555;font-size:12px;">Loading weekly chart…</div>';
+      _weeklyChartTimer = setTimeout(function() {
+        loadWeeklyChart(exchange, ticker);
+      }, 500);
+    }
+  }, 5000);
+}
+
+function closeDetail() {
+  if (_weeklyChartTimer) { clearTimeout(_weeklyChartTimer); _weeklyChartTimer = null; }
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modal-chart-daily').innerHTML = '';
+  document.getElementById('modal-chart-weekly').innerHTML = '';
+}
+
+// Close modal on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDetail();
+});
+
+// Click outside modal to close
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeDetail();
+});
+
+// Exchange lookup (simplified)
+function getExchange(ticker) {
+  const nasdaq = ['AAPL','AMZN','GOOG','MSFT','NVDA','META','TSLA','COIN','ARM','DELL','TMUS','ZM','BILI','CHTR','ADSK'];
+  const amex = ['XLU','MOO','OIH','IWM','LQD'];
+  if (nasdaq.includes(ticker)) return 'NASDAQ';
+  if (amex.includes(ticker)) return 'AMEX';
+  return 'NYSE';
+}
+</script>
+
+</body>
+</html>
