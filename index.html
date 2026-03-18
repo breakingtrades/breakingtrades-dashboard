@@ -319,6 +319,17 @@
   .vol-high { background: rgba(255,167,38,0.08); color: var(--orange); }
   .vol-extreme { background: rgba(239,83,80,0.08); color: var(--red); }
 
+  /* Sector risk badge */
+  .sector-risk-badge {
+    display: inline-flex; align-items: center;
+    padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 500;
+  }
+  .sr-low { background: rgba(40,167,69,0.1); color: #28a745; }
+  .sr-medium { background: rgba(255,193,7,0.1); color: #ffc107; }
+  .sr-elevated { background: rgba(255,167,38,0.1); color: var(--orange); }
+  .sr-high { background: rgba(239,83,80,0.1); color: var(--red); }
+  .sr-neutral { background: rgba(136,136,170,0.06); color: var(--text-dim); }
+
   /* Distance indicator */
   .distance-line {
     font-size: 11px; color: var(--text-dim); margin-bottom: 6px;
@@ -1444,6 +1455,7 @@ function renderCard(t, idx) {
       <span class="bias-badge ${bc}">${t.bias.toUpperCase()}</span>
       <span class="pattern-badge ${patClass}">📊 ${t.pattern.abbr}</span>
       <span class="volatility-badge ${volClass}">⚡ ${t.vol.rating}</span>
+      ${t._sectorRisk ? `<span class="sector-risk-badge sr-${t._sectorRisk.risk}" title="${t._sectorRisk.etf||''} ${t._sectorRisk.quadrant}">🔄 ${t._sectorRisk.quadrant}</span>` : ''}
     </div>
     ${distLine}
     <div class="range-bar-container">
@@ -1772,7 +1784,14 @@ document.getElementById('modal').addEventListener('click', e => {
 });
 
 // === INIT ===
+let _sectorRiskData = {};
+
 function init() {
+  fetch('data/sector-risk.json').then(r => r.json()).then(data => {
+    _sectorRiskData = data;
+    TICKERS.forEach(t => { t._sectorRisk = _sectorRiskData[t.sector] || null; });
+    renderCards();
+  }).catch(() => {});
   renderVixGauge();
   renderFearGreedGauge();
   renderSectorRotation();

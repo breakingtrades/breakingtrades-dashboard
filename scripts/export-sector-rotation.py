@@ -126,6 +126,64 @@ def main():
     with open(OUT_FILE, "w") as f:
         json.dump(result, f, indent=2)
 
+    # --- Sector Risk Map ---
+    # Map GICS sector names to watchlist sector names, assign risk level from quadrant + RS/momentum distance
+    SECTOR_NAME_MAP = {
+        "Energy": ["Energy", "Clean Energy"],
+        "Materials": ["Materials", "Agriculture"],
+        "Industrials": ["Industrials"],
+        "Discretionary": ["Discretionary", "Retail"],
+        "Staples": ["Staples"],
+        "Healthcare": ["Healthcare"],
+        "Financials": ["Financials"],
+        "Technology": ["Technology", "Telecom", "Semiconductors"],
+        "Communication": ["Communication"],
+        "Utilities": ["Utilities"],
+        "Real Estate": [],  # no tickers in watchlist currently
+    }
+
+    QUADRANT_RISK = {
+        "Leading": "low",       # RS>100, Mom>100 — strong and accelerating
+        "Weakening": "medium",  # RS>100, Mom<100 — strong but decelerating
+        "Improving": "medium",  # RS<100, Mom>100 — weak but accelerating
+        "Lagging": "high",      # RS<100, Mom<100 — weak and decelerating
+    }
+
+    sector_risk = {}
+    for s in result["sectors"]:
+        last = s["trail"][-1] if s["trail"] else {}
+        risk = QUADRANT_RISK.get(s["quadrant"], "unknown")
+        # Increase risk if deeply in quadrant
+        rs = last.get("rs", 100)
+        mom = last.get("momentum", 100)
+        if s["quadrant"] == "Lagging" and (rs < 95 or mom < 97):
+            risk = "high"
+        elif s["quadrant"] == "Weakening" and mom < 96:
+            risk = "elevated"
+        elif s["quadrant"] == "Improving" and rs < 95:
+            risk = "elevated"
+
+        entry = {
+            "etf": s["symbol"],
+            "quadrant": s["quadrant"],
+            "risk": risk,
+            "rs": round(rs, 2),
+            "momentum": round(mom, 2),
+        }
+        # Map to watchlist sector names
+        for wl_name in SECTOR_NAME_MAP.get(s["name"], []):
+            sector_risk[wl_name] = entry
+        sector_risk[s["name"]] = entry  # also keyed by GICS name
+
+    # Fallback for sectors not mapped to a GICS ETF
+    for unmapped in ["Bond", "ETF", "Index", "Crypto"]:
+        sector_risk[unmapped] = {"etf": None, "quadrant": "N/A", "risk": "neutral", "rs": 100, "momentum": 100}
+
+    risk_file = OUT_FILE.parent / "sector-risk.json"
+    with open(risk_file, "w") as f:
+        json.dump(sector_risk, f, indent=2)
+
+    print(f"✅ Exported sector risk map to {risk_file}")
     print(f"✅ Exported {len(result['sectors'])} sectors to {OUT_FILE}")
     for s in result["sectors"]:
         t = s["trail"][-1] if s["trail"] else {}
