@@ -380,5 +380,15 @@ def main():
 
     print("Pipeline complete. Output written to data/ directory.")
 
+    # Export sector rotation data (RRG)
+    try:
+        import subprocess
+        sr_script = os.path.join(os.path.dirname(__file__), "export-sector-rotation.py")
+        if os.path.exists(sr_script):
+            subprocess.run([sys.executable, sr_script], check=True)
+            print("Sector rotation export complete.")
+    except Exception as e:
+        print(f"Error exporting sector rotation: {e}")
+
 if __name__ == "__main__":
     main()

@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BreakingTrades Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2"></script>
+<link rel="stylesheet" href="css/sector-rotation.css">
 <style>
   :root {
     --bg-primary: #0a0a12;
@@ -809,8 +813,7 @@
     </div>
 
     <div class="sector-rotation-section">
-      <h3>🔄 Sector Rotation</h3>
-      <div id="sector-quadrant"></div>
+      <div id="rrg-signals"></div>
     </div>
 
     <div class="briefing-panel">
@@ -1778,6 +1781,17 @@ function init() {
 }
 
 init();
+</script>
+<script src="js/sector-rotation.js"></script>
+<script>
+  createRRG('rrg-signals', {
+    trailLength: 8,
+    height: '350px',
+    showControls: true,
+    showRankings: false,
+    collapsible: true,
+    storageKey: 'rrg-signals-collapsed',
+  });
 </script>
 </body>
 </html>
