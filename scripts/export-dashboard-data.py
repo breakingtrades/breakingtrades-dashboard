@@ -243,8 +243,12 @@ def main():
         {"pair": "RSP/SPY", "desc": "Breadth — equal vs cap weight"},
         {"pair": "XLV/SPY", "desc": "Defensive rotation"},
         {"pair": "IWM/SPY", "desc": "Small caps vs Large caps"},
+        {"pair": "IWM/QQQ", "desc": "Value vs Growth"},
         {"pair": "XLE/SPY", "desc": "Energy outperformance"},
+        {"pair": "GLD/SPY", "desc": "Safe haven demand"},
         {"pair": "TLT/SPY", "desc": "Flight to bonds"},
+        {"pair": "SLV/GLD", "desc": "Industrial vs safe haven"},
+        {"pair": "HYG/TLT", "desc": "Credit vs treasuries"},
         {"pair": "IGV/QQQ", "desc": "Software vs Broad Tech"}
     ]
     

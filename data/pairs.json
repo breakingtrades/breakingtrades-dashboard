@@ -30,16 +30,40 @@
     "color": "down"
   },
   {
+    "pair": "IWM/QQQ",
+    "desc": "Value vs Growth",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  },
+  {
     "pair": "XLE/SPY",
     "desc": "Energy outperformance",
     "signal": "\u2197 RISING",
     "color": "up"
   },
   {
+    "pair": "GLD/SPY",
+    "desc": "Safe haven demand",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  },
+  {
     "pair": "TLT/SPY",
     "desc": "Flight to bonds",
     "signal": "\u2192 FLAT",
     "color": "neutral"
+  },
+  {
+    "pair": "SLV/GLD",
+    "desc": "Industrial vs safe haven",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  },
+  {
+    "pair": "HYG/TLT",
+    "desc": "Credit vs treasuries",
+    "signal": "\u2197 RISING",
+    "color": "up"
   },
   {
     "pair": "IGV/QQQ",
