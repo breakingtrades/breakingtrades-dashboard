@@ -1,0 +1,68 @@
+[
+  {
+    "symbol": "XLE",
+    "name": "Energy",
+    "change": 8.9,
+    "rs": 116.1
+  },
+  {
+    "symbol": "XLU",
+    "name": "Utilities",
+    "change": 1.6,
+    "rs": 53.0
+  },
+  {
+    "symbol": "XLRE",
+    "name": "Real Estate",
+    "change": -2.8,
+    "rs": 12.7
+  },
+  {
+    "symbol": "XLP",
+    "name": "Staples",
+    "change": -4.0,
+    "rs": -1.9
+  },
+  {
+    "symbol": "XLC",
+    "name": "Communication",
+    "change": 0.8,
+    "rs": -11.5
+  },
+  {
+    "symbol": "XLI",
+    "name": "Industrials",
+    "change": -4.9,
+    "rs": -15.8
+  },
+  {
+    "symbol": "XLK",
+    "name": "Technology",
+    "change": 0.0,
+    "rs": -18.3
+  },
+  {
+    "symbol": "XLB",
+    "name": "Materials",
+    "change": -6.0,
+    "rs": -20.6
+  },
+  {
+    "symbol": "XLV",
+    "name": "Healthcare",
+    "change": -4.9,
+    "rs": -40.7
+  },
+  {
+    "symbol": "XLY",
+    "name": "Discretionary",
+    "change": -2.5,
+    "rs": -44.6
+  },
+  {
+    "symbol": "XLF",
+    "name": "Financials",
+    "change": -5.1,
+    "rs": -59.3
+  }
+]

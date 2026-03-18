@@ -1,0 +1,44 @@
+[
+  {
+    "pair": "XLY/XLP",
+    "desc": "Consumer weakening \u2014 risk-off rotation",
+    "signal": "\u2197 RISING",
+    "color": "up"
+  },
+  {
+    "pair": "HYG/SPY",
+    "desc": "Credit vs Equity \u2014 risk appetite",
+    "signal": "\u2197 RISING",
+    "color": "up"
+  },
+  {
+    "pair": "XLV/SPY",
+    "desc": "Defensive rotation",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  },
+  {
+    "pair": "IWM/SPY",
+    "desc": "Small caps vs Large caps",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  },
+  {
+    "pair": "XLE/SPY",
+    "desc": "Energy outperformance",
+    "signal": "\u2197 RISING",
+    "color": "up"
+  },
+  {
+    "pair": "TLT/SPY",
+    "desc": "Flight to bonds",
+    "signal": "\u2192 FLAT",
+    "color": "neutral"
+  },
+  {
+    "pair": "IGV/QQQ",
+    "desc": "Software vs Broad Tech",
+    "signal": "\u2197 RISING",
+    "color": "up"
+  }
+]
