@@ -1,9 +1,11 @@
 {
-  "current": 21.55,
-  "sma20": 22.61,
-  "sma50": 19.46,
-  "percentile30d": 60,
+  "current": 24.39,
+  "sma20": 22.76,
+  "sma50": 19.52,
+  "percentile30d": 83,
   "regime": "Elevated",
   "color": "#ffa726",
-  "description": "VIX is elevated. Trending below SMA20 (22.61), volatility is contracting."
+  "description": "VIX is elevated. Trending above SMA20 (22.76), volatility is expanding.",
+  "generatedAt": "2026-03-18T19:58:49.273824+00:00",
+  "source": "yfinance"
 }

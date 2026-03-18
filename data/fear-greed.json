@@ -1,19 +1,20 @@
 {
   "current": {
-    "value": 25,
-    "label": "Extreme Fear"
-  },
-  "previousClose": {
-    "value": 28,
-    "label": "Fear"
-  },
-  "oneWeekAgo": {
-    "value": 35,
-    "label": "Fear"
-  },
-  "oneMonthAgo": {
-    "value": 52,
+    "value": 48,
     "label": "Neutral"
   },
-  "updated": "2026-03-18T07:41:15.165163+00:00"
+  "previousClose": {
+    "value": null,
+    "label": ""
+  },
+  "oneWeekAgo": {
+    "value": null,
+    "label": ""
+  },
+  "oneMonthAgo": {
+    "value": null,
+    "label": ""
+  },
+  "updated": "2026-03-18T19:58:49.684097+00:00",
+  "source": "vix-approximation"
 }
