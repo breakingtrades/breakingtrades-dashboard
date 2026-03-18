@@ -56,7 +56,7 @@ function createRRG(containerId, opts = {}) {
       <button class="${activeTrail===26?'active':''}" data-rrg-trail="26">26W</button>
       <div class="rrg-sep"></div>
       <button data-rrg-reset>Reset Zoom</button>
-      <span class="rrg-hint">Scroll to zoom · Drag to pan</span>
+      <span class="rrg-hint">Scroll to zoom · Drag to select · Double-click to reset</span>
     </div>`;
   }
 
@@ -256,8 +256,17 @@ function createRRG(containerId, opts = {}) {
             hLine:{type:'line',yMin:100,yMax:100,borderColor:'rgba(128,128,128,0.3)',borderWidth:1,borderDash:[6,4]},
           }},
           zoom: {
-            pan:{enabled:true,mode:'xy'},
-            zoom:{wheel:{enabled:true,speed:0.08},pinch:{enabled:true},mode:'xy'},
+            pan:{enabled:false},
+            zoom:{
+              wheel:{enabled:true,speed:0.08},
+              pinch:{enabled:true},
+              drag:{enabled:true,backgroundColor:'rgba(74,158,255,0.1)',borderColor:'rgba(74,158,255,0.3)',borderWidth:1},
+              mode:'xy',
+              onZoomStart({chart,event}) {
+                // Allow drag zoom only when not clicking a data point
+                if(event.type==='pointerdown') return true;
+              }
+            },
             limits:{x:{min:50,max:160},y:{min:80,max:120}},
           }
         }
@@ -292,6 +301,11 @@ function createRRG(containerId, opts = {}) {
     if (chart) chart.destroy();
     chart = new Chart(canvas, config);
   }
+
+  // Double-click on chart = reset zoom
+  canvas.addEventListener('dblclick', (e) => {
+    if (chart) chart.resetZoom();
+  });
 
   // Load
   fetch(options.dataUrl)
