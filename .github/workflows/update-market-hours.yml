@@ -1,0 +1,39 @@
+name: Update Market Hours
+
+on:
+  schedule:
+    # Run Jan 2 every year at noon UTC to refresh holidays for current + next year
+    - cron: '0 12 2 1 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-holidays:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install exchange_calendars
+
+      - name: Update market hours
+        run: python scripts/update-market-hours.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "BreakingTrades Bot"
+          git config user.email "bot@breakingtrades.github.io"
+          git add data/market-hours.json
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "📅 Update NYSE market hours $(date -u +%Y)"
+            git push
+          fi

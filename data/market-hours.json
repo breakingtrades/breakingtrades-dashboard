@@ -1,0 +1,127 @@
+{
+  "exchange": "NYSE",
+  "timezone": "America/New_York",
+  "regularHours": {
+    "open": "09:30",
+    "close": "16:00"
+  },
+  "extendedHours": {
+    "premarket": {
+      "open": "04:00",
+      "close": "09:30"
+    },
+    "afterhours": {
+      "open": "16:00",
+      "close": "20:00"
+    }
+  },
+  "holidays": {
+    "2026": [
+      {
+        "date": "2026-01-01",
+        "name": "New Year's Day"
+      },
+      {
+        "date": "2026-01-19",
+        "name": "Martin Luther King Jr. Day"
+      },
+      {
+        "date": "2026-02-16",
+        "name": "Presidents' Day"
+      },
+      {
+        "date": "2026-04-03",
+        "name": "Good Friday"
+      },
+      {
+        "date": "2026-05-25",
+        "name": "Memorial Day"
+      },
+      {
+        "date": "2026-06-19",
+        "name": "Juneteenth"
+      },
+      {
+        "date": "2026-07-03",
+        "name": "Independence Day (observed)"
+      },
+      {
+        "date": "2026-09-07",
+        "name": "Labor Day"
+      },
+      {
+        "date": "2026-11-26",
+        "name": "Thanksgiving Day"
+      },
+      {
+        "date": "2026-12-25",
+        "name": "Christmas Day"
+      }
+    ],
+    "2027": [
+      {
+        "date": "2027-01-01",
+        "name": "New Year's Day"
+      },
+      {
+        "date": "2027-01-18",
+        "name": "Martin Luther King Jr. Day"
+      },
+      {
+        "date": "2027-02-15",
+        "name": "Presidents' Day"
+      },
+      {
+        "date": "2027-03-26",
+        "name": "Good Friday"
+      },
+      {
+        "date": "2027-05-31",
+        "name": "Memorial Day"
+      },
+      {
+        "date": "2027-06-18",
+        "name": "Juneteenth (observed)"
+      },
+      {
+        "date": "2027-07-05",
+        "name": "Independence Day (observed)"
+      },
+      {
+        "date": "2027-09-06",
+        "name": "Labor Day"
+      },
+      {
+        "date": "2027-11-25",
+        "name": "Thanksgiving Day"
+      },
+      {
+        "date": "2027-12-24",
+        "name": "Christmas Day (observed)"
+      }
+    ]
+  },
+  "earlyClose": {
+    "2026": [
+      {
+        "date": "2026-11-27",
+        "close": "13:00",
+        "name": "Day After Thanksgiving"
+      },
+      {
+        "date": "2026-12-24",
+        "close": "13:00",
+        "name": "Christmas Eve"
+      }
+    ],
+    "2027": [
+      {
+        "date": "2027-11-26",
+        "close": "13:00",
+        "name": "Day After Thanksgiving"
+      }
+    ]
+  },
+  "generatedAt": "2026-03-18T20:09:46.463030+00:00",
+  "source": "hardcoded"
+}
