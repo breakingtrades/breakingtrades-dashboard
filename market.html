@@ -179,6 +179,40 @@
   }
   .ticker-tape-wrap .tradingview-widget-container { pointer-events: auto; }
 
+
+  .macro-context {
+    display: flex;
+    gap: 0;
+    padding: 0 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0,0,0,0.15);
+    font-size: 12px;
+  }
+  .macro-context::-webkit-scrollbar { display: none; }
+  .macro-ctx-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    white-space: nowrap;
+    border-right: 1px solid rgba(255,255,255,0.04);
+  }
+  .macro-ctx-pill:last-child { border-right: none; }
+  .macro-ctx-pill .ctx-label { color: rgba(255,255,255,0.4); font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .macro-ctx-pill .ctx-value { font-weight: 600; font-size: 13px; }
+  .macro-ctx-pill .ctx-note { font-size: 11px; }
+  .ctx-up { color: #00c853; }
+  .ctx-down { color: #e57373; }
+  .ctx-warn { color: #ffb74d; }
+  .ctx-neutral { color: rgba(255,255,255,0.45); }
+  .ctx-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .ctx-tag-red { background: rgba(229,115,115,0.1); color: #e57373; }
+  .ctx-tag-green { background: rgba(0,200,83,0.15); color: #00c853; }
+  .ctx-tag-orange { background: rgba(255,183,77,0.1); color: #ffb74d; }
+  .ctx-tag-dim { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); }
+
 </style>
 <style>.bt-icon{width:16px;height:16px;display:inline-block;vertical-align:-2px;margin-right:4px;flex-shrink:0;}</style>
 </head>
@@ -210,6 +244,7 @@
 
 <!-- MACRO STRIP -->
 <div id="tv-ticker-tape" class="ticker-tape-wrap"></div>
+<div id="macro-context" class="macro-context"></div>
 
 <!-- MAIN CONTENT -->
 <div class="page-content">
@@ -535,6 +570,8 @@ initTimezone();
 </script>
 <script src="js/icons.js"></script>
 <script src="js/ticker-tape.js"></script>
+<script src="js/macro-context.js"></script>
 <script src="js/market-status.js"></script>
+
 </body>
 </html>
