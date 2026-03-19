@@ -103,20 +103,33 @@ WATCHLIST = [
 ]
 
 def get_fear_greed():
-    """Fetch CNN Fear and Greed index via alternative API if package fails."""
+    """Fetch CNN Fear and Greed index directly from CNN API."""
     print("Fetching Fear & Greed...")
     try:
-        # We will hardcode a realistic set for now if we don't have the python package
-        # but in a real pipeline we would use rapidapi or fear-greed-index
-        import random
-        # Just generating a plausible value for demo until we fix CNN's block
-        val = 25 
+        ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15'
+        r = requests.get('https://production.dataviz.cnn.io/index/fearandgreed/graphdata',
+                         headers={'User-Agent': ua}, timeout=10)
+        r.raise_for_status()
+        fg = r.json().get('fear_and_greed', {})
+        def label(v):
+            if v is None: return None
+            if v >= 75: return "Extreme Greed"
+            if v >= 55: return "Greed"
+            if v >= 45: return "Neutral"
+            if v >= 25: return "Fear"
+            return "Extreme Fear"
+        def entry(v):
+            if v is None: return None
+            v = round(v, 1)
+            return {"value": v, "label": label(v)}
         return {
-            "current": {"value": val, "label": "Extreme Fear"},
-            "previousClose": {"value": 28, "label": "Fear"},
-            "oneWeekAgo": {"value": 35, "label": "Fear"},
-            "oneMonthAgo": {"value": 52, "label": "Neutral"},
-            "updated": datetime.now(timezone.utc).isoformat()
+            "current": entry(fg.get('score')),
+            "previousClose": entry(fg.get('previous_close')),
+            "oneWeekAgo": entry(fg.get('previous_1_week')),
+            "oneMonthAgo": entry(fg.get('previous_1_month')),
+            "oneYearAgo": entry(fg.get('previous_1_year')),
+            "updated": datetime.now(timezone.utc).isoformat(),
+            "source": "cnn"
         }
     except Exception as e:
         print(f"Error fetching F&G: {e}")
