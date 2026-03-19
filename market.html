@@ -37,30 +37,6 @@
   .down { color: var(--red); }
   .neutral { color: var(--text-dim); }
 
-  /* === NAV BAR === */
-  .nav-bar {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 24px; height: 48px; background: #080810;
-    border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
-  }
-  .nav-logo { font-size: 16px; font-weight: 700; color: var(--cyan); letter-spacing: 2px; }
-  .nav-logo span { color: var(--text-dim); font-weight: 400; }
-  .nav-links { display: flex; gap: 2px; }
-  .nav-link {
-    padding: 13px 16px; color: var(--text-dim); text-decoration: none;
-    font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;
-    border-bottom: 2px solid transparent; transition: all 0.2s; font-family: inherit;
-  }
-  .nav-link:hover { color: var(--text); }
-  .nav-link.active { color: var(--cyan); border-bottom-color: var(--cyan); }
-  .nav-right { display: flex; align-items: center; gap: 12px; }
-  .tz-select {
-    padding: 2px 4px; border-radius: 3px; border: 1px solid var(--border);
-    background: #0c0c18; color: var(--text-dim); font-family: inherit;
-    font-size: 11px; cursor: pointer; outline: none;
-  }
-  .tz-select:hover { border-color: var(--cyan); color: var(--text); }
-  .timestamp { color: var(--text-dim); font-size: 11px; }
 
   /* === MACRO STRIP === */
   .vix-structure { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; }
@@ -163,13 +139,10 @@
   }
   @media (max-width: 768px) {
     .page-content { padding: 12px; }
-    .nav-bar { padding: 0 12px; }
     .pairs-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 480px) {
-    .nav-bar { padding: 0 12px; height: 44px; }
     .pairs-grid { grid-template-columns: 1fr; }
-    .nav-logo .bt-logo-text { display: none; }
   }
 
 
@@ -209,32 +182,12 @@
 
 </style>
 <style>.bt-icon{width:16px;height:16px;display:inline-block;vertical-align:-2px;margin-right:4px;flex-shrink:0;}</style>
+<link rel="stylesheet" href="css/nav.css">
 </head>
 <body>
 
 <!-- NAV BAR -->
-<nav class="nav-bar">
-  <a href="index.html" class="nav-logo" style="text-decoration:none;color:inherit;"><svg class="bt-logo" viewBox="0 0 32 32" width="22" height="22" style="vertical-align:middle;margin-right:8px;"><rect width="32" height="32" rx="6" fill="var(--cyan)"/><path d="M6 22 L12 14 L17 18 L26 8" stroke="#0a0a12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="26" cy="8" r="2.5" fill="#0a0a12"/></svg><span class="bt-logo-text">BREAKING<span>TRADES</span></span></a>
-  <div class="nav-links">
-    <a href="index.html" class="nav-link">Signals</a>
-    <a href="watchlist.html" class="nav-link">Watchlist</a>
-    <a href="market.html" class="nav-link active">Market</a>
-  </div>
-  <div class="nav-right">
-    <div id="market-status" style="font-size:11px;color:var(--text-dim);">Market: <span style="color:var(--text-dim);">...</span></div>
-    <select class="tz-select" id="tz-picker" title="Timezone">
-      <option value="America/New_York">🕐 ET</option>
-      <option value="America/Chicago">CT</option>
-      <option value="America/Los_Angeles">PT</option>
-      <option value="Europe/London">GMT</option>
-      <option value="Europe/Berlin">CET</option>
-      <option value="Asia/Jerusalem">IST</option>
-      <option value="Asia/Tokyo">JST</option>
-      <option value="Australia/Sydney">AEST</option>
-      <option value="UTC">UTC</option>
-    </select>
-  </div>
-</nav>
+<nav id="nav"></nav>
 
 <!-- MACRO STRIP -->
 <div id="macro-context" class="macro-context"></div>
@@ -564,6 +517,8 @@ initTimezone();
 <script src="js/icons.js"></script>
 <script src="js/macro-context.js"></script>
 <script src="js/market-status.js"></script>
+<script src="js/ticker-search.js"></script>
+<script src="js/nav.js"></script>
 
 </body>
 </html>
