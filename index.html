@@ -1715,7 +1715,7 @@ document.getElementById('modal').addEventListener('click', e => {
 function renderBriefing() {
   fetch('data/briefing.json').then(r => r.ok ? r.json() : null).then(b => {
     if (!b) return;
-    document.getElementById('briefing-title').textContent = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg> ' + (b.title || 'Daily Briefing');
+    document.getElementById('briefing-title').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg> ' + (b.title || 'Daily Briefing');
     let html = '';
     if (b.headline) html += `<p><strong>${b.headline}</strong></p>`;
     if (b.body) b.body.forEach(p => { html += `<p>${p}</p>`; });
@@ -1739,12 +1739,9 @@ function init() {
     TICKERS.forEach(t => { t._sectorRisk = _sectorRiskData[t.sector] || null; });
     renderCards();
   }).catch(() => {});
-  renderVixGauge();
-  renderFearGreedGauge();
-  renderSectorRotation();
-  renderBriefing();
-  renderStatusTabs();
-  renderCards();
+  [renderVixGauge, renderFearGreedGauge, renderSectorRotation, renderBriefing, renderStatusTabs, renderCards].forEach(fn => {
+    try { fn(); } catch(e) { console.warn(fn.name + ':', e.message); }
+  });
 }
 
 init();
