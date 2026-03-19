@@ -87,13 +87,13 @@
 
     document.getElementById('modal-body').innerHTML = `
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-        <div class="chart-box">
-          <div class="chart-label">Daily Chart</div>
-          <div id="tv-ext-daily" style="height:400px;"></div>
+        <div class="chart-box" style="position:relative;">
+          <div class="chart-label">Daily Chart <button class="tv-fullscreen-btn" data-target="tv-ext-daily" title="Fullscreen">⛶</button></div>
+          <div id="tv-ext-daily" style="height:450px;width:100%;overflow:hidden;"></div>
         </div>
-        <div class="chart-box">
-          <div class="chart-label">Weekly Chart</div>
-          <div id="tv-ext-weekly" style="height:400px;"></div>
+        <div class="chart-box" style="position:relative;">
+          <div class="chart-label">Weekly Chart <button class="tv-fullscreen-btn" data-target="tv-ext-weekly" title="Fullscreen">⛶</button></div>
+          <div id="tv-ext-weekly" style="height:450px;width:100%;overflow:hidden;"></div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;">
@@ -114,6 +114,41 @@
         Data provided by TradingView · <a href="https://www.tradingview.com/symbols/${tvSymbol}/" target="_blank" style="color:var(--cyan);">Open on TradingView ↗</a>
       </div>
     `;
+
+    // Fullscreen toggle for chart boxes
+    document.querySelectorAll('.tv-fullscreen-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const container = document.getElementById(btn.dataset.target);
+        if (!container) return;
+        const box = container.closest('.chart-box');
+        if (box.classList.contains('tv-fullscreen')) {
+          box.classList.remove('tv-fullscreen');
+          container.style.height = '450px';
+          btn.textContent = '⛶';
+        } else {
+          box.classList.add('tv-fullscreen');
+          container.style.height = '100%';
+          btn.textContent = '✕';
+        }
+      });
+    });
+
+    // Escape exits fullscreen chart
+    const fsHandler = (e) => {
+      if (e.key === 'Escape') {
+        const fs = document.querySelector('.chart-box.tv-fullscreen');
+        if (fs) {
+          e.stopPropagation();
+          fs.classList.remove('tv-fullscreen');
+          const cont = fs.querySelector('[id^="tv-ext-"]');
+          if (cont) cont.style.height = '450px';
+          const btn = fs.querySelector('.tv-fullscreen-btn');
+          if (btn) btn.textContent = '⛶';
+        }
+      }
+    };
+    document.addEventListener('keydown', fsHandler);
 
     modal.classList.add('open');
 

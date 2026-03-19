@@ -629,6 +629,26 @@
     border-bottom: 1px solid var(--border);
     display: flex; justify-content: space-between; align-items: center;
   }
+  .chart-box .tradingview-widget-container,
+  .chart-box .tradingview-widget-container__widget,
+  .chart-box .tradingview-widget-container iframe {
+    width: 100% !important; height: 100% !important;
+  }
+  .tv-fullscreen-btn {
+    background: none; border: 1px solid var(--border); color: var(--text-dim);
+    cursor: pointer; font-size: 14px; padding: 2px 6px; border-radius: 4px;
+    line-height: 1; transition: all 0.15s;
+  }
+  .tv-fullscreen-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+  .chart-box.tv-fullscreen {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 10000; border-radius: 0; border: none;
+  }
+  .chart-box.tv-fullscreen .chart-label {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 10001;
+    background: rgba(10,10,18,0.9); backdrop-filter: blur(4px);
+  }
+  .chart-box.tv-fullscreen .tv-fullscreen-btn { font-size: 18px; padding: 4px 10px; }
   .ma-legend { display: flex; gap: 10px; }
   .ma-legend span { display: flex; align-items: center; gap: 3px; font-size: 10px; }
   .ma-dot { display: inline-block; width: 10px; height: 3px; border-radius: 1px; }
