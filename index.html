@@ -78,6 +78,50 @@
   }
   .nav-link:hover { color: var(--text); }
   .nav-link.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+  /* === SEARCH BAR === */
+  .nav-search-wrap { position: relative; }
+  .nav-search {
+    width: 200px; padding: 6px 12px 6px 30px;
+    border-radius: 6px; border: 1px solid var(--border);
+    background: #0c0c18; color: var(--text);
+    font-family: inherit; font-size: 12px; outline: none;
+    transition: all 0.2s;
+  }
+  .nav-search:focus { border-color: var(--cyan); width: 280px; }
+  .nav-search::placeholder { color: #555; }
+  .nav-search-wrap::before {
+    content: '🔍'; position: absolute; left: 8px; top: 50%;
+    transform: translateY(-50%); font-size: 12px; pointer-events: none; opacity: 0.4;
+  }
+  .search-dropdown {
+    display: none; position: absolute; top: 100%; left: 0; margin-top: 4px;
+    width: 320px; max-height: 360px; overflow-y: auto;
+    background: #111122; border: 1px solid var(--border); border-radius: 8px;
+    z-index: 300; box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  }
+  .search-dropdown.open { display: block; }
+  .search-dropdown::-webkit-scrollbar { width: 4px; }
+  .search-dropdown::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+  .search-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px; cursor: pointer; transition: background 0.1s;
+    border-bottom: 1px solid rgba(30,30,58,0.4);
+  }
+  .search-item:last-child { border-bottom: none; }
+  .search-item:hover, .search-item.active { background: rgba(0,212,170,0.08); }
+  .search-item .si-left { display: flex; align-items: center; gap: 10px; }
+  .search-item .si-sym { font-weight: 700; font-size: 13px; }
+  .search-item .si-name { color: var(--text-dim); font-size: 11px; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .search-item .si-badge {
+    font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: 600;
+  }
+  .search-item .si-tracked { background: rgba(0,212,170,0.15); color: var(--cyan); }
+  .search-item .si-ext { background: rgba(255,167,38,0.15); color: var(--orange); }
+  .search-item .si-price { font-size: 12px; font-weight: 600; }
+  .search-hint {
+    padding: 10px 14px; color: var(--text-dim); font-size: 11px; text-align: center;
+  }
   .nav-right { display: flex; align-items: center; gap: 12px; }
   .tz-select {
     padding: 2px 4px; border-radius: 3px; border: 1px solid var(--border);
@@ -86,6 +130,51 @@
   }
   .tz-select:hover { border-color: var(--cyan); color: var(--text); }
   .timestamp { color: var(--text-dim); font-size: 11px; }
+
+  /* === FUTURES STRIP === */
+  .futures-strip {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: #06060e;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 8px;
+  }
+  .futures-strip::-webkit-scrollbar { display: none; }
+  .fs-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+  .fs-label {
+    color: rgba(255,255,255,0.45);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .fs-price { font-weight: 600; }
+  .fs-change { font-size: 11px; }
+  .fs-up .fs-price, .fs-up .fs-change { color: var(--cyan); }
+  .fs-down .fs-price, .fs-down .fs-change { color: var(--red); }
+  .fs-flat .fs-price { color: var(--text-dim); }
+  .fs-flat .fs-change { color: var(--text-dim); }
+  .fs-sep {
+    color: rgba(255,255,255,0.15);
+    padding: 0 4px;
+    font-size: 11px;
+  }
+  .fs-ts {
+    margin-left: auto;
+    color: rgba(255,255,255,0.2);
+    font-size: 10px;
+    padding: 0 8px;
+    white-space: nowrap;
+  }
 
   /* === MACRO STRIP === */
   .vix-gauge-mini { width: 38px; height: 22px; flex-shrink: 0; }
@@ -741,11 +830,15 @@
 
 <!-- NAV BAR -->
 <nav class="nav-bar">
-  <div class="nav-logo">BREAKING<span>TRADES</span></div>
+  <div class="nav-logo"><svg class="bt-logo" viewBox="0 0 32 32" width="22" height="22" style="vertical-align:middle;margin-right:8px;"><rect width="32" height="32" rx="6" fill="var(--cyan)"/><path d="M6 22 L12 14 L17 18 L26 8" stroke="#0a0a12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="26" cy="8" r="2.5" fill="#0a0a12"/></svg>BREAKING<span>TRADES</span></div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">Signals</a>
     <a href="watchlist.html" class="nav-link">Watchlist</a>
     <a href="market.html" class="nav-link">Market</a>
+  </div>
+  <div class="nav-search-wrap" style="position:relative;">
+    <input type="text" id="ticker-search" class="nav-search" placeholder="Search ticker…" autocomplete="off" spellcheck="false">
+    <div id="search-results" class="search-dropdown"></div>
   </div>
   <div class="nav-right">
     <div id="market-status" style="font-size:11px;color:var(--text-dim);">Market: <span style="color:var(--text-dim);">...</span></div>
@@ -762,6 +855,9 @@
     </select>
   </div>
 </nav>
+
+<!-- FUTURES STRIP -->
+<div id="futures-strip" class="futures-strip"></div>
 
 <!-- MACRO STRIP -->
 <div id="macro-context" class="macro-context"></div>
@@ -1758,8 +1854,10 @@ init();
   });
 </script>
 <script src="js/icons.js"></script>
+<script src="js/futures-strip.js"></script>
 <script src="js/macro-context.js"></script>
 <script src="js/market-status.js"></script>
+<script src="js/ticker-search.js"></script>
 
 </body>
 </html>

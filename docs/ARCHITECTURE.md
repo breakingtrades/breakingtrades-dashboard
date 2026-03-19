@@ -111,7 +111,15 @@ src/
 │   ├── watchlist.js        ← Grid rendering, sort, filter
 │   ├── ticker-detail.js    ← Detail page logic
 │   ├── tradingview.js      ← Widget factory functions
+│   ├── futures-strip.js    ← Pre-market futures/macro strip renderer
+│   ├── ticker-search.js    ← Global search + TradingView detail overlay
+│   ├── macro-context.js    ← Macro context strip (SPY, QQQ, VIX, F&G)
+│   ├── market-status.js    ← Market open/closed/pre/after indicator
+│   ├── icons.js            ← SVG icon library
 │   └── utils.js            ← Formatters, helpers
+├── scripts/
+│   ├── serve.py            ← Dashboard server (static + /api/search proxy)
+│   └── update_futures.py   ← Yahoo v8 futures data fetcher → data/futures.json
 └── assets/
     └── logo.svg            ← BreakingTrades logo
 ```

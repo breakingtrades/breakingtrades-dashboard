@@ -15,6 +15,8 @@ Professional trading intelligence dashboard with real-time setup tracking, AI-po
 ## Features
 
 - **Trade Lifecycle** — Status tracking: Watching → Approaching → Retest → Active → Exit
+- **Futures Strip** — Pre-market/live data for 14 instruments: ES, NQ, RTY, YM, CL, NG, GC, SI, HG, US10Y, DXY, VIX, BTC, ETH
+- **Global Ticker Search** — Search any symbol; tracked tickers show enriched data, external tickers get TradingView widgets
 - **Interactive Charts** — TradingView embeds with SMA 20/50 (daily + weekly), sequential loading
 - **Macro Strip** — VIX, DXY, US10Y, Oil, BTC with live data
 - **12 Pair Ratios** — XLY/XLP, RSP/SPY, HYG/SPY, IWM/SPY, and 8 more
@@ -25,13 +27,14 @@ Professional trading intelligence dashboard with real-time setup tracking, AI-po
 
 ## Architecture
 
-Static HTML + vanilla JS on GitHub Pages. No server, no database. Data pipeline (Python) runs locally → generates JSON → git push → auto-deploy.
+Static HTML + vanilla JS. Data pipeline (Python) runs locally → generates JSON. Dashboard server (`scripts/serve.py`) serves static files + proxies Yahoo Finance search API.
 
 ```
-Local Python Pipeline  →  JSON Files  →  GitHub Pages
-  yfinance/tvDatafeed      watchlist.json    static hosting
-  CNN F&G scraper          setups.json       free, zero ops
-  signal computation       fear-greed.json   auto-CDN
+Local Python Pipeline  →  JSON Files  →  Dashboard Server (serve.py)
+  yfinance/tvDatafeed      watchlist.json    static files + /api/search proxy
+  CNN F&G scraper          setups.json       futures.json (cron-refreshed)
+  signal computation       fear-greed.json   GitHub Pages (production)
+  Yahoo v8 chart API       futures.json
 ```
 
 ## Status
