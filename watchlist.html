@@ -240,6 +240,9 @@
   .ctx-tag-green { background: rgba(0,200,83,0.15); color: #00c853; }
   .ctx-tag-orange { background: rgba(255,183,77,0.1); color: #ffb74d; }
   .ctx-tag-dim { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); }
+  @media (max-width: 480px) {
+    .nav-logo .bt-logo-text { display: none; }
+  }
 
 </style>
 <style>.bt-icon{width:16px;height:16px;display:inline-block;vertical-align:-2px;margin-right:4px;flex-shrink:0;}</style>
@@ -248,7 +251,7 @@
 
 <!-- NAV BAR -->
 <nav class="nav-bar">
-  <a href="index.html" class="nav-logo" style="text-decoration:none;color:inherit;">BREAKING<span>TRADES</span></a>
+  <a href="index.html" class="nav-logo" style="text-decoration:none;color:inherit;"><svg class="bt-logo" viewBox="0 0 32 32" width="22" height="22" style="vertical-align:middle;margin-right:8px;"><rect width="32" height="32" rx="6" fill="var(--cyan)"/><path d="M6 22 L12 14 L17 18 L26 8" stroke="#0a0a12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="26" cy="8" r="2.5" fill="#0a0a12"/></svg><span class="bt-logo-text">BREAKING<span>TRADES</span></span></a>
   <div class="nav-links">
     <a href="index.html" class="nav-link">Signals</a>
     <a href="watchlist.html" class="nav-link active">Watchlist</a>
