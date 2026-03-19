@@ -27,6 +27,7 @@ SECTORS = [
     {"symbol": "XLC", "name": "Communication", "color": "#9C27B0"},
     {"symbol": "XLU", "name": "Utilities", "color": "#6366F1"},
     {"symbol": "XLRE", "name": "Real Estate", "color": "#009688"},
+    {"symbol": "IBIT", "name": "Bitcoin", "color": "#F7931A"},
 ]
 
 

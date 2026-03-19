@@ -54,6 +54,7 @@ WATCHLIST = [
   {'symbol':'XLC', 'name':'Communication', 'sector':'ETF', 'group':'Sector ETFs'},
   {'symbol':'XLB', 'name':'Materials', 'sector':'ETF', 'group':'Sector ETFs'},
   {'symbol':'XLRE', 'name':'Real Estate', 'sector':'ETF', 'group':'Sector ETFs'},
+  {'symbol':'IBIT', 'name':'Bitcoin', 'sector':'Crypto', 'group':'Sector ETFs'},
   
   # Macro / Index
   {'symbol':'SPY', 'name':'S&P 500', 'sector':'Index', 'group':'Macro / Index'},
@@ -296,7 +297,7 @@ def main():
             print(f"Error computing pair {p['pair']}: {e}")
             
     # Build Sector Strength (momentum proxy: % above 50SMA)
-    sectors = ['XLU','XLE','XLP','XLRE','XLV','XLB','XLI','XLF','XLC','XLY','XLK']
+    sectors = ['XLU','XLE','XLP','XLRE','XLV','XLB','XLI','XLF','XLC','XLY','XLK','IBIT']
     sector_scores = []
     for s in sectors:
         try:
