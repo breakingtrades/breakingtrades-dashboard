@@ -11,14 +11,18 @@
   let activeIdx = -1;
   let items = [];
 
-  // Yahoo Search API for symbol lookup
-  async function yahooSearch(q) {
+  // StockAnalysis.com symbol search (free, CORS-enabled, no API key)
+  async function symbolSearch(q) {
     try {
-      const url = `/api/search?q=${encodeURIComponent(q)}`;
+      const url = `https://stockanalysis.com/api/search?q=${encodeURIComponent(q)}`;
       const r = await fetch(url);
       if (!r.ok) return [];
-      const data = await r.json();
-      return Array.isArray(data) ? data.slice(0, 8) : [];
+      const json = await r.json();
+      if (!json.data) return [];
+      return json.data
+        .filter(d => d.t === 's' || d.t === 'e') // stocks + ETFs only
+        .slice(0, 8)
+        .map(d => ({ symbol: d.s, shortname: d.n }));
     } catch { return []; }
   }
 
@@ -252,7 +256,7 @@
 
     // Remote search after 300ms
     debounce = setTimeout(async () => {
-      const remote = await yahooSearch(q);
+      const remote = await symbolSearch(q);
       // Merge: local first, then remote (deduped)
       const seen = new Set(local.map(l => l.symbol));
       const merged = [...local, ...remote.filter(r => !seen.has(r.symbol))].slice(0, 8);
