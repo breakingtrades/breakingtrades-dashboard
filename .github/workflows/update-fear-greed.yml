@@ -1,0 +1,36 @@
+name: Update Fear & Greed Index
+
+on:
+  schedule:
+    # Every 15 min during US market hours (Mon-Fri 9:30-16:00 ET = 13:30-20:00 UTC)
+    - cron: '*/15 13-20 * * 1-5'
+    # Hourly outside market hours for overnight/pre-market
+    - cron: '0 0-12,21-23 * * 1-5'
+  workflow_dispatch: # manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-fg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install requests
+
+      - name: Scrape CNN Fear & Greed
+        run: python scripts/update-fear-greed.py
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet data/fear-greed.json && echo "No changes" && exit 0
+          git add data/fear-greed.json
+          git commit -m "data: update Fear & Greed $(date -u +%Y-%m-%dT%H:%M)"
+          git push
