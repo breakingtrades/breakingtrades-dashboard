@@ -3,7 +3,7 @@
  * Tracked tickers → openDetail() (enriched data)
  * External tickers → TradingView widget overlay
  */
-(function() {
+function initTickerSearch() {
   const input = document.getElementById('ticker-search');
   const dropdown = document.getElementById('search-results');
   if (!input || !dropdown) return;
@@ -354,4 +354,4 @@
       input.focus();
     }
   });
-})();
+}

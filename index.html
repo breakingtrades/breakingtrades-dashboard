@@ -8,6 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2"></script>
 <link rel="stylesheet" href="css/sector-rotation.css">
+<link rel="stylesheet" href="css/nav.css">
 <style>
   :root {
     --bg-primary: #0a0a12;
@@ -43,92 +44,6 @@
   .down { color: var(--red); }
   .neutral { color: var(--text-dim); }
 
-  /* === NAV BAR === */
-  .nav-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
-    height: 48px;
-    background: #080810;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .nav-logo {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--cyan);
-    letter-spacing: 2px;
-  }
-  .nav-logo span { color: var(--text-dim); font-weight: 400; }
-  .nav-links { display: flex; gap: 2px; }
-  .nav-link {
-    padding: 13px 16px;
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    font-family: inherit;
-  }
-  .nav-link:hover { color: var(--text); }
-  .nav-link.active { color: var(--cyan); border-bottom-color: var(--cyan); }
-
-  /* === SEARCH BAR === */
-  .nav-search-wrap { position: relative; }
-  .nav-search {
-    width: 200px; padding: 6px 12px 6px 30px;
-    border-radius: 6px; border: 1px solid var(--border);
-    background: #0c0c18; color: var(--text);
-    font-family: inherit; font-size: 12px; outline: none;
-    transition: all 0.2s;
-  }
-  .nav-search:focus { border-color: var(--cyan); width: 280px; }
-  .nav-search::placeholder { color: #555; }
-  .nav-search-wrap::before {
-    content: '🔍'; position: absolute; left: 8px; top: 50%;
-    transform: translateY(-50%); font-size: 12px; pointer-events: none; opacity: 0.4;
-  }
-  .search-dropdown {
-    display: none; position: absolute; top: 100%; left: 0; margin-top: 4px;
-    width: 320px; max-height: 360px; overflow-y: auto;
-    background: #111122; border: 1px solid var(--border); border-radius: 8px;
-    z-index: 300; box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-  }
-  .search-dropdown.open { display: block; }
-  .search-dropdown::-webkit-scrollbar { width: 4px; }
-  .search-dropdown::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
-  .search-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 14px; cursor: pointer; transition: background 0.1s;
-    border-bottom: 1px solid rgba(30,30,58,0.4);
-  }
-  .search-item:last-child { border-bottom: none; }
-  .search-item:hover, .search-item.active { background: rgba(0,212,170,0.08); }
-  .search-item .si-left { display: flex; align-items: center; gap: 10px; }
-  .search-item .si-sym { font-weight: 700; font-size: 13px; }
-  .search-item .si-name { color: var(--text-dim); font-size: 11px; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .search-item .si-badge {
-    font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: 600;
-  }
-  .search-item .si-tracked { background: rgba(0,212,170,0.15); color: var(--cyan); }
-  .search-item .si-ext { background: rgba(255,167,38,0.15); color: var(--orange); }
-  .search-item .si-price { font-size: 12px; font-weight: 600; }
-  .search-hint {
-    padding: 10px 14px; color: var(--text-dim); font-size: 11px; text-align: center;
-  }
-  .nav-right { display: flex; align-items: center; gap: 12px; }
-  .tz-select {
-    padding: 2px 4px; border-radius: 3px; border: 1px solid var(--border);
-    background: #0c0c18; color: var(--text-dim); font-family: inherit;
-    font-size: 11px; cursor: pointer; outline: none;
-  }
-  .tz-select:hover { border-color: var(--cyan); color: var(--text); }
   .timestamp { color: var(--text-dim); font-size: 11px; }
 
   /* === FUTURES STRIP === */
@@ -788,8 +703,6 @@
   @media (max-width: 900px) {
     .main { grid-template-columns: 1fr; }
     .right-panel { border-left: none; border-top: 1px solid var(--border); }
-    .nav-links { gap: 0; }
-    .nav-link { padding: 13px 10px; font-size: 11px; }
     .ta-row { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
@@ -801,10 +714,6 @@
       .modal-pattern { flex-direction: column; text-align: center; }
   }
   @media (max-width: 480px) {
-    .nav-bar { padding: 0 12px; height: 44px; }
-    .nav-logo { font-size: 13px; letter-spacing: 1px; }
-    .nav-logo .bt-logo-text { display: none; }
-    .nav-link { padding: 12px 8px; font-size: 10px; }
     .watchlist-panel { padding: 12px; }
       .fg-gauge-svg { max-width: 260px; }
   }
@@ -850,32 +759,7 @@
 <body>
 
 <!-- NAV BAR -->
-<nav class="nav-bar">
-  <a href="index.html" class="nav-logo" style="text-decoration:none;color:inherit;"><svg class="bt-logo" viewBox="0 0 32 32" width="22" height="22" style="vertical-align:middle;margin-right:8px;"><rect width="32" height="32" rx="6" fill="var(--cyan)"/><path d="M6 22 L12 14 L17 18 L26 8" stroke="#0a0a12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="26" cy="8" r="2.5" fill="#0a0a12"/></svg><span class="bt-logo-text">BREAKING<span>TRADES</span></span></a>
-  <div class="nav-links">
-    <a href="index.html" class="nav-link active">Signals</a>
-    <a href="watchlist.html" class="nav-link">Watchlist</a>
-    <a href="market.html" class="nav-link">Market</a>
-  </div>
-  <div class="nav-search-wrap" style="position:relative;">
-    <input type="text" id="ticker-search" class="nav-search" placeholder="Search ticker…" autocomplete="off" spellcheck="false">
-    <div id="search-results" class="search-dropdown"></div>
-  </div>
-  <div class="nav-right">
-    <div id="market-status" style="font-size:11px;color:var(--text-dim);">Market: <span style="color:var(--text-dim);">...</span></div>
-    <select class="tz-select" id="tz-picker" title="Timezone">
-      <option value="America/New_York">🕐 ET</option>
-      <option value="America/Chicago">CT</option>
-      <option value="America/Los_Angeles">PT</option>
-      <option value="Europe/London">GMT</option>
-      <option value="Europe/Berlin">CET</option>
-      <option value="Asia/Jerusalem">IST</option>
-      <option value="Asia/Tokyo">JST</option>
-      <option value="Australia/Sydney">AEST</option>
-      <option value="UTC">UTC</option>
-    </select>
-  </div>
-</nav>
+<nav id="nav"></nav>
 
 <!-- FUTURES STRIP -->
 <div id="futures-strip" class="futures-strip"></div>
@@ -1879,6 +1763,7 @@ init();
 <script src="js/macro-context.js"></script>
 <script src="js/market-status.js"></script>
 <script src="js/ticker-search.js"></script>
+<script src="js/nav.js"></script>
 
 </body>
 </html>

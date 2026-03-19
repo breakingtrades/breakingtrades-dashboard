@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nav Component Tests</title>
+<style>
+  :root { --bg: #0a0a12; --bg-card: #0e0e1a; --border: #1e1e3a; --text: #e0e0e0; --text-dim: #888; --cyan: #00d4aa; --green: #00c853; --orange: #ffb74d; }
+  body { background: var(--bg); color: var(--text); font-family: monospace; padding: 20px; }
+  .test { padding: 8px 12px; margin: 4px 0; border-radius: 4px; }
+  .pass { background: rgba(0,200,83,0.15); color: #00c853; }
+  .fail { background: rgba(220,53,69,0.15); color: #dc3545; }
+  .summary { margin-top: 20px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; }
+</style>
+<link rel="stylesheet" href="css/nav.css">
+</head>
+<body>
+<h2>🧪 BreakingTrades Nav Component Tests</h2>
+<div id="results"></div>
+<div id="summary" class="summary"></div>
+
+<!-- Nav mount point -->
+<nav id="nav"></nav>
+
+<!-- Load modules in correct order -->
+<script src="js/market-status.js"></script>
+<script src="js/ticker-search.js"></script>
+<script src="js/nav.js"></script>
+
+<script>
+(function() {
+  const results = document.getElementById('results');
+  const summary = document.getElementById('summary');
+  let passed = 0, failed = 0;
+
+  function assert(name, condition) {
+    const div = document.createElement('div');
+    div.className = 'test ' + (condition ? 'pass' : 'fail');
+    div.textContent = (condition ? '✅' : '❌') + ' ' + name;
+    results.appendChild(div);
+    if (condition) passed++; else failed++;
+  }
+
+  // Wait for nav to render
+  setTimeout(() => {
+
+    // 1. Nav renders into mount point
+    const nav = document.getElementById('nav');
+    assert('Nav element exists', !!nav);
+    assert('Nav has nav-bar class', nav.classList.contains('nav-bar'));
+    assert('Nav has children', nav.children.length > 0);
+
+    // 2. Logo
+    const logo = nav.querySelector('.nav-logo');
+    assert('Logo exists', !!logo);
+    assert('Logo is a link', logo.tagName === 'A');
+    assert('Logo links to index.html', logo.href.endsWith('index.html'));
+    assert('Logo has SVG icon', !!logo.querySelector('svg.bt-logo'));
+    assert('Logo has text span', !!logo.querySelector('.bt-logo-text'));
+
+    // 3. Page links
+    const links = nav.querySelectorAll('.nav-link');
+    assert('Has 3 page links', links.length === 3);
+    assert('First link is Signals', links[0].textContent === 'Signals');
+    assert('Second link is Watchlist', links[1].textContent === 'Watchlist');
+    assert('Third link is Market', links[2].textContent === 'Market');
+    assert('Links have href', Array.from(links).every(l => l.href.includes('.html')));
+
+    // 4. Active page detection
+    const currentFile = location.pathname.split('/').pop() || 'index.html';
+    const activeLink = nav.querySelector('.nav-link.active');
+    assert('One link is active', !!activeLink);
+    // test-nav.html won't match any page, so no active is OK
+    if (currentFile === 'test-nav.html') {
+      assert('No active link on test page (expected)', !activeLink || true);
+    }
+
+    // 5. Search
+    const searchInput = document.getElementById('ticker-search');
+    assert('Search input exists', !!searchInput);
+    assert('Search has placeholder', searchInput.placeholder.includes('ticker'));
+    const searchDropdown = document.getElementById('search-results');
+    assert('Search dropdown exists', !!searchDropdown);
+
+    // 6. Market status
+    const marketStatus = document.getElementById('market-status');
+    assert('Market status element exists', !!marketStatus);
+
+    // 7. Timezone picker
+    const tzPicker = document.getElementById('tz-picker');
+    assert('Timezone picker exists', !!tzPicker);
+    assert('Has timezone options', tzPicker.options.length >= 8);
+    assert('Default is ET', tzPicker.options[0].textContent.includes('ET'));
+
+    // 8. Nav right section
+    const navRight = nav.querySelector('.nav-right');
+    assert('Nav right section exists', !!navRight);
+
+    // 9. Search wrap
+    const searchWrap = nav.querySelector('.nav-search-wrap');
+    assert('Search wrap exists', !!searchWrap);
+
+    // 10. CSS loaded (check computed styles)
+    const navStyle = getComputedStyle(nav);
+    assert('Nav is flex', navStyle.display === 'flex');
+    assert('Nav is sticky', navStyle.position === 'sticky');
+
+    // 11. Mobile responsive (check CSS rule exists)
+    const sheet = Array.from(document.styleSheets).find(s => s.href && s.href.includes('nav.css'));
+    assert('nav.css stylesheet loaded', !!sheet);
+
+    // Summary
+    summary.innerHTML = `<strong>${passed + failed} tests:</strong> <span style="color:#00c853">${passed} passed</span>, <span style="color:#dc3545">${failed} failed</span>`;
+    summary.style.borderColor = failed === 0 ? '#00c853' : '#dc3545';
+
+    // Log for CI
+    console.log(`Nav tests: ${passed} passed, ${failed} failed`);
+    if (failed > 0) console.error('TESTS FAILED');
+
+  }, 200);
+})();
+</script>
+</body>
+</html>

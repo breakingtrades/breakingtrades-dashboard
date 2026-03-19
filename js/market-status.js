@@ -6,7 +6,7 @@
  * Requires an element with id="market-status" in the page.
  * Output: "PRE-MARKET" | "OPEN" | "AFTER-HOURS" | "CLOSED" | "HOLIDAY: <name>"
  */
-(function () {
+function initMarketStatus() {
   const STATUS_EL_ID = 'market-status';
   const DATA_PATH = 'data/market-hours.json';
   let config = null;
@@ -122,4 +122,4 @@
     .then(r => r.json())
     .then(data => { config = data; render(); setInterval(render, 1000); })
     .catch(() => { render(); setInterval(render, 1000); });
-})();
+}
