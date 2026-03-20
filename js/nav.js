@@ -8,6 +8,7 @@
   const PAGES = [
     { href: 'index.html', label: 'Signals', aliases: ['', '/'] },
     { href: 'watchlist.html', label: 'Watchlist' },
+    { href: 'expected-moves.html', label: 'Expected Moves' },
     { href: 'market.html', label: 'Market' },
   ];
 

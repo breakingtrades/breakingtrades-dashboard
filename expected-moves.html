@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expected Moves — BreakingTrades</title>
+<link rel="stylesheet" href="css/nav.css">
+<style>
+  :root {
+    --bg-primary: #0a0a12;
+    --bg-card: #111122;
+    --bg-card-hover: #161630;
+    --border: #1e1e3a;
+    --text: #e0e0e8;
+    --text-dim: #8888aa;
+    --text-bright: #ffffff;
+    --cyan: #00d4aa;
+    --orange: #ffa726;
+    --red: #ef5350;
+    --gold: #ffd700;
+    --blue: #42a5f5;
+    --purple: #ab47bc;
+    --yellow: #ffeb3b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg-primary);
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .container { max-width: 1400px; margin: 0 auto; padding: 80px 20px 40px; }
+
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .page-header h1 { font-size: 20px; color: var(--text-bright); }
+  .page-header .subtitle { font-size: 12px; color: var(--text-dim); }
+  .page-header .updated { font-size: 11px; color: var(--text-dim); }
+
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 11px;
+    flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch {
+    width: 14px; height: 14px; border-radius: 3px;
+  }
+
+  /* Table */
+  .em-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+  }
+  thead th {
+    position: sticky; top: 0;
+    background: #0d0d1a;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+  }
+  thead th:hover { color: var(--text); }
+  thead th.sort-asc::after { content: ' ▲'; color: var(--cyan); }
+  thead th.sort-desc::after { content: ' ▼'; color: var(--cyan); }
+  tbody tr {
+    border-bottom: 1px solid rgba(30,30,58,0.5);
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+  tbody tr:hover { background: var(--bg-card-hover); }
+  td {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .ticker-cell { font-weight: 700; color: var(--text-bright); }
+  .up { color: var(--cyan); }
+  .down { color: var(--red); }
+  .dim { color: var(--text-dim); font-size: 11px; }
+
+  /* Risk meter — horizontal bar */
+  .risk-bar-wrap {
+    width: 120px;
+    height: 20px;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #1b5e20, #4caf50, #8bc34a, #ffeb3b, #ff9800, #f44336, #b71c1c);
+  }
+  .risk-needle {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 3px;
+    background: var(--text-bright);
+    border-radius: 2px;
+    box-shadow: 0 0 4px rgba(255,255,255,0.6);
+    transition: left 0.3s;
+  }
+
+  /* Risk badge */
+  .risk-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Position bar (where price sits in range) */
+  .pos-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    position: relative;
+    min-width: 80px;
+  }
+  .pos-fill {
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    border-radius: 4px;
+    transition: width 0.3s;
+  }
+  .pos-marker {
+    position: absolute;
+    top: -3px;
+    width: 4px; height: 14px;
+    border-radius: 2px;
+    background: var(--gold);
+    transform: translateX(-50%);
+    box-shadow: 0 0 4px rgba(255,215,0,0.5);
+  }
+
+  /* Tier tabs */
+  .tier-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+  .tier-tab {
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .tier-tab:hover { color: var(--text); border-color: var(--text-dim); }
+  .tier-tab.active { color: var(--cyan); border-color: var(--cyan); background: rgba(0,212,170,0.08); }
+
+  /* Stats row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .stat-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-value { font-size: 22px; font-weight: 700; color: var(--text-bright); margin: 4px 0; }
+  .stat-sub { font-size: 11px; color: var(--text-dim); }
+
+  @media (max-width: 768px) {
+    .risk-bar-wrap { width: 80px; }
+    td { padding: 8px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<nav id="nav"></nav>
+<div class="container">
+  <div class="page-header">
+    <div>
+      <h1>📐 Expected Moves</h1>
+      <div class="subtitle">Options-implied weekly ranges · ATM straddle × 0.85</div>
+    </div>
+    <div class="updated" id="em-updated"></div>
+  </div>
+
+  <div class="stats-row" id="stats-row"></div>
+
+  <div class="legend">
+    <span style="color:var(--text-dim);">Long Risk:</span>
+    <div class="legend-item"><div class="legend-swatch" style="background:#1b5e20;"></div> Low (bottom of range)</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#8bc34a;"></div> Moderate</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#ffeb3b;"></div> Elevated</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#ff9800;"></div> High</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#f44336;"></div> Extended</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#b71c1c;"></div> Above EM</div>
+  </div>
+
+  <div class="tier-tabs">
+    <button class="tier-tab active" data-tier="weekly">Weekly</button>
+    <button class="tier-tab" data-tier="daily">Daily</button>
+    <button class="tier-tab" data-tier="monthly">Monthly</button>
+    <button class="tier-tab" data-tier="quarterly">Quarterly</button>
+  </div>
+
+  <div class="em-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th data-col="symbol">Ticker</th>
+          <th data-col="close">Close</th>
+          <th data-col="current">Current</th>
+          <th data-col="change">Change</th>
+          <th data-col="em">± EM</th>
+          <th data-col="pct">EM %</th>
+          <th data-col="lower">Low</th>
+          <th data-col="upper">High</th>
+          <th data-col="position" style="min-width:140px;">Position in Range</th>
+          <th data-col="risk">Risk Level</th>
+          <th data-col="riskbar" style="min-width:130px;">Risk Meter</th>
+        </tr>
+      </thead>
+      <tbody id="em-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+let emData = {};
+let watchlistData = [];
+let currentTier = 'weekly';
+let sortCol = 'risk';
+let sortAsc = false;
+
+async function loadData() {
+  try {
+    const [emRes, wlRes] = await Promise.all([
+      fetch('data/expected-moves.json'),
+      fetch('data/watchlist.json')
+    ]);
+    const em = await emRes.json();
+    emData = em;
+    watchlistData = await wlRes.json();
+    document.getElementById('em-updated').textContent = `Updated: ${new Date(em.updated).toLocaleString()}`;
+    render();
+  } catch(e) {
+    console.error('Failed to load data:', e);
+    document.getElementById('em-tbody').innerHTML = '<tr><td colspan="11" style="text-align:center;color:var(--red);padding:40px;">Failed to load expected move data</td></tr>';
+  }
+}
+
+function getRiskColor(pct) {
+  // pct = 0 (bottom of range) to 100 (top) to >100 (above)
+  if (pct <= 20) return '#1b5e20';
+  if (pct <= 40) return '#4caf50';
+  if (pct <= 55) return '#8bc34a';
+  if (pct <= 70) return '#ffeb3b';
+  if (pct <= 85) return '#ff9800';
+  if (pct <= 100) return '#f44336';
+  return '#b71c1c';
+}
+
+function getRiskLabel(pct) {
+  if (pct <= 20) return { text: 'LOW', color: '#1b5e20', bg: 'rgba(27,94,32,0.2)' };
+  if (pct <= 40) return { text: 'LOW', color: '#4caf50', bg: 'rgba(76,175,80,0.15)' };
+  if (pct <= 55) return { text: 'MODERATE', color: '#8bc34a', bg: 'rgba(139,195,74,0.15)' };
+  if (pct <= 70) return { text: 'ELEVATED', color: '#ffeb3b', bg: 'rgba(255,235,59,0.15)' };
+  if (pct <= 85) return { text: 'HIGH', color: '#ff9800', bg: 'rgba(255,152,0,0.15)' };
+  if (pct <= 100) return { text: 'EXTENDED', color: '#f44336', bg: 'rgba(244,67,54,0.15)' };
+  return { text: 'ABOVE EM', color: '#b71c1c', bg: 'rgba(183,28,28,0.2)' };
+}
+
+function buildRows() {
+  const tickers = emData.tickers || {};
+  const rows = [];
+
+  for (const [sym, t] of Object.entries(tickers)) {
+    const tier = t[currentTier] || {};
+    if (!tier.upper || !tier.lower) continue;
+
+    const wl = watchlistData.find(w => w.symbol === sym);
+    const currentPrice = wl ? wl.price : t.close;
+    const change = wl ? wl.change : 0;
+
+    const lo = tier.lower;
+    const hi = tier.upper;
+    const range = hi - lo;
+
+    // Position: 0% = at low, 100% = at high, >100% = above
+    const position = range > 0 ? ((currentPrice - lo) / range) * 100 : 50;
+    const clampedPos = Math.max(0, Math.min(100, position));
+
+    const risk = getRiskLabel(position);
+    const riskColor = getRiskColor(position);
+
+    rows.push({
+      symbol: sym,
+      close: t.close,
+      current: currentPrice,
+      change: change,
+      em: tier.value,
+      pct: tier.pct,
+      lower: lo,
+      upper: hi,
+      position: position,
+      clampedPos: clampedPos,
+      risk: risk,
+      riskColor: riskColor,
+      straddle: t.straddle,
+      strike: t.strike,
+      expiry: t.weekly_expiry,
+      proxy: t.futures_proxy,
+    });
+  }
+
+  return rows;
+}
+
+function render() {
+  const rows = buildRows();
+  sortRows(rows);
+  renderStats(rows);
+  renderTable(rows);
+}
+
+function renderStats(rows) {
+  if (!rows.length) { document.getElementById('stats-row').innerHTML = ''; return; }
+
+  const avgPct = rows.reduce((s, r) => s + (r.pct || 0), 0) / rows.length;
+  const maxEM = rows.reduce((max, r) => (r.pct || 0) > (max.pct || 0) ? r : max, rows[0]);
+  const minEM = rows.reduce((min, r) => (r.pct || 0) < (min.pct || 0) ? r : min, rows[0]);
+  const extended = rows.filter(r => r.position > 85).length;
+  const below = rows.filter(r => r.position < 20).length;
+
+  document.getElementById('stats-row').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Avg ${currentTier} EM</div>
+      <div class="stat-value">${avgPct.toFixed(1)}%</div>
+      <div class="stat-sub">${rows.length} tickers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Highest EM</div>
+      <div class="stat-value" style="color:var(--orange)">${maxEM.symbol}</div>
+      <div class="stat-sub">±${maxEM.pct}% ($${maxEM.em})</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Lowest EM</div>
+      <div class="stat-value" style="color:var(--cyan)">${minEM.symbol}</div>
+      <div class="stat-sub">±${minEM.pct}% ($${minEM.em})</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Extended / At Risk</div>
+      <div class="stat-value" style="color:${extended > 0 ? 'var(--red)' : 'var(--cyan)'}">${extended}</div>
+      <div class="stat-sub">${below} near support</div>
+    </div>
+  `;
+}
+
+function renderTable(rows) {
+  const tbody = document.getElementById('em-tbody');
+
+  tbody.innerHTML = rows.map(r => {
+    const chgClass = r.change >= 0 ? 'up' : 'down';
+    const chgSign = r.change >= 0 ? '+' : '';
+    const posBarColor = r.riskColor;
+    const needlePct = Math.max(0, Math.min(100, r.position)).toFixed(1);
+
+    return `<tr onclick="window.open('watchlist.html','_self')">
+      <td class="ticker-cell">${r.symbol}${r.proxy ? ` <span class="dim">(${r.proxy.futures})</span>` : ''}</td>
+      <td>$${r.close.toFixed(2)}</td>
+      <td>$${r.current.toFixed(2)}</td>
+      <td class="${chgClass}">${chgSign}${r.change.toFixed(2)}%</td>
+      <td>±$${r.em}</td>
+      <td style="color:var(--orange)">±${r.pct}%</td>
+      <td style="color:var(--cyan)">$${r.lower.toFixed(2)}</td>
+      <td style="color:var(--red)">$${r.upper.toFixed(2)}</td>
+      <td>
+        <div class="pos-bar">
+          <div class="pos-fill" style="width:${r.clampedPos}%;background:${posBarColor};opacity:0.3;"></div>
+          <div class="pos-marker" style="left:${r.clampedPos}%;"></div>
+        </div>
+        <div class="dim" style="margin-top:3px;">${r.position.toFixed(0)}% of range</div>
+      </td>
+      <td><span class="risk-badge" style="color:${r.risk.color};background:${r.risk.bg};border:1px solid ${r.risk.color}40;">${r.risk.text}</span></td>
+      <td>
+        <div class="risk-bar-wrap">
+          <div class="risk-needle" style="left:${needlePct}%;"></div>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function sortRows(rows) {
+  const col = sortCol;
+  rows.sort((a, b) => {
+    let va, vb;
+    switch(col) {
+      case 'symbol': va = a.symbol; vb = b.symbol; break;
+      case 'close': va = a.close; vb = b.close; break;
+      case 'current': va = a.current; vb = b.current; break;
+      case 'change': va = a.change; vb = b.change; break;
+      case 'em': va = parseFloat(a.em)||0; vb = parseFloat(b.em)||0; break;
+      case 'pct': va = a.pct||0; vb = b.pct||0; break;
+      case 'lower': va = a.lower; vb = b.lower; break;
+      case 'upper': va = a.upper; vb = b.upper; break;
+      case 'position': va = a.position; vb = b.position; break;
+      case 'risk': va = a.position; vb = b.position; break;
+      case 'riskbar': va = a.position; vb = b.position; break;
+      default: va = a.position; vb = b.position;
+    }
+    if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return sortAsc ? va - vb : vb - va;
+  });
+}
+
+// Tier tabs
+document.querySelectorAll('.tier-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tier-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentTier = btn.dataset.tier;
+    render();
+  });
+});
+
+// Sortable headers
+document.querySelectorAll('thead th').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (sortCol === col) { sortAsc = !sortAsc; }
+    else { sortCol = col; sortAsc = col === 'symbol'; }
+    document.querySelectorAll('thead th').forEach(h => h.classList.remove('sort-asc','sort-desc'));
+    th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+    render();
+  });
+});
+
+loadData();
+</script>
+<script src="js/nav.js"></script>
+</body>
+</html>
