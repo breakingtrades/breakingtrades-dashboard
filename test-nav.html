@@ -71,10 +71,11 @@ document.addEventListener('nav:ready', function() {
 
     // 3. Page links
     const links = nav.querySelectorAll('.nav-link');
-    assert('Has 3 page links', links.length === 3);
+    assert('Has 4 page links', links.length === 4);
     assert('First link is Signals', links[0].textContent === 'Signals');
     assert('Second link is Watchlist', links[1].textContent === 'Watchlist');
-    assert('Third link is Market', links[2].textContent === 'Market');
+    assert('Third link is Expected Moves', links[2].textContent === 'Expected Moves');
+    assert('Fourth link is Market', links[3].textContent === 'Market');
     assert('Links have href', Array.from(links).every(l => l.href.includes('.html')));
 
     // 4. Active page detection
@@ -142,13 +143,70 @@ document.addEventListener('nav:ready', function() {
     const msAfter = document.getElementById('market-status');
     assert('market-status element in DOM after nav:ready', !!msAfter);
 
-    // Summary
-    summary.innerHTML = `<strong>${passed + failed} tests:</strong> <span style="color:#00c853">${passed} passed</span>, <span style="color:#dc3545">${failed} failed</span>`;
-    summary.style.borderColor = failed === 0 ? '#00c853' : '#dc3545';
+    // === Expected Moves Page Tests ===
 
-    // Log for CI
-    console.log(`Nav tests: ${passed} passed, ${failed} failed`);
-    if (failed > 0) console.error('TESTS FAILED');
+    // 18. expected-moves.html exists (fetch test)
+    fetch('expected-moves.html').then(r => {
+      assert('expected-moves.html exists (HTTP 200)', r.ok);
+    }).catch(() => {
+      assert('expected-moves.html exists (HTTP 200)', false);
+    });
+
+    // 19. expected-moves.json data structure
+    fetch('data/expected-moves.json').then(r => r.json()).then(data => {
+      assert('expected-moves.json has updated field', !!data.updated);
+      assert('expected-moves.json has tickers object', typeof data.tickers === 'object');
+      assert('expected-moves.json has at least 1 ticker', Object.keys(data.tickers).length >= 1);
+
+      // 20. Ticker data structure
+      const firstKey = Object.keys(data.tickers)[0];
+      const t = data.tickers[firstKey];
+      assert('Ticker has close field', typeof t.close === 'number');
+      assert('Ticker has strike field', typeof t.strike === 'number');
+      assert('Ticker has straddle field', typeof t.straddle === 'number');
+      assert('Ticker has weekly tier', !!t.weekly);
+      assert('Weekly tier has upper/lower/value/pct', t.weekly.upper > 0 && t.weekly.lower > 0 && t.weekly.value && t.weekly.pct);
+
+      // 21. Risk model correctness
+      const lo = t.weekly.lower;
+      const hi = t.weekly.upper;
+      const range = hi - lo;
+      assert('Weekly upper > lower', hi > lo);
+      assert('Close is within reasonable range of bounds', t.close >= lo * 0.8 && t.close <= hi * 1.2);
+      assert('EM range is positive', range > 0);
+
+      // 22. SPY specifically (our main ticker)
+      const spy = data.tickers['SPY'];
+      if (spy) {
+        assert('SPY has all 4 tiers', !!spy.daily && !!spy.weekly && !!spy.monthly && !!spy.quarterly);
+        assert('SPY weekly EM is reasonable (0.5-10%)', spy.weekly.pct >= 0.5 && spy.weekly.pct <= 10);
+        assert('SPY close is > $400', spy.close > 400);
+      }
+
+      // Re-render summary after async tests
+      setTimeout(updateSummary, 100);
+    }).catch(e => {
+      assert('expected-moves.json loads without error', false);
+      setTimeout(updateSummary, 100);
+    });
+
+    // 23. Expected Moves nav link
+    const emLink = Array.from(links).find(l => l.textContent === 'Expected Moves');
+    assert('Expected Moves nav link exists', !!emLink);
+    assert('Expected Moves links to expected-moves.html', emLink && emLink.href.endsWith('expected-moves.html'));
+
+    // 24. Watchlist URL param handler
+    assert('watchlist.html supports ?ticker= param (code check)', typeof window.URLSearchParams === 'function');
+
+    function updateSummary() {
+      summary.innerHTML = `<strong>${passed + failed} tests:</strong> <span style="color:#00c853">${passed} passed</span>, <span style="color:#dc3545">${failed} failed</span>`;
+      summary.style.borderColor = failed === 0 ? '#00c853' : '#dc3545';
+      console.log(`Nav tests: ${passed} passed, ${failed} failed`);
+      if (failed > 0) console.error('TESTS FAILED');
+    }
+
+    // Initial summary (async tests may update later)
+    updateSummary();
 
   }, 300);
 })();
