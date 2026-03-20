@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Mar 19",
-  "headline": "Extreme fear, broad MA breaks, and volatility surging\u2014patience or pounce?",
+  "title": "Daily Briefing \u2014 Mar 20",
+  "headline": "Extreme fear, rising volatility, and tech mean reversion\u2014patience wins today.",
   "body": [
-    "Right, so today's market is classic risk-off: SPY at $661.43 is slicing well below its 20 MA ($678.95), VIX smashing above 25, and the Fear & Greed Index is a glaring 18.2. We're not seeing isolated weakness\u2014this is sector-wide. There's blood on the screen, but it's exactly the kind of environment where panicked exits create future opportunity.",
-    "Rotationally, Energy (XLE: $58.43) and Industrials (XLI: $165.18) are holding up, leading the RRG, while Discretionary, Healthcare, and Staples are lagging and weakening. XLK (Technology) and XLF (Financials) are approaching support but looking fragile\u2014note XLK ($137.96) is flirting with its 200 MA ($137.43) and XLF ($48.97) is tanking below its 20 MA ($50.68). If Financials crack, that's the canary\u2014elevated risk.",
-    "Contrarian flag: Fear & Greed under 25 AND expanding VIX? Per the rule, this is statistically an opportunity zone\u2014historically, buying when everyone is terrified leads to outperformance. BUT, don't rush: several big names (AAPL, MSFT, SPY, QQQ) have closed decisively below their 20 MAs. Less trades = more wins here\u2014abundance mindset, wait for confirmation."
+    "Right, so we've officially entered an extreme fear regime with the Fear & Greed Index at 15.8 and VIX punching up to 25.22, well above its 20-day average. Markets are peeling away from their 20 MAs across the board\u2014SPY ($659.80 vs SMA20 $677.72), QQQ ($593.02 vs SMA20 $604.31), and tech heavies like AAPL, MSFT, META. Volatility is expanding\u2014don\u2019t chase, don\u2019t predict.",
+    "Energy (XLE $59.36), Industrials (XLI $164.06), and Real Estate (XLRE $41.92) remain resilient, leading sector rotation with low risk profiles. Tech (XLK $138.43) is improving but still below key MAs, while Financials (XLF $48.99) shows elevated risk but some momentum\u2014watch the mean reversion zone. Defensive sectors (Staples, Healthcare) lag despite rising volatility.",
+    "Sentiment is the real contrarian signal here. When Fear & Greed < 25, historical edge is clear: opportunity for patient buyers, but let price confirm. Nearly all tickers and major ETFs are below their 20 MA or approaching, so per rule R006, exit longs or sit on hands\u2014less trades = more wins. If it\u2019s in the press, it\u2019s in the price; ignore consensus panic, track the flows."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $661.43 (below 20 MA $678.95) <br> QQQ: $594.90 (below 20 MA $604.83) <br> XLK: $137.96 (testing 200 MA $137.43) <br> XLF: $48.97 (below 20 MA $50.68) <br> HYG: $79.40 (approaching 200 MA $78.72) <br> Watch VIX > 25\u2014vol expansion <br> Fear & Greed Index: 18.2 (extreme fear)",
+  "callout_body": "SPY: $658.02 (SMA200) support \u2014 watch for weekly close<br>QQQ: $591.74 (SMA200) support<br>XLE: $59.36 (SMA20 $56.60) \u2014 sector rotation leader<br>XLF: $48.99 (SMA200 $52.58) \u2014 financials can't break<br>NVDA: $178.26 (SMA200) \u2014 danger zone if breached<br>VIX: 25+ \u2014 expanding risk regime<br>Energy names (AR, OIH, SM): All above 20/50 MA \u2014 momentum intact",
   "action_items": [
-    "Exit or reduce longs for any ticker closing below daily 20 MA\u2014risk control is non-negotiable.",
-    "Begin building a shopping list for Energy and Industrials rotation plays (XLE, XLI) if the market stabilises at key support."
+    "Reduce equity exposure unless price reclaims daily 20 MA (R006) \u2014 stay defensive until confirmed reversal.",
+    "Watch XLE and Industrials for sector rotation trades; avoid chasing tech until leadership resumes and MAs are reclaimed."
   ],
-  "closing_quote": "If it's in the press, it's in the price. Today's fear is tomorrow's opportunity\u2014patience, react, don't predict.",
-  "generatedAt": "2026-03-19T11:07:10.222413+00:00",
+  "closing_quote": "Extreme fear = opportunity, but patience is king. Follow the flows\u2014let price show you the next trade.",
+  "generatedAt": "2026-03-20T11:03:03.166420+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
