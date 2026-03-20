@@ -78,16 +78,28 @@
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .nav-links { gap: 0; }
-  .nav-link { padding: 13px 10px; font-size: 11px; }
-  .nav-search { width: 140px; }
+  .nav-bar {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+  .nav-bar::-webkit-scrollbar { display: none; }
+  .nav-links { gap: 0; flex-shrink: 0; }
+  .nav-link { padding: 13px 10px; font-size: 11px; white-space: nowrap; }
+  .nav-search { width: 140px; flex-shrink: 0; }
   .nav-search:focus { width: 200px; }
+  .nav-right { flex-shrink: 0; }
+  .nav-logo { flex-shrink: 0; }
 }
 @media (max-width: 480px) {
   .nav-bar { padding: 0 12px; height: 44px; }
-  .nav-logo { font-size: 13px; letter-spacing: 1px; }
+  .nav-logo { font-size: 13px; letter-spacing: 1px; flex-shrink: 0; }
   .nav-logo .bt-logo-text { display: none; }
-  .nav-link { padding: 12px 8px; font-size: 10px; }
-  .nav-search { width: 100px; font-size: 11px; }
+  .nav-link { padding: 12px 8px; font-size: 10px; white-space: nowrap; }
+  .nav-search { width: 100px; font-size: 11px; flex-shrink: 0; }
   .nav-search:focus { width: 160px; }
+  .nav-right { flex-shrink: 0; }
 }
