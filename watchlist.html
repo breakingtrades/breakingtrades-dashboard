@@ -21,6 +21,58 @@
     --purple: #ab47bc;
     --yellow: #ffeb3b;
   }
+  /* Expected Move Bands */
+  .em-banner {
+    margin-bottom: 16px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    background: rgba(0, 212, 170, 0.05);
+    border: 1px solid rgba(0, 212, 170, 0.15);
+  }
+  .em-banner h4 { margin-bottom: 12px; font-size: 13px; color: var(--cyan); }
+  .em-band-visual {
+    position: relative;
+    height: 56px;
+    margin: 12px 0 8px;
+    background: linear-gradient(90deg, rgba(239,83,80,0.12) 0%, rgba(0,212,170,0.08) 50%, rgba(239,83,80,0.12) 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .em-band-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 2px;
+  }
+  .em-band-line.low { background: var(--red); }
+  .em-band-line.mid { background: var(--text-dim); border-style: dashed; width: 1px; opacity: 0.5; }
+  .em-band-line.high { background: var(--cyan); }
+  .em-band-line.current { background: var(--gold); width: 3px; z-index: 2; }
+  .em-band-label {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .em-band-label.top { top: 2px; }
+  .em-band-label.bottom { bottom: 2px; }
+  .em-tiers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .em-tier {
+    text-align: center;
+    padding: 8px 4px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+  }
+  .em-tier .tier-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+  .em-tier .tier-value { font-size: 15px; font-weight: 700; color: var(--text-bright); margin: 4px 0 2px; }
+  .em-tier .tier-pct { font-size: 11px; color: var(--orange); }
+  .em-tier .tier-range { font-size: 9px; color: var(--text-dim); margin-top: 2px; }
+  .em-tier.active { border-color: var(--cyan); background: rgba(0,212,170,0.06); }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     background: var(--bg-primary);
@@ -558,8 +610,12 @@ function openDetail(symbol) {
       </span>
     </div>` : '';
 
+  // Build Expected Move card
+  const emHTML = buildExpectedMoveHTML(symbol, t.price);
+
   document.getElementById('modal-body').innerHTML = `
     ${earningsHTML}
+    ${emHTML}
     <div class="chart-row">
       <div class="chart-box">
         <div class="chart-label">Daily</div>
@@ -675,6 +731,100 @@ function embedTAWidget(containerId, symbol) {
   wrapper.appendChild(inner);
   wrapper.appendChild(script);
   container.appendChild(wrapper);
+}
+
+// === EXPECTED MOVE DATA ===
+let emData = {};
+async function loadExpectedMoves() {
+  try {
+    const res = await fetch('data/expected-moves.json');
+    const data = await res.json();
+    emData = data.tickers || {};
+    console.log('[EM] Loaded', Object.keys(emData).length, 'tickers');
+  } catch(e) { console.warn('No expected-moves data:', e); }
+}
+loadExpectedMoves();
+
+function buildExpectedMoveHTML(symbol, currentPrice) {
+  const em = emData[symbol];
+  if (!em) return '';
+
+  const close = em.close;
+  const price = currentPrice || close;
+  const d = em.daily || {};
+  const w = em.weekly || {};
+  const m = em.monthly || {};
+  const q = em.quarterly || {};
+
+  if (!w.upper || !w.lower) return '';
+
+  // Visual band — show weekly range with current price marker
+  const lo = w.lower;
+  const hi = w.upper;
+  const range = hi - lo;
+  const pad = range * 0.15; // 15% padding
+  const viewLo = lo - pad;
+  const viewHi = hi + pad;
+  const viewRange = viewHi - viewLo;
+
+  const pctLo = ((lo - viewLo) / viewRange * 100).toFixed(1);
+  const pctMid = ((close - viewLo) / viewRange * 100).toFixed(1);
+  const pctHi = ((hi - viewLo) / viewRange * 100).toFixed(1);
+  const pctCur = Math.max(0, Math.min(100, ((price - viewLo) / viewRange * 100))).toFixed(1);
+
+  // Determine if price is outside bands
+  const outside = price > hi ? 'above' : price < lo ? 'below' : null;
+  const outsideTag = outside
+    ? `<span style="color:${outside === 'above' ? 'var(--cyan)' : 'var(--red)'};font-size:11px;font-weight:600;margin-left:8px;">● ${outside === 'above' ? 'ABOVE' : 'BELOW'} weekly EM</span>`
+    : '';
+
+  const proxy = em.futures_proxy ? ` <span style="font-size:10px;color:var(--text-dim);">(${em.futures_proxy.futures} proxy)</span>` : '';
+  const expiry = em.weekly_expiry ? `Exp ${em.weekly_expiry.slice(4,6)}/${em.weekly_expiry.slice(6)}` : '';
+  const straddle = em.straddle ? `Straddle $${em.straddle.toFixed(2)}` : '';
+  const meta = [straddle, expiry, `K=${em.strike}`].filter(Boolean).join(' · ');
+
+  return `
+    <div class="em-banner">
+      <h4>📐 Expected Move${proxy}${outsideTag}</h4>
+      <div style="font-size:10px;color:var(--text-dim);margin-bottom:8px;">${meta}</div>
+      <div class="em-band-visual">
+        <div class="em-band-line low" style="left:${pctLo}%"></div>
+        <div class="em-band-label top" style="left:${pctLo}%;color:var(--red);transform:translateX(-50%)">L $${lo.toFixed(0)}</div>
+        <div class="em-band-line mid" style="left:${pctMid}%"></div>
+        <div class="em-band-label bottom" style="left:${pctMid}%;color:var(--text-dim);transform:translateX(-50%)">Mid $${close.toFixed(0)}</div>
+        <div class="em-band-line high" style="left:${pctHi}%"></div>
+        <div class="em-band-label top" style="left:${pctHi}%;color:var(--cyan);transform:translateX(-50%)">H $${hi.toFixed(0)}</div>
+        <div class="em-band-line current" style="left:${pctCur}%"></div>
+        <div class="em-band-label bottom" style="left:${pctCur}%;color:var(--gold);transform:translateX(-50%);font-size:11px;">▲ $${price.toFixed(2)}</div>
+      </div>
+      <div class="em-tiers">
+        <div class="em-tier">
+          <div class="tier-label">Daily</div>
+          <div class="tier-value">±$${d.value || '—'}</div>
+          <div class="tier-pct">${d.pct || '—'}%</div>
+          <div class="tier-range">$${(d.lower||0).toFixed(0)}–$${(d.upper||0).toFixed(0)}</div>
+        </div>
+        <div class="em-tier active">
+          <div class="tier-label">Weekly</div>
+          <div class="tier-value">±$${w.value || '—'}</div>
+          <div class="tier-pct">${w.pct || '—'}%</div>
+          <div class="tier-range">$${lo.toFixed(0)}–$${hi.toFixed(0)}</div>
+        </div>
+        <div class="em-tier">
+          <div class="tier-label">Monthly</div>
+          <div class="tier-value">±$${m.value || '—'}</div>
+          <div class="tier-pct">${m.pct || '—'}%</div>
+          <div class="tier-range">$${(m.lower||0).toFixed(0)}–$${(m.upper||0).toFixed(0)}</div>
+        </div>
+        <div class="em-tier">
+          <div class="tier-label">Quarterly</div>
+          <div class="tier-value">±$${q.value || '—'}</div>
+          <div class="tier-pct">${q.pct || '—'}%</div>
+          <div class="tier-range">$${(q.lower||0).toFixed(0)}–$${(q.upper||0).toFixed(0)}</div>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 function generateSignals(t) {
