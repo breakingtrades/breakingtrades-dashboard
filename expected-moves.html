@@ -114,11 +114,10 @@
   }
   .risk-needle {
     position: absolute;
-    top: 0; bottom: 0;
-    width: 3px;
-    background: var(--text-bright);
-    border-radius: 2px;
-    box-shadow: 0 0 4px rgba(255,255,255,0.6);
+    top: -2px; bottom: -2px;
+    width: 6px;
+    border-radius: 3px;
+    box-shadow: 0 0 8px var(--needle-glow, rgba(255,255,255,0.6));
     transition: left 0.3s;
   }
 
@@ -199,6 +198,33 @@
   @media (max-width: 768px) {
     .risk-bar-wrap { width: 80px; }
     td { padding: 8px 10px; font-size: 12px; }
+  }
+
+  /* Alert rows */
+  tr.alert-buy {
+    background: rgba(27,94,32,0.12) !important;
+    border-left: 3px solid #4caf50;
+  }
+  tr.alert-buy:hover { background: rgba(27,94,32,0.2) !important; }
+  tr.alert-sell {
+    background: rgba(183,28,28,0.1) !important;
+    border-left: 3px solid #f44336;
+  }
+  tr.alert-sell:hover { background: rgba(183,28,28,0.18) !important; }
+  .alert-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    animation: pulse-alert 2s ease-in-out infinite;
+  }
+  @keyframes pulse-alert {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
   }
 </style>
 </head>
@@ -359,7 +385,7 @@ function renderStats(rows) {
   const maxEM = rows.reduce((max, r) => (r.pct || 0) > (max.pct || 0) ? r : max, rows[0]);
   const minEM = rows.reduce((min, r) => (r.pct || 0) < (min.pct || 0) ? r : min, rows[0]);
   const extended = rows.filter(r => r.position > 85).length;
-  const below = rows.filter(r => r.position < 20).length;
+  const buyZone = rows.filter(r => r.position <= 20).length;
 
   document.getElementById('stats-row').innerHTML = `
     <div class="stat-card">
@@ -373,14 +399,14 @@ function renderStats(rows) {
       <div class="stat-sub">±${maxEM.pct}% ($${maxEM.em})</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Lowest EM</div>
-      <div class="stat-value" style="color:var(--cyan)">${minEM.symbol}</div>
-      <div class="stat-sub">±${minEM.pct}% ($${minEM.em})</div>
+      <div class="stat-label">🟢 Buy Zone</div>
+      <div class="stat-value" style="color:${buyZone > 0 ? '#4caf50' : 'var(--text-dim)'}">${buyZone}</div>
+      <div class="stat-sub">near low of EM range</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Extended / At Risk</div>
-      <div class="stat-value" style="color:${extended > 0 ? 'var(--red)' : 'var(--cyan)'}">${extended}</div>
-      <div class="stat-sub">${below} near support</div>
+      <div class="stat-label">🔴 Extended</div>
+      <div class="stat-value" style="color:${extended > 0 ? 'var(--red)' : 'var(--text-dim)'}">${extended}</div>
+      <div class="stat-sub">at/above EM ceiling</div>
     </div>
   `;
 }
@@ -394,8 +420,32 @@ function renderTable(rows) {
     const posBarColor = r.riskColor;
     const needlePct = Math.max(0, Math.min(100, r.position)).toFixed(1);
 
-    return `<tr onclick="window.open('watchlist.html','_self')">
-      <td class="ticker-cell">${r.symbol}${r.proxy ? ` <span class="dim">(${r.proxy.futures})</span>` : ''}</td>
+    // Needle color matches risk level
+    const needleColor = r.riskColor;
+    const needleGlow = r.riskColor + '99';
+
+    // Alert tags
+    let alertTag = '';
+    let rowClass = '';
+    if (r.position <= 10) {
+      alertTag = `<span class="alert-tag" style="color:#4caf50;background:rgba(76,175,80,0.2);border:1px solid #4caf5060;">🟢 AT SUPPORT</span>`;
+      rowClass = 'alert-buy';
+    } else if (r.position <= 20) {
+      alertTag = `<span class="alert-tag" style="color:#8bc34a;background:rgba(139,195,74,0.15);border:1px solid #8bc34a50;">💚 NEAR LOW</span>`;
+      rowClass = 'alert-buy';
+    } else if (r.position < 0) {
+      alertTag = `<span class="alert-tag" style="color:#00e676;background:rgba(0,230,118,0.15);border:1px solid #00e67660;">⚡ BELOW EM</span>`;
+      rowClass = 'alert-buy';
+    } else if (r.position >= 100) {
+      alertTag = `<span class="alert-tag" style="color:#f44336;background:rgba(244,67,54,0.15);border:1px solid #f4433660;">🔴 ABOVE EM</span>`;
+      rowClass = 'alert-sell';
+    } else if (r.position >= 90) {
+      alertTag = `<span class="alert-tag" style="color:#ff5722;background:rgba(255,87,34,0.15);border:1px solid #ff572260;">⚠️ AT CEILING</span>`;
+      rowClass = 'alert-sell';
+    }
+
+    return `<tr class="${rowClass}" onclick="window.open('watchlist.html','_self')">
+      <td class="ticker-cell">${r.symbol}${r.proxy ? ` <span class="dim">(${r.proxy.futures})</span>` : ''} ${alertTag}</td>
       <td>$${r.close.toFixed(2)}</td>
       <td>$${r.current.toFixed(2)}</td>
       <td class="${chgClass}">${chgSign}${r.change.toFixed(2)}%</td>
@@ -413,7 +463,7 @@ function renderTable(rows) {
       <td><span class="risk-badge" style="color:${r.risk.color};background:${r.risk.bg};border:1px solid ${r.risk.color}40;">${r.risk.text}</span></td>
       <td>
         <div class="risk-bar-wrap">
-          <div class="risk-needle" style="left:${needlePct}%;"></div>
+          <div class="risk-needle" style="left:${needlePct}%;background:${needleColor};--needle-glow:${needleGlow};"></div>
         </div>
       </td>
     </tr>`;
