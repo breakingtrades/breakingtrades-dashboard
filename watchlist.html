@@ -287,13 +287,13 @@
   <div class="page-header">
     <div class="page-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg> Watchlist — 70 Symbols</div>
     <div class="view-toggle">
-      <button class="view-btn active" id="btn-widget" onclick="showView('widget')">Widget</button>
-      <button class="view-btn" id="btn-table" onclick="showView('table')">Table</button>
+      <button class="view-btn" id="btn-widget" onclick="showView('widget')">Widget</button>
+      <button class="view-btn active" id="btn-table" onclick="showView('table')">Table</button>
     </div>
   </div>
 
   <!-- TradingView Market Overview Widget -->
-  <div class="tv-widget-wrap" id="tv-widget-view">
+  <div class="tv-widget-wrap" id="tv-widget-view" style="display:none;">
     <div class="tradingview-widget-container" style="width:100%;height:calc(100vh - 140px);">
       <div class="tradingview-widget-container__widget" id="tv-market-overview" style="width:100%;height:100%;"></div>
     </div>
@@ -345,6 +345,12 @@ async function loadWatchlist() {
     const res = await fetch('data/watchlist.json');
     watchlist = await res.json();
     renderTable();
+    // Auto-open detail if ?ticker= param
+    const urlTicker = new URLSearchParams(window.location.search).get('ticker');
+    if (urlTicker) {
+      await loadExpectedMoves();
+      openDetail(urlTicker.toUpperCase());
+    }
   } catch (err) {
     console.error("Failed to load watchlist data:", err);
     document.getElementById('wl-tbody').innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--red);">Error loading live data. Please check back later.</td></tr>';
