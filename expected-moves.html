@@ -453,7 +453,7 @@ function renderTable(rows) {
       rowClass = 'alert-sell';
     }
 
-    return `<tr class="${rowClass}" onclick="window.location='watchlist.html?ticker=${r.symbol}'">
+    return `<tr class="${rowClass}" onclick="window.location='watchlist.html#${r.symbol}'">
       <td class="ticker-cell">${r.symbol}${r.proxy ? ` <span class="dim">(${r.proxy.futures})</span>` : ''} ${alertTag}</td>
       <td>$${r.close.toFixed(2)}</td>
       <td>$${r.current.toFixed(2)}</td>
