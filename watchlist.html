@@ -630,16 +630,21 @@ function openDetail(symbol) {
   // Build Expected Move card
   const emHTML = buildExpectedMoveHTML(symbol, t.price);
 
+  // Build EM chart strip (shows on each chart like FOM)
+  const emStrip = buildEMChartStrip(symbol, t.price);
+
   document.getElementById('modal-body').innerHTML = `
     ${earningsHTML}
     ${emHTML}
     <div class="chart-row">
       <div class="chart-box">
         <div class="chart-label">Daily</div>
+        ${emStrip}
         <div id="modal-chart-daily" style="height:400px;"></div>
       </div>
       <div class="chart-box">
         <div class="chart-label">Weekly</div>
+        ${emStrip}
         <div id="modal-chart-weekly" style="height:400px;"></div>
       </div>
     </div>
@@ -762,6 +767,41 @@ async function loadExpectedMoves() {
   } catch(e) { console.warn('No expected-moves data:', e); }
 }
 loadExpectedMoves();
+
+function buildEMChartStrip(symbol, currentPrice) {
+  const em = emData[symbol];
+  if (!em || !em.weekly) return '';
+  const lo = em.weekly.lower;
+  const hi = em.weekly.upper;
+  const range = hi - lo;
+  if (range <= 0) return '';
+  const pos = ((currentPrice - lo) / range) * 100;
+  const clamped = Math.max(0, Math.min(100, pos));
+
+  // Color based on position
+  let color, label;
+  if (pos <= 20) { color = '#4caf50'; label = 'SAFE'; }
+  else if (pos <= 50) { color = '#8bc34a'; label = ''; }
+  else if (pos <= 70) { color = '#ffeb3b'; label = ''; }
+  else if (pos <= 85) { color = '#ff9800'; label = 'CAUTION'; }
+  else if (pos <= 100) { color = '#f44336'; label = 'EXTENDED'; }
+  else { color = '#b71c1c'; label = 'ABOVE EM'; }
+
+  const breach = pos > 100 ? `<span style="color:#b71c1c;font-weight:700;">▲ ABOVE</span>` :
+                 pos < 0 ? `<span style="color:#00e676;font-weight:700;">▼ BELOW</span>` : '';
+
+  return `<div style="margin:4px 0 8px;padding:6px 10px;background:rgba(255,255,255,0.03);border-radius:6px;border:1px solid rgba(255,255,255,0.06);">
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#888;margin-bottom:4px;">
+      <span>EM Low: <span style="color:#00d4aa;">$${lo.toFixed(2)}</span></span>
+      <span style="color:${color};font-weight:600;">${label} ${breach}</span>
+      <span>EM High: <span style="color:#ef5350;">$${hi.toFixed(2)}</span></span>
+    </div>
+    <div style="position:relative;height:10px;background:linear-gradient(90deg,#1b5e20,#4caf50,#8bc34a,#ffeb3b,#ff9800,#f44336,#b71c1c);border-radius:5px;overflow:visible;">
+      <div style="position:absolute;top:-4px;left:${clamped}%;transform:translateX(-50%);width:4px;height:18px;background:${color};border-radius:3px;box-shadow:0 0 8px ${color}88;z-index:1;"></div>
+      <div style="position:absolute;top:-16px;left:${clamped}%;transform:translateX(-50%);font-size:10px;font-weight:700;color:${color};white-space:nowrap;">$${currentPrice.toFixed(2)}</div>
+    </div>
+  </div>`;
+}
 
 function buildExpectedMoveHTML(symbol, currentPrice) {
   const em = emData[symbol];
