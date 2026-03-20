@@ -453,9 +453,11 @@ const TZ_LABELS = {
   'Asia/Tokyo':'JST','Australia/Sydney':'AEST','UTC':'UTC'
 };
 function initTimezone() {
+  const tz = document.getElementById('tz-picker');
+  if (!tz) return;
   const saved = localStorage.getItem('bt_timezone');
-  if (saved) document.getElementById('tz-picker').value = saved;
-  document.getElementById('tz-picker').addEventListener('change', e => {
+  if (saved) tz.value = saved;
+  tz.addEventListener('change', e => {
     localStorage.setItem('bt_timezone', e.target.value);
     updateTimestamp();
   });

@@ -1073,15 +1073,17 @@ let userTZ = localStorage.getItem('bt_timezone') ||
     ? Intl.DateTimeFormat().resolvedOptions().timeZone : 'America/New_York');
 
 const tzPicker = document.getElementById('tz-picker');
-tzPicker.value = userTZ;
+if (tzPicker) tzPicker.value = userTZ;
 
 function updateTimestamp() {
   // Timestamp now handled by market-status.js
 }
-tzPicker.addEventListener('change', () => {
-  userTZ = tzPicker.value;
-  localStorage.setItem('bt_timezone', userTZ);
-});
+if (tzPicker) {
+  tzPicker.addEventListener('change', () => {
+    userTZ = tzPicker.value;
+    localStorage.setItem('bt_timezone', userTZ);
+  });
+}
 
 // === FILTER STATE ===
 let activeStatusFilter = 'all';

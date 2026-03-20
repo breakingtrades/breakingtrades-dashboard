@@ -102,6 +102,20 @@
     if (typeof initMarketStatus === 'function') {
       initMarketStatus();
     }
+
+    // Restore saved timezone
+    var tzPicker = document.getElementById('tz-picker');
+    if (tzPicker) {
+      var savedTZ = localStorage.getItem('bt_timezone');
+      if (savedTZ) tzPicker.value = savedTZ;
+      tzPicker.addEventListener('change', function() {
+        localStorage.setItem('bt_timezone', tzPicker.value);
+        document.dispatchEvent(new CustomEvent('bt:tz-change', { detail: tzPicker.value }));
+      });
+    }
+
+    // Notify page scripts that nav is ready
+    document.dispatchEvent(new Event('nav:ready'));
   }
 
   // Run on DOMContentLoaded or immediately if already loaded
