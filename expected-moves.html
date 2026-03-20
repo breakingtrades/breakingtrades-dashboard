@@ -103,22 +103,33 @@
   .down { color: var(--red); }
   .dim { color: var(--text-dim); font-size: 11px; }
 
-  /* Risk meter — horizontal bar */
+  /* Risk meter — filled bar */
   .risk-bar-wrap {
     width: 120px;
-    height: 20px;
+    height: 22px;
     position: relative;
     border-radius: 4px;
     overflow: hidden;
-    background: linear-gradient(90deg, #1b5e20, #4caf50, #8bc34a, #ffeb3b, #ff9800, #f44336, #b71c1c);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
   }
-  .risk-needle {
+  .risk-fill {
     position: absolute;
-    top: -2px; bottom: -2px;
-    width: 6px;
+    top: 0; bottom: 0; left: 0;
     border-radius: 3px;
-    box-shadow: 0 0 8px var(--needle-glow, rgba(255,255,255,0.6));
-    transition: left 0.3s;
+    transition: width 0.4s, background 0.4s;
+  }
+  .risk-pct-label {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-bright);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+    z-index: 1;
   }
 
   /* Risk badge */
@@ -422,7 +433,6 @@ function renderTable(rows) {
 
     // Needle color matches risk level
     const needleColor = r.riskColor;
-    const needleGlow = r.riskColor + '99';
 
     // Alert tags
     let alertTag = '';
@@ -463,7 +473,8 @@ function renderTable(rows) {
       <td><span class="risk-badge" style="color:${r.risk.color};background:${r.risk.bg};border:1px solid ${r.risk.color}40;">${r.risk.text}</span></td>
       <td>
         <div class="risk-bar-wrap">
-          <div class="risk-needle" style="left:${needlePct}%;background:${needleColor};--needle-glow:${needleGlow};"></div>
+          <div class="risk-fill" style="width:${Math.max(4, Math.min(100, r.position))}%;background:${needleColor};"></div>
+          <div class="risk-pct-label">${r.position.toFixed(0)}%</div>
         </div>
       </td>
     </tr>`;
