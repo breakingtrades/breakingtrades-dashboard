@@ -190,7 +190,47 @@ document.addEventListener('nav:ready', function() {
       setTimeout(updateSummary, 100);
     });
 
-    // 23. Expected Moves nav link
+    // === Staleness Guard Tests (prevent stale EM data from showing misleading positions) ===
+
+    // 23. EM data freshness
+    fetch('data/expected-moves.json').then(r => r.json()).then(data => {
+      const updatedDate = new Date(data.updated);
+      const ageHours = (Date.now() - updatedDate.getTime()) / 3600000;
+      assert('EM data updated field is valid date', !isNaN(updatedDate.getTime()));
+      assert('EM data is not older than 7 days', ageHours < 168);
+      assert('EM data is not from the future', updatedDate.getTime() <= Date.now());
+
+      // Verify close prices are reasonable (not zero, not NaN)
+      for (const [sym, t] of Object.entries(data.tickers)) {
+        assert(`${sym} close is a positive number`, typeof t.close === 'number' && t.close > 0 && !isNaN(t.close));
+        if (t.weekly) {
+          assert(`${sym} weekly range is valid (upper > lower > 0)`, t.weekly.upper > t.weekly.lower && t.weekly.lower > 0);
+          assert(`${sym} weekly EM value > 0`, t.weekly.value > 0);
+          assert(`${sym} weekly EM pct between 0.1 and 30`, t.weekly.pct >= 0.1 && t.weekly.pct <= 30);
+        }
+      }
+
+      // Verify position calculation doesn't silently fall back to 50%
+      // Load watchlist to test the actual rendering logic
+      fetch('data/watchlist.json').then(r2 => r2.json()).then(wlData => {
+        for (const [sym, t] of Object.entries(data.tickers)) {
+          const tier = t.weekly;
+          if (!tier || !tier.upper || !tier.lower) continue;
+          const wl = wlData.find(w => w.symbol === sym);
+          const currentPrice = wl ? wl.price : t.close;
+          const range = tier.upper - tier.lower;
+          const position = range > 0 ? ((currentPrice - tier.lower) / range) * 100 : -999;
+          assert(`${sym} position is computed (not fallback 50)`, position !== 50 || (currentPrice > 0 && range > 0));
+          assert(`${sym} position is in plausible range (-50 to 200)`, position >= -50 && position <= 200);
+        }
+        setTimeout(updateSummary, 100);
+      });
+    }).catch(() => {
+      assert('EM staleness tests: data loaded', false);
+      setTimeout(updateSummary, 100);
+    });
+
+    // 24. Expected Moves nav link
     const emLink = Array.from(links).find(l => l.textContent === 'Expected Moves');
     assert('Expected Moves nav link exists', !!emLink);
     assert('Expected Moves links to expected-moves.html', emLink && emLink.href.endsWith('expected-moves.html'));

@@ -14,10 +14,13 @@
 - [x] Add row highlighting for buy-zone and extended tickers
 - [x] Add to shared nav (`js/nav.js` PAGES array)
 - [x] Switch watchlist default to Table view (Widget hijacks clicks)
-- [x] Add `?ticker=` URL param → auto-open detail modal
+- [x] Add `#SYMBOL` hash routing (was `?ticker=`)
 - [x] Fix watchlist table-view display:none CSS bug
 - [x] OpenSpec documentation (proposal, design, specs, tasks)
 - [x] Add tests to `test-nav.html`
+- [x] Update EM data with IV + yfinance Friday close reference (Mar 20)
+- [x] Stale data warning banner (>48h shows red warning, >24h shows orange age)
+- [x] Staleness guard tests — validate freshness, close prices, range validity, position computation
 
 ### ⬜ Pending
 

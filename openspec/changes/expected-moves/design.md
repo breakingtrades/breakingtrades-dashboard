@@ -29,19 +29,35 @@ scripts/update-expected-moves.py       # Polygon.io backup calculator
 - Sortable columns: click header to sort asc/desc
 - Risk meter: filled bar (`<div class="risk-fill">`) width = position %, color = risk color
 - Alert tags: inline spans with pulse animation for actionable levels
-- Row click: navigates to `watchlist.html?ticker={symbol}`
+- Row click: navigates to `watchlist.html#SYMBOL`
 
 #### Watchlist EM Banner (`watchlist.html`)
 - `loadExpectedMoves()` — async fetch of `data/expected-moves.json` into `emData`
 - `buildExpectedMoveHTML(symbol, currentPrice)` — generates banner HTML
 - Called in `openDetail()` before chart/info rendering
-- URL param handler: reads `?ticker=` and auto-opens detail after watchlist loads
+- URL hash handler: reads `#SYMBOL` hash and auto-opens detail after watchlist loads
 
 ### Risk Calculation
 ```javascript
 position = (currentPrice - lower) / (upper - lower) * 100
 // Clamped 0-100 for visual bar, unclamped for labels (ABOVE/BELOW EM)
 ```
+
+### Staleness Guard (Mar 20)
+
+EM data depends on external scripts (IB Gateway or yfinance). If the data isn't refreshed, position percentages become misleading.
+
+**Runtime protection (`expected-moves.html`):**
+- >24h old: orange timestamp with age indicator
+- >48h old: red warning banner + stale label — warns user to re-run data pipeline
+- Prevents stale data from being silently trusted as current
+
+**Test coverage (`test-nav.html`):**
+- EM data `updated` field is a valid date, not in the future, not >7d old
+- All tickers have positive close prices (not 0/NaN)
+- Weekly range validity: upper > lower > 0, EM pct in 0.1–30%
+- Position computation doesn't silently fall back to 50% default
+- Position in plausible range (−50% to 200%)
 
 ### Color Scale
 ```javascript

@@ -7,8 +7,9 @@ AI assistants: read this file, then `docs/PLAN.md` for roadmap, then `docs/MULTI
 **A multi-page trading intelligence dashboard** on GitHub Pages. Three pages:
 
 1. **Signals** (`index.html`) — Trade setup cards with lifecycle tracking, detail modals with TradingView charts ✅ LIVE
-2. **Watchlist** (`watchlist.html`) — Full ~70 symbol tracker with TradingView Market Overview + sortable table 📋 SPEC'D
-3. **Market** (`market.html`) — Sector heatmap, Fear & Greed gauge, market health dashboard 📋 SPEC'D
+2. **Watchlist** (`watchlist.html`) — 74-symbol tracker with table view, detail modals, EM banner, hash routing (`#SPY`) ✅ LIVE
+3. **Expected Moves** (`expected-moves.html`) — Options EM risk heatmap with position bars, alert tags, staleness guard ✅ LIVE
+4. **Market** (`market.html`) — Sector heatmap, RRG, Fear & Greed, VIX, pairs, sector rankings ✅ LIVE
 
 **Live URL:** https://breakingtrades.github.io/breakingtrades-dashboard/
 
@@ -56,15 +57,32 @@ AI assistants: read this file, then `docs/PLAN.md` for roadmap, then `docs/MULTI
 | `docs/TOM_CHAT_SPEC.md` | Tom chat 3-tier architecture |
 | `openspec/changes/` | Feature proposals with specs/design/tasks |
 
+## Tests
+
+`test-nav.html` — browser-based test suite (~50 assertions). Open in browser or serve locally.
+
+**Covers:**
+- Nav rendering (logo, links, search, timezone, market status)
+- Expected Moves data structure + freshness validation
+- Staleness guard (data age, close price validity, range checks, position computation)
+- SPY-specific sanity checks (4 tiers, reasonable EM%, price > $400)
+- Event lifecycle (`nav:ready`, tz-picker availability)
+
+**Run:** `python3 scripts/serve.py` → open `http://localhost:8888/test-nav.html`
+
 ## OpenSpec Changes
 
-| Change | Status | Focus |
-|--------|--------|-------|
-| `data-pipeline` | Designed (proposal + specs + design + tasks) | Python pipeline for signal computation |
-| `dashboard-ui` | Designed | Data-driven rendering, filters, card variants |
-| `tom-chat` | Designed | AI chat widget, intent router, cached responses |
-| `watchlist-page` | Proposed (proposal + specs) | TradingView Market Overview + sortable table |
-| `market-page` | Proposed (proposal + specs) | Sector heatmap + F&G gauge + shared nav |
+See [openspec/INDEX.md](openspec/INDEX.md) for full change log.
+
+| Change | Status |
+|--------|--------|
+| `expected-moves` | ✅ Shipped — EM page, watchlist banner, risk model, staleness guard |
+| `shared-nav-component` | ✅ Shipped — Nav bar, ticker search, market status, timezone |
+| `sector-rotation-chart` | ✅ Shipped — RRG + risk badges |
+| `ci-data-pipeline` | ✅ Shipped — yfinance fallback + GitHub Models briefing |
+| `data-pipeline` | Designed | 
+| `dashboard-ui` | Designed |
+| `tom-chat` | Designed |
 
 ## Moving Average Config (Tom's Actual System)
 

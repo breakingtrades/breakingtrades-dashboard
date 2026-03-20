@@ -1,11 +1,12 @@
 # BreakingTrades Dashboard — OpenSpec Index
 
-> Last updated: 2026-03-19
+> Last updated: 2026-03-20
 
 ## Shipped Changes
 
 | Change | Date | Commits | Description |
 |--------|------|---------|-------------|
+| [Expected Moves](changes/expected-moves/proposal.md) | 2026-03-20 | `c9e8957`..`b5a8cee` | EM page with risk model, watchlist banner, staleness guard |
 | [Futures Strip](changes/futures-strip/proposal.md) | 2026-03-19 | — | Pre-market futures/macro data strip (14 instruments, 5 groups) |
 | [Ticker Search](changes/ticker-search/proposal.md) | 2026-03-19 | — | Global search bar with tracked (enriched) vs external (TradingView) routing |
 | [Logo & Branding](changes/logo-branding/proposal.md) | 2026-03-19 | — | Inline SVG logo mark in nav bar |
