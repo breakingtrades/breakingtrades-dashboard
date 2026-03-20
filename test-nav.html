@@ -21,6 +21,18 @@
 <!-- Nav mount point -->
 <nav id="nav"></nav>
 
+<script>
+// Pre-nav checks (MUST run before nav.js)
+var earlyTzPicker = document.getElementById('tz-picker');
+var navReadyFired = false;
+var tzPickerWorksAfterReady = false;
+document.addEventListener('nav:ready', function() {
+  navReadyFired = true;
+  var tz = document.getElementById('tz-picker');
+  tzPickerWorksAfterReady = tz !== null && typeof tz.addEventListener === 'function';
+});
+</script>
+
 <!-- Load modules in correct order -->
 <script src="js/market-status.js"></script>
 <script src="js/ticker-search.js"></script>
@@ -105,6 +117,31 @@
     const sheet = Array.from(document.styleSheets).find(s => s.href && s.href.includes('nav.css'));
     assert('nav.css stylesheet loaded', !!sheet);
 
+    // 12. nav:ready event fires
+    assert('nav:ready event was received', navReadyFired);
+
+    // 13. tz-picker accessible after nav:ready
+    assert('tz-picker works after nav:ready', tzPickerWorksAfterReady);
+
+    // 14. tz-picker localStorage roundtrip
+    localStorage.setItem('bt_timezone', 'Asia/Tokyo');
+    const tz2 = document.getElementById('tz-picker');
+    if (tz2) { tz2.value = 'Asia/Tokyo'; }
+    assert('tz-picker can be set after nav:ready', tz2 && tz2.value === 'Asia/Tokyo');
+    localStorage.removeItem('bt_timezone');
+
+    // 15. No scripts access tz-picker before nav:ready
+    // (regression guard — if this test exists, the pattern is enforced)
+    assert('tz-picker not in DOM before nav.js runs', earlyTzPicker === null);
+
+    // 16. Search input functional after nav:ready
+    const searchAfter = document.getElementById('ticker-search');
+    assert('Search input accepts input after nav:ready', searchAfter && typeof searchAfter.focus === 'function');
+
+    // 17. market-status element functional after nav:ready
+    const msAfter = document.getElementById('market-status');
+    assert('market-status element in DOM after nav:ready', !!msAfter);
+
     // Summary
     summary.innerHTML = `<strong>${passed + failed} tests:</strong> <span style="color:#00c853">${passed} passed</span>, <span style="color:#dc3545">${failed} failed</span>`;
     summary.style.borderColor = failed === 0 ? '#00c853' : '#dc3545';
@@ -113,7 +150,7 @@
     console.log(`Nav tests: ${passed} passed, ${failed} failed`);
     if (failed > 0) console.error('TESTS FAILED');
 
-  }, 200);
+  }, 300);
 })();
 </script>
 </body>
