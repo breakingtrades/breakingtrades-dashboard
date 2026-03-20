@@ -471,7 +471,7 @@ function updateTimestamp() {
 // === INIT ===
 loadWatchlist();
 initTVWidget();
-initTimezone();
+document.addEventListener('nav:ready', initTimezone);
 
 // === EXCHANGE MAP ===
 const EXCHANGE_MAP = {

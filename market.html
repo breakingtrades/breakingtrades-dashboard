@@ -505,7 +505,7 @@ function updateTimestamp() {
 // === INIT ===
 loadMarketData();
 initHeatmap();
-initTimezone();
+document.addEventListener("nav:ready", initTimezone);
 </script>
 <script src="js/sector-rotation.js"></script>
 <script>
