@@ -348,11 +348,11 @@ async function loadWatchlist() {
     const res = await fetch('data/watchlist.json');
     watchlist = await res.json();
     renderTable();
-    // Auto-open detail if ?ticker= param
-    const urlTicker = new URLSearchParams(window.location.search).get('ticker');
-    if (urlTicker) {
+    // Auto-open detail if #TICKER hash
+    const hashTicker = window.location.hash.replace('#','');
+    if (hashTicker) {
       await loadExpectedMoves();
-      openDetail(urlTicker.toUpperCase());
+      openDetail(hashTicker.toUpperCase());
     }
   } catch (err) {
     console.error("Failed to load watchlist data:", err);
@@ -529,6 +529,13 @@ function updateTimestamp() {
   // Timestamp now handled by market-status.js
 }
 
+// Hash routing for detail modal
+window.addEventListener('hashchange', () => {
+  const h = location.hash.replace('#','');
+  if (h) { openDetail(h.toUpperCase()); }
+  else { closeDetail(); }
+});
+
 // === INIT ===
 loadWatchlist();
 initTVWidget();
@@ -553,6 +560,7 @@ function getExchange(sym) { return EXCHANGE_MAP[sym] || 'NYSE'; }
 function openDetail(symbol) {
   const t = watchlist.find(x => x.symbol === symbol);
   if (!t) return;
+  history.replaceState(null, '', '#' + symbol);
 
   const modal = document.getElementById('modal');
   const exchange = getExchange(symbol);
@@ -667,6 +675,7 @@ function openDetail(symbol) {
 }
 
 function closeDetail() {
+  history.replaceState(null, '', location.pathname);
   document.getElementById('modal').classList.remove('open');
   document.body.style.overflow = '';
   // Clean up iframes
