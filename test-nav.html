@@ -68,11 +68,8 @@
     // 4. Active page detection
     const currentFile = location.pathname.split('/').pop() || 'index.html';
     const activeLink = nav.querySelector('.nav-link.active');
-    assert('One link is active', !!activeLink);
-    // test-nav.html won't match any page, so no active is OK
-    if (currentFile === 'test-nav.html') {
-      assert('No active link on test page (expected)', !activeLink || true);
-    }
+    const isTestPage = currentFile === 'test-nav.html';
+    assert('Active link correct (none on test page, one on real page)', isTestPage ? !activeLink : !!activeLink);
 
     // 5. Search
     const searchInput = document.getElementById('ticker-search');
