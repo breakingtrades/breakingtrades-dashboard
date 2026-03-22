@@ -112,7 +112,7 @@ function createRRG(containerId, opts = {}) {
 
   // Reset zoom
   const resetBtn = container.querySelector('[data-rrg-reset]');
-  if (resetBtn) resetBtn.addEventListener('click', () => { if (chart) chart.resetZoom(); });
+  if (resetBtn) resetBtn.addEventListener('click', () => { if (chart) chart.resetZoom('active'); });
 
   // Traces toggle
   const tracesBtn = container.querySelector('[data-rrg-traces]');
@@ -256,7 +256,7 @@ function createRRG(containerId, opts = {}) {
       data: { datasets },
       options: {
         responsive: true, maintainAspectRatio: false,
-        animation: { duration: chart?300:600 },
+        animation: { duration: chart?0:600 },
         interaction: { mode:'nearest', intersect:true },
         onClick(e, elements) {
           if (elements.length > 0) {
@@ -309,6 +309,7 @@ function createRRG(containerId, opts = {}) {
               pinch:{enabled:true},
               drag:{enabled:true,backgroundColor:'rgba(74,158,255,0.1)',borderColor:'rgba(74,158,255,0.3)',borderWidth:1},
               mode:'xy',
+              animation: { duration: 400, easing: 'easeOutCubic' },
               onZoomStart({chart,event}) {
                 // Allow drag zoom only when not clicking a data point
                 if(event.type==='pointerdown') return true;
@@ -350,9 +351,9 @@ function createRRG(containerId, opts = {}) {
     chartDatasets = datasets;
   }
 
-  // Double-click on chart = reset zoom
+  // Double-click on chart = reset zoom (animated)
   canvas.addEventListener('dblclick', (e) => {
-    if (chart) chart.resetZoom();
+    if (chart) chart.resetZoom('active');
   });
 
   // Load
