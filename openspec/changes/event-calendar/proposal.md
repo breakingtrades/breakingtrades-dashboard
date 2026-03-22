@@ -47,7 +47,29 @@ A dedicated **Events & Calendar** page (`events.html`) that aggregates market-mo
 │                                                        │
 └────────────────────────────────────────────────────────┘
 
-┌─ FEEDER 3: Manual Injection ───────────────────────────┐
+┌─ FEEDER 3: Trump / Political News Monitor ─────────────┐
+│                                                        │
+│  trump-monitor.py  (cron every 15min)                  │
+│    Source: Google News RSS                             │
+│    Queries:                                            │
+│      - "Trump site:truthsocial.com" (direct posts)     │
+│      - "Trump tariffs OR Iran OR Fed OR economy"       │
+│      - "Trump executive order OR sanctions OR deal"    │
+│    Flow:                                               │
+│      fetch RSS → dedupe by URL hash → LLM classify    │
+│      → if market_impact score >= threshold             │
+│      → append to data/events.jsonl                     │
+│                                                        │
+│  Why Google News RSS (not direct Truth Social):        │
+│    - Truth Social: Cloudflare-blocked, no public RSS   │
+│    - X/Twitter: requires paid API auth                 │
+│    - Google News RSS: free, no auth, proven reliable,  │
+│      indexes Truth Social posts within minutes,        │
+│      same pattern used by Iran-Israel watcher          │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+
+┌─ FEEDER 4: Manual Injection ───────────────────────────┐
 │                                                        │
 │  bt-event CLI                                          │
 │    bt-event add "Trump Hormuz ultimatum"               │
@@ -163,10 +185,13 @@ Compact event strip injected above Signals cards. Shows next 2-3 critical/high e
 | `events.jsonl` | `breakingtrades-dashboard/data/events.jsonl` | Dashboard copy (symlink or export script) |
 | `extract-events.py` | `scripts/extract-events.py` (parent repo) | LLM event extractor (video + brief) |
 | `bt-event` | `scripts/bt-event` (parent repo) | CLI: add / list / resolve / expire |
+| `trump-monitor.py` | `scripts/trump-monitor.py` (parent repo) | Polls Google News RSS every 15min → LLM classifies → `events.jsonl` |
 | `events.js` | `breakingtrades-dashboard/js/events.js` | Dashboard renderer + countdown engine |
 | `events.html` | `breakingtrades-dashboard/events.html` | Full calendar page |
 | Edit `nav.js` | `breakingtrades-dashboard/js/nav.js` | Add Events to nav |
 | Edit `index.html` | `breakingtrades-dashboard/index.html` | Add mini strip above signals |
+| Edit `pull-and-transcribe.sh` | parent repo | Call extract-events.py after recap |
+| Edit `market-watcher.py` | `market-watcher/market-watcher.py` | Call extract_events after daily brief |
 | Edit `pull-and-transcribe.sh` | parent repo | Call extract-events.py after recap |
 | Edit `market-watcher.py` | `market-watcher/market-watcher.py` | Call extract_events after daily brief |
 
@@ -237,6 +262,7 @@ bt-event expire                  # auto-expire past deadlines
 
 ## Success Criteria
 
+- [ ] `trump-monitor.py` runs on 15min cron, classifies Trump/political news via LLM → `events.jsonl`
 - [ ] Trump Hormuz ultimatum visible on `events.html` with live countdown
 - [ ] Mini strip on `index.html` shows next critical event
 - [ ] `bt-event add` successfully appends to `events.jsonl`
