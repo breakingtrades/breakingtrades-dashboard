@@ -138,11 +138,37 @@ Integrate the new **Chart.js-based Relative Rotation Graph (RRG)** into both the
 - chartjs-plugin-zoom 2 (CDN)
 - Weekly OHLCV CSVs for 11 sectors + SPY (from IB via `update_data.py`)
 
+## Planned Changes
+
+### Trace Lines Toggle
+**Goal:** Add a toggle button to show/hide the trailing path lines on the RRG chart.
+
+**Behavior:**
+- Default: traces **ON** (current behavior — `showLine: true` on all datasets)
+- Toggle button label: `[Traces ●]` / `[Traces ○]` (or "Trails ON/OFF")
+- When OFF: only the current dot (latest position) is shown per sector — no path lines
+- Implementation: flip `dataset.showLine` on all Chart.js datasets + call `chart.update()`
+- State persisted in `localStorage` (remembers preference across page loads)
+- Button lives in the RRG controls bar alongside `[8W] [13W] [26W] [Reset]`
+
+**Controls bar (updated):**
+```
+[8W] [13W] [26W]  |  [Traces ●]  [Reset]
+```
+
+**Tasks:**
+1. Add toggle button to `sector-rotation.html` controls bar
+2. On click: iterate `chart.data.datasets`, flip `showLine`, call `chart.update('none')`
+3. Persist state: `localStorage.setItem('rrg-traces', 'on'|'off')`
+4. Read on init: restore last preference
+5. When extracted to `js/sector-rotation.js` (Phase 1): include in `createRRG()` options as `showTraces: true` default
+
 ## Acceptance Criteria
 - [ ] `js/sector-rotation.js` — reusable module with `createRRG()` API
 - [ ] `css/sector-rotation.css` — extracted styles
 - [ ] Signals page: collapsible RRG section, compact 350px, 8W default
 - [ ] Market page: full RRG component, 500px, 13W default, sector rankings table
 - [ ] Both pages: zoom, pan, filter (toggle on/off), solo (dblclick), hover tooltips
+- [ ] **Trace lines toggle** — button in controls bar, persisted in localStorage
 - [ ] `export-sector-rotation.py` integrated into deploy pipeline
 - [ ] Standalone `sector-rotation.html` still works for testing
