@@ -1,9 +1,11 @@
 # Event Calendar — Proposal
 
-> **Status:** Planned  
+> **Status:** ✅ Shipped (Phase 1)
+> **Shipped:** 2026-03-22
+> **Commits:** `d2f8d8c` (dashboard), `82ccde4` (pipeline)
 > **Priority:** High  
 > **Created:** 2026-03-22  
-> **Phase:** 1 (static) → 2 (service)
+> **Phase:** 1 ✅ (static) → 2 (service, planned)
 
 ---
 

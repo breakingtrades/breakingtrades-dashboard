@@ -1,11 +1,12 @@
 # BreakingTrades Dashboard — OpenSpec Index
 
-> Last updated: 2026-03-20
+> Last updated: 2026-03-22
 
 ## Shipped Changes
 
 | Change | Date | Commits | Description |
 |--------|------|---------|-------------|
+| [Event Calendar](changes/event-calendar/proposal.md) | 2026-03-22 | `d2f8d8c`..`d1f34ec` | `events.html` full calendar page + `events.js` renderer + mini strip on index + `events.jsonl` store + `bt-event` CLI + `trump-monitor.py` (Google News RSS → LLM classify) + `extract-events.py` (video + brief extraction). Tests pending. |
 | [Expected Moves](changes/expected-moves/proposal.md) | 2026-03-20 | `c9e8957`..`b5a8cee` | EM page with risk model, watchlist banner, staleness guard |
 | [Futures Strip](changes/futures-strip/proposal.md) | 2026-03-19 | — | Pre-market futures/macro data strip (14 instruments, 5 groups) |
 | [Ticker Search](changes/ticker-search/proposal.md) | 2026-03-19 | — | Global search bar with tracked (enriched) vs external (TradingView) routing |
@@ -29,11 +30,11 @@
 
 | Change | Priority | Description |
 |--------|----------|-------------|
-| [Event Calendar](changes/event-calendar/proposal.md) | **High** | `events.html` page + mini strip + `events.jsonl` store + LLM extraction from video pipeline + market brief. Two feeders: `pull-and-transcribe.sh` → `extract-events.py` and `market-watcher.py` → event extractor. Phase 2: bolt-on service endpoint. |
 | [Tom Chat Widget](changes/tom-chat/) | Low | Interactive chat — deferred to Phase 3 of AI-Ready Architecture |
 | Mac Cron Push | Medium | IB Gateway data enrichment (expected moves, dark pool) |
 | Trade Lifecycle Engine | Medium | 9-state status classifier for ticker cards |
 | Per-Ticker Tom's Take | Low | Pre-generated LLM analysis per symbol |
+| Event Calendar — Phase 2 | Medium | Bolt-on FastAPI route in market-watcher; external calendar API polling (FRED releases, macro data). Drop-in URL swap. |
 
 ## Archived
 
