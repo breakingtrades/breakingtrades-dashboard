@@ -29,6 +29,7 @@
 
 | Change | Priority | Description |
 |--------|----------|-------------|
+| [Event Calendar](changes/event-calendar/proposal.md) | **High** | `events.html` page + mini strip + `events.jsonl` store + LLM extraction from video pipeline + market brief. Two feeders: `pull-and-transcribe.sh` → `extract-events.py` and `market-watcher.py` → event extractor. Phase 2: bolt-on service endpoint. |
 | [Tom Chat Widget](changes/tom-chat/) | Low | Interactive chat — deferred to Phase 3 of AI-Ready Architecture |
 | Mac Cron Push | Medium | IB Gateway data enrichment (expected moves, dark pool) |
 | Trade Lifecycle Engine | Medium | 9-state status classifier for ticker cards |
