@@ -35,6 +35,8 @@ function createRRG(containerId, opts = {}) {
   let activeTrail = options.trailLength;
   let highlightedSector = null;
   let hiddenSectors = new Set();
+  const tracesStorageKey = (options.storageKey || containerId) + '-traces';
+  let showTraces = localStorage.getItem(tracesStorageKey) !== 'off';
 
   // Build DOM
   container.classList.add('rrg-section');
@@ -54,6 +56,8 @@ function createRRG(containerId, opts = {}) {
       <button class="${activeTrail===8?'active':''}" data-rrg-trail="8">8W</button>
       <button class="${activeTrail===13?'active':''}" data-rrg-trail="13">13W</button>
       <button class="${activeTrail===26?'active':''}" data-rrg-trail="26">26W</button>
+      <div class="rrg-sep"></div>
+      <button data-rrg-traces class="${showTraces?'active':''}">Traces ${showTraces?'●':'○'}</button>
       <div class="rrg-sep"></div>
       <button data-rrg-reset>Reset Zoom</button>
       <span class="rrg-hint">Scroll to zoom · Drag to select · Double-click to reset</span>
@@ -109,6 +113,16 @@ function createRRG(containerId, opts = {}) {
   // Reset zoom
   const resetBtn = container.querySelector('[data-rrg-reset]');
   if (resetBtn) resetBtn.addEventListener('click', () => { if (chart) chart.resetZoom(); });
+
+  // Traces toggle
+  const tracesBtn = container.querySelector('[data-rrg-traces]');
+  if (tracesBtn) tracesBtn.addEventListener('click', () => {
+    showTraces = !showTraces;
+    localStorage.setItem(tracesStorageKey, showTraces ? 'on' : 'off');
+    tracesBtn.textContent = `Traces ${showTraces ? '●' : '○'}`;
+    tracesBtn.classList.toggle('active', showTraces);
+    renderChart();
+  });
 
   // Helpers
   function hexToRgba(hex, a) {
@@ -195,6 +209,7 @@ function createRRG(containerId, opts = {}) {
         borderWidth: isHL?1.5:0.5, tension: 0.3,
         backgroundColor: data.map((_,i) => hexToRgba(sec.color, i===data.length-1?alpha:alpha*0.5)),
         borderColor: hexToRgba(sec.color, lineAlpha),
+        showLine: showTraces,
         pointRadius: data.map((_,i) => i===data.length-1?8:3),
         pointHoverRadius: data.map((_,i) => i===data.length-1?11:5),
         pointBorderColor: hexToRgba(sec.color, alpha),
