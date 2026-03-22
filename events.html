@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events — BreakingTrades</title>
+<link rel="stylesheet" href="css/nav.css">
+<style>
+  :root {
+    --bg-primary: #0a0a12;
+    --bg-card: #111122;
+    --bg-card-hover: #161630;
+    --border: #1e1e3a;
+    --text: #e0e0e8;
+    --text-dim: #8888aa;
+    --text-bright: #ffffff;
+    --cyan: #00d4aa;
+    --orange: #ffa726;
+    --red: #ef5350;
+    --gold: #ffd700;
+    --blue: #42a5f5;
+    --purple: #ab47bc;
+    --yellow: #ffeb3b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg-primary);
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .page-content { padding: 20px 24px; max-width: 1400px; margin: 0 auto; }
+  .page-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .page-title { font-size: 16px; font-weight: 700; color: var(--text-bright); }
+
+  .filter-tabs {
+    display: flex; gap: 6px; margin-bottom: 20px;
+  }
+  .filter-btn {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    color: var(--text-dim); padding: 6px 14px; border-radius: 6px;
+    cursor: pointer; font-size: 12px; font-family: inherit; transition: all 0.2s;
+  }
+  .filter-btn:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+  .filter-btn.active { background: rgba(0,212,170,0.1); border-color: var(--cyan); color: var(--cyan); }
+
+  .events-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;
+  }
+  @media (max-width: 900px) { .events-grid { grid-template-columns: 1fr; } }
+
+  .col-title {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--cyan); font-weight: 600; margin-bottom: 12px;
+  }
+
+  #resolved-section { margin-top: 20px; }
+  #resolved-section summary {
+    cursor: pointer; color: var(--text-dim); font-size: 13px; padding: 8px 0;
+  }
+  #resolved-section summary:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav id="nav"></nav>
+
+<div class="page-content">
+  <div class="page-header">
+    <span class="page-title">📅 Events & Calendar</span>
+  </div>
+
+  <!-- Filter tabs -->
+  <div class="filter-tabs"></div>
+
+  <!-- Two-column grid -->
+  <div class="events-grid">
+    <div class="col-left">
+      <h3 class="col-title">⏳ Live Countdowns</h3>
+      <div id="live-countdowns"></div>
+    </div>
+    <div class="col-right">
+      <h3 class="col-title">📅 Upcoming — Next 7 Days</h3>
+      <div id="upcoming-events"></div>
+    </div>
+  </div>
+
+  <!-- Video Analysis Intel -->
+  <div id="analyst-intel"></div>
+
+  <!-- Resolved -->
+  <details id="resolved-section">
+    <summary>✅ Resolved & Expired (last 7 days)</summary>
+    <div id="resolved-events"></div>
+  </details>
+</div>
+
+<script src="js/market-status.js"></script>
+<script src="js/ticker-search.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/events.js"></script>
+<script>
+document.addEventListener('nav:ready', () => {
+  if (typeof initEvents === 'function') initEvents();
+});
+setInterval(() => { if (typeof initEvents === 'function') initEvents(); }, 60000);
+</script>
+</body>
+</html>

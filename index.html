@@ -761,6 +761,8 @@
 <!-- NAV BAR -->
 <nav id="nav"></nav>
 
+<div id="events-strip" style="display:none"></div>
+
 <!-- FUTURES STRIP -->
 <div id="futures-strip" class="futures-strip"></div>
 
@@ -1080,6 +1082,7 @@ document.addEventListener('nav:ready', () => {
     userTZ = tzPicker.value;
     localStorage.setItem('bt_timezone', userTZ);
   });
+  if (typeof initEventsMiniStrip === 'function') initEventsMiniStrip();
 });
 
 function updateTimestamp() {
@@ -1767,6 +1770,7 @@ init();
 <script src="js/market-status.js"></script>
 <script src="js/ticker-search.js"></script>
 <script src="js/nav.js"></script>
+<script src="js/events.js"></script>
 
 </body>
 </html>

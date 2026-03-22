@@ -10,6 +10,7 @@
     { href: 'watchlist.html', label: 'Watchlist' },
     { href: 'expected-moves.html', label: 'Expected Moves' },
     { href: 'market.html', label: 'Market' },
+    { href: 'events.html', label: 'Events' },
   ];
 
   const TZ_OPTIONS = [
