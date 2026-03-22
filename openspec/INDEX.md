@@ -30,6 +30,7 @@
 
 | Change | Priority | Description |
 |--------|----------|-------------|
+| [Earnings Calendar](changes/earnings-calendar/) | High | Dedicated earnings tool — EarningsWhisper (primary, whisper numbers + surprise history), TradingView (secondary), possibly Finviz/Nasdaq as fallback. Shows upcoming earnings for watchlist + broader market, EPS estimates vs actuals, surprise %, reaction moves. Full page + mini strip integration. Future: auto-tag ticker cards with earnings proximity. |
 | [Tom Chat Widget](changes/tom-chat/) | Low | Interactive chat — deferred to Phase 3 of AI-Ready Architecture |
 | Mac Cron Push | Medium | IB Gateway data enrichment (expected moves, dark pool) |
 | Trade Lifecycle Engine | Medium | 9-state status classifier for ticker cards |
