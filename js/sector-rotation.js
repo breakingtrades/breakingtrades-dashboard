@@ -106,7 +106,7 @@ function createRRG(containerId, opts = {}) {
       container.querySelectorAll('[data-rrg-trail]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeTrail = parseInt(btn.dataset.rrgTrail);
-      renderChart();
+      renderChart(true); // trail length change = rebuild
     });
   });
 
@@ -158,7 +158,7 @@ function createRRG(containerId, opts = {}) {
         e.preventDefault();
         if (highlightedSector) highlightedSector = null;
         hiddenSectors.has(sec.symbol) ? hiddenSectors.delete(sec.symbol) : hiddenSectors.add(sec.symbol);
-        renderChart(); buildLegend();
+        renderChart(true); buildLegend();
       });
       item.addEventListener('dblclick', e => {
         e.preventDefault();
@@ -196,16 +196,18 @@ function createRRG(containerId, opts = {}) {
     rankingsEl.innerHTML = h;
   }
 
-  function renderChart() {
-    if (!sectorData) return;
+  let chartDatasets = null; // track current dataset structure
+
+  function buildDatasets() {
+    if (!sectorData) return [];
     const sectors = sectorData.sectors.filter(s => !hiddenSectors.has(s.symbol));
-    const datasets = sectors.map(sec => {
+    return sectors.map(sec => {
       const trail = sec.trail.slice(-activeTrail);
       const data = trail.map(p => ({x:p.rs, y:p.momentum}));
       const isHL = !highlightedSector || highlightedSector===sec.symbol;
       const alpha = isHL?1:0.12, lineAlpha = isHL?0.6:0.06;
       return {
-        label: sec.symbol, data, showLine: true,
+        label: sec.symbol, data,
         borderWidth: isHL?1.5:0.5, tension: 0.3,
         backgroundColor: data.map((_,i) => hexToRgba(sec.color, i===data.length-1?alpha:alpha*0.5)),
         borderColor: hexToRgba(sec.color, lineAlpha),
@@ -217,8 +219,38 @@ function createRRG(containerId, opts = {}) {
         _sectorSymbol: sec.symbol, _sectorName: sec.name, _sectorColor: sec.color,
       };
     });
+  }
 
+  function renderChart(forceRebuild = false) {
+    if (!sectorData) return;
+    const datasets = buildDatasets();
     const bounds = computeBounds(datasets);
+
+    // Update in-place if chart exists and dataset count matches
+    if (chart && !forceRebuild && chart.data.datasets.length === datasets.length) {
+      datasets.forEach((ds, i) => {
+        const existing = chart.data.datasets[i];
+        existing.data = ds.data;
+        existing.showLine = ds.showLine;
+        existing.borderWidth = ds.borderWidth;
+        existing.backgroundColor = ds.backgroundColor;
+        existing.borderColor = ds.borderColor;
+        existing.pointRadius = ds.pointRadius;
+        existing.pointHoverRadius = ds.pointHoverRadius;
+        existing.pointBorderColor = ds.pointBorderColor;
+        existing._sectorSymbol = ds._sectorSymbol;
+        existing._sectorName = ds._sectorName;
+        existing._sectorColor = ds._sectorColor;
+      });
+      chart.options.scales.x.min = bounds.minX;
+      chart.options.scales.x.max = bounds.maxX;
+      chart.options.scales.y.min = bounds.minY;
+      chart.options.scales.y.max = bounds.maxY;
+      chart.update('none'); // no animation
+      return;
+    }
+
+    // Full rebuild (first load or dataset count changed)
     const config = {
       type: 'scatter',
       data: { datasets },
@@ -315,6 +347,7 @@ function createRRG(containerId, opts = {}) {
     };
     if (chart) chart.destroy();
     chart = new Chart(canvas, config);
+    chartDatasets = datasets;
   }
 
   // Double-click on chart = reset zoom
