@@ -2,67 +2,73 @@
   {
     "symbol": "XLE",
     "name": "Energy",
-    "change": 8.9,
-    "rs": 116.1
+    "change": 8.1,
+    "rs": 115.2
   },
   {
     "symbol": "XLU",
     "name": "Utilities",
-    "change": 1.6,
-    "rs": 53.0
-  },
-  {
-    "symbol": "XLRE",
-    "name": "Real Estate",
-    "change": -2.8,
-    "rs": 12.7
-  },
-  {
-    "symbol": "XLP",
-    "name": "Staples",
-    "change": -4.0,
-    "rs": -1.9
+    "change": -4.1,
+    "rs": -5.3
   },
   {
     "symbol": "XLC",
     "name": "Communication",
-    "change": 0.8,
-    "rs": -11.5
-  },
-  {
-    "symbol": "XLI",
-    "name": "Industrials",
-    "change": -4.9,
-    "rs": -15.8
+    "change": -2.3,
+    "rs": -31.4
   },
   {
     "symbol": "XLK",
     "name": "Technology",
-    "change": 0.0,
-    "rs": -18.3
+    "change": -1.1,
+    "rs": -32.0
   },
   {
-    "symbol": "XLB",
-    "name": "Materials",
-    "change": -6.0,
-    "rs": -20.6
+    "symbol": "XLI",
+    "name": "Industrials",
+    "change": -6.7,
+    "rs": -37.6
   },
   {
-    "symbol": "XLV",
-    "name": "Healthcare",
-    "change": -4.9,
-    "rs": -40.7
+    "symbol": "XLRE",
+    "name": "Real Estate",
+    "change": -6.9,
+    "rs": -38.6
   },
   {
-    "symbol": "XLY",
-    "name": "Discretionary",
-    "change": -2.5,
-    "rs": -44.6
+    "symbol": "XLP",
+    "name": "Staples",
+    "change": -8.8,
+    "rs": -47.2
   },
   {
     "symbol": "XLF",
     "name": "Financials",
-    "change": -5.1,
-    "rs": -59.3
+    "change": -2.9,
+    "rs": -54.8
+  },
+  {
+    "symbol": "XLB",
+    "name": "Materials",
+    "change": -10.2,
+    "rs": -60.5
+  },
+  {
+    "symbol": "XLY",
+    "name": "Discretionary",
+    "change": -4.2,
+    "rs": -63.0
+  },
+  {
+    "symbol": "XLV",
+    "name": "Healthcare",
+    "change": -8.7,
+    "rs": -66.3
+  },
+  {
+    "symbol": "IBIT",
+    "name": "Bitcoin",
+    "change": 9.6,
+    "rs": -68.4
   }
 ]
