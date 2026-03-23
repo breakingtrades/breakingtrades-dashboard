@@ -319,17 +319,15 @@ async function loadData() {
     const updatedDate = new Date(em.updated);
     const ageHours = (Date.now() - updatedDate.getTime()) / 3600000;
     updatedEl.textContent = `Updated: ${updatedDate.toLocaleString()}`;
-    // Stale data warning: >48h old
+    // Stale data warning: log only, no UI banner
     if (ageHours > 48) {
       updatedEl.style.color = 'var(--red)';
-      updatedEl.textContent += ` ⚠️ STALE (${Math.round(ageHours / 24)}d old — run expected_move.py to refresh)`;
-      const banner = document.createElement('div');
-      banner.style.cssText = 'background:rgba(239,83,80,0.15);border:1px solid #ef5350;border-radius:8px;padding:12px 16px;margin:0 0 16px;color:#ef5350;font-size:12px;text-align:center;';
-      banner.textContent = '⚠️ Expected move data is stale. Position percentages and risk levels may be inaccurate. Update with: python expected_move.py or export-yfinance-fallback.py';
-      document.querySelector('.page-header').after(banner);
+      updatedEl.textContent += ` (${Math.round(ageHours / 24)}d old)`;
+      console.warn(`[EM] Data stale: ${Math.round(ageHours)}h old. Run update-expected-moves-ib.py to refresh.`);
     } else if (ageHours > 24) {
       updatedEl.style.color = 'var(--orange)';
       updatedEl.textContent += ` (${Math.round(ageHours)}h ago)`;
+      console.info(`[EM] Data age: ${Math.round(ageHours)}h`);
     }
     render();
   } catch(e) {
