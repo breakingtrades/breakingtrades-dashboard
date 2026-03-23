@@ -268,6 +268,12 @@
     <button class="tier-tab" data-tier="quarterly">Quarterly</button>
   </div>
 
+  <div class="tier-tabs" style="margin-top:8px;">
+    <button class="filter-tab active" data-filter="all">All</button>
+    <button class="filter-tab" data-filter="top10">🏆 Top 10 S&amp;P</button>
+    <button class="filter-tab" data-filter="watchlist">Watchlist</button>
+  </div>
+
   <div class="em-table-wrap">
     <table>
       <thead>
@@ -283,6 +289,7 @@
           <th data-col="position" style="min-width:140px;">Position in Range</th>
           <th data-col="risk">Risk Level</th>
           <th data-col="riskbar" style="min-width:130px;">Risk Meter</th>
+          <th data-col="bias">Bias</th>
         </tr>
       </thead>
       <tbody id="em-tbody"></tbody>
@@ -295,6 +302,8 @@ let emData = {};
 let watchlistData = [];
 let currentTier = 'weekly';
 let sortCol = 'risk';
+let currentFilter = 'all';
+const TOP10_SP = ['AAPL','MSFT','NVDA','AMZN','META','GOOGL','GOOG','TSLA','BRK B','AVGO'];
 let sortAsc = false;
 
 async function loadData() {
@@ -362,6 +371,10 @@ function buildRows() {
     const currentPrice = wl ? wl.price : t.close;
     const change = wl ? wl.change : 0;
 
+    // Filter
+    if (currentFilter === 'top10' && !TOP10_SP.includes(sym)) continue;
+    if (currentFilter === 'watchlist' && !wl) continue;
+
     const lo = tier.lower;
     const hi = tier.upper;
     const range = hi - lo;
@@ -372,6 +385,21 @@ function buildRows() {
 
     const risk = getRiskLabel(position);
     const riskColor = getRiskColor(position);
+
+    // Bias from watchlist
+    let bias = null;
+    let biasHtml = '<span style="color:var(--text-dim)">—</span>';
+    if (wl) {
+      bias = wl.bias;
+      const above200 = wl.sma200 && currentPrice > wl.sma200;
+      const above20  = wl.sma20  && currentPrice > wl.sma20;
+      const biasColor = bias === 'bull' ? '#4caf50' : bias === 'bear' ? '#f44336' : '#aaa';
+      const biasArrow = bias === 'bull' ? '▲' : bias === 'bear' ? '▼' : '—';
+      const smaTag = above200
+        ? `<span style="color:#4caf50;font-size:10px;margin-left:4px;">↑200</span>`
+        : `<span style="color:#f44336;font-size:10px;margin-left:4px;">↓200</span>`;
+      biasHtml = `<span style="color:${biasColor};font-weight:600;">${biasArrow} ${(bias||'').toUpperCase()}</span>${smaTag}`;
+    }
 
     rows.push({
       symbol: sym,
@@ -390,6 +418,7 @@ function buildRows() {
       strike: t.strike,
       expiry: t.weekly_expiry,
       proxy: t.futures_proxy,
+      biasHtml: biasHtml,
     });
   }
 
@@ -490,6 +519,7 @@ function renderTable(rows) {
           <div class="risk-fill" style="width:${Math.max(4, Math.min(100, r.position))}%;background:${needleColor};"></div>
         </div>
       </td>
+      <td style="white-space:nowrap;">${r.biasHtml}</td>
     </tr>`;
   }).join('');
 }
@@ -523,6 +553,16 @@ document.querySelectorAll('.tier-tab').forEach(btn => {
     document.querySelectorAll('.tier-tab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentTier = btn.dataset.tier;
+    render();
+  });
+});
+
+// Filter tabs
+document.querySelectorAll('.filter-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
     render();
   });
 });

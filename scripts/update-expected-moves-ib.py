@@ -39,7 +39,7 @@ DAILY_TICKERS = ['SPY', 'QQQ', 'DIA', 'IWM', 'IBIT', 'USO', 'UNG', 'GLD']
 
 QUARTERLY_TICKERS = [
     'SPY', 'QQQ', 'DIA', 'IWM',
-    'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'AMZN', 'META', 'TSLA', 'AVGO', 'BRK B', 'LLY',
+    'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'GOOG', 'AMZN', 'META', 'TSLA', 'AVGO', 'BRK B', 'LLY',
 ]
 
 FUTURES_PROXY = {
@@ -53,7 +53,7 @@ FUTURES_PROXY = {
     'GLD': {'futures': 'GC', 'multiplier': 18.6},
 }
 
-DEFAULT_PORT = 4002  # Paper; use 4001 for live
+DEFAULT_PORT = 4002  # Live account
 
 
 def get_watchlist_tickers():
