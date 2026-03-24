@@ -270,6 +270,7 @@
     </div>
     <div class="tier-tabs" style="margin-bottom:0;">
       <button class="tier-tab filter-tab active" data-filter="all">All</button>
+      <button class="tier-tab filter-tab" data-filter="indices">Indices</button>
       <button class="tier-tab filter-tab" data-filter="top10">Top 10 S&amp;P</button>
       <button class="tier-tab filter-tab" data-filter="watchlist">Watchlist</button>
     </div>
@@ -305,6 +306,7 @@ let currentTier = 'weekly';
 let sortCol = 'risk';
 let currentFilter = 'all';
 const TOP10_SP = ['AAPL','MSFT','NVDA','AMZN','META','GOOGL','GOOG','TSLA','BRK B','AVGO'];
+const INDICES = ['SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
 let sortAsc = false;
 
 async function loadData() {
@@ -371,6 +373,7 @@ function buildRows() {
     const change = wl ? wl.change : 0;
 
     // Filter
+    if (currentFilter === 'indices' && !INDICES.includes(sym)) continue;
     if (currentFilter === 'top10' && !TOP10_SP.includes(sym)) continue;
     if (currentFilter === 'watchlist' && !wl) continue;
 
