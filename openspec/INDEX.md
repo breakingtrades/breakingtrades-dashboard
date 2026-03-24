@@ -6,7 +6,8 @@
 
 | Change | Date | Commits | Description |
 |--------|------|---------|-------------|
-| [Nav — Market First](changes/dashboard-ui/) | 2026-03-24 | `—` | Market page moved to first in navbar; logo + default landing → Market |
+| [Root URL → market.html](changes/dashboard-ui/) | 2026-03-24 | `23c7258` | `index.html` replaced with instant redirect to `market.html`; Signals moved to `signals.html` |
+| [Nav — Market First](changes/dashboard-ui/) | 2026-03-24 | `8b4cd51` | Market page moved to first in navbar; logo + default landing → Market |
 | [EM Detail Modal](changes/expected-moves/proposal.md) | 2026-03-24 | `5cef627` | Inline detail modal on EM page — TradingView chart + all 4 EM tier cards; works for all tickers incl. USO/GLD/IBIT |
 | [EM Filter Tab Tests](changes/expected-moves/tasks.md) | 2026-03-24 | `7b81db0` | Filter tab logic tests added to `test-nav.html` — Indices/Top10/Watchlist/All filters + mutual exclusivity check |
 | [EM Filter Tab Style Fix](changes/expected-moves/proposal.md) | 2026-03-24 | `012c36a` | Filter tabs now match `tier-tab` style; both tab rows on one line (tier left, filter right); removed emoji |

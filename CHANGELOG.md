@@ -8,8 +8,9 @@ Format: `[YYYY-MM-DD] commit — description`
 ## 2026-03-24
 
 ### Features
+- **`23c7258`** — Root URL (`/`) now redirects to `market.html`; Signals page moved to `signals.html`
 - **`5cef627`** — Expected Moves: inline detail modal — TradingView chart + all 4 EM tier cards; works for all tickers (USO, GLD, IBIT, BRK B etc.); Escape to close
-- **Nav**: Market page moved to first position in navbar; logo + default landing URL → `market.html`
+- **`8b4cd51`** — Nav: Market page moved to first position; logo + default landing → `market.html`
 
 ### Fixes
 - **`012c36a`** — Expected Moves: filter tabs (All/Top 10 S&P/Watchlist) now match `tier-tab` style; both tab rows on one line; removed emoji
