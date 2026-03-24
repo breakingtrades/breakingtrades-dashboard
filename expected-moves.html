@@ -547,9 +547,9 @@ function sortRows(rows) {
 }
 
 // Tier tabs
-document.querySelectorAll('.tier-tab').forEach(btn => {
+document.querySelectorAll('.tier-tab[data-tier]').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.tier-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tier-tab[data-tier]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentTier = btn.dataset.tier;
     render();
@@ -557,9 +557,9 @@ document.querySelectorAll('.tier-tab').forEach(btn => {
 });
 
 // Filter tabs
-document.querySelectorAll('.filter-tab').forEach(btn => {
+document.querySelectorAll('.filter-tab[data-filter]').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-tab[data-filter]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentFilter = btn.dataset.filter;
     render();
