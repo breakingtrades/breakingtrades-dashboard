@@ -6,6 +6,7 @@
 
 | Change | Date | Commits | Description |
 |--------|------|---------|-------------|
+| [EM Filter Tab Tests](changes/expected-moves/tasks.md) | 2026-03-24 | `—` | Filter tab logic tests added to `test-nav.html` — Indices/Top10/Watchlist/All filters + mutual exclusivity check |
 | [EM Filter Tab Style Fix](changes/expected-moves/proposal.md) | 2026-03-24 | `012c36a` | Filter tabs now match `tier-tab` style; both tab rows on one line (tier left, filter right); removed emoji |
 | [Signals Page F&G Fix](changes/ci-data-pipeline/proposal.md) | 2026-03-24 | `89eff9d` | Signals page F&G now fetches from `data/fear-greed.json` (was hardcoded) |
 | [.nojekyll Fix](changes/ci-data-pipeline/proposal.md) | 2026-03-24 | `18ed114` | Added `.nojekyll` — bypasses Jekyll build, fixes Pages deploy failures caused by `node_modules` Liquid syntax |

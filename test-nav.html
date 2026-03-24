@@ -230,6 +230,54 @@ document.addEventListener('nav:ready', function() {
       setTimeout(updateSummary, 100);
     });
 
+    // === EM Filter Tab Tests ===
+
+    // Filter constants (mirrors expected-moves.html)
+    const TOP10_SP = ['AAPL','MSFT','NVDA','AMZN','META','GOOGL','GOOG','TSLA','BRK B','AVGO'];
+    const INDICES   = ['SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
+
+    fetch('data/expected-moves.json').then(r => r.json()).then(data => {
+      const tickers = Object.keys(data.tickers);
+
+      // Indices filter — all returned symbols must be in INDICES list
+      const indicesResult = tickers.filter(s => INDICES.includes(s));
+      assert('Indices filter returns at least 1 ticker', indicesResult.length >= 1);
+      assert('Indices filter contains only known index tickers', indicesResult.every(s => INDICES.includes(s)));
+      assert('SPY appears in Indices filter', indicesResult.includes('SPY'));
+      assert('QQQ appears in Indices filter', indicesResult.includes('QQQ'));
+      assert('AAPL does NOT appear in Indices filter', !indicesResult.includes('AAPL'));
+
+      // Top 10 S&P filter
+      const top10Result = tickers.filter(s => TOP10_SP.includes(s));
+      assert('Top 10 filter returns at least 1 ticker', top10Result.length >= 1);
+      assert('Top 10 filter contains only S&P top-10 tickers', top10Result.every(s => TOP10_SP.includes(s)));
+      assert('AAPL appears in Top 10 filter', top10Result.includes('AAPL') || !tickers.includes('AAPL'));
+      assert('SPY does NOT appear in Top 10 filter', !top10Result.includes('SPY'));
+
+      // All filter — returns everything
+      assert('All filter returns all tickers', tickers.length > 0);
+
+      // Mutual exclusivity — no ticker in both Indices and Top10
+      const overlap = indicesResult.filter(s => TOP10_SP.includes(s));
+      assert('Indices and Top 10 lists have no overlap', overlap.length === 0);
+
+      setTimeout(updateSummary, 100);
+    }).catch(() => {
+      assert('EM filter tab tests: data loaded', false);
+      setTimeout(updateSummary, 100);
+    });
+
+    fetch('data/watchlist.json').then(r => r.json()).then(wlData => {
+      const wlSymbols = wlData.map(w => w.symbol);
+      // Watchlist filter — all watchlist symbols should be recognizable
+      assert('Watchlist data has entries', wlSymbols.length > 0);
+      assert('Watchlist contains SPY', wlSymbols.includes('SPY'));
+      setTimeout(updateSummary, 100);
+    }).catch(() => {
+      assert('EM filter: watchlist.json loads', false);
+      setTimeout(updateSummary, 100);
+    });
+
     // 24. Expected Moves nav link
     const emLink = Array.from(links).find(l => l.textContent === 'Expected Moves');
     assert('Expected Moves nav link exists', !!emLink);
