@@ -6,10 +6,10 @@
   'use strict';
 
   const PAGES = [
-    { href: 'index.html', label: 'Signals', aliases: ['', '/'] },
+    { href: 'market.html', label: 'Market' },
     { href: 'watchlist.html', label: 'Watchlist' },
     { href: 'expected-moves.html', label: 'Expected Moves' },
-    { href: 'market.html', label: 'Market' },
+    { href: 'index.html', label: 'Signals', aliases: ['', '/'] },
     { href: 'events.html', label: 'Events' },
   ];
 
@@ -40,7 +40,7 @@
 
     // Logo
     const logo = document.createElement('a');
-    logo.href = 'index.html';
+    logo.href = 'market.html';
     logo.className = 'nav-logo';
     logo.style.textDecoration = 'none';
     logo.style.color = 'inherit';
