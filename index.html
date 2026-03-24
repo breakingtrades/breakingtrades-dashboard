@@ -1033,12 +1033,13 @@ const TICKERS = [
 ];
 
 // === FEAR & GREED DATA ===
-const fearGreedData = {
-  current: { value: 25, label: 'Extreme Fear' },
-  previousClose: { value: 28, label: 'Fear' },
-  oneWeekAgo: { value: 35, label: 'Fear' },
-  oneMonthAgo: { value: 52, label: 'Neutral' }
+let fearGreedData = {
+  current: { value: 0, label: '...' },
+  previousClose: { value: 0, label: '...' },
+  oneWeekAgo: { value: 0, label: '...' },
+  oneMonthAgo: { value: 0, label: '...' }
 };
+fetch('data/fear-greed.json').then(r=>r.ok?r.json():null).then(d=>{if(d){fearGreedData=d;try{renderFearGreedGauge();}catch(e){}}}).catch(()=>{});
 
 // === SECTOR ROTATION DATA ===
 const sectorRotation = [
