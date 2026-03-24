@@ -428,6 +428,7 @@ function buildRows() {
 }
 
 function render() {
+  if (!emData.tickers) return;
   const rows = buildRows();
   sortRows(rows);
   renderStats(rows);
