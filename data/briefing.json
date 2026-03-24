@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Mar 23",
-  "headline": "Crisis regime: Extreme fear, volatility surging, and bonds are flashing red.",
+  "title": "Daily Briefing \u2014 Mar 24",
+  "headline": "Markets bounce but fear rules \u2014 don\u2019t let a green day fool you.",
   "body": [
-    "Right, so let's look at what the flows are telling us\u2014it's an absolute mess. VIX is running hot at 30, well above its 20-day, slapping us into full-blown crisis mode. Fear & Greed at 10? That\u2019s textbook extreme fear. When everyone panics, we pay close attention.",
-    "Sector rotation is all about Energy (XLE $59.31) and Industrials (XLI $161.67) leading, while Technology (XLK $135.29, -2.3%), Discretionary, and Healthcare are in the laggard bin\u2014classic defensive rotation out of high-flyers. Breadth is sour, with major indices like SPY ($648.57) and QQQ ($582.06) approaching hard support at their 200 MAs. Utilities (XLU -4.1%) and Real Estate (XLRE -3.2%) are getting flogged on rate risk.",
-    "Now for the contrarian goggles: margin of safety is rising with this level of fear, but not yet time to play hero\u2014put simply, HYG ($78.92) and LQD ($107.85) are breaking down, which per the rules means REDUCE equity exposure. If retail starts panic selling into institutional accumulation, that's your signal, but right now, patience. Remember, strong hands don't catch falling knives\u2014let the dust settle."
+    "Right, so we\u2019re seeing a classic snapback: SPY up 1.1% at 655.38 but still well below its 20 MA (672.66) and 50 MA (681.42). Fear & Greed is at 16\u2014extreme fear territory. VIX remains elevated at 26+ and rising, not the backdrop for heroic dip-buying.",
+    "Rotation is sharp: Energy (XLE 59.63) and Industrials (XLI 163.05) are leading, while Tech (XLK 136.95) and Financials (XLF 49.27) lag in the \u2018improving\u2019 and \u2018lagging\u2019 quadrants. Always pay attention to leading sectors\u2014Energy, Utilities, and Staples are defensive, telling you how institutions are positioning.",
+    "Contrarian signal: Retail running for the exits, extreme fear, and some big names (AAPL, MSFT, NVDA, SPY) still trading below their daily 20 MAs. Remember, don\u2019t predict a major reversal off a green candle in a fear regime\u2014patience, react, don\u2019t predict. If bonds (HYG 79.44, LQD 108.56) lose another percent, that\u2019s your \u2018if bonds freak out, everything breaks\u2019 warning."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: Eyes on 200 MA at $656.52, below this = breakdown<br>HYG: 200 MA at $78.75, critical\u2014breaking it signals credit stress<br>XLK: Watch $137.63 (200 MA) for tech support<br>VIX: Clustering above 30 = risk-off<br>XLE: Holding $59.31, still leading\u2014energy the outlier<br>Extreme Fear: Fear & Greed 10\u2014monitor for capitulation reversal setups, but don't front-run",
+  "callout_body": "SPY: 672.66 (20 MA overhead) \u2014 risk not off until reclaimed<br>VIX: 23.95 (20 SMA), 26+ now \u2014 elevated fear<br>XLK: 138.95 (20 MA) \u2014 bears in control below<br>XLF: Approaching 49.27 \u2014 the canary still weak<br>XLE: 57.05 (20 MA support) \u2014 only sector with relative strength",
   "action_items": [
-    "Stay defensive\u2014no new longs while SPY, QQQ, HYG, and LQD are violating their 20 and closing in on 200 MAs. Per rules, reduce equity risk if bonds keep bleeding.",
-    "If we see dark pool clusters or big reversal wicks at major support levels (SPY $656.52, HYG $78.75), that\u2019s where to stalk for bounce setups\u2014until then, patience, react, don't predict."
+    "Stay defensive: No long exposure until SPY, XLK, XLF reclaim 20 MA on a daily close. Less trades = more wins.",
+    "Watch for bond breakdowns: If HYG closes below 79.00 or LQD under 108.00, reduce equity exposure per macro rules."
   ],
-  "closing_quote": "Extreme fear isn\u2019t the buy signal\u2014capitulation is. Sit tight, follow the flows, and keep your powder dry.",
-  "generatedAt": "2026-03-23T11:14:22.373452+00:00",
+  "closing_quote": "Abundance mindset: If you missed the first bounce, wait for the next trade\u2014don\u2019t chase a falling knife in a VIX 26 market.",
+  "generatedAt": "2026-03-24T11:14:00.378211+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
