@@ -692,7 +692,7 @@ function openEMDetail(symbol) {
     const pos = d.upper > d.lower ? ((price - d.lower) / (d.upper - d.lower)) * 100 : 50;
     const clampedPos = Math.max(0, Math.min(100, pos));
     const riskColor = getRiskColor(pos);
-    const riskText = getRiskLabel(pos);
+    const riskText = getRiskLabel(pos).text;
     return `<div class="info-card">
       <h4>${label}</h4>
       <div class="detail-level"><span class="dl-label">EM ±</span><span class="dl-value">$${d.value} (${d.pct}%)</span></div>
