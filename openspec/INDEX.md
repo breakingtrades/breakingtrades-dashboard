@@ -6,6 +6,7 @@
 
 | Change | Date | Commits | Description |
 |--------|------|---------|-------------|
+| [Market Data Cron](changes/dashboard-ui/) | 2026-03-24 | `ba90804` | `update-vix.py` + `update-market-data.sh` — F&G + VIX auto-refresh at 9:30am/12pm/3pm/4:05pm ET Mon–Fri |
 | [Root URL → market.html](changes/dashboard-ui/) | 2026-03-24 | `23c7258` | `index.html` replaced with instant redirect to `market.html`; Signals moved to `signals.html` |
 | [Nav — Market First](changes/dashboard-ui/) | 2026-03-24 | `8b4cd51` | Market page moved to first in navbar; logo + default landing → Market |
 | [EM Detail Modal](changes/expected-moves/proposal.md) | 2026-03-24 | `5cef627` | Inline detail modal on EM page — TradingView chart + all 4 EM tier cards; works for all tickers incl. USO/GLD/IBIT |
