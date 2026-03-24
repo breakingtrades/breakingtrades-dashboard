@@ -9,7 +9,7 @@
     { href: 'market.html', label: 'Market' },
     { href: 'watchlist.html', label: 'Watchlist' },
     { href: 'expected-moves.html', label: 'Expected Moves' },
-    { href: 'index.html', label: 'Signals', aliases: ['', '/'] },
+    { href: 'signals.html', label: 'Signals', aliases: ['index.html'] },
     { href: 'events.html', label: 'Events' },
   ];
 
