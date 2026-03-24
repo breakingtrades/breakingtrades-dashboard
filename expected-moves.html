@@ -691,18 +691,19 @@ function openEMDetail(symbol) {
   const tierCards = tiers.map(([label, d]) => {
     const pos = d.upper > d.lower ? ((price - d.lower) / (d.upper - d.lower)) * 100 : 50;
     const clampedPos = Math.max(0, Math.min(100, pos));
-    const risk = getRisk(pos);
+    const riskColor = getRiskColor(pos);
+    const riskText = getRiskLabel(pos);
     return `<div class="info-card">
       <h4>${label}</h4>
       <div class="detail-level"><span class="dl-label">EM ±</span><span class="dl-value">$${d.value} (${d.pct}%)</span></div>
       <div class="detail-level"><span class="dl-label">Low</span><span class="dl-value" style="color:var(--cyan)">$${d.lower.toFixed(2)}</span></div>
       <div class="detail-level"><span class="dl-label">High</span><span class="dl-value" style="color:var(--red)">$${d.upper.toFixed(2)}</span></div>
-      <div class="detail-level"><span class="dl-label">Position</span><span class="dl-value" style="color:${risk.color}">${pos.toFixed(0)}%</span></div>
+      <div class="detail-level"><span class="dl-label">Position</span><span class="dl-value" style="color:${riskColor}">${pos.toFixed(0)}%</span></div>
       <div class="pos-bar" style="margin-top:8px;">
-        <div class="pos-fill" style="width:${clampedPos}%;background:${risk.color};opacity:0.3;"></div>
+        <div class="pos-fill" style="width:${clampedPos}%;background:${riskColor};opacity:0.3;"></div>
         <div class="pos-marker" style="left:${clampedPos}%;"></div>
       </div>
-      <div style="margin-top:4px;font-size:11px;color:${risk.color}">${risk.text}</div>
+      <div style="margin-top:4px;font-size:11px;color:${riskColor}">${riskText}</div>
     </div>`;
   }).join('');
 
