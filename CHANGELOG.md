@@ -5,6 +5,15 @@ Format: `[YYYY-MM-DD] commit — description`
 
 ---
 
+## 2026-03-24
+
+### Fixes
+- **`012c36a`** — Expected Moves: filter tabs (All/Top 10 S&P/Watchlist) now match `tier-tab` style; both tab rows on one line; removed emoji
+- **`89eff9d`** — Signals page: F&G now fetches from `data/fear-greed.json` (was hardcoded value)
+- **`18ed114`** — Added `.nojekyll` — bypasses Jekyll build; fixes Pages deploy failures caused by `node_modules` Liquid syntax errors
+
+---
+
 ## 2026-03-23
 
 ### Features
