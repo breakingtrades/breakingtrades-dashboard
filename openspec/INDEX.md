@@ -22,8 +22,8 @@
 | **Fear & Greed** | ~Hourly cron | `update-fear-greed.py` → `data/fear-greed.json` |
 | **VIX** | 4× daily (9:30/12/3/4:05 ET) | `update-vix.py` → `data/vix.json` |
 | **Sector Rotation** | On demand / EOD | `export-sector-rotation.py` → `data/sector-rotation.json` + `data/sector-risk.json` |
-| **Expected Moves** | EOD 4:20 PM ET (GH Action) + local fallback | `update-expected-moves.py` (yfinance) / `update-expected-moves-ib.py` (IB live) → `data/expected-moves.json` |
-| **EOD Pipeline** | Mon-Fri 4:20 PM ET | `eod-update.sh` — single runner: F&G + VIX + sector rotation + EM + yfinance fallback. Fri runs all EM tiers. GH Action + local Mac cron fallback. |
+| **Expected Moves** | EOD 4:20 PM ET (GH Action) + local fallback | `update-expected-moves.py` — IB Gateway first, yfinance fallback (Polygon removed). `--source auto/ib/yfinance`. `BT_EM_SOURCE` env var for CI/containers. → `data/expected-moves.json` |
+| **EOD Pipeline** | Mon-Fri 4:20 PM ET | `eod-update.sh` — single runner: F&G + VIX + sector rotation + EM + yfinance fallback. Fri runs all EM tiers (weekly/monthly/quarterly), Mon-Thu daily tier only (8 proxies). GH Action uses yfinance (no IB in CI). Local Mac cron tries IB first. |
 | **Daily Briefing** | Every 30 min | `generate-briefing.py` → `data/briefs/` |
 | **Dashboard Export** | On demand | `export-dashboard-data.py` — bridge from parent data CSVs → dashboard JSON |
 | **Trump Monitor** | On demand | `trump-monitor.py` — Google News RSS → LLM classify → `events.jsonl` |
@@ -60,6 +60,7 @@
 | [Root URL → market.html](changes/dashboard-ui/) | 2026-03-24 | `23c7258` | `index.html` replaced with instant redirect to `market.html`; Signals moved to `signals.html` |
 | [Market Data Cron](changes/ci-data-pipeline/) | 2026-03-24 | `ba90804` | `update-vix.py` + `update-market-data.sh` — F&G + VIX auto-refresh at 9:30am/12pm/3pm/4:05pm ET Mon–Fri |
 | [EOD Update Pipeline](changes/ci-data-pipeline/) | 2026-03-25 | `a95bbc5` | `eod-update.sh` — single EOD runner for F&G + VIX + sector rotation + EM. GitHub Action Mon-Fri 4:20 PM ET, auto-push. Fri runs all EM tiers (weekly/monthly/quarterly), Mon-Thu daily tier only. Local Mac cron fallback. Handles rebase conflicts. |
+| [EM Calculator — IB→yfinance](changes/expected-moves/) | 2026-03-25 | `4afa1bb` | Rewrote `update-expected-moves.py` — IB Gateway first, yfinance fallback, Polygon removed. `--source auto/ib/yfinance`. `BT_EM_SOURCE` env var. 57-60 tickers in ~2 min (vs 80+ min Polygon). |
 | [EM History Slice Fix](changes/expected-moves/) | 2026-03-25 | `efd6d26` | `history[-52]` → `history[-52:]` — slice not index bug fix |
 
 ## Active Changes (in progress)
