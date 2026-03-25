@@ -5,6 +5,19 @@ Format: `[YYYY-MM-DD] commit — description`
 
 ---
 
+## 2026-03-25
+
+### Features
+- **`a95bbc5`** — EOD Update Pipeline: `eod-update.sh` — single runner for F&G + VIX + sector rotation + expected moves + yfinance fallback. GitHub Action Mon-Fri 4:20 PM ET with auto-push. Friday runs all EM tiers (weekly/monthly/quarterly), Mon-Thu daily only. Local Mac cron fallback. Handles rebase conflicts from concurrent GH Action pushes.
+
+### Fixes
+- **`efd6d26`** — Expected Moves: `history[-52]` → `history[-52:]` — slice not index bug
+
+### Docs
+- **`c2360d2`** — OpenSpec INDEX: full production snapshot — all shipped changes, production pages/pipeline inventory, status marked as production
+
+---
+
 ## 2026-03-24
 
 ### Features
