@@ -1,35 +1,36 @@
 #!/usr/bin/env python3
 """
-Expected Move Calculator — Polygon.io options data
+Expected Move Calculator — IB Gateway → yfinance fallback
+
+Priority: IB Gateway (best data) → yfinance (free, no deps)
+Polygon.io removed (key expired).
 
 Tiers:
-  daily:     Intraday futures proxies (~8 tickers) — run daily pre-market
-  weekly:    Full watchlist (~70) — run Friday after close
-  monthly:   Full watchlist (~70) — run Friday after close
-  quarterly: Big indices + top 10 S&P (~14) — run weekly
+  daily:     Index/futures proxies (~8) — fast, every day
+  weekly:    Full watchlist (~60-70) — Friday after close
+  all:       weekly + monthly + quarterly bands
 
-Weekly EM  = ATM straddle close × 0.85
+Weekly EM  = ATM straddle × 0.85
 Daily EM   = Weekly EM / √5
-Monthly EM = nearest monthly expiry straddle × 0.85
-Quarterly  = nearest quarterly expiry straddle × 0.85
+Monthly EM = monthly-expiry straddle × 0.85 (or scaled from weekly)
+Quarterly  = quarterly-expiry straddle × 0.85 (or scaled from weekly)
 
 Usage:
   python3 update-expected-moves.py                # all tiers
   python3 update-expected-moves.py --tier daily   # daily only (fast)
   python3 update-expected-moves.py --tier weekly   # weekly + monthly
-  python3 update-expected-moves.py --tier quarterly
   python3 update-expected-moves.py --ticker SPY   # single ticker debug
+  python3 update-expected-moves.py --source yfinance  # force yfinance
+  python3 update-expected-moves.py --source ib --port 4001  # force IB live
+
+Environment:
+  IB_PORT         — IB Gateway port (default: 4002)
+  BT_EM_SOURCE    — force source: ib | yfinance (default: auto)
 """
 
-import json, os, sys, subprocess, math, time, argparse
+import json, os, sys, math, argparse, time
 from datetime import datetime, timedelta
 from pathlib import Path
-
-try:
-    import requests
-except ImportError:
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'requests', '-q'])
-    import requests
 
 # --- Paths ---
 SCRIPT_DIR = Path(__file__).parent
@@ -40,56 +41,32 @@ OUT_FILE = DATA_DIR / 'expected-moves.json'
 WATCHLIST_FILE = DATA_DIR / 'watchlist.json'
 
 # --- Ticker Tiers ---
-# Daily: intraday futures proxies
 DAILY_TICKERS = ['SPY', 'QQQ', 'DIA', 'IWM', 'IBIT', 'USO', 'UNG', 'GLD']
 
-# Quarterly: big indices + top 10 S&P 500 by weight
 QUARTERLY_TICKERS = [
     'SPY', 'QQQ', 'DIA', 'IWM',
-    'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'AMZN', 'META', 'TSLA', 'AVGO', 'BRK.B', 'LLY',
+    'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'AMZN', 'META', 'TSLA', 'AVGO', 'LLY',
 ]
 
-# Futures → ETF proxy mapping (for display labels)
 FUTURES_PROXY = {
     'SPY': {'futures': 'ES', 'multiplier': 10},
     'QQQ': {'futures': 'NQ', 'multiplier': 40},
     'DIA': {'futures': 'YM', 'multiplier': 8.6},
     'IWM': {'futures': 'RTY', 'multiplier': 10},
     'IBIT': {'futures': 'BTC', 'note': 'spot BTC proxy'},
-    'USO': {'futures': 'CL', 'note': 'crude oil proxy (imperfect, contango)'},
-    'UNG': {'futures': 'NG', 'note': 'nat gas proxy (imperfect, contango)'},
+    'USO': {'futures': 'CL', 'note': 'crude oil proxy'},
+    'UNG': {'futures': 'NG', 'note': 'nat gas proxy'},
     'GLD': {'futures': 'GC', 'multiplier': 18.6},
 }
-
-API_BASE = 'https://api.polygon.io'
-RATE_LIMIT_DELAY = 12.5  # Free tier: 5 calls/min
-
-
-def get_api_key():
-    try:
-        result = subprocess.run(
-            ['security', 'find-generic-password', '-a', 'breakingtrades', '-s', 'polygon-api-key', '-w'],
-            capture_output=True, text=True, check=True
-        )
-        return result.stdout.strip()
-    except Exception:
-        key = os.environ.get('POLYGON_API_KEY')
-        if not key:
-            print("ERROR: No Polygon API key", file=sys.stderr)
-            sys.exit(1)
-        return key
 
 
 def get_watchlist_tickers():
     if WATCHLIST_FILE.exists():
         try:
             data = json.loads(WATCHLIST_FILE.read_text())
-            symbols = [item.get('symbol') for item in data if item.get('symbol')]
-            if symbols:
-                return symbols
+            return [item['symbol'] for item in data if item.get('symbol')]
         except Exception:
             pass
-    # Fallback
     return DAILY_TICKERS + [
         'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'AMZN', 'META', 'TSLA',
         'XLE', 'XLF', 'XLK', 'XLV', 'XLP', 'XLU', 'XLY', 'XLI', 'XLC', 'XLRE', 'XLB',
@@ -97,251 +74,469 @@ def get_watchlist_tickers():
     ]
 
 
-def api_get(url, params, api_key):
-    params['apiKey'] = api_key
-    resp = requests.get(url, params=params, timeout=15)
-    resp.raise_for_status()
-    return resp.json()
+def find_expiry_in_range(expirations, min_dte, max_dte):
+    """Find nearest expiry within DTE range. Prefers Fridays."""
+    today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    candidates = []
+    for exp in sorted(expirations):
+        if isinstance(exp, str):
+            # Handle both YYYYMMDD and YYYY-MM-DD formats
+            exp_str = exp.replace('-', '')
+            exp_date = datetime.strptime(exp_str, '%Y%m%d')
+        else:
+            exp_date = exp if isinstance(exp, datetime) else datetime.combine(exp, datetime.min.time())
+            exp_str = exp_date.strftime('%Y%m%d')
+        dte = (exp_date - today).days
+        if min_dte <= dte <= max_dte:
+            is_friday = exp_date.weekday() == 4
+            candidates.append((exp_str, max(1, dte), is_friday))
+
+    if not candidates:
+        return None, None
+
+    fridays = [c for c in candidates if c[2]]
+    if fridays:
+        return fridays[0][0], fridays[0][1]
+    return candidates[0][0], candidates[0][1]
 
 
-def get_prev_close(ticker, api_key):
-    data = api_get(f"{API_BASE}/v2/aggs/ticker/{ticker}/prev", {}, api_key)
-    if data.get('results'):
-        return data['results'][0]['c']
-    return None
+def compute_em_bands(straddle, close_price, dte):
+    """Compute EM bands from straddle price, scaling by sqrt(time)."""
+    em_raw = straddle * 0.85
+    dte = max(1, dte)
 
-
-def find_expiry(ticker, api_key, min_dte, max_dte):
-    """Find nearest expiry in DTE range."""
-    today = datetime.now()
-    params = {
-        'underlying_ticker': ticker,
-        'contract_type': 'call',
-        'expired': 'false',
-        'expiration_date.gte': (today + timedelta(days=min_dte)).strftime('%Y-%m-%d'),
-        'expiration_date.lte': (today + timedelta(days=max_dte)).strftime('%Y-%m-%d'),
-        'limit': 1,
-        'sort': 'expiration_date',
-        'order': 'asc',
-    }
-    data = api_get(f"{API_BASE}/v3/reference/options/contracts", params, api_key)
-    if data.get('results'):
-        return data['results'][0]['expiration_date']
-    return None
-
-
-def build_option_ticker(underlying, expiry, strike, cp):
-    """Build OCC option ticker: O:SPY260320C00660000"""
-    exp_str = expiry.replace('-', '')[2:]  # YYMMDD
-    strike_str = f"{int(strike * 1000):08d}"
-    return f"O:{underlying}{exp_str}{cp}{strike_str}"
-
-
-def get_strike_step(price):
-    if price < 25:
-        return 0.5
-    elif price < 50:
-        return 1
-    elif price < 200:
-        return 2.5
-    elif price < 500:
-        return 5
-    else:
-        return 10
-
-
-def get_straddle_close(ticker, close_price, expiry, api_key):
-    """Get ATM straddle close. Returns (straddle_price, strike) or None."""
-    step = get_strike_step(close_price)
-    atm_strike = round(close_price / step) * step
-
-    strikes_to_try = [atm_strike]
-    for i in range(1, 4):
-        strikes_to_try.append(atm_strike + i * step)
-        strikes_to_try.append(atm_strike - i * step)
-
-    for strike in strikes_to_try:
-        if strike <= 0:
-            continue
-        call_t = build_option_ticker(ticker, expiry, strike, 'C')
-        put_t = build_option_ticker(ticker, expiry, strike, 'P')
-
-        time.sleep(RATE_LIMIT_DELAY)
-        try:
-            cr = api_get(f"{API_BASE}/v2/aggs/ticker/{call_t}/prev", {}, api_key)
-        except Exception:
-            continue
-        if not cr.get('results'):
-            continue
-        call_close = cr['results'][0]['c']
-
-        time.sleep(RATE_LIMIT_DELAY)
-        try:
-            pr = api_get(f"{API_BASE}/v2/aggs/ticker/{put_t}/prev", {}, api_key)
-        except Exception:
-            continue
-        if not pr.get('results'):
-            continue
-        put_close = pr['results'][0]['c']
-
-        straddle = call_close + put_close
-        return straddle, strike, call_close, put_close
-
-    return None
-
-
-def compute_em(straddle, close_price, dte_actual=5):
-    """Compute EM from straddle. Scale to daily/weekly/monthly/quarterly."""
-    em_raw = straddle * 0.85  # Expected move for that expiry
-
-    # Scale based on actual DTE
-    if dte_actual <= 0:
-        dte_actual = 5
-    daily_factor = 1 / math.sqrt(dte_actual)
-    weekly_factor = math.sqrt(5 / dte_actual)
-    monthly_factor = math.sqrt(21 / dte_actual)
-    quarterly_factor = math.sqrt(63 / dte_actual)
-
-    daily = em_raw * daily_factor
-    weekly = em_raw * weekly_factor
-    monthly = em_raw * monthly_factor
-    quarterly = em_raw * quarterly_factor
-
-    def band(em):
+    def band(target_dte):
+        scaled = em_raw * math.sqrt(target_dte / dte)
         return {
-            'value': round(em, 2),
-            'pct': round(em / close_price * 100, 2),
-            'upper': round(close_price + em, 2),
-            'lower': round(close_price - em, 2),
+            'value': round(scaled, 2),
+            'pct': round(scaled / close_price * 100, 2),
+            'upper': round(close_price + scaled, 2),
+            'lower': round(close_price - scaled, 2),
         }
 
     return {
-        'daily': band(daily),
-        'weekly': band(weekly),
-        'monthly': band(monthly),
-        'quarterly': band(quarterly),
+        'daily': band(1),
+        'weekly': band(5),
+        'monthly': band(21),
+        'quarterly': band(63),
     }
 
 
-def process_ticker(ticker, api_key, tiers=None):
-    """Process a single ticker. Returns dict or None."""
-    if tiers is None:
-        tiers = ['weekly']
+# ============================================================
+# Source: yfinance (free, no gateway needed)
+# ============================================================
+
+def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False):
+    """Process a single ticker via yfinance options chain."""
+    import yfinance as yf
 
     print(f"\n[{ticker}]", end=' ', flush=True)
 
-    # Get close
-    time.sleep(RATE_LIMIT_DELAY)
-    close_price = get_prev_close(ticker, api_key)
-    if not close_price:
-        print("no close", flush=True)
+    try:
+        t = yf.Ticker(ticker)
+        info = t.fast_info
+        close_price = info.get('lastPrice') or info.get('previousClose')
+        if not close_price or close_price <= 0:
+            print("no price", flush=True)
+            return None
+    except Exception as e:
+        print(f"ticker error: {e}", flush=True)
         return None
-    print(f"${close_price}", end=' ', flush=True)
 
-    result = {'close': close_price, 'updated': datetime.now().isoformat()}
+    print(f"${close_price:.2f}", end=' ', flush=True)
 
-    # Futures proxy info
+    try:
+        expirations = t.options
+        if not expirations:
+            print("no options", flush=True)
+            return None
+    except Exception:
+        print("options unavailable", flush=True)
+        return None
+
+    result = {
+        'close': round(close_price, 2),
+        'spot': round(close_price, 2),
+        'updated': datetime.now().isoformat(),
+        'source': 'yfinance',
+    }
+
     if ticker in FUTURES_PROXY:
         result['futures_proxy'] = FUTURES_PROXY[ticker]
 
-    # Weekly expiry straddle (base for daily/weekly)
-    time.sleep(RATE_LIMIT_DELAY)
-    weekly_exp = find_expiry(ticker, api_key, min_dte=0, max_dte=8)
-    if weekly_exp:
-        straddle_data = get_straddle_close(ticker, close_price, weekly_exp, api_key)
-        if straddle_data:
-            straddle, strike, call_c, put_c = straddle_data
-            dte = max(1, (datetime.strptime(weekly_exp, '%Y-%m-%d') - datetime.now()).days)
-            em = compute_em(straddle, close_price, dte)
-            result['weekly_expiry'] = weekly_exp
-            result['weekly_dte'] = dte
-            result['strike'] = strike
-            result['straddle'] = round(straddle, 2)
-            result['call_close'] = call_c
-            result['put_close'] = put_c
-            result['daily'] = em['daily']
-            result['weekly'] = em['weekly']
-            result['monthly'] = em['monthly']
-            result['quarterly'] = em['quarterly']
-            print(f"straddle=${straddle:.2f} wkEM=±${em['weekly']['value']} ({em['weekly']['pct']}%)", end=' ', flush=True)
-        else:
-            print("no straddle", end=' ', flush=True)
-            return None
-    else:
-        print("no weekly expiry", end=' ', flush=True)
+    # --- Weekly expiry ---
+    weekly_exp, weekly_dte = find_expiry_in_range(expirations, 1, 8)
+    if not weekly_exp:
+        weekly_exp, weekly_dte = find_expiry_in_range(expirations, 0, 14)
+    if not weekly_exp:
+        print("no weekly expiry", flush=True)
         return None
 
-    # Monthly expiry straddle (more accurate monthly EM)
-    if 'monthly' in (tiers or []) or 'all' in (tiers or []):
-        time.sleep(RATE_LIMIT_DELAY)
-        monthly_exp = find_expiry(ticker, api_key, min_dte=14, max_dte=45)
-        if monthly_exp:
-            m_straddle = get_straddle_close(ticker, close_price, monthly_exp, api_key)
-            if m_straddle:
-                ms, mstrike, mc, mp = m_straddle
-                mdte = max(1, (datetime.strptime(monthly_exp, '%Y-%m-%d') - datetime.now()).days)
-                m_em = ms * 0.85
-                result['monthly'] = {
-                    'value': round(m_em, 2),
-                    'pct': round(m_em / close_price * 100, 2),
-                    'upper': round(close_price + m_em, 2),
-                    'lower': round(close_price - m_em, 2),
-                }
-                result['monthly_expiry'] = monthly_exp
-                result['monthly_straddle'] = round(ms, 2)
-                print(f"moEM=±${m_em:.2f}", end=' ', flush=True)
+    # yfinance uses YYYY-MM-DD format for option_chain()
+    yf_exp = f"{weekly_exp[:4]}-{weekly_exp[4:6]}-{weekly_exp[6:8]}"
 
-    # Quarterly expiry straddle
-    if ticker in QUARTERLY_TICKERS and ('quarterly' in (tiers or []) or 'all' in (tiers or [])):
-        time.sleep(RATE_LIMIT_DELAY)
-        q_exp = find_expiry(ticker, api_key, min_dte=45, max_dte=100)
+    try:
+        chain = t.option_chain(yf_exp)
+        calls = chain.calls
+        puts = chain.puts
+    except Exception as e:
+        print(f"chain error: {e}", flush=True)
+        return None
+
+    # Find ATM
+    atm_call = calls.iloc[(calls['strike'] - close_price).abs().argsort().iloc[0]]
+    atm_put = puts.iloc[(puts['strike'] - close_price).abs().argsort().iloc[0]]
+
+    call_price = atm_call.get('lastPrice', 0)
+    put_price = atm_put.get('lastPrice', 0)
+
+    if not call_price or not put_price or call_price <= 0 or put_price <= 0:
+        # Try mid price fallback
+        call_price = call_price or ((atm_call.get('bid', 0) + atm_call.get('ask', 0)) / 2)
+        put_price = put_price or ((atm_put.get('bid', 0) + atm_put.get('ask', 0)) / 2)
+
+    if not call_price or not put_price:
+        print("no option prices", flush=True)
+        return None
+
+    straddle = call_price + put_price
+    atm_strike = atm_call['strike']
+    em = compute_em_bands(straddle, close_price, weekly_dte)
+
+    result.update({
+        'strike': atm_strike,
+        'straddle': round(straddle, 2),
+        'call_close': round(call_price, 2),
+        'put_close': round(put_price, 2),
+        'weekly_expiry': weekly_exp,
+        'weekly_dte': weekly_dte,
+        'daily': em['daily'],
+        'weekly': em['weekly'],
+        'monthly': em['monthly'],      # scaled from weekly
+        'quarterly': em['quarterly'],   # scaled from weekly
+    })
+
+    # Get IV from the ATM options
+    call_iv = atm_call.get('impliedVolatility', 0)
+    put_iv = atm_put.get('impliedVolatility', 0)
+    if call_iv and put_iv:
+        result['iv'] = round((call_iv + put_iv) / 2 * 100, 1)
+
+    print(f"K={atm_strike} C=${call_price:.2f} P=${put_price:.2f} strd=${straddle:.2f} wkEM=±${em['weekly']['value']} ({em['weekly']['pct']}%)", end=' ', flush=True)
+
+    # --- Monthly expiry (direct straddle if available) ---
+    if include_monthly:
+        m_exp, m_dte = find_expiry_in_range(expirations, 14, 45)
+        if m_exp:
+            yf_m_exp = f"{m_exp[:4]}-{m_exp[4:6]}-{m_exp[6:8]}"
+            try:
+                m_chain = t.option_chain(yf_m_exp)
+                m_atm_c = m_chain.calls.iloc[(m_chain.calls['strike'] - close_price).abs().argsort().iloc[0]]
+                m_atm_p = m_chain.puts.iloc[(m_chain.puts['strike'] - close_price).abs().argsort().iloc[0]]
+                mc = m_atm_c.get('lastPrice') or ((m_atm_c.get('bid', 0) + m_atm_c.get('ask', 0)) / 2)
+                mp = m_atm_p.get('lastPrice') or ((m_atm_p.get('bid', 0) + m_atm_p.get('ask', 0)) / 2)
+                if mc and mp and mc > 0 and mp > 0:
+                    m_straddle = mc + mp
+                    m_em = m_straddle * 0.85
+                    result['monthly'] = {
+                        'value': round(m_em, 2),
+                        'pct': round(m_em / close_price * 100, 2),
+                        'upper': round(close_price + m_em, 2),
+                        'lower': round(close_price - m_em, 2),
+                    }
+                    result['monthly_expiry'] = m_exp
+                    result['monthly_straddle'] = round(m_straddle, 2)
+                    print(f"moEM=±${m_em:.2f}", end=' ', flush=True)
+            except Exception:
+                pass  # Keep scaled monthly from weekly
+
+    # --- Quarterly expiry ---
+    if include_quarterly and ticker in QUARTERLY_TICKERS:
+        q_exp, q_dte = find_expiry_in_range(expirations, 45, 100)
         if q_exp:
-            q_straddle = get_straddle_close(ticker, close_price, q_exp, api_key)
-            if q_straddle:
-                qs, qstrike, qc, qp = q_straddle
-                q_em = qs * 0.85
-                result['quarterly'] = {
-                    'value': round(q_em, 2),
-                    'pct': round(q_em / close_price * 100, 2),
-                    'upper': round(close_price + q_em, 2),
-                    'lower': round(close_price - q_em, 2),
-                }
-                result['quarterly_expiry'] = q_exp
-                result['quarterly_straddle'] = round(qs, 2)
-                print(f"qEM=±${q_em:.2f}", end=' ', flush=True)
+            yf_q_exp = f"{q_exp[:4]}-{q_exp[4:6]}-{q_exp[6:8]}"
+            try:
+                q_chain = t.option_chain(yf_q_exp)
+                q_atm_c = q_chain.calls.iloc[(q_chain.calls['strike'] - close_price).abs().argsort().iloc[0]]
+                q_atm_p = q_chain.puts.iloc[(q_chain.puts['strike'] - close_price).abs().argsort().iloc[0]]
+                qc = q_atm_c.get('lastPrice') or ((q_atm_c.get('bid', 0) + q_atm_c.get('ask', 0)) / 2)
+                qp = q_atm_p.get('lastPrice') or ((q_atm_p.get('bid', 0) + q_atm_p.get('ask', 0)) / 2)
+                if qc and qp and qc > 0 and qp > 0:
+                    q_straddle = qc + qp
+                    q_em = q_straddle * 0.85
+                    result['quarterly'] = {
+                        'value': round(q_em, 2),
+                        'pct': round(q_em / close_price * 100, 2),
+                        'upper': round(close_price + q_em, 2),
+                        'lower': round(close_price - q_em, 2),
+                    }
+                    result['quarterly_expiry'] = q_exp
+                    result['quarterly_straddle'] = round(q_straddle, 2)
+                    print(f"qEM=±${q_em:.2f}", end=' ', flush=True)
+            except Exception:
+                pass
 
     print("✓", flush=True)
     return result
 
 
+# ============================================================
+# Source: IB Gateway
+# ============================================================
+
+def ib_connect(port, client_id=70):
+    """Try to connect to IB Gateway. Returns (ib, None) or (None, error)."""
+    try:
+        import asyncio
+        asyncio.set_event_loop(asyncio.new_event_loop())
+        from ib_insync import IB
+        ib = IB()
+        ib.connect('127.0.0.1', port, clientId=client_id, readonly=True)
+        ib.reqMarketDataType(2)  # Frozen data when market closed
+        print(f"IB connected: {ib.managedAccounts()} (port {port})")
+        return ib, None
+    except Exception as e:
+        return None, str(e)
+
+
+def ib_process_ticker(ib, ticker, include_monthly=False, include_quarterly=False):
+    """Process a single ticker via IB Gateway. Same logic as update-expected-moves-ib.py."""
+    from ib_insync import Stock, Option
+    print(f"\n[{ticker}]", end=' ', flush=True)
+
+    stock = Stock(ticker, 'SMART', 'USD')
+    try:
+        ib.qualifyContracts(stock)
+    except Exception:
+        print("can't qualify", flush=True)
+        return None
+
+    # Get close price
+    stock_ticker = ib.reqMktData(stock, '', False, False)
+    ib.sleep(3)
+    close_price = stock_ticker.close
+    ib.cancelMktData(stock)
+
+    if not close_price or close_price <= 0 or (isinstance(close_price, float) and math.isnan(close_price)):
+        try:
+            bars = ib.reqHistoricalData(stock, endDateTime='', durationStr='2 D',
+                                         barSizeSetting='1 day', whatToShow='TRADES', useRTH=True)
+            if bars:
+                close_price = bars[-1].close
+        except Exception:
+            pass
+
+    if not close_price or close_price <= 0 or (isinstance(close_price, float) and math.isnan(close_price)):
+        print("no close price", flush=True)
+        return None
+    print(f"${close_price}", end=' ', flush=True)
+
+    # Get option chain
+    chains = ib.reqSecDefOptParams(stock.symbol, '', stock.secType, stock.conId)
+    chain = max((c for c in chains if c.expirations and c.strikes), key=lambda c: len(c.expirations), default=None)
+
+    if not chain:
+        print("no chain", flush=True)
+        return None
+
+    result = {
+        'close': close_price,
+        'spot': close_price,
+        'updated': datetime.now().isoformat(),
+        'source': 'ib',
+    }
+
+    if ticker in FUTURES_PROXY:
+        result['futures_proxy'] = FUTURES_PROXY[ticker]
+
+    # Weekly expiry
+    weekly_exp, weekly_dte = find_expiry_in_range(chain.expirations, 1, 8)
+    if not weekly_exp:
+        weekly_exp, weekly_dte = find_expiry_in_range(chain.expirations, 0, 14)
+    if not weekly_exp:
+        print("no weekly expiry", flush=True)
+        return None
+
+    available = sorted(chain.strikes)
+    candidates = sorted(available, key=lambda s: abs(s - close_price))[:5]
+
+    call = put = atm_strike = None
+    for strike in candidates:
+        c = Option(ticker, weekly_exp, strike, 'C', 'SMART')
+        p = Option(ticker, weekly_exp, strike, 'P', 'SMART')
+        ib.qualifyContracts(c, p)
+        if c.conId and p.conId:
+            call, put, atm_strike = c, p, strike
+            break
+
+    if not call or not put:
+        print("can't qualify options", flush=True)
+        return None
+
+    ct = ib.reqMktData(call, '', False, False)
+    pt = ib.reqMktData(put, '', False, False)
+    ib.sleep(3)
+
+    call_close = ct.close if ct.close and not math.isnan(ct.close) and ct.close > 0 else None
+    put_close = pt.close if pt.close and not math.isnan(pt.close) and pt.close > 0 else None
+    ib.cancelMktData(call)
+    ib.cancelMktData(put)
+
+    if not call_close:
+        call_close = ct.last if ct.last and not math.isnan(ct.last) else None
+    if not put_close:
+        put_close = pt.last if pt.last and not math.isnan(pt.last) else None
+
+    if not call_close or not put_close:
+        print(f"no option prices", flush=True)
+        return None
+
+    straddle = call_close + put_close
+    em = compute_em_bands(straddle, close_price, weekly_dte)
+
+    result.update({
+        'strike': atm_strike,
+        'straddle': round(straddle, 2),
+        'call_close': call_close,
+        'put_close': put_close,
+        'weekly_expiry': weekly_exp,
+        'weekly_dte': weekly_dte,
+        'daily': em['daily'],
+        'weekly': em['weekly'],
+        'monthly': em['monthly'],
+        'quarterly': em['quarterly'],
+    })
+
+    print(f"K={atm_strike} C=${call_close} P=${put_close} strd=${straddle:.2f} wkEM=±${em['weekly']['value']} ({em['weekly']['pct']}%)", end=' ', flush=True)
+
+    # Monthly direct straddle
+    if include_monthly:
+        m_exp, m_dte = find_expiry_in_range(chain.expirations, 14, 45)
+        if m_exp:
+            m_strike = min(available, key=lambda s: abs(s - close_price))
+            mc = Option(ticker, m_exp, m_strike, 'C', 'SMART')
+            mp = Option(ticker, m_exp, m_strike, 'P', 'SMART')
+            try:
+                ib.qualifyContracts(mc, mp)
+                mct = ib.reqMktData(mc, '', False, False)
+                mpt = ib.reqMktData(mp, '', False, False)
+                ib.sleep(3)
+                mc_c = mct.close if mct.close and not math.isnan(mct.close) and mct.close > 0 else None
+                mp_c = mpt.close if mpt.close and not math.isnan(mpt.close) and mpt.close > 0 else None
+                ib.cancelMktData(mc)
+                ib.cancelMktData(mp)
+                if mc_c and mp_c:
+                    m_straddle = mc_c + mp_c
+                    m_em = m_straddle * 0.85
+                    result['monthly'] = {
+                        'value': round(m_em, 2),
+                        'pct': round(m_em / close_price * 100, 2),
+                        'upper': round(close_price + m_em, 2),
+                        'lower': round(close_price - m_em, 2),
+                    }
+                    result['monthly_expiry'] = m_exp
+                    result['monthly_straddle'] = round(m_straddle, 2)
+                    print(f"moEM=±${m_em:.2f}", end=' ', flush=True)
+            except Exception:
+                pass
+
+    # Quarterly direct straddle
+    if include_quarterly and ticker in QUARTERLY_TICKERS:
+        q_exp, q_dte = find_expiry_in_range(chain.expirations, 45, 100)
+        if q_exp:
+            q_strike = min(available, key=lambda s: abs(s - close_price))
+            qc = Option(ticker, q_exp, q_strike, 'C', 'SMART')
+            qp = Option(ticker, q_exp, q_strike, 'P', 'SMART')
+            try:
+                ib.qualifyContracts(qc, qp)
+                qct = ib.reqMktData(qc, '', False, False)
+                qpt = ib.reqMktData(qp, '', False, False)
+                ib.sleep(3)
+                qc_c = qct.close if qct.close and not math.isnan(qct.close) and qct.close > 0 else None
+                qp_c = qpt.close if qpt.close and not math.isnan(qpt.close) and qpt.close > 0 else None
+                ib.cancelMktData(qc)
+                ib.cancelMktData(qp)
+                if qc_c and qp_c:
+                    q_straddle = qc_c + qp_c
+                    q_em = q_straddle * 0.85
+                    result['quarterly'] = {
+                        'value': round(q_em, 2),
+                        'pct': round(q_em / close_price * 100, 2),
+                        'upper': round(close_price + q_em, 2),
+                        'lower': round(close_price - q_em, 2),
+                    }
+                    result['quarterly_expiry'] = q_exp
+                    result['quarterly_straddle'] = round(q_straddle, 2)
+                    print(f"qEM=±${q_em:.2f}", end=' ', flush=True)
+            except Exception:
+                pass
+
+    print("✓", flush=True)
+    return result
+
+
+# ============================================================
+# Main
+# ============================================================
+
 def main():
-    parser = argparse.ArgumentParser(description='Expected Move Calculator')
+    parser = argparse.ArgumentParser(description='Expected Move Calculator (IB → yfinance)')
     parser.add_argument('--tier', choices=['daily', 'weekly', 'quarterly', 'all'], default='all')
-    parser.add_argument('--ticker', help='Single ticker (debug mode)')
+    parser.add_argument('--ticker', help='Single ticker debug')
+    parser.add_argument('--source', choices=['auto', 'ib', 'yfinance'], default='auto',
+                        help='Data source (default: try IB, fallback to yfinance)')
+    parser.add_argument('--port', type=int, default=int(os.environ.get('IB_PORT', 4002)),
+                        help='IB Gateway port')
+    parser.add_argument('--client-id', type=int, default=70)
     args = parser.parse_args()
 
-    api_key = get_api_key()
+    source = args.source if args.source != 'auto' else os.environ.get('BT_EM_SOURCE', 'auto')
+
+    # Load existing data
     existing = json.loads(OUT_FILE.read_text()) if OUT_FILE.exists() else {'updated': None, 'tickers': {}}
 
-    # Determine which tickers to process
+    # Determine tickers and tier flags
     if args.ticker:
         tickers = [args.ticker.upper()]
-        tiers = ['all']
+        include_monthly = include_quarterly = True
     elif args.tier == 'daily':
         tickers = DAILY_TICKERS
-        tiers = ['daily']
+        include_monthly = include_quarterly = False
     elif args.tier == 'weekly':
         tickers = list(set(get_watchlist_tickers()))
-        tiers = ['weekly', 'monthly']
+        include_monthly = True
+        include_quarterly = False
     elif args.tier == 'quarterly':
         tickers = QUARTERLY_TICKERS
-        tiers = ['quarterly']
+        include_monthly = include_quarterly = True
     else:  # all
         tickers = list(set(get_watchlist_tickers() + QUARTERLY_TICKERS))
-        tiers = ['all']
+        include_monthly = include_quarterly = True
 
-    print(f"Tier: {args.tier} | {len(tickers)} tickers | {tiers}")
-    print(f"Estimated time: ~{len(tickers) * 5 * RATE_LIMIT_DELAY / 60:.0f} min (rate limited)")
+    # Try IB first, fallback to yfinance
+    ib = None
+    use_yfinance = (source == 'yfinance')
+
+    if source in ('auto', 'ib'):
+        ib, err = ib_connect(args.port, args.client_id)
+        if ib:
+            print(f"Source: IB Gateway (port {args.port})")
+        elif source == 'ib':
+            print(f"ERROR: IB Gateway required but not available: {err}", file=sys.stderr)
+            sys.exit(1)
+        else:
+            print(f"IB Gateway not available ({err}), falling back to yfinance")
+            use_yfinance = True
+
+    if use_yfinance:
+        print("Source: yfinance (free)")
+        try:
+            import yfinance
+        except ImportError:
+            import subprocess
+            subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'yfinance', '-q'])
+
+    print(f"Tier: {args.tier} | {len(tickers)} tickers | monthly={include_monthly} quarterly={include_quarterly}")
 
     results = existing.get('tickers', {})
     processed = 0
@@ -349,13 +544,17 @@ def main():
 
     for ticker in sorted(tickers):
         try:
-            data = process_ticker(ticker, api_key, tiers)
+            if use_yfinance:
+                data = yf_process_ticker(ticker, include_monthly, include_quarterly)
+            else:
+                data = ib_process_ticker(ib, ticker, include_monthly, include_quarterly)
+
             if data:
                 # Preserve history
                 history = results.get(ticker, {}).get('history', [])
                 entry = {
                     'date': datetime.now().strftime('%Y-%m-%d'),
-                    'close': data['close'],
+                    'close': data.get('close'),
                     'straddle': data.get('straddle'),
                     'weekly_em': data.get('weekly', {}).get('value'),
                     'daily_em': data.get('daily', {}).get('value'),
@@ -371,13 +570,22 @@ def main():
             print(f" ERROR: {e}", flush=True)
             errors.append(f"{ticker}: {e}")
 
-    output = {'updated': datetime.now().isoformat(), 'tickers': results}
+    if ib:
+        ib.disconnect()
+
+    output = {
+        'updated': datetime.now().isoformat(),
+        'source': 'ib' if not use_yfinance else 'yfinance',
+        'tier': args.tier,
+        'tickers': results,
+    }
     OUT_FILE.write_text(json.dumps(output, indent=2))
 
     print(f"\n{'='*50}")
-    print(f"Done: {processed}/{len(tickers)} | Saved: {OUT_FILE}")
+    print(f"Done: {processed}/{len(tickers)} tickers | Source: {'yfinance' if use_yfinance else 'IB'}")
+    print(f"Saved: {OUT_FILE}")
     if errors:
-        print(f"Errors: {errors}")
+        print(f"Errors ({len(errors)}): {errors}")
 
 
 if __name__ == '__main__':

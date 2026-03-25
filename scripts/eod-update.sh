@@ -59,7 +59,7 @@ else
     warn "Sector rotation failed"
 fi
 
-# --- 4. Expected Moves ---
+# --- 4. Expected Moves (IB → yfinance fallback) ---
 # Friday: all tiers (weekly + monthly + quarterly recalc)
 # Mon-Thu: daily tier only (fast — 8 index/futures proxies)
 if [[ "$IS_FRIDAY" == "1" ]]; then
@@ -70,7 +70,7 @@ else
     EM_LABEL="daily tier"
 fi
 
-log "Step 4/5: Expected Moves ($EM_LABEL)"
+log "Step 4/5: Expected Moves ($EM_LABEL) — IB→yfinance"
 if $PYTHON scripts/update-expected-moves.py --tier "$EM_TIER" 2>&1 | tee -a "$LOG"; then
     log "✅ Expected Moves done ($EM_LABEL)"
 else

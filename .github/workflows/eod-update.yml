@@ -32,13 +32,13 @@ jobs:
 
       - name: Run EOD update
         env:
-          POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
+          BT_EM_SOURCE: yfinance
           BT_SKIP_PUSH: '1'  # We push in the next step with proper git config
         run: |
           chmod +x scripts/eod-update.sh
           # Override tier if manually specified
           if [ -n "${{ github.event.inputs.tier }}" ]; then
-            python scripts/update-expected-moves.py --tier "${{ github.event.inputs.tier }}" || echo "EM override failed"
+            python scripts/update-expected-moves.py --source yfinance --tier "${{ github.event.inputs.tier }}" || echo "EM override failed"
           fi
           bash scripts/eod-update.sh
 
