@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Mar 24",
-  "headline": "Markets bounce but fear rules \u2014 don\u2019t let a green day fool you.",
+  "title": "Daily Briefing \u2014 Mar 25",
+  "headline": "Extreme fear, defensive flows, and bonds on edge \u2014 don't get whipsawed chasing tech dip.",
   "body": [
-    "Right, so we\u2019re seeing a classic snapback: SPY up 1.1% at 655.38 but still well below its 20 MA (672.66) and 50 MA (681.42). Fear & Greed is at 16\u2014extreme fear territory. VIX remains elevated at 26+ and rising, not the backdrop for heroic dip-buying.",
-    "Rotation is sharp: Energy (XLE 59.63) and Industrials (XLI 163.05) are leading, while Tech (XLK 136.95) and Financials (XLF 49.27) lag in the \u2018improving\u2019 and \u2018lagging\u2019 quadrants. Always pay attention to leading sectors\u2014Energy, Utilities, and Staples are defensive, telling you how institutions are positioning.",
-    "Contrarian signal: Retail running for the exits, extreme fear, and some big names (AAPL, MSFT, NVDA, SPY) still trading below their daily 20 MAs. Remember, don\u2019t predict a major reversal off a green candle in a fear regime\u2014patience, react, don\u2019t predict. If bonds (HYG 79.44, LQD 108.56) lose another percent, that\u2019s your \u2018if bonds freak out, everything breaks\u2019 warning."
+    "Right, so we've got Fear & Greed scraping the floor at 17.7 (extreme fear), VIX elevated at 26.81 above its 20-day, and most mega-cap tech closing below their 20 MA. This is a defensive tape \u2014 no question \u2014 and the flows aren't validating dip-buying just yet. Bonds are also teetering, with HYG rolling over to $79.17 and both HYG and LQD beneath their key short-term MAs. If bonds freak out, everything breaks \u2014 rules are rules.",
+    "Sector picture? Energy (XLE $60.84) and Materials (XLB $48.45) are leading rotation \u2014 both technically strong, both now clear relative strength outliers. Healthcare, Staples, and Utilities are holding up, but Financials (XLF $49.28) are lagging hard and approaching a support breakdown \u2014 the canary is coughing, not dead, but don't ignore it.",
+    "Contrarian take: yes, extreme fear is usually a buy window, but with breadth mixed and no evidence of institutional accumulation (dark pool clusters missing, mega-cap tech all < 20 MA), patience is key. Previous analogs say don't fight a risk-off tape when credit and tech both break down together \u2014 let price come to the weekly mean before you size up. Less trades = more wins."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: 672.66 (20 MA overhead) \u2014 risk not off until reclaimed<br>VIX: 23.95 (20 SMA), 26+ now \u2014 elevated fear<br>XLK: 138.95 (20 MA) \u2014 bears in control below<br>XLF: Approaching 49.27 \u2014 the canary still weak<br>XLE: 57.05 (20 MA support) \u2014 only sector with relative strength",
+  "callout_body": "SPY: Watch $653.18 (now) vs 20 MA ($671.05) \u2014 still below, caution<br>XLF: $49.28 vs 50 MA ($52.00) \u2014 financials failing = macro risk<br>HYG/LQD both below 20 MA \u2014 cut equity exposure per rule R001<br>Energy XLE: $60.84 \u2014 leadership clear above 20 & 50 MA<br>Fear & Greed: 17.7 \u2014 extreme fear zone, but no dip confirmation yet<br>Mega-cap tech (AAPL $251.64, MSFT $372.74, NVDA $175.20) all < 20 MA \u2014 stay hands-off on aggressive longs<br>VIX elevated (26.81/23.99) \u2014 risk-off regime confirmed",
   "action_items": [
-    "Stay defensive: No long exposure until SPY, XLK, XLF reclaim 20 MA on a daily close. Less trades = more wins.",
-    "Watch for bond breakdowns: If HYG closes below 79.00 or LQD under 108.00, reduce equity exposure per macro rules."
+    "No chasing tech or index \u2014 keep equity exposure light until SPY or QQQ closes back above their 20 MA.",
+    "Favor relative strength rotation (Energy XLE, Materials XLB) for active trades, avoid Financials breakdown (watch XLF support)."
   ],
-  "closing_quote": "Abundance mindset: If you missed the first bounce, wait for the next trade\u2014don\u2019t chase a falling knife in a VIX 26 market.",
-  "generatedAt": "2026-03-24T11:14:00.378211+00:00",
+  "closing_quote": "If it's in the press, it's in the price. Abundance mindset \u2014 next trade's coming.",
+  "generatedAt": "2026-03-25T11:13:18.221233+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
