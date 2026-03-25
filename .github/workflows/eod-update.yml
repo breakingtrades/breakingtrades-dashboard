@@ -1,0 +1,56 @@
+name: EOD Market Data Update
+
+on:
+  schedule:
+    # Mon-Fri 4:20 PM ET = 20:20 UTC (EDT) / 21:20 UTC (EST)
+    # Using 20:20 UTC — during EST it runs at 3:20 PM ET (close enough, market closed either way)
+    - cron: '20 20 * * 1-5'
+  workflow_dispatch:  # Manual trigger
+    inputs:
+      tier:
+        description: 'EM tier override (daily/weekly/all)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  eod-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120  # Polygon free tier is slow (~80min for all tickers)
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests yfinance pandas numpy
+
+      - name: Run EOD update
+        env:
+          POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
+          BT_SKIP_PUSH: '1'  # We push in the next step with proper git config
+        run: |
+          chmod +x scripts/eod-update.sh
+          # Override tier if manually specified
+          if [ -n "${{ github.event.inputs.tier }}" ]; then
+            python scripts/update-expected-moves.py --tier "${{ github.event.inputs.tier }}" || echo "EM override failed"
+          fi
+          bash scripts/eod-update.sh
+
+      - name: Commit and push
+        run: |
+          git config user.name "BreakingTrades Bot"
+          git config user.email "bot@breakingtrades.github.io"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "data: EOD update $(date -u +%Y-%m-%d) — automated"
+            git pull --rebase --no-edit origin main || true
+            git push
+          fi
