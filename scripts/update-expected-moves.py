@@ -362,7 +362,7 @@ def main():
                 }
                 history = [h for h in history if h.get('date') != entry['date']]
                 history.append(entry)
-                data['history'] = history[-52]  # ~1yr weekly
+                data['history'] = history[-52:]  # ~1yr weekly
                 results[ticker] = data
                 processed += 1
             else:
