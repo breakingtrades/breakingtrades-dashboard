@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Mar 25",
-  "headline": "Extreme fear, defensive flows, and bonds on edge \u2014 don't get whipsawed chasing tech dip.",
+  "title": "Daily Briefing \u2014 Mar 26",
+  "headline": "Extreme fear, hot volatility, and financials flashing the canary \u2014 follow the flows, don't chase the noise.",
   "body": [
-    "Right, so we've got Fear & Greed scraping the floor at 17.7 (extreme fear), VIX elevated at 26.81 above its 20-day, and most mega-cap tech closing below their 20 MA. This is a defensive tape \u2014 no question \u2014 and the flows aren't validating dip-buying just yet. Bonds are also teetering, with HYG rolling over to $79.17 and both HYG and LQD beneath their key short-term MAs. If bonds freak out, everything breaks \u2014 rules are rules.",
-    "Sector picture? Energy (XLE $60.84) and Materials (XLB $48.45) are leading rotation \u2014 both technically strong, both now clear relative strength outliers. Healthcare, Staples, and Utilities are holding up, but Financials (XLF $49.28) are lagging hard and approaching a support breakdown \u2014 the canary is coughing, not dead, but don't ignore it.",
-    "Contrarian take: yes, extreme fear is usually a buy window, but with breadth mixed and no evidence of institutional accumulation (dark pool clusters missing, mega-cap tech all < 20 MA), patience is key. Previous analogs say don't fight a risk-off tape when credit and tech both break down together \u2014 let price come to the weekly mean before you size up. Less trades = more wins."
+    "Right, so we've got Fear & Greed at 18.3. We're firmly in the 'Extreme Fear' camp, which, per my rulebook, is an opportunity zone if you know what you're doing. VIX is blowing out at 27.24, up above its 20 MA, so volatility is expanding \u2014 but don't panic. The indices (SPY $656.82, QQQ $587.82) are hovering below their 20 MAs: fleeing longs is the play, not fighting trend. Tech is still bleeding, with most of the megacaps trapped under their SMAs \u2014 any bounce has been weak.",
+    "On rotation, Energy (XLE $60.57), Materials (XLB $49.41), Industrials (XLI $165.10), Staples (XLP $81.51), and Utilities (XLU $45.25) are leading. Financials (XLF $49.34) are lagging badly and sitting below the key 20 MA. That\u2019s your canary in the coal mine \u2014 risk stays elevated while XLF refuses to get off the mat. Tech (XLK $136.76), while improving, is still not making any real progress, so don\u2019t get sucked in by dead-cat bounces.",
+    "Contrarian time: Extreme fear + high VIX + Financials lagging usually marks late-stage shakeouts, but remember \u2014 if bonds (HYG $79.42, LQD $108.73) are breaking down, risk-off rules apply: reduce equity exposure. Retail isn't piling in, so we don\u2019t have bubble FOMO, but the breadth is narrow and momentum is weak. Patience: react, don\u2019t predict. If you missed the energy/materials rotation, abundance mindset \u2014 let them come back to mean reversion before jumping in."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: Watch $653.18 (now) vs 20 MA ($671.05) \u2014 still below, caution<br>XLF: $49.28 vs 50 MA ($52.00) \u2014 financials failing = macro risk<br>HYG/LQD both below 20 MA \u2014 cut equity exposure per rule R001<br>Energy XLE: $60.84 \u2014 leadership clear above 20 & 50 MA<br>Fear & Greed: 17.7 \u2014 extreme fear zone, but no dip confirmation yet<br>Mega-cap tech (AAPL $251.64, MSFT $372.74, NVDA $175.20) all < 20 MA \u2014 stay hands-off on aggressive longs<br>VIX elevated (26.81/23.99) \u2014 risk-off regime confirmed",
+  "callout_body": "SPY $669.33 (20 MA) \u2014 below = exit longs<br>QQQ $599.02 (20 MA) \u2014 also below, so stay defensive<br>XLF $49.85 (20 MA) \u2014 lagging, watch for breakdown<br>XLE $57.31 (20 MA) \u2014 leading, but stretched \u2014 don\u2019t chase<br>VIX > 27 \u2014 high regime: expect whipsaws<br>Fear & Greed < 25 \u2014 contrarian opportunity, but only if sector setup confirms",
   "action_items": [
-    "No chasing tech or index \u2014 keep equity exposure light until SPY or QQQ closes back above their 20 MA.",
-    "Favor relative strength rotation (Energy XLE, Materials XLB) for active trades, avoid Financials breakdown (watch XLF support)."
+    "Reduce long exposure to indices and tech \u2014 they're stuck under daily 20 MA and VIX is high (rule R006)",
+    "Watch XLE, XLB, and XLI for mean reversion buy setups on weekly 20 MA \u2014 don't chase, abundance mindset"
   ],
-  "closing_quote": "If it's in the press, it's in the price. Abundance mindset \u2014 next trade's coming.",
-  "generatedAt": "2026-03-25T11:13:18.221233+00:00",
+  "closing_quote": "Less trades = more wins. If it's in the press, it's in the price.",
+  "generatedAt": "2026-03-26T11:27:08.062935+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
