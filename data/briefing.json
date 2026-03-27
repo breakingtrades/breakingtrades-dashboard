@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Mar 26",
-  "headline": "Extreme fear, hot volatility, and financials flashing the canary \u2014 follow the flows, don't chase the noise.",
+  "title": "Daily Briefing \u2014 Mar 27",
+  "headline": "Extreme fear, tech breaks down, energy takes the wheel\u2014flows say patience, react, don\u2019t predict.",
   "body": [
-    "Right, so we've got Fear & Greed at 18.3. We're firmly in the 'Extreme Fear' camp, which, per my rulebook, is an opportunity zone if you know what you're doing. VIX is blowing out at 27.24, up above its 20 MA, so volatility is expanding \u2014 but don't panic. The indices (SPY $656.82, QQQ $587.82) are hovering below their 20 MAs: fleeing longs is the play, not fighting trend. Tech is still bleeding, with most of the megacaps trapped under their SMAs \u2014 any bounce has been weak.",
-    "On rotation, Energy (XLE $60.57), Materials (XLB $49.41), Industrials (XLI $165.10), Staples (XLP $81.51), and Utilities (XLU $45.25) are leading. Financials (XLF $49.34) are lagging badly and sitting below the key 20 MA. That\u2019s your canary in the coal mine \u2014 risk stays elevated while XLF refuses to get off the mat. Tech (XLK $136.76), while improving, is still not making any real progress, so don\u2019t get sucked in by dead-cat bounces.",
-    "Contrarian time: Extreme fear + high VIX + Financials lagging usually marks late-stage shakeouts, but remember \u2014 if bonds (HYG $79.42, LQD $108.73) are breaking down, risk-off rules apply: reduce equity exposure. Retail isn't piling in, so we don\u2019t have bubble FOMO, but the breadth is narrow and momentum is weak. Patience: react, don\u2019t predict. If you missed the energy/materials rotation, abundance mindset \u2014 let them come back to mean reversion before jumping in."
+    "Right, big picture: Volatility is mental, VIX up at 29.37 (well above its 20 MA), and the market\u2019s in extreme fear mode (Fear & Greed at 17). SPY, QQQ, and most majors have closed solidly below their 20 MAs (SPY: 645.09 vs 20 MA: 667.21), so rule 6 is in force\u2014exit longs or stay defensive. This isn\u2019t a nibble-the-dip environment, it\u2019s a protect capital environment.",
+    "Sector rotation is clear: Energy (XLE $61.52) and Materials (XLB $49.09) are leading while Technology (XLK $132.50, lagging with HIGH sector risk) is getting smashed. XLE and Materials both above all MAs, momentum solid, flows are positive; meanwhile tech is breaking down across the board (META -8.0%, NVDA -4.2%, MSFT -1.4%). If you\u2019re still chasing tech\u2014you\u2019re trading against both flows and rotation.",
+    "Contrarian angle: Extreme Fear (FGI at 17) is historically a buy zone, but don\u2019t rush in\u2014price hasn\u2019t signaled mean reversion yet, and VIX regime is HIGH. Financials (XLF $49.05) are approaching breakdown\u2014canary alert. Watch for dark pool stabilisation or sector bottoming before stepping back in, and don\u2019t fight the flows, especially with retail panic still unwinding. Patience, react, don\u2019t predict."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY $669.33 (20 MA) \u2014 below = exit longs<br>QQQ $599.02 (20 MA) \u2014 also below, so stay defensive<br>XLF $49.85 (20 MA) \u2014 lagging, watch for breakdown<br>XLE $57.31 (20 MA) \u2014 leading, but stretched \u2014 don\u2019t chase<br>VIX > 27 \u2014 high regime: expect whipsaws<br>Fear & Greed < 25 \u2014 contrarian opportunity, but only if sector setup confirms",
+  "callout_body": "SPY: 645.09 (well below 20 MA 667.21) \u2013 Defensive stance<br>QQQ: 573.79 (below 20 MA 597.29) \u2013 Watch, no long triggers<br>XLE: 61.52 (above all MAs) \u2013 Sector leadership<br>XLK: 132.50 (bear bias, lagging) \u2013 Avoid tech for now<br>XLF: 49.05 (approaching 20 MA 49.69) \u2013 Watch for breakdown<br>VIX: 29.37 (> SMA20 25.28, high regime) \u2013 Vol stay elevated<br>FGI: 17 \u2013 Extreme Fear, opportunity soon but not yet",
   "action_items": [
-    "Reduce long exposure to indices and tech \u2014 they're stuck under daily 20 MA and VIX is high (rule R006)",
-    "Watch XLE, XLB, and XLI for mean reversion buy setups on weekly 20 MA \u2014 don't chase, abundance mindset"
+    "Move defensive on tech\u2014watch for dark pool signals at NVDA, META, XLK lows, but don\u2019t chase.",
+    "Monitor energy/industrials leaders (XLE $61.52, XLI $161.27)\u2014rotational trades only if flows hold positive."
   ],
-  "closing_quote": "Less trades = more wins. If it's in the press, it's in the price.",
-  "generatedAt": "2026-03-26T11:27:08.062935+00:00",
+  "closing_quote": "If it\u2019s in the press, it\u2019s in the price. Abundance mindset\u2014next trade, not this one.",
+  "generatedAt": "2026-03-27T11:11:48.684801+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }

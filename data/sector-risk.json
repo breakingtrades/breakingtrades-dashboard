@@ -3,199 +3,113 @@
     "etf": "XLE",
     "quadrant": "Leading",
     "risk": "low",
-<<<<<<< HEAD
-    "rs": 145.8,
-    "momentum": 102.81
-=======
-    "rs": 144.86,
-    "momentum": 102.14
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 150.78,
+    "momentum": 106.32
   },
   "Clean Energy": {
     "etf": "XLE",
     "quadrant": "Leading",
     "risk": "low",
-<<<<<<< HEAD
-    "rs": 145.8,
-    "momentum": 102.81
-=======
-    "rs": 144.86,
-    "momentum": 102.14
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 150.78,
+    "momentum": 106.32
   },
   "Materials": {
     "etf": "XLB",
     "quadrant": "Leading",
     "risk": "low",
-<<<<<<< HEAD
-    "rs": 113.4,
-    "momentum": 104.13
-=======
-    "rs": 112.92,
-    "momentum": 103.69
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 114.71,
+    "momentum": 105.33
   },
   "Agriculture": {
     "etf": "XLB",
     "quadrant": "Leading",
     "risk": "low",
-<<<<<<< HEAD
-    "rs": 113.4,
-    "momentum": 104.13
-=======
-    "rs": 112.92,
-    "momentum": 103.69
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 114.71,
+    "momentum": 105.33
   },
   "Industrials": {
     "etf": "XLI",
     "quadrant": "Leading",
     "risk": "low",
-<<<<<<< HEAD
-    "rs": 110.76,
-    "momentum": 101.71
-=======
-    "rs": 110.45,
-    "momentum": 101.42
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 110.16,
+    "momentum": 101.16
   },
   "Discretionary": {
     "etf": "XLY",
     "quadrant": "Improving",
     "risk": "medium",
-<<<<<<< HEAD
-    "rs": 95.47,
-    "momentum": 102.99
-=======
-    "rs": 95.28,
-    "momentum": 102.79
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 95.54,
+    "momentum": 103.07
   },
   "Retail": {
     "etf": "XLY",
     "quadrant": "Improving",
     "risk": "medium",
-<<<<<<< HEAD
-    "rs": 95.47,
-    "momentum": 102.99
-=======
-    "rs": 95.28,
-    "momentum": 102.79
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 95.54,
+    "momentum": 103.07
   },
   "Staples": {
     "etf": "XLP",
     "quadrant": "Leading",
     "risk": "low",
-<<<<<<< HEAD
-    "rs": 110.7,
-    "momentum": 101.72
-=======
-    "rs": 110.08,
-    "momentum": 101.15
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 112.2,
+    "momentum": 103.1
   },
   "Healthcare": {
     "etf": "XLV",
-    "quadrant": "Improving",
-    "risk": "medium",
-<<<<<<< HEAD
-    "rs": 99.05,
-    "momentum": 100.5
-=======
-    "rs": 98.64,
-    "momentum": 100.09
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "quadrant": "Leading",
+    "risk": "low",
+    "rs": 100.5,
+    "momentum": 101.98
   },
   "Financials": {
     "etf": "XLF",
-    "quadrant": "Lagging",
-    "risk": "high",
-<<<<<<< HEAD
-    "rs": 93.78,
-    "momentum": 99.81
-  },
-  "Technology": {
-    "etf": "XLK",
     "quadrant": "Improving",
-    "risk": "medium",
-    "rs": 98.09,
-    "momentum": 100.06
-  },
-  "Telecom": {
-    "etf": "XLK",
-    "quadrant": "Improving",
-    "risk": "medium",
-    "rs": 98.09,
-    "momentum": 100.06
-  },
-  "Semiconductors": {
-    "etf": "XLK",
-    "quadrant": "Improving",
-    "risk": "medium",
-    "rs": 98.09,
-    "momentum": 100.06
-=======
-    "rs": 93.3,
-    "momentum": 99.3
+    "risk": "elevated",
+    "rs": 94.93,
+    "momentum": 101.02
   },
   "Technology": {
     "etf": "XLK",
     "quadrant": "Lagging",
     "risk": "high",
-    "rs": 97.99,
-    "momentum": 99.95
+    "rs": 96.77,
+    "momentum": 98.7
   },
   "Telecom": {
     "etf": "XLK",
     "quadrant": "Lagging",
     "risk": "high",
-    "rs": 97.99,
-    "momentum": 99.95
+    "rs": 96.77,
+    "momentum": 98.7
   },
   "Semiconductors": {
     "etf": "XLK",
     "quadrant": "Lagging",
     "risk": "high",
-    "rs": 97.99,
-    "momentum": 99.95
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 96.77,
+    "momentum": 98.7
   },
   "Communication": {
     "etf": "XLC",
     "quadrant": "Lagging",
     "risk": "high",
-<<<<<<< HEAD
-    "rs": 99.65,
-    "momentum": 98.56
-=======
-    "rs": 99.33,
-    "momentum": 98.25
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 99.07,
+    "momentum": 97.99
   },
   "Utilities": {
     "etf": "XLU",
     "quadrant": "Leading",
     "risk": "low",
-<<<<<<< HEAD
-    "rs": 112.48,
-    "momentum": 101.87
-=======
-    "rs": 111.69,
-    "momentum": 101.17
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "rs": 114.72,
+    "momentum": 103.91
   },
   "Real Estate": {
     "etf": "XLRE",
-    "quadrant": "Weakening",
-    "risk": "medium",
-<<<<<<< HEAD
-    "rs": 106.01,
-    "momentum": 99.59
-=======
-    "rs": 105.3,
-    "momentum": 98.92
->>>>>>> 3b43311 (data: EOD update 2026-03-25 — F&G + VIX + EM(daily) + sectors)
+    "quadrant": "Leading",
+    "risk": "low",
+    "rs": 107.99,
+    "momentum": 101.45
   },
   "Bond": {
     "etf": null,
