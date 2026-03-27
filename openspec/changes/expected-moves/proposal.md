@@ -33,17 +33,18 @@ Traders need to see at a glance where each ticker sits within its options-implie
 ## ⚠️ Core EM Rules — READ THIS
 
 ### What "Close" Means (Anchor Price)
-- **Close = the price at which the EM range was calculated.** It is the yfinance `lastPrice` at update time.
+- **Close = yesterday's settled 4:00 PM ET regular-session close** (`regularMarketPreviousClose` from yfinance).
 - The EM range is symmetrical around this close: `lower = close - EM`, `upper = close + EM`.
-- The close is NOT "Friday close" — it is whatever price yfinance returns at script run time.
-- **This is the anchor price.** If it's stale, the entire range is wrong.
+- Fallback chain: `regularMarketPreviousClose` → `previousClose` → `lastPrice` (last resort only).
+- **Never use `lastPrice` as anchor during market hours** — it's the live intraday price and creates a moving target.
+- The dashboard's "current price" for position-in-range comes separately from `prices.json` (live/recent). This is correct — the anchor is fixed (yesterday's close), the needle moves (live price).
 
 ### When EM Ranges Must Be Refreshed
 - **EOD pipeline** runs Mon-Fri at 4:20 PM ET via GitHub Actions (`eod-update.sh`).
   - Friday: all tiers (weekly + monthly + quarterly straddles).
   - Mon-Thu: daily tier only (8 index proxies), weekly/monthly/quarterly preserved from Friday.
 - **Manual runs:** `python3 scripts/update-expected-moves.py --source yfinance` (any time).
-- **⚠️ CRITICAL:** Running during market hours uses the LIVE intraday price as "close", NOT the previous day's actual close. This creates a moving anchor — acceptable for intraday use but misleading if the page says "Updated Mar 27" and the close is an intraday snapshot, not a settled EOD value.
+- **⚠️ IMPORTANT:** The anchor is now always yesterday's settled close, regardless of when you run the script. Running during market hours is safe — the anchor won't drift. However, the **option straddle prices** (call/put `lastPrice`) ARE live during market hours, which is correct — you want the freshest implied volatility. Only the anchor is pinned.
 
 ### How the Dashboard Displays Data (Two Sources)
 1. **EM ranges** come from `data/expected-moves.json` (anchor close, upper, lower).
