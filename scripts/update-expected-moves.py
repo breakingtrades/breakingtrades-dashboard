@@ -135,7 +135,15 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False):
     try:
         t = yf.Ticker(ticker)
         info = t.fast_info
-        close_price = info.get('lastPrice') or info.get('previousClose')
+        # Always use previous regular-session close as the EM anchor.
+        # regularMarketPreviousClose = yesterday's 4:00 PM ET settled close (matches history).
+        # previousClose may include after-hours adjustments — less reliable as anchor.
+        # lastPrice is live/intraday during market hours — never use as anchor.
+        close_price = (
+            info.get('regularMarketPreviousClose')
+            or info.get('previousClose')
+            or info.get('lastPrice')
+        )
         if not close_price or close_price <= 0:
             print("no price", flush=True)
             return None
