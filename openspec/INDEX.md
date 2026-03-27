@@ -1,8 +1,8 @@
 # BreakingTrades Dashboard — OpenSpec Index
 
-> Last updated: 2026-03-25
+> Last updated: 2026-03-27
 > Status: **Production** — live at https://breakingtrades.github.io/breakingtrades-dashboard/
-> Running smoothly as of Mar 25 2026.
+> Running smoothly as of Mar 27 2026.
 
 ## Production Pages
 
@@ -19,6 +19,8 @@
 
 | Component | Schedule | Description |
 |-----------|----------|-------------|
+| **Canonical Prices** | 4× daily (9:30/12/3/4:05 ET) + EOD | `update-prices.py` → `data/prices.json` — single source of truth for all ticker prices. `bt-prices.js` shared module consumed by all pages. |
+| **Futures Strip** | 4× daily (9:30/12/3/4:05 ET) + EOD | `update_futures.py` → `data/futures.json` — 14 instruments (ES, NQ, RTY, YM, CL, NG, GC, SI, HG, TNX, DXY, VIX, BTC, ETH) |
 | **Fear & Greed** | ~Hourly cron | `update-fear-greed.py` → `data/fear-greed.json` |
 | **VIX** | 4× daily (9:30/12/3/4:05 ET) | `update-vix.py` → `data/vix.json` |
 | **Sector Rotation** | On demand / EOD | `export-sector-rotation.py` → `data/sector-rotation.json` + `data/sector-risk.json` |
@@ -62,6 +64,9 @@
 | [EOD Update Pipeline](changes/ci-data-pipeline/) | 2026-03-25 | `a95bbc5` | `eod-update.sh` — single EOD runner for F&G + VIX + sector rotation + EM. GitHub Action Mon-Fri 4:20 PM ET, auto-push. Fri runs all EM tiers (weekly/monthly/quarterly), Mon-Thu daily tier only. Local Mac cron fallback. Handles rebase conflicts. |
 | [EM Calculator — IB→yfinance](changes/expected-moves/) | 2026-03-25 | `4afa1bb` | Rewrote `update-expected-moves.py` — IB Gateway first, yfinance fallback, Polygon removed. `--source auto/ib/yfinance`. `BT_EM_SOURCE` env var. 57-60 tickers in ~2 min (vs 80+ min Polygon). |
 | [EM History Slice Fix](changes/expected-moves/) | 2026-03-25 | `efd6d26` | `history[-52]` → `history[-52:]` — slice not index bug fix |
+| [F&G Updated Tooltip](changes/dashboard-ui/) | 2026-03-27 | — | Hover "Fear & Greed Index" title on signals + market pages shows last-updated timestamp (e.g. "Updated: Mar 25, 8:20 PM ET"). `cursor: help` hint. Reads `updated` field from `fear-greed.json`. |
+| [Canonical Price Layer](changes/dashboard-ui/) | 2026-03-27 | — | `data/prices.json` + `bt-prices.js` — single source of truth for all ticker prices across all pages. `update-prices.py` fetches 79 tickers from yfinance. All pages (EM, watchlist, signals, market) load `bt-prices.js` and prefer its prices over stale per-file snapshots. EM page drops redundant "Close" column, shows "Price" from canonical source. `macro-context.js` overlays btPrices. `futures.json` added to all pipelines (was orphaned since Mar 19). EOD + intraday pipelines run prices + futures first. Push retry (3×) with stuck-rebase cleanup fixes Mar 26 EOD gap. GH Actions workflow also gets retry. |
+| [EM Anchor Fix — previousClose](changes/expected-moves/) | 2026-03-27 | `0aa01c9` | **Bug fix:** EM script used `lastPrice` (live intraday) as anchor → ranges drifted during market hours → all tickers showed ABOVE EM after big moves. Now uses `regularMarketPreviousClose` (yesterday's settled 4 PM close). Fallback chain: `regularMarketPreviousClose` → `previousClose` → `lastPrice`. Option straddle prices still use live data (correct — fresh IV). EM rules fully documented in proposal.md: anchor definition, staleness trap, scaling rules, risk model interpretation, two-source display architecture. |
 
 ## Active Changes (in progress)
 
