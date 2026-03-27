@@ -1,7 +1,7 @@
 /**
  * BreakingTrades — Macro Context Strip
  * Primary data strip: key indices, volatility, rates, sentiment with editorial context
- * Reads from data/*.json files
+ * Uses btPrices.js as canonical price source, falls back to data/watchlist.json
  */
 (function() {
   const el = document.getElementById('macro-context');
@@ -28,14 +28,29 @@
     return note(`${sign}${pct.toFixed(2)}%`, cls);
   }
 
+  // Wait for btPrices to be available (loaded by page via bt-prices.js)
+  const pricesReady = (typeof btPrices !== 'undefined') ? btPrices.load() : Promise.resolve(null);
+
   Promise.all([
     fetch('data/vix.json').then(r => r.ok ? r.json() : null).catch(() => null),
     fetch('data/watchlist.json').then(r => r.ok ? r.json() : null).catch(() => null),
     fetch('data/fear-greed.json').then(r => r.ok ? r.json() : null).catch(() => null),
+    pricesReady,
   ]).then(([vix, wl, fg]) => {
     const pills = [];
     const tickers = Array.isArray(wl) ? wl : [];
-    const find = sym => tickers.find(t => (t.symbol || t.ticker) === sym);
+    const find = sym => {
+      const t = tickers.find(t => (t.symbol || t.ticker) === sym);
+      // Overlay canonical price from btPrices
+      if (t && typeof btPrices !== 'undefined') {
+        const p = btPrices.get(sym);
+        if (p) {
+          t.price = p.price;
+          t.change = p.change;
+        }
+      }
+      return t;
+    };
 
     // SPY
     const spy = find('SPY');

@@ -51,6 +51,10 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "data: EOD update $(date -u +%Y-%m-%d) — automated"
-            git pull --rebase --no-edit origin main || true
-            git push
+            # Retry push up to 3 times (F&G workflow may push concurrently)
+            for i in 1 2 3; do
+              git pull --rebase --no-edit origin main && git push && break
+              echo "Push attempt $i failed, retrying in 10s..."
+              sleep 10
+            done
           fi

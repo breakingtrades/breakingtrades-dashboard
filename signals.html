@@ -414,6 +414,7 @@
   .fear-greed-section h3 {
     font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
     color: var(--cyan); margin-bottom: 12px; font-weight: 600;
+    cursor: help;
   }
   .fg-gauge-container {
     display: flex; justify-content: center; align-items: center; flex-direction: column;
@@ -807,7 +808,7 @@
   <div class="right-panel">
 
     <div class="fear-greed-section">
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 2a10 10 0 0 0-10 10"/><line x1="12" y1="12" x2="7" y2="7"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg> Fear & Greed Index</h3>
+      <h3 id="fg-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 2a10 10 0 0 0-10 10"/><line x1="12" y1="12" x2="7" y2="7"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg> Fear & Greed Index</h3>
       <div id="fg-gauge"></div>
     </div>
 
@@ -858,6 +859,7 @@
 </div>
 
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script src="bt-prices.js"></script>
 <script>
 // === TICKER DATA ===
 const TICKERS = [
@@ -1263,6 +1265,12 @@ function renderFearGreedGauge() {
         </div>
       </div>
     </div>`;
+  // Set tooltip on title with last-updated timestamp
+  if (fearGreedData.updated) {
+    const fgDate = new Date(fearGreedData.updated);
+    const fgTitleEl = document.getElementById('fg-title');
+    if (fgTitleEl) fgTitleEl.title = 'Updated: ' + fgDate.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/New_York' }) + ' ET';
+  }
 }
 
 // === SECTOR ROTATION QUADRANT ===
@@ -1742,11 +1750,47 @@ function renderBriefing() {
 let _sectorRiskData = {};
 
 function init() {
-  fetch('data/sector-risk.json').then(r => r.json()).then(data => {
-    _sectorRiskData = data;
-    TICKERS.forEach(t => { t._sectorRisk = _sectorRiskData[t.sector] || null; });
+  // Load canonical prices + watchlist technicals + sector risk in parallel
+  Promise.all([
+    btPrices.load(),
+    fetch('data/watchlist.json').then(r => r.ok ? r.json() : []).catch(() => []),
+    fetch('data/sector-risk.json').then(r => r.json()).catch(() => ({}))
+  ]).then(([, watchlist, sectorRisk]) => {
+    _sectorRiskData = sectorRisk;
+    const wlMap = {};
+    for (const w of watchlist) { if (w.symbol) wlMap[w.symbol] = w; }
+
+    TICKERS.forEach(t => {
+      t._sectorRisk = _sectorRiskData[t.sector] || null;
+
+      // Overlay live prices from btPrices
+      const p = btPrices.get(t.symbol);
+      if (p) {
+        t.price = p.price;
+        t.change = p.change;
+      }
+
+      // Overlay live technicals from watchlist.json
+      const wl = wlMap[t.symbol];
+      if (wl) {
+        if (wl.sma20 != null) t.sma20 = wl.sma20;
+        if (wl.sma50 != null) t.sma50 = wl.sma50;
+        if (wl.sma200 != null) t.sma200 = wl.sma200;
+        if (wl.w20 != null) t.w20 = wl.w20;
+        if (wl.rsi != null) t.rsi = wl.rsi;
+        if (wl.atr != null) t.vol = { ...t.vol, atr: wl.atr, atrPct: wl.atrPct, rating: wl.volRating || t.vol?.rating };
+        if (wl.volume != null) t.vol = { ...t.vol, current: (wl.volume / 1e6).toFixed(1) + 'M', avgRatio: wl.volumeRatio || t.vol?.avgRatio };
+        if (wl.bias) t.bias = wl.bias;
+        if (wl.high52w != null) t._high52w = wl.high52w;
+        if (wl.low52w != null) t._low52w = wl.low52w;
+        if (wl.bbWidth != null) t._bbWidth = wl.bbWidth;
+        if (wl.bbWidthPercentile != null) t._bbWidthPct = wl.bbWidthPercentile;
+        if (wl.earningsDate) t._earningsDate = wl.earningsDate;
+        if (wl.earningsDays != null) t._earningsDays = wl.earningsDays;
+      }
+    });
     renderCards();
-  }).catch(() => {});
+  });
   [renderVixGauge, renderFearGreedGauge, renderSectorRotation, renderBriefing, renderStatusTabs, renderCards].forEach(fn => {
     try { fn(); } catch(e) { console.warn(fn.name + ':', e.message); }
   });
@@ -1767,7 +1811,7 @@ init();
 </script>
 <script src="js/icons.js"></script>
 <script src="js/futures-strip.js"></script>
-<script src="js/macro-context.js"></script>
+<script src="js/macro-context.js?v=2"></script>
 <script src="js/market-status.js"></script>
 <script src="js/ticker-search.js"></script>
 <script src="js/nav.js"></script>

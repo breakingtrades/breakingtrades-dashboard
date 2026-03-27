@@ -35,6 +35,22 @@ warn() { log "⚠️  WARN: $*"; ERRORS=$((ERRORS + 1)); }
 
 log "=== EOD Update Starting (dow=$DOW, friday=$IS_FRIDAY) ==="
 
+# --- 0. Canonical Prices (runs first — source of truth for all pages) ---
+log "Step 0/5: Canonical prices (prices.json)"
+if $PYTHON scripts/update-prices.py 2>&1 | tee -a "$LOG"; then
+    log "✅ Prices done"
+else
+    warn "Prices failed"
+fi
+
+# --- 0b. Futures strip ---
+log "Step 0b: Futures strip (futures.json)"
+if $PYTHON scripts/update_futures.py 2>&1 | tee -a "$LOG"; then
+    log "✅ Futures done"
+else
+    warn "Futures failed"
+fi
+
 # --- 1. Fear & Greed ---
 log "Step 1/5: Fear & Greed Index"
 if $PYTHON scripts/update-fear-greed.py 2>&1 | tee -a "$LOG"; then
@@ -92,7 +108,7 @@ git add data/ || true
 if git diff --staged --quiet 2>/dev/null; then
     log "No data changes to commit"
 else
-    COMMIT_MSG="data: EOD update $(date +%Y-%m-%d) — F&G + VIX + EM($EM_TIER) + sectors"
+    COMMIT_MSG="data: EOD update $(date +%Y-%m-%d) — prices + F&G + VIX + EM($EM_TIER) + sectors"
     git config user.name  "BreakingTrades Bot"
     git config user.email "bot@breakingtrades.github.io"
     git commit -m "$COMMIT_MSG"
@@ -101,15 +117,27 @@ else
     if [[ "${BT_SKIP_PUSH:-0}" == "1" ]]; then
         log "Skipping push (BT_SKIP_PUSH=1)"
     else
-        # Pull first to avoid conflicts with GitHub Actions (F&G runs every 15min)
-        if git pull --rebase --no-edit origin main 2>&1 | tee -a "$LOG"; then
-            if git push origin main 2>&1 | tee -a "$LOG"; then
-                log "✅ Pushed to GitHub"
-            else
-                warn "Git push failed — changes committed locally"
+        # Retry push up to 3 times (F&G workflow may push concurrently)
+        PUSHED=0
+        for attempt in 1 2 3; do
+            # Clean up any stuck rebase state
+            if [ -d ".git/rebase-merge" ] || [ -d ".git/rebase-apply" ]; then
+                log "Cleaning stuck rebase state (attempt $attempt)"
+                git rebase --abort 2>/dev/null || true
+                rm -rf .git/rebase-merge .git/rebase-apply 2>/dev/null || true
             fi
-        else
-            warn "Git pull --rebase failed — changes committed locally, may need manual resolve"
+            if git pull --rebase --no-edit origin main 2>&1 | tee -a "$LOG"; then
+                if git push origin main 2>&1 | tee -a "$LOG"; then
+                    log "✅ Pushed to GitHub (attempt $attempt)"
+                    PUSHED=1
+                    break
+                fi
+            fi
+            log "Push attempt $attempt failed, retrying in 10s..."
+            sleep 10
+        done
+        if [[ "$PUSHED" -eq 0 ]]; then
+            warn "Git push failed after 3 attempts — changes committed locally"
         fi
     fi
 fi

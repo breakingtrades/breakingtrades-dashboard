@@ -326,8 +326,7 @@
       <thead>
         <tr>
           <th data-col="symbol">Ticker</th>
-          <th data-col="close">Close</th>
-          <th data-col="current">Current</th>
+          <th data-col="current">Price</th>
           <th data-col="change">Change</th>
           <th data-col="em">± EM</th>
           <th data-col="pct">EM %</th>
@@ -360,6 +359,7 @@
   </div>
 </div>
 
+<script src="bt-prices.js"></script>
 <script>
 let emData = {};
 let watchlistData = [];
@@ -374,7 +374,8 @@ async function loadData() {
   try {
     const [emRes, wlRes] = await Promise.all([
       fetch('data/expected-moves.json'),
-      fetch('data/watchlist.json')
+      fetch('data/watchlist.json'),
+      btPrices.load()
     ]);
     const em = await emRes.json();
     emData = em;
@@ -382,17 +383,20 @@ async function loadData() {
     const updatedEl = document.getElementById('em-updated');
     const updatedDate = new Date(em.updated);
     const ageHours = (Date.now() - updatedDate.getTime()) / 3600000;
-    updatedEl.textContent = `Updated: ${updatedDate.toLocaleString()}`;
+    let emLabel = `EM Ranges: ${updatedDate.toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/New_York' })} ET`;
     // Stale data warning: log only, no UI banner
     if (ageHours > 48) {
       updatedEl.style.color = 'var(--red)';
-      updatedEl.textContent += ` (${Math.round(ageHours / 24)}d old)`;
-      console.warn(`[EM] Data stale: ${Math.round(ageHours)}h old. Run update-expected-moves-ib.py to refresh.`);
+      emLabel += ` (${Math.round(ageHours / 24)}d old)`;
+      console.warn(`[EM] Data stale: ${Math.round(ageHours)}h old. Run update-expected-moves.py to refresh.`);
     } else if (ageHours > 24) {
       updatedEl.style.color = 'var(--orange)';
-      updatedEl.textContent += ` (${Math.round(ageHours)}h ago)`;
+      emLabel += ` (${Math.round(ageHours)}h ago)`;
       console.info(`[EM] Data age: ${Math.round(ageHours)}h`);
     }
+    // Show prices freshness alongside EM ranges freshness
+    const pricesLabel = btPrices.updatedAt() ? ` · Prices: ${btPrices.updatedLabel()}` : '';
+    updatedEl.textContent = emLabel + pricesLabel;
     render();
   } catch(e) {
     console.error('Failed to load data:', e);
@@ -430,8 +434,8 @@ function buildRows() {
     if (!tier.upper || !tier.lower) continue;
 
     const wl = watchlistData.find(w => w.symbol === sym);
-    const currentPrice = wl ? wl.price : t.close;
-    const change = wl ? wl.change : 0;
+    const currentPrice = btPrices.price(sym) ?? wl?.price ?? t.close;
+    const change = btPrices.change(sym) ?? wl?.change ?? 0;
 
     // Filter
     if (currentFilter === 'indices' && !INDICES.includes(sym)) continue;
@@ -563,7 +567,6 @@ function renderTable(rows) {
 
     return `<tr class="${rowClass}" onclick="openEMDetail('${r.symbol}')">
       <td class="ticker-cell">${r.symbol}${r.proxy ? ` <span class="dim">(${r.proxy.futures})</span>` : ''} ${alertTag}</td>
-      <td>$${r.close.toFixed(2)}</td>
       <td>$${r.current.toFixed(2)}</td>
       <td class="${chgClass}">${chgSign}${r.change.toFixed(2)}%</td>
       <td>±$${r.em}</td>
@@ -594,7 +597,6 @@ function sortRows(rows) {
     let va, vb;
     switch(col) {
       case 'symbol': va = a.symbol; vb = b.symbol; break;
-      case 'close': va = a.close; vb = b.close; break;
       case 'current': va = a.current; vb = b.current; break;
       case 'change': va = a.change; vb = b.change; break;
       case 'em': va = parseFloat(a.em)||0; vb = parseFloat(b.em)||0; break;
@@ -663,8 +665,8 @@ function openEMDetail(symbol) {
   const t = emData.tickers?.[symbol];
   if (!t) return;
   const wl = watchlistData.find(w => w.symbol === symbol);
-  const price = wl?.price ?? t.close;
-  const change = wl?.change ?? 0;
+  const price = btPrices.price(symbol) ?? wl?.price ?? t.close;
+  const change = btPrices.change(symbol) ?? wl?.change ?? 0;
   const chgClass = change >= 0 ? 'up' : 'down';
   const chgSign = change >= 0 ? '+' : '';
   const bias = wl?.bias || null;

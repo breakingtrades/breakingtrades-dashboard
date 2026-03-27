@@ -339,14 +339,26 @@
   </div>
 </div>
 
+<script src="bt-prices.js"></script>
 <script>
 // === WATCHLIST DATA ===
 let watchlist = [];
 
 async function loadWatchlist() {
   try {
-    const res = await fetch('data/watchlist.json');
+    const [res] = await Promise.all([
+      fetch('data/watchlist.json'),
+      btPrices.load()
+    ]);
     watchlist = await res.json();
+    // Overlay btPrices as canonical price source
+    for (const item of watchlist) {
+      const p = btPrices.get(item.symbol);
+      if (p) {
+        item.price = p.price;
+        item.change = p.change;
+      }
+    }
     renderTable();
     // Auto-open detail if #TICKER hash
     const hashTicker = window.location.hash.replace('#','');
@@ -946,7 +958,7 @@ function fmtVol(n) {
 }
 </script>
 <script src="js/icons.js"></script>
-<script src="js/macro-context.js"></script>
+<script src="js/macro-context.js?v=2"></script>
 <script src="js/market-status.js"></script>
 <script src="js/ticker-search.js"></script>
 <script src="js/nav.js"></script>

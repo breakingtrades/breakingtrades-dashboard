@@ -48,6 +48,7 @@
     font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
     color: var(--cyan); font-weight: 600; margin-bottom: 12px;
   }
+  #fg-title { cursor: help; }
 
   /* === HEATMAP === */
   .heatmap-wrap {
@@ -214,7 +215,7 @@
   <!-- FEAR & GREED + VIX REGIME -->
   <div class="mid-grid">
     <div class="card">
-      <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 2a10 10 0 0 0-10 10"/><line x1="12" y1="12" x2="7" y2="7"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg> Fear & Greed Index</div>
+      <div class="section-title" id="fg-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 2a10 10 0 0 0-10 10"/><line x1="12" y1="12" x2="7" y2="7"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg> Fear & Greed Index</div>
       <div id="fg-gauge"></div>
     </div>
     <div class="card vix-card">
@@ -236,6 +237,7 @@
   </div>
 </div>
 
+<script src="bt-prices.js"></script>
 <script>
 // === FEAR & GREED DATA ===
 let fearGreedData = {
@@ -397,6 +399,12 @@ function renderFearGreed() {
         <div class="fg-history-item"><div class="fgh-label">1 Month</div><div class="fgh-value" style="color:${fgColor(fearGreedData.oneMonthAgo?.value)}">${fgVal(fearGreedData.oneMonthAgo?.value)}</div><div class="fgh-sublabel">${fgLabel(fearGreedData.oneMonthAgo?.value)}</div></div>
       </div>
     </div>`;
+  // Set tooltip on title with last-updated timestamp
+  if (fearGreedData.updated) {
+    const fgDate = new Date(fearGreedData.updated);
+    const fgTitleEl = document.getElementById('fg-title');
+    if (fgTitleEl) fgTitleEl.title = 'Updated: ' + fgDate.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/New_York' }) + ' ET';
+  }
 }
 
 // === RENDER VIX REGIME ===
@@ -517,7 +525,7 @@ document.addEventListener("nav:ready", initTimezone);
   });
 </script>
 <script src="js/icons.js"></script>
-<script src="js/macro-context.js"></script>
+<script src="js/macro-context.js?v=2"></script>
 <script src="js/market-status.js"></script>
 <script src="js/ticker-search.js"></script>
 <script src="js/nav.js"></script>
