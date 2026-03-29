@@ -63,9 +63,11 @@ function initTickerSearch() {
   function selectItem(sym, tracked) {
     input.value = '';
     dropdown.classList.remove('open');
-    if (tracked && typeof openDetail === 'function') {
+    if (typeof openDetail === 'function') {
+      // Page has its own detail handler — use it for all tickers
       openDetail(sym);
     } else {
+      // No page-level detail — use built-in TV overlay
       openTVDetail(sym);
     }
   }
@@ -73,19 +75,64 @@ function initTickerSearch() {
   // TradingView-only detail overlay for external tickers
   function openTVDetail(symbol) {
     const clean = symbol.replace(/[^A-Z0-9._\-]/gi, '');
-    const modal = document.getElementById('modal');
-    if (!modal) return;
 
-    document.getElementById('modal-ticker').textContent = clean;
-    document.getElementById('modal-name').textContent = 'External Ticker · TradingView Data';
-    document.getElementById('modal-price').innerHTML = '<span style="color:var(--text-dim)">Loading...</span>';
-    document.getElementById('modal-status-badge').outerHTML = `<span class="status-badge" id="modal-status-badge" style="background:rgba(255,167,38,0.15);color:var(--orange);">EXTERNAL</span>`;
-    document.getElementById('modal-bias-badge').outerHTML = `<span class="bias-badge" id="modal-bias-badge" style="background:rgba(255,167,38,0.1);color:var(--orange);">TV</span>`;
+    // Find or create modal
+    let modal = document.getElementById('modal') || document.getElementById('em-modal') || document.getElementById('search-modal');
+    if (!modal) {
+      // Create a lightweight modal on-the-fly for pages without one
+      modal = document.createElement('div');
+      modal.id = 'search-modal';
+      modal.className = 'modal-overlay';
+      modal.onclick = (e) => { if (e.target === modal) { modal.classList.remove('open'); document.body.style.overflow = ''; } };
+      modal.innerHTML = `<div class="modal" style="max-width:1100px;width:95%;max-height:90vh;overflow-y:auto;background:var(--card-bg,#12121f);border:1px solid rgba(255,255,255,0.06);border-radius:12px;">
+        <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <div class="ticker-info" style="display:flex;align-items:center;gap:12px;">
+            <span class="modal-ticker" id="modal-ticker" style="font-size:22px;font-weight:700;"></span>
+            <span class="modal-name" id="modal-name" style="font-size:12px;color:var(--text-dim,#8888aa);"></span>
+            <span id="modal-price" style="font-size:16px;font-weight:600;"></span>
+            <span id="modal-status-badge"></span>
+            <span id="modal-bias-badge"></span>
+          </div>
+          <button onclick="document.getElementById('search-modal').classList.remove('open');document.body.style.overflow='';" style="background:none;border:none;color:var(--text-dim,#8888aa);font-size:22px;cursor:pointer;padding:4px 8px;border-radius:4px;">✕</button>
+        </div>
+        <div class="modal-body" id="modal-body" style="padding:20px 24px;"></div>
+      </div>`;
+
+      // Add styles if not already present
+      if (!document.getElementById('search-modal-styles')) {
+        const style = document.createElement('style');
+        style.id = 'search-modal-styles';
+        style.textContent = `
+          #search-modal { position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s; }
+          #search-modal.open { opacity:1;pointer-events:auto; }
+        `;
+        document.head.appendChild(style);
+      }
+      document.body.appendChild(modal);
+
+      // Escape to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) {
+          modal.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+
+    // Populate modal
+    const tickerEl = modal.querySelector('#modal-ticker, #em-modal-ticker');
+    const nameEl = modal.querySelector('#modal-name, #em-modal-name');
+    const priceEl = modal.querySelector('#modal-price, #em-modal-price');
+    const bodyEl = modal.querySelector('#modal-body, #em-modal-body');
+
+    if (tickerEl) tickerEl.textContent = clean;
+    if (nameEl) nameEl.textContent = 'External Ticker · TradingView Data';
+    if (priceEl) priceEl.innerHTML = '<span style="color:var(--text-dim,#8888aa)">—</span>';
 
     // TradingView resolves symbols itself — no exchange prefix needed
     const tvSymbol = clean;
 
-    document.getElementById('modal-body').innerHTML = `
+    if (bodyEl) bodyEl.innerHTML = `
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
         <div class="chart-box" style="position:relative;">
           <div class="chart-label">Daily Chart <button class="tv-fullscreen-btn" data-target="tv-ext-daily" title="Fullscreen">⛶</button></div>
@@ -151,6 +198,7 @@ function initTickerSearch() {
     document.addEventListener('keydown', fsHandler);
 
     modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
 
     setTimeout(() => {
       loadTVChart('tv-ext-daily', '', tvSymbol, 'D');
