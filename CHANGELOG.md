@@ -5,6 +5,17 @@ Format: `[YYYY-MM-DD] commit — description`
 
 ---
 
+## 2026-03-29
+
+### Fixes
+- **`d97aee7`** — Expected Moves: canonical price source fix. IB `reqMktData.close` returns previous session's close after hours (Thursday's price on Saturday night). EM script now reads close from `prices.json` → `watchlist.json` (source of truth), falls back to IB `reqHistoricalData` → IB market data. Straddle prices still from IB (correct — option-specific). 45 tickers corrected from Thursday → Friday close. Script also prints price source (`prices`/`ib-hist`/`ib-mkt`) for debugging.
+
+### Data
+- **`562aeb8`** — EM update: 60 tickers, all 4 tiers (D/W/M/Q) refreshed via IB Gateway
+- Full EOD pipeline run: prices (74), futures, F&G, VIX, watchlist, sectors, EM, briefing
+
+---
+
 ## 2026-03-25
 
 ### Features

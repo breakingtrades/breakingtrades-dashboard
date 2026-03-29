@@ -33,6 +33,7 @@ DATA_DIR = REPO_DIR / 'data'
 DATA_DIR.mkdir(exist_ok=True)
 OUT_FILE = DATA_DIR / 'expected-moves.json'
 WATCHLIST_FILE = DATA_DIR / 'watchlist.json'
+PRICES_FILE = DATA_DIR / 'prices.json'
 
 # --- Ticker Tiers ---
 DAILY_TICKERS = ['SPY', 'QQQ', 'DIA', 'IWM', 'IBIT', 'USO', 'UNG', 'GLD']
@@ -54,6 +55,40 @@ FUTURES_PROXY = {
 }
 
 DEFAULT_PORT = 4002  # Live account
+
+
+def load_canonical_prices():
+    """Load close prices from canonical price layer (prices.json → watchlist.json fallback).
+    This is the single source of truth for close prices — never use IB reqMktData for close."""
+    prices = {}
+
+    # Primary: prices.json (bt-prices canonical layer)
+    if PRICES_FILE.exists():
+        try:
+            data = json.loads(PRICES_FILE.read_text())
+            for sym, info in data.items():
+                if sym.startswith('_'):
+                    continue
+                if isinstance(info, dict) and info.get('price'):
+                    prices[sym] = info['price']
+                elif isinstance(info, (int, float)) and info > 0:
+                    prices[sym] = info
+        except Exception:
+            pass
+
+    # Fallback: watchlist.json (yfinance prices)
+    if WATCHLIST_FILE.exists():
+        try:
+            data = json.loads(WATCHLIST_FILE.read_text())
+            for item in data:
+                if isinstance(item, dict) and item.get('symbol') and item.get('price'):
+                    sym = item['symbol']
+                    if sym not in prices:  # prices.json takes priority
+                        prices[sym] = item['price']
+        except Exception:
+            pass
+
+    return prices
 
 
 def get_watchlist_tickers():
@@ -122,7 +157,7 @@ def compute_em_from_straddle(straddle, close_price, dte):
     }
 
 
-def process_ticker(ib, ticker, include_monthly=False, include_quarterly=False):
+def process_ticker(ib, ticker, include_monthly=False, include_quarterly=False, canonical_prices=None):
     """Process a single ticker. Returns dict or None."""
     print(f"\n[{ticker}]", end=' ', flush=True)
 
@@ -134,26 +169,37 @@ def process_ticker(ib, ticker, include_monthly=False, include_quarterly=False):
         print("can't qualify", flush=True)
         return None
 
-    # Get underlying close
-    stock_ticker = ib.reqMktData(stock, '', False, False)
-    ib.sleep(3)
-    close_price = stock_ticker.close
-    ib.cancelMktData(stock)
+    # Get close price — canonical prices.json/watchlist.json is source of truth
+    close_price = None
+    price_source = None
 
-    if not close_price or close_price <= 0 or math.isnan(close_price):
-        # Fallback: get last historical bar
+    if canonical_prices and ticker in canonical_prices:
+        close_price = canonical_prices[ticker]
+        price_source = 'prices'
+
+    if not close_price or close_price <= 0:
+        # Fallback 1: IB historical bar (most recent trading day close)
         try:
             bars = ib.reqHistoricalData(stock, endDateTime='', durationStr='2 D',
                                          barSizeSetting='1 day', whatToShow='TRADES', useRTH=True)
             if bars:
                 close_price = bars[-1].close
+                price_source = 'ib-hist'
         except Exception:
             pass
+
+    if not close_price or close_price <= 0:
+        # Fallback 2: IB market data (may be stale after hours)
+        stock_ticker = ib.reqMktData(stock, '', False, False)
+        ib.sleep(3)
+        close_price = stock_ticker.close
+        ib.cancelMktData(stock)
+        price_source = 'ib-mkt'
 
     if not close_price or close_price <= 0 or (isinstance(close_price, float) and math.isnan(close_price)):
         print("no close price", flush=True)
         return None
-    print(f"${close_price}", end=' ', flush=True)
+    print(f"${close_price} ({price_source})", end=' ', flush=True)
 
     # Get option chain — pick exchange with most expirations
     chains = ib.reqSecDefOptParams(stock.symbol, '', stock.secType, stock.conId)
@@ -174,6 +220,7 @@ def process_ticker(ib, ticker, include_monthly=False, include_quarterly=False):
         'close': close_price,
         'updated': datetime.now().isoformat(),
         'source': 'ib',
+        'price_source': price_source,
     }
 
     if ticker in FUTURES_PROXY:
@@ -332,6 +379,10 @@ def main():
     # Use frozen market data (type 2) — returns last close when market is closed
     ib.reqMarketDataType(2)
 
+    # Load canonical prices (source of truth for close prices)
+    canonical_prices = load_canonical_prices()
+    print(f"Canonical prices loaded: {len(canonical_prices)} tickers")
+
     # Load existing
     existing = json.loads(OUT_FILE.read_text()) if OUT_FILE.exists() else {'updated': None, 'tickers': {}}
 
@@ -363,7 +414,7 @@ def main():
 
     for ticker in sorted(tickers):
         try:
-            data = process_ticker(ib, ticker, include_monthly, include_quarterly)
+            data = process_ticker(ib, ticker, include_monthly, include_quarterly, canonical_prices)
             if data:
                 # Preserve history
                 history = results.get(ticker, {}).get('history', [])

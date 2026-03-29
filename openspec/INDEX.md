@@ -1,6 +1,6 @@
 # BreakingTrades Dashboard — OpenSpec Index
 
-> Last updated: 2026-03-27
+> Last updated: 2026-03-29
 > Status: **Production** — live at https://breakingtrades.github.io/breakingtrades-dashboard/
 > Running smoothly as of Mar 27 2026.
 
@@ -24,7 +24,7 @@
 | **Fear & Greed** | ~Hourly cron | `update-fear-greed.py` → `data/fear-greed.json` |
 | **VIX** | 4× daily (9:30/12/3/4:05 ET) | `update-vix.py` → `data/vix.json` |
 | **Sector Rotation** | On demand / EOD | `export-sector-rotation.py` → `data/sector-rotation.json` + `data/sector-risk.json` |
-| **Expected Moves** | EOD 4:20 PM ET (GH Action) + local fallback | `update-expected-moves.py` — IB Gateway first, yfinance fallback (Polygon removed). `--source auto/ib/yfinance`. `BT_EM_SOURCE` env var for CI/containers. → `data/expected-moves.json` |
+| **Expected Moves** | EOD 4:20 PM ET (GH Action) + local fallback | `update-expected-moves-ib.py` — IB Gateway for straddles, **canonical prices (`prices.json` → `watchlist.json`) for close** (never IB `reqMktData.close`). Fallback: IB `reqHistoricalData` → IB market data. `--source auto/ib/yfinance`. → `data/expected-moves.json` |
 | **EOD Pipeline** | Mon-Fri 4:20 PM ET | `eod-update.sh` — single runner: F&G + VIX + sector rotation + EM + yfinance fallback. Fri runs all EM tiers (weekly/monthly/quarterly), Mon-Thu daily tier only (8 proxies). GH Action uses yfinance (no IB in CI). Local Mac cron tries IB first. |
 | **Daily Briefing** | Every 30 min | `generate-briefing.py` → `data/briefs/` |
 | **Dashboard Export** | On demand | `export-dashboard-data.py` — bridge from parent data CSVs → dashboard JSON |
@@ -67,6 +67,7 @@
 | [F&G Updated Tooltip](changes/dashboard-ui/) | 2026-03-27 | — | Hover "Fear & Greed Index" title on signals + market pages shows last-updated timestamp (e.g. "Updated: Mar 25, 8:20 PM ET"). `cursor: help` hint. Reads `updated` field from `fear-greed.json`. |
 | [Canonical Price Layer](changes/dashboard-ui/) | 2026-03-27 | — | `data/prices.json` + `bt-prices.js` — single source of truth for all ticker prices across all pages. `update-prices.py` fetches 79 tickers from yfinance. All pages (EM, watchlist, signals, market) load `bt-prices.js` and prefer its prices over stale per-file snapshots. EM page drops redundant "Close" column, shows "Price" from canonical source. `macro-context.js` overlays btPrices. `futures.json` added to all pipelines (was orphaned since Mar 19). EOD + intraday pipelines run prices + futures first. Push retry (3×) with stuck-rebase cleanup fixes Mar 26 EOD gap. GH Actions workflow also gets retry. |
 | [EM Anchor Fix — previousClose](changes/expected-moves/) | 2026-03-27 | `0aa01c9` | **Bug fix:** EM script used `lastPrice` (live intraday) as anchor → ranges drifted during market hours → all tickers showed ABOVE EM after big moves. Now uses `regularMarketPreviousClose` (yesterday's settled 4 PM close). Fallback chain: `regularMarketPreviousClose` → `previousClose` → `lastPrice`. Option straddle prices still use live data (correct — fresh IV). EM rules fully documented in proposal.md: anchor definition, staleness trap, scaling rules, risk model interpretation, two-source display architecture. |
+| [EM Canonical Price Source](changes/expected-moves/) | 2026-03-29 | `d97aee7` | **Bug fix:** IB EM script (`update-expected-moves-ib.py`) used `reqMktData.close` for underlying price — returns previous session's close after hours (e.g. Thursday's close on Saturday). Now uses canonical price layer (`prices.json` → `watchlist.json`) as source of truth for close prices. Fallback chain: `prices.json` → IB `reqHistoricalData` → IB `reqMktData`. Straddle prices still from IB (correct — option-specific). Post-run rebase script corrects any remaining tickers. 45 tickers corrected from Thursday → Friday close. |
 
 ## Active Changes (in progress)
 
