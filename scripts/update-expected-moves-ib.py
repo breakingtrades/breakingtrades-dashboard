@@ -226,13 +226,15 @@ def process_ticker(ib, ticker, include_monthly=False, include_quarterly=False, c
     if ticker in FUTURES_PROXY:
         result['futures_proxy'] = FUTURES_PROXY[ticker]
 
-    # --- Weekly expiry straddle ---
-    # After hours, skip today's expiry (options expired) — use next available
+    # --- Nearest expiry straddle ---
+    # Prefer weekly (1-8 DTE), then 0-14 DTE, then nearest monthly (up to 45 DTE)
     weekly_exp, weekly_dte = find_expiry_in_range(chain.expirations, 1, 8)
     if not weekly_exp:
         weekly_exp, weekly_dte = find_expiry_in_range(chain.expirations, 0, 14)
     if not weekly_exp:
-        print("no weekly expiry", flush=True)
+        weekly_exp, weekly_dte = find_expiry_in_range(chain.expirations, 14, 45)
+    if not weekly_exp:
+        print("no expiry within 45 DTE", flush=True)
         return None
 
     step = get_strike_step(close_price)

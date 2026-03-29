@@ -39,6 +39,7 @@ DATA_DIR = REPO_DIR / 'data'
 DATA_DIR.mkdir(exist_ok=True)
 OUT_FILE = DATA_DIR / 'expected-moves.json'
 WATCHLIST_FILE = DATA_DIR / 'watchlist.json'
+PRICES_FILE = DATA_DIR / 'prices.json'
 
 # --- Ticker Tiers ---
 DAILY_TICKERS = ['SPY', 'QQQ', 'DIA', 'IWM', 'IBIT', 'USO', 'UNG', 'GLD']
@@ -126,34 +127,41 @@ def compute_em_bands(straddle, close_price, dte):
 # Source: yfinance (free, no gateway needed)
 # ============================================================
 
-def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False):
+def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, canonical_prices=None):
     """Process a single ticker via yfinance options chain."""
     import yfinance as yf
 
     print(f"\n[{ticker}]", end=' ', flush=True)
 
-    try:
-        t = yf.Ticker(ticker)
-        info = t.fast_info
-        # Always use previous regular-session close as the EM anchor.
-        # regularMarketPreviousClose = yesterday's 4:00 PM ET settled close (matches history).
-        # previousClose may include after-hours adjustments — less reliable as anchor.
-        # lastPrice is live/intraday during market hours — never use as anchor.
-        close_price = (
-            info.get('regularMarketPreviousClose')
-            or info.get('previousClose')
-            or info.get('lastPrice')
-        )
-        if not close_price or close_price <= 0:
-            print("no price", flush=True)
-            return None
-    except Exception as e:
-        print(f"ticker error: {e}", flush=True)
+    # Canonical price layer is source of truth for close
+    close_price = None
+    price_source = None
+
+    if canonical_prices and ticker in canonical_prices:
+        close_price = canonical_prices[ticker]
+        price_source = 'prices'
+
+    if not close_price or close_price <= 0:
+        try:
+            t_info = yf.Ticker(ticker)
+            info = t_info.fast_info
+            close_price = (
+                info.get('regularMarketPreviousClose')
+                or info.get('previousClose')
+                or info.get('lastPrice')
+            )
+            price_source = 'yfinance'
+        except Exception as e:
+            pass
+
+    if not close_price or close_price <= 0:
+        print("no price", flush=True)
         return None
 
-    print(f"${close_price:.2f}", end=' ', flush=True)
+    print(f"${close_price:.2f} ({price_source})", end=' ', flush=True)
 
     try:
+        t = yf.Ticker(ticker)
         expirations = t.options
         if not expirations:
             print("no options", flush=True)
@@ -172,12 +180,15 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False):
     if ticker in FUTURES_PROXY:
         result['futures_proxy'] = FUTURES_PROXY[ticker]
 
-    # --- Weekly expiry ---
+    # --- Nearest expiry ---
+    # Prefer weekly (1-8 DTE), then 0-14 DTE, then nearest monthly (up to 45 DTE)
     weekly_exp, weekly_dte = find_expiry_in_range(expirations, 1, 8)
     if not weekly_exp:
         weekly_exp, weekly_dte = find_expiry_in_range(expirations, 0, 14)
     if not weekly_exp:
-        print("no weekly expiry", flush=True)
+        weekly_exp, weekly_dte = find_expiry_in_range(expirations, 14, 45)
+    if not weekly_exp:
+        print("no expiry within 45 DTE", flush=True)
         return None
 
     # yfinance uses YYYY-MM-DD format for option_chain()
@@ -546,6 +557,30 @@ def main():
 
     print(f"Tier: {args.tier} | {len(tickers)} tickers | monthly={include_monthly} quarterly={include_quarterly}")
 
+    # Load canonical prices (source of truth for close prices)
+    canonical_prices = {}
+    if PRICES_FILE.exists():
+        try:
+            data = json.loads(PRICES_FILE.read_text())
+            for sym, info in data.items():
+                if sym.startswith('_'): continue
+                if isinstance(info, dict) and info.get('price'):
+                    canonical_prices[sym] = info['price']
+                elif isinstance(info, (int, float)) and info > 0:
+                    canonical_prices[sym] = info
+        except Exception:
+            pass
+    if WATCHLIST_FILE.exists():
+        try:
+            data = json.loads(WATCHLIST_FILE.read_text())
+            for item in data:
+                if isinstance(item, dict) and item.get('symbol') and item.get('price'):
+                    if item['symbol'] not in canonical_prices:
+                        canonical_prices[item['symbol']] = item['price']
+        except Exception:
+            pass
+    print(f"Canonical prices loaded: {len(canonical_prices)} tickers")
+
     results = existing.get('tickers', {})
     processed = 0
     errors = []
@@ -553,7 +588,7 @@ def main():
     for ticker in sorted(tickers):
         try:
             if use_yfinance:
-                data = yf_process_ticker(ticker, include_monthly, include_quarterly)
+                data = yf_process_ticker(ticker, include_monthly, include_quarterly, canonical_prices)
             else:
                 data = ib_process_ticker(ib, ticker, include_monthly, include_quarterly)
 
