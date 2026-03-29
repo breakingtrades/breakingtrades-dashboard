@@ -147,29 +147,44 @@
   }
 
   /* === MARKET BREADTH === */
-  .breadth-toggle { display: flex; gap: 4px; margin-bottom: 12px; }
-  .breadth-toggle-btn {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px;
-    color: var(--text-dim); font-size: 11px; padding: 6px 14px; cursor: pointer;
-    font-family: inherit; transition: all 0.2s;
-  }
-  .breadth-toggle-btn.active { background: rgba(0,212,170,0.1); color: var(--cyan); border-color: var(--cyan); }
-  .breadth-chart-wrap { position: relative; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 16px; margin-bottom: 16px; }
-  .breadth-chart-wrap canvas { width: 100% !important; }
-  .breadth-zone-label { position: absolute; right: 12px; font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; opacity: 0.5; }
-  .breadth-insight { font-size: 11px; color: var(--text-dim); margin-top: 8px; padding: 8px 12px; background: rgba(0,212,170,0.05); border-left: 3px solid var(--cyan); border-radius: 0 4px 4px 0; }
+  .breadth-gauge-wrap { display: flex; gap: 20px; align-items: stretch; margin-bottom: 16px; flex-wrap: wrap; }
+  .breadth-gauge-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; flex: 1; min-width: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .breadth-gauge-card.glow-green { box-shadow: 0 0 30px rgba(0,212,170,0.15), inset 0 0 30px rgba(0,212,170,0.05); border-color: rgba(0,212,170,0.3); }
+  .breadth-gauge-card.glow-red { box-shadow: 0 0 30px rgba(239,83,80,0.15), inset 0 0 30px rgba(239,83,80,0.05); border-color: rgba(239,83,80,0.3); }
+  .breadth-gauge-svg { width: 100%; max-width: 280px; height: auto; }
+  .breadth-gauge-value { font-size: 42px; font-weight: 800; letter-spacing: -1px; line-height: 1; margin-top: -24px; position: relative; z-index: 2; }
+  .breadth-gauge-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-top: 6px; }
+  .breadth-gauge-sublabel { font-size: 9px; color: var(--text-dim); margin-top: 2px; text-transform: uppercase; letter-spacing: 1px; }
+  @keyframes breadthPulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+  .breadth-pulse { animation: breadthPulse 2s ease-in-out infinite; }
+
+  .breadth-sector-bars { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; flex: 1.2; min-width: 320px; }
+  .breadth-sector-bars .bsb-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 12px; font-weight: 600; }
+  .breadth-sector-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .breadth-sector-row:last-child { margin-bottom: 0; }
+  .breadth-sector-name { font-size: 11px; font-family: 'SF Mono', 'Fira Code', monospace; color: var(--text-dim); width: 44px; flex-shrink: 0; text-align: right; }
+  .breadth-sector-bar-bg { flex: 1; height: 16px; background: rgba(255,255,255,0.04); border-radius: 3px; position: relative; overflow: hidden; }
+  .breadth-sector-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; position: relative; }
+  .breadth-sector-bar-fill::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%); }
+  .breadth-sector-val { font-size: 11px; font-family: 'SF Mono', 'Fira Code', monospace; font-weight: 600; width: 42px; flex-shrink: 0; text-align: right; }
+  .breadth-spx-line { position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; opacity: 0.7; z-index: 2; }
+
+  .breadth-insight-box { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  .breadth-insight-box.green { background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.25); color: #00d4aa; }
+  .breadth-insight-box.red { background: rgba(239,83,80,0.08); border: 1px solid rgba(239,83,80,0.25); color: #ef5350; }
+  .breadth-insight-box.dim { background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--text-dim); }
+  .breadth-insight-icon { font-size: 20px; flex-shrink: 0; }
+
+  .breadth-mbt-wrap { margin-top: 16px; }
   .breadth-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .breadth-table th { text-align: left; padding: 8px 12px; color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
-  .breadth-table td { padding: 8px 12px; border-bottom: 1px solid #151530; }
+  .breadth-table th { text-align: left; padding: 10px 14px; color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', 'Fira Code', monospace; }
+  .breadth-table td { padding: 10px 14px; border-bottom: 1px solid #151530; }
   .breadth-table tr:last-child td { border-bottom: none; }
-  .breadth-badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-weight: 600; font-size: 11px; min-width: 48px; text-align: center; }
-  .breadth-badge.oversold { background: rgba(0,212,170,0.15); color: #00d4aa; }
-  .breadth-badge.overbought { background: rgba(239,83,80,0.15); color: #ef5350; }
-  .breadth-badge.neutral { background: rgba(255,255,255,0.06); color: var(--text); }
-  .breadth-summary { display: flex; gap: 16px; margin-bottom: 16px; }
-  .breadth-stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; flex: 1; text-align: center; }
-  .breadth-stat .bs-value { font-size: 28px; font-weight: 800; line-height: 1; }
-  .breadth-stat .bs-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .breadth-table tr:hover { background: rgba(255,255,255,0.02); }
+  .breadth-badge { display: inline-block; padding: 3px 10px; border-radius: 4px; font-weight: 700; font-size: 11px; min-width: 52px; text-align: center; font-family: 'SF Mono', 'Fira Code', monospace; }
+  .breadth-badge.oversold { background: rgba(0,212,170,0.12); color: #00d4aa; border: 1px solid rgba(0,212,170,0.2); }
+  .breadth-badge.overbought { background: rgba(239,83,80,0.12); color: #ef5350; border: 1px solid rgba(239,83,80,0.2); }
+  .breadth-badge.neutral { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid transparent; }
 
 
 
@@ -265,28 +280,26 @@
   <div style="margin-top:24px;">
     <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><path d="M2 20h20"/><path d="M4 16l4-4 4 4 4-8 4 4"/></svg> Market Breadth</div>
 
-    <!-- Summary Stats -->
-    <div class="breadth-summary" id="breadth-summary"></div>
+    <!-- Insight Box -->
+    <div id="breadth-insight-box"></div>
 
-    <!-- Toggle: River Map / Line View -->
-    <div class="breadth-toggle">
-      <button class="breadth-toggle-btn active" data-view="river" onclick="switchBreadthView('river')">River Map (Stacked)</button>
-      <button class="breadth-toggle-btn" data-view="line" onclick="switchBreadthView('line')">Breadth Lines</button>
+    <!-- Gauge + Sector Bars -->
+    <div class="breadth-gauge-wrap">
+      <div class="breadth-gauge-card" id="breadth-gauge-card">
+        <svg viewBox="0 0 300 175" class="breadth-gauge-svg" id="breadth-gauge-svg"></svg>
+        <div class="breadth-gauge-value" id="breadth-gauge-value">—</div>
+        <div class="breadth-gauge-label" id="breadth-gauge-label">Loading</div>
+        <div class="breadth-gauge-sublabel">Avg. Sector Breadth (20d SMA)</div>
+      </div>
+      <div class="breadth-sector-bars" id="breadth-sector-bars">
+        <div class="bsb-title">Sector Breadth — % Above 20d SMA</div>
+        <div id="breadth-bars-container"></div>
+      </div>
     </div>
-
-    <!-- Charts -->
-    <div class="breadth-chart-wrap" id="breadth-river-wrap">
-      <canvas id="breadth-river-chart" height="320"></canvas>
-    </div>
-    <div class="breadth-chart-wrap" id="breadth-line-wrap" style="display:none;">
-      <canvas id="breadth-line-chart" height="320"></canvas>
-    </div>
-
-    <div class="breadth-insight" id="breadth-insight"></div>
 
     <!-- Multi-Timeframe Breadth Table -->
-    <div style="margin-top:16px;">
-      <div class="section-title" style="font-size:10px;">Multi-Timeframe Breadth</div>
+    <div class="breadth-mbt-wrap">
+      <div class="section-title" style="font-size:10px;">Multi-Timeframe Breadth Levels</div>
       <div class="card" style="padding:0; overflow-x:auto;">
         <table class="breadth-table" id="breadth-mbt"></table>
       </div>
@@ -573,151 +586,142 @@ initHeatmap();
 document.addEventListener("nav:ready", initTimezone);
 
 // === MARKET BREADTH ===
-const BREADTH_SECTOR_COLORS = {
-  COM: '#9e9e9e', CND: '#ef5350', CNS: '#ff9800', ENE: '#ffeb3b', FIN: '#cddc39',
-  HLC: '#4caf50', IND: '#00bcd4', MAT: '#2196f3', RLE: '#e040fb', TEC: '#9c27b0', UTL: '#e91e63'
-};
 const BREADTH_SECTOR_ORDER = ['COM','CND','CNS','ENE','FIN','HLC','IND','MAT','RLE','TEC','UTL'];
 
 let breadthData = null;
-let riverChart = null;
-let lineChart = null;
 
 async function loadBreadthData() {
   try {
     const res = await fetch('data/breadth.json');
     if (!res.ok) return;
     breadthData = await res.json();
-    renderBreadthSummary();
-    renderBreadthRiver();
-    renderBreadthLines();
+    renderBreadthGauge();
+    renderBreadthSectorBars();
     renderBreadthTable();
-    renderBreadthInsight();
+    renderBreadthInsightBox();
   } catch(e) { console.error('Breadth load error:', e); }
 }
 
-function renderBreadthSummary() {
-  if (!breadthData) return;
-  const t = breadthData.total;
-  const stackedColor = t.stacked < 200 ? '#00d4aa' : t.stacked > 1000 ? '#ef5350' : 'var(--text)';
-  const avgColor = t.average < 20 ? '#00d4aa' : t.average > 80 ? '#ef5350' : 'var(--text)';
-  document.getElementById('breadth-summary').innerHTML = `
-    <div class="breadth-stat"><div class="bs-value" style="color:${stackedColor}">${t.stacked.toFixed(0)}</div><div class="bs-label">Stacked Total / 1100</div></div>
-    <div class="breadth-stat"><div class="bs-value" style="color:${avgColor}">${t.average.toFixed(1)}%</div><div class="bs-label">Average Breadth</div></div>
-    <div class="breadth-stat"><div class="bs-value">${Object.keys(breadthData.sectors).length}</div><div class="bs-label">Sectors</div></div>
-  `;
+function breadthColor(val) {
+  if (val <= 20) return '#00d4aa';
+  if (val >= 80) return '#ef5350';
+  if (val <= 40) return '#26a69a';
+  if (val >= 60) return '#ff7043';
+  return '#ffa726';
 }
 
-function renderBreadthRiver() {
+function renderBreadthGauge() {
   if (!breadthData) return;
-  const ctx = document.getElementById('breadth-river-chart').getContext('2d');
-  const labels = BREADTH_SECTOR_ORDER.map(s => breadthData.sectors[s]?.name?.split(' ')[0] || s);
-  const values = BREADTH_SECTOR_ORDER.map(s => breadthData.sectors[s]?.above_20d || 0);
+  const avg = breadthData.total.average;
+  const color = breadthColor(avg);
+  const card = document.getElementById('breadth-gauge-card');
+  const svg = document.getElementById('breadth-gauge-svg');
 
-  if (riverChart) riverChart.destroy();
-  riverChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Current'],
-      datasets: BREADTH_SECTOR_ORDER.map((code, i) => ({
-        label: breadthData.sectors[code]?.name || code,
-        data: [values[i]],
-        backgroundColor: BREADTH_SECTOR_COLORS[code] + 'cc',
-        borderColor: BREADTH_SECTOR_COLORS[code],
-        borderWidth: 1,
-      }))
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: {
-          stacked: true, min: 0, max: 1100,
-          grid: { color: 'rgba(255,255,255,0.05)' },
-          ticks: { color: '#8888aa', font: { family: 'monospace', size: 10 } }
-        },
-        y: {
-          stacked: true,
-          grid: { display: false },
-          ticks: { display: false }
-        }
-      },
-      plugins: {
-        legend: { display: true, position: 'bottom', labels: { color: '#8888aa', font: { size: 9, family: 'monospace' }, boxWidth: 12, padding: 8 } },
-        annotation: {
-          annotations: {
-            greenZone: { type: 'box', xMin: 0, xMax: 200, backgroundColor: 'rgba(0,212,170,0.08)', borderWidth: 0, label: { display: true, content: 'OVERSOLD ZONE', position: 'start', color: '#00d4aa', font: { size: 9, weight: 'bold' } } },
-            redZone: { type: 'box', xMin: 1000, xMax: 1100, backgroundColor: 'rgba(239,83,80,0.08)', borderWidth: 0, label: { display: true, content: 'OVERBOUGHT', position: 'start', color: '#ef5350', font: { size: 9, weight: 'bold' } } }
-          }
-        },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => `${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`
-          }
-        }
-      }
-    }
+  // Glow effect
+  card.classList.remove('glow-green', 'glow-red');
+  if (avg <= 20) card.classList.add('glow-green');
+  else if (avg >= 80) card.classList.add('glow-red');
+
+  // Semi-circle gauge (like F&G)
+  const cx = 150, cy = 145, r = 120;
+  const startAngle = Math.PI;
+  const endAngle = 2 * Math.PI;
+  const needleAngle = startAngle + (avg / 100) * Math.PI;
+
+  // Build gradient arc segments
+  const segments = [
+    { from: 0, to: 0.2, color: '#00d4aa' },
+    { from: 0.2, to: 0.4, color: '#26a69a' },
+    { from: 0.4, to: 0.6, color: '#ffa726' },
+    { from: 0.6, to: 0.8, color: '#ff7043' },
+    { from: 0.8, to: 1.0, color: '#ef5350' },
+  ];
+
+  let arcs = '';
+  segments.forEach(seg => {
+    const a1 = startAngle + seg.from * Math.PI;
+    const a2 = startAngle + seg.to * Math.PI;
+    const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+    const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+    arcs += `<path d="M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}" fill="none" stroke="${seg.color}" stroke-width="18" stroke-linecap="butt" opacity="0.25"/>`;
   });
+
+  // Active arc up to needle
+  const activeEnd = startAngle + (avg / 100) * Math.PI;
+  const ax1 = cx + r * Math.cos(startAngle), ay1 = cy + r * Math.sin(startAngle);
+  const ax2 = cx + r * Math.cos(activeEnd), ay2 = cy + r * Math.sin(activeEnd);
+  const largeArc = avg > 50 ? 1 : 0;
+  arcs += `<path d="M ${ax1} ${ay1} A ${r} ${r} 0 ${largeArc} 1 ${ax2} ${ay2}" fill="none" stroke="${color}" stroke-width="18" stroke-linecap="round" opacity="0.9"/>`;
+
+  // Needle
+  const nx = cx + (r - 30) * Math.cos(needleAngle);
+  const ny = cy + (r - 30) * Math.sin(needleAngle);
+  arcs += `<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>`;
+  arcs += `<circle cx="${cx}" cy="${cy}" r="5" fill="#fff" opacity="0.8"/>`;
+
+  // Zone labels
+  arcs += `<text x="18" y="${cy + 16}" fill="#00d4aa" font-size="9" font-family="monospace" font-weight="700">0%</text>`;
+  arcs += `<text x="270" y="${cy + 16}" fill="#ef5350" font-size="9" font-family="monospace" font-weight="700" text-anchor="end">100%</text>`;
+  arcs += `<text x="${cx}" y="18" fill="#ffa726" font-size="8" font-family="monospace" text-anchor="middle" opacity="0.6">50%</text>`;
+
+  svg.innerHTML = arcs;
+
+  // Value
+  const valEl = document.getElementById('breadth-gauge-value');
+  valEl.textContent = avg.toFixed(1) + '%';
+  valEl.style.color = color;
+
+  // Label
+  const labelEl = document.getElementById('breadth-gauge-label');
+  if (avg <= 20) {
+    labelEl.textContent = 'GREEN POND 🟢';
+    labelEl.style.color = '#00d4aa';
+    labelEl.classList.add('breadth-pulse');
+  } else if (avg >= 80) {
+    labelEl.textContent = 'OVERBOUGHT ⛔';
+    labelEl.style.color = '#ef5350';
+    labelEl.classList.add('breadth-pulse');
+  } else if (avg <= 35) {
+    labelEl.textContent = 'WEAK BREADTH';
+    labelEl.style.color = '#26a69a';
+    labelEl.classList.remove('breadth-pulse');
+  } else if (avg >= 65) {
+    labelEl.textContent = 'STRONG BREADTH';
+    labelEl.style.color = '#ff7043';
+    labelEl.classList.remove('breadth-pulse');
+  } else {
+    labelEl.textContent = 'NEUTRAL';
+    labelEl.style.color = 'var(--text-dim)';
+    labelEl.classList.remove('breadth-pulse');
+  }
 }
 
-function renderBreadthLines() {
+function renderBreadthSectorBars() {
   if (!breadthData) return;
-  const ctx = document.getElementById('breadth-line-chart').getContext('2d');
-  if (lineChart) lineChart.destroy();
+  const container = document.getElementById('breadth-bars-container');
+  const sectors = breadthData.sectors;
 
-  const datasets = BREADTH_SECTOR_ORDER.map(code => ({
-    label: breadthData.sectors[code]?.name || code,
-    data: [breadthData.sectors[code]?.above_20d || 0],
-    borderColor: BREADTH_SECTOR_COLORS[code],
-    backgroundColor: 'transparent',
-    borderWidth: 1.5,
-    pointRadius: 5,
-    pointBackgroundColor: BREADTH_SECTOR_COLORS[code],
-  }));
-  // S&P 500 total line
-  datasets.push({
-    label: 'S&P 500 Avg',
-    data: [breadthData.total.average],
-    borderColor: '#ffffff',
-    backgroundColor: 'transparent',
-    borderWidth: 3,
-    pointRadius: 7,
-    pointBackgroundColor: '#ffffff',
+  // Sort by value ascending
+  const sorted = BREADTH_SECTOR_ORDER.map(code => ({
+    code,
+    name: sectors[code]?.name || code,
+    val: sectors[code]?.above_20d ?? 0
+  })).sort((a, b) => a.val - b.val);
+
+  let html = '';
+  sorted.forEach(s => {
+    const color = breadthColor(s.val);
+    const shortName = s.code;
+    html += `<div class="breadth-sector-row">
+      <div class="breadth-sector-name">${shortName}</div>
+      <div class="breadth-sector-bar-bg">
+        <div class="breadth-sector-bar-fill" style="width:${Math.max(s.val, 1)}%; background:${color};"></div>
+      </div>
+      <div class="breadth-sector-val" style="color:${color}">${s.val.toFixed(1)}%</div>
+    </div>`;
   });
 
-  lineChart = new Chart(ctx, {
-    type: 'bar',
-    data: { labels: ['% Above 20d SMA'], datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: {
-          min: 0, max: 100,
-          grid: { color: 'rgba(255,255,255,0.05)' },
-          ticks: { color: '#8888aa', font: { family: 'monospace', size: 10 }, callback: v => v + '%' }
-        },
-        x: { grid: { display: false }, ticks: { color: '#8888aa', font: { family: 'monospace', size: 10 } } }
-      },
-      plugins: {
-        legend: { display: true, position: 'bottom', labels: { color: '#8888aa', font: { size: 9, family: 'monospace' }, boxWidth: 12, padding: 8 } },
-        annotation: {
-          annotations: {
-            greenZone: { type: 'box', yMin: 0, yMax: 20, backgroundColor: 'rgba(0,212,170,0.08)', borderWidth: 0 },
-            redZone: { type: 'box', yMin: 80, yMax: 100, backgroundColor: 'rgba(239,83,80,0.08)', borderWidth: 0 }
-          }
-        },
-        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%` } }
-      }
-    }
-  });
-}
-
-function switchBreadthView(view) {
-  document.querySelectorAll('.breadth-toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.view === view));
-  document.getElementById('breadth-river-wrap').style.display = view === 'river' ? '' : 'none';
-  document.getElementById('breadth-line-wrap').style.display = view === 'line' ? '' : 'none';
+  container.innerHTML = html;
 }
 
 function breadthBadge(val) {
@@ -733,29 +737,26 @@ function renderBreadthTable() {
   let html = `<thead><tr><th>Index</th><th>20-Day</th><th>50-Day</th><th>100-Day</th><th>200-Day</th></tr></thead><tbody>`;
   for (const [code, label] of Object.entries(names)) {
     const d = idx[code] || {};
-    html += `<tr><td style="font-weight:600;color:var(--text-bright)">${label}</td>`;
+    html += `<tr><td style="font-weight:700;color:var(--text-bright);font-family:'SF Mono','Fira Code',monospace;font-size:12px">${label}</td>`;
     html += `<td>${breadthBadge(d['20d'])}</td><td>${breadthBadge(d['50d'])}</td><td>${breadthBadge(d['100d'])}</td><td>${breadthBadge(d['200d'])}</td></tr>`;
   }
   html += `</tbody>`;
   document.getElementById('breadth-mbt').innerHTML = html;
 }
 
-function renderBreadthInsight() {
+function renderBreadthInsightBox() {
   if (!breadthData) return;
-  const el = document.getElementById('breadth-insight');
-  const t = breadthData.total;
-  if (t.stacked < 200) {
-    el.innerHTML = '💡 <strong>Green Pond Alert:</strong> Stacked breadth is below 200 — historically, market bottoms form near these levels. Watch for reversal signals.';
-    el.style.borderLeftColor = '#00d4aa';
-  } else if (t.stacked > 1000) {
-    el.innerHTML = '⚠️ <strong>Overbought Warning:</strong> Stacked breadth exceeds 1000 — most sectors are extended. Consider tightening stops.';
-    el.style.borderLeftColor = '#ef5350';
-  } else if (t.average < 30) {
-    el.innerHTML = '📊 Breadth is weak — fewer than 30% of stocks are above their 20-day SMA across sectors.';
-    el.style.borderLeftColor = '#ffa726';
+  const el = document.getElementById('breadth-insight-box');
+  const avg = breadthData.total.average;
+
+  if (avg <= 20) {
+    el.innerHTML = `<div class="breadth-insight-box green"><span class="breadth-insight-icon">🟢</span><span><strong>GREEN POND</strong> — Breadth at ${avg.toFixed(1)}%. Historically, market bottoms form at these extreme oversold levels. Watch for reversal signals.</span></div>`;
+  } else if (avg >= 80) {
+    el.innerHTML = `<div class="breadth-insight-box red"><span class="breadth-insight-icon">⛔</span><span><strong>OVERBOUGHT</strong> — Breadth at ${avg.toFixed(1)}%. Most sectors extended. Consider tightening stops and reducing risk.</span></div>`;
+  } else if (avg <= 35) {
+    el.innerHTML = `<div class="breadth-insight-box dim"><span class="breadth-insight-icon">📊</span><span>Breadth is weak at ${avg.toFixed(1)}% — fewer than a third of stocks trading above their 20-day SMA.</span></div>`;
   } else {
-    el.innerHTML = '📊 Market breadth is in a neutral zone. No extreme readings.';
-    el.style.borderLeftColor = 'var(--border)';
+    el.innerHTML = `<div class="breadth-insight-box dim"><span class="breadth-insight-icon">📊</span><span>Market breadth at ${avg.toFixed(1)}% — neutral zone. No extreme readings.</span></div>`;
   }
 }
 
