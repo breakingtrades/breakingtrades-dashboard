@@ -85,6 +85,13 @@ AI assistants: read this file, then `docs/PLAN.md` for roadmap, then `docs/MULTI
 
 `test-nav.html` — browser-based test suite (~50 assertions). Open in browser or serve locally.
 
+**Node tests** (`tests/`):
+- `bt-prices.test.js` — Canonical price layer, resolution order, staleness
+- `events.test.js` — Event calendar rendering, severity colors, lifecycle
+- `test-em-formula.js` — **206 assertions**: core EM formula (`straddle × 0.85`, `√DTE` scaling), tier ordering, index sanity checks (SPX/SPY/QQQ/IWM/DIA), SPX↔SPY cross-validation, straddle integrity, formula recomputation, direct straddle overrides, canonical price consistency, data completeness, edge cases
+
+**Run:** `cd tests && npx jest` (Jest tests) or `node test-em-formula.js` (standalone)
+
 **Covers:**
 - Nav rendering (logo, links, search, timezone, market status)
 - Expected Moves data structure + freshness validation
