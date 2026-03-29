@@ -36,10 +36,10 @@ WATCHLIST_FILE = DATA_DIR / 'watchlist.json'
 PRICES_FILE = DATA_DIR / 'prices.json'
 
 # --- Ticker Tiers ---
-DAILY_TICKERS = ['SPY', 'QQQ', 'DIA', 'IWM', 'IBIT', 'USO', 'UNG', 'GLD']
+DAILY_TICKERS = ['SPX', 'SPY', 'QQQ', 'DIA', 'IWM', 'IBIT', 'USO', 'UNG', 'GLD']
 
 QUARTERLY_TICKERS = [
-    'SPY', 'QQQ', 'DIA', 'IWM',
+    'SPX', 'SPY', 'QQQ', 'DIA', 'IWM',
     'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'GOOG', 'AMZN', 'META', 'TSLA', 'AVGO', 'BRK B', 'LLY',
 ]
 
@@ -161,8 +161,14 @@ def process_ticker(ib, ticker, include_monthly=False, include_quarterly=False, c
     """Process a single ticker. Returns dict or None."""
     print(f"\n[{ticker}]", end=' ', flush=True)
 
-    # Qualify underlying
-    stock = Stock(ticker, 'SMART', 'USD')
+    # Index contracts (SPX, VIX, etc.) use Index() not Stock()
+    INDEX_CONTRACTS = {'SPX': ('SPX', 'CBOE'), 'VIX': ('VIX', 'CBOE')}
+
+    if ticker in INDEX_CONTRACTS:
+        sym, exch = INDEX_CONTRACTS[ticker]
+        stock = Index(sym, exch)
+    else:
+        stock = Stock(ticker, 'SMART', 'USD')
     try:
         ib.qualifyContracts(stock)
     except Exception:
@@ -439,47 +445,6 @@ def main():
             errors.append(f"{ticker}: {e}")
 
     ib.disconnect()
-
-    # Derive SPX from SPY (SPX = SPY × 10, index not directly tradeable on IB)
-    if 'SPY' in results:
-        spy = results['SPY']
-        spx_close = round(spy['close'] * 10, 2)
-        spx = {
-            'close': spx_close,
-            'updated': spy['updated'],
-            'source': 'derived_from_spy',
-            'price_source': 'spy_x10',
-            'strike': round(spy.get('strike', 0) * 10, 2),
-            'straddle': round(spy.get('straddle', 0) * 10, 2),
-            'call_close': round(spy.get('call_close', 0) * 10, 2),
-            'put_close': round(spy.get('put_close', 0) * 10, 2),
-            'weekly_expiry': spy.get('weekly_expiry'),
-            'weekly_dte': spy.get('weekly_dte'),
-        }
-        for tier in ['daily', 'weekly', 'monthly', 'quarterly']:
-            if tier in spy:
-                spx[tier] = {
-                    'value': round(spy[tier]['value'] * 10, 2),
-                    'pct': spy[tier]['pct'],
-                    'upper': round(spx_close + spy[tier]['value'] * 10, 2),
-                    'lower': round(spx_close - spy[tier]['value'] * 10, 2),
-                }
-        if spy.get('monthly_expiry'):
-            spx['monthly_expiry'] = spy['monthly_expiry']
-            spx['monthly_straddle'] = round(spy.get('monthly_straddle', 0) * 10, 2)
-        if spy.get('quarterly_expiry'):
-            spx['quarterly_expiry'] = spy['quarterly_expiry']
-            spx['quarterly_straddle'] = round(spy.get('quarterly_straddle', 0) * 10, 2)
-        # Preserve history
-        history = results.get('SPX', {}).get('history', [])
-        entry = {'date': datetime.now().strftime('%Y-%m-%d'), 'close': spx_close,
-                 'straddle': spx.get('straddle'), 'weekly_em': spx.get('weekly', {}).get('value'),
-                 'daily_em': spx.get('daily', {}).get('value')}
-        history = [h for h in history if h.get('date') != entry['date']]
-        history.append(entry)
-        spx['history'] = history[-52:]
-        results['SPX'] = spx
-        print(f"\n[SPX] derived from SPY: ${spx_close} wkEM=±${spx['weekly']['value']} ({spx['weekly']['pct']}%)")
 
     output = {'updated': datetime.now().isoformat(), 'tickers': results}
     OUT_FILE.write_text(json.dumps(output, indent=2))

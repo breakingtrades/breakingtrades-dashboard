@@ -42,10 +42,10 @@ WATCHLIST_FILE = DATA_DIR / 'watchlist.json'
 PRICES_FILE = DATA_DIR / 'prices.json'
 
 # --- Ticker Tiers ---
-DAILY_TICKERS = ['SPY', 'QQQ', 'DIA', 'IWM', 'IBIT', 'USO', 'UNG', 'GLD']
+DAILY_TICKERS = ['SPX', 'SPY', 'QQQ', 'DIA', 'IWM', 'IBIT', 'USO', 'UNG', 'GLD']
 
 QUARTERLY_TICKERS = [
-    'SPY', 'QQQ', 'DIA', 'IWM',
+    'SPX', 'SPY', 'QQQ', 'DIA', 'IWM',
     'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'AMZN', 'META', 'TSLA', 'AVGO', 'LLY',
 ]
 
@@ -59,6 +59,9 @@ FUTURES_PROXY = {
     'UNG': {'futures': 'NG', 'note': 'nat gas proxy'},
     'GLD': {'futures': 'GC', 'multiplier': 18.6},
 }
+
+# yfinance symbol mapping (display name → yfinance ticker)
+YF_SYMBOL_MAP = {'SPX': '^SPX'}
 
 
 def get_watchlist_tickers():
@@ -131,6 +134,9 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
     """Process a single ticker via yfinance options chain."""
     import yfinance as yf
 
+    # Map display symbol to yfinance symbol (e.g. SPX → ^SPX)
+    yf_symbol = YF_SYMBOL_MAP.get(ticker, ticker)
+
     print(f"\n[{ticker}]", end=' ', flush=True)
 
     # Canonical price layer is source of truth for close
@@ -143,7 +149,7 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
 
     if not close_price or close_price <= 0:
         try:
-            t_info = yf.Ticker(ticker)
+            t_info = yf.Ticker(yf_symbol)
             info = t_info.fast_info
             close_price = (
                 info.get('regularMarketPreviousClose')
@@ -161,7 +167,7 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
     print(f"${close_price:.2f} ({price_source})", end=' ', flush=True)
 
     try:
-        t = yf.Ticker(ticker)
+        t = yf.Ticker(yf_symbol)
         expirations = t.options
         if not expirations:
             print("no options", flush=True)
@@ -615,46 +621,6 @@ def main():
 
     if ib:
         ib.disconnect()
-
-    # Derive SPX from SPY (SPX = SPY × 10, index not directly tradeable)
-    if 'SPY' in results:
-        spy = results['SPY']
-        spx_close = round(spy['close'] * 10, 2)
-        spx = {
-            'close': spx_close,
-            'updated': spy['updated'],
-            'source': 'derived_from_spy',
-            'price_source': 'spy_x10',
-            'strike': round(spy.get('strike', 0) * 10, 2),
-            'straddle': round(spy.get('straddle', 0) * 10, 2),
-            'call_close': round(spy.get('call_close', 0) * 10, 2),
-            'put_close': round(spy.get('put_close', 0) * 10, 2),
-            'weekly_expiry': spy.get('weekly_expiry'),
-            'weekly_dte': spy.get('weekly_dte'),
-        }
-        for tier in ['daily', 'weekly', 'monthly', 'quarterly']:
-            if tier in spy:
-                spx[tier] = {
-                    'value': round(spy[tier]['value'] * 10, 2),
-                    'pct': spy[tier]['pct'],
-                    'upper': round(spx_close + spy[tier]['value'] * 10, 2),
-                    'lower': round(spx_close - spy[tier]['value'] * 10, 2),
-                }
-        if spy.get('monthly_expiry'):
-            spx['monthly_expiry'] = spy['monthly_expiry']
-            spx['monthly_straddle'] = round(spy.get('monthly_straddle', 0) * 10, 2)
-        if spy.get('quarterly_expiry'):
-            spx['quarterly_expiry'] = spy['quarterly_expiry']
-            spx['quarterly_straddle'] = round(spy.get('quarterly_straddle', 0) * 10, 2)
-        history = results.get('SPX', {}).get('history', [])
-        entry = {'date': datetime.now().strftime('%Y-%m-%d'), 'close': spx_close,
-                 'straddle': spx.get('straddle'), 'weekly_em': spx.get('weekly', {}).get('value'),
-                 'daily_em': spx.get('daily', {}).get('value')}
-        history = [h for h in history if h.get('date') != entry['date']]
-        history.append(entry)
-        spx['history'] = history[-52:]
-        results['SPX'] = spx
-        print(f"\n[SPX] derived from SPY: ${spx_close} wkEM=±${spx['weekly']['value']} ({spx['weekly']['pct']}%)")
 
     output = {
         'updated': datetime.now().isoformat(),
