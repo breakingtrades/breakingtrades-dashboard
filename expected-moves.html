@@ -677,9 +677,10 @@ const EXCHANGE_MAP = {
 
 function openEMDetail(symbol) {
   const t = emData.tickers?.[symbol];
-  if (!t) return;
   const wl = watchlistData.find(w => w.symbol === symbol);
-  const price = btPrices.price(symbol) ?? wl?.price ?? t.close;
+  const isExternal = !t;
+
+  const price = btPrices.price(symbol) ?? wl?.price ?? t?.close ?? null;
   const change = btPrices.change(symbol) ?? wl?.change ?? 0;
   const chgClass = change >= 0 ? 'up' : 'down';
   const chgSign = change >= 0 ? '+' : '';
@@ -688,16 +689,31 @@ function openEMDetail(symbol) {
   const tvSymbol = `${exchange}:${symbol}`;
 
   document.getElementById('em-modal-ticker').textContent = symbol;
-  document.getElementById('em-modal-name').textContent = wl ? `${wl.name || ''} · ${wl.sector || ''}` : '';
-  document.getElementById('em-modal-price').innerHTML =
-    `<span class="${chgClass}">$${price.toFixed(2)}</span>` +
-    ` <span class="${chgClass}" style="font-size:12px">${chgSign}${Math.abs(change).toFixed(2)}%</span>`;
+  document.getElementById('em-modal-name').textContent = isExternal
+    ? 'External Ticker · TradingView Data'
+    : (wl ? `${wl.name || ''} · ${wl.sector || ''}` : '');
+  document.getElementById('em-modal-price').innerHTML = price
+    ? `<span class="${chgClass}">$${price.toFixed(2)}</span>` +
+      ` <span class="${chgClass}" style="font-size:12px">${chgSign}${Math.abs(change).toFixed(2)}%</span>`
+    : '<span style="color:var(--text-dim)">—</span>';
   const biasEl = document.getElementById('em-modal-bias');
   if (bias) { biasEl.className = `bias-badge ${bias}`; biasEl.textContent = bias.toUpperCase(); biasEl.style.display=''; }
+  else if (isExternal) { biasEl.className = 'bias-badge'; biasEl.textContent = 'EXTERNAL'; biasEl.style.display=''; biasEl.style.background='rgba(255,167,38,0.15)'; biasEl.style.color='var(--orange)'; }
   else { biasEl.style.display = 'none'; }
 
-  // Build tier cards
-  const tiers = [
+  if (isExternal) {
+    // External ticker — TradingView chart only
+    document.getElementById('em-modal-body').innerHTML = `
+      <div class="chart-box">
+        <div class="chart-label">${symbol} — Daily Chart</div>
+        <div id="em-tv-chart"></div>
+      </div>
+      <div style="text-align:center;padding:16px;color:var(--text-dim);font-size:12px;">
+        Not in watchlist · No expected move data · <a href="https://www.tradingview.com/symbols/${symbol}/" target="_blank" style="color:var(--cyan);">Open on TradingView ↗</a>
+      </div>`;
+  } else {
+    // Tracked ticker — tier cards + chart
+    const tiers = [
     ['Daily',    t.daily],
     ['Weekly',   t.weekly],
     ['Monthly',  t.monthly],
@@ -723,12 +739,13 @@ function openEMDetail(symbol) {
     </div>`;
   }).join('');
 
-  document.getElementById('em-modal-body').innerHTML = `
-    <div class="chart-box">
-      <div class="chart-label">${symbol} — Daily Chart</div>
-      <div id="em-tv-chart"></div>
-    </div>
-    <div class="info-row">${tierCards}</div>`;
+    document.getElementById('em-modal-body').innerHTML = `
+      <div class="chart-box">
+        <div class="chart-label">${symbol} — Daily Chart</div>
+        <div id="em-tv-chart"></div>
+      </div>
+      <div class="info-row">${tierCards}</div>`;
+  }
 
   // Inject TradingView widget
   document.getElementById('em-tv-chart').innerHTML = '';
@@ -754,6 +771,9 @@ function closeEMDetail() {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEMDetail(); });
+
+// Bridge for ticker-search.js — route all search clicks to EM detail modal
+window.openDetail = openEMDetail;
 </script>
 <script src="js/market-status.js"></script>
 <script src="js/ticker-search.js"></script>
