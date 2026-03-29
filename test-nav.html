@@ -234,7 +234,7 @@ document.addEventListener('nav:ready', function() {
 
     // Filter constants (mirrors expected-moves.html)
     const TOP10_SP = ['AAPL','MSFT','NVDA','AMZN','META','GOOGL','GOOG','TSLA','BRK B','AVGO'];
-    const INDICES   = ['SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
+    const INDICES   = ['SPX','SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
 
     fetch('data/expected-moves.json').then(r => r.json()).then(data => {
       const tickers = Object.keys(data.tickers);

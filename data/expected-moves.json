@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-29T01:23:21.737278",
+  "updated": "2026-03-29T01:26:30.435282",
   "source": "yfinance",
   "tier": "all",
   "tickers": {
@@ -5232,6 +5232,55 @@
           "daily_em": 0.31
         }
       ]
+    },
+    "SPX": {
+      "close": 6340.9,
+      "spot": 6477.16,
+      "updated": "2026-03-29T01:25:33.323931",
+      "source": "yfinance",
+      "strike": 6475.0,
+      "straddle": 138.56,
+      "call_close": 12.11,
+      "put_close": 126.45,
+      "weekly_expiry": "20260330",
+      "weekly_dte": 1,
+      "daily": {
+        "value": 117.78,
+        "pct": 1.86,
+        "upper": 6458.68,
+        "lower": 6223.12
+      },
+      "weekly": {
+        "value": 263.36,
+        "pct": 4.15,
+        "upper": 6604.26,
+        "lower": 6077.54
+      },
+      "monthly": {
+        "value": 274.68,
+        "pct": 4.33,
+        "upper": 6615.58,
+        "lower": 6066.22
+      },
+      "quarterly": {
+        "value": 934.82,
+        "pct": 14.74,
+        "upper": 7275.72,
+        "lower": 5406.08
+      },
+      "iv": 29.9,
+      "monthly_expiry": "20260417",
+      "monthly_straddle": 323.15,
+      "history": [
+        {
+          "date": "2026-03-29",
+          "close": 6340.9,
+          "straddle": 138.56,
+          "weekly_em": 263.36,
+          "daily_em": 117.78
+        }
+      ],
+      "price_source": "spy_derived"
     }
   }
 }

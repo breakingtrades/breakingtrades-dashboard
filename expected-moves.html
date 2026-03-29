@@ -367,7 +367,7 @@ let currentTier = 'weekly';
 let sortCol = 'risk';
 let currentFilter = 'all';
 const TOP10_SP = ['AAPL','MSFT','NVDA','AMZN','META','GOOGL','GOOG','TSLA','BRK B','AVGO'];
-const INDICES = ['SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
+const INDICES = ['SPX','SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
 let sortAsc = false;
 
 async function loadData() {
@@ -654,7 +654,7 @@ const EXCHANGE_MAP = {
   'AMD':'NASDAQ','AVGO':'NASDAQ','MU':'NASDAQ','QCOM':'NASDAQ','AMAT':'NASDAQ','LRCX':'NASDAQ',
   'MRVL':'NASDAQ','CRDO':'NASDAQ','ANET':'NYSE','VRT':'NYSE','CIEN':'NYSE','APH':'NYSE',
   'ADSK':'NASDAQ','CHTR':'NASDAQ','TMUS':'NASDAQ',
-  'SPY':'AMEX','QQQ':'NASDAQ','IWM':'AMEX','DIA':'AMEX','HYG':'AMEX','TLT':'NASDAQ',
+  'SPX':'SP','SPY':'AMEX','QQQ':'NASDAQ','IWM':'AMEX','DIA':'AMEX','HYG':'AMEX','TLT':'NASDAQ',
   'XLU':'AMEX','XLK':'AMEX','XLE':'AMEX','XLV':'AMEX','XLF':'AMEX','XLP':'AMEX',
   'XLY':'AMEX','XLI':'AMEX','XLC':'AMEX','XLRE':'AMEX','RSP':'AMEX','IGV':'AMEX',
   'GLD':'AMEX','SLV':'AMEX','URA':'AMEX','USO':'AMEX','UNG':'AMEX','IBIT':'NASDAQ',
