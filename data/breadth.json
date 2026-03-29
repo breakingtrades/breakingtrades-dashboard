@@ -1,0 +1,85 @@
+{
+  "updated": "2026-03-29T05:51:05.735476+00:00",
+  "sectors": {
+    "COM": {
+      "name": "Communication Services",
+      "above_20d": 22.2
+    },
+    "CND": {
+      "name": "Consumer Discretionary",
+      "above_20d": 5.0
+    },
+    "CNS": {
+      "name": "Consumer Staples",
+      "above_20d": 20.0
+    },
+    "ENE": {
+      "name": "Energy",
+      "above_20d": 94.4
+    },
+    "FIN": {
+      "name": "Financials",
+      "above_20d": 0.0
+    },
+    "HLC": {
+      "name": "Health Care",
+      "above_20d": 10.0
+    },
+    "IND": {
+      "name": "Industrials",
+      "above_20d": 0.0
+    },
+    "MAT": {
+      "name": "Materials",
+      "above_20d": 35.0
+    },
+    "RLE": {
+      "name": "Real Estate",
+      "above_20d": 0.0
+    },
+    "TEC": {
+      "name": "Technology",
+      "above_20d": 10.0
+    },
+    "UTL": {
+      "name": "Utilities",
+      "above_20d": 10.0
+    }
+  },
+  "indices": {
+    "SPX": {
+      "20d": 18.2,
+      "50d": 26.6,
+      "100d": 46.3,
+      "200d": 53.3
+    },
+    "NDX": {
+      "20d": 8.0,
+      "50d": 6.0,
+      "100d": 32.0,
+      "200d": 40.0
+    },
+    "DJI": {
+      "20d": 13.8,
+      "50d": 20.7,
+      "100d": 41.4,
+      "200d": 55.2
+    },
+    "RUT": {
+      "20d": 18.2,
+      "50d": 26.6,
+      "100d": 46.3,
+      "200d": 53.3
+    },
+    "VTI": {
+      "20d": 18.2,
+      "50d": 26.6,
+      "100d": 46.3,
+      "200d": 53.3
+    }
+  },
+  "total": {
+    "stacked": 206.6,
+    "average": 18.8
+  }
+}

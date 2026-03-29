@@ -68,11 +68,19 @@ else
 fi
 
 # --- 3. Sector Rotation ---
-log "Step 3/5: Sector rotation"
+log "Step 3/6: Sector rotation"
 if $PYTHON scripts/export-sector-rotation.py 2>&1 | tee -a "$LOG"; then
     log "✅ Sector rotation done"
 else
     warn "Sector rotation failed"
+fi
+
+# --- 3b. Market Breadth ---
+log "Step 3b/6: Market Breadth"
+if $PYTHON scripts/update-breadth.py 2>&1 | tee -a "$LOG"; then
+    log "✅ Market Breadth done"
+else
+    warn "Market Breadth failed"
 fi
 
 # --- 4. Expected Moves (IB → yfinance fallback) ---
@@ -86,7 +94,7 @@ else
     EM_LABEL="daily tier"
 fi
 
-log "Step 4/5: Expected Moves ($EM_LABEL) — IB→yfinance"
+log "Step 4/6: Expected Moves ($EM_LABEL) — IB→yfinance"
 if $PYTHON scripts/update-expected-moves.py --tier "$EM_TIER" 2>&1 | tee -a "$LOG"; then
     log "✅ Expected Moves done ($EM_LABEL)"
 else
@@ -94,7 +102,7 @@ else
 fi
 
 # --- 5. yfinance fallback (refreshes spot prices for briefing) ---
-log "Step 5/5: yfinance fallback data"
+log "Step 5/6: yfinance fallback data"
 if $PYTHON scripts/export-yfinance-fallback.py 2>&1 | tee -a "$LOG"; then
     log "✅ yfinance fallback done"
 else
@@ -108,7 +116,7 @@ git add data/ || true
 if git diff --staged --quiet 2>/dev/null; then
     log "No data changes to commit"
 else
-    COMMIT_MSG="data: EOD update $(date +%Y-%m-%d) — prices + F&G + VIX + EM($EM_TIER) + sectors"
+    COMMIT_MSG="data: EOD update $(date +%Y-%m-%d) — prices + F&G + VIX + breadth + EM($EM_TIER) + sectors"
     git config user.name  "BreakingTrades Bot"
     git config user.email "bot@breakingtrades.github.io"
     git commit -m "$COMMIT_MSG"
