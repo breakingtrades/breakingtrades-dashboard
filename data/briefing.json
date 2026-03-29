@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Mar 27",
-  "headline": "Extreme fear, tech breaks down, energy takes the wheel\u2014flows say patience, react, don\u2019t predict.",
+  "title": "Market Watch: Bears Tighten Grip as Fear Escalates",
+  "headline": "Extreme Fear Signals Near-Capitulation as Markets Slide Further",
   "body": [
-    "Right, big picture: Volatility is mental, VIX up at 29.37 (well above its 20 MA), and the market\u2019s in extreme fear mode (Fear & Greed at 17). SPY, QQQ, and most majors have closed solidly below their 20 MAs (SPY: 645.09 vs 20 MA: 667.21), so rule 6 is in force\u2014exit longs or stay defensive. This isn\u2019t a nibble-the-dip environment, it\u2019s a protect capital environment.",
-    "Sector rotation is clear: Energy (XLE $61.52) and Materials (XLB $49.09) are leading while Technology (XLK $132.50, lagging with HIGH sector risk) is getting smashed. XLE and Materials both above all MAs, momentum solid, flows are positive; meanwhile tech is breaking down across the board (META -8.0%, NVDA -4.2%, MSFT -1.4%). If you\u2019re still chasing tech\u2014you\u2019re trading against both flows and rotation.",
-    "Contrarian angle: Extreme Fear (FGI at 17) is historically a buy zone, but don\u2019t rush in\u2014price hasn\u2019t signaled mean reversion yet, and VIX regime is HIGH. Financials (XLF $49.05) are approaching breakdown\u2014canary alert. Watch for dark pool stabilisation or sector bottoming before stepping back in, and don\u2019t fight the flows, especially with retail panic still unwinding. Patience, react, don\u2019t predict."
+    "The market sentiment has taken a sharp turn into extreme fear territory, with the Fear & Greed Index plunging to 10.2, down from 14.7. This marks a significant shift as investors grapple with persistent volatility and bearish momentum. The VIX remains elevated at 31.05, signaling heightened uncertainty and risk aversion across the board. SPY closed at $645.09, continuing its downward trajectory as lower lows and lower highs solidify the bears' dominance.",
+    "Macro factors are adding fuel to the fire, with geopolitical tensions weighing heavily. The Trump administration's 10-day pause on energy strikes in Iran nears its April 6 deadline, creating an additional layer of uncertainty. Meanwhile, technical signals from FXE analysis point to a mixed bag: SanDisk distribution signals, a put wall on the S&P at the 6500-6600 range, and Oracle CDS levels reminiscent of the Global Financial Crisis. Gold is showing resilience, bouncing off its 200-day moving average, while the NASDAQ's 9-week losing streak historically hints at a potential 3-month forward bullish setup.",
+    "In this environment, traders are closely watching key levels and events for signs of stabilization or further deterioration. While extreme fear often precedes capitulation, the current setup suggests caution as markets navigate critical inflection points. This is a time for disciplined risk management and strategic positioning."
   ],
-  "callout_title": "Key levels today",
-  "callout_body": "SPY: 645.09 (well below 20 MA 667.21) \u2013 Defensive stance<br>QQQ: 573.79 (below 20 MA 597.29) \u2013 Watch, no long triggers<br>XLE: 61.52 (above all MAs) \u2013 Sector leadership<br>XLK: 132.50 (bear bias, lagging) \u2013 Avoid tech for now<br>XLF: 49.05 (approaching 20 MA 49.69) \u2013 Watch for breakdown<br>VIX: 29.37 (> SMA20 25.28, high regime) \u2013 Vol stay elevated<br>FGI: 17 \u2013 Extreme Fear, opportunity soon but not yet",
+  "callout_title": "Key levels & events",
+  "callout_body": "Fear & Greed Index: 10.2 (Extreme Fear)<br>VIX: 31.05 (Elevated)<br>SPY: $645.09 (Support watch)<br>Trump Iran Strike Pause: Deadline April 6<br>Gold: Testing 200MA bounce<br>S&P Put Wall: 6500-6600 range",
   "action_items": [
-    "Move defensive on tech\u2014watch for dark pool signals at NVDA, META, XLK lows, but don\u2019t chase.",
-    "Monitor energy/industrials leaders (XLE $61.52, XLI $161.27)\u2014rotational trades only if flows hold positive."
+    "Monitor SPY and NASDAQ for signs of potential stabilization or reversal.",
+    "Evaluate safe-haven assets like gold as volatility persists."
   ],
-  "closing_quote": "If it\u2019s in the press, it\u2019s in the price. Abundance mindset\u2014next trade, not this one.",
-  "generatedAt": "2026-03-27T11:11:48.684801+00:00",
-  "model": "gpt-4.1",
+  "closing_quote": "In the midst of chaos, there is also opportunity. Stay disciplined and vigilant.",
+  "generatedAt": "2026-03-29T04:36:57.104193+00:00",
+  "model": "gpt-4o",
   "agent": "tom-fxevolution"
 }
