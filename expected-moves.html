@@ -364,7 +364,7 @@
 let emData = {};
 let watchlistData = [];
 let currentTier = 'weekly';
-let sortCol = 'risk';
+let sortCol = null;
 let currentFilter = 'all';
 const TOP10_SP = ['AAPL','MSFT','NVDA','AMZN','META','GOOGL','GOOG','TSLA','BRK B','AVGO'];
 const INDICES = ['SPX','SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
@@ -592,6 +592,7 @@ function renderTable(rows) {
 }
 
 function sortRows(rows) {
+  if (!sortCol) return; // No sort active — keep default data order
   const col = sortCol;
   rows.sort((a, b) => {
     let va, vb;
@@ -633,14 +634,27 @@ document.querySelectorAll('.filter-tab[data-filter]').forEach(btn => {
   });
 });
 
-// Sortable headers
+// Sortable headers — 3-state cycle: asc → desc → none
 document.querySelectorAll('thead th').forEach(th => {
   th.addEventListener('click', () => {
     const col = th.dataset.col;
-    if (sortCol === col) { sortAsc = !sortAsc; }
-    else { sortCol = col; sortAsc = col === 'symbol'; }
     document.querySelectorAll('thead th').forEach(h => h.classList.remove('sort-asc','sort-desc'));
-    th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+    if (sortCol === col) {
+      if (sortAsc) {
+        // Was asc → go desc
+        sortAsc = false;
+        th.classList.add('sort-desc');
+      } else {
+        // Was desc → clear sort (none)
+        sortCol = null;
+        sortAsc = false;
+      }
+    } else {
+      // New column → start asc
+      sortCol = col;
+      sortAsc = true;
+      th.classList.add('sort-asc');
+    }
     render();
   });
 });
