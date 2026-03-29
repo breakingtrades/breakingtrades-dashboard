@@ -39,8 +39,32 @@ AI assistants: read this file, then `docs/PLAN.md` for roadmap, then `docs/MULTI
 3. **Tom's agent brain lives in the parent repo.** `tom/` here is output only (cached analysis JSON).
 4. **Moving averages are SMA, not EMA.** Tom uses SMA 20 (primary), SMA 50, Weekly SMA 20. NOT EMA 8/21/50.
 5. **Dark theme only.** Trading terminal aesthetic. See `docs/DESIGN_SYSTEM.md`.
-6. **OpenSpec for features, not fixes.** Use `/opsx:propose` for new modules. Direct edit for bugs.
+6. **OpenSpec is the source of truth for architecture and functionality.** See below.
 7. **Setup tracking is real-time.** The dashboard tracks setup lifecycle: WATCHING → APPROACHING → TRIGGERED → ACTIVE → TRAILING/STOPPED/TARGET.
+
+## ⚠️ OpenSpec Rule (Mandatory)
+
+**Before ANY change that affects architecture, data flow, pipeline behavior, page functionality, or how components work:**
+
+1. **READ `openspec/INDEX.md` first.** Understand what's already documented — don't reinvent or contradict existing decisions.
+2. **Document the change in openspec BEFORE implementing.** Add a row to the Shipped Changes table (or Active Changes if in-progress). Include: what changed, why, and how it connects to existing architecture.
+3. **After implementing, update openspec.** Commit hash, final description, any deviations from the plan.
+
+**What needs openspec documentation:**
+- New scripts or data files added to the pipeline
+- Changes to how prices, EM, or any data flows through the system
+- New page features or UI components
+- Pipeline schedule or ordering changes
+- New ticker lists, filter categories, or derived data
+- Any change to the canonical price layer or data source hierarchy
+
+**What doesn't need openspec:**
+- Pure bug fixes (typos, off-by-one, syntax errors)
+- Data refreshes (running existing scripts)
+- Dependency updates
+- README/doc-only changes
+
+**The pattern:** Read openspec → propose in openspec → build → update openspec with result. Not the other way around.
 
 ## Key Docs
 
