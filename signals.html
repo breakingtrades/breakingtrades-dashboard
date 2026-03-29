@@ -1742,7 +1742,7 @@ function renderBriefing() {
       html += '</div>';
     }
     if (b.closing_quote) html += `<p style="color:var(--text-dim);font-size:11px;margin-top:12px;">"${b.closing_quote}"</p>`;
-    if (b.generatedAt) html += `<p style="color:var(--text-dim);font-size:9px;margin-top:6px;">Generated ${new Date(b.generatedAt).toLocaleString()} · ${b.model || ''}</p>`;
+    // Internal metadata — don't expose model/timestamp to audience
     document.getElementById('briefing-content').innerHTML = html;
   }).catch(() => {});
 }
