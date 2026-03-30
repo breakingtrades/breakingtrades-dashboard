@@ -1,21 +1,19 @@
 {
-  "title": "Macro Weekly: No Bottom Signal — Wyckoff Distributions Everywhere",
-  "headline": "Only 4 Sectors Standing as PE Illiquidity Emerges and Supply Chains Crack",
+  "title": "Daily Briefing \u2014 Mar 30",
+  "headline": "Extreme Fear and crisis-mode VIX are flashing opportunity\u2014so why is everyone still selling?",
   "body": [
-    "Markets closed on their lows Friday with SPY at $634.09, now ~9% off highs and firmly below the 200-day moving average. The historical 15% decline average targets ~6,000 on the S&P. Every major index is printing lower lows and lower highs — DAX, XLF, SNDK, and the S&P itself all showing Wyckoff distribution patterns identical to 2022. Semiconductors are barely holding, with Nvidia clinging to 167 support in a head-and-shoulders formation. Lose these levels and the AI trade unravels.",
-    "Only four sectors show strength: oil/gas services (XOP at new highs), telecom (AT&T strongest technically), agribusiness, and hardware — though hardware is cracking with massive dark pool sells on SNDK. This is textbook late-cycle defensive rotation. The MOVE Index continues accelerating upward (no crush = no bottom signal), the dollar is pitting toward a breakout at 130 (bad for equities), and the VIX remains elevated. Cross-correlation across indices — the key bottoming signal — is absent.",
-    "The macro backdrop is deteriorating fast. Reports of boots-on-the-ground preparations, ~40+ damaged refineries with half offline for a year, and emergency reserves already exhausting. The barrel decline now equals the 1970s and 2022 crises combined. Three to four major private equity funds are limiting redemptions, and UBS has reportedly frozen a real estate fund for three years. PVC pipe is gone in Australia, fertilizer costs are spiking, and a 30% food price increase is possible within weeks. Historical structure suggests 60-100 days to bottom — we're only 3-4 weeks in."
+    "Right, so the big picture: VIX is ripping at 30.91, well above the SMA20 (25.84). That\u2019s a crisis regime and volatility expansion\u2014classic risk-off. SPY is down -1.7% at $634.09 and has closed below the daily 20 MA ($664.71), which triggers the technical exit rule (R006). But here\u2019s the kicker: Fear & Greed is at 10.4. That\u2019s deep, deep Extreme Fear territory (R013). When the crowd\u2019s panicking, we start watching for mean reversion.",
+    "Sector rotation is clear: Energy (XLE $62.56), Materials (XLB $48.91), Industrials (XLI $159.20), Staples (XLP $81.78), Utilities (XLU $45.59), and Real Estate (XLRE $40.01) are all leading, and risk levels are LOW. Tech and Financials are lagging hard\u2014XLK and XLF both in HIGH risk, with Financials acting as the canary (R012) after a -2.5% dump to $47.81, approaching key SMA200 ($52.54). It\u2019s classic defensive rotation.",
+    "Contrarian lens: With Extreme Fear and a VIX spike, historical analogs like March 2020, October 2022, and even late 2015/2016 all led to monster mean reversion rallies once the selling got exhausted. Breadth is ugly, tech is oversold (AAPL $248.80 vs SMA200 $247.70, MSFT $356.77 vs SMA200 $477.38), but if you chase shorts here, you\u2019re playing chicken with the mean reversion zone. Abundance mindset\u2014next trade, not last trade."
   ],
-  "callout_title": "Bottom Checklist (0 of 5 Met)",
-  "callout_body": "MOVE Index crushed: ❌ (accelerating up)<br>Cross-correlation bottom: ❌ (absent)<br>Dollar weakness: ❌ (pitting toward 130 breakout)<br>60-100 day structure: ❌ (only ~3-4 weeks in)<br>S&P higher high above 6,630: ❌<br><br>Fear & Greed: 10.2 (Extreme Fear)<br>SPY: $634.09 | QQQ: $562.58 | VIX: Elevated<br>Strong: XOP, AT&T, Energy (ATH), Agribusiness<br>Weak: MAGS, NVDA (167), SNDK, XLF, DAX",
+  "callout_title": "Key levels today",
+  "callout_body": "SPY: $634.09 (daily close below 20 MA $664.71) \u2014 technical exit<br>VIX: 30.91 (crisis regime)<br>XLK: $129.92 (approaching SMA200 $138.02) \u2014 wait for stabilization<br>XLE: $62.56 (leading, above all moving averages)<br>XLF: $47.81 (approaching SMA200 $52.54) \u2014 canary, watch for further breakdown<br>Extreme Fear: 10.4 (mean reversion watch triggered)",
   "action_items": [
-    "Watch S&P 6,630 — break above = first higher high and potential sentiment shift.",
-    "Monitor MOVE Index for crush signal — historically precedes market basing.",
-    "Track XLP at 75 — consumer stress canary.",
-    "Patience over prediction: buying the V beats buying the dip."
+    "Reduce risk in lagging sectors (Tech, Financials)\u2014no fresh longs until daily closes reclaim 20 MA.",
+    "Watch XLE, XLU, XLP and select energy/materials tickers for rotational plays, but don\u2019t chase green\u2014wait for pullback entries."
   ],
-  "closing_quote": "The best trade right now may be doing nothing. Fear is two times more powerful than greed — let the flow confirm before acting.",
-  "generatedAt": "2026-03-30T04:20:00.000000+00:00",
-  "model": "manual",
+  "closing_quote": "Guys, if it\u2019s in the press, it\u2019s in the price. Panic is the setup, not the confirmation.",
+  "generatedAt": "2026-03-30T11:32:07.638811+00:00",
+  "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
