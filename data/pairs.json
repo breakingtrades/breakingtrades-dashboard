@@ -2,8 +2,8 @@
   {
     "pair": "XLY/XLP",
     "desc": "Consumer weakening \u2014 risk-off rotation",
-    "signal": "\u2197 RISING",
-    "color": "up"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "HYG/SPY",
@@ -14,14 +14,14 @@
   {
     "pair": "RSP/SPY",
     "desc": "Breadth \u2014 equal vs cap weight",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
+    "signal": "\u2197 RISING",
+    "color": "up"
   },
   {
     "pair": "XLV/SPY",
     "desc": "Defensive rotation",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2197 RISING",
+    "color": "up"
   },
   {
     "pair": "IWM/SPY",
@@ -44,8 +44,8 @@
   {
     "pair": "GLD/SPY",
     "desc": "Safe haven demand",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
   },
   {
     "pair": "TLT/SPY",
@@ -56,14 +56,14 @@
   {
     "pair": "SLV/GLD",
     "desc": "Industrial vs safe haven",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "HYG/TLT",
     "desc": "Credit vs treasuries",
-    "signal": "\u2197 RISING",
-    "color": "up"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "IGV/QQQ",
