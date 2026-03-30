@@ -11,6 +11,7 @@
     { href: 'expected-moves.html', label: 'Expected Moves' },
     { href: 'signals.html', label: 'Signals', aliases: ['index.html'] },
     { href: 'events.html', label: 'Events' },
+    { href: 'autoresearch.html', label: 'Autoresearch' },
   ];
 
   const TZ_OPTIONS = [

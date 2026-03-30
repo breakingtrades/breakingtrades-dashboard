@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autoresearch — BreakingTrades</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<link rel="stylesheet" href="css/nav.css">
+<style>
+  :root {
+    --bg-primary: #0a0a12;
+    --bg-card: #111122;
+    --bg-card-hover: #161630;
+    --border: #1e1e3a;
+    --text: #e0e0e8;
+    --text-dim: #8888aa;
+    --text-bright: #ffffff;
+    --cyan: #00d4aa;
+    --orange: #ffa726;
+    --red: #ef5350;
+    --gold: #ffd700;
+    --blue: #42a5f5;
+    --purple: #ab47bc;
+    --green: #00e676;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg-primary);
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .page-content { padding: 20px 24px; max-width: 1400px; margin: 0 auto; }
+  .section-title {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--cyan); font-weight: 600; margin-bottom: 12px; margin-top: 24px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-value { font-size: 32px; font-weight: 800; color: var(--cyan); }
+  .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-top: 4px; }
+  .stat-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .up { color: var(--cyan); }
+  .down { color: var(--red); }
+
+  /* Leaderboard */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; padding: 8px 12px; color: var(--text-dim); font-size: 10px;
+       text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  tr:hover { background: var(--bg-card-hover); }
+  .score-bar { display: inline-block; height: 6px; border-radius: 3px; background: var(--cyan); }
+  .chart-wrap { position: relative; height: 300px; margin: 16px 0; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .compare-card { text-align: center; }
+  .compare-label { font-size: 10px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px; }
+  .compare-score { font-size: 48px; font-weight: 800; }
+  .no-data { text-align: center; padding: 60px; color: var(--text-dim); }
+  .no-data h2 { color: var(--text); margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<nav id="nav"></nav>
+
+<div class="page-content" id="app">
+  <div class="no-data" id="loading">
+    <h2>Loading Autoresearch Data...</h2>
+    <p>Looking for data/autoresearch-results.json</p>
+  </div>
+</div>
+
+<script src="js/nav.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  const DATA_URL = 'data/autoresearch-results.json';
+  const app = document.getElementById('app');
+
+  async function load() {
+    try {
+      const resp = await fetch(DATA_URL);
+      if (!resp.ok) throw new Error('No data');
+      const data = await resp.json();
+      render(data);
+    } catch (e) {
+      app.innerHTML = `<div class="no-data">
+        <h2>🔬 No Autoresearch Data Yet</h2>
+        <p>Run the autoresearch runner to generate results:</p>
+        <p style="margin-top:12px;color:var(--cyan);font-size:14px;">bash autoresearch/runner.sh --experiments 20</p>
+      </div>`;
+    }
+  }
+
+  function fmt(n, d) { return n != null ? Number(n).toFixed(d || 2) : '—'; }
+  function pct(n) { return n != null ? (n >= 0 ? '+' : '') + Number(n).toFixed(2) + '%' : '—'; }
+  function cls(n) { return n >= 0 ? 'up' : 'down'; }
+
+  function render(data) {
+    const bl = data.baseline || {};
+    const best = data.best || {};
+    const pt = data.per_ticker || {};
+    const tickers = Object.keys(pt);
+
+    let html = '';
+
+    // Stats row
+    html += `<div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-value">${fmt(best.score || 0, 4)}</div>
+        <div class="stat-label">Best Score</div>
+        <div class="stat-sub">Baseline: ${fmt(bl.score || 0, 4)}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${data.experiments_total || 0}</div>
+        <div class="stat-label">Experiments</div>
+        <div class="stat-sub">${data.experiments_improved || 0} improved</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${tickers.length}</div>
+        <div class="stat-label">Tickers</div>
+        <div class="stat-sub">Benchmark set</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${data.last_run ? new Date(data.last_run).toLocaleDateString() : '—'}</div>
+        <div class="stat-label">Last Run</div>
+      </div>
+    </div>`;
+
+    // Baseline vs Best comparison
+    html += `<div class="section-title">Baseline vs Best</div>
+    <div class="compare-grid">
+      <div class="card compare-card">
+        <div class="compare-label">Baseline</div>
+        <div class="compare-score" style="color:var(--text-dim)">${fmt(bl.score || 0, 4)}</div>
+      </div>
+      <div class="card compare-card">
+        <div class="compare-label">Best</div>
+        <div class="compare-score" style="color:var(--cyan)">${fmt(best.score || 0, 4)}</div>
+      </div>
+    </div>`;
+
+    // Config diff
+    if (best.config) {
+      html += `<div class="section-title">Best Config</div><div class="card"><pre style="color:var(--text);overflow-x:auto;font-size:11px;">${JSON.stringify(best.config, null, 2)}</pre></div>`;
+    }
+
+    // Per-ticker breakdown
+    html += `<div class="section-title">Per-Ticker Breakdown</div>
+    <div class="card">
+      <table>
+        <thead><tr>
+          <th>Ticker</th><th>Score</th><th>Trades</th><th>Win Rate</th>
+          <th>Return</th><th>Max DD</th><th>PF</th><th>Avg R</th>
+        </tr></thead>
+        <tbody>`;
+
+    for (const [ticker, m] of Object.entries(pt)) {
+      if (m.error) {
+        html += `<tr><td>${ticker}</td><td colspan="7" style="color:var(--red)">${m.error}</td></tr>`;
+        continue;
+      }
+      html += `<tr>
+        <td style="font-weight:700;color:var(--cyan)">${ticker}</td>
+        <td>${fmt(m.score, 4)} <span class="score-bar" style="width:${(m.score||0)*80}px"></span></td>
+        <td>${m.trades || 0}</td>
+        <td>${fmt(m.win_rate, 1)}%</td>
+        <td class="${cls(m.total_return_pct)}">${pct(m.total_return_pct)}</td>
+        <td class="down">${fmt(m.max_dd, 2)}%</td>
+        <td>${fmt(m.profit_factor, 2)}</td>
+        <td>${fmt(m.avg_r, 2)}</td>
+      </tr>`;
+    }
+
+    html += `</tbody></table></div>`;
+
+    // Score chart (if history exists)
+    if (data.history && data.history.length > 0) {
+      html += `<div class="section-title">Score Progression</div>
+      <div class="card"><div class="chart-wrap"><canvas id="scoreChart"></canvas></div></div>`;
+    }
+
+    app.innerHTML = html;
+
+    // Render chart if history exists
+    if (data.history && data.history.length > 0) {
+      const ctx = document.getElementById('scoreChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: data.history.map((h, i) => `Exp ${h.exp || i + 1}`),
+          datasets: [{
+            label: 'Score',
+            data: data.history.map(h => h.score),
+            borderColor: '#00d4aa',
+            backgroundColor: 'rgba(0,212,170,0.1)',
+            fill: true,
+            tension: 0.3,
+          }, {
+            label: 'Baseline',
+            data: data.history.map(() => bl.score || 0),
+            borderColor: '#8888aa',
+            borderDash: [5, 5],
+            pointRadius: 0,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#e0e0e8' } } },
+          scales: {
+            x: { ticks: { color: '#8888aa' }, grid: { color: '#1e1e3a' } },
+            y: { ticks: { color: '#8888aa' }, grid: { color: '#1e1e3a' }, min: 0, max: 1 }
+          }
+        }
+      });
+    }
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>
