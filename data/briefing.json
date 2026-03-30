@@ -1,19 +1,21 @@
 {
-  "title": "Market Watch: Bears Tighten Grip as Fear Escalates",
-  "headline": "Extreme Fear Signals Near-Capitulation as Markets Slide Further",
+  "title": "Macro Weekly: No Bottom Signal — Wyckoff Distributions Everywhere",
+  "headline": "Only 4 Sectors Standing as PE Illiquidity Emerges and Supply Chains Crack",
   "body": [
-    "The market sentiment has taken a sharp turn into extreme fear territory, with the Fear & Greed Index plunging to 10.2, down from 14.7. This marks a significant shift as investors grapple with persistent volatility and bearish momentum. The VIX remains elevated at 31.05, signaling heightened uncertainty and risk aversion across the board. SPY closed at $645.09, continuing its downward trajectory as lower lows and lower highs solidify the bears' dominance.",
-    "Macro factors are adding fuel to the fire, with geopolitical tensions weighing heavily. The Trump administration's 10-day pause on energy strikes in Iran nears its April 6 deadline, creating an additional layer of uncertainty. Meanwhile, technical signals from FXE analysis point to a mixed bag: SanDisk distribution signals, a put wall on the S&P at the 6500-6600 range, and Oracle CDS levels reminiscent of the Global Financial Crisis. Gold is showing resilience, bouncing off its 200-day moving average, while the NASDAQ's 9-week losing streak historically hints at a potential 3-month forward bullish setup.",
-    "In this environment, traders are closely watching key levels and events for signs of stabilization or further deterioration. While extreme fear often precedes capitulation, the current setup suggests caution as markets navigate critical inflection points. This is a time for disciplined risk management and strategic positioning."
+    "Markets closed on their lows Friday with SPY at $634.09, now ~9% off highs and firmly below the 200-day moving average. The historical 15% decline average targets ~6,000 on the S&P. Every major index is printing lower lows and lower highs — DAX, XLF, SNDK, and the S&P itself all showing Wyckoff distribution patterns identical to 2022. Semiconductors are barely holding, with Nvidia clinging to 167 support in a head-and-shoulders formation. Lose these levels and the AI trade unravels.",
+    "Only four sectors show strength: oil/gas services (XOP at new highs), telecom (AT&T strongest technically), agribusiness, and hardware — though hardware is cracking with massive dark pool sells on SNDK. This is textbook late-cycle defensive rotation. The MOVE Index continues accelerating upward (no crush = no bottom signal), the dollar is pitting toward a breakout at 130 (bad for equities), and the VIX remains elevated. Cross-correlation across indices — the key bottoming signal — is absent.",
+    "The macro backdrop is deteriorating fast. Reports of boots-on-the-ground preparations, ~40+ damaged refineries with half offline for a year, and emergency reserves already exhausting. The barrel decline now equals the 1970s and 2022 crises combined. Three to four major private equity funds are limiting redemptions, and UBS has reportedly frozen a real estate fund for three years. PVC pipe is gone in Australia, fertilizer costs are spiking, and a 30% food price increase is possible within weeks. Historical structure suggests 60-100 days to bottom — we're only 3-4 weeks in."
   ],
-  "callout_title": "Key levels & events",
-  "callout_body": "Fear & Greed Index: 10.2 (Extreme Fear)<br>VIX: 31.05 (Elevated)<br>SPY: $645.09 (Support watch)<br>Trump Iran Strike Pause: Deadline April 6<br>Gold: Testing 200MA bounce<br>S&P Put Wall: 6500-6600 range",
+  "callout_title": "Bottom Checklist (0 of 5 Met)",
+  "callout_body": "MOVE Index crushed: ❌ (accelerating up)<br>Cross-correlation bottom: ❌ (absent)<br>Dollar weakness: ❌ (pitting toward 130 breakout)<br>60-100 day structure: ❌ (only ~3-4 weeks in)<br>S&P higher high above 6,630: ❌<br><br>Fear & Greed: 10.2 (Extreme Fear)<br>SPY: $634.09 | QQQ: $562.58 | VIX: Elevated<br>Strong: XOP, AT&T, Energy (ATH), Agribusiness<br>Weak: MAGS, NVDA (167), SNDK, XLF, DAX",
   "action_items": [
-    "Monitor SPY and NASDAQ for signs of potential stabilization or reversal.",
-    "Evaluate safe-haven assets like gold as volatility persists."
+    "Watch S&P 6,630 — break above = first higher high and potential sentiment shift.",
+    "Monitor MOVE Index for crush signal — historically precedes market basing.",
+    "Track XLP at 75 — consumer stress canary.",
+    "Patience over prediction: buying the V beats buying the dip."
   ],
-  "closing_quote": "In the midst of chaos, there is also opportunity. Stay disciplined and vigilant.",
-  "generatedAt": "2026-03-29T04:36:57.104193+00:00",
-  "model": "gpt-4o",
+  "closing_quote": "The best trade right now may be doing nothing. Fear is two times more powerful than greed — let the flow confirm before acting.",
+  "generatedAt": "2026-03-30T04:20:00.000000+00:00",
+  "model": "manual",
   "agent": "tom-fxevolution"
 }
