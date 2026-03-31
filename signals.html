@@ -764,8 +764,37 @@
 
 <div id="events-strip" style="display:none"></div>
 
-<!-- FUTURES STRIP -->
-<div id="futures-strip" class="futures-strip"></div>
+<!-- REAL-TIME TICKER TAPE (TradingView) -->
+<div id="futures-strip" class="futures-strip" style="padding:0; gap:0;">
+  <div class="tradingview-widget-container" style="width:100%;">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        {"proName": "FOREXCOM:SPXUSD", "title": "S&P 500"},
+        {"proName": "FOREXCOM:NSXUSD", "title": "Nasdaq"},
+        {"proName": "AMEX:IWM", "title": "Russell"},
+        {"proName": "AMEX:DIA", "title": "Dow"},
+        {"proName": "TVC:USOIL", "title": "Crude Oil"},
+        {"proName": "CAPITALCOM:NATURALGAS", "title": "Nat Gas"},
+        {"proName": "TVC:GOLD", "title": "Gold"},
+        {"proName": "TVC:SILVER", "title": "Silver"},
+        {"proName": "CAPITALCOM:COPPER", "title": "Copper"},
+        {"proName": "AMEX:XLE", "title": "Energy"},
+        {"proName": "AMEX:UUP", "title": "Dollar"},
+        {"proName": "AMEX:UVXY", "title": "VIX"},
+        {"proName": "BITSTAMP:BTCUSD", "title": "Bitcoin"},
+        {"proName": "BITSTAMP:ETHUSD", "title": "Ethereum"}
+      ],
+      "showSymbolLogo": false,
+      "isTransparent": true,
+      "displayMode": "compact",
+      "colorTheme": "dark",
+      "locale": "en"
+    }
+    </script>
+  </div>
+</div>
 
 <!-- MACRO STRIP -->
 <div id="macro-context" class="macro-context"></div>
@@ -1810,7 +1839,7 @@ init();
   });
 </script>
 <script src="js/icons.js"></script>
-<script src="js/futures-strip.js"></script>
+<!-- futures-strip.js replaced by TradingView real-time ticker tape -->
 <script src="js/macro-context.js?v=2"></script>
 <script src="js/market-status.js"></script>
 <script src="js/ticker-search.js"></script>
