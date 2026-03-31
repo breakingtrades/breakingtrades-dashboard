@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BreakingTrades Logo Concepts</title>
+<style>
+  body { background: #0a0a12; color: #e0e0e8; font-family: 'SF Mono', monospace; padding: 40px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto; }
+  .concept { text-align: center; padding: 30px; border: 1px solid #1e1e3a; border-radius: 12px; background: #111122; }
+  .concept h3 { color: #00d4aa; margin: 16px 0 8px; font-size: 14px; }
+  .concept p { color: #8888aa; font-size: 11px; margin-bottom: 16px; }
+  .sizes { display: flex; gap: 20px; justify-content: center; align-items: end; margin-top: 16px; }
+  .sizes span { color: #8888aa; font-size: 9px; }
+  h1 { text-align: center; color: #00d4aa; margin-bottom: 8px; }
+  h2 { text-align: center; color: #8888aa; font-size: 12px; margin-bottom: 40px; font-weight: 400; }
+</style>
+</head>
+<body>
+<h1>BreakingTrades — Logo Concepts</h1>
+<h2>Dark background, cyan accent (#00d4aa), works at 24px–128px</h2>
+
+<div class="grid">
+
+  <!-- Concept 1: Lightning Bolt + Chart -->
+  <div class="concept">
+    <svg viewBox="0 0 64 64" width="128" height="128">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#00d4aa"/>
+          <stop offset="100%" stop-color="#00a888"/>
+        </linearGradient>
+      </defs>
+      <rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="1.5"/>
+      <!-- Chart line breaking upward -->
+      <polyline points="10,48 22,38 30,42 38,28 42,32 52,14" fill="none" stroke="url(#g1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Lightning bolt at the break point -->
+      <path d="M46,18 L42,28 L48,26 L44,36" fill="none" stroke="#00d4aa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Glow dot at tip -->
+      <circle cx="52" cy="14" r="3" fill="#00d4aa" opacity="0.9"/>
+      <circle cx="52" cy="14" r="6" fill="#00d4aa" opacity="0.15"/>
+    </svg>
+    <h3>Concept 1 — Breakout Bolt</h3>
+    <p>Chart line breaking upward with a lightning bolt at the inflection point. Energy + momentum.</p>
+    <div class="sizes">
+      <div>
+        <svg viewBox="0 0 64 64" width="48" height="48"><rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="1.5"/><polyline points="10,48 22,38 30,42 38,28 42,32 52,14" fill="none" stroke="#00d4aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M46,18 L42,28 L48,26 L44,36" fill="none" stroke="#00d4aa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="52" cy="14" r="3" fill="#00d4aa"/></svg>
+        <br><span>48px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="32" height="32"><rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="2"/><polyline points="10,48 22,38 30,42 38,28 42,32 52,14" fill="none" stroke="#00d4aa" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="52" cy="14" r="4" fill="#00d4aa"/></svg>
+        <br><span>32px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="24" height="24"><rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="2"/><polyline points="10,48 22,38 30,42 38,28 42,32 52,14" fill="none" stroke="#00d4aa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="52" cy="14" r="5" fill="#00d4aa"/></svg>
+        <br><span>24px</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept 2: BT Monogram with chart -->
+  <div class="concept">
+    <svg viewBox="0 0 64 64" width="128" height="128">
+      <rect width="64" height="64" rx="14" fill="#00d4aa"/>
+      <!-- B letterform made of chart -->
+      <path d="M16,12 L16,52 L32,52 C40,52 44,48 44,43 C44,38 40,36 36,36 L16,36" fill="none" stroke="#0a0a12" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16,36 L34,36 C42,36 46,32 46,27 C46,22 42,18 34,18 L16,18" fill="none" stroke="#0a0a12" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- T as vertical line with crossbar -->
+      <line x1="52" y1="12" x2="52" y2="52" stroke="#0a0a12" stroke-width="4" stroke-linecap="round"/>
+      <line x1="44" y1="12" x2="60" y2="12" stroke="#0a0a12" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <h3>Concept 2 — BT Monogram</h3>
+    <p>Bold "BT" lettermark on cyan background. Clean, memorable, works as favicon.</p>
+    <div class="sizes">
+      <div>
+        <svg viewBox="0 0 64 64" width="48" height="48"><rect width="64" height="64" rx="14" fill="#00d4aa"/><path d="M16,12 L16,52 L32,52 C40,52 44,48 44,43 C44,38 40,36 36,36 L16,36" fill="none" stroke="#0a0a12" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16,36 L34,36 C42,36 46,32 46,27 C46,22 42,18 34,18 L16,18" fill="none" stroke="#0a0a12" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><line x1="52" y1="12" x2="52" y2="52" stroke="#0a0a12" stroke-width="4" stroke-linecap="round"/><line x1="44" y1="12" x2="60" y2="12" stroke="#0a0a12" stroke-width="4" stroke-linecap="round"/></svg>
+        <br><span>48px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="32" height="32"><rect width="64" height="64" rx="14" fill="#00d4aa"/><path d="M16,12 L16,52 L32,52 C40,52 44,48 44,43 C44,38 40,36 36,36 L16,36" fill="none" stroke="#0a0a12" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M16,36 L34,36 C42,36 46,32 46,27 C46,22 42,18 34,18 L16,18" fill="none" stroke="#0a0a12" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><line x1="52" y1="12" x2="52" y2="52" stroke="#0a0a12" stroke-width="5" stroke-linecap="round"/><line x1="44" y1="12" x2="60" y2="12" stroke="#0a0a12" stroke-width="5" stroke-linecap="round"/></svg>
+        <br><span>32px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="24" height="24"><rect width="64" height="64" rx="14" fill="#00d4aa"/><path d="M16,14 L16,50 L32,50 C40,50 44,46 44,42 C44,38 40,36 36,36 L16,36" fill="none" stroke="#0a0a12" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M16,36 L34,36 C42,36 46,32 46,27 C46,22 42,18 34,18 L16,18" fill="none" stroke="#0a0a12" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="52" y1="14" x2="52" y2="50" stroke="#0a0a12" stroke-width="6" stroke-linecap="round"/><line x1="44" y1="14" x2="60" y2="14" stroke="#0a0a12" stroke-width="6" stroke-linecap="round"/></svg>
+        <br><span>24px</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept 3: Broken candlestick -->
+  <div class="concept">
+    <svg viewBox="0 0 64 64" width="128" height="128">
+      <rect width="64" height="64" rx="14" fill="#111122" stroke="#1e1e3a" stroke-width="1"/>
+      <!-- Three candlesticks, middle one breaking through -->
+      <!-- Left candle (red, down) -->
+      <line x1="16" y1="16" x2="16" y2="48" stroke="#ef5350" stroke-width="1.5"/>
+      <rect x="12" y="24" width="8" height="16" rx="1" fill="#ef5350"/>
+      <!-- Right candle (red, down) -->
+      <line x1="48" y1="20" x2="48" y2="50" stroke="#ef5350" stroke-width="1.5"/>
+      <rect x="44" y="28" width="8" height="14" rx="1" fill="#ef5350"/>
+      <!-- Center candle (cyan, BREAKING UP) — taller, dominant -->
+      <line x1="32" y1="8" x2="32" y2="52" stroke="#00d4aa" stroke-width="2"/>
+      <rect x="26" y="18" width="12" height="24" rx="2" fill="#00d4aa"/>
+      <!-- Break line / resistance -->
+      <line x1="6" y1="22" x2="58" y2="22" stroke="#ffa726" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+      <!-- Glow on breakout -->
+      <circle cx="32" cy="8" r="4" fill="#00d4aa" opacity="0.2"/>
+    </svg>
+    <h3>Concept 3 — Breakout Candle</h3>
+    <p>Candlestick chart: center candle breaks through resistance. Pure trading iconography.</p>
+    <div class="sizes">
+      <div>
+        <svg viewBox="0 0 64 64" width="48" height="48"><rect width="64" height="64" rx="14" fill="#111122" stroke="#1e1e3a" stroke-width="1"/><line x1="16" y1="16" x2="16" y2="48" stroke="#ef5350" stroke-width="1.5"/><rect x="12" y="24" width="8" height="16" rx="1" fill="#ef5350"/><line x1="48" y1="20" x2="48" y2="50" stroke="#ef5350" stroke-width="1.5"/><rect x="44" y="28" width="8" height="14" rx="1" fill="#ef5350"/><line x1="32" y1="8" x2="32" y2="52" stroke="#00d4aa" stroke-width="2"/><rect x="26" y="18" width="12" height="24" rx="2" fill="#00d4aa"/><line x1="6" y1="22" x2="58" y2="22" stroke="#ffa726" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/></svg>
+        <br><span>48px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="32" height="32"><rect width="64" height="64" rx="14" fill="#111122" stroke="#1e1e3a" stroke-width="1.5"/><rect x="12" y="24" width="8" height="16" rx="1" fill="#ef5350"/><rect x="44" y="28" width="8" height="14" rx="1" fill="#ef5350"/><line x1="32" y1="8" x2="32" y2="52" stroke="#00d4aa" stroke-width="2.5"/><rect x="26" y="18" width="12" height="24" rx="2" fill="#00d4aa"/><line x1="6" y1="22" x2="58" y2="22" stroke="#ffa726" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/></svg>
+        <br><span>32px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="24" height="24"><rect width="64" height="64" rx="14" fill="#111122" stroke="#1e1e3a" stroke-width="2"/><rect x="12" y="24" width="8" height="16" rx="1" fill="#ef5350"/><rect x="44" y="28" width="8" height="14" rx="1" fill="#ef5350"/><rect x="26" y="16" width="12" height="26" rx="2" fill="#00d4aa"/><line x1="6" y1="22" x2="58" y2="22" stroke="#ffa726" stroke-width="2" stroke-dasharray="4,4" opacity="0.6"/></svg>
+        <br><span>24px</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept 4: Abstract B with pulse -->
+  <div class="concept">
+    <svg viewBox="0 0 64 64" width="128" height="128">
+      <rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="1"/>
+      <!-- Stylized B as a chart pulse / heartbeat -->
+      <path d="M12,44 L20,44 L24,32 L30,50 L36,18 L42,38 L46,28 L52,44" fill="none" stroke="#00d4aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Subtle glow line -->
+      <path d="M12,44 L20,44 L24,32 L30,50 L36,18 L42,38 L46,28 L52,44" fill="none" stroke="#00d4aa" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.1"/>
+    </svg>
+    <h3>Concept 4 — Market Pulse</h3>
+    <p>EKG/heartbeat line forming a market chart. The market's pulse — alive, volatile, breaking.</p>
+    <div class="sizes">
+      <div>
+        <svg viewBox="0 0 64 64" width="48" height="48"><rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="1"/><path d="M12,44 L20,44 L24,32 L30,50 L36,18 L42,38 L46,28 L52,44" fill="none" stroke="#00d4aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <br><span>48px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="32" height="32"><rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="1.5"/><path d="M12,44 L20,44 L24,32 L30,50 L36,18 L42,38 L46,28 L52,44" fill="none" stroke="#00d4aa" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <br><span>32px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="24" height="24"><rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="2"/><path d="M12,44 L20,44 L24,32 L30,50 L36,18 L42,38 L46,28 L52,44" fill="none" stroke="#00d4aa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <br><span>24px</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept 5: Arrow breaking through resistance -->
+  <div class="concept">
+    <svg viewBox="0 0 64 64" width="128" height="128">
+      <defs>
+        <linearGradient id="g5" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0%" stop-color="#00a888"/>
+          <stop offset="100%" stop-color="#00d4aa"/>
+        </linearGradient>
+      </defs>
+      <rect width="64" height="64" rx="14" fill="#0a0a12"/>
+      <!-- Resistance line (broken) -->
+      <line x1="4" y1="30" x2="24" y2="30" stroke="#ef5350" stroke-width="2" opacity="0.5"/>
+      <line x1="40" y1="30" x2="60" y2="30" stroke="#ef5350" stroke-width="2" opacity="0.5"/>
+      <!-- Arrow shooting through -->
+      <line x1="14" y1="52" x2="50" y2="12" stroke="url(#g5)" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Arrowhead -->
+      <polygon points="50,12 42,14 48,20" fill="#00d4aa"/>
+      <!-- Break fragments -->
+      <line x1="28" y1="28" x2="25" y2="24" stroke="#ef5350" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+      <line x1="36" y1="32" x2="39" y2="36" stroke="#ef5350" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    </svg>
+    <h3>Concept 5 — Resistance Breaker</h3>
+    <p>Arrow smashing through a resistance line. Fragments fly. "Breaking" made visual.</p>
+    <div class="sizes">
+      <div>
+        <svg viewBox="0 0 64 64" width="48" height="48"><rect width="64" height="64" rx="14" fill="#0a0a12"/><line x1="4" y1="30" x2="24" y2="30" stroke="#ef5350" stroke-width="2" opacity="0.5"/><line x1="40" y1="30" x2="60" y2="30" stroke="#ef5350" stroke-width="2" opacity="0.5"/><line x1="14" y1="52" x2="50" y2="12" stroke="#00d4aa" stroke-width="3.5" stroke-linecap="round"/><polygon points="50,12 42,14 48,20" fill="#00d4aa"/><line x1="28" y1="28" x2="25" y2="24" stroke="#ef5350" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><line x1="36" y1="32" x2="39" y2="36" stroke="#ef5350" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/></svg>
+        <br><span>48px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="32" height="32"><rect width="64" height="64" rx="14" fill="#0a0a12"/><line x1="4" y1="30" x2="22" y2="30" stroke="#ef5350" stroke-width="2.5" opacity="0.5"/><line x1="42" y1="30" x2="60" y2="30" stroke="#ef5350" stroke-width="2.5" opacity="0.5"/><line x1="14" y1="52" x2="50" y2="12" stroke="#00d4aa" stroke-width="4" stroke-linecap="round"/><polygon points="50,12 42,14 48,20" fill="#00d4aa"/></svg>
+        <br><span>32px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="24" height="24"><rect width="64" height="64" rx="14" fill="#0a0a12"/><line x1="4" y1="30" x2="20" y2="30" stroke="#ef5350" stroke-width="3" opacity="0.5"/><line x1="44" y1="30" x2="60" y2="30" stroke="#ef5350" stroke-width="3" opacity="0.5"/><line x1="14" y1="52" x2="50" y2="12" stroke="#00d4aa" stroke-width="5" stroke-linecap="round"/><polygon points="50,12 40,16 48,22" fill="#00d4aa"/></svg>
+        <br><span>24px</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept 6: Minimal chart + B -->
+  <div class="concept">
+    <svg viewBox="0 0 64 64" width="128" height="128">
+      <rect width="64" height="64" rx="14" fill="#00d4aa"/>
+      <!-- Minimal ascending chart bars -->
+      <rect x="10" y="40" width="8" height="14" rx="2" fill="#0a0a12" opacity="0.5"/>
+      <rect x="22" y="32" width="8" height="22" rx="2" fill="#0a0a12" opacity="0.6"/>
+      <rect x="34" y="22" width="8" height="32" rx="2" fill="#0a0a12" opacity="0.7"/>
+      <rect x="46" y="10" width="8" height="44" rx="2" fill="#0a0a12" opacity="0.9"/>
+      <!-- Sharp upward line connecting tops -->
+      <polyline points="14,40 26,32 38,22 50,10" fill="none" stroke="#0a0a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h3>Concept 6 — Ascending Bars</h3>
+    <p>Rising bar chart on cyan. Growth, momentum, each bar higher than the last. Simple, scalable.</p>
+    <div class="sizes">
+      <div>
+        <svg viewBox="0 0 64 64" width="48" height="48"><rect width="64" height="64" rx="14" fill="#00d4aa"/><rect x="10" y="40" width="8" height="14" rx="2" fill="#0a0a12" opacity="0.5"/><rect x="22" y="32" width="8" height="22" rx="2" fill="#0a0a12" opacity="0.6"/><rect x="34" y="22" width="8" height="32" rx="2" fill="#0a0a12" opacity="0.7"/><rect x="46" y="10" width="8" height="44" rx="2" fill="#0a0a12" opacity="0.9"/><polyline points="14,40 26,32 38,22 50,10" fill="none" stroke="#0a0a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <br><span>48px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="32" height="32"><rect width="64" height="64" rx="14" fill="#00d4aa"/><rect x="10" y="40" width="8" height="14" rx="2" fill="#0a0a12" opacity="0.5"/><rect x="22" y="32" width="8" height="22" rx="2" fill="#0a0a12" opacity="0.6"/><rect x="34" y="22" width="8" height="32" rx="2" fill="#0a0a12" opacity="0.7"/><rect x="46" y="10" width="8" height="44" rx="2" fill="#0a0a12" opacity="0.9"/><polyline points="14,40 26,32 38,22 50,10" fill="none" stroke="#0a0a12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <br><span>32px</span>
+      </div>
+      <div>
+        <svg viewBox="0 0 64 64" width="24" height="24"><rect width="64" height="64" rx="14" fill="#00d4aa"/><rect x="10" y="40" width="10" height="14" rx="2" fill="#0a0a12" opacity="0.5"/><rect x="22" y="32" width="10" height="22" rx="2" fill="#0a0a12" opacity="0.6"/><rect x="34" y="22" width="10" height="32" rx="2" fill="#0a0a12" opacity="0.7"/><rect x="46" y="10" width="10" height="44" rx="2" fill="#0a0a12" opacity="0.9"/></svg>
+        <br><span>24px</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -31,8 +31,15 @@
 
     nav.className = 'nav-bar';
 
-    // Logo
-    var logo = '<a href="#market" class="nav-logo">BREAKING<span>TRADES</span></a>';
+    // Logo — Market Pulse logomark + text (text hidden on mobile)
+    var logo = '<a href="#market" class="nav-logo">' +
+      '<svg class="nav-logo-mark" viewBox="0 0 64 64" width="28" height="28">' +
+        '<rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="1.5"/>' +
+        '<path d="M12,44 L20,44 L24,32 L30,50 L36,18 L42,38 L46,28 L52,44" fill="none" stroke="#00d4aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<path d="M12,44 L20,44 L24,32 L30,50 L36,18 L42,38 L46,28 L52,44" fill="none" stroke="#00d4aa" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.1"/>' +
+      '</svg>' +
+      '<span class="nav-logo-text">BREAKING<span>TRADES</span></span>' +
+    '</a>';
 
     // Hamburger
     var hamburger = '<button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><i data-lucide="menu"></i></button>';
