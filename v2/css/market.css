@@ -1,7 +1,7 @@
 /* css/market.css — Market page-specific styles */
 
 /* ===== Page Layout ===== */
-.page-content { padding: 20px 24px; }
+.page-content { padding: 20px 24px; overflow-x: hidden; }
 
 /* ===== Heatmap ===== */
 .heatmap-wrap {
