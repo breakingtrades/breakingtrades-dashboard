@@ -1,19 +1,39 @@
 # BreakingTrades Dashboard — OpenSpec Index
 
 > Last updated: 2026-03-31
-> Status: **Production** — live at https://breakingtrades.github.io/breakingtrades-dashboard/
-> Running smoothly as of Mar 27 2026.
+> Status: **Production (v1)** + **Staging (v2 SPA)** 
+> v1 live at: https://breakingtrades.github.io/breakingtrades-dashboard/
+> v2 staging at: https://brave-glacier-07c70460f.2.azurestaticapps.net/v2/index.html
+> Azure SWA auto-deploys from GitHub on every push.
+
+## Architecture
+
+### v1 (Current Production) — Multi-Page
+6 standalone HTML files, each with inline CSS/JS. Full page reload on navigation.
+
+### v2 (Staging) — Single Page Application
+Vanilla JS SPA in `v2/` subdirectory. Hash router, persistent nav + ticker tape, shared component library. 33 files, ~6,800 lines. Zero framework, zero build step.
+
+| Layer | Files | Description |
+|-------|-------|-------------|
+| **Shell** | `index.html`, `shell.js`, `router.js`, `app.js`, `preferences.js` | Single HTML shell, hash router, localStorage preferences |
+| **CSS** | `variables.css`, `reset.css`, `shell.css`, `components.css` + 7 page CSS | Extracted from v1 inline styles, single `:root` token source |
+| **Components** | `fear-greed.js`, `vix-regime.js`, `detail-modal.js`, `collapsible.js` | Shared across pages, deduplicated from v1's 3 modal implementations |
+| **Pages** | `market.js`, `signals.js`, `watchlist.js`, `expected-moves.js`, `events.js`, `autoresearch.js` | Lazy-loaded by router, register on `BT.pages` namespace |
+| **Lib** | `bt-prices.js`, `market-status.js`, `ticker-search.js`, `ticker-tape.js`, `sector-rotation.js` | Copied from v1, data paths adjusted to `../data/` |
+| **Icons** | Lucide Icons via CDN (`unpkg.com/lucide@latest`) | Replaced all emoji + inline SVGs with consistent monoline SVG icons |
+| **Hosting** | Azure Static Web Apps (Free tier, eastus2) | Auto-deploy via GitHub Actions, auth-ready, PR preview environments |
 
 ## Production Pages
 
-| Page | File | Description |
-|------|------|-------------|
-| **Market** (landing) | `market.html` | Sector heatmap, RRG, Fear & Greed gauge, VIX strip, pair ratios, sector rankings |
-| **Signals** | `signals.html` | Trade setup cards with lifecycle tracking, detail modals + TradingView charts |
-| **Watchlist** | `watchlist.html` | 74-symbol tracker, table view, detail modals, EM banner, hash routing (`#SPY`) |
-| **Expected Moves** | `expected-moves.html` | Options EM risk heatmap, position bars, alert tags, staleness guard, filter/tier tabs, inline detail modal |
-| **Events** | `events.html` | Calendar page + `events.js` renderer, mini strip on index, `bt-event` CLI |
-| **Sector Rotation** | `sector-rotation.html` | RRG chart entry point |
+| Page | v1 File | v2 Route | Description |
+|------|---------|----------|-------------|
+| **Market** (landing) | `market.html` | `#market` | Sector heatmap, RRG, Fear & Greed gauge, VIX regime, pair ratios, sector rankings, market breadth |
+| **Signals** | `signals.html` | `#signals` | Trade setup cards with lifecycle tracking, detail modals + TradingView charts, right panel (F&G, regime, briefing) |
+| **Watchlist** | `watchlist.html` | `#watchlist` | 74-symbol tracker, table view, detail modals, EM banner, hash routing (`#watchlist/SPY`) |
+| **Expected Moves** | `expected-moves.html` | `#expected-moves` | Options EM risk heatmap, position bars, alert tags, staleness guard, filter/tier tabs, inline detail modal |
+| **Events** | `events.html` | `#events` | Calendar page, live countdowns, category filters, mini strip on signals |
+| **Autoresearch** | `autoresearch.html` | `#autoresearch` | Experiment stats, baseline comparison, ticker results |
 
 ## Production Data Pipeline
 
@@ -76,19 +96,21 @@
 | [Signals — Remove Brief Metadata](changes/dashboard-ui/) | 2026-03-29 | `d5803bf` | Removed internal brief metadata (model name + generated timestamp) from signals page UI. Audience-facing briefing should not expose `gpt-4o` model attribution or generation timestamps. |
 | [Real-time Ticker Tape](changes/realtime-ticker-tape/) | 2026-03-31 | `3c15180`, `d6c02d8`, `7359d59` | Replaced static `futures-strip.js` + `macro-context.js` strips with TradingView embedded ticker tape widget (compact mode). Shared `js/ticker-tape-tv.js` injects after `<nav>` on `nav:ready` event — **all 6 pages** (market, watchlist, expected-moves, signals, events, autoresearch). 14 tickers: S&P (`FOREXCOM:SPXUSD`), Nasdaq (`FOREXCOM:NSXUSD`), Russell (`AMEX:IWM`), Dow (`AMEX:DIA`), Oil (`TVC:USOIL`), Gas (`CAPITALCOM:NATURALGAS`), Gold (`TVC:GOLD`), Silver (`TVC:SILVER`), Copper (`CAPITALCOM:COPPER`), Energy (`AMEX:XLE`), Dollar (`AMEX:UUP`), VIX (`AMEX:UVXY`), BTC (`BITSTAMP:BTCUSD`), ETH (`BITSTAMP:ETHUSD`). Real-time WebSocket for indices/commodities/crypto; 15-min delay for ETF proxies. Free tier — no API keys, zero maintenance. Old `macro-context.js` strip removed from market/watchlist/signals (was showing stale `prices.json` data labeled as live). `futures-strip.js` no longer loaded on any page. TradingView free widget doesn't support raw TVC:DXY, TVC:VIX, CBOE:TNX, or bond ETFs — ETF proxies used instead. |
 | [Dynamic Pair Ratios Strip](changes/dynamic-pair-ratios/) | 2026-03-31 | `fd93ebd` | Replaced hardcoded pair ratio pills on signals page with data-driven SMA50 computation. 8 pairs: XLY/XLP (consumer), HYG/SPY (credit), IWM/SPY (breadth), XLV/SPY (defensive), XLE/SPY (energy), IWM/QQQ (value/growth), GLD/SPY (safe haven), TLT/SPY (bonds). Signal = ratio of current prices vs ratio of SMA50 values from watchlist.json. 1% threshold: above → ↗ up, below → ↘ down, within → → neutral. RSP replaced by IWM/SPY (RSP not in watchlist). |
+| [SPA v2 Rewrite — Phases 1-3](changes/spa-v2/OPENSPEC.md) | 2026-03-31 | `f773dd0`..`41d84a6` | **Full SPA rewrite in `v2/` directory.** Vanilla JS, zero framework, zero build step. 33 files, ~6,800 lines (vs v1's ~7,000 with duplication). **Phase 1:** Single `index.html` shell, hash router (`#market`, `#signals`, etc.), `preferences.js` (localStorage persistence), `shell.js` (nav, ticker tape toggle, hamburger), market page extracted. **Phase 2:** All 6 pages migrated — signals (13 setup cards, filters, right panel), watchlist (74-symbol table, sorting), expected moves (EM table, tier/filter tabs), events (countdowns, JSONL), autoresearch. Unified `detail-modal.js` (merged 3 v1 implementations). Shared `fear-greed.js` + `vix-regime.js` components. **Phase 3:** Lucide Icons (replaced ALL emoji + inline SVGs with consistent monoline SVGs via CDN), mobile responsive (hamburger nav, sticky columns, full-screen modals at ≤768px), collapsible sections (12 sections across 3 pages, state persists in preferences), loading skeletons (shimmer animation for all data areas). CSS token system (`variables.css` — single source for 40+ design tokens). |
+| [Azure Static Web Apps](changes/spa-v2/OPENSPEC.md) | 2026-03-31 | `f9a12e8` | Deployed dashboard to Azure SWA (Free tier, eastus2, `rg-breakingtrades`). Auto-deploy via GitHub Actions on every push to main. URL: `brave-glacier-07c70460f.2.azurestaticapps.net`. PR preview environments enabled. Auth-ready (GitHub/Entra/Google login via config-only `staticwebapp.config.json`). Runs parallel to GitHub Pages — zero disruption. Subscription: `ME-MngEnvMCAP356394-idanshimon-1` ($0 cost — free tier). |
 
 ## Active Changes (in progress)
 
 | Change | Status | Description |
 |--------|--------|-------------|
-| [Dashboard UI](changes/dashboard-ui/) | Partial | Card variants + filters shipped; responsive polish pending |
+| [SPA v2 Cutover](changes/spa-v2/OPENSPEC.md) | Phase 4 pending | Move `v2/` to root, archive v1, configure auth, custom domain |
 | [Data Pipeline](changes/data-pipeline/) | Partial | Core signals + EOD pipeline shipped; lifecycle classifier + per-ticker Tom pending |
 
 ## Planned Changes (not started)
 
 | Change | Priority | Description |
 |--------|----------|-------------|
-| [SPA v2 Rewrite](changes/spa-v2/OPENSPEC.md) | **Critical** | Single-page application rewrite. Vanilla JS (zero framework, zero build step). Hash router, persistent nav/ticker tape, unified component library (F&G gauge, detail modal, pair ratios), `css/variables.css` single token source, `preferences.js` (ticker tape toggle, TZ, filter states, section collapse), mobile hamburger, data-driven regime cards. 4 phases: Shell+Market → All Pages → Polish → Cutover. All 6 pages, all features cataloged. `data/` pipeline unchanged. |
+| SPA v2 Cutover (Phase 4) | **High** | Move `v2/` to root, retire v1, configure Azure SWA auth + custom domain |
 | Earnings Calendar | High | Dedicated earnings tool — EarningsWhisper (primary), TradingView (secondary). Upcoming earnings for watchlist + broader market. |
 | EM History Sparkline | Medium | Per-ticker mini sparkline of historical EM values on expected-moves.html |
 | EM Columns on Watchlist | Medium | Compact weekly EM% + position in range columns on watchlist table |

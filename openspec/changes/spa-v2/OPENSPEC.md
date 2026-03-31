@@ -1,10 +1,11 @@
 # OpenSpec: SPA v2 — Single Page Application Rewrite
 
-> **Status:** Planned  
+> **Status:** Phases 1-3 Complete, Phase 4 Pending  
 > **Priority:** High  
 > **Author:** Kash + Idan  
 > **Date:** 2026-03-31  
-> **Target:** `v2/` staging directory (parallel to v1, zero disruption to production)
+> **v2 Staging URL:** https://brave-glacier-07c70460f.2.azurestaticapps.net/v2/index.html
+> **Azure SWA Resource:** `breakingtrades-dashboard` in `rg-breakingtrades` (eastus2, Free tier)
 
 ---
 
@@ -538,52 +539,46 @@ All existing `data/*.json` files remain as-is. No schema changes.
 
 ## 12. Migration Plan (Phases)
 
-### Phase 1: Shell + Router + Market Page
-**Estimated: 2-3 hours**
+### Phase 1: Shell + Router + Market Page ✅ COMPLETE
+**Delivered: 2026-03-31 5:00 PM ET** — Commits `f773dd0`
 
-1. Create `v2/index.html` shell
-2. Extract `css/variables.css` from all `:root` blocks
-3. Create `css/reset.css` (box-sizing, margin, scrollbar)
-4. Build `css/shell.css` (nav, layout, ticker tape)
-5. Build `js/preferences.js`
-6. Build `js/router.js`
-7. Build `js/shell.js` (nav with ticker tape toggle + hamburger)
-8. Copy `js/lib/*` (unchanged shared modules)
-9. Build `js/utils.js` (extract `fmtPrice`, `pctDiff`, `clamp`, `breadthColor`, color helpers)
-10. Extract market page: `css/market.css` + `js/pages/market.js`
-11. Extract `js/components/fear-greed.js`
-12. Extract `js/components/vix-regime.js`
-13. Test: market page renders identically to v1
+1. ✅ `v2/index.html` shell
+2. ✅ `css/variables.css` — 40+ design tokens consolidated
+3. ✅ `css/reset.css`
+4. ✅ `css/shell.css` — nav, layout, hamburger
+5. ✅ `js/preferences.js` — localStorage manager
+6. ✅ `js/router.js` — hash router with lazy loading
+7. ✅ `js/shell.js` — nav, ticker tape toggle, mobile hamburger
+8. ✅ `js/lib/*` — 6 shared modules copied
+9. ✅ `js/utils.js` — shared functions extracted
+10. ✅ `css/market.css` + `js/pages/market.js` — full market page
+11. ✅ `js/components/fear-greed.js` — shared F&G gauge
+12. ✅ `js/components/vix-regime.js` — shared VIX component
+13. ✅ Market page renders identically to v1
 
-**Deliverable:** Shell with nav, ticker tape toggle, preferences, and market page working.
+### Phase 2: Component Extraction + Remaining Pages ✅ COMPLETE
+**Delivered: 2026-03-31 5:17 PM ET** — Commits `dd8a869`
 
-### Phase 2: Component Extraction + Remaining Pages
-**Estimated: 4-6 hours**
+14. ✅ `css/components.css` — shared badges, modals, cards, tables, gauges
+15. ✅ `js/components/detail-modal.js` — unified from 3 v1 implementations
+16. ✅ `js/components/pair-ratios.js` (inline in signals.js — pair ratio strip computation)
+17. ✅ `css/signals.css` + `js/pages/signals.js` — 567 + 784 lines, all 13 setup cards, filters, right panel
+18. ✅ `css/watchlist.css` + `js/pages/watchlist.js` — sortable table, EM banner, view toggle
+19. ✅ `css/expected-moves.css` + `js/pages/expected-moves.js` — EM table, tier/filter tabs, 3-state sort
+20. ✅ `css/events.css` + `js/pages/events.js` — countdowns, JSONL parser, category filters
+21. ✅ `css/autoresearch.css` + `js/pages/autoresearch.js` — stats, comparison, results
+22. ✅ All pages render identically, nav transitions work, preferences persist
 
-14. Build `css/components.css` (badges, modals, cards, tables, pills, gauges)
-15. Build `js/components/detail-modal.js` (unified from 3 implementations)
-16. Build `js/components/pair-ratios.js`
-17. Extract signals page: `css/signals.css` + `js/pages/signals.js` (biggest — ~1,100 lines of JS)
-18. Extract watchlist page: `css/watchlist.css` + `js/pages/watchlist.js`
-19. Extract expected-moves page: `css/expected-moves.css` + `js/pages/expected-moves.js`
-20. Extract events page: `css/events.css` + `js/pages/events.js`
-21. Extract autoresearch page: `css/autoresearch.css` + `js/pages/autoresearch.js`
-22. Test: all pages render identically, nav transitions work, preferences persist
+### Phase 3: Polish + New Features ✅ COMPLETE
+**Delivered: 2026-03-31 6:15 PM ET** — Commits `92cdaa4`, `8378d45`, `41d84a6`
 
-**Deliverable:** Full SPA with all 6 pages, shared components, no regressions.
-
-### Phase 3: Polish + New Features
-**Estimated: 2-3 hours**
-
-23. Mobile hamburger menu implementation
-24. Section collapse (collapsible headers with saved state)
-25. Loading skeletons
-26. `data/regime.json` integration (replace hardcoded regime cards)
-27. Deep link testing (`#watchlist/SPY`, `#expected-moves`, etc.)
-28. Page transition animations (fade or slide)
-29. Performance audit (lazy load Chart.js plugins per-page, defer non-critical CSS)
-
-**Deliverable:** Polished SPA with all new features.
+23. ✅ Lucide Icons — replaced ALL emoji + inline SVGs with consistent monoline SVGs via CDN (`unpkg.com/lucide@latest`). Deleted custom `icons.js`. `lucide.createIcons()` called after every dynamic render. ~40 icon mappings across all pages.
+24. ✅ Mobile hamburger — slide-down dropdown at ≤768px, 44px touch targets, auto-close on route change
+25. ✅ Mobile responsive — search collapses at ≤480px, TZ picker hidden, sticky table columns, full-screen modals, reduced padding, momentum scroll on ticker tape
+26. ✅ `js/components/collapsible.js` — reusable collapsible section component with chevron animation
+27. ✅ 12 collapsible sections: market (6), signals right panel (4), expected moves (2). State persists in preferences.
+28. ✅ Loading skeletons — shimmer animation for gauges, cards, charts, table rows across all pages
+29. ✅ Mobile overflow fix — `html`/`body`/`nav`/`content` all constrained to `100vw`, no horizontal scroll
 
 ### Phase 4: Azure Static Web Apps + Cutover
 **Estimated: 1 hour**
