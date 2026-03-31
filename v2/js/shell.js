@@ -47,10 +47,10 @@
             '<stop offset="100%" stop-color="#ffa726" stop-opacity="0.3"/>' +
           '</linearGradient>' +
         '</defs>' +
-        '<text x="2" y="16" fill="#00d4aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="700" letter-spacing="1.5">BREAKING</text>' +
-        '<text x="128" y="16" fill="#8888aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="400" letter-spacing="1.5">TRADES</text>' +
-        '<path d="M2,24 L104,24 L114,20 L120,26 L128,10 L136,22 L140,18 L148,24 L256,24" fill="none" stroke="url(#nav-pulse-grad)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
-        '<circle cx="128" cy="10" r="1.8" fill="#ffd700" opacity="0.7"/>' +
+        '<text x="18" y="16" fill="#00d4aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="700" letter-spacing="1.5">BREAKING</text>' +
+        '<text x="148" y="16" fill="#8888aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="400" letter-spacing="1.5">TRADES</text>' +
+        '<path d="M2,24 L120,24 L130,20 L136,26 L144,10 L152,22 L156,18 L164,24 L256,24" fill="none" stroke="url(#nav-pulse-grad)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<circle cx="144" cy="10" r="1.8" fill="#ffd700" opacity="0.7"/>' +
       '</svg>' +
     '</a>';
 
