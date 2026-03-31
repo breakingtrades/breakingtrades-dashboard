@@ -38,7 +38,7 @@
         '<path d="M8,32 L14,32 L17,24 L22,36 L26,14 L31,28 L34,22 L38,32" fill="none" stroke="#00d4aa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
         '<path d="M8,32 L14,32 L17,24 L22,36 L26,14 L31,28 L34,22 L38,32" fill="none" stroke="#00d4aa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.1"/>' +
       '</svg>' +
-      '<svg class="nav-logo-wordmark" viewBox="0 0 260 28" width="200" height="22">' +
+      '<svg class="nav-logo-wordmark" viewBox="50 0 210 28" width="162" height="22">' +
         '<defs>' +
           '<linearGradient id="nav-pulse-grad" x1="0" y1="0" x2="1" y2="0">' +
             '<stop offset="0%" stop-color="#00d4aa" stop-opacity="0.3"/>' +
@@ -47,10 +47,10 @@
             '<stop offset="100%" stop-color="#ffa726" stop-opacity="0.3"/>' +
           '</linearGradient>' +
         '</defs>' +
-        '<text x="18" y="16" fill="#00d4aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="700" letter-spacing="1.5">BREAKING</text>' +
-        '<text x="148" y="16" fill="#8888aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="400" letter-spacing="1.5">TRADES</text>' +
-        '<path d="M2,24 L120,24 L130,20 L136,26 L144,10 L152,22 L156,18 L164,24 L256,24" fill="none" stroke="url(#nav-pulse-grad)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
-        '<circle cx="144" cy="10" r="1.8" fill="#ffd700" opacity="0.7"/>' +
+        '<text x="68" y="16" fill="#00d4aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="700" letter-spacing="1.5">BREAKING</text>' +
+        '<text x="182" y="16" fill="#8888aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="400" letter-spacing="1.5">TRADES</text>' +
+        '<path d="M60,24 L152,24 L162,20 L168,26 L176,10 L184,22 L188,18 L196,24 L256,24" fill="none" stroke="url(#nav-pulse-grad)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<circle cx="176" cy="10" r="1.8" fill="#ffd700" opacity="0.7"/>' +
       '</svg>' +
     '</a>';
 
