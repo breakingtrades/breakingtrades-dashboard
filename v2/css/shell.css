@@ -18,11 +18,14 @@
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   text-decoration: none;
   flex-shrink: 0;
 }
 .nav-logo-mark {
+  flex-shrink: 0;
+}
+.nav-logo-wordmark {
   flex-shrink: 0;
 }
 .nav-logo-text {
@@ -139,7 +142,7 @@
 @media (max-width: 768px) {
   .nav-bar { overflow: visible; } /* allow dropdown to escape */
   .nav-hamburger { display: block; }
-  .nav-logo-text { font-size: 12px; letter-spacing: 1px; }
+  .nav-logo-wordmark { width: 160px; height: 18px; }
   .nav-links {
     display: none;
     position: absolute;
@@ -169,8 +172,8 @@
 }
 @media (max-width: 480px) {
   .nav-bar { padding: 0 8px; height: 44px; gap: 4px; }
-  .nav-logo-text { display: none; }
-  .nav-logo-mark { width: 28px; height: 28px; }
+  .nav-logo-wordmark { display: none; }
+  .nav-logo-mark { width: 24px; height: 24px; }
   .nav-link { padding: 12px 16px; font-size: 10px; }
   .nav-search-wrap { flex-shrink: 1; min-width: 0; }
   .nav-search { width: 28px; font-size: 11px; padding: 5px 6px; border-color: transparent; background: transparent; }

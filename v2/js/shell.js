@@ -31,16 +31,27 @@
 
     nav.className = 'nav-bar';
 
-    // Logo — Breakout Bolt logomark + wordmark (text hidden on mobile)
+    // Logo — Market Pulse mark + wordmark with gradient pulse underline
     var logo = '<a href="#market" class="nav-logo">' +
-      '<svg class="nav-logo-mark" viewBox="0 0 64 64" width="28" height="28">' +
-        '<rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="1.5"/>' +
-        '<polyline points="10,48 22,38 30,42 38,28 42,32 52,14" fill="none" stroke="#00d4aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' +
-        '<path d="M46,18 L42,28 L48,26 L44,36" fill="none" stroke="#00d4aa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
-        '<circle cx="52" cy="14" r="3" fill="#00d4aa" opacity="0.9"/>' +
-        '<circle cx="52" cy="14" r="6" fill="#00d4aa" opacity="0.15"/>' +
+      '<svg class="nav-logo-mark" viewBox="0 0 48 48" width="24" height="24">' +
+        '<rect width="48" height="48" rx="10" fill="#111122" stroke="#00d4aa" stroke-width="1.2"/>' +
+        '<path d="M8,32 L14,32 L17,24 L22,36 L26,14 L31,28 L34,22 L38,32" fill="none" stroke="#00d4aa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<path d="M8,32 L14,32 L17,24 L22,36 L26,14 L31,28 L34,22 L38,32" fill="none" stroke="#00d4aa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.1"/>' +
       '</svg>' +
-      '<span class="nav-logo-text">BREAKING<span>TRADES</span></span>' +
+      '<svg class="nav-logo-wordmark" viewBox="0 0 260 28" width="200" height="22">' +
+        '<defs>' +
+          '<linearGradient id="nav-pulse-grad" x1="0" y1="0" x2="1" y2="0">' +
+            '<stop offset="0%" stop-color="#00d4aa" stop-opacity="0.3"/>' +
+            '<stop offset="42%" stop-color="#00d4aa"/>' +
+            '<stop offset="58%" stop-color="#ffd700"/>' +
+            '<stop offset="100%" stop-color="#ffa726" stop-opacity="0.3"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        '<text x="2" y="16" fill="#00d4aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="700" letter-spacing="1.5">BREAKING</text>' +
+        '<text x="128" y="16" fill="#8888aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="400" letter-spacing="1.5">TRADES</text>' +
+        '<path d="M2,24 L104,24 L114,20 L120,26 L128,10 L136,22 L140,18 L148,24 L256,24" fill="none" stroke="url(#nav-pulse-grad)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<circle cx="128" cy="10" r="1.8" fill="#ffd700" opacity="0.7"/>' +
+      '</svg>' +
     '</a>';
 
     // Hamburger
