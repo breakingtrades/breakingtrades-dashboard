@@ -222,6 +222,7 @@
   var _sectorRiskData = {};
   var _rrg = null;
   var _boundHandlers = {};
+  var _collapsibles = [];
 
   // === UTILITY ===
   function getExchange(ticker) {
@@ -500,7 +501,7 @@
   function renderBriefing() {
     fetch('../data/briefing.json').then(function(r) { return r.ok ? r.json() : null; }).then(function(b) {
       if (!b) return;
-      var titleEl = document.getElementById('briefing-title');
+      var titleEl = document.getElementById('hdr-signals-briefing');
       if (titleEl) titleEl.innerHTML = '<i data-lucide="crosshair"></i> ' + (b.title || 'Daily Briefing');
       var html = '';
       if (b.headline) html += '<p><strong>' + b.headline + '</strong></p>';
@@ -605,34 +606,43 @@
               '</select>' +
             '</div>' +
           '</div>' +
-          '<div id="cards-container"></div>' +
+          '<div id="cards-container">' +
+            Array(6).join('<div class="skeleton skeleton-card" style="height:200px;margin-bottom:8px;"></div>') +
+          '</div>' +
         '</div>' +
         '<div class="right-panel">' +
           '<div class="fear-greed-section">' +
-            '<h3 id="fg-title"><i data-lucide="gauge"></i> Fear & Greed Index</h3>' +
-            '<div id="fg-gauge"></div>' +
+            '<h3 id="hdr-signals-fg"><i data-lucide="gauge"></i> Fear & Greed Index</h3>' +
+            '<div id="body-signals-fg"><div id="fg-gauge"><div class="skeleton skeleton-gauge"></div></div></div>' +
           '</div>' +
           '<div class="sector-rotation-section">' +
-            '<div id="rrg-signals"></div>' +
-            '<div id="sector-quadrant"></div>' +
+            '<h3 id="hdr-signals-rotation"><i data-lucide="refresh-cw"></i> Sector Rotation</h3>' +
+            '<div id="body-signals-rotation">' +
+              '<div id="rrg-signals"></div>' +
+              '<div id="sector-quadrant"></div>' +
+            '</div>' +
           '</div>' +
           '<div class="briefing-panel">' +
-            '<h3><i data-lucide="bar-chart-3"></i> Market Regime</h3>' +
-            '<div class="regime-card">' +
-              '<div class="regime-label">Current Regime</div>' +
-              '<div class="regime-value" style="color:var(--red);">⚠ CRISIS</div>' +
-              '<div class="regime-desc">Geopolitical conflict driving markets. Extreme fear (F&G 14.7). S&P 28% above linear trendline — mean reversion risk. Dark pool clusters at 6500-6600 put wall. Next 60-100 days critical.</div>' +
-            '</div>' +
-            '<div class="regime-card">' +
-              '<div class="regime-label">Risk Level</div>' +
-              '<div class="regime-value" style="color:var(--red);"><i data-lucide="octagon-alert"></i> EXTREME</div>' +
-              '<div class="regime-desc">VIX elevated. F&G 14.7 (Extreme Fear). Junk bonds falling, CDS rising. Oracle CDS at GFC levels — AI/tech canary. Bears in control: S&P in lower lows/lower highs.</div>' +
+            '<h3 id="hdr-signals-regime"><i data-lucide="bar-chart-3"></i> Market Regime</h3>' +
+            '<div id="body-signals-regime">' +
+              '<div class="regime-card">' +
+                '<div class="regime-label">Current Regime</div>' +
+                '<div class="regime-value" style="color:var(--red);">⚠ CRISIS</div>' +
+                '<div class="regime-desc">Geopolitical conflict driving markets. Extreme fear (F&G 14.7). S&P 28% above linear trendline — mean reversion risk. Dark pool clusters at 6500-6600 put wall. Next 60-100 days critical.</div>' +
+              '</div>' +
+              '<div class="regime-card">' +
+                '<div class="regime-label">Risk Level</div>' +
+                '<div class="regime-value" style="color:var(--red);"><i data-lucide="octagon-alert"></i> EXTREME</div>' +
+                '<div class="regime-desc">VIX elevated. F&G 14.7 (Extreme Fear). Junk bonds falling, CDS rising. Oracle CDS at GFC levels — AI/tech canary. Bears in control: S&P in lower lows/lower highs.</div>' +
+              '</div>' +
             '</div>' +
           '</div>' +
           '<div class="toms-daily">' +
-            '<h3 id="briefing-title"><i data-lucide="crosshair"></i> Daily Briefing</h3>' +
-            '<div class="briefing-text" id="briefing-content">' +
-              '<p style="color:var(--text-dim)">Loading briefing...</p>' +
+            '<h3 id="hdr-signals-briefing"><i data-lucide="crosshair"></i> Daily Briefing</h3>' +
+            '<div id="body-signals-briefing">' +
+              '<div class="briefing-text" id="briefing-content">' +
+                '<div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text"></div>' +
+              '</div>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -722,6 +732,22 @@
       });
     }
 
+    // Wire collapsible right panel sections
+    var rSections = [
+      ['signals:fg', 'hdr-signals-fg', 'body-signals-fg'],
+      ['signals:rotation', 'hdr-signals-rotation', 'body-signals-rotation'],
+      ['signals:regime', 'hdr-signals-regime', 'body-signals-regime'],
+      ['signals:briefing', 'hdr-signals-briefing', 'body-signals-briefing']
+    ];
+    _collapsibles = [];
+    rSections.forEach(function(s) {
+      var hdr = document.getElementById(s[1]);
+      var body = document.getElementById(s[2]);
+      if (hdr && body) {
+        _collapsibles.push(BT.components.collapsible.init(s[0], hdr, body));
+      }
+    });
+
     // Events mini strip
     if (typeof initEventsMiniStrip === 'function') {
       try { initEventsMiniStrip(); } catch(e) {}
@@ -763,6 +789,10 @@
   }
 
   function destroy() {
+    // Clean up collapsibles
+    _collapsibles.forEach(function(c) { if (c && c.destroy) c.destroy(); });
+    _collapsibles = [];
+
     // Clean up detail modal
     if (BT.components.detailModal) BT.components.detailModal.destroy();
 

@@ -43,11 +43,19 @@
         '<div class="events-grid">' +
           '<div>' +
             '<h3 class="events-col-title"><i data-lucide="timer"></i> Live Countdowns</h3>' +
-            '<div id="events-live-countdowns"></div>' +
+            '<div id="events-live-countdowns">' +
+              '<div class="skeleton skeleton-card" style="height:100px;margin-bottom:8px;"></div>' +
+              '<div class="skeleton skeleton-card" style="height:100px;margin-bottom:8px;"></div>' +
+              '<div class="skeleton skeleton-card" style="height:100px;"></div>' +
+            '</div>' +
           '</div>' +
           '<div>' +
             '<h3 class="events-col-title"><i data-lucide="calendar-days"></i> Upcoming — Next 7 Days</h3>' +
-            '<div id="events-upcoming"></div>' +
+            '<div id="events-upcoming">' +
+              '<div class="skeleton skeleton-card" style="height:100px;margin-bottom:8px;"></div>' +
+              '<div class="skeleton skeleton-card" style="height:100px;margin-bottom:8px;"></div>' +
+              '<div class="skeleton skeleton-card" style="height:100px;"></div>' +
+            '</div>' +
           '</div>' +
         '</div>' +
         '<div id="events-analyst-intel"></div>' +

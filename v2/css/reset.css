@@ -1,5 +1,5 @@
 /* css/reset.css — Box-sizing, margin/padding reset, scrollbar styles, utility classes */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-overflow-scrolling: touch; }
 
 body {
   background: var(--bg-primary);
@@ -21,3 +21,12 @@ body {
 .neutral { color: var(--text-dim); }
 
 a { color: inherit; text-decoration: none; }
+
+/* Tap highlight */
+a, button, .setup-card, tr { -webkit-tap-highlight-color: rgba(0,212,170,0.1); }
+
+/* Prevent text selection on interactive elements */
+.nav-link, .status-tab, .tier-tab, .filter-tab, .bias-toggle, .view-btn,
+.em-tier-tab, .em-filter-tab, .events-filter-btn, .wl-view-btn {
+  -webkit-user-select: none; user-select: none;
+}

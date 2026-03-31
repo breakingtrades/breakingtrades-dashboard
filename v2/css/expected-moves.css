@@ -207,4 +207,19 @@
   .em-risk-bar-wrap { width: 80px; }
   .em-table td { padding: 8px 10px; font-size: 12px; }
   .em-info-row { grid-template-columns: 1fr 1fr; }
+  .em-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .em-table .ticker-cell {
+    position: sticky; left: 0; z-index: 5;
+    background: #0d0d1a;
+  }
+  .em-table thead th:first-child {
+    position: sticky; left: 0; z-index: 11;
+  }
+  .em-modal-overlay { padding: 0; }
+  .em-modal-box { border-radius: 0; max-width: 100%; }
+  .em-modal-body { padding: 12px; }
+}
+@media (max-width: 480px) {
+  .em-tier-tabs { flex-wrap: wrap; }
+  .em-tier-tab { padding: 4px 10px; font-size: 11px; }
 }

@@ -75,7 +75,13 @@
 @media (max-width: 768px) {
   .page-content { padding: 12px; }
   .pairs-grid { grid-template-columns: 1fr 1fr; }
+  .breadth-gauge-wrap { flex-direction: column; }
+  .breadth-gauge-card { min-width: unset; }
+  .breadth-sector-bars { min-width: unset; }
 }
 @media (max-width: 480px) {
+  .page-content { padding: 8px; }
   .pairs-grid { grid-template-columns: 1fr; }
+  .heatmap-wrap { height: 350px; }
+  .heatmap-wrap .tradingview-widget-container { height: 350px !important; }
 }

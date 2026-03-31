@@ -129,18 +129,31 @@
     flex-direction: column;
     padding: 8px 0;
     z-index: var(--z-nav);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
   }
-  .nav-links.open { display: flex; }
-  .nav-link { padding: 12px 24px; border-bottom: none; }
+  .nav-links.open { display: flex; max-height: 400px; }
+  .nav-link {
+    padding: 14px 24px; border-bottom: none;
+    min-height: 44px; display: flex; align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .nav-link:last-child { border-bottom: none; }
   .nav-search { width: 140px; flex-shrink: 0; }
   .nav-search:focus { width: 200px; }
   .nav-right { flex-shrink: 0; }
+  #tv-ticker-tape { overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 11px; }
+  #content { padding: 0; }
 }
 @media (max-width: 480px) {
   .nav-bar { padding: 0 12px; height: 44px; }
   .nav-logo { font-size: 13px; letter-spacing: 1px; }
   .nav-logo .bt-logo-text { display: none; }
   .nav-link { padding: 12px 16px; font-size: 10px; }
-  .nav-search { width: 100px; font-size: 11px; flex-shrink: 0; }
-  .nav-search:focus { width: 160px; }
+  .nav-search { width: 32px; font-size: 11px; flex-shrink: 0; padding: 5px 8px; }
+  .nav-search::placeholder { color: transparent; }
+  .nav-search:focus { width: 160px; padding: 5px 10px 5px 28px; }
+  .nav-search:focus::placeholder { color: #555; }
+  .tz-select { display: none; }
 }

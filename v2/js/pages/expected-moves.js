@@ -11,6 +11,7 @@
   var currentFilter = 'all';
   var sortCol = null;
   var sortAsc = false;
+  var _collapsibles = [];
 
   var TOP10_SP = ['AAPL','MSFT','NVDA','AMZN','META','GOOGL','GOOG','TSLA','BRK B','AVGO'];
   var INDICES = ['SPX','SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
@@ -55,8 +56,18 @@
           '</div>' +
           '<div style="font-size:11px;color:var(--text-dim);" id="em-updated"></div>' +
         '</div>' +
-        '<div class="em-stats-row" id="em-stats-row"></div>' +
-        '<div class="em-legend">' +
+        '<div id="section-em-stats">' +
+          '<div class="section-title" id="hdr-em-stats" style="font-size:10px;margin-bottom:8px;"><i data-lucide="bar-chart-3"></i> Statistics</div>' +
+          '<div id="body-em-stats">' +
+            '<div class="em-stats-row" id="em-stats-row">' +
+              '<div class="skeleton skeleton-card small"></div><div class="skeleton skeleton-card small"></div><div class="skeleton skeleton-card small"></div><div class="skeleton skeleton-card small"></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div id="section-em-legend">' +
+          '<div id="hdr-em-legend" style="font-size:10px;color:var(--text-dim);margin-bottom:8px;cursor:pointer;"><i data-lucide="palette"></i> Color Legend</div>' +
+          '<div id="body-em-legend">' +
+            '<div class="em-legend">' +
           '<span style="color:var(--text-dim);">Long Risk:</span>' +
           '<div class="em-legend-item"><div class="em-legend-swatch" style="background:#1b5e20;"></div> Low</div>' +
           '<div class="em-legend-item"><div class="em-legend-swatch" style="background:#8bc34a;"></div> Moderate</div>' +
@@ -64,6 +75,8 @@
           '<div class="em-legend-item"><div class="em-legend-swatch" style="background:#ff9800;"></div> High</div>' +
           '<div class="em-legend-item"><div class="em-legend-swatch" style="background:#f44336;"></div> Extended</div>' +
           '<div class="em-legend-item"><div class="em-legend-swatch" style="background:#b71c1c;"></div> Above EM</div>' +
+          '</div>' +
+          '</div>' +
         '</div>' +
         '<div class="em-tabs-row">' +
           '<div class="em-tier-tabs" id="em-tier-tabs">' +
@@ -94,7 +107,9 @@
               '<th data-col="riskbar" style="min-width:130px;">Risk Meter</th>' +
               '<th data-col="bias">Bias</th>' +
             '</tr></thead>' +
-            '<tbody id="em-tbody"></tbody>' +
+            '<tbody id="em-tbody">' +
+              Array(20).join('<tr><td colspan="11"><div class="skeleton skeleton-table-row"></div></td></tr>') +
+            '</tbody>' +
           '</table>' +
         '</div>' +
       '</div>' +
@@ -116,6 +131,14 @@
   }
 
   function init() {
+    // Wire collapsibles
+    _collapsibles = [];
+    [['em:stats', 'hdr-em-stats', 'body-em-stats'], ['em:legend', 'hdr-em-legend', 'body-em-legend']].forEach(function(s) {
+      var hdr = document.getElementById(s[1]);
+      var body = document.getElementById(s[2]);
+      if (hdr && body) _collapsibles.push(BT.components.collapsible.init(s[0], hdr, body));
+    });
+
     // Bind tier tabs
     document.querySelectorAll('#em-tier-tabs .em-tier-tab').forEach(function(btn) {
       btn.addEventListener('click', function() {
@@ -166,6 +189,8 @@
 
   function destroy() {
     document.removeEventListener('keydown', _onKeyDown);
+    _collapsibles.forEach(function(c) { if (c && c.destroy) c.destroy(); });
+    _collapsibles = [];
     emData = {};
     watchlistData = [];
     sortCol = null;

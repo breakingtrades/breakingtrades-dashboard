@@ -20,7 +20,11 @@
 .events-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;
 }
-@media (max-width: 900px) { .events-grid { grid-template-columns: 1fr; } }
+@media (max-width: 768px) {
+  .events-grid { grid-template-columns: 1fr; }
+  .events-filter-tabs { flex-wrap: wrap; }
+  .events-filter-btn { font-size: 11px; padding: 5px 10px; }
+}
 
 .events-col-title {
   font-size: 11px; text-transform: uppercase; letter-spacing: 2px;

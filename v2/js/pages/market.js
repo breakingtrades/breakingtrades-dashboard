@@ -9,6 +9,7 @@
   var _chartInstances = [];
   var _intervals = [];
   var _rrg = null;
+  var _collapsibles = [];
 
   var BREADTH_SECTOR_ORDER = ['COM','CND','CNS','ENE','FIN','HLC','IND','MAT','RLE','TEC','UTL'];
 
@@ -16,65 +17,90 @@
     el.innerHTML =
       '<div class="page-content">' +
         // Heatmap
-        '<div class="section-title"><i data-lucide="map"></i> S&amp;P 500 Sector Heatmap</div>' +
-        '<div class="heatmap-wrap">' +
-          '<div class="tradingview-widget-container" style="width:100%;height:500px;">' +
-            '<div class="tradingview-widget-container__widget" id="tv-heatmap" style="width:100%;height:100%;"></div>' +
+        '<div id="section-heatmap">' +
+          '<div class="section-title" id="hdr-heatmap"><i data-lucide="map"></i> S&amp;P 500 Sector Heatmap</div>' +
+          '<div id="body-heatmap">' +
+            '<div class="heatmap-wrap">' +
+              '<div class="tradingview-widget-container" style="width:100%;height:500px;">' +
+                '<div class="tradingview-widget-container__widget" id="tv-heatmap" style="width:100%;height:100%;"></div>' +
+              '</div>' +
+            '</div>' +
           '</div>' +
         '</div>' +
 
         // Sector Rotation RRG
-        '<div style="margin-top:24px;">' +
-          '<div class="section-title"><i data-lucide="refresh-cw"></i> Sector Rotation — Relative Rotation Graph</div>' +
-          '<div class="card" style="padding:16px;">' +
-            '<div id="rrg-market"></div>' +
+        '<div style="margin-top:24px;" id="section-rrg">' +
+          '<div class="section-title" id="hdr-rrg"><i data-lucide="refresh-cw"></i> Sector Rotation — Relative Rotation Graph</div>' +
+          '<div id="body-rrg">' +
+            '<div class="card" style="padding:16px;">' +
+              '<div id="rrg-market"></div>' +
+            '</div>' +
           '</div>' +
         '</div>' +
 
         // Fear & Greed + VIX Regime
-        '<div class="mid-grid">' +
-          '<div class="card">' +
-            '<div class="section-title" id="fg-title"><i data-lucide="gauge"></i> Fear &amp; Greed Index</div>' +
-            '<div id="fg-gauge"></div>' +
-          '</div>' +
-          '<div class="card vix-card">' +
-            '<div class="section-title"><i data-lucide="activity"></i> VIX Regime</div>' +
-            '<div id="vix-regime"></div>' +
+        '<div style="margin-top:24px;" id="section-fg-vix">' +
+          '<div class="section-title" id="hdr-fg-vix"><i data-lucide="gauge"></i> Fear &amp; Greed + VIX</div>' +
+          '<div id="body-fg-vix">' +
+            '<div class="mid-grid">' +
+              '<div class="card">' +
+                '<div class="section-title" id="fg-title"><i data-lucide="gauge"></i> Fear &amp; Greed Index</div>' +
+                '<div id="fg-gauge"><div class="skeleton skeleton-gauge"></div></div>' +
+              '</div>' +
+              '<div class="card vix-card">' +
+                '<div class="section-title"><i data-lucide="activity"></i> VIX Regime</div>' +
+                '<div id="vix-regime"><div class="skeleton skeleton-card" style="height:200px;"></div></div>' +
+              '</div>' +
+            '</div>' +
           '</div>' +
         '</div>' +
 
         // Pair Ratios
-        '<div class="section-title"><i data-lucide="arrow-left-right"></i> Pair Ratios — Market Health Signals</div>' +
-        '<div class="pairs-grid" id="pairs-grid"></div>' +
+        '<div style="margin-top:24px;" id="section-pairs">' +
+          '<div class="section-title" id="hdr-pairs"><i data-lucide="arrow-left-right"></i> Pair Ratios — Market Health Signals</div>' +
+          '<div id="body-pairs">' +
+            '<div class="pairs-grid" id="pairs-grid">' +
+              Array(8).join('<div class="skeleton skeleton-card" style="height:60px;"></div>') +
+            '</div>' +
+          '</div>' +
+        '</div>' +
 
         // Sector Rankings
-        '<div style="margin-top:24px;">' +
-          '<div class="section-title"><i data-lucide="trophy"></i> Sector Strength Rankings</div>' +
-          '<div class="card">' +
-            '<ul class="sector-rank-list" id="sector-rankings"></ul>' +
+        '<div style="margin-top:24px;" id="section-rankings">' +
+          '<div class="section-title" id="hdr-rankings"><i data-lucide="trophy"></i> Sector Strength Rankings</div>' +
+          '<div id="body-rankings">' +
+            '<div class="card">' +
+              '<ul class="sector-rank-list" id="sector-rankings">' +
+                Array(11).join('<div class="skeleton skeleton-table-row"></div>') +
+              '</ul>' +
+            '</div>' +
           '</div>' +
         '</div>' +
 
         // Market Breadth
-        '<div style="margin-top:24px;">' +
-          '<div class="section-title"><i data-lucide="bar-chart-3"></i> Market Breadth</div>' +
-          '<div id="breadth-insight-box"></div>' +
-          '<div class="breadth-gauge-wrap">' +
-            '<div class="breadth-gauge-card" id="breadth-gauge-card">' +
-              '<svg viewBox="0 0 300 175" class="breadth-gauge-svg" id="breadth-gauge-svg"></svg>' +
-              '<div class="breadth-gauge-value" id="breadth-gauge-value">—</div>' +
-              '<div class="breadth-gauge-label" id="breadth-gauge-label">Loading</div>' +
-              '<div class="breadth-gauge-sublabel">Avg. Sector Breadth (20d SMA)</div>' +
+        '<div style="margin-top:24px;" id="section-breadth">' +
+          '<div class="section-title" id="hdr-breadth"><i data-lucide="bar-chart-3"></i> Market Breadth</div>' +
+          '<div id="body-breadth">' +
+            '<div id="breadth-insight-box"></div>' +
+            '<div class="breadth-gauge-wrap">' +
+              '<div class="breadth-gauge-card" id="breadth-gauge-card">' +
+                '<svg viewBox="0 0 300 175" class="breadth-gauge-svg" id="breadth-gauge-svg"></svg>' +
+                '<div class="breadth-gauge-value" id="breadth-gauge-value">—</div>' +
+                '<div class="breadth-gauge-label" id="breadth-gauge-label">Loading</div>' +
+                '<div class="breadth-gauge-sublabel">Avg. Sector Breadth (20d SMA)</div>' +
+              '</div>' +
+              '<div class="breadth-sector-bars" id="breadth-sector-bars">' +
+                '<div class="bsb-title">Sector Breadth — % Above 20d SMA</div>' +
+                '<div id="breadth-bars-container">' +
+                  Array(11).join('<div class="skeleton skeleton-table-row"></div>') +
+                '</div>' +
+              '</div>' +
             '</div>' +
-            '<div class="breadth-sector-bars" id="breadth-sector-bars">' +
-              '<div class="bsb-title">Sector Breadth — % Above 20d SMA</div>' +
-              '<div id="breadth-bars-container"></div>' +
-            '</div>' +
-          '</div>' +
-          '<div class="breadth-mbt-wrap">' +
-            '<div class="section-title" style="font-size:10px;">Multi-Timeframe Breadth Levels</div>' +
-            '<div class="card" style="padding:0; overflow-x:auto;">' +
-              '<table class="breadth-table" id="breadth-mbt"></table>' +
+            '<div class="breadth-mbt-wrap">' +
+              '<div class="section-title" style="font-size:10px;">Multi-Timeframe Breadth Levels</div>' +
+              '<div class="card" style="padding:0; overflow-x:auto;">' +
+                '<table class="breadth-table" id="breadth-mbt"></table>' +
+              '</div>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -86,6 +112,25 @@
     loadMarketData();
     initHeatmap();
     initRRG();
+
+    // Wire collapsible sections
+    var sections = [
+      ['market:heatmap', 'hdr-heatmap', 'body-heatmap'],
+      ['market:rrg', 'hdr-rrg', 'body-rrg'],
+      ['market:fg-vix', 'hdr-fg-vix', 'body-fg-vix'],
+      ['market:pairs', 'hdr-pairs', 'body-pairs'],
+      ['market:rankings', 'hdr-rankings', 'body-rankings'],
+      ['market:breadth', 'hdr-breadth', 'body-breadth']
+    ];
+    _collapsibles = [];
+    sections.forEach(function(s) {
+      var hdr = document.getElementById(s[1]);
+      var body = document.getElementById(s[2]);
+      if (hdr && body) {
+        _collapsibles.push(BT.components.collapsible.init(s[0], hdr, body));
+      }
+    });
+
     // Render Lucide icons after initial HTML
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
@@ -95,6 +140,8 @@
     _chartInstances = [];
     _intervals.forEach(function(id) { clearInterval(id); });
     _intervals = [];
+    _collapsibles.forEach(function(c) { if (c && c.destroy) c.destroy(); });
+    _collapsibles = [];
   }
 
   // === Data Loading ===

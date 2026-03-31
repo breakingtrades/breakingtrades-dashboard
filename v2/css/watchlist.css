@@ -165,4 +165,25 @@
   .wl-chart-row { grid-template-columns: 1fr; }
   .wl-info-row { grid-template-columns: 1fr; }
   .em-tiers { grid-template-columns: repeat(2, 1fr); }
+  .wl-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .watchlist-table .ticker-cell {
+    position: sticky; left: 0; z-index: 5;
+    background: var(--bg-card);
+  }
+  .watchlist-table th:first-child {
+    position: sticky; left: 0; z-index: 11;
+    background: #0c0c18;
+  }
+  .wl-modal-overlay { padding: 0; }
+  .wl-modal { border-radius: 0; max-width: 100%; }
+  .wl-modal-body { padding: 12px; }
+}
+@media (max-width: 480px) {
+  /* Hide SMA20, SMA50 columns (6th and 7th columns) */
+  .watchlist-table th:nth-child(6),
+  .watchlist-table td:nth-child(6),
+  .watchlist-table th:nth-child(7),
+  .watchlist-table td:nth-child(7) {
+    display: none;
+  }
 }

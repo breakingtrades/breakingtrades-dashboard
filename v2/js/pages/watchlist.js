@@ -61,7 +61,9 @@
               '<th data-col="7">Bias</th>' +
               '<th data-col="8">Status</th>' +
             '</tr></thead>' +
-            '<tbody id="wl-tbody"></tbody>' +
+            '<tbody id="wl-tbody">' +
+              Array(20).join('<tr><td colspan="9"><div class="skeleton skeleton-table-row"></div></td></tr>') +
+            '</tbody>' +
           '</table>' +
         '</div>' +
       '</div>' +
@@ -234,6 +236,7 @@
 
     // Render Lucide icons
     if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
 
   // === TradingView Widget ===
   function initTVWidget() {
@@ -363,6 +366,7 @@
 
     // Render Lucide icons in modal
     if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
 
   function closeDetail() {
     var modal = document.getElementById('wl-modal');
