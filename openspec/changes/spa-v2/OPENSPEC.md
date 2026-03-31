@@ -585,17 +585,22 @@ All existing `data/*.json` files remain as-is. No schema changes.
 
 **Deliverable:** Polished SPA with all new features.
 
-### Phase 4: Cutover
-**Estimated: 30 minutes**
+### Phase 4: Azure Static Web Apps + Cutover
+**Estimated: 1 hour**
 
-30. Move v1 files to `v1-archive/`
-31. Move `v2/` contents to root
-32. Update `index.html` redirect to `#market`
-33. Update GitHub Pages deployment
-34. Verify all data pipeline paths still work
-35. Update openspec INDEX.md
+30. Create Azure Static Web App (free tier) linked to GitHub repo
+31. Configure `staticwebapp.config.json` (routing, headers, optional auth)
+32. Move v1 files to `v1-archive/`
+33. Move `v2/` contents to root
+34. Update `index.html` redirect to `#market`
+35. Verify GitHub Actions auto-deploy to Azure SWA
+36. Verify all data pipeline paths still work (EOD, prices, etc. push to repo → auto-deploy)
+37. Configure auth (GitHub login, invite-only or open — Idan's call)
+38. Optional: custom domain setup
+39. Retire GitHub Pages deployment
+40. Update openspec INDEX.md
 
-**Deliverable:** v2 is production.
+**Deliverable:** v2 is production on Azure Static Web Apps with optional auth.
 
 ---
 
@@ -612,7 +617,90 @@ All existing `data/*.json` files remain as-is. No schema changes.
 
 ---
 
-## 14. Success Criteria
+## 15. Hosting: Azure Static Web Apps
+
+**Decision:** Migrate from GitHub Pages to Azure Static Web Apps (free tier) as part of Phase 4.
+
+### Why Azure SWA over GitHub Pages
+
+| Capability | GitHub Pages | Azure SWA |
+|-----------|-------------|-----------|
+| Cost | Free | Free |
+| CDN | Fastly | Azure Front Door |
+| Built-in auth | ❌ | ✅ GitHub, Entra, Google (config-only, zero code) |
+| API routes | ❌ | ✅ Azure Functions (`/api/` folder) |
+| Preview envs | ❌ | ✅ Per-PR staging URLs |
+| Custom routing | ❌ hash only | ✅ `staticwebapp.config.json` |
+| Role-based access | ❌ | ✅ Invite-only with roles |
+
+### Why Azure SWA over Vercel
+
+- **Built-in auth** — Entra/GitHub/Google via config, no third-party library
+- **Same Azure ecosystem** — existing subscription, `az` CLI, no new vendor
+- **Free tier allows commercial use** — Vercel Hobby tier is non-commercial
+- **API routes connect to Azure resources** natively (Table Storage, OpenAI, etc.)
+
+### Infrastructure
+
+| Setting | Value |
+|---------|-------|
+| **Subscription** | `ME-MngEnvMCAP356394-idanshimon-1` (or personal Azure — TBD) |
+| **Resource Group** | `rg-breakingtrades` (new) |
+| **App Name** | `breakingtrades-dashboard` |
+| **Region** | `eastus` |
+| **Source** | `github.com/breakingtrades/breakingtrades-dashboard` |
+| **Branch** | `main` |
+| **App location** | `/` (root) |
+| **API location** | `/api` (future — not used initially) |
+| **SKU** | Free |
+
+### Auth Configuration (`staticwebapp.config.json`)
+
+```json
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/data/*", "/css/*", "/js/*", "/images/*"]
+  },
+  "routes": [
+    {
+      "route": "/data/*",
+      "headers": {
+        "Cache-Control": "public, max-age=300"
+      }
+    }
+  ],
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff"
+  }
+}
+```
+
+Auth routes added when ready (not blocking v2 launch):
+
+```json
+{
+  "routes": [
+    { "route": "/*", "allowedRoles": ["authenticated"] }
+  ],
+  "responseOverrides": {
+    "401": { "redirect": "/.auth/login/github", "statusCode": 302 }
+  }
+}
+```
+
+### Deploy Pipeline
+
+1. Data scripts (`eod-update.sh`, `update-prices.py`, etc.) push JSON to repo → GitHub Actions auto-deploys to Azure SWA
+2. Code changes push to repo → same GitHub Actions auto-deploys
+3. PR branches get preview URLs automatically
+4. Zero pipeline changes from v1
+
+### Risk: Dev Subscription Stability
+
+The `MngEnvMCAP356394` dev subscription has $150/mo credits. SWA free tier costs $0 so credits aren't consumed. However, if Microsoft revokes/modifies the subscription, the SWA goes down. Magen Yehuda has run on this same sub for months at ~$45/mo without issues. Mitigation: can migrate to personal Azure account (free, $0 SWA) if needed — takes 10 minutes.
+
+## 16. Success Criteria
 
 - [ ] All 6 pages render pixel-identical to v1
 - [ ] Nav is persistent — no page reload on navigation

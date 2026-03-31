@@ -56,19 +56,19 @@
   {
     "pair": "SLV/GLD",
     "desc": "Industrial vs safe haven",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2197 RISING",
+    "color": "up"
   },
   {
     "pair": "HYG/TLT",
     "desc": "Credit vs treasuries",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2192 FLAT DOWN",
+    "color": "neutral"
   },
   {
     "pair": "IGV/QQQ",
     "desc": "Software vs Broad Tech",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
   }
 ]
