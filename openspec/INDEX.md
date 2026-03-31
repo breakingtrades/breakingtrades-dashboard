@@ -1,6 +1,6 @@
 # BreakingTrades Dashboard — OpenSpec Index
 
-> Last updated: 2026-03-29
+> Last updated: 2026-03-31
 > Status: **Production** — live at https://breakingtrades.github.io/breakingtrades-dashboard/
 > Running smoothly as of Mar 27 2026.
 
@@ -20,7 +20,7 @@
 | Component | Schedule | Description |
 |-----------|----------|-------------|
 | **Canonical Prices** | 4× daily (9:30/12/3/4:05 ET) + EOD | `update-prices.py` → `data/prices.json` — single source of truth for all ticker prices. `bt-prices.js` shared module consumed by all pages. |
-| **Futures Strip** | 4× daily (9:30/12/3/4:05 ET) + EOD | `update_futures.py` → `data/futures.json` — 14 instruments (ES, NQ, RTY, YM, CL, NG, GC, SI, HG, TNX, DXY, VIX, BTC, ETH) |
+| **Futures Strip** | 4× daily (9:30/12/3/4:05 ET) + EOD | `update_futures.py` → `data/futures.json` — 14 instruments. **Signals page now uses TradingView real-time ticker tape widget (compact mode) instead of static futures.json.** Other pages still use the static strip. |
 | **Fear & Greed** | ~Hourly cron | `update-fear-greed.py` → `data/fear-greed.json` |
 | **VIX** | 4× daily (9:30/12/3/4:05 ET) | `update-vix.py` → `data/vix.json` |
 | **Sector Rotation** | On demand / EOD | `export-sector-rotation.py` → `data/sector-rotation.json` + `data/sector-risk.json` |
@@ -43,7 +43,7 @@
 | [Sector Rotation Chart](changes/sector-rotation-chart/OPENSPEC.md) | 2026-03-18 | `44fa968` | RRG chart + sector risk badges (4 phases) |
 | [Logo & Branding](changes/logo-branding/proposal.md) | 2026-03-19 | — | Inline SVG logo mark in nav bar |
 | [Ticker Search](changes/ticker-search/proposal.md) | 2026-03-19 | — | Global search bar with tracked (enriched) vs external (TradingView) routing |
-| [Futures Strip](changes/futures-strip/proposal.md) | 2026-03-19 | — | Pre-market futures/macro data strip (14 instruments, 5 groups) |
+| [Futures Strip](changes/futures-strip/proposal.md) | 2026-03-19 | — | Pre-market futures/macro data strip (14 instruments, 5 groups). **Superseded on signals page by TradingView real-time ticker tape (2026-03-31).** |
 | [Shared Nav Component](changes/shared-nav-component/) | 2026-03-20 | — | Nav bar, ticker search, market status, timezone picker — shared across all pages |
 | [Expected Moves](changes/expected-moves/proposal.md) | 2026-03-20 | `c9e8957`..`3b8b053` | EM page with risk model, watchlist banner, staleness guard + staleness tests |
 | [Watchlist Page](changes/watchlist-page/) | 2026-03-20 | — | Widget + table views, TradingView embed, detail modals |
@@ -74,6 +74,8 @@
 | [Search → Detail Routing (System-wide)](changes/shared-nav-component/) | 2026-03-29 | `b7d6264`, `12674ad` | `ticker-search.js` now self-contained: if page has `openDetail()` (signals, watchlist, EM), routes there for all tickers (tracked + external). If page has no modal (market, sector-rotation), creates a lightweight modal on-the-fly with TradingView daily/weekly charts + technical analysis + profile + financials. EM page bridges via `window.openDetail = openEMDetail` and handles external tickers gracefully (TV chart + "Not in watchlist" note). Sort on EM page now 3-state: asc → desc → none. |
 | [Market Breadth](changes/market-breadth/proposal.md) | 2026-03-29 | — | Market breadth section on market page: river map (stacked bar, 0-1100), breadth lines (per-sector, 0-100), multi-timeframe table (SPX/NDX/DJI/RUT/VTI × 20/50/100/200d), zone annotations, `update-breadth.py` pipeline (235 stocks via yfinance), added to EOD pipeline, 31 Jest tests. |
 | [Signals — Remove Brief Metadata](changes/dashboard-ui/) | 2026-03-29 | `d5803bf` | Removed internal brief metadata (model name + generated timestamp) from signals page UI. Audience-facing briefing should not expose `gpt-4o` model attribution or generation timestamps. |
+| [Real-time Ticker Tape](changes/realtime-ticker-tape/) | 2026-03-31 | `3c15180` | Replaced static `futures-strip.js` (data/futures.json snapshot) with TradingView embedded ticker tape widget (compact mode) on signals page. 14 tickers: S&P (`FOREXCOM:SPXUSD`), Nasdaq (`FOREXCOM:NSXUSD`), Russell (`AMEX:IWM`), Dow (`AMEX:DIA`), Oil (`TVC:USOIL`), Gas (`CAPITALCOM:NATURALGAS`), Gold (`TVC:GOLD`), Silver (`TVC:SILVER`), Copper (`CAPITALCOM:COPPER`), Energy (`AMEX:XLE`), Dollar (`AMEX:UUP`), VIX (`AMEX:UVXY`), BTC (`BITSTAMP:BTCUSD`), ETH (`BITSTAMP:ETHUSD`). Real-time WebSocket for indices/commodities/crypto; 15-min delay for ETF proxies. Free tier — no API keys, zero maintenance. TradingView free widget doesn't support raw TVC:DXY, TVC:VIX, CBOE:TNX, or bond ETFs — ETF proxies used instead. |
+| [Dynamic Pair Ratios Strip](changes/dynamic-pair-ratios/) | 2026-03-31 | `fd93ebd` | Replaced hardcoded pair ratio pills on signals page with data-driven SMA50 computation. 8 pairs: XLY/XLP (consumer), HYG/SPY (credit), IWM/SPY (breadth), XLV/SPY (defensive), XLE/SPY (energy), IWM/QQQ (value/growth), GLD/SPY (safe haven), TLT/SPY (bonds). Signal = ratio of current prices vs ratio of SMA50 values from watchlist.json. 1% threshold: above → ↗ up, below → ↘ down, within → → neutral. RSP replaced by IWM/SPY (RSP not in watchlist). |
 
 ## Active Changes (in progress)
 
