@@ -1,0 +1,35 @@
+/* css/autoresearch.css — Autoresearch page styles */
+
+.ar-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.ar-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  text-align: center;
+}
+.ar-stat-value { font-size: 32px; font-weight: 800; color: var(--cyan); }
+.ar-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-top: 4px; }
+.ar-stat-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+.ar-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ar-compare-card { text-align: center; }
+.ar-compare-label { font-size: 10px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px; }
+.ar-compare-score { font-size: 48px; font-weight: 800; }
+
+.ar-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ar-table th {
+  text-align: left; padding: 8px 12px; color: var(--text-dim); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border);
+}
+.ar-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.ar-table tr:hover { background: var(--bg-card-hover); }
+.ar-score-bar { display: inline-block; height: 6px; border-radius: 3px; background: var(--cyan); }
+
+.ar-no-data { text-align: center; padding: 60px; color: var(--text-dim); }
+.ar-no-data h2 { color: var(--text-bright); margin-bottom: 8px; }
