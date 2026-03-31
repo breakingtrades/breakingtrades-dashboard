@@ -31,12 +31,14 @@
 
     nav.className = 'nav-bar';
 
-    // Logo — Market Pulse logomark + text (text hidden on mobile)
+    // Logo — Breakout Bolt logomark + wordmark (text hidden on mobile)
     var logo = '<a href="#market" class="nav-logo">' +
       '<svg class="nav-logo-mark" viewBox="0 0 64 64" width="28" height="28">' +
         '<rect width="64" height="64" rx="14" fill="#111122" stroke="#00d4aa" stroke-width="1.5"/>' +
-        '<path d="M12,44 L20,44 L24,32 L30,50 L36,18 L42,38 L46,28 L52,44" fill="none" stroke="#00d4aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' +
-        '<path d="M12,44 L20,44 L24,32 L30,50 L36,18 L42,38 L46,28 L52,44" fill="none" stroke="#00d4aa" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.1"/>' +
+        '<polyline points="10,48 22,38 30,42 38,28 42,32 52,14" fill="none" stroke="#00d4aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<path d="M46,18 L42,28 L48,26 L44,36" fill="none" stroke="#00d4aa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<circle cx="52" cy="14" r="3" fill="#00d4aa" opacity="0.9"/>' +
+        '<circle cx="52" cy="14" r="6" fill="#00d4aa" opacity="0.15"/>' +
       '</svg>' +
       '<span class="nav-logo-text">BREAKING<span>TRADES</span></span>' +
     '</a>';
