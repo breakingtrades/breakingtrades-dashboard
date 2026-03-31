@@ -799,13 +799,67 @@
 <!-- MACRO STRIP -->
 <div id="macro-context" class="macro-context"></div>
 
-<!-- PAIR RATIOS -->
-<div class="ratios-strip">
-  <div class="ratio-pill"><span class="name">XLY/XLP</span><span class="signal down">↘ Consumer weakening</span></div>
-  <div class="ratio-pill"><span class="name">HYG/SPY</span><span class="signal neutral">→ Credit stable</span></div>
-  <div class="ratio-pill"><span class="name">RSP/SPY</span><span class="signal neutral">→ Breadth flat</span></div>
-  <div class="ratio-pill"><span class="name">XLV/SPY</span><span class="signal neutral">→ No defensive rotation</span></div>
-</div>
+<!-- PAIR RATIOS (dynamic — computed from watchlist SMA50) -->
+<div class="ratios-strip" id="ratios-strip"></div>
+<script>
+(function() {
+  const PAIRS = [
+    { num: 'XLY', den: 'XLP', label: 'XLY/XLP',  upMsg: 'Consumer risk-on',      downMsg: 'Consumer weakening',    flatMsg: 'Consumer neutral' },
+    { num: 'HYG', den: 'SPY', label: 'HYG/SPY',   upMsg: 'Credit risk-on',        downMsg: 'Credit stress',         flatMsg: 'Credit stable' },
+    { num: 'IWM', den: 'SPY', label: 'IWM/SPY',    upMsg: 'Small caps leading',    downMsg: 'Large caps leading',    flatMsg: 'Breadth flat' },
+    { num: 'XLV', den: 'SPY', label: 'XLV/SPY',    upMsg: 'Defensive rotation',    downMsg: 'No defensive rotation', flatMsg: 'Healthcare neutral' },
+    { num: 'XLE', den: 'SPY', label: 'XLE/SPY',    upMsg: 'Energy outperforming',  downMsg: 'Energy lagging',        flatMsg: 'Energy neutral' },
+    { num: 'IWM', den: 'QQQ', label: 'IWM/QQQ',    upMsg: 'Value > Growth',        downMsg: 'Growth > Value',        flatMsg: 'Value/Growth flat' },
+    { num: 'GLD', den: 'SPY', label: 'GLD/SPY',    upMsg: 'Safe haven bid',        downMsg: 'Risk appetite',         flatMsg: 'Gold neutral' },
+    { num: 'TLT', den: 'SPY', label: 'TLT/SPY',    upMsg: 'Flight to bonds',       downMsg: 'Bonds lagging',         flatMsg: 'Bonds neutral' },
+  ];
+  const THRESHOLD = 0.01; // 1% above/below SMA50 ratio to count as signal
+
+  const el = document.getElementById('ratios-strip');
+  if (!el) return;
+
+  // Wait for watchlist data
+  fetch('data/watchlist.json').then(r => r.ok ? r.json() : []).then(wl => {
+    const map = {};
+    for (const t of wl) { if (t.symbol) map[t.symbol] = t; }
+
+    // Overlay live prices from btPrices if available
+    if (typeof btPrices !== 'undefined' && btPrices.isLoaded()) {
+      for (const sym of Object.keys(map)) {
+        const p = btPrices.get(sym);
+        if (p) map[sym].price = p.price;
+      }
+    }
+
+    let html = '';
+    for (const p of PAIRS) {
+      const n = map[p.num], d = map[p.den];
+      if (!n || !d || !n.price || !d.price || !n.sma50 || !d.sma50) {
+        // Fallback: show pair with unknown state
+        html += `<div class="ratio-pill"><span class="name">${p.label}</span><span class="signal neutral">— no data</span></div>`;
+        continue;
+      }
+
+      const ratio = n.price / d.price;
+      const sma50Ratio = n.sma50 / d.sma50;
+      const pctDiff = (ratio - sma50Ratio) / sma50Ratio;
+
+      let arrow, msg, cls;
+      if (pctDiff > THRESHOLD) {
+        arrow = '↗'; msg = p.upMsg; cls = 'up';
+      } else if (pctDiff < -THRESHOLD) {
+        arrow = '↘'; msg = p.downMsg; cls = 'down';
+      } else {
+        arrow = '→'; msg = p.flatMsg; cls = 'neutral';
+      }
+
+      html += `<div class="ratio-pill"><span class="name">${p.label}</span><span class="signal ${cls}">${arrow} ${msg}</span></div>`;
+    }
+
+    el.innerHTML = html;
+  }).catch(() => { el.style.display = 'none'; });
+})();
+</script>
 
 <!-- MAIN LAYOUT -->
 <div class="main">
