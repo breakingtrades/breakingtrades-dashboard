@@ -103,9 +103,9 @@ function initMarketStatus() {
     const dateStr = ny.full.toLocaleDateString('en-US', { timeZone: 'America/New_York', weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
 
     el.innerHTML = `
-      Market: ${dotHtml}<span style="color:${status.color};font-weight:600;">${status.label}</span>
-      ${status.sub ? `<span style="color:var(--text-dim,#555);margin-left:4px;font-size:10px;">${status.sub}</span>` : ''}
-      <span style="color:var(--text-dim,#888);margin-left:8px;">${dateStr}, ${formatTime(ny)}</span>
+      <span class="ms-label">Market: </span>${dotHtml}<span style="color:${status.color};font-weight:600;">${status.label}</span>
+      ${status.sub ? `<span class="ms-sub" style="color:var(--text-dim,#555);margin-left:4px;font-size:10px;">${status.sub}</span>` : ''}
+      <span class="ms-date" style="color:var(--text-dim,#888);margin-left:8px;">${dateStr}, ${formatTime(ny)}</span>
     `;
   }
 

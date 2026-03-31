@@ -165,8 +165,9 @@
   .nav-search-wrap { flex-shrink: 1; min-width: 0; }
   .nav-search { width: 120px; flex-shrink: 1; min-width: 0; }
   .nav-search:focus { width: 180px; }
-  .nav-right { flex-shrink: 0; gap: 8px; }
-  #market-status { display: none; }
+  .nav-right { flex-shrink: 0; gap: 6px; }
+  #market-status { font-size: 10px; }
+  #market-status .ms-date { display: none; }
   #tv-ticker-tape { overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 11px; }
   #content { padding: 0; }
 }
@@ -175,11 +176,13 @@
   .nav-logo-wordmark { display: none; }
   .nav-logo-mark { width: 24px; height: 24px; }
   .nav-link { padding: 12px 16px; font-size: 10px; }
-  .nav-search-wrap { flex-shrink: 1; min-width: 0; }
-  .nav-search { width: 28px; font-size: 11px; padding: 5px 6px; border-color: transparent; background: transparent; }
+  .nav-search-wrap { flex-shrink: 0; }
+  .nav-search { width: 36px; font-size: 11px; padding: 5px 8px; border-color: var(--border); background: var(--bg-primary); border-radius: 6px; cursor: pointer; }
   .nav-search::placeholder { color: transparent; }
-  .nav-search:focus { width: 140px; padding: 5px 10px 5px 28px; background: var(--bg-primary); border-color: var(--cyan); }
+  .nav-search:focus { width: 160px; padding: 5px 10px; }
   .nav-search:focus::placeholder { color: #555; }
   .tz-select { display: none; }
   .ticker-tape-toggle { padding: 2px 6px; font-size: 12px; }
+  #market-status { font-size: 9px; }
+  #market-status .ms-label, #market-status .ms-sub, #market-status .ms-date { display: none; }
 }
