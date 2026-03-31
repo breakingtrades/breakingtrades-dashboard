@@ -1,0 +1,71 @@
+/* css/variables.css — Single source of truth for all design tokens */
+:root {
+  /* Backgrounds */
+  --bg-primary: #0a0a12;
+  --bg-card: #111122;
+  --bg-card-hover: #161630;
+  --bg-input: #0c0c18;
+
+  /* Borders */
+  --border: #1e1e3a;
+  --border-hover: #2a2a50;
+
+  /* Text */
+  --text: #e0e0e8;
+  --text-dim: #8888aa;
+  --text-bright: #ffffff;
+
+  /* Semantic Colors */
+  --cyan: #00d4aa;
+  --green: #00c853;
+  --red: #ef5350;
+  --orange: #ffa726;
+  --gold: #ffd700;
+  --blue: #42a5f5;
+  --purple: #ab47bc;
+  --yellow: #ffeb3b;
+
+  /* Semantic Backgrounds */
+  --green-bg: rgba(0,212,170,0.08);
+  --red-bg: rgba(239,83,80,0.08);
+  --orange-bg: rgba(255,167,38,0.08);
+  --blue-bg: rgba(66,165,245,0.1);
+
+  /* Typography */
+  --font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  --font-size-xs: 9px;
+  --font-size-sm: 10px;
+  --font-size-md: 11px;
+  --font-size-base: 13px;
+  --font-size-lg: 16px;
+  --font-size-xl: 22px;
+  --font-size-hero: 48px;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-2xl: 24px;
+
+  /* Layout */
+  --nav-height: 48px;
+  --ticker-tape-height: 46px;
+  --sidebar-width: 380px;
+  --border-radius: 6px;
+  --border-radius-sm: 4px;
+  --border-radius-lg: 8px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.35s ease-out;
+
+  /* Z-index layers */
+  --z-ticker-tape: 90;
+  --z-nav: 100;
+  --z-dropdown: 150;
+  --z-modal: 200;
+  --z-fullscreen: 10000;
+}

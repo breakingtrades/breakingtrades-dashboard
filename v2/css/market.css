@@ -1,0 +1,81 @@
+/* css/market.css — Market page-specific styles */
+
+/* ===== Page Layout ===== */
+.page-content { padding: 20px 24px; }
+
+/* ===== Heatmap ===== */
+.heatmap-wrap {
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  background: var(--bg-card); margin-bottom: 24px;
+}
+
+/* ===== Mid Grid (F&G + VIX) ===== */
+.mid-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* ===== Pair Ratios Grid ===== */
+.pairs-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+.pair-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px; display: flex; justify-content: space-between; align-items: center;
+}
+.pair-card .pair-name { font-size: 12px; font-weight: 600; color: var(--text-bright); }
+.pair-card .pair-reading { font-size: 11px; }
+.pair-card .pair-desc { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+/* ===== Sector Rankings ===== */
+.sector-rank-list { list-style: none; }
+.sector-rank-item {
+  display: flex; align-items: center; gap: 12px; padding: 8px 0;
+  border-bottom: 1px solid #151530;
+}
+.sector-rank-item:last-child { border-bottom: none; }
+.rank-num { width: 24px; font-weight: 700; color: var(--text-dim); font-size: 12px; }
+.rank-name { flex: 1; font-weight: 600; font-size: 12px; }
+.rank-bar-wrap { width: 120px; height: 6px; background: #1a1a2e; border-radius: 3px; overflow: hidden; }
+.rank-bar { height: 100%; border-radius: 3px; transition: width 0.5s; }
+.rank-change { width: 60px; text-align: right; font-size: 12px; font-weight: 600; }
+
+/* ===== Market Breadth ===== */
+.breadth-sector-bars { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; flex: 1.2; min-width: 320px; }
+.breadth-sector-bars .bsb-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 12px; font-weight: 600; }
+.breadth-sector-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.breadth-sector-row:last-child { margin-bottom: 0; }
+.breadth-sector-name { font-size: 11px; font-family: var(--font-mono); color: var(--text-dim); width: 44px; flex-shrink: 0; text-align: right; }
+.breadth-sector-bar-bg { flex: 1; height: 16px; background: rgba(255,255,255,0.04); border-radius: 3px; position: relative; overflow: hidden; }
+.breadth-sector-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; position: relative; }
+.breadth-sector-bar-fill::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%); }
+.breadth-sector-val { font-size: 11px; font-family: var(--font-mono); font-weight: 600; width: 42px; flex-shrink: 0; text-align: right; }
+.breadth-spx-line { position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; opacity: 0.7; z-index: 2; }
+
+.breadth-insight-box { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+.breadth-insight-box.green { background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.25); color: #00d4aa; }
+.breadth-insight-box.red { background: rgba(239,83,80,0.08); border: 1px solid rgba(239,83,80,0.25); color: #ef5350; }
+.breadth-insight-box.dim { background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--text-dim); }
+.breadth-insight-icon { font-size: 20px; flex-shrink: 0; }
+
+.breadth-mbt-wrap { margin-top: 16px; }
+.breadth-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.breadth-table th { text-align: left; padding: 10px 14px; color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); font-family: var(--font-mono); }
+.breadth-table td { padding: 10px 14px; border-bottom: 1px solid #151530; }
+.breadth-table tr:last-child td { border-bottom: none; }
+.breadth-table tr:hover { background: rgba(255,255,255,0.02); }
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .mid-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .page-content { padding: 12px; }
+  .pairs-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .pairs-grid { grid-template-columns: 1fr; }
+}

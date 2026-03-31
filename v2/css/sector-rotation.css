@@ -1,0 +1,166 @@
+/* sector-rotation.css — RRG Component Styles */
+.rrg-section { width: 100%; }
+.rrg-section .rrg-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.rrg-section .rrg-header h2 {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+}
+.rrg-section .rrg-header .rrg-toggle {
+  font-size: 10px;
+  color: #555;
+  transition: transform 0.2s;
+}
+.rrg-section .rrg-header .rrg-toggle.collapsed { transform: rotate(-90deg); }
+.rrg-section .rrg-body.hidden { display: none; }
+
+.rrg-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.rrg-controls button {
+  background: #1a1a24;
+  border: 1px solid #2a2a3a;
+  color: #aaa;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.2s;
+}
+.rrg-controls button:hover { border-color: #555; color: #fff; }
+.rrg-controls button.active { border-color: #4a9eff; color: #4a9eff; }
+.rrg-controls .rrg-sep {
+  width: 1px;
+  height: 18px;
+  background: #2a2a3a;
+  margin: 0 4px;
+}
+.rrg-controls .rrg-hint {
+  font-size: 10px;
+  color: #555;
+}
+
+.rrg-chart-container {
+  width: 100%;
+  position: relative;
+}
+
+.rrg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 12px;
+  padding: 0 8px;
+}
+.rrg-legend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+  position: relative;
+}
+.rrg-legend-item:hover { opacity: 1; }
+.rrg-legend-item .rrg-legend-tip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20,20,30,0.95);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #ddd;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+  margin-bottom: 6px;
+  pointer-events: none;
+  z-index: 10;
+}
+.rrg-legend-item:hover .rrg-legend-tip { display: block; }
+.rrg-legend-item.dimmed { opacity: 0.25; }
+.rrg-legend-item.off { opacity: 0.2; }
+.rrg-legend-item.off .rrg-legend-dot { background: #444 !important; }
+.rrg-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-bottom: 3px;
+}
+.rrg-legend-ticker {
+  font-size: 11px;
+  font-weight: 600;
+  color: #ccc;
+  letter-spacing: 0.5px;
+}
+
+.rrg-meta {
+  font-size: 10px;
+  color: #444;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Sector Rankings Table */
+.rrg-rankings {
+  width: 100%;
+  margin-top: 20px;
+}
+.rrg-rankings h3 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.rrg-rankings table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.rrg-rankings th {
+  text-align: left;
+  padding: 6px 10px;
+  color: #666;
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #2a2a3a;
+}
+.rrg-rankings td {
+  padding: 6px 10px;
+  color: #ccc;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.rrg-rankings tr:hover td { background: rgba(255,255,255,0.02); }
+.rrg-rankings .q-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.rrg-rankings .q-leading    { background: rgba(40,167,69,0.15); color: #28a745; }
+.rrg-rankings .q-weakening  { background: rgba(255,193,7,0.15); color: #ffc107; }
+.rrg-rankings .q-lagging    { background: rgba(220,53,69,0.15); color: #dc3545; }
+.rrg-rankings .q-improving  { background: rgba(30,144,255,0.15); color: #1e90ff; }

@@ -1,0 +1,163 @@
+/* css/components.css — Shared card, badge, gauge, modal, table, button/pill styles */
+
+/* ===== Cards ===== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  padding: 20px;
+}
+.card:hover { border-color: var(--border-hover); }
+
+/* ===== Section Title ===== */
+.section-title {
+  font-size: var(--font-size-md);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ===== Badges ===== */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+/* Status badges */
+.badge-active { background: rgba(0,212,170,0.12); color: var(--cyan); border: 1px solid rgba(0,212,170,0.2); }
+.badge-approaching { background: rgba(255,167,38,0.12); color: var(--orange); border: 1px solid rgba(255,167,38,0.2); }
+.badge-exit { background: rgba(239,83,80,0.12); color: var(--red); border: 1px solid rgba(239,83,80,0.2); }
+.badge-watching { background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid transparent; }
+/* Bias badges */
+.badge-bull { background: rgba(0,212,170,0.1); color: var(--cyan); }
+.badge-bear { background: rgba(239,83,80,0.1); color: var(--red); }
+.badge-mixed { background: rgba(255,167,38,0.1); color: var(--orange); }
+/* Breadth badges */
+.breadth-badge { display: inline-block; padding: 3px 10px; border-radius: 4px; font-weight: 700; font-size: 11px; min-width: 52px; text-align: center; font-family: var(--font-mono); }
+.breadth-badge.oversold { background: rgba(0,212,170,0.12); color: #00d4aa; border: 1px solid rgba(0,212,170,0.2); }
+.breadth-badge.overbought { background: rgba(239,83,80,0.12); color: #ef5350; border: 1px solid rgba(239,83,80,0.2); }
+.breadth-badge.neutral { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid transparent; }
+
+/* ===== Modal Overlay ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: var(--z-modal);
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+.modal-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-lg);
+  width: 100%;
+  max-width: 900px;
+  padding: 24px;
+  position: relative;
+}
+.modal-close {
+  position: absolute; top: 12px; right: 16px;
+  background: none; border: none; color: var(--text-dim);
+  font-size: 20px; cursor: pointer; padding: 4px 8px;
+  transition: color var(--transition-fast);
+}
+.modal-close:hover { color: var(--text); }
+
+/* ===== Tables ===== */
+.bt-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.bt-table th {
+  text-align: left; padding: 10px 14px; color: var(--text-dim);
+  font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px;
+  border-bottom: 1px solid var(--border); font-family: var(--font-mono);
+}
+.bt-table td { padding: 10px 14px; border-bottom: 1px solid #151530; }
+.bt-table tr:last-child td { border-bottom: none; }
+.bt-table tr:hover { background: rgba(255,255,255,0.02); }
+
+/* ===== Buttons / Tabs / Pills ===== */
+.bt-btn {
+  background: #1a1a24; border: 1px solid #2a2a3a; color: #aaa;
+  padding: 5px 12px; border-radius: 6px; cursor: pointer;
+  font-size: 11px; transition: all 0.2s; font-family: var(--font-mono);
+}
+.bt-btn:hover { border-color: #555; color: #fff; }
+.bt-btn.active { border-color: var(--cyan); color: var(--cyan); }
+
+.bt-pill {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: var(--font-size-xs); font-weight: 600; border: 1px solid var(--border);
+  color: var(--text-dim);
+}
+
+/* ===== Fear & Greed Gauge (shared) ===== */
+.fg-gauge-container {
+  display: flex; justify-content: center; align-items: center; flex-direction: column;
+  position: relative;
+}
+.fg-gauge-svg { width: 100%; max-width: 340px; height: auto; }
+.fg-value-wrap { text-align: center; margin-top: -28px; position: relative; z-index: 2; }
+.fg-value { font-size: 48px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+.fg-label { font-size: 13px; margin-top: 2px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+.fg-trend { font-size: 11px; margin-top: 6px; text-align: center; }
+.fg-history { display: flex; gap: 0; margin-top: 14px; justify-content: center; width: 100%; }
+.fg-history-item { text-align: center; flex: 1; padding: 8px 4px; position: relative; }
+.fg-history-item:not(:last-child)::after {
+  content: ''; position: absolute; right: 0; top: 4px; bottom: 4px;
+  width: 1px; background: var(--border);
+}
+.fg-history-item .fgh-label { font-size: 9px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px; }
+.fg-history-item .fgh-value { font-size: 18px; font-weight: 700; margin-top: 3px; }
+.fg-history-item .fgh-sublabel { font-size: 8px; color: var(--text-dim); margin-top: 1px; }
+@keyframes needleSweep { from { opacity: 0; } to { opacity: 1; } }
+@keyframes needleGlow { 0%,100% { filter: drop-shadow(0 0 3px rgba(255,255,255,0.3)); } 50% { filter: drop-shadow(0 0 8px rgba(255,255,255,0.6)); } }
+
+/* ===== VIX Regime (shared) ===== */
+.vix-card { text-align: center; }
+.vix-big-value { font-size: 56px; font-weight: 800; line-height: 1; }
+.vix-regime-label { font-size: 14px; font-weight: 600; margin-top: 4px; text-transform: uppercase; letter-spacing: 2px; }
+.vix-description { font-size: 12px; color: var(--text-dim); margin-top: 8px; line-height: 1.6; }
+.vix-levels { display: flex; gap: 0; margin-top: 16px; width: 100%; }
+.vix-level-item { flex: 1; text-align: center; padding: 8px 4px; position: relative; }
+.vix-level-item:not(:last-child)::after {
+  content: ''; position: absolute; right: 0; top: 4px; bottom: 4px;
+  width: 1px; background: var(--border);
+}
+.vix-level-item .vl-label { font-size: 9px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px; }
+.vix-level-item .vl-value { font-size: 14px; font-weight: 600; margin-top: 2px; }
+.vix-bar-wrap { margin-top: 16px; }
+.vix-bar { height: 8px; border-radius: 4px; background: linear-gradient(to right, #00d4aa 0%, #8bc34a 25%, #ffeb3b 45%, #ffa726 65%, #ef5350 85%, #d32f2f 100%); position: relative; }
+.vix-needle { position: absolute; top: -4px; width: 3px; height: 16px; background: #fff; border-radius: 2px; transform: translateX(-50%); transition: left 0.5s; }
+
+/* ===== Breadth Gauge (shared) ===== */
+.breadth-gauge-wrap { display: flex; gap: 20px; align-items: stretch; margin-bottom: 16px; flex-wrap: wrap; }
+.breadth-gauge-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; flex: 1; min-width: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.breadth-gauge-card.glow-green { box-shadow: 0 0 30px rgba(0,212,170,0.15), inset 0 0 30px rgba(0,212,170,0.05); border-color: rgba(0,212,170,0.3); }
+.breadth-gauge-card.glow-red { box-shadow: 0 0 30px rgba(239,83,80,0.15), inset 0 0 30px rgba(239,83,80,0.05); border-color: rgba(239,83,80,0.3); }
+.breadth-gauge-svg { width: 100%; max-width: 280px; height: auto; }
+.breadth-gauge-value { font-size: 42px; font-weight: 800; letter-spacing: -1px; line-height: 1; margin-top: -24px; position: relative; z-index: 2; }
+.breadth-gauge-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-top: 6px; }
+.breadth-gauge-sublabel { font-size: 9px; color: var(--text-dim); margin-top: 2px; text-transform: uppercase; letter-spacing: 1px; }
+@keyframes breadthPulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+.breadth-pulse { animation: breadthPulse 2s ease-in-out infinite; }
+
+/* ===== VIX Structure badge ===== */
+.vix-structure { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; }
+.vix-backwardation { background: rgba(239,83,80,0.1); color: var(--red); }
+
+/* ===== Coming Soon placeholder ===== */
+.coming-soon {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 60vh; color: var(--text-dim); font-size: 18px;
+  text-transform: uppercase; letter-spacing: 3px;
+}
