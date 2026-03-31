@@ -48,7 +48,7 @@
 .nav-search:focus { border-color: var(--cyan); width: 280px; }
 .nav-search::placeholder { color: #555; }
 .nav-search-wrap::before {
-  content: '🔍'; position: absolute; left: 8px; top: 50%;
+  content: ''; position: absolute; left: 8px; top: 50%;
   transform: translateY(-50%); font-size: 12px; pointer-events: none;
 }
 .search-dropdown {

@@ -16,12 +16,12 @@
   };
 
   var CAT_BADGES = {
-    geopolitical: '🌍',
-    macro: '📊',
-    fed: '🏛️',
-    earnings: '💰',
-    technical: '📈',
-    analyst_flag: '🔍'
+    geopolitical: '<i data-lucide="globe"></i>',
+    macro: '<i data-lucide="bar-chart-3"></i>',
+    fed: '<i data-lucide="landmark"></i>',
+    earnings: '<i data-lucide="dollar-sign"></i>',
+    technical: '<i data-lucide="trending-up"></i>',
+    analyst_flag: '<i data-lucide="search"></i>'
   };
 
   var CAT_LABELS = {
@@ -37,22 +37,22 @@
     el.innerHTML =
       '<div class="page-content" style="max-width:1400px;margin:0 auto;">' +
         '<div class="events-page-header">' +
-          '<span class="events-page-title">📅 Events & Calendar</span>' +
+          '<span class="events-page-title"><i data-lucide="calendar"></i> Events & Calendar</span>' +
         '</div>' +
         '<div class="events-filter-tabs" id="events-filter-tabs"></div>' +
         '<div class="events-grid">' +
           '<div>' +
-            '<h3 class="events-col-title">⏳ Live Countdowns</h3>' +
+            '<h3 class="events-col-title"><i data-lucide="timer"></i> Live Countdowns</h3>' +
             '<div id="events-live-countdowns"></div>' +
           '</div>' +
           '<div>' +
-            '<h3 class="events-col-title">📅 Upcoming — Next 7 Days</h3>' +
+            '<h3 class="events-col-title"><i data-lucide="calendar-days"></i> Upcoming — Next 7 Days</h3>' +
             '<div id="events-upcoming"></div>' +
           '</div>' +
         '</div>' +
         '<div id="events-analyst-intel"></div>' +
         '<details id="events-resolved-section" style="margin-top:20px;">' +
-          '<summary>✅ Resolved & Expired (last 7 days)</summary>' +
+          '<summary>Resolved & Expired (last 7 days)</summary>' +
           '<div id="events-resolved"></div>' +
         '</details>' +
       '</div>';
@@ -82,6 +82,7 @@
     loadEvents().then(function(events) {
       renderEvents(events);
       startCountdowns();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }).catch(function(e) {
       console.error('Failed to load events:', e);
       var cd = document.getElementById('events-live-countdowns');
@@ -123,10 +124,10 @@
     if (tabs) {
       var filters = [
         { key: 'all', label: 'All' },
-        { key: 'geo', label: '🌍 Geo' },
-        { key: 'macro', label: '📊 Macro' },
-        { key: 'fed', label: '🏛️ Fed' },
-        { key: 'earnings', label: '💰 Earnings' }
+        { key: 'geo', label: '<i data-lucide="globe"></i> Geo' },
+        { key: 'macro', label: '<i data-lucide="bar-chart-3"></i> Macro' },
+        { key: 'fed', label: '<i data-lucide="landmark"></i> Fed' },
+        { key: 'earnings', label: '<i data-lucide="dollar-sign"></i> Earnings' }
       ];
       tabs.innerHTML = filters.map(function(f) {
         return '<button class="events-filter-btn' + (f.key === filter ? ' active' : '') + '" data-filter="' + f.key + '">' + f.label + '</button>';
@@ -160,7 +161,7 @@
     var intelEl = document.getElementById('events-analyst-intel');
     if (intelEl) {
       intelEl.innerHTML = intel.length
-        ? '<h3 style="color:var(--cyan);font-size:11px;text-transform:uppercase;letter-spacing:2px;margin:20px 0 12px;">🔍 Video Analysis Intel</h3>' +
+        ? '<h3 style="color:var(--cyan);font-size:11px;text-transform:uppercase;letter-spacing:2px;margin:20px 0 12px;"><i data-lucide="video"></i> Video Analysis Intel</h3>' +
           intel.map(function(e) { return renderEventCard(e, false); }).join('')
         : '';
     }
@@ -253,7 +254,7 @@
       if (!strip || !top.length) return;
 
       strip.style.cssText = 'display:flex;align-items:center;gap:16px;background:#06060e;border-bottom:1px solid var(--border);padding:6px 16px;font-size:12px;';
-      strip.innerHTML = '<span style="color:var(--orange);font-weight:700;">⚠️ NEXT:</span>' +
+      strip.innerHTML = '<span style="color:var(--orange);font-weight:700;"><i data-lucide="alert-circle"></i> NEXT:</span>' +
         top.map(function(e) {
           var color = SEVERITY_COLORS[e.severity];
           return '<span style="color:' + color + ';">' + e.title + ' — <span class="event-countdown" data-deadline="' + e.deadline + '" style="font-weight:600;font-family:monospace;"></span></span>';
@@ -261,6 +262,7 @@
         '<a href="#events" style="margin-left:auto;color:var(--cyan);font-size:11px;text-decoration:none;">→ Full Calendar</a>';
 
       startCountdowns();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }).catch(function() { /* silent */ });
   }
 

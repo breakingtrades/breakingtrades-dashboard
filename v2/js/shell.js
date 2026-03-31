@@ -35,7 +35,7 @@
     var logo = '<a href="#market" class="nav-logo">BREAKING<span>TRADES</span></a>';
 
     // Hamburger
-    var hamburger = '<button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">☰</button>';
+    var hamburger = '<button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><i data-lucide="menu"></i></button>';
 
     // Links
     var links = '<div class="nav-links" id="nav-links">';
@@ -60,7 +60,7 @@
     right += '</select>';
     // Ticker tape toggle
     var tapeVisible = BT.preferences.getPref('tickerTape') !== false;
-    right += '<button class="ticker-tape-toggle' + (tapeVisible ? ' active' : '') + '" id="ticker-tape-toggle" title="Toggle ticker tape">👁</button>';
+    right += '<button class="ticker-tape-toggle' + (tapeVisible ? ' active' : '') + '" id="ticker-tape-toggle" title="Toggle ticker tape"><i data-lucide="' + (tapeVisible ? 'eye' : 'eye-off') + '"></i></button>';
     right += '</div>';
 
     nav.innerHTML = hamburger + logo + links + search + right;
@@ -72,6 +72,9 @@
 
     // Fire nav:ready
     document.dispatchEvent(new Event('nav:ready'));
+
+    // Render Lucide icons in nav
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
   function bindHamburger() {
@@ -97,6 +100,8 @@
       var newState = !visible;
       BT.preferences.setPref('tickerTape', newState);
       btn.classList.toggle('active', newState);
+      btn.innerHTML = '<i data-lucide="' + (newState ? 'eye' : 'eye-off') + '"></i>';
+      if (typeof lucide !== 'undefined') lucide.createIcons({ attrs: { class: 'lucide' }, nameAttr: 'data-lucide' });
       if (newState) {
         tickerTape.show();
       } else {

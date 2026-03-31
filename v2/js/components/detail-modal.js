@@ -50,10 +50,10 @@
       : t.pattern.type === 'Caution' ? 'pat-caution' : 'pat-neutral';
 
     var patIcon = t.pattern.type === 'Bearish'
-      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polyline points="3 7 9 13 13 9 21 17"/><polyline points="15 17 21 17 21 11"/></svg>'
+      ? '<i data-lucide="trending-down"></i>'
       : t.pattern.type.indexOf('Bullish') >= 0
-      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>'
-      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="bt-icon"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
+      ? '<i data-lucide="trending-up"></i>'
+      : '<i data-lucide="bar-chart-3"></i>';
 
     // Build modal HTML
     var html = '<div class="signals-modal">' +
@@ -110,10 +110,10 @@
           '<h4>Price Target Range</h4>' +
           '<div class="range-bar-container" style="padding-top:22px;">' +
             '<div class="range-bar" style="height:8px;">' +
-              '<span class="range-marker stop" style="left:0%;font-size:10px;">🔴 $' + t.stop + '</span>' +
-              '<span class="range-marker entry" style="left:' + entryPct + '%;font-size:10px;">🟠 $' + t.entry + '</span>' +
-              '<span class="range-marker t1" style="left:' + t1Pct + '%;font-size:10px;">🟢 $' + t.t1 + '</span>' +
-              '<span class="range-marker t2" style="left:100%;font-size:10px;">🏆 $' + t.t2 + '</span>' +
+              '<span class="range-marker stop" style="left:0%;font-size:10px;"><span class="range-dot stop"></span> $' + t.stop + '</span>' +
+              '<span class="range-marker entry" style="left:' + entryPct + '%;font-size:10px;"><span class="range-dot entry"></span> $' + t.entry + '</span>' +
+              '<span class="range-marker t1" style="left:' + t1Pct + '%;font-size:10px;"><span class="range-dot target"></span> $' + t.t1 + '</span>' +
+              '<span class="range-marker t2" style="left:100%;font-size:10px;"><i data-lucide="trophy"></i> $' + t.t2 + '</span>' +
               '<div class="range-fill" style="width:' + pricePct + '%;background:' + fillColor + ';opacity:0.2;"></div>' +
               '<div class="price-dot" style="left:' + pricePct + '%;width:14px;height:14px;top:-3px;transform:translateX(-7px);"></div>' +
             '</div>' +
@@ -183,6 +183,9 @@
     if (sections.indexOf('charts') >= 0) {
       _loadCharts(exchange, symbol);
     }
+
+    // Render Lucide icons in modal
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 
     // Load TA widget
     if (sections.indexOf('ta') >= 0) {

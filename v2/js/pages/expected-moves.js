@@ -50,7 +50,7 @@
       '<div class="page-content" style="max-width:1400px;margin:0 auto;">' +
         '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">' +
           '<div>' +
-            '<h1 style="font-size:20px;color:var(--text-bright);margin:0;">📐 Expected Moves</h1>' +
+            '<h1 style="font-size:20px;color:var(--text-bright);margin:0;"><i data-lucide="ruler"></i> Expected Moves</h1>' +
             '<div style="font-size:12px;color:var(--text-dim);">Options-implied weekly ranges · ATM straddle × 0.85</div>' +
           '</div>' +
           '<div style="font-size:11px;color:var(--text-dim);" id="em-updated"></div>' +
@@ -287,6 +287,7 @@
     sortRows(rows);
     renderStats(rows);
     renderTable(rows);
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
   function renderStats(rows) {
@@ -319,12 +320,12 @@
         '<div class="em-stat-sub">±' + maxEM.pct + '% ($' + maxEM.em + ')</div>' +
       '</div>' +
       '<div class="em-stat-card">' +
-        '<div class="em-stat-label">🟢 Buy Zone</div>' +
+        '<div class="em-stat-label"><i data-lucide="circle-check-big"></i> Buy Zone</div>' +
         '<div class="em-stat-value" style="color:' + (buyZone > 0 ? '#4caf50' : 'var(--text-dim)') + '">' + buyZone + '</div>' +
         '<div class="em-stat-sub">near low of EM range</div>' +
       '</div>' +
       '<div class="em-stat-card">' +
-        '<div class="em-stat-label">🔴 Extended</div>' +
+        '<div class="em-stat-label"><i data-lucide="octagon-alert"></i> Extended</div>' +
         '<div class="em-stat-value" style="color:' + (extended > 0 ? 'var(--red)' : 'var(--text-dim)') + '">' + extended + '</div>' +
         '<div class="em-stat-sub">at/above EM ceiling</div>' +
       '</div>';
@@ -341,19 +342,19 @@
 
       var alertTag = '', rowClass = '';
       if (r.position <= 10) {
-        alertTag = '<span class="em-alert-tag" style="color:#4caf50;background:rgba(76,175,80,0.2);border:1px solid #4caf5060;">🟢 AT SUPPORT</span>';
+        alertTag = '<span class="em-alert-tag" style="color:#4caf50;background:rgba(76,175,80,0.2);border:1px solid #4caf5060;">AT SUPPORT</span>';
         rowClass = 'alert-buy';
       } else if (r.position <= 20) {
-        alertTag = '<span class="em-alert-tag" style="color:#8bc34a;background:rgba(139,195,74,0.15);border:1px solid #8bc34a50;">💚 NEAR LOW</span>';
+        alertTag = '<span class="em-alert-tag" style="color:#8bc34a;background:rgba(139,195,74,0.15);border:1px solid #8bc34a50;">NEAR LOW</span>';
         rowClass = 'alert-buy';
       } else if (r.position < 0) {
-        alertTag = '<span class="em-alert-tag" style="color:#00e676;background:rgba(0,230,118,0.15);border:1px solid #00e67660;">⚡ BELOW EM</span>';
+        alertTag = '<span class="em-alert-tag" style="color:#00e676;background:rgba(0,230,118,0.15);border:1px solid #00e67660;">BELOW EM</span>';
         rowClass = 'alert-buy';
       } else if (r.position >= 100) {
-        alertTag = '<span class="em-alert-tag" style="color:#f44336;background:rgba(244,67,54,0.15);border:1px solid #f4433660;">🔴 ABOVE EM</span>';
+        alertTag = '<span class="em-alert-tag" style="color:#f44336;background:rgba(244,67,54,0.15);border:1px solid #f4433660;">ABOVE EM</span>';
         rowClass = 'alert-sell';
       } else if (r.position >= 90) {
-        alertTag = '<span class="em-alert-tag" style="color:#ff5722;background:rgba(255,87,34,0.15);border:1px solid #ff572260;">⚠️ AT CEILING</span>';
+        alertTag = '<span class="em-alert-tag" style="color:#ff5722;background:rgba(255,87,34,0.15);border:1px solid #ff572260;">AT CEILING</span>';
         rowClass = 'alert-sell';
       }
 

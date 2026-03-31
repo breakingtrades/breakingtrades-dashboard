@@ -37,7 +37,7 @@
     el.innerHTML =
       '<div class="page-content">' +
         '<div class="wl-page-header">' +
-          '<div class="wl-page-title">📋 Watchlist — <span id="wl-count">0</span> Symbols</div>' +
+          '<div class="wl-page-title"><i data-lucide="clipboard-list"></i> Watchlist — <span id="wl-count">0</span> Symbols</div>' +
           '<div class="wl-view-toggle">' +
             '<button class="wl-view-btn" id="wl-btn-widget">Widget</button>' +
             '<button class="wl-view-btn active" id="wl-btn-table">Table</button>' +
@@ -231,7 +231,9 @@
     tbody.querySelectorAll('tr[data-sym]').forEach(function(tr) {
       tr.addEventListener('click', function() { openDetail(tr.getAttribute('data-sym')); });
     });
-  }
+
+    // Render Lucide icons
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 
   // === TradingView Widget ===
   function initTVWidget() {
@@ -330,7 +332,7 @@
     var earningsHTML = t.earningsDays != null ?
       '<div style="margin-bottom:16px;padding:10px 16px;border-radius:6px;border:1px solid ' + (t.earningsDays <= 14 ? 'var(--red)' : 'var(--orange)') + ';background:' + (t.earningsDays <= 14 ? 'rgba(239,83,80,0.1)' : 'rgba(255,167,38,0.08)') + ';">' +
         '<span style="font-size:12px;font-weight:600;color:' + (t.earningsDays <= 14 ? 'var(--red)' : 'var(--orange)') + ';">' +
-          '📅 Earnings: ' + t.earningsDate + ' (' + t.earningsDays + ' day' + (t.earningsDays !== 1 ? 's' : '') + ')' +
+          '<i data-lucide="calendar"></i> Earnings: ' + t.earningsDate + ' (' + t.earningsDays + ' day' + (t.earningsDays !== 1 ? 's' : '') + ')' +
         '</span>' +
       '</div>' : '';
 
@@ -349,7 +351,7 @@
         '<div class="wl-info-card"><h4>Key Levels</h4>' + levelsHTML + '</div>' +
         '<div class="wl-info-card"><h4>Volatility & Volume</h4>' + volHTML + '</div>' +
       '</div>' +
-      '<div class="wl-signals-section"><h4>📊 Technical Signals</h4>' + signalsHTML + '</div>';
+      '<div class="wl-signals-section"><h4><i data-lucide="bar-chart-3"></i> Technical Signals</h4>' + signalsHTML + '</div>';
 
     // Embed charts
     embedTVChart('wl-chart-daily', tvSymbol, 'D');
@@ -358,7 +360,9 @@
 
     document.getElementById('wl-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
-  }
+
+    // Render Lucide icons in modal
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 
   function closeDetail() {
     var modal = document.getElementById('wl-modal');
@@ -445,7 +449,7 @@
       : '';
 
     return '<div class="em-banner">' +
-      '<h4>📐 Expected Move' + outsideTag + '</h4>' +
+      '<h4><i data-lucide="ruler"></i> Expected Move' + outsideTag + '</h4>' +
       '<div class="em-band-visual">' +
         '<div class="em-band-line low" style="left:' + pctLo + '%"></div>' +
         '<div class="em-band-label top" style="left:' + pctLo + '%;color:var(--red);transform:translateX(-50%)">L $' + lo.toFixed(0) + '</div>' +
@@ -478,29 +482,29 @@
   function generateSignals(t) {
     var signals = [];
     if (t.smaCrossover === 'death_cross') {
-      signals.push({ icon: '💀', text: 'Death cross: SMA20 < SMA50' + (t.smaCrossoverDate ? ' (since ~' + t.smaCrossoverDate + ')' : ''), cls: 'signal-warn', priority: 2 });
+      signals.push({ icon: '<i data-lucide="skull"></i>', text: 'Death cross: SMA20 < SMA50' + (t.smaCrossoverDate ? ' (since ~' + t.smaCrossoverDate + ')' : ''), cls: 'signal-warn', priority: 2 });
     } else if (t.smaCrossover === 'golden_cross') {
-      signals.push({ icon: '✨', text: 'Golden cross: SMA20 > SMA50' + (t.smaCrossoverDate ? ' (since ~' + t.smaCrossoverDate + ')' : ''), cls: 'signal-bull', priority: 2 });
+      signals.push({ icon: '<i data-lucide="sparkles"></i>', text: 'Golden cross: SMA20 > SMA50' + (t.smaCrossoverDate ? ' (since ~' + t.smaCrossoverDate + ')' : ''), cls: 'signal-bull', priority: 2 });
     } else if (t.smaCrossover === 'compression') {
-      signals.push({ icon: '🔄', text: 'SMA compression: 20/50 converging', cls: 'signal-neutral', priority: 3 });
+      signals.push({ icon: '<i data-lucide="refresh-cw"></i>', text: 'SMA compression: 20/50 converging', cls: 'signal-neutral', priority: 3 });
     }
     if (t.pctFrom52wHigh != null) {
-      if (t.pctFrom52wHigh < -20) signals.push({ icon: '📉', text: 'Correction: ' + t.pctFrom52wHigh.toFixed(1) + '% from 52w high', cls: 'signal-warn', priority: 1 });
-      else if (t.pctFrom52wHigh < -10) signals.push({ icon: '📉', text: t.pctFrom52wHigh.toFixed(1) + '% below 52w high', cls: 'signal-neutral', priority: 4 });
-      else if (t.pctFrom52wHigh > -2) signals.push({ icon: '🏔️', text: 'Near 52w high (' + t.pctFrom52wHigh.toFixed(1) + '%)', cls: 'signal-bull', priority: 3 });
+      if (t.pctFrom52wHigh < -20) signals.push({ icon: '<i data-lucide="trending-down"></i>', text: 'Correction: ' + t.pctFrom52wHigh.toFixed(1) + '% from 52w high', cls: 'signal-warn', priority: 1 });
+      else if (t.pctFrom52wHigh < -10) signals.push({ icon: '<i data-lucide="trending-down"></i>', text: t.pctFrom52wHigh.toFixed(1) + '% below 52w high', cls: 'signal-neutral', priority: 4 });
+      else if (t.pctFrom52wHigh > -2) signals.push({ icon: '<i data-lucide="mountain"></i>', text: 'Near 52w high (' + t.pctFrom52wHigh.toFixed(1) + '%)', cls: 'signal-bull', priority: 3 });
     }
     if (t.rsi != null) {
-      if (t.rsi > 70) signals.push({ icon: '⚠️', text: 'RSI ' + t.rsi + ' — overbought', cls: 'signal-warn', priority: 1 });
-      else if (t.rsi < 30) signals.push({ icon: '🟢', text: 'RSI ' + t.rsi + ' — oversold', cls: 'signal-bull', priority: 1 });
+      if (t.rsi > 70) signals.push({ icon: '<i data-lucide="triangle-alert"></i>', text: 'RSI ' + t.rsi + ' — overbought', cls: 'signal-warn', priority: 1 });
+      else if (t.rsi < 30) signals.push({ icon: '<i data-lucide="circle-check-big"></i>', text: 'RSI ' + t.rsi + ' — oversold', cls: 'signal-bull', priority: 1 });
     }
     if (t.bbWidthPercentile != null && t.bbWidthPercentile < 15) {
-      signals.push({ icon: '🔋', text: 'Bollinger squeeze (' + t.bbWidthPercentile + 'th pct)', cls: 'signal-neutral', priority: 2 });
+      signals.push({ icon: '<i data-lucide="battery-charging"></i>', text: 'Bollinger squeeze (' + t.bbWidthPercentile + 'th pct)', cls: 'signal-neutral', priority: 2 });
     }
     if (t.volumeRatio != null && t.volumeRatio > 2.0) {
-      signals.push({ icon: '🔥', text: 'Heavy volume (' + t.volumeRatio + 'x avg)', cls: 'signal-bull', priority: 2 });
+      signals.push({ icon: '<i data-lucide="flame"></i>', text: 'Heavy volume (' + t.volumeRatio + 'x avg)', cls: 'signal-bull', priority: 2 });
     }
     if (t.earningsDays != null && t.earningsDays <= 14) {
-      signals.push({ icon: '⚠️', text: 'Earnings in ' + t.earningsDays + ' days (' + t.earningsDate + ')', cls: 'signal-warn', priority: 0 });
+      signals.push({ icon: '<i data-lucide="triangle-alert"></i>', text: 'Earnings in ' + t.earningsDays + ' days (' + t.earningsDate + ')', cls: 'signal-warn', priority: 0 });
     }
     signals.sort(function(a, b) { return a.priority - b.priority; });
     return signals.slice(0, 6);

@@ -16,7 +16,7 @@
     el.innerHTML =
       '<div class="page-content">' +
         // Heatmap
-        '<div class="section-title">🗺️ S&amp;P 500 Sector Heatmap</div>' +
+        '<div class="section-title"><i data-lucide="map"></i> S&amp;P 500 Sector Heatmap</div>' +
         '<div class="heatmap-wrap">' +
           '<div class="tradingview-widget-container" style="width:100%;height:500px;">' +
             '<div class="tradingview-widget-container__widget" id="tv-heatmap" style="width:100%;height:100%;"></div>' +
@@ -25,7 +25,7 @@
 
         // Sector Rotation RRG
         '<div style="margin-top:24px;">' +
-          '<div class="section-title">' + (typeof icons !== 'undefined' ? icons.sectorRotation : '') + ' Sector Rotation — Relative Rotation Graph</div>' +
+          '<div class="section-title"><i data-lucide="refresh-cw"></i> Sector Rotation — Relative Rotation Graph</div>' +
           '<div class="card" style="padding:16px;">' +
             '<div id="rrg-market"></div>' +
           '</div>' +
@@ -34,22 +34,22 @@
         // Fear & Greed + VIX Regime
         '<div class="mid-grid">' +
           '<div class="card">' +
-            '<div class="section-title" id="fg-title">' + (typeof icons !== 'undefined' ? icons.fearGreed : '') + ' Fear &amp; Greed Index</div>' +
+            '<div class="section-title" id="fg-title"><i data-lucide="gauge"></i> Fear &amp; Greed Index</div>' +
             '<div id="fg-gauge"></div>' +
           '</div>' +
           '<div class="card vix-card">' +
-            '<div class="section-title">' + (typeof icons !== 'undefined' ? icons.activity : '') + ' VIX Regime</div>' +
+            '<div class="section-title"><i data-lucide="activity"></i> VIX Regime</div>' +
             '<div id="vix-regime"></div>' +
           '</div>' +
         '</div>' +
 
         // Pair Ratios
-        '<div class="section-title">' + (typeof icons !== 'undefined' ? icons.pairRatios : '') + ' Pair Ratios — Market Health Signals</div>' +
+        '<div class="section-title"><i data-lucide="arrow-left-right"></i> Pair Ratios — Market Health Signals</div>' +
         '<div class="pairs-grid" id="pairs-grid"></div>' +
 
         // Sector Rankings
         '<div style="margin-top:24px;">' +
-          '<div class="section-title">' + (typeof icons !== 'undefined' ? icons.trophy : '') + ' Sector Strength Rankings</div>' +
+          '<div class="section-title"><i data-lucide="trophy"></i> Sector Strength Rankings</div>' +
           '<div class="card">' +
             '<ul class="sector-rank-list" id="sector-rankings"></ul>' +
           '</div>' +
@@ -57,7 +57,7 @@
 
         // Market Breadth
         '<div style="margin-top:24px;">' +
-          '<div class="section-title">' + (typeof icons !== 'undefined' ? icons.chart : '') + ' Market Breadth</div>' +
+          '<div class="section-title"><i data-lucide="bar-chart-3"></i> Market Breadth</div>' +
           '<div id="breadth-insight-box"></div>' +
           '<div class="breadth-gauge-wrap">' +
             '<div class="breadth-gauge-card" id="breadth-gauge-card">' +
@@ -86,6 +86,8 @@
     loadMarketData();
     initHeatmap();
     initRRG();
+    // Render Lucide icons after initial HTML
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
   function destroy() {
@@ -229,8 +231,8 @@
     valEl.style.color = color;
 
     var labelEl = document.getElementById('breadth-gauge-label');
-    if (avg <= 20) { labelEl.textContent = 'GREEN POND 🟢'; labelEl.style.color = '#00d4aa'; labelEl.classList.add('breadth-pulse'); }
-    else if (avg >= 80) { labelEl.textContent = 'OVERBOUGHT ⛔'; labelEl.style.color = '#ef5350'; labelEl.classList.add('breadth-pulse'); }
+    if (avg <= 20) { labelEl.textContent = ''; labelEl.innerHTML = 'GREEN POND <span class="range-dot target" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#00d4aa;margin-left:4px;vertical-align:middle;"></span>'; labelEl.style.color = '#00d4aa'; labelEl.classList.add('breadth-pulse'); }
+    else if (avg >= 80) { labelEl.textContent = ''; labelEl.innerHTML = 'OVERBOUGHT <span class="range-dot stop" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef5350;margin-left:4px;vertical-align:middle;"></span>'; labelEl.style.color = '#ef5350'; labelEl.classList.add('breadth-pulse'); }
     else if (avg <= 35) { labelEl.textContent = 'WEAK BREADTH'; labelEl.style.color = '#26a69a'; labelEl.classList.remove('breadth-pulse'); }
     else if (avg >= 65) { labelEl.textContent = 'STRONG BREADTH'; labelEl.style.color = '#ff7043'; labelEl.classList.remove('breadth-pulse'); }
     else { labelEl.textContent = 'NEUTRAL'; labelEl.style.color = 'var(--text-dim)'; labelEl.classList.remove('breadth-pulse'); }
@@ -285,14 +287,15 @@
     var avg = breadthData.total.average;
 
     if (avg <= 20) {
-      el.innerHTML = '<div class="breadth-insight-box green"><span class="breadth-insight-icon">🟢</span><span><strong>GREEN POND</strong> — Breadth at ' + avg.toFixed(1) + '%. Historically, market bottoms form at these extreme oversold levels. Watch for reversal signals.</span></div>';
+      el.innerHTML = '<div class="breadth-insight-box green"><span class="breadth-insight-icon"><i data-lucide="circle-check-big"></i></span><span><strong>GREEN POND</strong> — Breadth at ' + avg.toFixed(1) + '%. Historically, market bottoms form at these extreme oversold levels. Watch for reversal signals.</span></div>';
     } else if (avg >= 80) {
-      el.innerHTML = '<div class="breadth-insight-box red"><span class="breadth-insight-icon">⛔</span><span><strong>OVERBOUGHT</strong> — Breadth at ' + avg.toFixed(1) + '%. Most sectors extended. Consider tightening stops and reducing risk.</span></div>';
+      el.innerHTML = '<div class="breadth-insight-box red"><span class="breadth-insight-icon"><i data-lucide="octagon-alert"></i></span><span><strong>OVERBOUGHT</strong> — Breadth at ' + avg.toFixed(1) + '%. Most sectors extended. Consider tightening stops and reducing risk.</span></div>';
     } else if (avg <= 35) {
-      el.innerHTML = '<div class="breadth-insight-box dim"><span class="breadth-insight-icon">📊</span><span>Breadth is weak at ' + avg.toFixed(1) + '% — fewer than a third of stocks trading above their 20-day SMA.</span></div>';
+      el.innerHTML = '<div class="breadth-insight-box dim"><span class="breadth-insight-icon"><i data-lucide="bar-chart-3"></i></span><span>Breadth is weak at ' + avg.toFixed(1) + '% — fewer than a third of stocks trading above their 20-day SMA.</span></div>';
     } else {
-      el.innerHTML = '<div class="breadth-insight-box dim"><span class="breadth-insight-icon">📊</span><span>Market breadth at ' + avg.toFixed(1) + '% — neutral zone. No extreme readings.</span></div>';
+      el.innerHTML = '<div class="breadth-insight-box dim"><span class="breadth-insight-icon"><i data-lucide="bar-chart-3"></i></span><span>Market breadth at ' + avg.toFixed(1) + '% — neutral zone. No extreme readings.</span></div>';
     }
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
   // === TradingView Heatmap ===

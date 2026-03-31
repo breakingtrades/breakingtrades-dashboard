@@ -1,5 +1,33 @@
 /* css/components.css — Shared card, badge, gauge, modal, table, button/pill styles */
 
+/* ===== Lucide Icon Defaults ===== */
+[data-lucide], .lucide {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: -2px;
+  stroke-width: 1.8;
+}
+.section-title [data-lucide],
+.section-title .lucide {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+/* ===== Range Dots (colored circles replacing emoji) ===== */
+.range-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+.range-dot.stop { background: #ef5350; }
+.range-dot.entry { background: #ffa726; }
+.range-dot.target { background: #00d4aa; }
+
 /* ===== Cards ===== */
 .card {
   background: var(--bg-card);

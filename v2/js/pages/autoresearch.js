@@ -26,7 +26,7 @@
         var app = document.getElementById('ar-app');
         if (app) app.innerHTML =
           '<div class="ar-no-data">' +
-            '<h2>🔬 No Autoresearch Data Yet</h2>' +
+            '<h2><i data-lucide="microscope"></i> No Autoresearch Data Yet</h2>' +
             '<p>Run the autoresearch runner to generate results:</p>' +
             '<p style="margin-top:12px;color:var(--cyan);font-size:14px;">bash autoresearch/runner.sh --experiments 20</p>' +
           '</div>';

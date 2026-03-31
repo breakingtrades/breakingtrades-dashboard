@@ -10,7 +10,7 @@
     {
       symbol:'NVDA', name:'NVIDIA', sector:'Semiconductors', exchange:'NASDAQ',
       price:183.22, change:-13.7, bias:'bear', status:'exit',
-      statusLabel:'EXIT SIGNAL', statusIcon:'⚠', badgeClass:'exit-badge',
+      statusLabel:'EXIT SIGNAL', statusIcon:'<i data-lucide="triangle-alert"></i>', badgeClass:'exit-badge',
       sma20:184.80, sma50:185.33, w20:184.00, rsi:38.2,
       stop:170, entry:184, t1:210, t2:225,
       entryZone:null,
@@ -23,7 +23,7 @@
     {
       symbol:'AAPL', name:'Apple', sector:'Technology', exchange:'NASDAQ',
       price:252.82, change:-12.4, bias:'mixed', status:'exit',
-      statusLabel:'EXIT SIGNAL', statusIcon:'⚠', badgeClass:'exit-badge',
+      statusLabel:'EXIT SIGNAL', statusIcon:'<i data-lucide="triangle-alert"></i>', badgeClass:'exit-badge',
       sma20:262.45, sma50:262.26, w20:266.25, rsi:23.9,
       stop:235, entry:248, t1:275, t2:290,
       entryZone:null,
@@ -36,7 +36,7 @@
     {
       symbol:'PFE', name:'Pfizer', sector:'Healthcare', exchange:'NYSE',
       price:26.61, change:-1.4, bias:'mixed', status:'approaching',
-      statusLabel:'APPROACHING', statusIcon:'⏳', badgeClass:'approaching-badge',
+      statusLabel:'APPROACHING', statusIcon:'<i data-lucide="clock"></i>', badgeClass:'approaching-badge',
       sma20:26.98, sma50:26.46, w20:26.06, rsi:43.2,
       stop:24.50, entry:26.00, t1:28.00, t2:29.50,
       entryZone:{low:25.80,high:26.20,distance:1.6},
@@ -49,7 +49,7 @@
     {
       symbol:'ABBV', name:'AbbVie', sector:'Healthcare', exchange:'NYSE',
       price:221.45, change:-2.1, bias:'mixed', status:'approaching',
-      statusLabel:'APPROACHING', statusIcon:'⏳', badgeClass:'approaching-badge',
+      statusLabel:'APPROACHING', statusIcon:'<i data-lucide="clock"></i>', badgeClass:'approaching-badge',
       sma20:228.29, sma50:224.43, w20:226.37, rsi:40.1,
       stop:210, entry:219, t1:240, t2:245,
       entryZone:{low:218,high:220,distance:0.7},
@@ -62,7 +62,7 @@
     {
       symbol:'XLU', name:'Utilities Select Sector', sector:'ETF', exchange:'AMEX',
       price:47.26, change:0.9, bias:'bull', status:'active',
-      statusLabel:'BULLISH STACK', statusIcon:'✦', badgeClass:'active-badge',
+      statusLabel:'BULLISH STACK', statusIcon:'<i data-lucide="trending-up"></i>', badgeClass:'active-badge',
       sma20:46.82, sma50:44.68, w20:44.50, rsi:50.7,
       stop:44.50, entry:45.50, t1:47.75, t2:49.00,
       entryZone:null,
@@ -75,7 +75,7 @@
     {
       symbol:'AR', name:'Antero Resources', sector:'Energy', exchange:'NYSE',
       price:41.03, change:11.0, bias:'bull', status:'active',
-      statusLabel:'TRAILING — Raise Stop', statusIcon:'📈', badgeClass:'trailing-badge',
+      statusLabel:'TRAILING — Raise Stop', statusIcon:'<i data-lucide="move-up-right"></i>', badgeClass:'trailing-badge',
       sma20:36.98, sma50:35.00, w20:35.48, rsi:83.3,
       stop:35.00, entry:36.50, t1:42.00, t2:45.00,
       entryZone:null,
@@ -88,7 +88,7 @@
     {
       symbol:'DELL', name:'Dell Technologies', sector:'Technology', exchange:'NASDAQ',
       price:156.54, change:14.5, bias:'bull', status:'active',
-      statusLabel:'BULLISH STACK', statusIcon:'✦', badgeClass:'active-badge',
+      statusLabel:'BULLISH STACK', statusIcon:'<i data-lucide="trending-up"></i>', badgeClass:'active-badge',
       sma20:136.72, sma50:126.05, w20:132.03, rsi:80.0,
       stop:136.72, entry:150, t1:165, t2:175,
       entryZone:null,
@@ -101,7 +101,7 @@
     {
       symbol:'MSFT', name:'Microsoft', sector:'Technology', exchange:'NASDAQ',
       price:399.95, change:-27.8, bias:'bear', status:'exit',
-      statusLabel:'EXIT SIGNAL', statusIcon:'⚠', badgeClass:'exit-badge',
+      statusLabel:'EXIT SIGNAL', statusIcon:'<i data-lucide="triangle-alert"></i>', badgeClass:'exit-badge',
       sma20:400.10, sma50:427.62, w20:440.75, rsi:35.0,
       stop:375, entry:390, t1:430, t2:450,
       entryZone:null,
@@ -114,7 +114,7 @@
     {
       symbol:'META', name:'Meta Platforms', sector:'Technology', exchange:'NASDAQ',
       price:627.45, change:-20.7, bias:'bear', status:'exit',
-      statusLabel:'EXIT SIGNAL', statusIcon:'⚠', badgeClass:'exit-badge',
+      statusLabel:'EXIT SIGNAL', statusIcon:'<i data-lucide="triangle-alert"></i>', badgeClass:'exit-badge',
       sma20:640.00, sma50:660.00, w20:670.00, rsi:46.1,
       stop:580, entry:600, t1:660, t2:700,
       entryZone:null,
@@ -127,7 +127,7 @@
     {
       symbol:'AMZN', name:'Amazon', sector:'Technology', exchange:'NASDAQ',
       price:211.74, change:-18.1, bias:'mixed', status:'watching',
-      statusLabel:'WATCHING', statusIcon:'👁', badgeClass:'watching-badge',
+      statusLabel:'WATCHING', statusIcon:'<i data-lucide="eye"></i>', badgeClass:'watching-badge',
       sma20:208.00, sma50:220.00, w20:230.00, rsi:53.8,
       stop:200, entry:215, t1:235, t2:250,
       entryZone:null,
@@ -140,7 +140,7 @@
     {
       symbol:'COIN', name:'Coinbase', sector:'Crypto', exchange:'NASDAQ',
       price:203.32, change:10.3, bias:'mixed', status:'watching',
-      statusLabel:'WATCHING', statusIcon:'👁', badgeClass:'watching-badge',
+      statusLabel:'WATCHING', statusIcon:'<i data-lucide="eye"></i>', badgeClass:'watching-badge',
       sma20:195.00, sma50:190.00, w20:220.00, rsi:72.6,
       stop:185, entry:210, t1:240, t2:260,
       entryZone:null,
@@ -153,7 +153,7 @@
     {
       symbol:'ARM', name:'Arm Holdings', sector:'Semiconductors', exchange:'NASDAQ',
       price:121.70, change:-33.6, bias:'mixed', status:'watching',
-      statusLabel:'WATCHING', statusIcon:'👁', badgeClass:'watching-badge',
+      statusLabel:'WATCHING', statusIcon:'<i data-lucide="eye"></i>', badgeClass:'watching-badge',
       sma20:125.00, sma50:130.00, w20:121.67, rsi:42.5,
       stop:105, entry:118, t1:140, t2:155,
       entryZone:null,
@@ -166,7 +166,7 @@
     {
       symbol:'GOOG', name:'Alphabet', sector:'Technology', exchange:'NASDAQ',
       price:308.57, change:-11.9, bias:'mixed', status:'watching',
-      statusLabel:'WATCHING', statusIcon:'👁', badgeClass:'watching-badge',
+      statusLabel:'WATCHING', statusIcon:'<i data-lucide="eye"></i>', badgeClass:'watching-badge',
       sma20:306.80, sma50:320.00, w20:325.00, rsi:48.3,
       stop:290, entry:306, t1:330, t2:350,
       entryZone:null,
@@ -195,10 +195,10 @@
 
   var STATUS_ORDER = ['approaching','active','exit','watching'];
   var STATUS_CONFIG = {
-    approaching: { icon:'🟡', label:'Approaching Entry', filter:'approaching' },
-    active: { icon:'🟢', label:'Active / Bullish Stack', filter:'active' },
-    exit: { icon:'⚠️', label:'Exit Signals — Below SMA20', filter:'exit' },
-    watching: { icon:'👁', label:'Watching', filter:'watching' }
+    approaching: { icon:'<i data-lucide="clock"></i>', label:'Approaching Entry', filter:'approaching' },
+    active: { icon:'<i data-lucide="trending-up"></i>', label:'Active / Bullish Stack', filter:'active' },
+    exit: { icon:'<i data-lucide="triangle-alert"></i>', label:'Exit Signals — Below SMA20', filter:'exit' },
+    watching: { icon:'<i data-lucide="eye"></i>', label:'Watching', filter:'watching' }
   };
 
   // === PAIR RATIOS CONFIG ===
@@ -273,10 +273,10 @@
 
     var tabs = [
       { key:'all', label:'All', icon:'' },
-      { key:'approaching', label:'Approaching', icon:'🟡 ' },
-      { key:'active', label:'Active', icon:'🟢 ' },
-      { key:'exit', label:'Exit Signal', icon:'⚠️ ' },
-      { key:'watching', label:'Watching', icon:'👁 ' }
+      { key:'approaching', label:'Approaching', icon:'<i data-lucide="clock"></i> ' },
+      { key:'active', label:'Active', icon:'<i data-lucide="trending-up"></i> ' },
+      { key:'exit', label:'Exit Signal', icon:'<i data-lucide="triangle-alert"></i> ' },
+      { key:'watching', label:'Watching', icon:'<i data-lucide="eye"></i> ' }
     ];
 
     el.innerHTML = tabs.map(function(t) {
@@ -294,6 +294,9 @@
         renderCards();
       });
     }
+
+    // Render Lucide icons in tabs
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
   function renderCard(t, idx) {
@@ -340,7 +343,7 @@
 
     var sectorRiskHtml = '';
     if (t._sectorRisk) {
-      sectorRiskHtml = '<span class="sector-risk-badge sr-' + t._sectorRisk.risk + '" title="' + (t._sectorRisk.etf||'') + ' ' + t._sectorRisk.quadrant + '">🔄 ' + t._sectorRisk.quadrant + '</span>';
+      sectorRiskHtml = '<span class="sector-risk-badge sr-' + t._sectorRisk.risk + '" title="' + (t._sectorRisk.etf||'') + ' ' + t._sectorRisk.quadrant + '"><i data-lucide="refresh-cw"></i> ' + t._sectorRisk.quadrant + '</span>';
     }
 
     return '<div class="setup-card ' + statusClass + ' card-animate" data-ticker="' + t.symbol + '" data-status="' + t.status + '" data-bias="' + t.bias + '" data-sector="' + t.sector + '" style="animation-delay:' + (idx * 0.04) + 's">' +
@@ -357,8 +360,8 @@
       '<div class="card-meta">' +
         '<span class="status-badge ' + t.badgeClass + '">' + t.statusIcon + ' ' + t.statusLabel + '</span>' +
         '<span class="bias-badge ' + bc + '">' + t.bias.toUpperCase() + '</span>' +
-        '<span class="pattern-badge ' + patClass + '">📊 ' + t.pattern.abbr + '</span>' +
-        '<span class="volatility-badge ' + volClass + '">⚡ ' + t.vol.rating + '</span>' +
+        '<span class="pattern-badge ' + patClass + '"><i data-lucide="bar-chart-3"></i> ' + t.pattern.abbr + '</span>' +
+        '<span class="volatility-badge ' + volClass + '"><i data-lucide="zap"></i> ' + t.vol.rating + '</span>' +
         sectorRiskHtml +
       '</div>' +
       distLine +
@@ -380,8 +383,8 @@
         '<div class="level-pill"><span class="lbl"' + rsiStyle + '>RSI</span><span class="val"' + rsiStyle + '>' + t.rsi + rsiSuffix + '</span></div>' +
       '</div>' +
       '<div class="card-stats">' +
-        '<span>🎯 T1: $' + t.t1 + ' (' + (t1Pctg > 0 ? '+' : '') + t1Pctg + '%) · Stop: $' + t.stop + ' (' + stopPctg + '%)</span>' +
-        '<span>⚡ Vol: ' + t.vol.current + ' (' + t.vol.avgRatio + 'x avg) · ATR: $' + t.vol.atr + ' (' + t.vol.atrPct + '%)</span>' +
+        '<span><i data-lucide="crosshair"></i> T1: $' + t.t1 + ' (' + (t1Pctg > 0 ? '+' : '') + t1Pctg + '%) · Stop: $' + t.stop + ' (' + stopPctg + '%)</span>' +
+        '<span><i data-lucide="zap"></i> Vol: ' + t.vol.current + ' (' + t.vol.avgRatio + 'x avg) · ATR: $' + t.vol.atr + ' (' + t.vol.atrPct + '%)</span>' +
       '</div>' +
       exitLine +
       '<div class="toms-take">' +
@@ -442,6 +445,9 @@
         _openDetail(sym);
       });
     }
+
+    // Render Lucide icons
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
   function _openDetail(symbol) {
@@ -495,7 +501,7 @@
     fetch('../data/briefing.json').then(function(r) { return r.ok ? r.json() : null; }).then(function(b) {
       if (!b) return;
       var titleEl = document.getElementById('briefing-title');
-      if (titleEl) titleEl.innerHTML = '🎯 ' + (b.title || 'Daily Briefing');
+      if (titleEl) titleEl.innerHTML = '<i data-lucide="crosshair"></i> ' + (b.title || 'Daily Briefing');
       var html = '';
       if (b.headline) html += '<p><strong>' + b.headline + '</strong></p>';
       if (b.body) b.body.forEach(function(p) { html += '<p>' + p + '</p>'; });
@@ -584,7 +590,7 @@
           '<div class="status-tabs" id="status-tabs"></div>' +
           '<div class="filter-bar">' +
             '<div class="filter-controls">' +
-              '<input type="text" class="filter-search" id="search-input" placeholder="🔍 Search ticker...">' +
+              '<input type="text" class="filter-search" id="search-input" placeholder="Search ticker...">' +
               '<div class="bias-toggles" id="bias-toggles">' +
                 '<button class="bias-toggle on-bull" data-bias="bull">BULL</button>' +
                 '<button class="bias-toggle on-mixed" data-bias="mixed">MIXED</button>' +
@@ -603,7 +609,7 @@
         '</div>' +
         '<div class="right-panel">' +
           '<div class="fear-greed-section">' +
-            '<h3 id="fg-title">📉 Fear & Greed Index</h3>' +
+            '<h3 id="fg-title"><i data-lucide="gauge"></i> Fear & Greed Index</h3>' +
             '<div id="fg-gauge"></div>' +
           '</div>' +
           '<div class="sector-rotation-section">' +
@@ -611,7 +617,7 @@
             '<div id="sector-quadrant"></div>' +
           '</div>' +
           '<div class="briefing-panel">' +
-            '<h3>📊 Market Regime</h3>' +
+            '<h3><i data-lucide="bar-chart-3"></i> Market Regime</h3>' +
             '<div class="regime-card">' +
               '<div class="regime-label">Current Regime</div>' +
               '<div class="regime-value" style="color:var(--red);">⚠ CRISIS</div>' +
@@ -619,12 +625,12 @@
             '</div>' +
             '<div class="regime-card">' +
               '<div class="regime-label">Risk Level</div>' +
-              '<div class="regime-value" style="color:var(--red);">🔴 EXTREME</div>' +
+              '<div class="regime-value" style="color:var(--red);"><i data-lucide="octagon-alert"></i> EXTREME</div>' +
               '<div class="regime-desc">VIX elevated. F&G 14.7 (Extreme Fear). Junk bonds falling, CDS rising. Oracle CDS at GFC levels — AI/tech canary. Bears in control: S&P in lower lows/lower highs.</div>' +
             '</div>' +
           '</div>' +
           '<div class="toms-daily">' +
-            '<h3 id="briefing-title">🎯 Daily Briefing</h3>' +
+            '<h3 id="briefing-title"><i data-lucide="crosshair"></i> Daily Briefing</h3>' +
             '<div class="briefing-text" id="briefing-content">' +
               '<p style="color:var(--text-dim)">Loading briefing...</p>' +
             '</div>' +
