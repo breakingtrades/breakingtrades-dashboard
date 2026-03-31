@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Mar 30",
-  "headline": "Extreme Fear and crisis-mode VIX are flashing opportunity\u2014so why is everyone still selling?",
+  "title": "Daily Briefing \u2014 Mar 31",
+  "headline": "Extreme fear, tech breakdowns and energy strength: today's flows are screaming defensive, not chase.",
   "body": [
-    "Right, so the big picture: VIX is ripping at 30.91, well above the SMA20 (25.84). That\u2019s a crisis regime and volatility expansion\u2014classic risk-off. SPY is down -1.7% at $634.09 and has closed below the daily 20 MA ($664.71), which triggers the technical exit rule (R006). But here\u2019s the kicker: Fear & Greed is at 10.4. That\u2019s deep, deep Extreme Fear territory (R013). When the crowd\u2019s panicking, we start watching for mean reversion.",
-    "Sector rotation is clear: Energy (XLE $62.56), Materials (XLB $48.91), Industrials (XLI $159.20), Staples (XLP $81.78), Utilities (XLU $45.59), and Real Estate (XLRE $40.01) are all leading, and risk levels are LOW. Tech and Financials are lagging hard\u2014XLK and XLF both in HIGH risk, with Financials acting as the canary (R012) after a -2.5% dump to $47.81, approaching key SMA200 ($52.54). It\u2019s classic defensive rotation.",
-    "Contrarian lens: With Extreme Fear and a VIX spike, historical analogs like March 2020, October 2022, and even late 2015/2016 all led to monster mean reversion rallies once the selling got exhausted. Breadth is ugly, tech is oversold (AAPL $248.80 vs SMA200 $247.70, MSFT $356.77 vs SMA200 $477.38), but if you chase shorts here, you\u2019re playing chicken with the mean reversion zone. Abundance mindset\u2014next trade, not last trade."
+    "Right, so let's look at what the flows are telling us. The big picture: market-wide breakdown below daily 20 MA on SPY ($662.08), QQQ ($593.17), and nearly all mega-cap tech\u2014AAPL, MSFT, NVDA, XLK. Fear & Greed is rock-bottom at 13.2\u2014full-on Extreme Fear. VIX is spiking above its 20 MA at 30.5, volatility regime confirmed. If you\u2019re feeling nervous, so is everyone else.",
+    "Sector rotation shows Energy (XLE $61.95) remains elevated, but momentum is weakening and risk is increasing\u2014don\u2019t get greedy on late moves. Tech (XLK $127.50, RS 95.3) and Healthcare (XLV $143.82, RS 99.7) are leading laggards. Look for resilience in select energy names (AR, SM, OIH), but don\u2019t chase\u2014abundance mindset, next trade, not last trade. Financials (XLF $48.35) are still below their daily 20 MA ($49.56), canary hasn\u2019t died but is wheezing.",
+    "Contrarian playbook: Extreme Fear is historically a 6-12 month buy zone, but don\u2019t go full hero mode\u2014wait for confirmation. Most tickers are below their daily 20 MA (R006), so per rules, trim aggressive exposure and stay defensive. If it\u2019s in the press, it\u2019s in the price\u2014retail panic means it\u2019s time to start your watchlist for mean reversion rallies, but don\u2019t jump early. Patience, react, don\u2019t predict."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $634.09 (daily close below 20 MA $664.71) \u2014 technical exit<br>VIX: 30.91 (crisis regime)<br>XLK: $129.92 (approaching SMA200 $138.02) \u2014 wait for stabilization<br>XLE: $62.56 (leading, above all moving averages)<br>XLF: $47.81 (approaching SMA200 $52.54) \u2014 canary, watch for further breakdown<br>Extreme Fear: 10.4 (mean reversion watch triggered)",
+  "callout_body": "SPY: $662.08 (20 MA) \u2014 watching for a close above to shift bias<br>QQQ: $593.17 (20 MA) \u2014 tech needs a reclaim<br>XLE: $61.95 (spot); $58.52 (20 MA), momentum peak<br>XLF: $49.56 (20 MA), $48.35 (current) \u2014 canary still in danger zone<br>VIX: 30.5 above SMA20 (25.82) \u2014 anticipate volatility spikes<br>XLK: $127.50 (price), $136.96 (20 MA) \u2014 if tech snaps back, watch for dark pool flows",
   "action_items": [
-    "Reduce risk in lagging sectors (Tech, Financials)\u2014no fresh longs until daily closes reclaim 20 MA.",
-    "Watch XLE, XLU, XLP and select energy/materials tickers for rotational plays, but don\u2019t chase green\u2014wait for pullback entries."
+    "Avoid new longs in mega-cap tech until daily closes reclaim 20 MA (AAPL, MSFT, NVDA, XLK, QQQ)",
+    "Watch Energy momentum for signs of rollover; if XLE closes below 20 MA ($58.52), reduce exposure"
   ],
-  "closing_quote": "Guys, if it\u2019s in the press, it\u2019s in the price. Panic is the setup, not the confirmation.",
-  "generatedAt": "2026-03-30T11:32:07.638811+00:00",
+  "closing_quote": "Extreme fear is your friend, but only after the 20 MA says so. Patience, react, don\u2019t predict.",
+  "generatedAt": "2026-03-31T11:26:04.224695+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
