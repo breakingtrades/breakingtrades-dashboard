@@ -88,6 +88,7 @@
 
 | Change | Priority | Description |
 |--------|----------|-------------|
+| [SPA v2 Rewrite](changes/spa-v2/OPENSPEC.md) | **Critical** | Single-page application rewrite. Vanilla JS (zero framework, zero build step). Hash router, persistent nav/ticker tape, unified component library (F&G gauge, detail modal, pair ratios), `css/variables.css` single token source, `preferences.js` (ticker tape toggle, TZ, filter states, section collapse), mobile hamburger, data-driven regime cards. 4 phases: Shell+Market → All Pages → Polish → Cutover. All 6 pages, all features cataloged. `data/` pipeline unchanged. |
 | Earnings Calendar | High | Dedicated earnings tool — EarningsWhisper (primary), TradingView (secondary). Upcoming earnings for watchlist + broader market. |
 | EM History Sparkline | Medium | Per-ticker mini sparkline of historical EM values on expected-moves.html |
 | EM Columns on Watchlist | Medium | Compact weekly EM% + position in range columns on watchlist table |
