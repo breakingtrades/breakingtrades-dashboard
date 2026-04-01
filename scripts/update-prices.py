@@ -95,6 +95,7 @@ def get_all_tickers():
         "^FVX",     # 5-Year Treasury Yield — mid-curve
         "XHB",      # Homebuilders ETF — housing cycle proxy
         "IGV",      # Software ETF — tech recovery signal (Tom tracks)
+        "TQQQ",     # Leveraged NASDAQ — bubble/euphoria proxy (R026)
     ]
     for s in essentials + regime_tickers:
         tickers.add(s)

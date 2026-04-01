@@ -54,18 +54,21 @@ Dashboard (v2/js/pages/autoresearch.js → becomes regime page)
 
 | Signal | Ticker | Weight | Bearish Threshold | Bullish Threshold |
 |--------|--------|--------|-------------------|-------------------|
-| **MOVE Index** | `^MOVE` | 20% | >100 (accelerating) | <80 (collapsing) |
-| **VIX** | `^VIX` | 12% | >30 (fear) | <15 (complacent) |
-| **Fear & Greed** | `fear-greed.json` | 12% | <25 (extreme fear) | >75 (extreme greed) |
-| **Market Breadth** | `breadth.json` | 10% | <25% (oversold) | >75% (overbought) |
-| **S&P vs D200** | `^GSPC` vs SMA200 | 10% | Below D200 | Above D200 |
+| **MOVE Index** | `^MOVE` | 18% | >100 (accelerating) | <80 (collapsing) |
+| **F&G** | `fear-greed.json` | 10% | <25 (extreme fear) | >75 (extreme greed) |
+| **VIX** | `^VIX` | 10% | >30 (fear) | <15 (complacent) |
+| **Market Breadth** | `breadth.json` | 8% | <25% (oversold) | >75% (overbought) |
+| **S&P vs D200** | `^GSPC` vs SMA200 | 8% | Below D200 | Above D200 |
 | **HYG/SPY ratio** | computed | 8% | Falling >1% below SMA50 | Rising >1% above SMA50 |
-| **DXY** | `DX-Y.NYB` | 6% | Rising (risk-off) | Falling (risk-on) |
-| **Growth/Value** | IWF/IWD ratio | 5% | Value leading (defensive) | Growth leading (risk-on) |
-| **RSP/SPY breadth** | RSP/SPY ratio | 5% | Falling (narrow market) | Rising (broad market) |
-| **Yield curve** | US02Y/US10Y | 4% | Inverted or un-inverting | Normal spread |
+| **XLF/SPY (Financials)** | computed | 6% | Breaking support (R009, R036) | Stable/rising |
+| **DXY** | `DX-Y.NYB` | 5% | Rising (risk-off) | Falling (risk-on) |
+| **Yield curve** | US10Y-US13W | 5% | Inverted or un-inverting (R008) | Normal spread |
+| **Growth/Value** | IWF/IWD ratio | 4% | Value leading (defensive) | Growth leading (risk-on) |
+| **RSP/SPY breadth** | RSP/SPY ratio | 4% | Falling (narrow market) | Rising (broad market) |
+| **Put/Call ratio** | CBOE P/C | 4% | >0.93 extreme fear (R011) | <0.7 complacent |
 | **Copper/Gold** | CPER/GLD ratio | 4% | Falling (risk-off) | Rising (risk-on) |
-| **International** | DAX+KOSPI+HSI avg | 4% | All breaking down | All holding/rising |
+| **International** | DAX+KOSPI+HSI avg | 4% | All breaking down (R073) | All holding/rising |
+| **XLY/XLP (Consumer)** | computed | 2% | Falling = consumer stress (R058) | Rising = risk-on |
 
 ### Regime Score → Classification
 
