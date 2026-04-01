@@ -1,51 +1,77 @@
-# OpenSpec: Regime Intelligence Dashboard (Autoresearch Tab)
+# OpenSpec: AI Researcher — Regime Intelligence Dashboard
 
-> **Status:** Planned
+> **Status:** ✅ Shipped (Phases 1-3 complete)
 > **Priority:** High
 > **Author:** Kash + Idan
-> **Date:** 2026-03-31
-> **Location:** `v2/js/pages/autoresearch.js` (replace current empty page)
-> **Data Sources:** Existing `data/*.json` + new `data/regime.json` + `data/regime-history.jsonl`
+> **Date:** 2026-03-31 (shipped), updated 2026-04-01
+> **Route:** `#airesearcher` (renamed from `#autoresearch`)
+> **Location:** `js/pages/autoresearch.js` (internal filename preserved)
+> **Data Sources:** Existing `data/*.json` + `data/regime.json` + `data/regime-history.jsonl`
+> **Pipeline:** `scripts/update-regime.py` — runs daily in EOD pipeline (Step 6/6)
 
 ---
 
-## 1. Problem Statement
+## 0. Lineage — From Autoresearch to Regime Intelligence
 
-The Autoresearch tab is currently an empty page waiting for backtesting data. Meanwhile:
+The AI Researcher page is the **production output** of the autoresearch system built on Mar 29.
 
-- Market regime signals are scattered across 6 pages (F&G on market+signals, VIX on market, breadth on market, pairs on signals, sector rotation on market)
-- The signals page has hardcoded "CRISIS" / "EXTREME" regime cards — not computed, never updates
-- Tom's 75 rules (R001-R075) encode a complete regime-aware decision framework but it lives in a text file, not the dashboard
-- The backtest engine (`backtest_v2.py`) has VIX/F&G/MA regime filters as toggleable configs but they're not connected to a live regime classification
-- No single view answers: "What regime are we in? What rules apply? What's the playbook?"
+### How Autoresearch Created the Regime Model
 
-## 2. Architecture
+1. **Tom's 75 trading rules were analyzed** (`agents/tom-fxevolution/RULES.json`) — 34 identified as having quantifiable thresholds suitable for systematic use. Categorized into: macro (17), macro_analysis (11), technical (10), flow (7), sentiment (5), behavior (5), sector (4).
+
+2. **4 Tier 1 rule filters were implemented** in `backtest_v2.py` as part of the autoresearch backtest engine:
+   - **R041:** VIX > 25 → skip single stocks (indexes exempt)
+   - **R054:** MA regime — price below D200 + W50 = bearish, block entry
+   - **R001/R040:** Bond health — HYG < EMA20 = credit stress, block entry
+   - **R013:** Fear & Greed extremes — >75 extreme greed blocks entry
+
+3. **These same thresholds and rule mappings** became the foundation of `update-regime.py` — the 15 weighted signals, the regime classification bands (CRISIS through EUPHORIA), the per-regime playbooks, and the rule-to-regime mappings all derive from the autoresearch rule analysis.
+
+4. **The autoresearch evaluator** (`autoresearch/evaluate-bt.py`) established the scoring methodology: composite weighted score, benchmark across 8 core tickers (SPY, QQQ, NVDA, AAPL, IWM, MSFT, XLE, GLD), baseline of 0.5295.
+
+5. **The regime page replaced the autoresearch dashboard** on the same nav tab — by design. The autoresearch experiment runner (`autoresearch/runner.sh`) remains available for future threshold optimization.
+
+### What Autoresearch Does vs What Regime Scorer Does
+
+| System | Location | Purpose | Uses AI/LLM? |
+|--------|----------|---------|-------------|
+| **Autoresearch Runner** | `~/projects/breakingtrades/autoresearch/` | Optimizes backtest strategy parameters (EMA lengths, VPR, Tom's rule thresholds). Mutate → evaluate → compare → git commit. | No — pure backtest math |
+| **Regime Scorer** | `scripts/update-regime.py` | Reads daily market data, computes weighted regime score from 15 signals, classifies market environment (CRISIS→EUPHORIA). | No — deterministic Python, zero deps |
+| **Daily Briefing** | `scripts/generate-briefing.py` | Writes market analysis narrative from data. | **Yes — GPT-4.1** |
+| **AI Researcher Page** | `js/pages/autoresearch.js` | Renders regime data + briefing for users. | No — display layer |
+
+### Future Connection (Phase 4)
+
+The autoresearch experiment loop can be used to **validate and optimize** the regime thresholds against historical backtest data: "What VIX cutoff best predicts drawdowns? What MOVE weight produces the best risk-adjusted returns?" The current thresholds are educated estimates from Tom's rule analysis — the runner can make them empirically optimal.
+
+## 1. Problem Statement (Original — Solved)
+
+Market regime signals were scattered across 6 pages. Tom's 75 rules lived in a JSON file, not the dashboard. No single view answered: "What regime are we in? What rules apply? What's the playbook?" The autoresearch system analyzed and codified Tom's rules, which then became the regime scoring model.
+
+## 2. Architecture (Shipped)
 
 ```
-Existing Data Pipeline (unchanged)
-├── prices.json (95 tickers incl. 18 regime tickers — DONE)
-├── fear-greed.json
-├── vix.json
-├── breadth.json
-├── sector-rotation.json
-├── sector-risk.json
-├── watchlist.json (SMA50 for pair ratios)
-└── expected-moves.json
+Data Pipeline (EOD, Mon-Fri 4:20 PM ET)
+├── Step 0:  update-prices.py      → data/prices.json (99 tickers incl. 18 regime tickers)
+├── Step 0b: update_futures.py     → data/futures.json
+├── Step 1:  update-fear-greed.py  → data/fear-greed.json
+├── Step 2:  update-vix.py         → data/vix.json
+├── Step 3:  export-sector-rotation.py → data/sector-rotation.json
+├── Step 3b: update-breadth.py     → data/breadth.json
+├── Step 4:  update-expected-moves.py → data/expected-moves.json
+├── Step 5:  export-yfinance-fallback.py
+└── Step 6:  update-regime.py      → data/regime.json + data/regime-history.jsonl  ← NEW
 
-New: Regime Computation (EOD pipeline addition)
-├── scripts/update-regime.py     ← Reads all above, computes regime score
-├── data/regime.json             ← Current regime snapshot
-└── data/regime-history.jsonl    ← Daily regime log (append-only)
+Dashboard (root — SPA promoted from v2/ on Apr 1)
+├── js/pages/autoresearch.js  ← AI Researcher page (route: #airesearcher)
+├── css/autoresearch.css      ← Page styles
+└── Legacy redirect: #autoresearch → #airesearcher
 
-Dashboard (v2/js/pages/autoresearch.js → becomes regime page)
-├── Current Regime card (computed, not hardcoded)
-├── Regime Components breakdown
-├── Active Tom Rules for current regime
-├── Playbook card
-├── Regime History timeline
-├── Transition Signals checklist
-├── Market Internals grid
-└── (Future) Autoresearch validation per regime
+Autoresearch Engine (separate, in parent repo)
+├── ~/projects/breakingtrades/autoresearch/evaluate-bt.py    ← Backtest evaluator
+├── ~/projects/breakingtrades/autoresearch/runner.sh          ← Experiment loop
+├── ~/projects/breakingtrades/autoresearch/configs/bt-strategy.json ← Mutable config
+└── ~/projects/breakingtrades/autoresearch/program.md         ← Agent instructions
 ```
 
 ## 3. Regime Classification Model
@@ -216,31 +242,55 @@ Dashboard (v2/js/pages/autoresearch.js → becomes regime page)
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-## 6. Implementation Plan
+## 6. Implementation Status
 
-### Phase 1: Regime Computation Pipeline
-1. `scripts/update-regime.py` — reads all data files, computes regime score, writes `data/regime.json` + appends to `data/regime-history.jsonl`
-2. Add to EOD pipeline (`eod-update.sh`) — runs AFTER prices + F&G + VIX + breadth
-3. Add to intraday pipeline — runs after price updates (4×/day)
+### Phase 1: Regime Computation Pipeline ✅ Shipped (Mar 31)
+1. ✅ `scripts/update-regime.py` — reads all data files, computes regime score, writes `data/regime.json` + appends to `data/regime-history.jsonl`
+2. ✅ Added to EOD pipeline (`eod-update.sh` Step 6/6) — runs AFTER prices + F&G + VIX + breadth + EM
+3. ⬜ Add to intraday pipeline — runs after price updates (4×/day) — **not yet done**
 
-### Phase 2: Dashboard Page
-4. Rewrite `v2/js/pages/autoresearch.js` → regime intelligence dashboard
-5. Add `v2/css/autoresearch.css` → regime page styles (cards, gauges, internals grid, timeline)
-6. Regime score gauge (similar to F&G gauge — semicircle with needle)
-7. Component cards grid (MOVE, VIX, F&G, breadth, etc.)
-8. Playbook card + Active Rules card
-9. Market Internals grid (international indices, commodity chain)
-10. Transition signals checklist
-11. Regime history timeline (Chart.js area chart)
+### Phase 2: Dashboard Page ✅ Shipped (Mar 31)
+4. ✅ Rewrote `js/pages/autoresearch.js` → full regime intelligence dashboard
+5. ✅ `css/autoresearch.css` → regime page styles (cards, gauges, internals grid, timeline)
+6. ✅ Regime score gauge (horizontal bar with indicator, color-coded bands)
+7. ✅ Component cards grid (15 signals: MOVE, VIX, F&G, breadth, S&P/D200, HYG/SPY, etc.)
+8. ✅ Playbook card + Active Rules card (rule IDs hidden from users)
+9. ✅ Market Internals grid (international indices, commodity chain with live prices)
+10. ✅ Transition signals checklist ("What needs to change — CORRECTION → NEUTRAL")
+11. ✅ Regime history chart (Chart.js, builds daily as data accumulates)
 
-### Phase 3: Feed Into Signals Page
-12. Replace hardcoded "CRISIS" / "EXTREME" regime cards with data from `regime.json`
-13. Regime badge in nav bar (small colored dot showing current regime)
+### Phase 2b: UX Polish ✅ Shipped (Apr 1)
+- ✅ Renamed to "AI Researcher" (nav, route `#airesearcher`, page title)
+- ✅ Page intro banner explaining what the AI analyzes (15 signals)
+- ✅ Per-regime descriptions in hero (e.g. "Pullback within a broader trend — reduced size, selective entries, tighter stops")
+- ✅ Section subtitles explaining what each panel does and why
+- ✅ All text bumped to 14-15px with lighter color for readability
+- ✅ Rule IDs stripped everywhere (R006 etc. never shown to users)
+- ✅ Legacy `#autoresearch` route auto-redirects to `#airesearcher`
+- ✅ Fixed `prices.json` nesting bug (Market Internals + Commodity Chain now show live data)
+- ✅ Fixed `change` field name mismatch for price change % display
 
-### Phase 4: Autoresearch Integration (Future)
-14. Tag backtest periods by regime
-15. Run regime-specific config optimization
-16. Display backtest proof per regime
+### Phase 2c: Daily Briefing on Market Page ✅ Shipped (Apr 1)
+- ✅ Briefing card at hero position on Market landing page (above heatmap)
+- ✅ Full render: headline, body paragraphs, key levels callout, action items, closing quote + timestamp
+- ✅ Collapsible, state persists in localStorage
+- ✅ Rule IDs stripped from briefing text
+
+### Phase 2d: v2 SPA Promoted to Root ✅ Shipped (Apr 1)
+- ✅ Moved v2/ contents to root (index.html, css/, js/, brand/)
+- ✅ Archived v1 HTML pages to v1/ directory
+- ✅ Fixed all data paths: `../data/` → `data/` (21 references)
+- ✅ Root URL now serves SPA with hash router (#market, #signals, etc.)
+
+### Phase 3: Feed Into Signals Page ⬜ Not Started
+12. ⬜ Replace hardcoded "CRISIS" / "EXTREME" regime cards with data from `regime.json`
+13. ⬜ Regime badge in nav bar (small colored dot showing current regime)
+
+### Phase 4: Autoresearch Integration ⬜ Not Started
+14. ⬜ Run autoresearch experiments to validate/optimize regime thresholds
+15. ⬜ Tag backtest periods by regime
+16. ⬜ Run regime-specific config optimization
+17. ⬜ Display backtest proof per regime
 
 ## 7. Tier 1 Tickers (DONE — added to `update-prices.py`)
 
