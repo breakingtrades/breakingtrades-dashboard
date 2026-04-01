@@ -89,6 +89,12 @@ def get_all_tickers():
         "^HSI",     # Hang Seng — risk-on tell (R073)
         "^AXJO",    # ASX 200 (Australia) — commodity economy proxy (R073)
         "FXI",      # China ETF — 25,800 key level
+        # Business cycle indicators
+        "^TNX",     # 10-Year Treasury Yield — yield curve + cycle positioning
+        "^IRX",     # 13-Week Treasury Bill — yield curve (short end)
+        "^FVX",     # 5-Year Treasury Yield — mid-curve
+        "XHB",      # Homebuilders ETF — housing cycle proxy
+        "IGV",      # Software ETF — tech recovery signal (Tom tracks)
     ]
     for s in essentials + regime_tickers:
         tickers.add(s)

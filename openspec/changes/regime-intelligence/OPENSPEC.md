@@ -293,7 +293,137 @@ Dashboard (v2/js/pages/autoresearch.js → becomes regime page)
 - International breakdowns stacking = outflow to dollars (R073)
 - Commodity chain: Gold → Copper → Energy → Agriculture = late cycle
 
-## 9. Missing Data (Tier 2-3, Future)
+## 9. Business Cycle Positioning (Macro Layer)
+
+Above the tactical regime (CRISIS/BEAR/BULL — days to weeks), sits the **structural business cycle** — the multi-month/multi-year economic wave. Tom already calls this:
+
+- "Officially **late-cycle** — 6 months into Fed cutting cycle" (AGENT.md)
+- "Stagflation → deflationary recession path hardening" (AGENT.md)
+- Commodity chain Gold→Copper→Energy→Agriculture = "classic late-cycle signal" (AGENT.md)
+- "End of business cycle, recession over next year or two" (AGENT.md)
+- R008: "Yield curve un-inversion = MORE dangerous. Recessions start AFTER."
+
+### The Four Phases
+
+```
+         PEAK
+        /    \
+       /      \         ← We estimate position on this curve
+      /        \           using leading + coincident + lagging indicators
+     /    EXPANSION    CONTRACTION
+    /              \  /
+TROUGH ─────────── TROUGH
+   RECOVERY
+```
+
+| Phase | What Happens | Sector Leaders | Tom's Signals |
+|-------|-------------|----------------|--------------|
+| **Recovery/Early** | Rates low, hiring starts, consumer demand growing | Tech, Consumer Disc, Financials | F&G rising, VIX falling, RSP/SPY rising, IWF>IWD |
+| **Expansion/Mid** | Full employment, profits rising, GDP strong | Tech, Industrials, Materials | Breadth >60%, all MAs bullish, MOVE low |
+| **Peak/Late** | Inflation building, rates rising, costs squeeze profits | Energy, Materials, Staples | Gold→Copper→Energy→Ag sequence, yield curve flattening, MOVE rising |
+| **Contraction** | GDP falling, layoffs, consumer pullback, bear market | Utilities, Healthcare, Staples, Cash | Below D200+W50, HYG breaking, MOVE accelerating, F&G<25 |
+
+### How We Compute Cycle Position
+
+**Leading Indicators (predict what's coming):**
+| Indicator | Data Source | Signal |
+|-----------|-----------|--------|
+| Yield curve (2Y/10Y) | `prices.json` (US02Y, US10Y via `^TNX`, `^IRX`) | Inverted → recession in 6-18mo. Un-inverting → recession imminent (R008) |
+| MOVE Index trend | `prices.json` (`^MOVE`) | Accelerating → late cycle stress. Collapsing → early recovery |
+| S&P vs trendline | `prices.json` (`^GSPC`) | Above = expansion. Below = contraction |
+| Sector rotation phase | `sector-rotation.json` | Defensive leading = late/contraction. Cyclical leading = early/expansion |
+| Copper/Gold ratio | `prices.json` (CPER/GLD) | Rising = expansion. Falling = contraction |
+| Dow Transports | `prices.json` (`^DJT`) | "Horrid" per Tom = recession signal |
+| Agriculture strength | `prices.json` (ADM, MOS) | "Confirmed strongest sector" = LATE cycle |
+| Housing (future) | Would need Case-Shiller or homebuilder ETF (XHB) | Late cycle canary |
+
+**Coincident Indicators (confirm where we are):**
+| Indicator | Source | Signal |
+|-----------|--------|--------|
+| S&P 500 trend | Existing | Above/below key MAs |
+| Breadth | `breadth.json` | >60% = expansion, <30% = contraction |
+| VIX level | `vix.json` | <15 = expansion peak, >30 = contraction |
+
+**Lagging Indicators (confirm after the fact):**
+| Indicator | Source | Signal |
+|-----------|--------|--------|
+| Unemployment (future) | FRED API (free) | Rising = confirms contraction |
+| CPI/Inflation (future) | FRED API (free) | Rising = confirms peak/late cycle |
+
+### Cycle Position Score
+
+```
+Cycle Score = weighted_average(leading_indicators) normalized to 0-100
+
+0-25:    CONTRACTION (recession phase)
+25-40:   TROUGH/RECOVERY (bottom forming, early recovery)
+40-60:   EXPANSION (mid-cycle growth)
+60-80:   PEAK/LATE CYCLE (growth slowing, inflation rising)
+80-100:  OVERHEATING (bubble territory, pre-contraction)
+```
+
+### Current Estimated Position (Manual — Tom's Call)
+
+Based on Tom's March 2026 analysis:
+- **Phase:** LATE CYCLE → CONTRACTION transition
+- **Evidence:** Fed cutting cycle (6 months in), commodity chain completing (Gold✅ → Copper⚠️ → Energy✅ → Ag🔄), yield curve un-inverting, MOVE accelerating, stagflation path hardening, Dow Transports "horrid"
+- **Distance to trough:** Unknown — Tom says "recession over next year or two"
+- **Distance to peak:** PAST peak — "18-year bull run, historically dangerous territory"
+
+### Dashboard Visualization
+
+```
+┌──────────────────────────────────────────────────────┐
+│  BUSINESS CYCLE POSITION                              │
+│                                                       │
+│            PEAK                                       │
+│           ╱    ╲          ● You are here              │
+│          ╱      ╲         │ LATE → CONTRACTION        │
+│         ╱        ● ←──────┘                           │
+│        ╱    EXP    ╲                                  │
+│  TROUGH              TROUGH                           │
+│     REC                                               │
+│                                                       │
+│  Phase: Late Cycle → Contraction                      │
+│  Confidence: 78% (based on 8 leading indicators)      │
+│  Tom's call: "Recession over next year or two"         │
+│                                                       │
+│  LEADING INDICATORS                                   │
+│  Yield curve:     Un-inverting ⚠️ (recession signal)   │
+│  MOVE Index:      Accelerating 🔴 (stress)             │
+│  Commodity chain: Gold✅ Copper⚠️ Energy✅ Ag🔄          │
+│  Transports:      "Horrid" 🔴                          │
+│  Sector rotation: Defensives leading ⚠️                │
+│                                                       │
+│  HISTORICAL ANALOG                                    │
+│  Most similar to: 2007 Q3 (r=0.87)                    │
+│  What happened next: Contraction began Oct 2007        │
+│  Duration: 18 months to trough (Jun 2009)              │
+└──────────────────────────────────────────────────────┘
+```
+
+### Two Layers Working Together
+
+| Layer | Timeframe | Question | Updates |
+|-------|-----------|----------|---------|
+| **Business Cycle** | Months to years | "Where are we structurally? What phase comes next?" | Weekly |
+| **Tactical Regime** | Days to weeks | "What's the trading environment RIGHT NOW? What rules apply?" | Daily/intraday |
+
+The cycle tells you the **structural bias** (late cycle = defensive tilt, reduce risk). The regime tells you the **tactical action** (CRISIS = 25% position size, exit below SMA20).
+
+Together: "We're in LATE CYCLE transitioning to CONTRACTION (structural). Currently in CRISIS regime (tactical). This means: defensive sectors only, minimal position sizing, wait for MOVE to collapse before adding."
+
+### Tickers to Add for Cycle Analysis
+
+| Ticker | What | Status |
+|--------|------|--------|
+| `^TNX` | 10-Year Treasury Yield | Need to add |
+| `^IRX` | 13-Week Treasury Bill | Need to add (for yield curve) |
+| `^FVX` | 5-Year Treasury Yield | Nice to have |
+| `XHB` | Homebuilders ETF | Housing cycle proxy |
+| `IGV` | Software ETF | Tom tracks for tech recovery signal |
+
+## 10. Missing Data (Tier 2-3, Future)
 
 | Signal | Source | Cost | Priority |
 |--------|--------|------|----------|
