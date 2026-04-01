@@ -499,7 +499,7 @@
   }
 
   function renderBriefing() {
-    fetch('../data/briefing.json').then(function(r) { return r.ok ? r.json() : null; }).then(function(b) {
+    fetch('data/briefing.json').then(function(r) { return r.ok ? r.json() : null; }).then(function(b) {
       if (!b) return;
       var titleEl = document.getElementById('hdr-signals-briefing');
       if (titleEl) titleEl.innerHTML = '<i data-lucide="crosshair"></i> ' + (b.title || 'Daily Briefing');
@@ -669,8 +669,8 @@
     // Load data in parallel
     Promise.all([
       typeof btPrices !== 'undefined' ? btPrices.load() : Promise.resolve(),
-      fetch('../data/watchlist.json').then(function(r) { return r.ok ? r.json() : []; }).catch(function() { return []; }),
-      fetch('../data/sector-risk.json').then(function(r) { return r.json(); }).catch(function() { return {}; })
+      fetch('data/watchlist.json').then(function(r) { return r.ok ? r.json() : []; }).catch(function() { return []; }),
+      fetch('data/sector-risk.json').then(function(r) { return r.json(); }).catch(function() { return {}; })
     ]).then(function(results) {
       var watchlist = results[1];
       var sectorRisk = results[2];

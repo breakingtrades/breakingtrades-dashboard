@@ -77,7 +77,7 @@
   }
 
   function loadEvents() {
-    return fetch('../data/events.jsonl')
+    return fetch('data/events.jsonl')
       .then(function(r) { return r.text(); })
       .then(function(text) {
         return text.trim().split('\n')

@@ -8,7 +8,7 @@
  */
 function initMarketStatus() {
   const STATUS_EL_ID = 'market-status';
-  const DATA_PATH = '../data/market-hours.json';
+  const DATA_PATH = 'data/market-hours.json';
   let config = null;
 
   function pad2(n) { return String(n).padStart(2, '0'); }

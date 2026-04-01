@@ -205,8 +205,8 @@
     var pricesReady = btPrices && btPrices.load ? btPrices.load() : Promise.resolve();
 
     Promise.all([
-      fetch('../data/expected-moves.json').then(function(r) { return r.ok ? r.json() : {}; }),
-      fetch('../data/watchlist.json').then(function(r) { return r.ok ? r.json() : []; }),
+      fetch('data/expected-moves.json').then(function(r) { return r.ok ? r.json() : {}; }),
+      fetch('data/watchlist.json').then(function(r) { return r.ok ? r.json() : []; }),
       pricesReady
     ]).then(function(results) {
       emData = results[0] || {};

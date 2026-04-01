@@ -16,7 +16,7 @@ const btPrices = (() => {
 
   async function load() {
     if (_loadPromise) return _loadPromise;
-    _loadPromise = fetch('../data/prices.json')
+    _loadPromise = fetch('data/prices.json')
       .then(r => {
         if (!r.ok) throw new Error(`prices.json: ${r.status}`);
         return r.json();

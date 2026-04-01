@@ -159,7 +159,7 @@
 
   // === Daily Briefing ===
   function loadBriefing() {
-    fetch('../data/briefing.json').then(function(r) { return r.ok ? r.json() : null; }).then(function(b) {
+    fetch('data/briefing.json').then(function(r) { return r.ok ? r.json() : null; }).then(function(b) {
       var el = document.getElementById('market-briefing');
       if (!el) return;
       if (!b) {
@@ -233,7 +233,7 @@
   // === Data Loading ===
   function loadMarketData() {
     // Fear & Greed
-    fetch('../data/fear-greed.json')
+    fetch('data/fear-greed.json')
       .then(function(r) { return r.ok ? r.json() : null; })
       .then(function(data) {
         if (data) {
@@ -253,7 +253,7 @@
       regime: 'Loading...', color: '#888',
       description: 'Loading real-time volatility metrics...'
     };
-    fetch('../data/vix.json')
+    fetch('data/vix.json')
       .then(function(r) { return r.ok ? r.json() : null; })
       .then(function(data) {
         var vixData = data ? Object.assign({}, defaultVix, data) : defaultVix;
@@ -261,17 +261,17 @@
       }).catch(function(e) { console.error(e); BT.components.vixRegime.render('vix-regime', defaultVix); });
 
     // Pairs
-    fetch('../data/pairs.json')
+    fetch('data/pairs.json')
       .then(function(r) { return r.ok ? r.json() : []; })
       .then(renderPairs).catch(function(e) { console.error(e); });
 
     // Sectors
-    fetch('../data/sectors.json')
+    fetch('data/sectors.json')
       .then(function(r) { return r.ok ? r.json() : []; })
       .then(renderSectorRankings).catch(function(e) { console.error(e); });
 
     // Breadth
-    fetch('../data/breadth.json')
+    fetch('data/breadth.json')
       .then(function(r) { return r.ok ? r.json() : null; })
       .then(function(data) {
         if (!data) return;

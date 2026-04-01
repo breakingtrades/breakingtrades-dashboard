@@ -191,9 +191,9 @@
 
     // Fetch all data in parallel
     var fetches = [
-      fetch('../data/regime.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
-      fetch('../data/regime-history.jsonl').then(function(r) { return r.ok ? r.text() : null; }).catch(function() { return null; }),
-      fetch('../data/prices.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
+      fetch('data/regime.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
+      fetch('data/regime-history.jsonl').then(function(r) { return r.ok ? r.text() : null; }).catch(function() { return null; }),
+      fetch('data/prices.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
     ];
 
     Promise.all(fetches).then(function(results) {

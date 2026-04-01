@@ -116,7 +116,7 @@
     render: renderFearGreed,
     /** Fetch data and render */
     fetchAndRender: function(containerId, options) {
-      fetch('../data/fear-greed.json')
+      fetch('data/fear-greed.json')
         .then(function(r) { return r.ok ? r.json() : null; })
         .then(function(data) {
           if (data) renderFearGreed(containerId, data, options);

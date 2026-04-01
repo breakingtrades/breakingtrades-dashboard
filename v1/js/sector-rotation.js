@@ -17,7 +17,7 @@
 
 function createRRG(containerId, opts = {}) {
   const options = {
-    dataUrl: opts.dataUrl || '../data/sector-rotation.json',
+    dataUrl: opts.dataUrl || 'data/sector-rotation.json',
     trailLength: opts.trailLength || 8,
     height: opts.height || '400px',
     showControls: opts.showControls !== false,
