@@ -10,17 +10,25 @@
     'watchlist':      { css: 'css/watchlist.css',        js: 'js/pages/watchlist.js',      title: 'Watchlist' },
     'expected-moves': { css: 'css/expected-moves.css',   js: 'js/pages/expected-moves.js', title: 'Expected Moves' },
     'events':         { css: 'css/events.css',           js: 'js/pages/events.js',         title: 'Events' },
-    'autoresearch':   { css: 'css/autoresearch.css',     js: 'js/pages/autoresearch.js',   title: 'AI Researcher' },
+    'airesearcher':   { css: 'css/autoresearch.css',     js: 'js/pages/autoresearch.js',   title: 'AI Researcher' },
   };
 
   var _currentRoute = null;
   var _loadedCSS = {};
   var _loadedJS = {};
 
+  // Legacy route redirects
+  var ALIASES = { 'autoresearch': 'airesearcher' };
+
   function parseHash() {
     var hash = location.hash.replace(/^#\/?/, '') || '';
     var parts = hash.split('/');
-    return { route: parts[0] || '', param: parts[1] || null };
+    var route = parts[0] || '';
+    if (ALIASES[route]) {
+      route = ALIASES[route];
+      location.hash = '#' + route + (parts[1] ? '/' + parts[1] : '');
+    }
+    return { route: route, param: parts[1] || null };
   }
 
   function loadCSS(href) {

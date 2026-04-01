@@ -624,7 +624,7 @@
   }
 
   // ===== Register =====
-  BT.pages.autoresearch = {
+  BT.pages.airesearcher = {
     render: render,
     init: init,
     destroy: destroy

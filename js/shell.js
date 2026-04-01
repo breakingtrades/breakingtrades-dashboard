@@ -10,7 +10,7 @@
     { route: 'watchlist', label: 'Watchlist' },
     { route: 'expected-moves', label: 'Expected Moves' },
     { route: 'events', label: 'Events' },
-    { route: 'autoresearch', label: 'AI Researcher' },
+    { route: 'airesearcher', label: 'AI Researcher' },
   ];
 
   var TZ_OPTIONS = [
