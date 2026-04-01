@@ -2,8 +2,8 @@
   {
     "pair": "XLY/XLP",
     "desc": "Consumer weakening \u2014 risk-off rotation",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2192 FLAT DOWN",
+    "color": "neutral"
   },
   {
     "pair": "HYG/SPY",
@@ -26,20 +26,20 @@
   {
     "pair": "IWM/SPY",
     "desc": "Small caps vs Large caps",
-    "signal": "\u2197 RISING",
-    "color": "up"
+    "signal": "\u2192 FLAT DOWN",
+    "color": "neutral"
   },
   {
     "pair": "IWM/QQQ",
     "desc": "Value vs Growth",
-    "signal": "\u2197 RISING",
-    "color": "up"
+    "signal": "\u2192 FLAT DOWN",
+    "color": "neutral"
   },
   {
     "pair": "XLE/SPY",
     "desc": "Energy outperformance",
-    "signal": "\u2197 RISING",
-    "color": "up"
+    "signal": "\u2192 FLAT DOWN",
+    "color": "neutral"
   },
   {
     "pair": "GLD/SPY",
@@ -50,25 +50,25 @@
   {
     "pair": "TLT/SPY",
     "desc": "Flight to bonds",
-    "signal": "\u2197 RISING",
-    "color": "up"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "SLV/GLD",
     "desc": "Industrial vs safe haven",
-    "signal": "\u2197 RISING",
-    "color": "up"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "HYG/TLT",
     "desc": "Credit vs treasuries",
-    "signal": "\u2192 FLAT DOWN",
-    "color": "neutral"
+    "signal": "\u2197 RISING",
+    "color": "up"
   },
   {
     "pair": "IGV/QQQ",
     "desc": "Software vs Broad Tech",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   }
 ]
