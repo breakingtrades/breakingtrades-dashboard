@@ -303,7 +303,8 @@ describe('Cross-file Price Consistency', () => {
     const emSymbols = Object.keys(em.tickers || {});
     const missing = emSymbols.filter(s => !priceSymbols.has(s));
     // BRK B is a known exception (yfinance symbol mismatch: "BRK B" vs "BRK-B")
-    const unexpected = missing.filter(s => s !== 'BRK B');
+    // SPX is a CBOE index (^SPX in yfinance) — not a tradeable ticker in prices.json
+    const unexpected = missing.filter(s => s !== 'BRK B' && s !== 'SPX');
     expect(unexpected).toEqual([]);
   });
 
