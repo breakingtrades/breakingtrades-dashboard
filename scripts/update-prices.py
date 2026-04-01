@@ -69,7 +69,28 @@ def get_all_tickers():
         "HYG", "LQD", "XLE", "XLF", "XLK", "XLV", "XLP", "XLU", "XLY",
         "XLI", "XLC", "XLRE", "XLB",
     ]
-    for s in essentials:
+    # Regime internals — Tier 1 (free via yfinance)
+    regime_tickers = [
+        "^MOVE",    # MOVE Index (VIX of bonds) — THE bottoming signal (R053, R057, R072)
+        "^VIX",     # VIX (already tracked via vix.json but also in prices for regime scoring)
+        "IWF",      # iShares Russell 1000 Growth — Growth vs Value pair (IWF/IWD)
+        "IWD",      # iShares Russell 1000 Value
+        "RSP",      # Equal Weight S&P 500 — breadth signal (RSP/SPY)
+        "DX-Y.NYB", # DXY Dollar Index — risk-off indicator
+        "CPER",     # Copper ETF — "Dr. Copper" health (R044)
+        "SLV",      # Silver ETF — precious metals chain
+        "SMH",      # Semiconductor ETF — tech health, 0.55 vs SPX key level
+        "^GSPC",    # S&P 500 index (for regime scoring vs MAs)
+        "^DJT",     # Dow Transports — "horrid" per Tom, recession signal
+        "ADM",      # Archer-Daniels-Midland — agriculture (late-cycle canary)
+        "MOS",      # Mosaic — agriculture/fertilizer (inflation canary)
+        "^GDAXI",   # DAX — "lead indicator", Wyckoff distribution (R073)
+        "^KS11",    # KOSPI — "175% AI bubble" (R073)
+        "^HSI",     # Hang Seng — risk-on tell (R073)
+        "^AXJO",    # ASX 200 (Australia) — commodity economy proxy (R073)
+        "FXI",      # China ETF — 25,800 key level
+    ]
+    for s in essentials + regime_tickers:
         tickers.add(s)
 
     return sorted(tickers)

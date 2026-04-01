@@ -111,6 +111,7 @@ Vanilla JS SPA in `v2/` subdirectory. Hash router, persistent nav + ticker tape,
 | Change | Priority | Description |
 |--------|----------|-------------|
 | SPA v2 Cutover (Phase 4) | **High** | Move `v2/` to root, retire v1, configure Azure SWA auth + custom domain |
+| [Regime Intelligence Dashboard](changes/regime-intelligence/OPENSPEC.md) | **High** | Replace Autoresearch tab with regime-aware strategy intelligence. Computed regime score from 12 weighted signals (MOVE, VIX, F&G, breadth, S&P/D200, HYG/SPY, DXY, Growth/Value, RSP/SPY, yield curve, copper/gold, international indices). 7 regimes (CRISIS→EUPHORIA) with Tom's rules (75 rules mapped), playbook per regime, transition signals, market internals grid, commodity chain tracker, regime history timeline. Tier 1 tickers (18) already added to `update-prices.py`. |
 | Earnings Calendar | High | Dedicated earnings tool — EarningsWhisper (primary), TradingView (secondary). Upcoming earnings for watchlist + broader market. |
 | EM History Sparkline | Medium | Per-ticker mini sparkline of historical EM values on expected-moves.html |
 | EM Columns on Watchlist | Medium | Compact weekly EM% + position in range columns on watchlist table |
