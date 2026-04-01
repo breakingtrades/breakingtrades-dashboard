@@ -109,6 +109,14 @@ else
     warn "yfinance fallback failed"
 fi
 
+# --- 6. Regime Intelligence ---
+log "Step 6/6: Regime Intelligence (AI Researcher)"
+if $PYTHON scripts/update-regime.py 2>&1 | tee -a "$LOG"; then
+    log "✅ Regime done"
+else
+    warn "Regime failed"
+fi
+
 # --- Git commit + push ---
 log "Committing changes..."
 git add data/ || true
@@ -116,7 +124,7 @@ git add data/ || true
 if git diff --staged --quiet 2>/dev/null; then
     log "No data changes to commit"
 else
-    COMMIT_MSG="data: EOD update $(date +%Y-%m-%d) — prices + F&G + VIX + breadth + EM($EM_TIER) + sectors"
+    COMMIT_MSG="data: EOD update $(date +%Y-%m-%d) — prices + F&G + VIX + breadth + EM($EM_TIER) + sectors + regime"
     git config user.name  "BreakingTrades Bot"
     git config user.email "bot@breakingtrades.github.io"
     git commit -m "$COMMIT_MSG"

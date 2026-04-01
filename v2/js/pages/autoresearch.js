@@ -1,5 +1,5 @@
 /**
- * pages/autoresearch.js — Regime Intelligence dashboard for BreakingTrades v2
+ * pages/autoresearch.js — AI Researcher: Regime Intelligence dashboard for BreakingTrades v2
  * Registers as BT.pages.autoresearch with render(), init(), destroy()
  */
 (function() {
@@ -78,6 +78,16 @@
     var mon = d.toLocaleString('en-US', { month: 'short' });
     return mon + ' ' + d.getDate() + ' (' + days + ' day' + (days !== 1 ? 's' : '') + ')';
   }
+  var REGIME_DESCRIPTIONS = {
+    CRISIS: 'Extreme stress across all signals — capital preservation is the priority.',
+    BEAR: 'Persistent downtrend with deteriorating internals — defensive positioning, minimal new longs.',
+    CORRECTION: 'Pullback within a broader trend — reduced size, selective entries, tighter stops.',
+    NEUTRAL: 'Mixed signals, no clear directional edge — normal positioning, follow individual setups.',
+    BULL: 'Broad strength with confirming internals — full position sizing, trend-following entries.',
+    'STRONG BULL': 'Strong uptrend with wide participation — aggressive positioning, let winners run.',
+    EUPHORIA: 'Extreme optimism and stretched valuations — take profits, tighten stops, watch for reversal.'
+  };
+
   function regimeColor(regime) { return REGIME_COLORS[(regime || '').toUpperCase()] || '#888'; }
   function regimeCss(regime) { return REGIME_CSS[(regime || '').toUpperCase()] || 'neutral'; }
 
@@ -85,6 +95,14 @@
   function render(el) {
     el.innerHTML =
       '<div class="page-content" style="max-width:1400px;margin:0 auto;">' +
+
+        // Page intro
+        '<div class="regime-page-intro" style="margin-bottom:20px;padding:14px 18px;border-left:3px solid var(--cyan);background:var(--card-bg);border-radius:0 6px 6px 0;">' +
+          '<p style="margin:0;font-size:15px;color:var(--text-muted, #aaa);line-height:1.7;">' +
+            'Our AI analyzes <strong style="color:var(--text);">15 market signals</strong> across volatility, sentiment, breadth, credit, and macro — weighted and scored into a single regime classification. ' +
+            'The result: a clear read on the current market environment, what rules to follow, and what conditions would change the outlook.' +
+          '</p>' +
+        '</div>' +
 
         // Hero
         '<div id="regime-hero" class="regime-hero">' +
@@ -95,6 +113,7 @@
         // Components
         '<div id="section-components">' +
           '<div class="section-title" id="hdr-components"><i data-lucide="layers"></i> Regime Score Components</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Each signal is scored 0–100 and weighted by importance. Combined, they produce the overall regime score above.</p>' +
           '<div id="body-components">' +
             '<div class="regime-components-grid" id="regime-components">' +
               Array(16).join('<div class="skeleton" style="height:110px;border-radius:6px;"></div>') +
@@ -105,6 +124,7 @@
         // Playbook + Rules
         '<div id="section-playbook">' +
           '<div class="section-title" id="hdr-playbook"><i data-lucide="book-open"></i> Playbook &amp; Active Rules</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Position sizing, sector bias, and entry/exit rules — automatically adjusted for the current regime.</p>' +
           '<div id="body-playbook">' +
             '<div class="regime-dual-cards">' +
               '<div class="skeleton" style="height:200px;border-radius:6px;"></div>' +
@@ -116,6 +136,7 @@
         // Market Internals
         '<div id="section-internals">' +
           '<div class="section-title" id="hdr-internals"><i data-lucide="bar-chart-2"></i> Market Internals</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Key instruments and global indices that confirm or diverge from the regime signal.</p>' +
           '<div id="body-internals">' +
             '<div class="regime-internals-grid" id="regime-internals">' +
               Array(12).join('<div class="skeleton" style="height:90px;border-radius:6px;"></div>') +
@@ -126,6 +147,7 @@
         // Commodity Chain
         '<div id="section-commodity">' +
           '<div class="section-title" id="hdr-commodity"><i data-lucide="link"></i> Commodity Chain (Late-Cycle Sequence)</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Inflation flows through commodities in sequence: Gold → Copper → Energy → Agriculture. Tracking where the chain is breaking helps identify cycle turning points.</p>' +
           '<div id="body-commodity">' +
             '<div class="regime-commodity-chain" id="regime-commodity"><div class="skeleton" style="width:100%;height:80px;border-radius:6px;"></div></div>' +
           '</div>' +
@@ -134,6 +156,7 @@
         // Transition Signals
         '<div id="section-transition">' +
           '<div class="section-title" id="hdr-transition"><i data-lucide="arrow-right-circle"></i> Transition Signals</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Conditions that need to be met before the regime can shift. When all bars fill, expect a regime change.</p>' +
           '<div id="body-transition">' +
             '<div id="regime-transition"><div class="skeleton" style="height:160px;border-radius:6px;"></div></div>' +
           '</div>' +
@@ -142,6 +165,7 @@
         // Business Cycle
         '<div id="section-cycle">' +
           '<div class="section-title" id="hdr-cycle"><i data-lucide="activity"></i> Business Cycle Position</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Where we sit in the macro economic cycle — drives which sectors and strategies outperform historically.</p>' +
           '<div id="body-cycle">' +
             '<div id="regime-cycle" class="regime-cycle-card"><div class="skeleton" style="height:200px;border-radius:6px;"></div></div>' +
           '</div>' +
@@ -150,6 +174,7 @@
         // History
         '<div id="section-history">' +
           '<div class="section-title" id="hdr-history"><i data-lucide="clock"></i> Regime History</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Daily regime scores over time — reveals trends, regime transitions, and how long each environment persists.</p>' +
           '<div id="body-history">' +
             '<div class="regime-history-container" id="regime-history"><div class="skeleton" style="height:200px;border-radius:6px;"></div></div>' +
           '</div>' +
@@ -223,8 +248,8 @@
     if (hero) {
       hero.innerHTML = '<div class="regime-no-data" style="width:100%;">' +
         '<i data-lucide="alert-triangle" style="width:32px;height:32px;color:var(--orange);"></i>' +
-        '<h2 style="margin:12px 0 8px;color:var(--text);">Regime data not computed yet</h2>' +
-        '<p>Run: <code>python3 scripts/update-regime.py</code></p>' +
+        '<h2 style="margin:12px 0 8px;color:var(--text);">Regime data not available</h2>' +
+        '<p style="color:var(--text-dim);">The AI Researcher needs data to analyze. Regime scoring runs daily as part of the EOD pipeline.</p>' +
       '</div>';
     }
     // Clear skeletons in other sections
@@ -243,11 +268,13 @@
     var css = regimeCss(d.regime);
     var color = regimeColor(d.regime);
     var cycleLabel = d.cycle ? d.cycle.phase : '';
+    var regimeDesc = REGIME_DESCRIPTIONS[(d.regime || '').toUpperCase()] || '';
 
     el.className = 'regime-hero regime-bg-' + css;
     el.innerHTML =
       '<div class="regime-hero-left">' +
         '<div class="regime-hero-name regime-' + css + '">' + (d.regime || '—') + '</div>' +
+        (regimeDesc ? '<div style="font-size:15px;color:var(--text-muted, #aaa);margin:8px 0 10px;line-height:1.6;max-width:420px;">' + regimeDesc + '</div>' : '') +
         '<div class="regime-hero-since"><i data-lucide="calendar" style="width:12px;height:12px;"></i> Active since: ' + daysSinceLabel(d.since, d.duration_days) + '</div>' +
         (cycleLabel ? '<div class="regime-cycle-badge"><i data-lucide="refresh-cw" style="width:10px;height:10px;"></i> ' + cycleLabel + '</div>' : '') +
       '</div>' +
@@ -299,13 +326,14 @@
     if (!el) return;
     var pb = d.playbook || {};
     var posSize = Math.round((pb.position_size || 0) * 100);
+    // Strip internal rule IDs like (R006) from display text
+    function stripRuleIds(s) { return s ? s.replace(/\s*\(R\d+\)\s*/g, ' ').trim() : '—'; }
     var sectorBias = (pb.sector_bias || []).map(function(s) { return '<span class="regime-pill favor">' + s + '</span>'; }).join('');
     var avoidSectors = (pb.avoid_sectors || []).map(function(s) { return '<span class="regime-pill avoid">' + s + '</span>'; }).join('');
 
     var rulesHtml = (d.active_rules || []).map(function(id) {
       var desc = RULE_DESCRIPTIONS[id] || 'Active rule';
       return '<div class="regime-rule-item">' +
-        '<span class="regime-rule-id">' + id + '</span>' +
         '<span class="regime-rule-text">' + desc + '</span>' +
       '</div>';
     }).join('');
@@ -330,15 +358,15 @@
           '</div>' +
           '<div class="regime-playbook-row">' +
             '<span class="regime-playbook-label">Stop</span>' +
-            '<span class="regime-playbook-value">' + (pb.stop_rule || '—') + '</span>' +
+            '<span class="regime-playbook-value">' + stripRuleIds(pb.stop_rule) + '</span>' +
           '</div>' +
           '<div class="regime-playbook-row">' +
             '<span class="regime-playbook-label">Entry</span>' +
-            '<span class="regime-playbook-value">' + (pb.entry_rule || '—') + '</span>' +
+            '<span class="regime-playbook-value">' + stripRuleIds(pb.entry_rule) + '</span>' +
           '</div>' +
           '<div class="regime-playbook-row">' +
             '<span class="regime-playbook-label">Watch</span>' +
-            '<span class="regime-playbook-value" style="color:var(--cyan);">' + (pb.key_watch || '—') + '</span>' +
+            '<span class="regime-playbook-value" style="color:var(--cyan);">' + stripRuleIds(pb.key_watch) + '</span>' +
           '</div>' +
         '</div>' +
         '<div class="regime-rules-card">' +
@@ -352,6 +380,8 @@
   function renderInternals(d, prices) {
     var el = document.getElementById('regime-internals');
     if (!el) return;
+    // Unwrap nested { tickers: {...} } format from prices.json
+    if (prices && prices.tickers) prices = prices.tickers;
 
     var tickers = [
       { key: '^MOVE', label: 'MOVE', signal: d.components && d.components.move ? d.components.move.signal : '' },
@@ -375,7 +405,7 @@
       } else if (prices && prices[t.key]) {
         var p = prices[t.key];
         price = p.price || p.close || p.last;
-        chg = p.changePercent || p.change_pct || p.pct;
+        chg = p.changePercent || p.change_pct || p.change || p.pct;
       }
       var col = 'var(--text)';
       if (chg != null) col = chg >= 0 ? 'var(--cyan)' : 'var(--red)';
@@ -398,6 +428,8 @@
   function renderCommodityChain(prices) {
     var el = document.getElementById('regime-commodity');
     if (!el) return;
+    // Unwrap nested { tickers: {...} } format from prices.json
+    if (prices && prices.tickers) prices = prices.tickers;
 
     var commodities = [
       { name: 'Gold', ticker: 'GLD', icon: 'gem' },
@@ -412,7 +444,7 @@
       if (prices && prices[c.ticker]) {
         var p = prices[c.ticker];
         price = p.price || p.close || p.last;
-        chg = p.changePercent || p.change_pct || p.pct;
+        chg = p.changePercent || p.change_pct || p.change || p.pct;
       }
       // Determine status based on change
       var statusIcon = 'minus', statusLabel = 'No Data', statusCol = 'var(--text-dim)';
@@ -441,7 +473,7 @@
     var el = document.getElementById('regime-transition');
     if (!el || !d.transition_signals) return;
     var ts = d.transition_signals;
-    var html = '<div style="margin-bottom:10px;font-size:var(--font-size-sm);color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;">Conditions to exit <strong style="color:' + regimeColor(d.regime) + ';">' + d.regime + '</strong> → <strong>' + (ts.target || '?') + '</strong></div>';
+    var html = '<div style="margin-bottom:10px;font-size:14px;color:var(--text-muted, #aaa);text-transform:uppercase;letter-spacing:1px;">What needs to change — <strong style="color:' + regimeColor(d.regime) + ';">' + d.regime + '</strong> → <strong>' + (ts.target || '?') + '</strong></div>';
     html += '<div class="regime-transition-list">';
     (ts.conditions || []).forEach(function(c) {
       var progress = 0;
@@ -510,7 +542,7 @@
     var el = document.getElementById('regime-history');
     if (!el) return;
     if (!data || data.length === 0) {
-      el.innerHTML = '<div class="regime-no-data"><i data-lucide="clock" style="width:24px;height:24px;"></i><p>History will build over time as regime is computed daily</p></div>';
+      el.innerHTML = '<div class="regime-no-data"><i data-lucide="clock" style="width:24px;height:24px;"></i><p>Regime history builds automatically over time as the AI scores each trading day.</p></div>';
       return;
     }
 

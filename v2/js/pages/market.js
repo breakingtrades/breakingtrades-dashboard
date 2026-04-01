@@ -16,6 +16,17 @@
   function render(el) {
     el.innerHTML =
       '<div class="page-content">' +
+
+        // Daily Briefing — hero position
+        '<div id="section-briefing">' +
+          '<div class="section-title" id="hdr-briefing"><i data-lucide="newspaper"></i> Daily Briefing</div>' +
+          '<div id="body-briefing">' +
+            '<div class="market-briefing-card" id="market-briefing">' +
+              '<div class="skeleton" style="height:180px;border-radius:6px;"></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
         // Heatmap
         '<div id="section-heatmap">' +
           '<div class="section-title" id="hdr-heatmap"><i data-lucide="map"></i> S&amp;P 500 Sector Heatmap</div>' +
@@ -110,11 +121,13 @@
 
   function init(param) {
     loadMarketData();
+    loadBriefing();
     initHeatmap();
     initRRG();
 
     // Wire collapsible sections
     var sections = [
+      ['market:briefing', 'hdr-briefing', 'body-briefing'],
       ['market:heatmap', 'hdr-heatmap', 'body-heatmap'],
       ['market:rrg', 'hdr-rrg', 'body-rrg'],
       ['market:fg-vix', 'hdr-fg-vix', 'body-fg-vix'],
@@ -142,6 +155,79 @@
     _intervals = [];
     _collapsibles.forEach(function(c) { if (c && c.destroy) c.destroy(); });
     _collapsibles = [];
+  }
+
+  // === Daily Briefing ===
+  function loadBriefing() {
+    fetch('../data/briefing.json').then(function(r) { return r.ok ? r.json() : null; }).then(function(b) {
+      var el = document.getElementById('market-briefing');
+      if (!el) return;
+      if (!b) {
+        el.innerHTML = '<div style="color:var(--text-dim);padding:16px;text-align:center;">No briefing available yet.</div>';
+        return;
+      }
+
+      // Strip internal rule IDs like (R006) from display text
+      function strip(s) { return s ? s.replace(/\s*\(R\d+\)\s*/g, ' ').replace(/\s*R\d{3}\s*/g, ' ').trim() : ''; }
+
+      // Format age
+      var age = '';
+      if (b.generatedAt) {
+        try {
+          var d = new Date(b.generatedAt);
+          age = d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/New_York' }) + ' ET';
+        } catch(e) {}
+      }
+
+      var html = '';
+
+      // Headline
+      if (b.headline) {
+        html += '<div class="briefing-headline" style="font-size:18px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:14px;">' + strip(b.headline) + '</div>';
+      }
+
+      // Body paragraphs
+      if (b.body && b.body.length) {
+        html += '<div class="briefing-body" style="font-size:14px;color:var(--text-muted, #aaa);line-height:1.7;">';
+        b.body.forEach(function(p) { html += '<p style="margin:0 0 12px;">' + strip(p) + '</p>'; });
+        html += '</div>';
+      }
+
+      // Key levels callout
+      if (b.callout_title && b.callout_body) {
+        html += '<div class="briefing-callout" style="margin:16px 0;padding:12px 16px;background:var(--bg);border-left:3px solid var(--cyan);border-radius:0 6px 6px 0;">' +
+          '<div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--cyan);margin-bottom:8px;font-weight:600;">' + b.callout_title + '</div>' +
+          '<div style="font-size:13px;color:var(--text);line-height:1.8;font-family:var(--font-mono);">' + strip(b.callout_body) + '</div>' +
+        '</div>';
+      }
+
+      // Action items
+      if (b.action_items && b.action_items.length) {
+        html += '<div class="briefing-actions" style="margin:16px 0;padding:12px 16px;background:var(--bg);border-left:3px solid var(--orange);border-radius:0 6px 6px 0;">' +
+          '<div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:8px;font-weight:600;">Action Items</div>' +
+          '<div style="font-size:13px;color:var(--text);line-height:1.8;">';
+        b.action_items.forEach(function(a) { html += '<div style="margin-bottom:4px;">• ' + strip(a) + '</div>'; });
+        html += '</div></div>';
+      }
+
+      // Closing quote + timestamp
+      var footer = '';
+      if (b.closing_quote) {
+        footer += '<span style="font-style:italic;">"' + strip(b.closing_quote) + '"</span>';
+      }
+      if (age) {
+        footer += (footer ? ' · ' : '') + '<span>' + age + '</span>';
+      }
+      if (footer) {
+        html += '<div style="margin-top:14px;font-size:12px;color:var(--text-dim);">' + footer + '</div>';
+      }
+
+      el.innerHTML = html;
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }).catch(function() {
+      var el = document.getElementById('market-briefing');
+      if (el) el.innerHTML = '<div style="color:var(--text-dim);padding:16px;text-align:center;">Could not load briefing.</div>';
+    });
   }
 
   // === Data Loading ===

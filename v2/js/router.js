@@ -10,7 +10,7 @@
     'watchlist':      { css: 'css/watchlist.css',        js: 'js/pages/watchlist.js',      title: 'Watchlist' },
     'expected-moves': { css: 'css/expected-moves.css',   js: 'js/pages/expected-moves.js', title: 'Expected Moves' },
     'events':         { css: 'css/events.css',           js: 'js/pages/events.js',         title: 'Events' },
-    'autoresearch':   { css: 'css/autoresearch.css',     js: 'js/pages/autoresearch.js',   title: 'Autoresearch' },
+    'autoresearch':   { css: 'css/autoresearch.css',     js: 'js/pages/autoresearch.js',   title: 'AI Researcher' },
   };
 
   var _currentRoute = null;

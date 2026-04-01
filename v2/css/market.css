@@ -68,6 +68,21 @@
 .breadth-table tr:last-child td { border-bottom: none; }
 .breadth-table tr:hover { background: rgba(255,255,255,0.02); }
 
+/* ===== Daily Briefing Card ===== */
+.market-briefing-card {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+}
+.market-briefing-card .briefing-headline {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+@media (max-width: 768px) {
+  .market-briefing-card { padding: 14px 16px; }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
   .mid-grid { grid-template-columns: 1fr; }
