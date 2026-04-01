@@ -1,0 +1,160 @@
+{
+  "updated": "2026-04-01T01:57:41Z",
+  "regime": "CORRECTION",
+  "score": 44,
+  "color": "#ffeb3b",
+  "previous": {
+    "regime": "NEUTRAL",
+    "score": 50
+  },
+  "duration_days": 1,
+  "since": "2026-04-01",
+  "cycle": {
+    "phase": "EXPANSION",
+    "score": 50
+  },
+  "components": {
+    "move": {
+      "score": 36,
+      "value": 96.05,
+      "signal": "elevated",
+      "weight": 18
+    },
+    "fear_greed": {
+      "score": 15,
+      "value": 14.7,
+      "signal": "extreme_fear",
+      "weight": 10
+    },
+    "vix": {
+      "score": 36,
+      "value": 25.25,
+      "signal": "elevated",
+      "weight": 10
+    },
+    "breadth": {
+      "score": 53,
+      "value": 36.8,
+      "signal": "weak",
+      "weight": 8
+    },
+    "sp_vs_d200": {
+      "score": 55,
+      "value": -1.22,
+      "signal": "below",
+      "weight": 8
+    },
+    "hyg_spy": {
+      "score": 70,
+      "value": 3.33,
+      "signal": "strong",
+      "weight": 8
+    },
+    "xlf_spy": {
+      "score": 50,
+      "value": 0.21,
+      "signal": "neutral",
+      "weight": 6
+    },
+    "dxy": {
+      "score": 55,
+      "value": 99.69,
+      "signal": "neutral",
+      "weight": 5
+    },
+    "yield_curve": {
+      "score": 50,
+      "value": 0.71,
+      "signal": "normal",
+      "weight": 5
+    },
+    "growth_value": {
+      "score": 70,
+      "value": 1.74,
+      "signal": "growth_leading",
+      "weight": 4
+    },
+    "rsp_spy": {
+      "score": 30,
+      "value": -0.86,
+      "signal": "narrowing",
+      "weight": 4
+    },
+    "put_call": {
+      "score": 50,
+      "value": 0,
+      "signal": "no_data",
+      "weight": 4
+    },
+    "copper_gold": {
+      "score": 30,
+      "value": -1.29,
+      "signal": "fear",
+      "weight": 4
+    },
+    "international": {
+      "score": 50,
+      "value": 1.04,
+      "signal": "mixed",
+      "weight": 4
+    },
+    "xly_xlp": {
+      "score": 20,
+      "value": -2.36,
+      "signal": "weak",
+      "weight": 2
+    }
+  },
+  "active_rules": [
+    "R006",
+    "R010",
+    "R025",
+    "R043",
+    "R056"
+  ],
+  "playbook": {
+    "position_size": 0.75,
+    "sector_bias": [
+      "XLV",
+      "XLP",
+      "XLE"
+    ],
+    "avoid_sectors": [
+      "XLY"
+    ],
+    "stop_rule": "Daily close below 20 MA = exit (R006)",
+    "entry_rule": "Selective longs only. Don't chase (R010).",
+    "key_watch": "Sector rotation \u2014 defensives to cyclicals = recovery signal"
+  },
+  "transition_signals": {
+    "target": "NEUTRAL",
+    "conditions": [
+      {
+        "label": "F&G > 45",
+        "current": 14.7,
+        "target": 45,
+        "met": false
+      },
+      {
+        "label": "VIX < 18",
+        "current": 25.25,
+        "target": 18,
+        "met": false
+      },
+      {
+        "label": "MOVE < 80",
+        "current": 96.05,
+        "target": 80,
+        "met": false
+      },
+      {
+        "label": "Breadth > 55%",
+        "current": 36.8,
+        "target": 55,
+        "met": false
+      }
+    ],
+    "conditions_met": 0,
+    "conditions_total": 4
+  }
+}
