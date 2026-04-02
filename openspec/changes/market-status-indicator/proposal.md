@@ -34,6 +34,16 @@ All 3 pages had a hardcoded `Market: OPEN` label in the top nav bar. It was alwa
 - Disappears when no holiday within 14-day window (avoids noise)
 - Styled as dim text at 10px, inline with existing status bar elements
 
+### Requirement: Holidays on Events page (2026-04-02)
+- **NYSE holidays and early closes auto-injected into the Events page** as event cards
+- Reads `data/market-hours.json` alongside `events.jsonl` — holidays merged into the event list
+- Lookahead: 30 days (wider than status bar's 14 days — events page is for planning)
+- Holiday cards: category `macro`, severity `medium`, title format: `Good Friday — Market Closed`
+- Early close cards: severity `low`, title format: `Christmas Eve — Early Close (13:00 ET)`
+- Cards appear in "Upcoming" column alongside user-created events
+- No manual JSONL entries needed — auto-generated from the authoritative holiday calendar
+- Tagged with `_auto: true` internally to distinguish from user events
+
 ### Data: `data/market-hours.json`
 - NYSE regular hours (9:30–16:00 ET), extended hours (pre: 4:00–9:30, after: 16:00–20:00)
 - Current year holidays sourced from `exchange_calendars` Python package (authoritative NYSE calendar)

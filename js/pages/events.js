@@ -77,13 +77,61 @@
   }
 
   function loadEvents() {
-    return fetch('data/events.jsonl')
-      .then(function(r) { return r.text(); })
-      .then(function(text) {
-        return text.trim().split('\n')
-          .filter(function(l) { return l.trim() && !l.startsWith('#'); })
-          .map(function(l) { return JSON.parse(l); });
-      });
+    return Promise.all([
+      fetch('data/events.jsonl').then(function(r) { return r.text(); }),
+      fetch('data/market-hours.json').then(function(r) { return r.json(); }).catch(function() { return null; })
+    ]).then(function(results) {
+      var text = results[0];
+      var mh = results[1];
+      var events = text.trim().split('\n')
+        .filter(function(l) { return l.trim() && !l.startsWith('#'); })
+        .map(function(l) { return JSON.parse(l); });
+
+      // Inject NYSE holidays/early-closes as events (next 30 days)
+      if (mh) {
+        var now = Date.now();
+        var cutoff = now + 30 * 86400000;
+        var years = Object.keys(mh.holidays || {});
+        years.forEach(function(yr) {
+          (mh.holidays[yr] || []).forEach(function(h) {
+            var d = new Date(h.date + 'T16:00:00').getTime();
+            if (d > now && d < cutoff) {
+              events.push({
+                id: 'nyse-holiday-' + h.date,
+                title: h.name + ' — Market Closed',
+                category: 'macro',
+                severity: 'medium',
+                status: 'active',
+                deadline: h.date + 'T09:30:00-04:00',
+                created: h.date + 'T00:00:00',
+                market_impact: 'NYSE closed all day',
+                tickers: [],
+                _auto: true
+              });
+            }
+          });
+          (mh.earlyClose[yr] || []).forEach(function(e) {
+            var d = new Date(e.date + 'T16:00:00').getTime();
+            if (d > now && d < cutoff) {
+              events.push({
+                id: 'nyse-early-' + e.date,
+                title: e.name + ' — Early Close (' + e.close + ' ET)',
+                category: 'macro',
+                severity: 'low',
+                status: 'active',
+                deadline: e.date + 'T' + e.close + ':00-04:00',
+                created: e.date + 'T00:00:00',
+                market_impact: 'NYSE closes early at ' + e.close + ' ET',
+                tickers: [],
+                _auto: true
+              });
+            }
+          });
+        });
+      }
+
+      return events;
+    });
   }
 
   function loadAndRender() {
