@@ -1,6 +1,6 @@
 # Change: Real-Time Market Status Indicator
 
-**Status:** ✅ SHIPPED (2026-03-18)
+**Status:** ✅ SHIPPED (2026-03-18), updated 2026-04-02
 **Commits:** `44f01b5`, `501b559`
 
 ## Why
@@ -9,13 +9,22 @@ All 3 pages had a hardcoded `Market: OPEN` label in the top nav bar. It was alwa
 
 ## What Changed
 
-### New: `js/market-status.js` — Shared module across all pages
+### New: `js/market-status.js` → `js/lib/market-status.js` (v2) — Shared module across all pages
 - Computes real-time status from NYSE hours: **OPEN**, **PRE-MARKET**, **AFTER-HOURS**, **CLOSED**
 - Pulsing dot animation (green=open, orange=pre, purple=after, red=closed)
-- Live clock updating every second (ET timezone)
+- Live clock updating every second
 - Holiday-aware: shows holiday name when market is closed for a holiday
-- Early close-aware: shows adjusted close time + reason (e.g., "Early close 13:00 ET — Christmas Eve")
+- Early close-aware: shows adjusted close time + reason (e.g., "Early close 10:00 AM — Christmas Eve")
 - Weekend detection
+
+### Requirement: User-local timezone (2026-04-02)
+- **All times displayed in the user's browser timezone**, not hardcoded ET
+- Clock shows user's local time with auto-detected TZ abbreviation (e.g., "12:20 PM EDT", "9:20 AM PDT", "5:20 PM BST")
+- Open/close times converted from ET → user's local (e.g., West Coast user sees "Closes 1:00 PM" instead of "Closes 16:00 ET")
+- Pre-market "Opens" time also converted (e.g., "Opens 6:30 AM" for PT user)
+- Early close times converted the same way
+- Internal status computation still uses ET (NYSE native) — only display is localized
+- Date shows user's local date (month + day only, no year, no weekday)
 
 ### New: `data/market-hours.json`
 - NYSE regular hours (9:30–16:00 ET), extended hours (pre: 4:00–9:30, after: 16:00–20:00)

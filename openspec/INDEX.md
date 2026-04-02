@@ -59,7 +59,7 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 | [Dashboard Frontend](changes/archive/2026-03-17-dashboard-frontend/) | 2026-03-17 | — | Initial 3-page dashboard build |
 | [Tom Agent](changes/archive/2026-03-17-tom-agent/) | 2026-03-17 | — | Tom persona files + rules |
 | [CI Data Pipeline](changes/ci-data-pipeline/proposal.md) | 2026-03-18 | `a03bc1d` | Self-sustained yfinance fallback + GitHub Models briefing |
-| [Market Status Indicator](changes/market-status-indicator/proposal.md) | 2026-03-18 | `44f01b5`, `501b559` | Real-time open/closed/pre/after with holidays |
+| [Market Status Indicator](changes/market-status-indicator/proposal.md) | 2026-03-18 | `44f01b5`, `501b559` | Real-time open/closed/pre/after with holidays. **Updated 2026-04-02:** all times localized to user's browser timezone (open/close/clock), no hardcoded ET. |
 | [Sector Rotation Chart](changes/sector-rotation-chart/OPENSPEC.md) | 2026-03-18 | `44fa968` | RRG chart + sector risk badges (4 phases) |
 | [Logo & Branding](changes/logo-branding/proposal.md) | 2026-03-19 | — | Inline SVG logo mark in nav bar |
 | [Ticker Search](changes/ticker-search/proposal.md) | 2026-03-19 | — | Global search bar with tracked (enriched) vs external (TradingView) routing |

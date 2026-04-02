@@ -67,13 +67,13 @@ function initMarketStatus() {
     if (ny.minutes >= open && ny.minutes < close) {
       const minsLeft = close - ny.minutes;
       const sub = earlyClose
-        ? `Early close ${earlyClose.close} ET — ${earlyClose.name}`
-        : `Closes ${config.regularHours.close} ET`;
+        ? `Early close ${etToLocal(earlyClose.close)} — ${earlyClose.name}`
+        : `Closes ${etToLocal(config.regularHours.close)}`;
       return { label: 'OPEN', color: 'var(--cyan, #00d4aa)', dot: true, sub, minsLeft };
     }
 
     if (ny.minutes >= preOpen && ny.minutes < open) {
-      return { label: 'PRE-MARKET', color: '#ffa726', dot: true, sub: `Opens ${config.regularHours.open} ET` };
+      return { label: 'PRE-MARKET', color: '#ffa726', dot: true, sub: `Opens ${etToLocal(config.regularHours.open)}` };
     }
 
     if (ny.minutes >= close && ny.minutes < afterClose && !earlyClose) {
@@ -83,10 +83,28 @@ function initMarketStatus() {
     return { label: 'CLOSED', color: '#ef5350', dot: false };
   }
 
-  function formatTime(ny) {
-    const h = ny.hours > 12 ? ny.hours - 12 : ny.hours || 12;
-    const ampm = ny.hours >= 12 ? 'PM' : 'AM';
-    return `${h}:${pad2(ny.mins)}:${pad2(ny.secs)} ${ampm} ET`;
+  /** Format current time in user's local timezone */
+  function formatLocalTime() {
+    const now = new Date();
+    const h = now.getHours() > 12 ? now.getHours() - 12 : now.getHours() || 12;
+    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+    const tz = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' }).formatToParts(now)
+      .find(p => p.type === 'timeZoneName')?.value || '';
+    return `${h}:${pad2(now.getMinutes())} ${ampm} ${tz}`;
+  }
+
+  /** Convert an "HH:MM" ET time to user's local time string (e.g. "3:00 PM") */
+  function etToLocal(hhmm) {
+    const now = new Date();
+    const [h, m] = hhmm.split(':').map(Number);
+    const nyNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+    const nyTarget = new Date(nyNow);
+    nyTarget.setHours(h, m, 0, 0);
+    const diffMs = nyTarget.getTime() - nyNow.getTime();
+    const local = new Date(now.getTime() + diffMs);
+    const lh = local.getHours() > 12 ? local.getHours() - 12 : local.getHours() || 12;
+    const lampm = local.getHours() >= 12 ? 'PM' : 'AM';
+    return `${lh}:${pad2(local.getMinutes())} ${lampm}`;
   }
 
   function render() {
@@ -100,12 +118,12 @@ function initMarketStatus() {
       ? `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${status.color};margin-right:5px;animation:statusPulse 2s ease-in-out infinite;"></span>`
       : `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${status.color};margin-right:5px;opacity:0.5;"></span>`;
 
-    const dateStr = ny.full.toLocaleDateString('en-US', { timeZone: 'America/New_York', weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    const dateStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
     el.innerHTML = `
       <span class="ms-label">Market: </span>${dotHtml}<span style="color:${status.color};font-weight:600;">${status.label}</span>
       ${status.sub ? `<span class="ms-sub" style="color:var(--text-dim,#555);margin-left:4px;font-size:10px;">${status.sub}</span>` : ''}
-      <span class="ms-date" style="color:var(--text-dim,#888);margin-left:8px;">${dateStr}, ${formatTime(ny)}</span>
+      <span class="ms-date" style="color:var(--text-dim,#888);margin-left:8px;">${dateStr}, ${formatLocalTime()}</span>
     `;
   }
 
