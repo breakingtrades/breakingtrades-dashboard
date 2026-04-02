@@ -26,6 +26,14 @@ All 3 pages had a hardcoded `Market: OPEN` label in the top nav bar. It was alwa
 - Internal status computation still uses ET (NYSE native) — only display is localized
 - Date shows user's local date (month + day only, no year, no weekday)
 
+### Requirement: Next holiday callout (2026-04-02)
+- **Shows upcoming holiday/early-close in the status bar** when within 14 days
+- Format: `· Next holiday: Good Friday (Apr 3)` or `· Early close: Christmas Eve (Dec 24)`
+- Scans both `holidays` and `earlyClose` arrays across all years in config
+- Picks the nearest future date (excludes today — today's holiday already shown as the status label)
+- Disappears when no holiday within 14-day window (avoids noise)
+- Styled as dim text at 10px, inline with existing status bar elements
+
 ### Data: `data/market-hours.json`
 - NYSE regular hours (9:30–16:00 ET), extended hours (pre: 4:00–9:30, after: 16:00–20:00)
 - Current year holidays sourced from `exchange_calendars` Python package (authoritative NYSE calendar)

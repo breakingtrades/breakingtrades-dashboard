@@ -83,6 +83,43 @@ function initMarketStatus() {
     return { label: 'CLOSED', color: '#ef5350', dot: false };
   }
 
+  /** Find the next holiday or early close within N days */
+  function getNextHoliday(ny, withinDays) {
+    if (!config) return null;
+    const today = new Date(ny.date + 'T00:00:00');
+    const cutoff = new Date(today);
+    cutoff.setDate(cutoff.getDate() + withinDays);
+
+    let nearest = null;
+    for (const year of Object.keys(config.holidays || {})) {
+      for (const h of config.holidays[year]) {
+        const d = new Date(h.date + 'T00:00:00');
+        if (d > today && d <= cutoff) {
+          if (!nearest || d < nearest.dateObj) {
+            nearest = { dateObj: d, date: h.date, name: h.name, type: 'closed' };
+          }
+        }
+      }
+    }
+    for (const year of Object.keys(config.earlyClose || {})) {
+      for (const e of config.earlyClose[year]) {
+        const d = new Date(e.date + 'T00:00:00');
+        if (d > today && d <= cutoff) {
+          if (!nearest || d < nearest.dateObj) {
+            nearest = { dateObj: d, date: e.date, name: e.name, type: 'early', close: e.close };
+          }
+        }
+      }
+    }
+    return nearest;
+  }
+
+  /** Format a holiday date as short string (e.g. "Apr 3") */
+  function formatHolidayDate(isoDate) {
+    const d = new Date(isoDate + 'T12:00:00');
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
   /** Format current time in user's local timezone */
   function formatLocalTime() {
     const now = new Date();
@@ -120,9 +157,20 @@ function initMarketStatus() {
 
     const dateStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
+    // Next holiday callout (within 14 days)
+    const nextHol = getNextHoliday(ny, 14);
+    let holHtml = '';
+    if (nextHol) {
+      const holDate = formatHolidayDate(nextHol.date);
+      const holLabel = nextHol.type === 'early'
+        ? `Early close: ${nextHol.name} (${holDate})`
+        : `Next holiday: ${nextHol.name} (${holDate})`;
+      holHtml = `<span class="ms-holiday" style="color:var(--text-dim,#777);margin-left:6px;font-size:10px;"> · ${holLabel}</span>`;
+    }
+
     el.innerHTML = `
       <span class="ms-label">Market: </span>${dotHtml}<span style="color:${status.color};font-weight:600;">${status.label}</span>
-      ${status.sub ? `<span class="ms-sub" style="color:var(--text-dim,#555);margin-left:4px;font-size:10px;">${status.sub}</span>` : ''}
+      ${status.sub ? `<span class="ms-sub" style="color:var(--text-dim,#555);margin-left:4px;font-size:10px;">${status.sub}</span>` : ''}${holHtml}
       <span class="ms-date" style="color:var(--text-dim,#888);margin-left:8px;">${dateStr}, ${formatLocalTime()}</span>
     `;
   }
