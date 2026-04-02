@@ -25,6 +25,30 @@ LOG="${BT_LOG:-/tmp/bt-eod-update.log}"
 PYTHON="${BT_PYTHON:-$(command -v python3 || echo /opt/homebrew/bin/python3)}"
 DOW=$(date +%u)  # 1=Mon, 5=Fri, 6=Sat, 7=Sun
 IS_FRIDAY=$([[ "$DOW" == "5" ]] && echo 1 || echo 0)
+
+# Check if tomorrow is a market holiday (makes today the effective last trading day of the week)
+# Reads holidays from market-hours.json if available
+IS_PRE_HOLIDAY=0
+TOMORROW=$(date -v+1d +%Y-%m-%d 2>/dev/null || date -d '+1 day' +%Y-%m-%d 2>/dev/null || echo "")
+if [[ -n "$TOMORROW" && -f "$REPO/data/market-hours.json" ]]; then
+    # Check if tomorrow is in the holidays list
+    if $PYTHON -c "
+import json, sys
+with open('$REPO/data/market-hours.json') as f:
+    mh = json.load(f)
+year = '$TOMORROW'[:4]
+holidays = [h['date'] for h in mh.get('holidays', {}).get(year, [])]
+if '$TOMORROW' in holidays:
+    sys.exit(0)
+sys.exit(1)
+" 2>/dev/null; then
+        IS_PRE_HOLIDAY=1
+        log "Tomorrow ($TOMORROW) is a market holiday — running full EM tiers"
+    fi
+fi
+
+# Effective Friday = actual Friday OR day before a holiday closure
+IS_EFFECTIVE_FRIDAY=$([[ "$IS_FRIDAY" == "1" || "$IS_PRE_HOLIDAY" == "1" ]] && echo 1 || echo 0)
 TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 ERRORS=0
 
@@ -33,7 +57,7 @@ cd "$REPO"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG"; }
 warn() { log "⚠️  WARN: $*"; ERRORS=$((ERRORS + 1)); }
 
-log "=== EOD Update Starting (dow=$DOW, friday=$IS_FRIDAY) ==="
+log "=== EOD Update Starting (dow=$DOW, friday=$IS_FRIDAY, pre_holiday=$IS_PRE_HOLIDAY, effective_friday=$IS_EFFECTIVE_FRIDAY) ==="
 
 # --- 0. Canonical Prices (runs first — source of truth for all pages) ---
 log "Step 0/5: Canonical prices (prices.json)"
@@ -86,9 +110,9 @@ fi
 # --- 4. Expected Moves (IB → yfinance fallback) ---
 # Friday: all tiers (weekly + monthly + quarterly recalc)
 # Mon-Thu: daily tier only (fast — 8 index/futures proxies)
-if [[ "$IS_FRIDAY" == "1" ]]; then
+if [[ "$IS_EFFECTIVE_FRIDAY" == "1" ]]; then
     EM_TIER="all"
-    EM_LABEL="all tiers (Friday)"
+    EM_LABEL="all tiers (last trading day of week)"
 else
     EM_TIER="daily"
     EM_LABEL="daily tier"
