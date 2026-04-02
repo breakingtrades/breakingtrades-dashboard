@@ -122,6 +122,10 @@
       }
     ]
   },
-  "generatedAt": "2026-03-23T22:56:31.463969+00:00",
-  "source": "hardcoded"
+  "generatedAt": "2026-04-02T16:52:42.131338+00:00",
+  "source": "mixed",
+  "sourcePerYear": {
+    "2026": "exchange_calendars",
+    "2027": "hardcoded"
+  }
 }

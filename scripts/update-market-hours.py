@@ -135,6 +135,7 @@ def main():
 
     all_holidays = {}
     all_early = {}
+    sources = {}
 
     for year in years:
         try:
@@ -152,6 +153,11 @@ def main():
 
         all_holidays[str(year)] = holidays
         all_early[str(year)] = early
+        sources[str(year)] = source
+
+    # Top-level source: "exchange_calendars" if current year used it, else "mixed" or "hardcoded"
+    current_src = sources.get(str(current_year), "hardcoded")
+    top_source = current_src if all(s == current_src for s in sources.values()) else "mixed"
 
     result = {
         "exchange": "NYSE",
@@ -164,7 +170,8 @@ def main():
         "holidays": all_holidays,
         "earlyClose": all_early,
         "generatedAt": now.isoformat(),
-        "source": source,
+        "source": top_source,
+        "sourcePerYear": sources,
     }
 
     OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
