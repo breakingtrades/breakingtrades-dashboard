@@ -2,73 +2,73 @@
   {
     "symbol": "XLE",
     "name": "Energy",
-    "change": 8.1,
-    "rs": 115.2
+    "change": 5.6,
+    "rs": 70.9
   },
   {
     "symbol": "XLU",
     "name": "Utilities",
-    "change": -4.1,
-    "rs": -5.3
-  },
-  {
-    "symbol": "XLC",
-    "name": "Communication",
-    "change": -2.3,
-    "rs": -31.4
-  },
-  {
-    "symbol": "XLK",
-    "name": "Technology",
-    "change": -1.1,
-    "rs": -32.0
-  },
-  {
-    "symbol": "XLI",
-    "name": "Industrials",
-    "change": -6.7,
-    "rs": -37.6
-  },
-  {
-    "symbol": "XLRE",
-    "name": "Real Estate",
-    "change": -6.9,
-    "rs": -38.6
-  },
-  {
-    "symbol": "XLP",
-    "name": "Staples",
-    "change": -8.8,
-    "rs": -47.2
-  },
-  {
-    "symbol": "XLF",
-    "name": "Financials",
-    "change": -2.9,
-    "rs": -54.8
+    "change": -0.5,
+    "rs": 25.4
   },
   {
     "symbol": "XLB",
     "name": "Materials",
-    "change": -10.2,
-    "rs": -60.5
+    "change": -0.4,
+    "rs": -2.8
   },
   {
-    "symbol": "XLY",
-    "name": "Discretionary",
-    "change": -4.2,
-    "rs": -63.0
+    "symbol": "XLRE",
+    "name": "Real Estate",
+    "change": -3.3,
+    "rs": -7.0
+  },
+  {
+    "symbol": "XLK",
+    "name": "Technology",
+    "change": -2.9,
+    "rs": -24.8
+  },
+  {
+    "symbol": "XLI",
+    "name": "Industrials",
+    "change": -4.6,
+    "rs": -28.9
+  },
+  {
+    "symbol": "XLC",
+    "name": "Communication",
+    "change": -5.4,
+    "rs": -29.4
+  },
+  {
+    "symbol": "XLF",
+    "name": "Financials",
+    "change": -2.8,
+    "rs": -29.9
+  },
+  {
+    "symbol": "XLP",
+    "name": "Staples",
+    "change": -3.6,
+    "rs": -34.6
   },
   {
     "symbol": "XLV",
     "name": "Healthcare",
-    "change": -8.7,
-    "rs": -66.3
+    "change": -4.2,
+    "rs": -38.7
+  },
+  {
+    "symbol": "XLY",
+    "name": "Discretionary",
+    "change": -7.0,
+    "rs": -60.1
   },
   {
     "symbol": "IBIT",
     "name": "Bitcoin",
-    "change": 9.6,
-    "rs": -68.4
+    "change": -6.0,
+    "rs": -67.4
   }
 ]

@@ -1,12 +1,12 @@
 {
-  "updated": "2026-04-02T17:27:22.624291",
+  "updated": "2026-04-02T17:57:30.699800",
   "source": "yfinance",
-  "tier": "quarterly",
+  "tier": "all",
   "tickers": {
     "SPY": {
       "close": 655.83,
       "spot": 655.83,
-      "updated": "2026-04-02T17:27:21.712962",
+      "updated": "2026-04-02T17:57:24.358100",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "ES",
@@ -116,7 +116,7 @@
     "QQQ": {
       "close": 584.98,
       "spot": 584.98,
-      "updated": "2026-04-02T17:27:20.514249",
+      "updated": "2026-04-02T17:57:22.641895",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "NQ",
@@ -226,7 +226,7 @@
     "IWM": {
       "close": 251.29,
       "spot": 251.29,
-      "updated": "2026-04-02T17:27:18.013251",
+      "updated": "2026-04-02T17:57:18.499420",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "RTY",
@@ -334,9 +334,9 @@
       ]
     },
     "DIA": {
-      "close": 465.09,
-      "spot": 465.09,
-      "updated": "2026-04-02T17:27:17.271786",
+      "close": 465.06,
+      "spot": 465.06,
+      "updated": "2026-04-02T17:57:16.595968",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "YM",
@@ -351,26 +351,26 @@
       "daily": {
         "value": 3.26,
         "pct": 0.7,
-        "upper": 468.35,
-        "lower": 461.83
+        "upper": 468.32,
+        "lower": 461.8
       },
       "weekly": {
         "value": 7.28,
         "pct": 1.57,
-        "upper": 472.37,
-        "lower": 457.81
+        "upper": 472.34,
+        "lower": 457.78
       },
       "monthly": {
         "value": 12.92,
         "pct": 2.78,
-        "upper": 478.01,
-        "lower": 452.17
+        "upper": 477.98,
+        "lower": 452.14
       },
       "quarterly": {
         "value": 28.94,
         "pct": 6.22,
-        "upper": 494.03,
-        "lower": 436.15
+        "upper": 494.0,
+        "lower": 436.12
       },
       "iv": 19.3,
       "monthly_expiry": "20260417",
@@ -436,7 +436,7 @@
         },
         {
           "date": "2026-04-02",
-          "close": 465.09,
+          "close": 465.06,
           "straddle": 10.84,
           "weekly_em": 7.28,
           "daily_em": 3.26
@@ -446,7 +446,7 @@
     "IBIT": {
       "close": 37.97,
       "spot": 37.97,
-      "updated": "2026-04-02T17:26:57.459086",
+      "updated": "2026-04-02T17:57:17.777179",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "BTC",
@@ -820,7 +820,7 @@
     "AA": {
       "close": 71.53,
       "spot": 71.53,
-      "updated": "2026-04-02T17:26:50.839056",
+      "updated": "2026-04-02T17:57:10.308097",
       "source": "yfinance",
       "strike": 72.0,
       "straddle": 4.6,
@@ -903,7 +903,7 @@
     "AAPL": {
       "close": 255.92,
       "spot": 255.92,
-      "updated": "2026-04-02T17:27:14.821702",
+      "updated": "2026-04-02T17:57:10.672671",
       "source": "yfinance",
       "strike": 255.0,
       "straddle": 7.01,
@@ -988,7 +988,7 @@
     "ABBV": {
       "close": 208.84,
       "spot": 208.84,
-      "updated": "2026-04-02T17:26:51.456485",
+      "updated": "2026-04-02T17:57:11.067394",
       "source": "yfinance",
       "strike": 210.0,
       "straddle": 7.26,
@@ -1071,7 +1071,7 @@
     "ACI": {
       "close": 17.45,
       "spot": 17.45,
-      "updated": "2026-04-02T17:26:51.765441",
+      "updated": "2026-04-02T17:57:11.312539",
       "source": "yfinance",
       "strike": 17.5,
       "straddle": 0.45,
@@ -1154,7 +1154,7 @@
     "ADSK": {
       "close": 238.08,
       "spot": 238.08,
-      "updated": "2026-04-02T17:26:52.270670",
+      "updated": "2026-04-02T17:57:11.725368",
       "source": "yfinance",
       "strike": 240.0,
       "straddle": 11.02,
@@ -1237,7 +1237,7 @@
     "AMZN": {
       "close": 209.77,
       "spot": 209.77,
-      "updated": "2026-04-02T17:27:15.118284",
+      "updated": "2026-04-02T17:57:11.942417",
       "source": "yfinance",
       "strike": 210.0,
       "straddle": 7.51,
@@ -1322,7 +1322,7 @@
     "AR": {
       "close": 40.45,
       "spot": 40.45,
-      "updated": "2026-04-02T17:26:52.804444",
+      "updated": "2026-04-02T17:57:12.249120",
       "source": "yfinance",
       "strike": 40.0,
       "straddle": 2.06,
@@ -1405,7 +1405,7 @@
     "ARM": {
       "close": 149.11,
       "spot": 149.11,
-      "updated": "2026-04-02T17:26:53.041995",
+      "updated": "2026-04-02T17:57:12.476508",
       "source": "yfinance",
       "strike": 149.0,
       "straddle": 9.42,
@@ -1488,7 +1488,7 @@
     "AVGO": {
       "close": 313.49,
       "spot": 313.49,
-      "updated": "2026-04-02T17:27:16.946868",
+      "updated": "2026-04-02T17:57:13.759903",
       "source": "yfinance",
       "strike": 312.5,
       "straddle": 14.71,
@@ -1573,7 +1573,7 @@
     "BE": {
       "close": 135.63,
       "spot": 135.63,
-      "updated": "2026-04-02T17:26:53.485445",
+      "updated": "2026-04-02T17:57:14.280030",
       "source": "yfinance",
       "strike": 136.0,
       "straddle": 14.9,
@@ -1656,7 +1656,7 @@
     "BILI": {
       "close": 23.05,
       "spot": 23.05,
-      "updated": "2026-04-02T17:26:53.717516",
+      "updated": "2026-04-02T17:57:14.517681",
       "source": "yfinance",
       "strike": 23.0,
       "straddle": 1.27,
@@ -1801,7 +1801,7 @@
     "CAG": {
       "close": 15.72,
       "spot": 15.72,
-      "updated": "2026-04-02T17:26:54.466885",
+      "updated": "2026-04-02T17:57:15.111384",
       "source": "yfinance",
       "strike": 15.5,
       "straddle": 0.6,
@@ -1884,7 +1884,7 @@
     "CHTR": {
       "close": 219.79,
       "spot": 219.79,
-      "updated": "2026-04-02T17:26:54.762153",
+      "updated": "2026-04-02T17:57:15.321230",
       "source": "yfinance",
       "strike": 220.0,
       "straddle": 11.68,
@@ -1967,7 +1967,7 @@
     "COIN": {
       "close": 171.46,
       "spot": 171.46,
-      "updated": "2026-04-02T17:26:55.097973",
+      "updated": "2026-04-02T17:57:15.548109",
       "source": "yfinance",
       "strike": 172.5,
       "straddle": 13.61,
@@ -2050,7 +2050,7 @@
     "DELL": {
       "close": 174.37,
       "spot": 174.37,
-      "updated": "2026-04-02T17:26:55.665377",
+      "updated": "2026-04-02T17:57:16.153330",
       "source": "yfinance",
       "strike": 175.0,
       "straddle": 9.84,
@@ -2133,7 +2133,7 @@
     "DHR": {
       "close": 191.12,
       "spot": 191.12,
-      "updated": "2026-04-02T17:26:55.890400",
+      "updated": "2026-04-02T17:57:16.380705",
       "source": "yfinance",
       "strike": 190.0,
       "straddle": 6.74,
@@ -2216,7 +2216,7 @@
     "GOOGL": {
       "close": 295.77,
       "spot": 295.77,
-      "updated": "2026-04-02T17:27:17.655414",
+      "updated": "2026-04-02T17:57:17.165269",
       "source": "yfinance",
       "strike": 295.0,
       "straddle": 9.92,
@@ -2301,7 +2301,7 @@
     "HYG": {
       "close": 79.56,
       "spot": 79.56,
-      "updated": "2026-04-02T17:26:57.208772",
+      "updated": "2026-04-02T17:57:17.540983",
       "source": "yfinance",
       "strike": 79.5,
       "straddle": 0.57,
@@ -2384,7 +2384,7 @@
     "IGV": {
       "close": 80.34,
       "spot": 80.34,
-      "updated": "2026-04-02T17:26:57.853633",
+      "updated": "2026-04-02T17:57:18.225035",
       "source": "yfinance",
       "strike": 80.5,
       "straddle": 3.25,
@@ -2467,7 +2467,7 @@
     "KHC": {
       "close": 22.79,
       "spot": 22.79,
-      "updated": "2026-04-02T17:26:58.300532",
+      "updated": "2026-04-02T17:57:18.879638",
       "source": "yfinance",
       "strike": 23.0,
       "straddle": 0.75,
@@ -2550,7 +2550,7 @@
     "KMB": {
       "close": 96.13,
       "spot": 96.13,
-      "updated": "2026-04-02T17:26:58.619428",
+      "updated": "2026-04-02T17:57:19.090952",
       "source": "yfinance",
       "strike": 98.0,
       "straddle": 2.1,
@@ -2633,7 +2633,7 @@
     "LLY": {
       "close": 954.52,
       "spot": 954.52,
-      "updated": "2026-04-02T17:27:18.757817",
+      "updated": "2026-04-02T17:57:19.530713",
       "source": "yfinance",
       "strike": 955.0,
       "straddle": 38.77,
@@ -2718,7 +2718,7 @@
     "LQD": {
       "close": 109.12,
       "spot": 109.12,
-      "updated": "2026-04-02T17:26:58.833998",
+      "updated": "2026-04-02T17:57:19.910160",
       "source": "yfinance",
       "strike": 109.0,
       "straddle": 0.91,
@@ -2801,7 +2801,7 @@
     "META": {
       "close": 574.46,
       "spot": 574.46,
-      "updated": "2026-04-02T17:27:19.140114",
+      "updated": "2026-04-02T17:57:20.147651",
       "source": "yfinance",
       "strike": 575.0,
       "straddle": 22.3,
@@ -2886,7 +2886,7 @@
     "MSFT": {
       "close": 373.46,
       "spot": 373.46,
-      "updated": "2026-04-02T17:27:19.564307",
+      "updated": "2026-04-02T17:57:20.777033",
       "source": "yfinance",
       "strike": 372.5,
       "straddle": 11.85,
@@ -2971,7 +2971,7 @@
     "NBIS": {
       "close": 108.82,
       "spot": 108.82,
-      "updated": "2026-04-02T17:26:59.896110",
+      "updated": "2026-04-02T17:57:21.122884",
       "source": "yfinance",
       "strike": 109.0,
       "straddle": 9.83,
@@ -3054,7 +3054,7 @@
     "NEE": {
       "close": 93.15,
       "spot": 93.15,
-      "updated": "2026-04-02T17:27:00.170412",
+      "updated": "2026-04-02T17:57:21.364443",
       "source": "yfinance",
       "strike": 93.0,
       "straddle": 2.67,
@@ -3137,7 +3137,7 @@
     "NVDA": {
       "close": 177.39,
       "spot": 177.39,
-      "updated": "2026-04-02T17:27:20.005355",
+      "updated": "2026-04-02T17:57:21.628000",
       "source": "yfinance",
       "strike": 177.5,
       "straddle": 6.21,
@@ -3222,7 +3222,7 @@
     "PFE": {
       "close": 28.32,
       "spot": 28.32,
-      "updated": "2026-04-02T17:27:01.082134",
+      "updated": "2026-04-02T17:57:22.408315",
       "source": "yfinance",
       "strike": 28.5,
       "straddle": 0.75,
@@ -3305,7 +3305,7 @@
     "S": {
       "close": 13.33,
       "spot": 13.33,
-      "updated": "2026-04-02T17:27:01.759517",
+      "updated": "2026-04-02T17:57:23.183997",
       "source": "yfinance",
       "strike": 13.5,
       "straddle": 0.88,
@@ -3388,7 +3388,7 @@
     "TGT": {
       "close": 120.45,
       "spot": 120.45,
-      "updated": "2026-04-02T17:27:03.330883",
+      "updated": "2026-04-02T17:57:25.224878",
       "source": "yfinance",
       "strike": 120.0,
       "straddle": 3.95,
@@ -3471,7 +3471,7 @@
     "TLT": {
       "close": 86.79,
       "spot": 86.79,
-      "updated": "2026-04-02T17:27:03.579048",
+      "updated": "2026-04-02T17:57:25.432288",
       "source": "yfinance",
       "strike": 87.0,
       "straddle": 1.11,
@@ -3554,7 +3554,7 @@
     "TMO": {
       "close": 491.46,
       "spot": 491.46,
-      "updated": "2026-04-02T17:27:03.879346",
+      "updated": "2026-04-02T17:57:25.755419",
       "source": "yfinance",
       "strike": 490.0,
       "straddle": 19.2,
@@ -3637,7 +3637,7 @@
     "TMUS": {
       "close": 201.4,
       "spot": 201.4,
-      "updated": "2026-04-02T17:27:04.102205",
+      "updated": "2026-04-02T17:57:26.076198",
       "source": "yfinance",
       "strike": 200.0,
       "straddle": 6.65,
@@ -3720,7 +3720,7 @@
     "TSLA": {
       "close": 381.26,
       "spot": 381.26,
-      "updated": "2026-04-02T17:27:22.309038",
+      "updated": "2026-04-02T17:57:26.488585",
       "source": "yfinance",
       "strike": 382.5,
       "straddle": 24.55,
@@ -3805,7 +3805,7 @@
     "UNP": {
       "close": 244.71,
       "spot": 244.71,
-      "updated": "2026-04-02T17:27:04.355795",
+      "updated": "2026-04-02T17:57:26.874350",
       "source": "yfinance",
       "strike": 245.0,
       "straddle": 7.72,
@@ -3888,7 +3888,7 @@
     "UPS": {
       "close": 98.18,
       "spot": 98.18,
-      "updated": "2026-04-02T17:27:04.638064",
+      "updated": "2026-04-02T17:57:27.098188",
       "source": "yfinance",
       "strike": 98.0,
       "straddle": 3.78,
@@ -3969,9 +3969,9 @@
       ]
     },
     "URA": {
-      "close": 48.83,
-      "spot": 48.83,
-      "updated": "2026-04-02T17:27:04.865147",
+      "close": 48.9,
+      "spot": 48.9,
+      "updated": "2026-04-02T17:57:27.371151",
       "source": "yfinance",
       "strike": 49.0,
       "straddle": 3.13,
@@ -3981,27 +3981,27 @@
       "weekly_dte": 8,
       "daily": {
         "value": 0.94,
-        "pct": 1.93,
-        "upper": 49.77,
-        "lower": 47.89
+        "pct": 1.92,
+        "upper": 49.84,
+        "lower": 47.96
       },
       "weekly": {
         "value": 2.1,
-        "pct": 4.31,
-        "upper": 50.93,
-        "lower": 46.73
+        "pct": 4.3,
+        "upper": 51.0,
+        "lower": 46.8
       },
       "monthly": {
         "value": 3.57,
-        "pct": 7.31,
-        "upper": 52.4,
-        "lower": 45.26
+        "pct": 7.3,
+        "upper": 52.47,
+        "lower": 45.33
       },
       "quarterly": {
         "value": 7.47,
-        "pct": 15.29,
-        "upper": 56.3,
-        "lower": 41.36
+        "pct": 15.27,
+        "upper": 56.37,
+        "lower": 41.43
       },
       "iv": 54.2,
       "monthly_expiry": "20260417",
@@ -4044,7 +4044,7 @@
         },
         {
           "date": "2026-04-02",
-          "close": 48.83,
+          "close": 48.9,
           "straddle": 3.13,
           "weekly_em": 2.1,
           "daily_em": 0.94
@@ -4054,7 +4054,7 @@
     "XLB": {
       "close": 50.41,
       "spot": 50.41,
-      "updated": "2026-04-02T17:27:05.577907",
+      "updated": "2026-04-02T17:57:27.610096",
       "source": "yfinance",
       "strike": 50.5,
       "straddle": 1.34,
@@ -4137,7 +4137,7 @@
     "XLC": {
       "close": 111.7,
       "spot": 111.7,
-      "updated": "2026-04-02T17:27:05.786576",
+      "updated": "2026-04-02T17:57:27.893464",
       "source": "yfinance",
       "strike": 111.0,
       "straddle": 6.19,
@@ -4220,7 +4220,7 @@
     "XLE": {
       "close": 59.25,
       "spot": 59.25,
-      "updated": "2026-04-02T17:27:06.005128",
+      "updated": "2026-04-02T17:57:28.122944",
       "source": "yfinance",
       "strike": 59.5,
       "straddle": 2.17,
@@ -4301,9 +4301,9 @@
       ]
     },
     "XLF": {
-      "close": 49.54,
-      "spot": 49.54,
-      "updated": "2026-04-02T17:27:06.212380",
+      "close": 49.53,
+      "spot": 49.53,
+      "updated": "2026-04-02T17:57:28.410150",
       "source": "yfinance",
       "strike": 49.5,
       "straddle": 1.35,
@@ -4314,26 +4314,26 @@
       "daily": {
         "value": 0.41,
         "pct": 0.82,
-        "upper": 49.95,
-        "lower": 49.13
+        "upper": 49.94,
+        "lower": 49.12
       },
       "weekly": {
         "value": 0.91,
         "pct": 1.83,
-        "upper": 50.45,
-        "lower": 48.63
+        "upper": 50.44,
+        "lower": 48.62
       },
       "monthly": {
         "value": 1.73,
         "pct": 3.48,
-        "upper": 51.27,
-        "lower": 47.81
+        "upper": 51.26,
+        "lower": 47.8
       },
       "quarterly": {
         "value": 3.22,
         "pct": 6.5,
-        "upper": 52.76,
-        "lower": 46.32
+        "upper": 52.75,
+        "lower": 46.31
       },
       "iv": 25.5,
       "monthly_expiry": "20260417",
@@ -4376,7 +4376,7 @@
         },
         {
           "date": "2026-04-02",
-          "close": 49.54,
+          "close": 49.53,
           "straddle": 1.35,
           "weekly_em": 0.91,
           "daily_em": 0.41
@@ -4386,7 +4386,7 @@
     "XLI": {
       "close": 163.77,
       "spot": 163.77,
-      "updated": "2026-04-02T17:27:06.414610",
+      "updated": "2026-04-02T17:57:28.681618",
       "source": "yfinance",
       "strike": 164.0,
       "straddle": 5.4,
@@ -4467,9 +4467,9 @@
       ]
     },
     "XLK": {
-      "close": 136.01,
-      "spot": 136.01,
-      "updated": "2026-04-02T17:27:06.618615",
+      "close": 135.99,
+      "spot": 135.99,
+      "updated": "2026-04-02T17:57:28.931397",
       "source": "yfinance",
       "strike": 136.0,
       "straddle": 4.85,
@@ -4480,26 +4480,26 @@
       "daily": {
         "value": 1.46,
         "pct": 1.07,
-        "upper": 137.47,
-        "lower": 134.55
+        "upper": 137.45,
+        "lower": 134.53
       },
       "weekly": {
         "value": 3.26,
         "pct": 2.4,
-        "upper": 139.27,
-        "lower": 132.75
+        "upper": 139.25,
+        "lower": 132.73
       },
       "monthly": {
         "value": 5.4,
         "pct": 3.97,
-        "upper": 141.41,
-        "lower": 130.61
+        "upper": 141.39,
+        "lower": 130.59
       },
       "quarterly": {
         "value": 11.57,
         "pct": 8.51,
-        "upper": 147.58,
-        "lower": 124.44
+        "upper": 147.56,
+        "lower": 124.42
       },
       "iv": 29.6,
       "monthly_expiry": "20260417",
@@ -4542,7 +4542,7 @@
         },
         {
           "date": "2026-04-02",
-          "close": 136.01,
+          "close": 135.99,
           "straddle": 4.85,
           "weekly_em": 3.26,
           "daily_em": 1.46
@@ -4552,7 +4552,7 @@
     "XLP": {
       "close": 81.89,
       "spot": 81.89,
-      "updated": "2026-04-02T17:27:06.857035",
+      "updated": "2026-04-02T17:57:29.199172",
       "source": "yfinance",
       "strike": 82.0,
       "straddle": 1.59,
@@ -4635,7 +4635,7 @@
     "XLU": {
       "close": 46.34,
       "spot": 46.34,
-      "updated": "2026-04-02T17:27:07.233459",
+      "updated": "2026-04-02T17:57:29.675655",
       "source": "yfinance",
       "strike": 46.5,
       "straddle": 0.9,
@@ -4718,7 +4718,7 @@
     "XLV": {
       "close": 146.81,
       "spot": 146.81,
-      "updated": "2026-04-02T17:27:07.458834",
+      "updated": "2026-04-02T17:57:29.975782",
       "source": "yfinance",
       "strike": 147.0,
       "straddle": 3.48,
@@ -4801,7 +4801,7 @@
     "XLY": {
       "close": 108.15,
       "spot": 108.15,
-      "updated": "2026-04-02T17:27:07.684831",
+      "updated": "2026-04-02T17:57:30.272236",
       "source": "yfinance",
       "strike": 108.0,
       "straddle": 4.29,
@@ -4884,7 +4884,7 @@
     "ZM": {
       "close": 82.36,
       "spot": 82.36,
-      "updated": "2026-04-02T17:27:07.887245",
+      "updated": "2026-04-02T17:57:30.492938",
       "source": "yfinance",
       "strike": 82.0,
       "straddle": 3.89,
@@ -5091,7 +5091,7 @@
     "ADM": {
       "close": 73.83,
       "spot": 73.83,
-      "updated": "2026-04-02T17:26:52.114015",
+      "updated": "2026-04-02T17:57:11.568217",
       "source": "yfinance",
       "strike": 75.0,
       "straddle": 4.12,
@@ -5146,7 +5146,7 @@
     "AWK": {
       "close": 138.14,
       "spot": 138.14,
-      "updated": "2026-04-02T17:26:53.308896",
+      "updated": "2026-04-02T17:57:14.106179",
       "source": "yfinance",
       "strike": 140.0,
       "straddle": 5.55,
@@ -5201,7 +5201,7 @@
     "BJ": {
       "close": 98.06,
       "spot": 98.06,
-      "updated": "2026-04-02T17:26:53.958484",
+      "updated": "2026-04-02T17:57:14.748197",
       "source": "yfinance",
       "strike": 100.0,
       "straddle": 5.52,
@@ -5256,7 +5256,7 @@
     "BYD": {
       "close": 83.74,
       "spot": 83.74,
-      "updated": "2026-04-02T17:26:54.313523",
+      "updated": "2026-04-02T17:57:14.947976",
       "source": "yfinance",
       "strike": 82.5,
       "straddle": 3.73,
@@ -5311,7 +5311,7 @@
     "CP": {
       "close": 78.97,
       "spot": 78.97,
-      "updated": "2026-04-02T17:26:55.315897",
+      "updated": "2026-04-02T17:57:15.772355",
       "source": "yfinance",
       "strike": 80.0,
       "straddle": 3.39,
@@ -5366,7 +5366,7 @@
     "D": {
       "close": 62.77,
       "spot": 62.77,
-      "updated": "2026-04-02T17:26:55.477965",
+      "updated": "2026-04-02T17:57:15.970690",
       "source": "yfinance",
       "strike": 62.5,
       "straddle": 2.02,
@@ -5421,7 +5421,7 @@
     "GKOS": {
       "close": 112.77,
       "spot": 112.77,
-      "updated": "2026-04-02T17:26:56.487963",
+      "updated": "2026-04-02T17:57:16.962837",
       "source": "yfinance",
       "strike": 115.0,
       "straddle": 9.94,
@@ -5476,7 +5476,7 @@
     "IFF": {
       "close": 72.43,
       "spot": 72.43,
-      "updated": "2026-04-02T17:26:57.683284",
+      "updated": "2026-04-02T17:57:18.050217",
       "source": "yfinance",
       "strike": 72.5,
       "straddle": 3.25,
@@ -5531,7 +5531,7 @@
     "MOO": {
       "close": 85.03,
       "spot": 85.03,
-      "updated": "2026-04-02T17:26:59.345288",
+      "updated": "2026-04-02T17:57:20.550438",
       "source": "yfinance",
       "strike": 85.0,
       "straddle": 3.8,
@@ -5586,7 +5586,7 @@
     "OIH": {
       "close": 399.05,
       "spot": 399.05,
-      "updated": "2026-04-02T17:27:00.757154",
+      "updated": "2026-04-02T17:57:22.080582",
       "source": "yfinance",
       "strike": 400.0,
       "straddle": 24.8,
@@ -5641,7 +5641,7 @@
     "OMC": {
       "close": 74.81,
       "spot": 74.81,
-      "updated": "2026-04-02T17:27:00.922062",
+      "updated": "2026-04-02T17:57:22.257779",
       "source": "yfinance",
       "strike": 75.0,
       "straddle": 4.51,
@@ -5696,7 +5696,7 @@
     "RVTY": {
       "close": 88.94,
       "spot": 88.94,
-      "updated": "2026-04-02T17:27:01.570013",
+      "updated": "2026-04-02T17:57:22.991229",
       "source": "yfinance",
       "strike": 90.0,
       "straddle": 9.7,
@@ -5751,7 +5751,7 @@
     "SM": {
       "close": 30.62,
       "spot": 30.62,
-      "updated": "2026-04-02T17:27:02.284708",
+      "updated": "2026-04-02T17:57:23.436053",
       "source": "yfinance",
       "strike": 30.0,
       "straddle": 5.05,
@@ -5806,7 +5806,7 @@
     "SYK": {
       "close": 331.54,
       "spot": 331.54,
-      "updated": "2026-04-02T17:27:02.919347",
+      "updated": "2026-04-02T17:57:24.800470",
       "source": "yfinance",
       "strike": 330.0,
       "straddle": 16.9,
@@ -5861,7 +5861,7 @@
     "TAP": {
       "close": 44.04,
       "spot": 44.04,
-      "updated": "2026-04-02T17:27:03.167566",
+      "updated": "2026-04-02T17:57:25.050209",
       "source": "yfinance",
       "strike": 45.0,
       "straddle": 2.39,
@@ -5971,7 +5971,7 @@
     "XLRE": {
       "close": 41.61,
       "spot": 41.61,
-      "updated": "2026-04-02T17:27:07.085293",
+      "updated": "2026-04-02T17:57:29.454379",
       "source": "yfinance",
       "strike": 42.0,
       "straddle": 0.95,
@@ -6026,7 +6026,7 @@
     "SPX": {
       "close": 6575.32,
       "spot": 6575.32,
-      "updated": "2026-04-02T17:27:21.195700",
+      "updated": "2026-04-02T17:57:23.797889",
       "source": "yfinance",
       "strike": 6575.0,
       "straddle": 158.19,

@@ -1,22 +1,22 @@
 {
-  "updated": "2026-04-02T20:20:46Z",
+  "updated": "2026-04-02T21:49:43Z",
   "regime": "NEUTRAL",
-  "score": 48,
+  "score": 49,
   "color": "#8888aa",
   "previous": {
-    "regime": "CORRECTION",
-    "score": 45
+    "regime": "NEUTRAL",
+    "score": 48
   },
   "duration_days": 1,
   "since": "2026-04-02",
   "cycle": {
     "phase": "EXPANSION",
-    "score": 60
+    "score": 55
   },
   "components": {
     "move": {
-      "score": 45,
-      "value": 90.19,
+      "score": 53,
+      "value": 84.41,
       "signal": "elevated",
       "weight": 18
     },
@@ -27,14 +27,14 @@
       "weight": 10
     },
     "vix": {
-      "score": 42,
-      "value": 24.11,
+      "score": 43,
+      "value": 23.87,
       "signal": "elevated",
       "weight": 10
     },
     "breadth": {
       "score": 50,
-      "value": 59.7,
+      "value": 58.0,
       "signal": "strong",
       "weight": 8
     },
@@ -52,14 +52,14 @@
     },
     "xlf_spy": {
       "score": 50,
-      "value": -0.15,
+      "value": -0.17,
       "signal": "neutral",
       "weight": 6
     },
     "dxy": {
-      "score": 50,
-      "value": 0,
-      "signal": "no_data",
+      "score": 35,
+      "value": 100.01,
+      "signal": "elevated",
       "weight": 5
     },
     "yield_curve": {
@@ -88,13 +88,13 @@
     },
     "copper_gold": {
       "score": 70,
-      "value": 2.03,
+      "value": 2.01,
       "signal": "growth",
       "weight": 4
     },
     "international": {
       "score": 50,
-      "value": 1.7,
+      "value": 1.77,
       "signal": "mixed",
       "weight": 4
     },
@@ -142,7 +142,7 @@
       },
       {
         "label": "VIX < 16",
-        "current": 24.11,
+        "current": 23.87,
         "target": 16,
         "met": false
       }
