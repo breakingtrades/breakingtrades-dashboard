@@ -36,9 +36,9 @@
   white-space: nowrap;
 }
 .nav-logo-text span { color: var(--text-dim); font-weight: 400; }
-.nav-links { display: flex; gap: 2px; }
+.nav-links { display: flex; gap: 2px; align-items: center; height: 100%; }
 .nav-link {
-  padding: 13px 16px;
+  padding: 0 16px;
   color: var(--text-dim);
   text-decoration: none;
   font-size: 12px;
@@ -47,6 +47,10 @@
   letter-spacing: 1px;
   border-bottom: 2px solid transparent;
   transition: all var(--transition-fast);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 .nav-link:hover { color: var(--text); }
 .nav-link.active { color: var(--cyan); border-bottom-color: var(--cyan); }
