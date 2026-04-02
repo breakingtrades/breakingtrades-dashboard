@@ -120,6 +120,7 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 | Per-Ticker Tom's Take | Low | Pre-generated LLM analysis per symbol |
 | [Tom Chat Widget](changes/tom-chat/) | Low | Interactive chat — deferred to Phase 3 of AI-Ready Architecture |
 | Event Calendar — Phase 2 | Medium | FastAPI route in market-watcher; external calendar API polling (FRED releases, macro data) |
+| Economic Calendar Integration | **High** | Auto-populate Events page with economic calendar data (FOMC, CPI, PPI, NFP, GDP, jobless claims, FRED releases). Source: Investing.com economic calendar API or TradingView economic calendar widget. Show upcoming releases with consensus/prior, countdown timers, and severity based on market impact. Should merge seamlessly with existing JSONL events + NYSE holiday auto-injection. |
 
 ## Archived
 
