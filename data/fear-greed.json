@@ -1,24 +1,24 @@
 {
   "current": {
-    "value": 15.8,
-    "label": "Extreme Fear"
-  },
-  "previousClose": {
     "value": 14.7,
     "label": "Extreme Fear"
   },
+  "previousClose": {
+    "value": 15.7,
+    "label": "Extreme Fear"
+  },
   "oneWeekAgo": {
-    "value": 18.2,
+    "value": 14.9,
     "label": "Extreme Fear"
   },
   "oneMonthAgo": {
-    "value": 41.2,
+    "value": 34.3,
     "label": "Fear"
   },
   "oneYearAgo": {
-    "value": 19.6,
+    "value": 22.6,
     "label": "Extreme Fear"
   },
-  "updated": "2026-04-01T20:20:11.723165+00:00",
+  "updated": "2026-04-02T17:34:35.446024+00:00",
   "source": "cnn"
 }
