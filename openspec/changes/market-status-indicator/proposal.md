@@ -26,21 +26,22 @@ All 3 pages had a hardcoded `Market: OPEN` label in the top nav bar. It was alwa
 - Internal status computation still uses ET (NYSE native) — only display is localized
 - Date shows user's local date (month + day only, no year, no weekday)
 
-### New: `data/market-hours.json`
+### Data: `data/market-hours.json`
 - NYSE regular hours (9:30–16:00 ET), extended hours (pre: 4:00–9:30, after: 16:00–20:00)
-- 2026 holidays: 10 full closures (NYD, MLK, Presidents, Good Friday, Memorial, Juneteenth, July 4th, Labor, Thanksgiving, Christmas)
-- 2026 early closes: Nov 27 (day after Thanksgiving), Dec 24 (Christmas Eve) — both 13:00
-- 2027 holidays pre-loaded via hardcoded fallback
+- Current year holidays sourced from `exchange_calendars` Python package (authoritative NYSE calendar)
+- Next year: `exchange_calendars` if available, hardcoded fallback otherwise
+- Early closes: Day After Thanksgiving (13:00), Christmas Eve (13:00), Day Before Independence Day (13:00 when applicable)
+- `source` field tracks top-level origin (`exchange_calendars` | `hardcoded` | `mixed`)
+- `sourcePerYear` object tracks per-year origin for auditability
 
-### New: `scripts/update-market-hours.py`
-- Uses `exchange_calendars` Python package for accurate NYSE calendar
-- Falls back to hardcoded holidays when package doesn't cover the year
-- Refreshes current year + next year
-
-### New: `.github/workflows/update-market-hours.yml`
-- Annual cron: Jan 2 at noon UTC
-- Manual dispatch for ad-hoc updates
-- Installs `exchange_calendars`, runs script, commits if changed
+### Requirement: Authoritative holiday data (2026-04-02)
+- **Primary source:** `exchange_calendars` Python package (`XNYS` calendar) — contains real NYSE holiday schedule including observed dates and early closes
+- **Fallback:** Hardcoded known holidays when package data doesn't cover the year (e.g., package lags on next-year data)
+- **Per-year source tracking:** JSON output includes `sourcePerYear` so consumers can tell which years are authoritative vs hardcoded
+- **Annual refresh:** GitHub Actions cron runs Jan 2 at noon UTC, installs `exchange_calendars`, regenerates current + next year, commits if changed
+- **Manual trigger:** `workflow_dispatch` for ad-hoc refreshes
+- **Script:** `scripts/update-market-hours.py` — tries `exchange_calendars` first per year, falls back to hardcoded, tracks source
+- **Workflow:** `.github/workflows/update-market-hours.yml`
 
 ### Modified: `index.html`, `market.html`, `watchlist.html`
 - Replaced hardcoded `Market: OPEN` + timezone picker dropdown with `<div id="market-status">`
