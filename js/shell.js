@@ -101,8 +101,15 @@
     var btn = document.getElementById('nav-hamburger');
     var links = document.getElementById('nav-links');
     if (!btn || !links) return;
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
       links.classList.toggle('open');
+    });
+    // Close menu when tapping outside
+    document.addEventListener('click', function(e) {
+      if (!btn.contains(e.target) && !links.contains(e.target)) {
+        links.classList.remove('open');
+      }
     });
     // Close on link click
     links.addEventListener('click', function(e) {
