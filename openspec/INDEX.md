@@ -46,7 +46,7 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 | **Sector Rotation** | On demand / EOD | `export-sector-rotation.py` → `data/sector-rotation.json` + `data/sector-risk.json` |
 | **Market Breadth** | EOD | `update-breadth.py` → `data/breadth.json` — 11 GICS sectors + 5 indices, multi-timeframe (20/50/100/200d SMA) |
 | **Expected Moves** | EOD 4:20 PM ET (GH Action) + local fallback | `update-expected-moves.py` — IB Gateway first, yfinance fallback (Polygon removed). `--source auto/ib/yfinance`. `BT_EM_SOURCE` env var for CI/containers. → `data/expected-moves.json` |
-| **EM Quarterly History** | Manual (backfill) + end-of-quarter (TODO) | IB historical IV at each quarter-end date for 78 tickers. Q1–Q4 2025 backfilled. → `data/em-quarterly-history.json`. Pipeline automation pending. |
+| **EM Quarterly History** | Post-quarter-end (EOD Step 7) + manual | `capture-quarterly-em.py` — IB historical IV at each quarter-end date for 78 tickers. Auto-runs first 3 trading days after quarter end if IB Gateway available. → `data/em-quarterly-history.json` |
 | **EOD Pipeline** | Mon-Fri 4:20 PM ET | `eod-update.sh` — single runner: F&G + VIX + sector rotation + EM + yfinance fallback. **Last trading day of week** runs all EM tiers (weekly/monthly/quarterly) — detects Fridays AND pre-holiday closures via `market-hours.json`. Other days: daily tier only (8 proxies). GH Action uses yfinance (no IB in CI). Local Mac cron tries IB first. |
 | **Daily Briefing** | Every 30 min | `generate-briefing.py` → `data/briefs/` |
 | **Dashboard Export** | On demand | `export-dashboard-data.py` — bridge from parent data CSVs → dashboard JSON |

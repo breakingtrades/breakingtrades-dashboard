@@ -128,14 +128,19 @@ Added below the existing tier cards (Daily/Weekly/Monthly/Quarterly) in the tick
 
 All sizing uses CSS variables (`var(--space-*)`, `var(--font-size-*)`, `var(--border)`, etc.) per design system.
 
-## Pipeline Integration (TODO)
+## Pipeline Integration
 
-Automated end-of-quarter snapshots not yet implemented. Requirements:
-- Detect last trading day of each quarter in `eod-update.sh` (similar to existing Friday detection)
-- Run IB historical IV capture for all tickers
-- Append to `em-quarterly-history.json` (preserve existing quarters)
-- Recompute outcomes for previous quarter
-- Commit and push
+**Script:** `scripts/capture-quarterly-em.py`
+- Standalone: `python3 scripts/capture-quarterly-em.py [--quarter Q1-2026] [--dry-run]`
+- Auto-detects most recently completed quarter if `--quarter` omitted
+- Requires IB Gateway on port 4002
+
+**EOD integration:** `scripts/eod-update.sh` Step 7/7
+- Runs automatically on first 3 trading days after each quarter end (Mar 31, Jun 30, Sep 30, Dec 31)
+- Only executes if IB Gateway is running (checks port 4002)
+- Skips silently when IB unavailable or not a post-quarter-end day
+
+**Quarter definitions** are hardcoded through Q4-2026 in the script. Add new years by appending to the `QUARTERS` dict.
 
 ## Test Plan
 

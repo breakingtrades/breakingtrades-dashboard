@@ -60,7 +60,7 @@ warn() { log "⚠️  WARN: $*"; ERRORS=$((ERRORS + 1)); }
 log "=== EOD Update Starting (dow=$DOW, friday=$IS_FRIDAY, pre_holiday=$IS_PRE_HOLIDAY, effective_friday=$IS_EFFECTIVE_FRIDAY) ==="
 
 # --- 0. Canonical Prices (runs first — source of truth for all pages) ---
-log "Step 0/5: Canonical prices (prices.json)"
+log "Step 0/7: Canonical prices (prices.json)"
 if $PYTHON scripts/update-prices.py 2>&1 | tee -a "$LOG"; then
     log "✅ Prices done"
 else
@@ -76,7 +76,7 @@ else
 fi
 
 # --- 1. Fear & Greed ---
-log "Step 1/5: Fear & Greed Index"
+log "Step 1/7: Fear & Greed Index"
 if $PYTHON scripts/update-fear-greed.py 2>&1 | tee -a "$LOG"; then
     log "✅ Fear & Greed done"
 else
@@ -84,7 +84,7 @@ else
 fi
 
 # --- 2. VIX ---
-log "Step 2/5: VIX data"
+log "Step 2/7: VIX data"
 if $PYTHON scripts/update-vix.py 2>&1 | tee -a "$LOG"; then
     log "✅ VIX done"
 else
@@ -92,7 +92,7 @@ else
 fi
 
 # --- 3. Sector Rotation ---
-log "Step 3/6: Sector rotation"
+log "Step 3/7: Sector rotation"
 if $PYTHON scripts/export-sector-rotation.py 2>&1 | tee -a "$LOG"; then
     log "✅ Sector rotation done"
 else
@@ -100,7 +100,7 @@ else
 fi
 
 # --- 3b. Market Breadth ---
-log "Step 3b/6: Market Breadth"
+log "Step 3b/7: Market Breadth"
 if $PYTHON scripts/update-breadth.py 2>&1 | tee -a "$LOG"; then
     log "✅ Market Breadth done"
 else
@@ -118,7 +118,7 @@ else
     EM_LABEL="daily tier"
 fi
 
-log "Step 4/6: Expected Moves ($EM_LABEL) — IB→yfinance"
+log "Step 4/7: Expected Moves ($EM_LABEL) — IB→yfinance"
 if $PYTHON scripts/update-expected-moves.py --tier "$EM_TIER" 2>&1 | tee -a "$LOG"; then
     log "✅ Expected Moves done ($EM_LABEL)"
 else
@@ -126,7 +126,7 @@ else
 fi
 
 # --- 5. yfinance fallback (refreshes spot prices for briefing) ---
-log "Step 5/6: yfinance fallback data"
+log "Step 5/7: yfinance fallback data"
 if $PYTHON scripts/export-yfinance-fallback.py 2>&1 | tee -a "$LOG"; then
     log "✅ yfinance fallback done"
 else
@@ -134,11 +134,44 @@ else
 fi
 
 # --- 6. Regime Intelligence ---
-log "Step 6/6: Regime Intelligence (AI Researcher)"
+log "Step 6/7: Regime Intelligence (AI Researcher)"
 if $PYTHON scripts/update-regime.py 2>&1 | tee -a "$LOG"; then
     log "✅ Regime done"
 else
     warn "Regime failed"
+fi
+
+# --- 7. Quarterly EM History Snapshot ---
+# Runs on the first trading day AFTER a quarter ends.
+# Captures historical IV from the quarter-end date via IB.
+# Only runs if IB Gateway is available (port 4002).
+TODAY=$(date +%Y-%m-%d)
+QUARTER_ENDS=("03-31" "06-30" "09-30" "12-31")
+YESTERDAY=$(date -v-1d +%m-%d 2>/dev/null || date -d '-1 day' +%m-%d 2>/dev/null || echo "")
+DAY_BEFORE=$(date -v-2d +%m-%d 2>/dev/null || date -d '-2 days' +%m-%d 2>/dev/null || echo "")
+THREE_AGO=$(date -v-3d +%m-%d 2>/dev/null || date -d '-3 days' +%m-%d 2>/dev/null || echo "")
+
+RUN_QEM=0
+for qe in "${QUARTER_ENDS[@]}"; do
+    if [[ "$YESTERDAY" == "$qe" || "$DAY_BEFORE" == "$qe" || "$THREE_AGO" == "$qe" ]]; then
+        RUN_QEM=1
+        break
+    fi
+done
+
+if [[ "$RUN_QEM" == "1" ]]; then
+    if lsof -i :4002 -sTCP:LISTEN >/dev/null 2>&1; then
+        log "Step 7/7: Quarterly EM History Snapshot (IB Gateway available)"
+        if $PYTHON scripts/capture-quarterly-em.py 2>&1 | tee -a "$LOG"; then
+            log "✅ Quarterly EM snapshot done"
+        else
+            warn "Quarterly EM snapshot failed"
+        fi
+    else
+        log "Step 7/7: Quarterly EM History — SKIPPED (IB Gateway not running on port 4002)"
+    fi
+else
+    log "Step 7/7: Quarterly EM History — not a post-quarter-end day"
 fi
 
 # --- Git commit + push ---
