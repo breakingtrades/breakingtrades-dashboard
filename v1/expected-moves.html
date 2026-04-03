@@ -661,6 +661,24 @@ document.querySelectorAll('thead th').forEach(th => {
 
 loadData();
 
+// Auto-refresh prices every 5 min during market hours
+if (btPrices && btPrices.startAutoRefresh) {
+  btPrices.onRefresh(function() {
+    const updatedEl = document.getElementById('em-updated');
+    if (updatedEl && emData.updated) {
+      const updatedDate = new Date(emData.updated);
+      const ageHours = (Date.now() - updatedDate.getTime()) / 3600000;
+      let label = `EM Ranges: ${updatedDate.toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/New_York' })} ET`;
+      if (ageHours > 48) { updatedEl.style.color = 'var(--red)'; label += ` (${Math.round(ageHours / 24)}d old)`; }
+      else if (ageHours > 24) { updatedEl.style.color = 'var(--orange)'; label += ` (${Math.round(ageHours)}h ago)`; }
+      label += ' \u00b7 Prices: ' + btPrices.updatedLabel() + ' (live)';
+      updatedEl.textContent = label;
+    }
+    render();
+  });
+  btPrices.startAutoRefresh();
+}
+
 // === EM DETAIL MODAL ===
 const EXCHANGE_MAP = {
   'AAPL':'NASDAQ','AMZN':'NASDAQ','GOOG':'NASDAQ','GOOGL':'NASDAQ','MSFT':'NASDAQ','NVDA':'NASDAQ',

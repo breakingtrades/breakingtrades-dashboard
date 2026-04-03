@@ -13,25 +13,63 @@ const btPrices = (() => {
   let _data = {};      // { tickers: { SPY: { price, change, updated }, ... }, updated, source }
   let _loaded = false;
   let _loadPromise = null;
+  let _refreshTimer = null;
+  let _onRefreshCallbacks = [];
 
   async function load() {
     if (_loadPromise) return _loadPromise;
-    _loadPromise = fetch('data/prices.json')
-      .then(r => {
-        if (!r.ok) throw new Error(`prices.json: ${r.status}`);
-        return r.json();
-      })
-      .then(d => {
-        _data = d;
-        _loaded = true;
-        return d;
-      })
-      .catch(e => {
-        console.warn('btPrices: failed to load prices.json —', e.message);
-        _loaded = true; // mark loaded so callers don't block forever
-        return null;
-      });
+    _loadPromise = _fetchPrices();
     return _loadPromise;
+  }
+
+  async function _fetchPrices() {
+    try {
+      const r = await fetch('data/prices.json', { cache: 'no-cache' });
+      if (!r.ok) throw new Error('prices.json: ' + r.status);
+      const d = await r.json();
+      _data = d;
+      _loaded = true;
+      return d;
+    } catch(e) {
+      console.warn('btPrices: failed to load prices.json —', e.message);
+      _loaded = true;
+      return null;
+    }
+  }
+
+  /** Re-fetch prices and notify listeners. Returns true if data changed. */
+  async function refresh() {
+    var oldTs = _data?.updated;
+    await _fetchPrices();
+    var newTs = _data?.updated;
+    if (newTs && newTs !== oldTs) {
+      _onRefreshCallbacks.forEach(function(cb) { try { cb(); } catch(e) {} });
+      return true;
+    }
+    return false;
+  }
+
+  /** Register a callback for when prices refresh with new data. */
+  function onRefresh(cb) { _onRefreshCallbacks.push(cb); }
+
+  /** Start auto-refresh (default: every 5 min during market hours). */
+  function startAutoRefresh(intervalMs) {
+    if (_refreshTimer) return;
+    intervalMs = intervalMs || 5 * 60 * 1000; // 5 minutes
+    _refreshTimer = setInterval(function() {
+      // Only refresh during approximate US market hours (Mon-Fri 9-17 ET)
+      var now = new Date();
+      var etHour = parseInt(now.toLocaleString('en-US', { hour: 'numeric', hour12: false, timeZone: 'America/New_York' }));
+      var day = now.getDay(); // 0=Sun, 6=Sat
+      if (day >= 1 && day <= 5 && etHour >= 9 && etHour < 17) {
+        refresh();
+      }
+    }, intervalMs);
+  }
+
+  /** Stop auto-refresh. */
+  function stopAutoRefresh() {
+    if (_refreshTimer) { clearInterval(_refreshTimer); _refreshTimer = null; }
   }
 
   /** Get price data for a symbol. Returns { price, change, updated } or null. */
@@ -76,5 +114,5 @@ const btPrices = (() => {
   /** Get all ticker symbols. */
   function symbols() { return Object.keys(_data?.tickers || {}); }
 
-  return { load, get, price, change, updatedAt, updatedLabel, isLoaded, symbols };
+  return { load, get, price, change, updatedAt, updatedLabel, isLoaded, symbols, refresh, onRefresh, startAutoRefresh, stopAutoRefresh };
 })();

@@ -1,0 +1,49 @@
+name: Intraday Price Update
+
+on:
+  schedule:
+    # Mon-Fri during market hours (ET)
+    # 9:35 AM ET = 13:35 UTC (EDT) / 14:35 UTC (EST)
+    - cron: '35 13 * * 1-5'
+    # 12:00 PM ET = 16:00 UTC (EDT)
+    - cron: '0 16 * * 1-5'
+    # 3:00 PM ET = 19:00 UTC (EDT)
+    - cron: '0 19 * * 1-5'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install yfinance pandas
+
+      - name: Update prices
+        run: python scripts/update-prices.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "BreakingTrades Bot"
+          git config user.email "bot@breakingtrades.github.io"
+          git add data/prices.json
+          if git diff --staged --quiet; then
+            echo "No price changes"
+          else
+            git commit -m "data: intraday prices $(date -u +%Y-%m-%dT%H:%M)"
+            for i in 1 2 3; do
+              git pull --rebase --no-edit origin main && git push && break
+              echo "Push attempt $i failed, retrying..."
+              sleep 5
+            done
+          fi

@@ -185,6 +185,26 @@
     window.openDetail = openEMDetail;
 
     loadData();
+
+    // Auto-refresh prices every 5 min during market hours
+    var btPricesRef = window.btPrices;
+    if (btPricesRef && btPricesRef.startAutoRefresh) {
+      btPricesRef.onRefresh(function() {
+        // Update the prices label
+        var updatedEl = document.getElementById('em-updated');
+        if (updatedEl && emData.updated) {
+          var updatedDate = new Date(emData.updated);
+          var ageHours = (Date.now() - updatedDate.getTime()) / 3600000;
+          var label = 'EM Ranges: ' + updatedDate.toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/New_York' }) + ' ET';
+          if (ageHours > 48) { updatedEl.style.color = 'var(--red)'; label += ' (' + Math.round(ageHours / 24) + 'd old)'; }
+          else if (ageHours > 24) { updatedEl.style.color = 'var(--orange)'; label += ' (' + Math.round(ageHours) + 'h ago)'; }
+          if (btPricesRef.updatedLabel) label += ' · Prices: ' + btPricesRef.updatedLabel() + ' (live)';
+          updatedEl.textContent = label;
+        }
+        doRender();
+      });
+      btPricesRef.startAutoRefresh();
+    }
   }
 
   function destroy() {
@@ -196,6 +216,8 @@
     sortCol = null;
     currentTier = 'weekly';
     currentFilter = 'all';
+    var btPricesRef = window.btPrices;
+    if (btPricesRef && btPricesRef.stopAutoRefresh) btPricesRef.stopAutoRefresh();
   }
 
   function _onKeyDown(e) { if (e.key === 'Escape') closeEMDetail(); }
