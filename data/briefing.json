@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Apr 02",
-  "headline": "Extreme fear, but bonds and financials aren\u2019t breaking \u2014 patience wins today.",
+  "title": "Daily Briefing \u2014 Apr 03",
+  "headline": "Sentiment's in the toilet, but bonds are stable and energy's sneaking higher \u2014 contrarian setups incoming.",
   "body": [
-    "Right, so we're seeing the market crawl back from the abyss: SPY at 655.24 (+0.8%) but still below the all-important 20 MA (659.27) and 50 MA (675.52). Fear & Greed is buried at 13.9\u2014deep Extreme Fear territory. The VIX sits elevated at 24.72 but is trending down; volatility is easing, not breaking out.",
-    "Sector rotation is messy: Energy (XLE) still leads but weakening, while Tech and Discretionary are showing improving momentum from lagging quadrants. Financials (XLF) at 49.44 are approaching their 20 MA (49.22), improving but still in an elevated risk zone. Healthcare continues to lag with XLV below all key MAs.",
-    "The contrarian signals are clear: Extreme Fear is historically a window for opportunity (R013), but watch the technicals\u2014most major indices (SPY, QQQ) are still below their daily 20 MA, so no chasing longs here. Bonds (HYG/LQD) are stable, so there\u2019s no macro fire alarm (R001). Abundance mindset\u2014if you missed the move, sit tight and wait for confirmation."
+    "Right, big picture: Market stuck in chop with SPY ($655.83) and QQQ ($584.98) wrestling the 20 MA from below. VIX remains elevated at 23.87 but is now trending under its SMA20, so volatility's cooling off. Fear & Greed has collapsed to 19.3 (Extreme Fear) \u2014 last time sentiment looked this bleak, we got a mean reversion rally within days.",
+    "Rotation: Energy (XLE $59.25) is still strong, well above its 20 MA, but momentum is waning. Tech is mostly underwater (XLK $135.99, 20 MA at $136.18), but improvement in momentum hints at possible snapbacks for leaders like AAPL ($255.92) and ARM ($149.11). Healthcare and Consumer Discretionary are lagging; Utilities just popping but likely short-lived with weakening momentum.",
+    "Contrarian/risk: When Fear & Greed < 25 and VIX is high, patience pays. No decisive breakdowns in HYG/LQD\u2014bonds playing nice (for now). If the press starts doom-casting, remember: \"If it's in the press, it's in the price.\" Eyes on dark pool flows and weekly closes \u2014 don't chase weakness, this is abundance mindset territory. Record extreme fear is a strong signal to prep for mean reversion, not panic selling."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: 659.27 (20 MA) \u2014 Needs daily close above for any risk-on<br>QQQ: 590.17 (20 MA) \u2014 Same drill, no long until reclaimed<br>XLF: 49.22 (20 MA) \u2014 Financials must hold for sector health<br>XLE: 58.67 (20 MA) \u2014 Energy rotation at risk, monitor weakness<br>Fear & Greed < 25 \u2014 Historic buy window, but don\u2019t chase<br>HYG: 79.09 (20 MA) \u2014 Bond stability, no equity panic<br>",
+  "callout_body": "SPY: $658.09 (SMA20 overhead)<br>QQQ: $589.01 (SMA20 overhead)<br>XLE: $58.83 (SMA20 support)<br>XLK: $136.18 (SMA20 pivot)<br>AAPL: $253.41 (SMA20)<br>NVDA: $177.62 (SMA20 resistance)<br>Bonds: HYG $79.08, LQD $108.44 (SMA20 levels)<br>Fear & Greed: 19.3 \u2014 Extreme Fear (rule trigger)<br>Watch for weekly closes above 20 MA for entry signals",
   "action_items": [
-    "Watch for a daily close on SPY or QQQ above their 20 MA for entry signal \u2014 no longs until confirmed.",
-    "Monitor XLF for support; if financials break down, reduce equity exposure per rule R001."
+    "Wait for SPY/QQQ to close above their 20 MA \u2014 no long index exposure until confirmation. Patience, react, don't predict.",
+    "Monitor Energy and Tech leaders for pullback setups (XLE, ARM, AAPL). Extreme fear is when you prepare, not chase."
   ],
-  "closing_quote": "Patience, react, don\u2019t predict \u2014 if it\u2019s in the press, it\u2019s in the price.",
-  "generatedAt": "2026-04-02T11:14:45.745078+00:00",
+  "closing_quote": "Extreme fear? That's opportunity, not a warning. Patience \u2014 the mean reversion zone is coming.",
+  "generatedAt": "2026-04-03T11:08:16.721284+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
