@@ -5,7 +5,7 @@
  */
 function initTickerSearch() {
   const input = document.getElementById('ticker-search');
-  const dropdown = document.getElementById('search-results');
+  const dropdown = document.getElementById('search-results') || document.getElementById('search-dropdown');
   if (!input || !dropdown) return;
 
   let activeIdx = -1;
