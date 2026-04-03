@@ -575,7 +575,7 @@
         '<span>$' + allMax.toFixed(0) + '</span>' +
       '</div>';
 
-    for (var i = 0; i < quarters.length; i++) {
+    for (var i = quarters.length - 1; i >= 0; i--) {
       var q = quarters[i];
       var lo = q.quarterly.lower;
       var hi = q.quarterly.upper;
