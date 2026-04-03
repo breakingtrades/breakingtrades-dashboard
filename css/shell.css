@@ -162,9 +162,11 @@
   }
   .nav-links.open { display: flex; }
   .nav-link {
-    padding: 14px 24px; border-bottom: none;
+    padding: 12px 24px; border-bottom: none;
     height: auto; min-height: 44px; display: flex; align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
+    justify-content: center;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 13px;
   }
   .nav-link:last-child { border-bottom: none; }
   .nav-search-wrap { flex-shrink: 1; min-width: 0; }
