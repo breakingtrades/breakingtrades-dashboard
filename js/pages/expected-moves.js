@@ -568,8 +568,81 @@
       '<div class="em-qh-header">' +
         '<span class="em-qh-title"><i data-lucide="calendar-range"></i> Quarterly EM History</span>' +
         accBadge +
-      '</div>' +
-      '<div class="em-qh-scale">' +
+      '</div>';
+
+    // Dynamic interpretation for current quarter
+    var currentQ = quarters[quarters.length - 1];
+    if (currentQ && !currentQ.outcome) {
+      var cLo = currentQ.quarterly.lower;
+      var cHi = currentQ.quarterly.upper;
+      var cRange = cHi - cLo;
+      var cPos = cRange > 0 ? ((currentPrice - cLo) / cRange) * 100 : 50;
+      var downside = Math.abs(currentPrice - cLo);
+      var upside = Math.abs(cHi - currentPrice);
+      var inRange = currentPrice >= cLo && currentPrice <= cHi;
+
+      // Build position description
+      var posDesc, posColor;
+      if (!inRange && currentPrice < cLo) {
+        posDesc = 'below the projected range';
+        posColor = 'var(--cyan)';
+      } else if (!inRange && currentPrice > cHi) {
+        posDesc = 'above the projected range';
+        posColor = 'var(--red)';
+      } else if (cPos <= 20) {
+        posDesc = 'near the bottom of the range (buy zone)';
+        posColor = 'var(--green)';
+      } else if (cPos <= 40) {
+        posDesc = 'in the lower half of the range';
+        posColor = 'var(--cyan)';
+      } else if (cPos <= 60) {
+        posDesc = 'near the middle of the range';
+        posColor = 'var(--text)';
+      } else if (cPos <= 80) {
+        posDesc = 'in the upper half of the range';
+        posColor = 'var(--orange)';
+      } else {
+        posDesc = 'near the top of the range (extended)';
+        posColor = 'var(--red)';
+      }
+
+      // Historical pattern
+      var patternDesc = '';
+      var aboveCount = 0, belowCount = 0, withinCount = 0;
+      for (var p = 0; p < quarters.length; p++) {
+        if (quarters[p].outcome) {
+          if (quarters[p].outcome.status === 'within') withinCount++;
+          else if (quarters[p].outcome.status === 'above') aboveCount++;
+          else belowCount++;
+        }
+      }
+      if (accuracy.total >= 2) {
+        if (aboveCount > withinCount && aboveCount > belowCount) {
+          patternDesc = 'Historically, ' + symbol + ' tends to break above its projected range \u2014 EM may underestimate upside moves.';
+        } else if (belowCount > withinCount && belowCount > aboveCount) {
+          patternDesc = 'Historically, ' + symbol + ' tends to break below its projected range \u2014 EM may underestimate downside risk.';
+        } else if (withinCount >= aboveCount && withinCount >= belowCount) {
+          patternDesc = 'Historically, ' + symbol + ' has mostly stayed within its projected range \u2014 these bounds have been reliable.';
+        }
+      }
+
+      html += '<div class="em-qh-insight">' +
+        '<div class="em-qh-insight-title"><i data-lucide="lightbulb"></i> Current Quarter Projection</div>' +
+        '<div class="em-qh-insight-body">' +
+          '<span style="color:var(--text-bright)">' + symbol + '</span> at ' +
+          '<span style="color:var(--gold);font-weight:600;">$' + currentPrice.toFixed(0) + '</span>' +
+          ' is <span style="color:' + posColor + ';font-weight:600;">' + posDesc + '</span>.' +
+          ' Options market projects a ' +
+          '<span style="color:var(--text-bright);">$' + cLo.toFixed(0) + ' \u2013 $' + cHi.toFixed(0) + '</span>' +
+          ' range (\u00b1' + currentQ.quarterly.pct + '%) through ' + currentQ.quarterly.expiry.slice(0,4) + '-' + currentQ.quarterly.expiry.slice(4,6) + '-' + currentQ.quarterly.expiry.slice(6) + '.' +
+          ' That\u2019s <span style="color:var(--cyan)">$' + downside.toFixed(0) + ' to support</span>' +
+          ' and <span style="color:var(--red)">$' + upside.toFixed(0) + ' to resistance</span>.' +
+          (patternDesc ? '<br><span style="color:var(--text-dim);font-style:italic;">' + patternDesc + '</span>' : '') +
+        '</div>' +
+      '</div>';
+    }
+
+    html += '<div class="em-qh-scale">' +
         '<span>$' + allMin.toFixed(0) + '</span>' +
         '<span style="color:var(--text-dim);font-size:10px;">Price Scale</span>' +
         '<span>$' + allMax.toFixed(0) + '</span>' +
@@ -612,7 +685,7 @@
       }
 
       html += '<div class="em-qh-row">' +
-        '<div class="em-qh-label">' +
+        '<div class="em-qh-label"' + (q.outcome ? ' title="Snapshot taken ' + q.date + '. The teal bar shows the projected EM range. The diamond shows where the price actually landed one quarter later."' : ' title="Current quarter. The teal bar shows the projected range through ' + q.quarterly.expiry.slice(0,4) + '-' + q.quarterly.expiry.slice(4,6) + '-' + q.quarterly.expiry.slice(6) + '. The gold diamond is where the price is now."') + '>' +
           '<div style="font-weight:600;color:var(--text-bright);">' + q.quarter + '</div>' +
           '<div style="font-size:11px;color:var(--text-dim);">' + q.date + ' &middot; IV ' + q.iv + '%</div>' +
         '</div>' +

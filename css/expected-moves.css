@@ -235,9 +235,32 @@
 .em-qh-header {
   display: flex;
   align-items: center;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
   padding-bottom: var(--space-sm);
   border-bottom: 1px solid var(--border);
+}
+.em-qh-insight {
+  background: rgba(255,215,0,0.04);
+  border: 1px solid rgba(255,215,0,0.12);
+  border-radius: var(--border-radius);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+.em-qh-insight-title {
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gold);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.em-qh-insight-title i { width: 14px; height: 14px; }
+.em-qh-insight-body {
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--text);
 }
 .em-qh-title {
   font-size: var(--font-size-sm);
@@ -272,6 +295,7 @@
 .em-qh-label {
   flex: 0 0 90px;
   min-width: 90px;
+  cursor: help;
 }
 .em-qh-bar-container {
   flex: 1;
