@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-03T16:50:00",
+  "updated": "2026-04-03T17:15:00",
   "source": "ib_historical_iv",
   "description": "Quarter-end EM snapshots from IB implied volatility",
   "tickers": {
@@ -75,13 +75,41 @@
             "lower": 49.17,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 66.33,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 24.82
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 66.33,
+          "iv": 73.19,
+          "quarterly": {
+            "em": 15.41,
+            "pct": 23.24,
+            "upper": 81.74,
+            "lower": 50.92,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 7.11,
+            "pct": 10.71,
+            "upper": 73.44,
+            "lower": 59.22,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 1,
-        "pct": 100
+        "total": 2,
+        "pct": 50
       }
     },
     "AAPL": {
@@ -190,13 +218,41 @@
             "lower": 263.42,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 253.79,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -6.65
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 253.79,
+          "iv": 29.43,
+          "quarterly": {
+            "em": 23.71,
+            "pct": 9.34,
+            "upper": 277.5,
+            "lower": 230.08,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 10.93,
+            "pct": 4.31,
+            "upper": 264.72,
+            "lower": 242.86,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 2,
-        "total": 3,
-        "pct": 67
+        "within": 3,
+        "total": 4,
+        "pct": 75
       }
     },
     "ABBV": {
@@ -305,13 +361,41 @@
             "lower": 220.34,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 217.49,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -4.81
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 217.49,
+          "iv": 33.43,
+          "quarterly": {
+            "em": 23.08,
+            "pct": 10.61,
+            "upper": 240.57,
+            "lower": 194.41,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 10.64,
+            "pct": 4.89,
+            "upper": 228.13,
+            "lower": 206.85,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 3,
-        "pct": 33
+        "within": 2,
+        "total": 4,
+        "pct": 50
       }
     },
     "ACI": {
@@ -420,13 +504,41 @@
             "lower": 16.4,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 17.04,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -0.76
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 17.04,
+          "iv": 37.14,
+          "quarterly": {
+            "em": 2.01,
+            "pct": 11.79,
+            "upper": 19.05,
+            "lower": 15.03,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 0.93,
+            "pct": 5.44,
+            "upper": 17.97,
+            "lower": 16.11,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 2,
-        "total": 3,
-        "pct": 67
+        "within": 3,
+        "total": 4,
+        "pct": 75
       }
     },
     "ADM": {
@@ -535,13 +647,41 @@
             "lower": 55.35,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 72.69,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 26.44
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 72.69,
+          "iv": 35.77,
+          "quarterly": {
+            "em": 8.26,
+            "pct": 11.36,
+            "upper": 80.95,
+            "lower": 64.43,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 3.81,
+            "pct": 5.24,
+            "upper": 76.5,
+            "lower": 68.88,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "ADSK": {
@@ -650,13 +790,41 @@
             "lower": 286.68,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 239.4,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -19.12
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 239.4,
+          "iv": 38.72,
+          "quarterly": {
+            "em": 29.43,
+            "pct": 12.29,
+            "upper": 268.83,
+            "lower": 209.97,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 13.57,
+            "pct": 5.67,
+            "upper": 252.97,
+            "lower": 225.83,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "AMZN": {
@@ -765,13 +933,41 @@
             "lower": 222.76,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 208.27,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -9.77
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 208.27,
+          "iv": 42.0,
+          "quarterly": {
+            "em": 27.77,
+            "pct": 13.33,
+            "upper": 236.04,
+            "lower": 180.5,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 12.8,
+            "pct": 6.15,
+            "upper": 221.07,
+            "lower": 195.47,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "AR": {
@@ -880,13 +1076,41 @@
             "lower": 32.8,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 42.44,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 23.16
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 42.44,
+          "iv": 49.89,
+          "quarterly": {
+            "em": 6.72,
+            "pct": 15.84,
+            "upper": 49.16,
+            "lower": 35.72,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 3.1,
+            "pct": 7.3,
+            "upper": 45.54,
+            "lower": 39.34,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "ARM": {
@@ -995,13 +1219,41 @@
             "lower": 102.35,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 151.28,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 38.4
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 151.28,
+          "iv": 56.54,
+          "quarterly": {
+            "em": 27.16,
+            "pct": 17.95,
+            "upper": 178.44,
+            "lower": 124.12,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 12.52,
+            "pct": 8.28,
+            "upper": 163.8,
+            "lower": 138.76,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "AVGO": {
@@ -1110,13 +1362,41 @@
             "lower": 327.1,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 309.51,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -10.57
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 309.51,
+          "iv": 45.69,
+          "quarterly": {
+            "em": 44.9,
+            "pct": 14.51,
+            "upper": 354.41,
+            "lower": 264.61,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 20.7,
+            "pct": 6.69,
+            "upper": 330.21,
+            "lower": 288.81,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 3,
-        "pct": 33
+        "within": 2,
+        "total": 4,
+        "pct": 50
       }
     },
     "AWK": {
@@ -1225,12 +1505,40 @@
             "lower": 127.06,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 136.09,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": 4.28
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 136.09,
+          "iv": 26.36,
+          "quarterly": {
+            "em": 11.39,
+            "pct": 8.37,
+            "upper": 147.48,
+            "lower": 124.7,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 5.25,
+            "pct": 3.86,
+            "upper": 141.34,
+            "lower": 130.84,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 3,
-        "total": 3,
+        "within": 4,
+        "total": 4,
         "pct": 100
       }
     },
@@ -1340,13 +1648,41 @@
             "lower": 75.85,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 135.49,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 55.93
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 135.49,
+          "iv": 112.43,
+          "quarterly": {
+            "em": 48.37,
+            "pct": 35.7,
+            "upper": 183.86,
+            "lower": 87.12,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 22.3,
+            "pct": 16.46,
+            "upper": 157.79,
+            "lower": 113.19,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "BILI": {
@@ -1455,13 +1791,41 @@
             "lower": 23.2,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 22.56,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -8.26
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 22.56,
+          "iv": 55.27,
+          "quarterly": {
+            "em": 3.96,
+            "pct": 17.55,
+            "upper": 26.52,
+            "lower": 18.6,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 1.83,
+            "pct": 8.09,
+            "upper": 24.39,
+            "lower": 20.73,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 2,
-        "total": 3,
-        "pct": 67
+        "within": 3,
+        "total": 4,
+        "pct": 75
       }
     },
     "BJ": {
@@ -1570,13 +1934,41 @@
             "lower": 86.9,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 98.42,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 9.32
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 98.42,
+          "iv": 33.6,
+          "quarterly": {
+            "em": 10.5,
+            "pct": 10.67,
+            "upper": 108.92,
+            "lower": 87.92,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 4.84,
+            "pct": 4.92,
+            "upper": 103.26,
+            "lower": 93.58,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "BRK B": {
@@ -1685,13 +2077,41 @@
             "lower": 494.35,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 479.2,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -4.67
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 479.2,
+          "iv": 19.56,
+          "quarterly": {
+            "em": 29.76,
+            "pct": 6.21,
+            "upper": 508.96,
+            "lower": 449.44,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 13.72,
+            "pct": 2.86,
+            "upper": 492.92,
+            "lower": 465.48,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "BYD": {
@@ -1766,12 +2186,40 @@
             "lower": 82.27,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 82.18,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -3.59
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 82.18,
+          "iv": 32.9,
+          "quarterly": {
+            "em": 8.58,
+            "pct": 10.44,
+            "upper": 90.76,
+            "lower": 73.6,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 3.96,
+            "pct": 4.81,
+            "upper": 86.14,
+            "lower": 78.22,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 1,
+        "within": 2,
+        "total": 2,
         "pct": 100
       }
     },
@@ -1881,13 +2329,41 @@
             "lower": 16.76,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 15.72,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -9.19
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 15.72,
+          "iv": 40.05,
+          "quarterly": {
+            "em": 2.0,
+            "pct": 12.72,
+            "upper": 17.72,
+            "lower": 13.72,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 0.92,
+            "pct": 5.86,
+            "upper": 16.64,
+            "lower": 14.8,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "CHTR": {
@@ -1968,6 +2444,28 @@
             "lower": 252.57,
             "dte": 17,
             "expiry": "20251017"
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 215.88,
+          "iv": 63.12,
+          "quarterly": {
+            "em": 43.26,
+            "pct": 20.04,
+            "upper": 259.14,
+            "lower": 172.62,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 19.94,
+            "pct": 9.24,
+            "upper": 235.82,
+            "lower": 195.94,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
@@ -2083,13 +2581,41 @@
             "lower": 210.41,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 174.61,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -22.79
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 174.61,
+          "iv": 70.35,
+          "quarterly": {
+            "em": 39.0,
+            "pct": 22.34,
+            "upper": 213.61,
+            "lower": 135.61,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 17.98,
+            "pct": 10.3,
+            "upper": 192.59,
+            "lower": 156.63,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "CP": {
@@ -2198,13 +2724,41 @@
             "lower": 71.41,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 78.66,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 6.83
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 78.66,
+          "iv": 28.63,
+          "quarterly": {
+            "em": 7.15,
+            "pct": 9.09,
+            "upper": 85.81,
+            "lower": 71.51,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 3.3,
+            "pct": 4.19,
+            "upper": 81.96,
+            "lower": 75.36,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "D": {
@@ -2313,13 +2867,41 @@
             "lower": 57.06,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 61.82,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": 5.51
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 61.82,
+          "iv": 24.0,
+          "quarterly": {
+            "em": 4.71,
+            "pct": 7.62,
+            "upper": 66.53,
+            "lower": 57.11,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 2.17,
+            "pct": 3.51,
+            "upper": 63.99,
+            "lower": 59.65,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 2,
-        "total": 3,
-        "pct": 67
+        "within": 3,
+        "total": 4,
+        "pct": 75
       }
     },
     "DELL": {
@@ -2428,13 +3010,41 @@
             "lower": 118.71,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 164.13,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 30.39
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 164.13,
+          "iv": 53.12,
+          "quarterly": {
+            "em": 27.68,
+            "pct": 16.87,
+            "upper": 191.81,
+            "lower": 136.45,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 12.76,
+            "pct": 7.77,
+            "upper": 176.89,
+            "lower": 151.37,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "DHR": {
@@ -2543,13 +3153,41 @@
             "lower": 219.72,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 189.6,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -17.18
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 189.6,
+          "iv": 38.79,
+          "quarterly": {
+            "em": 23.35,
+            "pct": 12.32,
+            "upper": 212.95,
+            "lower": 166.25,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 10.77,
+            "pct": 5.68,
+            "upper": 200.37,
+            "lower": 178.83,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "DIA": {
@@ -2658,13 +3296,41 @@
             "lower": 472.56,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 463.19,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -3.62
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 463.19,
+          "iv": 20.67,
+          "quarterly": {
+            "em": 30.4,
+            "pct": 6.56,
+            "upper": 493.59,
+            "lower": 432.79,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 14.01,
+            "pct": 3.03,
+            "upper": 477.2,
+            "lower": 449.18,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 2,
-        "total": 3,
-        "pct": 67
+        "within": 3,
+        "total": 4,
+        "pct": 75
       }
     },
     "GKOS": {
@@ -2773,13 +3439,41 @@
             "lower": 105.21,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 107.66,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -4.65
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 107.66,
+          "iv": 57.65,
+          "quarterly": {
+            "em": 19.71,
+            "pct": 18.31,
+            "upper": 127.37,
+            "lower": 87.95,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 9.09,
+            "pct": 8.44,
+            "upper": 116.75,
+            "lower": 98.57,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 3,
-        "pct": 33
+        "within": 2,
+        "total": 4,
+        "pct": 50
       }
     },
     "GLD": {
@@ -2888,12 +3582,40 @@
             "lower": 383.81,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 430.29,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 8.57
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 430.29,
+          "iv": 35.09,
+          "quarterly": {
+            "em": 47.94,
+            "pct": 11.14,
+            "upper": 478.23,
+            "lower": 382.35,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 22.1,
+            "pct": 5.14,
+            "upper": 452.39,
+            "lower": 408.19,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 0,
-        "total": 3,
+        "total": 4,
         "pct": 0
       }
     },
@@ -3003,12 +3725,40 @@
             "lower": 302.01,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 286.86,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -8.59
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 286.86,
+          "iv": 36.3,
+          "quarterly": {
+            "em": 33.07,
+            "pct": 11.53,
+            "upper": 319.93,
+            "lower": 253.79,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 15.24,
+            "pct": 5.31,
+            "upper": 302.1,
+            "lower": 271.62,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 0,
-        "total": 3,
+        "total": 4,
         "pct": 0
       }
     },
@@ -3118,13 +3868,41 @@
             "lower": 301.14,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 287.56,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -8.13
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 287.56,
+          "iv": 36.7,
+          "quarterly": {
+            "em": 33.51,
+            "pct": 11.65,
+            "upper": 321.07,
+            "lower": 254.05,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 15.45,
+            "pct": 5.37,
+            "upper": 303.01,
+            "lower": 272.11,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 0,
-        "total": 3,
-        "pct": 0
+        "within": 1,
+        "total": 4,
+        "pct": 25
       }
     },
     "HYG": {
@@ -3233,13 +4011,41 @@
             "lower": 80.2,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 79.56,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -1.33
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 79.56,
+          "iv": 7.44,
+          "quarterly": {
+            "em": 1.88,
+            "pct": 2.36,
+            "upper": 81.44,
+            "lower": 77.68,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 0.87,
+            "pct": 1.09,
+            "upper": 80.43,
+            "lower": 78.69,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "IBIT": {
@@ -3435,13 +4241,41 @@
             "lower": 64.64,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 72.55,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": 7.66
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 72.55,
+          "iv": 37.02,
+          "quarterly": {
+            "em": 8.53,
+            "pct": 11.75,
+            "upper": 81.08,
+            "lower": 64.02,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 3.93,
+            "pct": 5.42,
+            "upper": 76.48,
+            "lower": 68.62,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 2,
-        "pct": 50
+        "within": 2,
+        "total": 3,
+        "pct": 67
       }
     },
     "IGV": {
@@ -3516,12 +4350,40 @@
             "lower": 102.58,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 80.05,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -24.26
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 80.05,
+          "iv": 34.36,
+          "quarterly": {
+            "em": 8.73,
+            "pct": 10.91,
+            "upper": 88.78,
+            "lower": 71.32,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 4.03,
+            "pct": 5.03,
+            "upper": 84.08,
+            "lower": 76.02,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 0,
-        "total": 1,
+        "total": 2,
         "pct": 0
       }
     },
@@ -3631,13 +4493,41 @@
             "lower": 240.06,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 248.0,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": 0.75
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 248.0,
+          "iv": 29.25,
+          "quarterly": {
+            "em": 23.03,
+            "pct": 9.29,
+            "upper": 271.03,
+            "lower": 224.97,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 10.62,
+            "pct": 4.28,
+            "upper": 258.62,
+            "lower": 237.38,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 3,
-        "pct": 33
+        "within": 2,
+        "total": 4,
+        "pct": 50
       }
     },
     "KHC": {
@@ -3746,13 +4636,41 @@
             "lower": 23.6,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 22.49,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -7.26
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 22.49,
+          "iv": 29.92,
+          "quarterly": {
+            "em": 2.14,
+            "pct": 9.5,
+            "upper": 24.63,
+            "lower": 20.35,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 0.98,
+            "pct": 4.38,
+            "upper": 23.47,
+            "lower": 21.51,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "KMB": {
@@ -3861,13 +4779,41 @@
             "lower": 96.65,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 96.47,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -4.38
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 96.47,
+          "iv": 31.05,
+          "quarterly": {
+            "em": 9.51,
+            "pct": 9.86,
+            "upper": 105.98,
+            "lower": 86.96,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 4.38,
+            "pct": 4.54,
+            "upper": 100.85,
+            "lower": 92.09,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 3,
-        "pct": 33
+        "within": 2,
+        "total": 4,
+        "pct": 50
       }
     },
     "LLY": {
@@ -3976,13 +4922,41 @@
             "lower": 1031.66,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 919.77,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -14.41
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 919.77,
+          "iv": 45.84,
+          "quarterly": {
+            "em": 133.86,
+            "pct": 14.55,
+            "upper": 1053.63,
+            "lower": 785.91,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 61.71,
+            "pct": 6.71,
+            "upper": 981.48,
+            "lower": 858.06,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "LQD": {
@@ -4091,12 +5065,40 @@
             "lower": 109.37,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 108.99,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -1.09
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 108.99,
+          "iv": 8.38,
+          "quarterly": {
+            "em": 2.9,
+            "pct": 2.66,
+            "upper": 111.89,
+            "lower": 106.09,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 1.34,
+            "pct": 1.23,
+            "upper": 110.33,
+            "lower": 107.65,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 3,
-        "total": 3,
+        "within": 4,
+        "total": 4,
         "pct": 100
       }
     },
@@ -4206,13 +5208,41 @@
             "lower": 626.49,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 572.13,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -13.33
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 572.13,
+          "iv": 45.23,
+          "quarterly": {
+            "em": 82.16,
+            "pct": 14.36,
+            "upper": 654.29,
+            "lower": 489.97,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 37.87,
+            "pct": 6.62,
+            "upper": 610.0,
+            "lower": 534.26,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "MOO": {
@@ -4321,13 +5351,41 @@
             "lower": 71.63,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 84.5,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 16.09
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 84.5,
+          "iv": 23.7,
+          "quarterly": {
+            "em": 6.36,
+            "pct": 7.53,
+            "upper": 90.86,
+            "lower": 78.14,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 2.93,
+            "pct": 3.47,
+            "upper": 87.43,
+            "lower": 81.57,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "MSFT": {
@@ -4436,13 +5494,41 @@
             "lower": 465.41,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 370.17,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -23.46
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 370.17,
+          "iv": 34.62,
+          "quarterly": {
+            "em": 40.69,
+            "pct": 10.99,
+            "upper": 410.86,
+            "lower": 329.48,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 18.76,
+            "pct": 5.07,
+            "upper": 388.93,
+            "lower": 351.41,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "NBIS": {
@@ -4551,13 +5637,41 @@
             "lower": 74.78,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 103.76,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 23.97
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 103.76,
+          "iv": 85.43,
+          "quarterly": {
+            "em": 28.14,
+            "pct": 27.12,
+            "upper": 131.9,
+            "lower": 75.62,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 12.97,
+            "pct": 12.5,
+            "upper": 116.73,
+            "lower": 90.79,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "NEE": {
@@ -4666,13 +5780,41 @@
             "lower": 77.5,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 92.88,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 15.7
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 92.88,
+          "iv": 30.63,
+          "quarterly": {
+            "em": 9.03,
+            "pct": 9.73,
+            "upper": 101.91,
+            "lower": 83.85,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 4.16,
+            "pct": 4.48,
+            "upper": 97.04,
+            "lower": 88.72,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 3,
-        "total": 3,
-        "pct": 100
+        "total": 4,
+        "pct": 75
       }
     },
     "NVDA": {
@@ -4781,13 +5923,41 @@
             "lower": 177.14,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 174.4,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -6.49
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 174.4,
+          "iv": 36.65,
+          "quarterly": {
+            "em": 20.3,
+            "pct": 11.64,
+            "upper": 194.7,
+            "lower": 154.1,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 9.36,
+            "pct": 5.36,
+            "upper": 183.76,
+            "lower": 165.04,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 3,
-        "pct": 33
+        "within": 2,
+        "total": 4,
+        "pct": 50
       }
     },
     "OIH": {
@@ -4896,13 +6066,41 @@
             "lower": 273.25,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 404.21,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 41.94
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 404.21,
+          "iv": 40.88,
+          "quarterly": {
+            "em": 52.47,
+            "pct": 12.98,
+            "upper": 456.68,
+            "lower": 351.74,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 24.19,
+            "pct": 5.98,
+            "upper": 428.4,
+            "lower": 380.02,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "OMC": {
@@ -5011,13 +6209,41 @@
             "lower": 77.62,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 75.31,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -6.74
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 75.31,
+          "iv": 36.48,
+          "quarterly": {
+            "em": 8.72,
+            "pct": 11.58,
+            "upper": 84.03,
+            "lower": 66.59,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 4.02,
+            "pct": 5.34,
+            "upper": 79.33,
+            "lower": 71.29,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 3,
-        "pct": 33
+        "within": 2,
+        "total": 4,
+        "pct": 50
       }
     },
     "PFE": {
@@ -5126,13 +6352,41 @@
             "lower": 24.22,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 28.08,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 12.77
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 28.08,
+          "iv": 25.95,
+          "quarterly": {
+            "em": 2.31,
+            "pct": 8.24,
+            "upper": 30.39,
+            "lower": 25.77,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 1.07,
+            "pct": 3.8,
+            "upper": 29.15,
+            "lower": 27.01,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 3,
-        "total": 3,
-        "pct": 100
+        "total": 4,
+        "pct": 75
       }
     },
     "QQQ": {
@@ -5241,13 +6495,41 @@
             "lower": 599.73,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 577.18,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -6.04
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 577.18,
+          "iv": 24.46,
+          "quarterly": {
+            "em": 44.83,
+            "pct": 7.77,
+            "upper": 622.01,
+            "lower": 532.35,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 20.67,
+            "pct": 3.58,
+            "upper": 597.85,
+            "lower": 556.51,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "RVTY": {
@@ -5356,12 +6638,40 @@
             "lower": 90.97,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 87.61,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -9.45
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 87.61,
+          "iv": 48.73,
+          "quarterly": {
+            "em": 13.56,
+            "pct": 15.47,
+            "upper": 101.17,
+            "lower": 74.05,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 6.25,
+            "pct": 7.13,
+            "upper": 93.86,
+            "lower": 81.36,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 3,
-        "total": 3,
+        "within": 4,
+        "total": 4,
         "pct": 100
       }
     },
@@ -5471,13 +6781,41 @@
             "lower": 14.27,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 12.88,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -14.13
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 12.88,
+          "iv": 54.94,
+          "quarterly": {
+            "em": 2.25,
+            "pct": 17.44,
+            "upper": 15.13,
+            "lower": 10.63,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 1.04,
+            "pct": 8.04,
+            "upper": 13.92,
+            "lower": 11.84,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "SLV": {
@@ -5552,13 +6890,41 @@
             "lower": 58.42,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 68.14,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": 5.77
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 68.14,
+          "iv": 67.66,
+          "quarterly": {
+            "em": 14.64,
+            "pct": 21.48,
+            "upper": 82.78,
+            "lower": 53.5,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 6.75,
+            "pct": 9.9,
+            "upper": 74.89,
+            "lower": 61.39,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 0,
-        "total": 1,
-        "pct": 0
+        "within": 1,
+        "total": 2,
+        "pct": 50
       }
     },
     "SM": {
@@ -5667,13 +7033,41 @@
             "lower": 17.38,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 31.18,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 66.74
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 31.18,
+          "iv": 58.61,
+          "quarterly": {
+            "em": 5.8,
+            "pct": 18.61,
+            "upper": 36.98,
+            "lower": 25.38,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 2.67,
+            "pct": 8.58,
+            "upper": 33.85,
+            "lower": 28.51,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "SPX": {
@@ -5782,13 +7176,41 @@
             "lower": 6727.64,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 6528.52,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -4.63
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 6528.52,
+          "iv": 20.91,
+          "quarterly": {
+            "em": 433.37,
+            "pct": 6.64,
+            "upper": 6961.89,
+            "lower": 6095.15,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 199.77,
+            "pct": 3.06,
+            "upper": 6728.29,
+            "lower": 6328.75,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "SPY": {
@@ -5897,13 +7319,41 @@
             "lower": 670.1,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 650.34,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -4.63
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 650.34,
+          "iv": 20.8,
+          "quarterly": {
+            "em": 42.94,
+            "pct": 6.6,
+            "upper": 693.28,
+            "lower": 607.4,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 19.8,
+            "pct": 3.04,
+            "upper": 670.14,
+            "lower": 630.54,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "SYK": {
@@ -5984,6 +7434,28 @@
             "lower": 357.24,
             "dte": 17,
             "expiry": "20251017"
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 328.59,
+          "iv": 31.55,
+          "quarterly": {
+            "em": 32.91,
+            "pct": 10.02,
+            "upper": 361.5,
+            "lower": 295.68,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 15.17,
+            "pct": 4.62,
+            "upper": 343.76,
+            "lower": 313.42,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
@@ -6099,13 +7571,41 @@
             "lower": 44.94,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 43.06,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -7.75
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 43.06,
+          "iv": 36.12,
+          "quarterly": {
+            "em": 4.94,
+            "pct": 11.47,
+            "upper": 48.0,
+            "lower": 38.12,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 2.28,
+            "pct": 5.29,
+            "upper": 45.34,
+            "lower": 40.78,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 2,
-        "total": 3,
-        "pct": 67
+        "within": 3,
+        "total": 4,
+        "pct": 75
       }
     },
     "TGT": {
@@ -6329,12 +7829,40 @@
             "lower": 85.95,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 86.69,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -0.54
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 86.69,
+          "iv": 12.28,
+          "quarterly": {
+            "em": 3.38,
+            "pct": 3.9,
+            "upper": 90.07,
+            "lower": 83.31,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 1.56,
+            "pct": 1.8,
+            "upper": 88.25,
+            "lower": 85.13,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 3,
-        "total": 3,
+        "within": 4,
+        "total": 4,
         "pct": 100
       }
     },
@@ -6444,12 +7972,40 @@
             "lower": 556.19,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 491.53,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -15.17
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 491.53,
+          "iv": 36.16,
+          "quarterly": {
+            "em": 56.44,
+            "pct": 11.48,
+            "upper": 547.97,
+            "lower": 435.09,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 26.02,
+            "pct": 5.29,
+            "upper": 517.55,
+            "lower": 465.51,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 0,
-        "total": 3,
+        "total": 4,
         "pct": 0
       }
     },
@@ -6559,13 +8115,41 @@
             "lower": 196.4,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 210.03,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": 3.44
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 210.03,
+          "iv": 35.22,
+          "quarterly": {
+            "em": 23.48,
+            "pct": 11.18,
+            "upper": 233.51,
+            "lower": 186.55,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 10.83,
+            "pct": 5.15,
+            "upper": 220.86,
+            "lower": 199.2,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 3,
-        "pct": 33
+        "within": 2,
+        "total": 4,
+        "pct": 50
       }
     },
     "TSLA": {
@@ -6674,13 +8258,41 @@
             "lower": 419.01,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 371.75,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -17.34
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 371.75,
+          "iv": 45.91,
+          "quarterly": {
+            "em": 54.18,
+            "pct": 14.58,
+            "upper": 425.93,
+            "lower": 317.57,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 24.98,
+            "pct": 6.72,
+            "upper": 396.73,
+            "lower": 346.77,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "UNG": {
@@ -6789,13 +8401,41 @@
             "lower": 11.15,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 11.73,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -4.32
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 11.73,
+          "iv": 52.85,
+          "quarterly": {
+            "em": 1.97,
+            "pct": 16.78,
+            "upper": 13.7,
+            "lower": 9.76,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 0.91,
+            "pct": 7.74,
+            "upper": 12.64,
+            "lower": 10.82,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 2,
-        "total": 3,
-        "pct": 67
+        "within": 3,
+        "total": 4,
+        "pct": 75
       }
     },
     "UNP": {
@@ -6904,12 +8544,40 @@
             "lower": 224.05,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 242.62,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": 4.89
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 242.62,
+          "iv": 31.05,
+          "quarterly": {
+            "em": 23.92,
+            "pct": 9.86,
+            "upper": 266.54,
+            "lower": 218.7,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 11.03,
+            "pct": 4.54,
+            "upper": 253.65,
+            "lower": 231.59,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 3,
-        "total": 3,
+        "within": 4,
+        "total": 4,
         "pct": 100
       }
     },
@@ -7019,13 +8687,41 @@
             "lower": 94.25,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 98.38,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -0.82
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 98.38,
+          "iv": 40.9,
+          "quarterly": {
+            "em": 12.78,
+            "pct": 12.99,
+            "upper": 111.16,
+            "lower": 85.6,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 5.89,
+            "pct": 5.99,
+            "upper": 104.27,
+            "lower": 92.49,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 3,
-        "pct": 33
+        "within": 2,
+        "total": 4,
+        "pct": 50
       }
     },
     "URA": {
@@ -7134,13 +8830,41 @@
             "lower": 39.89,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 48.43,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": 13.34
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 48.43,
+          "iv": 57.02,
+          "quarterly": {
+            "em": 8.77,
+            "pct": 18.1,
+            "upper": 57.2,
+            "lower": 39.66,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 4.04,
+            "pct": 8.35,
+            "upper": 52.47,
+            "lower": 44.39,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 1,
-        "total": 3,
-        "pct": 33
+        "within": 2,
+        "total": 4,
+        "pct": 50
       }
     },
     "USO": {
@@ -7221,13 +8945,41 @@
             "lower": 66.42,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 127.25,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 83.99
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 127.25,
+          "iv": 87.75,
+          "quarterly": {
+            "em": 35.45,
+            "pct": 27.86,
+            "upper": 162.7,
+            "lower": 91.8,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 16.34,
+            "pct": 12.84,
+            "upper": 143.59,
+            "lower": 110.91,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 2,
-        "pct": 100
+        "total": 3,
+        "pct": 67
       }
     },
     "UUP": {
@@ -7336,13 +9088,41 @@
             "lower": 26.82,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 27.78,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 2.77
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 27.78,
+          "iv": 6.85,
+          "quarterly": {
+            "em": 0.6,
+            "pct": 2.17,
+            "upper": 28.38,
+            "lower": 27.18,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 0.28,
+            "pct": 1.0,
+            "upper": 28.06,
+            "lower": 27.5,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "XLB": {
@@ -7417,13 +9197,41 @@
             "lower": 44.31,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 49.97,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 10.19
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 49.97,
+          "iv": 25.85,
+          "quarterly": {
+            "em": 4.1,
+            "pct": 8.21,
+            "upper": 54.07,
+            "lower": 45.87,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 1.89,
+            "pct": 3.78,
+            "upper": 51.86,
+            "lower": 48.08,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 1,
-        "pct": 100
+        "total": 2,
+        "pct": 50
       }
     },
     "XLC": {
@@ -7532,13 +9340,41 @@
             "lower": 115.57,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 110.86,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -5.83
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 110.86,
+          "iv": 21.81,
+          "quarterly": {
+            "em": 7.68,
+            "pct": 6.93,
+            "upper": 118.54,
+            "lower": 103.18,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 3.54,
+            "pct": 3.19,
+            "upper": 114.4,
+            "lower": 107.32,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "XLE": {
@@ -7647,13 +9483,41 @@
             "lower": 43.57,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 61.26,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 37.02
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 61.26,
+          "iv": 29.77,
+          "quarterly": {
+            "em": 5.79,
+            "pct": 9.45,
+            "upper": 67.05,
+            "lower": 55.47,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 2.67,
+            "pct": 4.36,
+            "upper": 63.93,
+            "lower": 58.59,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "XLF": {
@@ -7762,13 +9626,41 @@
             "lower": 53.72,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 49.37,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -9.86
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 49.37,
+          "iv": 24.3,
+          "quarterly": {
+            "em": 3.81,
+            "pct": 7.72,
+            "upper": 53.18,
+            "lower": 45.56,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 1.76,
+            "pct": 3.56,
+            "upper": 51.13,
+            "lower": 47.61,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 3,
-        "total": 3,
-        "pct": 100
+        "total": 4,
+        "pct": 75
       }
     },
     "XLI": {
@@ -7877,13 +9769,41 @@
             "lower": 152.17,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 161.73,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 4.26
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 161.73,
+          "iv": 26.31,
+          "quarterly": {
+            "em": 13.51,
+            "pct": 8.35,
+            "upper": 175.24,
+            "lower": 148.22,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 6.23,
+            "pct": 3.85,
+            "upper": 167.96,
+            "lower": 155.5,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "XLK": {
@@ -7992,13 +9912,41 @@
             "lower": 139.89,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 132.9,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -7.69
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 132.9,
+          "iv": 29.65,
+          "quarterly": {
+            "em": 12.51,
+            "pct": 9.41,
+            "upper": 145.41,
+            "lower": 120.39,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 5.77,
+            "pct": 4.34,
+            "upper": 138.67,
+            "lower": 127.13,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "XLP": {
@@ -8107,13 +10055,41 @@
             "lower": 76.48,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 81.98,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 5.54
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 81.98,
+          "iv": 18.94,
+          "quarterly": {
+            "em": 4.93,
+            "pct": 6.01,
+            "upper": 86.91,
+            "lower": 77.05,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 2.27,
+            "pct": 2.77,
+            "upper": 84.25,
+            "lower": 79.71,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 3,
-        "total": 3,
-        "pct": 100
+        "total": 4,
+        "pct": 75
       }
     },
     "XLRE": {
@@ -8222,12 +10198,40 @@
             "lower": 39.58,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 40.83,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": 1.19
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 40.83,
+          "iv": 17.8,
+          "quarterly": {
+            "em": 2.31,
+            "pct": 5.65,
+            "upper": 43.14,
+            "lower": 38.52,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 1.06,
+            "pct": 2.61,
+            "upper": 41.89,
+            "lower": 39.77,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 3,
-        "total": 3,
+        "within": 4,
+        "total": 4,
         "pct": 100
       }
     },
@@ -8337,13 +10341,41 @@
             "lower": 41.9,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 45.89,
+            "actual_date": "2026-03-31",
+            "status": "above",
+            "deviation_pct": 7.5
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 45.89,
+          "iv": 22.65,
+          "quarterly": {
+            "em": 3.3,
+            "pct": 7.19,
+            "upper": 49.19,
+            "lower": 42.59,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 1.52,
+            "pct": 3.32,
+            "upper": 47.41,
+            "lower": 44.37,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 2,
-        "total": 3,
-        "pct": 67
+        "total": 4,
+        "pct": 50
       }
     },
     "XLV": {
@@ -8452,13 +10484,41 @@
             "lower": 151.92,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 146.61,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -5.29
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 146.61,
+          "iv": 20.85,
+          "quarterly": {
+            "em": 9.71,
+            "pct": 6.62,
+            "upper": 156.32,
+            "lower": 136.9,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 4.47,
+            "pct": 3.05,
+            "upper": 151.08,
+            "lower": 142.14,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "XLY": {
@@ -8567,13 +10627,41 @@
             "lower": 116.49,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 108.98,
+            "actual_date": "2026-03-31",
+            "status": "below",
+            "deviation_pct": -8.73
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 108.98,
+          "iv": 27.7,
+          "quarterly": {
+            "em": 9.59,
+            "pct": 8.8,
+            "upper": 118.57,
+            "lower": 99.39,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 4.42,
+            "pct": 4.05,
+            "upper": 113.4,
+            "lower": 104.56,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
         "within": 1,
-        "total": 3,
-        "pct": 33
+        "total": 4,
+        "pct": 25
       }
     },
     "ZM": {
@@ -8682,12 +10770,40 @@
             "lower": 83.32,
             "dte": 16,
             "expiry": "20260116"
+          },
+          "outcome": {
+            "actual_close": 80.39,
+            "actual_date": "2026-03-31",
+            "status": "within",
+            "deviation_pct": -6.84
+          }
+        },
+        {
+          "quarter": "Q1-2026",
+          "date": "2026-03-31",
+          "close": 80.39,
+          "iv": 39.93,
+          "quarterly": {
+            "em": 10.19,
+            "pct": 12.68,
+            "upper": 90.58,
+            "lower": 70.2,
+            "dte": 80,
+            "expiry": "20260619"
+          },
+          "monthly": {
+            "em": 4.7,
+            "pct": 5.84,
+            "upper": 85.09,
+            "lower": 75.69,
+            "dte": 17,
+            "expiry": "20260417"
           }
         }
       ],
       "accuracy": {
-        "within": 3,
-        "total": 3,
+        "within": 4,
+        "total": 4,
         "pct": 100
       }
     }
@@ -8698,12 +10814,13 @@
       "Q1-2025",
       "Q2-2025",
       "Q3-2025",
-      "Q4-2025"
+      "Q4-2025",
+      "Q1-2026"
     ],
     "overall_accuracy": {
-      "within": 124,
-      "total": 220,
-      "pct": 56.4
+      "within": 152,
+      "total": 294,
+      "pct": 51.7
     }
   }
 }
