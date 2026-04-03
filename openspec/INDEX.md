@@ -110,7 +110,15 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 
 | Change | Priority | Description |
 |--------|----------|-------------|
-| SPA v2 Cutover (Phase 4) | **High** | Move `root ` to root, retire v1, configure Azure SWA auth + custom domain |
+| **Signal Scanner** | **Critical** | Nightly scanner: EMA 13/26 crossover state × weekly alignment × regime filter × EM position × volume profile S/R. Outputs `data/scan-results.json` + Telegram alerts. Replaces static signals cards with computed, ranked setups. Runs in EOD pipeline. |
+| **GEX / Gamma Levels (Self-Computed)** | **High** | Compute dealer gamma exposure from options chain data (IB Gateway + yfinance). Put wall = support, call wall = resistance. Net GEX sign (positive = mean-reversion, negative = trend-amplifying). Highest Volume Level (HVL) as price magnet. Output: `data/gex.json` per major ticker. No paid service — we have the options data from IB. |
+| **Volume Profile S/R Levels** | **High** | Compute support/resistance from volume-at-price (VAP) using IB 1h/daily bars. Point of Control (POC), Value Area High/Low (VAH/VAL), High Volume Nodes (HVN). Display on detail modal charts + feed into signal scanner as entry/exit levels. Tom's primary S/R method. |
+| **Dark Pool Data Integration** | **Medium** | Volume Leaders (~$50/mo) or similar dark pool feed. Institutional block trade data — dollar amounts + price levels reveal smart money positioning. Feed into signal scanner as confirmation layer. Evaluate: free alternatives (SEC 13F delayed, FINRA ADF/TRF public data). |
+| **Backtest Engine** | **High** | Backtest EMA 13/26 system across 222-ticker history. Measure: win rate, avg R, max drawdown, Sharpe. Test regime overlay + EM filter impact. Output: `backtest/results.json` + equity curve. Must answer: does this system have a quantitative edge? |
+| **Trade Alerts → Telegram** | **High** | Wire scanner + EM breach + regime shift alerts to BreakingTrades Telegram bot. "TSLA below EM range (buy zone)", "NVDA: EMA 13×26 bullish cross on daily", "Regime → FEAR". Runs in EOD pipeline + intraday price refresh. |
+| **Position Sizing Calculator** | **Medium** | In detail modal: account size × risk% × (entry - stop) = shares. Stop defaults to EM lower. R-multiple targets at 1R, 2R, 3R. |
+| **Trade Journal** | **Medium** | Log entries/exits with thesis, R-multiple, chart screenshot. Track which rules/setups actually work for YOUR trading. |
+| SPA v2 Cutover (Phase 4) | **Medium** | Retire v1, configure Azure SWA auth + custom domain. v2 SPA is production. |
 | [Regime Intelligence Dashboard](changes/regime-intelligence/OPENSPEC.md) | **Shipped** | ✅ Shipped as AI Researcher (`#airesearcher`). Computed regime score from 15 weighted signals, 7 regimes (CRISIS→EUPHORIA), Tom's rules mapped, playbook per regime, transition signals, market internals, commodity chain, regime history. Added to EOD pipeline. |
 | Earnings Calendar | High | Dedicated earnings tool — EarningsWhisper (primary), TradingView (secondary). Upcoming earnings for watchlist + broader market. |
 | EM History Sparkline | Medium | Per-ticker mini sparkline of historical EM values on expected-moves.html |
