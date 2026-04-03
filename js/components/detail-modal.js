@@ -73,7 +73,7 @@
     if (sections.indexOf('charts') >= 0) {
       html += '<div class="chart-row">' +
         '<div class="chart-box">' +
-          '<div class="chart-label">Daily <div class="ma-legend"><span><span class="ma-dot sma20"></span> SMA 20</span><span><span class="ma-dot sma50"></span> SMA 50</span></div></div>' +
+          '<div class="chart-label">Daily <div class="ma-legend"><span><span class="ma-dot sma20"></span> SMA 20</span><span><span class="ma-dot sma50"></span> SMA 50</span><span><span class="ma-dot sma150"></span> SMA 150</span></div></div>' +
           '<div id="detail-chart-daily" style="height:400px;"><div class="chart-skeleton skeleton">Loading chart…</div></div>' +
         '</div>' +
         '<div class="chart-box">' +
@@ -240,8 +240,12 @@
       height: 400, width: '100%',
       backgroundColor: '#0a0a12', gridColor: '#1a1a2e',
       overrides: { 'mainSeriesProperties.sessionId': 'regular' },
-      studies: ['MASimple@tv-basicstudies','MASimple@tv-basicstudies','Volume@tv-basicstudies'],
-      studies_overrides: { 'moving average.length': 20, 'moving average.ma.color': '#9e9e9e', 'moving average.ma.linewidth': 2 },
+      studies: ['MASimple@tv-basicstudies','MASimple@tv-basicstudies','MASimple@tv-basicstudies','Volume@tv-basicstudies'],
+      studies_overrides: {
+        'moving average#0.length': 20, 'moving average#0.ma.color': '#9e9e9e', 'moving average#0.ma.linewidth': 2,
+        'moving average#1.length': 50, 'moving average#1.ma.color': '#ffeb3b', 'moving average#1.ma.linewidth': 2,
+        'moving average#2.length': 150, 'moving average#2.ma.color': '#42a5f5', 'moving average#2.ma.linewidth': 2
+      },
       range: '12M'
     });
 
@@ -287,7 +291,10 @@
       backgroundColor: '#0a0a12', gridColor: '#1a1a2e',
       overrides: { 'mainSeriesProperties.sessionId': 'regular' },
       studies: ['MASimple@tv-basicstudies','MASimple@tv-basicstudies','Volume@tv-basicstudies'],
-      studies_overrides: { 'moving average.length': 20, 'moving average.ma.color': '#9e9e9e', 'moving average.ma.linewidth': 2 },
+      studies_overrides: {
+        'moving average#0.length': 20, 'moving average#0.ma.color': '#9e9e9e', 'moving average#0.ma.linewidth': 2,
+        'moving average#1.length': 50, 'moving average#1.ma.color': '#ffeb3b', 'moving average#1.ma.linewidth': 2
+      },
       range: '60M'
     });
     _weeklyChartTimer = null;
