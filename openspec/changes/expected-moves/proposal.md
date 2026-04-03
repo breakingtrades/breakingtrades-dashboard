@@ -96,3 +96,11 @@ Position in range = `(currentPrice - lower) / (upper - lower) × 100`
 - **BELOW EM (< 0%)** means price dropped BELOW the expected low — options market didn't price in this much downside. Could signal capitulation/bounce, but also could mean EM data is stale.
 - **ABOVE EM (> 100%)** means price exceeded the expected high — market moved more than options implied. Could signal momentum continuation or mean-reversion risk.
 - **These are not buy/sell signals.** They are risk context — "how stretched is price relative to what the options market expected?"
+
+### Quarterly EM History (Apr 3, 2026)
+- **Backfilled 4 quarters (Q1–Q4 2025)** from IB historical IV for 78 tickers.
+- Detail spec: `specs/quarterly-history.md`
+- Data: `data/em-quarterly-history.json` (206KB)
+- Visual: horizontal range bars in detail modal with outcome tracking
+- Overall accuracy: 56.4% (124/220 within projected range)
+- Pipeline automation for future quarters: TODO

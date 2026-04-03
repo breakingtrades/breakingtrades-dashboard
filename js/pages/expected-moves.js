@@ -6,6 +6,7 @@
   'use strict';
 
   var emData = {};
+  var emHistoryData = {};
   var watchlistData = [];
   var currentTier = 'weekly';
   var currentFilter = 'all';
@@ -212,6 +213,7 @@
     _collapsibles.forEach(function(c) { if (c && c.destroy) c.destroy(); });
     _collapsibles = [];
     emData = {};
+    emHistoryData = {};
     watchlistData = [];
     sortCol = null;
     currentTier = 'weekly';
@@ -229,10 +231,12 @@
     Promise.all([
       fetch('data/expected-moves.json').then(function(r) { return r.ok ? r.json() : {}; }),
       fetch('data/watchlist.json').then(function(r) { return r.ok ? r.json() : []; }),
+      fetch('data/em-quarterly-history.json').then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; }),
       pricesReady
     ]).then(function(results) {
       emData = results[0] || {};
       watchlistData = results[1] || [];
+      emHistoryData = results[2] || {};
 
       // Updated timestamp + staleness
       var updatedEl = document.getElementById('em-updated');
@@ -495,6 +499,10 @@
         '<div class="em-info-row">' + tierCards + '</div>';
     }
 
+    // Append quarterly history section
+    var historyHTML = buildQuarterlyHistory(symbol, price);
+    if (historyHTML) bodyHTML += historyHTML;
+
     document.getElementById('em-modal-body').innerHTML = bodyHTML;
 
     // Inject TradingView chart
@@ -515,6 +523,127 @@
 
     document.getElementById('em-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
+  }
+
+  function buildQuarterlyHistory(symbol, currentPrice) {
+    var histTickers = (emHistoryData && emHistoryData.tickers) || {};
+    var tickerHist = histTickers[symbol];
+    if (!tickerHist || !tickerHist.quarters || !tickerHist.quarters.length) return '';
+
+    var quarters = tickerHist.quarters;
+    var accuracy = tickerHist.accuracy || {};
+
+    // Find min/max across all quarters for unified scale
+    var allMin = Infinity, allMax = -Infinity;
+    for (var i = 0; i < quarters.length; i++) {
+      var q = quarters[i];
+      if (q.quarterly.lower < allMin) allMin = q.quarterly.lower;
+      if (q.quarterly.upper > allMax) allMax = q.quarterly.upper;
+      if (q.outcome && q.outcome.actual_close < allMin) allMin = q.outcome.actual_close;
+      if (q.outcome && q.outcome.actual_close > allMax) allMax = q.outcome.actual_close;
+    }
+    if (currentPrice < allMin) allMin = currentPrice;
+    if (currentPrice > allMax) allMax = currentPrice;
+    var range = allMax - allMin;
+    var pad = range * 0.08;
+    allMin -= pad;
+    allMax += pad;
+    range = allMax - allMin;
+
+    function toLeftPct(val) {
+      return Math.max(0, Math.min(100, ((val - allMin) / range) * 100));
+    }
+
+    // Build accuracy badge
+    var accBadge = '';
+    if (accuracy.total > 0) {
+      var accPct = accuracy.pct || 0;
+      var accColor = accPct >= 60 ? 'var(--green)' : accPct >= 40 ? 'var(--orange)' : 'var(--red)';
+      accBadge = '<span style="font-size:11px;color:' + accColor + ';font-weight:600;margin-left:12px;">' +
+        accuracy.within + '/' + accuracy.total + ' within range (' + accPct + '%)' +
+      '</span>';
+    }
+
+    var html = '<div class="em-qh-section">' +
+      '<div class="em-qh-header">' +
+        '<span class="em-qh-title"><i data-lucide="calendar-range"></i> Quarterly EM History</span>' +
+        accBadge +
+      '</div>' +
+      '<div class="em-qh-scale">' +
+        '<span>$' + allMin.toFixed(0) + '</span>' +
+        '<span style="color:var(--text-dim);font-size:10px;">Price Scale</span>' +
+        '<span>$' + allMax.toFixed(0) + '</span>' +
+      '</div>';
+
+    for (var i = 0; i < quarters.length; i++) {
+      var q = quarters[i];
+      var lo = q.quarterly.lower;
+      var hi = q.quarterly.upper;
+      var close = q.close;
+      var loLeft = toLeftPct(lo);
+      var hiLeft = toLeftPct(hi);
+      var barWidth = hiLeft - loLeft;
+      var closeLeft = toLeftPct(close);
+
+      // Outcome marker
+      var outcomeMarker = '';
+      var outcomeLabel = '';
+      if (q.outcome) {
+        var actual = q.outcome.actual_close;
+        var actualLeft = toLeftPct(actual);
+        var oc = q.outcome.status === 'within' ? 'var(--green)' : 'var(--red)';
+        var statusIcon = q.outcome.status === 'within' ? '\u2713' : '\u2717';
+        outcomeMarker = '<div class="em-qh-marker em-qh-outcome" style="left:' + actualLeft + '%;">' +
+          '<div class="em-qh-diamond" style="background:' + oc + ';"></div>' +
+        '</div>';
+        var devSign = q.outcome.deviation_pct >= 0 ? '+' : '';
+        outcomeLabel = '<span style="color:' + oc + ';font-size:11px;font-weight:600;">' +
+          statusIcon + ' $' + actual.toFixed(0) + ' (' + devSign + q.outcome.deviation_pct + '%)' +
+        '</span>';
+      } else {
+        // Current quarter — show where price is now
+        var nowLeft = toLeftPct(currentPrice);
+        var nowInRange = currentPrice >= lo && currentPrice <= hi;
+        var nowColor = nowInRange ? 'var(--gold)' : 'var(--orange)';
+        outcomeMarker = '<div class="em-qh-marker em-qh-now" style="left:' + nowLeft + '%;">' +
+          '<div class="em-qh-diamond" style="background:' + nowColor + ';"></div>' +
+        '</div>';
+        outcomeLabel = '<span style="color:' + nowColor + ';font-size:11px;font-weight:600;">Now: $' + currentPrice.toFixed(0) + '</span>';
+      }
+
+      html += '<div class="em-qh-row">' +
+        '<div class="em-qh-label">' +
+          '<div style="font-weight:600;color:var(--text-bright);">' + q.quarter + '</div>' +
+          '<div style="font-size:11px;color:var(--text-dim);">' + q.date + ' &middot; IV ' + q.iv + '%</div>' +
+        '</div>' +
+        '<div class="em-qh-bar-container">' +
+          '<div class="em-qh-track">' +
+            '<div class="em-qh-range" style="left:' + loLeft + '%;width:' + barWidth + '%;"></div>' +
+            '<div class="em-qh-marker em-qh-close" style="left:' + closeLeft + '%;">' +
+              '<div class="em-qh-dot"></div>' +
+            '</div>' +
+            outcomeMarker +
+          '</div>' +
+          '<div class="em-qh-values">' +
+            '<span style="color:var(--cyan);font-size:11px;">$' + lo.toFixed(0) + '</span>' +
+            '<span style="color:var(--text-dim);font-size:11px;">$' + close.toFixed(0) + ' \u00b1' + q.quarterly.pct + '%</span>' +
+            outcomeLabel +
+            '<span style="color:var(--red);font-size:11px;">$' + hi.toFixed(0) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    // Legend
+    html += '<div class="em-qh-legend">' +
+      '<span><span class="em-qh-dot" style="display:inline-block;"></span> Quarter-end close</span>' +
+      '<span><span class="em-qh-diamond" style="display:inline-block;background:var(--green);"></span> Outcome (within range)</span>' +
+      '<span><span class="em-qh-diamond" style="display:inline-block;background:var(--red);"></span> Outcome (outside range)</span>' +
+      '<span><span class="em-qh-diamond" style="display:inline-block;background:var(--gold);"></span> Current price</span>' +
+    '</div>';
+
+    html += '</div>';
+    return html;
   }
 
   function closeEMDetail() {
