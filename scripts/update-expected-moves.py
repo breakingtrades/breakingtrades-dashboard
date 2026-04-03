@@ -139,26 +139,33 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
 
     print(f"\n[{ticker}]", end=' ', flush=True)
 
-    # Canonical price layer is source of truth for close
+    # EM anchor = the close price that options are priced against.
+    # Use previousClose so bands are anchored to prior session's close,
+    # allowing live prices to show meaningful position within the range.
+    # Do NOT use canonical prices.json (those track current/live prices,
+    # which would always put position at exactly 50%).
     close_price = None
     price_source = None
 
-    if canonical_prices and ticker in canonical_prices:
-        close_price = canonical_prices[ticker]
-        price_source = 'prices'
+    try:
+        t_info = yf.Ticker(yf_symbol)
+        info = t_info.fast_info
+        close_price = (
+            info.get('regularMarketPreviousClose')
+            or info.get('previousClose')
+        )
+        price_source = 'yf-prevClose'
+        # Fallback to current price if no previous close available
+        if not close_price or close_price <= 0:
+            close_price = info.get('lastPrice') or info.get('regularMarketPrice')
+            price_source = 'yf-lastPrice'
+    except Exception as e:
+        pass
 
-    if not close_price or close_price <= 0:
-        try:
-            t_info = yf.Ticker(yf_symbol)
-            info = t_info.fast_info
-            close_price = (
-                info.get('regularMarketPreviousClose')
-                or info.get('previousClose')
-                or info.get('lastPrice')
-            )
-            price_source = 'yfinance'
-        except Exception as e:
-            pass
+    # Final fallback to canonical prices (better than nothing)
+    if (not close_price or close_price <= 0) and canonical_prices and ticker in canonical_prices:
+        close_price = canonical_prices[ticker]
+        price_source = 'prices-fallback'
 
     if not close_price or close_price <= 0:
         print("no price", flush=True)
