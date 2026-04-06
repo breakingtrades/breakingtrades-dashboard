@@ -18,7 +18,7 @@ var tickerTape = (function () {
     { proName: 'CAPITALCOM:COPPER', title: 'Copper' },
     { proName: 'AMEX:XLE', title: 'Energy' },
     { proName: 'AMEX:UUP', title: 'Dollar' },
-    { proName: 'AMEX:UVXY', title: 'VIX' },
+    { proName: 'TVC:VIX', title: 'VIX' },
     { proName: 'BITSTAMP:BTCUSD', title: 'Bitcoin' },
     { proName: 'BITSTAMP:ETHUSD', title: 'Ethereum' },
   ];
