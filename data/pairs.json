@@ -2,8 +2,8 @@
   {
     "pair": "XLY/XLP",
     "desc": "Consumer weakening \u2014 risk-off rotation",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
   },
   {
     "pair": "HYG/SPY",
@@ -44,14 +44,14 @@
   {
     "pair": "GLD/SPY",
     "desc": "Safe haven demand",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "TLT/SPY",
     "desc": "Flight to bonds",
-    "signal": "\u2192 FLAT DOWN",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "SLV/GLD",
@@ -68,7 +68,7 @@
   {
     "pair": "IGV/QQQ",
     "desc": "Software vs Broad Tech",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
   }
 ]
