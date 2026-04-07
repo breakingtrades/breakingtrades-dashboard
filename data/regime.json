@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-06T20:20:26Z",
+  "updated": "2026-04-07T20:20:43Z",
   "regime": "NEUTRAL",
   "score": 49,
   "color": "#8888aa",
@@ -7,59 +7,59 @@
     "regime": "NEUTRAL",
     "score": 49
   },
-  "duration_days": 2,
+  "duration_days": 3,
   "since": "2026-04-02",
   "cycle": {
     "phase": "EXPANSION",
-    "score": 50
+    "score": 45
   },
   "components": {
     "move": {
       "score": 57,
-      "value": 81.78,
+      "value": 81.68,
       "signal": "elevated",
       "weight": 18
     },
     "fear_greed": {
-      "score": 23,
-      "value": 22.6,
+      "score": 22,
+      "value": 22.3,
       "signal": "extreme_fear",
       "weight": 10
     },
     "vix": {
-      "score": 41,
-      "value": 24.2,
+      "score": 34,
+      "value": 25.87,
       "signal": "elevated",
       "weight": 10
     },
     "breadth": {
-      "score": 46,
-      "value": 64.3,
+      "score": 50,
+      "value": 56.2,
       "signal": "strong",
       "weight": 8
     },
     "sp_vs_d200": {
-      "score": 70,
-      "value": -0.04,
+      "score": 69,
+      "value": -0.08,
       "signal": "below",
       "weight": 8
     },
     "hyg_spy": {
       "score": 70,
-      "value": 2.56,
+      "value": 2.36,
       "signal": "strong",
       "weight": 8
     },
     "xlf_spy": {
       "score": 50,
-      "value": 0.09,
+      "value": 0.11,
       "signal": "neutral",
       "weight": 6
     },
     "dxy": {
-      "score": 35,
-      "value": 100.01,
-      "signal": "elevated",
+      "score": 55,
+      "value": 99.65,
+      "signal": "neutral",
       "weight": 5
     },
     "yield_curve": {
@@ -70,13 +70,13 @@
     },
     "growth_value": {
       "score": 50,
-      "value": -0.12,
+      "value": 0.02,
       "signal": "balanced",
       "weight": 4
     },
     "rsp_spy": {
       "score": 50,
-      "value": -0.02,
+      "value": -0.26,
       "signal": "neutral",
       "weight": 4
     },
@@ -87,20 +87,20 @@
       "weight": 4
     },
     "copper_gold": {
-      "score": 50,
-      "value": 0.21,
-      "signal": "neutral",
+      "score": 30,
+      "value": -1.63,
+      "signal": "fear",
       "weight": 4
     },
     "international": {
       "score": 50,
-      "value": 0.08,
+      "value": -0.33,
       "signal": "mixed",
       "weight": 4
     },
     "xly_xlp": {
       "score": 20,
-      "value": -2.76,
+      "value": -1.75,
       "signal": "weak",
       "weight": 2
     }
@@ -124,25 +124,25 @@
     "conditions": [
       {
         "label": "F&G > 55",
-        "current": 22.6,
+        "current": 22.3,
         "target": 55,
         "met": false
       },
       {
         "label": "S&P > 2% above D200",
-        "current": -0.04,
+        "current": -0.08,
         "target": 2,
         "met": false
       },
       {
         "label": "HYG/SPY strong",
-        "current": 2.56,
+        "current": 2.36,
         "target": 1,
         "met": true
       },
       {
         "label": "VIX < 16",
-        "current": 24.2,
+        "current": 25.87,
         "target": 16,
         "met": false
       }
