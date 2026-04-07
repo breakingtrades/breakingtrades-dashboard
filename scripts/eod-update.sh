@@ -190,6 +190,10 @@ else
     if [[ "${BT_SKIP_PUSH:-0}" == "1" ]]; then
         log "Skipping push (BT_SKIP_PUSH=1)"
     else
+        # Switch gh auth to idanshimon (has write access to breakingtrades org)
+        # idanshimon_microsoft is corp account — read-only on breakingtrades repos
+        gh auth switch --user idanshimon 2>/dev/null || true
+
         # Retry push up to 3 times (F&G workflow may push concurrently)
         PUSHED=0
         for attempt in 1 2 3; do
@@ -212,6 +216,9 @@ else
         if [[ "$PUSHED" -eq 0 ]]; then
             warn "Git push failed after 3 attempts — changes committed locally"
         fi
+
+        # Switch back to corp account
+        gh auth switch --user idanshimon_microsoft 2>/dev/null || true
     fi
 fi
 
