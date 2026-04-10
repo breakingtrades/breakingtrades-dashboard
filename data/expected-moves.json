@@ -1,48 +1,48 @@
 {
-  "updated": "2026-04-10T16:44:34.518363",
+  "updated": "2026-04-10T19:46:01.995347",
   "source": "yfinance",
   "tier": "daily",
   "tickers": {
     "SPY": {
       "close": 679.91,
       "spot": 679.91,
-      "updated": "2026-04-10T16:44:33.311949",
+      "updated": "2026-04-10T19:46:01.288112",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "ES",
         "multiplier": 10
       },
       "strike": 680.0,
-      "straddle": 11.54,
-      "call_close": 6.01,
+      "straddle": 11.29,
+      "call_close": 5.76,
       "put_close": 5.53,
       "weekly_expiry": "20260417",
       "weekly_dte": 7,
       "daily": {
-        "value": 3.71,
-        "pct": 0.55,
-        "upper": 683.62,
-        "lower": 676.2
+        "value": 3.63,
+        "pct": 0.53,
+        "upper": 683.54,
+        "lower": 676.28
       },
       "weekly": {
-        "value": 8.29,
-        "pct": 1.22,
-        "upper": 688.2,
-        "lower": 671.62
+        "value": 8.11,
+        "pct": 1.19,
+        "upper": 688.02,
+        "lower": 671.8
       },
       "monthly": {
-        "value": 16.99,
-        "pct": 2.5,
-        "upper": 696.9,
-        "lower": 662.92
+        "value": 16.62,
+        "pct": 2.44,
+        "upper": 696.53,
+        "lower": 663.29
       },
       "quarterly": {
-        "value": 29.43,
-        "pct": 4.33,
-        "upper": 709.34,
-        "lower": 650.48
+        "value": 28.79,
+        "pct": 4.23,
+        "upper": 708.7,
+        "lower": 651.12
       },
-      "iv": 14.3,
+      "iv": 14.1,
       "history": [
         {
           "date": "2026-03-23",
@@ -138,52 +138,52 @@
         {
           "date": "2026-04-10",
           "close": 679.91,
-          "straddle": 11.54,
-          "weekly_em": 8.29,
-          "daily_em": 3.71
+          "straddle": 11.29,
+          "weekly_em": 8.11,
+          "daily_em": 3.63
         }
       ]
     },
     "QQQ": {
       "close": 610.19,
       "spot": 610.19,
-      "updated": "2026-04-10T16:44:31.976954",
+      "updated": "2026-04-10T19:46:00.342670",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "NQ",
         "multiplier": 40
       },
       "strike": 610.0,
-      "straddle": 12.77,
-      "call_close": 7.27,
-      "put_close": 5.5,
+      "straddle": 12.46,
+      "call_close": 7.06,
+      "put_close": 5.4,
       "weekly_expiry": "20260417",
       "weekly_dte": 7,
       "daily": {
-        "value": 4.1,
-        "pct": 0.67,
-        "upper": 614.29,
-        "lower": 606.09
+        "value": 4.0,
+        "pct": 0.66,
+        "upper": 614.19,
+        "lower": 606.19
       },
       "weekly": {
-        "value": 9.17,
-        "pct": 1.5,
-        "upper": 619.36,
-        "lower": 601.02
+        "value": 8.95,
+        "pct": 1.47,
+        "upper": 619.14,
+        "lower": 601.24
       },
       "monthly": {
-        "value": 18.8,
-        "pct": 3.08,
-        "upper": 628.99,
-        "lower": 591.39
+        "value": 18.34,
+        "pct": 3.01,
+        "upper": 628.53,
+        "lower": 591.85
       },
       "quarterly": {
-        "value": 32.56,
-        "pct": 5.34,
-        "upper": 642.75,
-        "lower": 577.63
+        "value": 31.77,
+        "pct": 5.21,
+        "upper": 641.96,
+        "lower": 578.42
       },
-      "iv": 17.8,
+      "iv": 17.2,
       "history": [
         {
           "date": "2026-03-23",
@@ -279,52 +279,52 @@
         {
           "date": "2026-04-10",
           "close": 610.19,
-          "straddle": 12.77,
-          "weekly_em": 9.17,
-          "daily_em": 4.1
+          "straddle": 12.46,
+          "weekly_em": 8.95,
+          "daily_em": 4.0
         }
       ]
     },
     "IWM": {
       "close": 261.96,
       "spot": 261.96,
-      "updated": "2026-04-10T16:44:31.450703",
+      "updated": "2026-04-10T19:45:59.880042",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "RTY",
         "multiplier": 10
       },
       "strike": 262.0,
-      "straddle": 6.32,
-      "call_close": 2.65,
-      "put_close": 3.67,
+      "straddle": 6.25,
+      "call_close": 3.06,
+      "put_close": 3.19,
       "weekly_expiry": "20260417",
       "weekly_dte": 7,
       "daily": {
-        "value": 2.03,
-        "pct": 0.78,
-        "upper": 263.99,
-        "lower": 259.93
+        "value": 2.01,
+        "pct": 0.77,
+        "upper": 263.97,
+        "lower": 259.95
       },
       "weekly": {
-        "value": 4.54,
-        "pct": 1.73,
-        "upper": 266.5,
-        "lower": 257.42
+        "value": 4.49,
+        "pct": 1.71,
+        "upper": 266.45,
+        "lower": 257.47
       },
       "monthly": {
-        "value": 9.3,
-        "pct": 3.55,
-        "upper": 271.26,
-        "lower": 252.66
+        "value": 9.2,
+        "pct": 3.51,
+        "upper": 271.16,
+        "lower": 252.76
       },
       "quarterly": {
-        "value": 16.12,
-        "pct": 6.15,
-        "upper": 278.08,
-        "lower": 245.84
+        "value": 15.94,
+        "pct": 6.08,
+        "upper": 277.9,
+        "lower": 246.02
       },
-      "iv": 20.7,
+      "iv": 20.2,
       "history": [
         {
           "date": "2026-03-23",
@@ -420,52 +420,52 @@
         {
           "date": "2026-04-10",
           "close": 261.96,
-          "straddle": 6.32,
-          "weekly_em": 4.54,
-          "daily_em": 2.03
+          "straddle": 6.25,
+          "weekly_em": 4.49,
+          "daily_em": 2.01
         }
       ]
     },
     "DIA": {
       "close": 481.9,
       "spot": 481.9,
-      "updated": "2026-04-10T16:44:29.495976",
+      "updated": "2026-04-10T19:45:58.678690",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "YM",
         "multiplier": 8.6
       },
       "strike": 482.0,
-      "straddle": 7.38,
-      "call_close": 2.99,
-      "put_close": 4.39,
+      "straddle": 7.13,
+      "call_close": 2.77,
+      "put_close": 4.36,
       "weekly_expiry": "20260417",
       "weekly_dte": 7,
       "daily": {
-        "value": 2.37,
-        "pct": 0.49,
-        "upper": 484.27,
-        "lower": 479.53
+        "value": 2.29,
+        "pct": 0.48,
+        "upper": 484.19,
+        "lower": 479.61
       },
       "weekly": {
-        "value": 5.3,
-        "pct": 1.1,
-        "upper": 487.2,
-        "lower": 476.6
+        "value": 5.12,
+        "pct": 1.06,
+        "upper": 487.02,
+        "lower": 476.78
       },
       "monthly": {
-        "value": 10.87,
-        "pct": 2.25,
-        "upper": 492.77,
-        "lower": 471.03
+        "value": 10.5,
+        "pct": 2.18,
+        "upper": 492.4,
+        "lower": 471.4
       },
       "quarterly": {
-        "value": 18.82,
-        "pct": 3.91,
-        "upper": 500.72,
-        "lower": 463.08
+        "value": 18.18,
+        "pct": 3.77,
+        "upper": 500.08,
+        "lower": 463.72
       },
-      "iv": 14.7,
+      "iv": 14.3,
       "history": [
         {
           "date": "2026-03-23",
@@ -561,52 +561,52 @@
         {
           "date": "2026-04-10",
           "close": 481.9,
-          "straddle": 7.38,
-          "weekly_em": 5.3,
-          "daily_em": 2.37
+          "straddle": 7.13,
+          "weekly_em": 5.12,
+          "daily_em": 2.29
         }
       ]
     },
     "IBIT": {
       "close": 40.91,
       "spot": 40.91,
-      "updated": "2026-04-10T16:44:30.561834",
+      "updated": "2026-04-10T19:45:59.482473",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "BTC",
         "note": "spot BTC proxy"
       },
       "strike": 41.0,
-      "straddle": 1.82,
-      "call_close": 1.0,
-      "put_close": 0.82,
+      "straddle": 1.84,
+      "call_close": 1.19,
+      "put_close": 0.65,
       "weekly_expiry": "20260417",
       "weekly_dte": 7,
       "daily": {
-        "value": 0.58,
-        "pct": 1.43,
-        "upper": 41.49,
-        "lower": 40.33
+        "value": 0.59,
+        "pct": 1.44,
+        "upper": 41.5,
+        "lower": 40.32
       },
       "weekly": {
-        "value": 1.31,
-        "pct": 3.2,
-        "upper": 42.22,
-        "lower": 39.6
+        "value": 1.32,
+        "pct": 3.23,
+        "upper": 42.23,
+        "lower": 39.59
       },
       "monthly": {
-        "value": 2.68,
-        "pct": 6.55,
-        "upper": 43.59,
-        "lower": 38.23
+        "value": 2.71,
+        "pct": 6.62,
+        "upper": 43.62,
+        "lower": 38.2
       },
       "quarterly": {
-        "value": 4.64,
-        "pct": 11.34,
-        "upper": 45.55,
-        "lower": 36.27
+        "value": 4.69,
+        "pct": 11.47,
+        "upper": 45.6,
+        "lower": 36.22
       },
-      "iv": 38.7,
+      "iv": 38.2,
       "history": [
         {
           "date": "2026-03-23",
@@ -702,52 +702,52 @@
         {
           "date": "2026-04-10",
           "close": 40.91,
-          "straddle": 1.82,
-          "weekly_em": 1.31,
-          "daily_em": 0.58
+          "straddle": 1.84,
+          "weekly_em": 1.32,
+          "daily_em": 0.59
         }
       ]
     },
     "UNG": {
       "close": 10.88,
       "spot": 10.88,
-      "updated": "2026-04-10T16:44:33.862326",
+      "updated": "2026-04-10T19:46:01.563430",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "NG",
         "note": "nat gas proxy"
       },
       "strike": 11.0,
-      "straddle": 0.61,
-      "call_close": 0.21,
-      "put_close": 0.4,
+      "straddle": 0.62,
+      "call_close": 0.17,
+      "put_close": 0.45,
       "weekly_expiry": "20260417",
       "weekly_dte": 7,
       "daily": {
         "value": 0.2,
-        "pct": 1.8,
+        "pct": 1.83,
         "upper": 11.08,
         "lower": 10.68
       },
       "weekly": {
-        "value": 0.44,
-        "pct": 4.03,
-        "upper": 11.32,
-        "lower": 10.44
+        "value": 0.45,
+        "pct": 4.09,
+        "upper": 11.33,
+        "lower": 10.43
       },
       "monthly": {
-        "value": 0.9,
-        "pct": 8.25,
-        "upper": 11.78,
-        "lower": 9.98
+        "value": 0.91,
+        "pct": 8.39,
+        "upper": 11.79,
+        "lower": 9.97
       },
       "quarterly": {
-        "value": 1.56,
-        "pct": 14.3,
-        "upper": 12.44,
-        "lower": 9.32
+        "value": 1.58,
+        "pct": 14.53,
+        "upper": 12.46,
+        "lower": 9.3
       },
-      "iv": 48.4,
+      "iv": 46.5,
       "history": [
         {
           "date": "2026-03-25",
@@ -808,8 +808,8 @@
         {
           "date": "2026-04-10",
           "close": 10.88,
-          "straddle": 0.61,
-          "weekly_em": 0.44,
+          "straddle": 0.62,
+          "weekly_em": 0.45,
           "daily_em": 0.2
         }
       ]
@@ -817,43 +817,43 @@
     "USO": {
       "close": 126.96,
       "spot": 126.96,
-      "updated": "2026-04-10T16:44:34.387046",
+      "updated": "2026-04-10T19:46:01.918162",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "CL",
         "note": "crude oil proxy"
       },
       "strike": 127.0,
-      "straddle": 12.0,
-      "call_close": 6.3,
-      "put_close": 5.7,
+      "straddle": 11.89,
+      "call_close": 4.64,
+      "put_close": 7.25,
       "weekly_expiry": "20260417",
       "weekly_dte": 7,
       "daily": {
-        "value": 3.86,
-        "pct": 3.04,
-        "upper": 130.82,
-        "lower": 123.1
+        "value": 3.82,
+        "pct": 3.01,
+        "upper": 130.78,
+        "lower": 123.14
       },
       "weekly": {
-        "value": 8.62,
-        "pct": 6.79,
-        "upper": 135.58,
-        "lower": 118.34
+        "value": 8.54,
+        "pct": 6.73,
+        "upper": 135.5,
+        "lower": 118.42
       },
       "monthly": {
-        "value": 17.67,
-        "pct": 13.92,
-        "upper": 144.63,
-        "lower": 109.29
+        "value": 17.5,
+        "pct": 13.79,
+        "upper": 144.46,
+        "lower": 109.46
       },
       "quarterly": {
-        "value": 30.6,
-        "pct": 24.1,
-        "upper": 157.56,
-        "lower": 96.36
+        "value": 30.32,
+        "pct": 23.88,
+        "upper": 157.28,
+        "lower": 96.64
       },
-      "iv": 80.9,
+      "iv": 78.1,
       "history": [
         {
           "date": "2026-03-25",
@@ -928,52 +928,52 @@
         {
           "date": "2026-04-10",
           "close": 126.96,
-          "straddle": 12.0,
-          "weekly_em": 8.62,
-          "daily_em": 3.86
+          "straddle": 11.89,
+          "weekly_em": 8.54,
+          "daily_em": 3.82
         }
       ]
     },
     "GLD": {
       "close": 437.91,
       "spot": 437.91,
-      "updated": "2026-04-10T16:44:30.036072",
+      "updated": "2026-04-10T19:45:59.153814",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "GC",
         "multiplier": 18.6
       },
       "strike": 438.0,
-      "straddle": 13.11,
-      "call_close": 6.21,
-      "put_close": 6.9,
+      "straddle": 12.78,
+      "call_close": 6.45,
+      "put_close": 6.33,
       "weekly_expiry": "20260417",
       "weekly_dte": 7,
       "daily": {
-        "value": 4.21,
-        "pct": 0.96,
-        "upper": 442.12,
-        "lower": 433.7
+        "value": 4.11,
+        "pct": 0.94,
+        "upper": 442.02,
+        "lower": 433.8
       },
       "weekly": {
-        "value": 9.42,
-        "pct": 2.15,
-        "upper": 447.33,
-        "lower": 428.49
+        "value": 9.18,
+        "pct": 2.1,
+        "upper": 447.09,
+        "lower": 428.73
       },
       "monthly": {
-        "value": 19.3,
-        "pct": 4.41,
-        "upper": 457.21,
-        "lower": 418.61
+        "value": 18.82,
+        "pct": 4.3,
+        "upper": 456.73,
+        "lower": 419.09
       },
       "quarterly": {
-        "value": 33.43,
-        "pct": 7.63,
-        "upper": 471.34,
-        "lower": 404.48
+        "value": 32.59,
+        "pct": 7.44,
+        "upper": 470.5,
+        "lower": 405.32
       },
-      "iv": 25.8,
+      "iv": 25.3,
       "history": [
         {
           "date": "2026-03-25",
@@ -1048,9 +1048,9 @@
         {
           "date": "2026-04-10",
           "close": 437.91,
-          "straddle": 13.11,
-          "weekly_em": 9.42,
-          "daily_em": 4.21
+          "straddle": 12.78,
+          "weekly_em": 9.18,
+          "daily_em": 4.11
         }
       ]
     },
@@ -6637,39 +6637,39 @@
     "SPX": {
       "close": 6824.66,
       "spot": 6824.66,
-      "updated": "2026-04-10T16:44:32.684480",
+      "updated": "2026-04-10T19:46:00.701035",
       "source": "yfinance",
       "strike": 6825.0,
-      "straddle": 114.4,
-      "call_close": 57.8,
-      "put_close": 56.6,
+      "straddle": 111.81,
+      "call_close": 56.71,
+      "put_close": 55.1,
       "weekly_expiry": "20260417",
       "weekly_dte": 7,
       "daily": {
-        "value": 36.75,
-        "pct": 0.54,
-        "upper": 6861.41,
-        "lower": 6787.91
+        "value": 35.92,
+        "pct": 0.53,
+        "upper": 6860.58,
+        "lower": 6788.74
       },
       "weekly": {
-        "value": 82.18,
-        "pct": 1.2,
-        "upper": 6906.84,
-        "lower": 6742.48
+        "value": 80.32,
+        "pct": 1.18,
+        "upper": 6904.98,
+        "lower": 6744.34
       },
       "monthly": {
-        "value": 168.42,
-        "pct": 2.47,
-        "upper": 6993.08,
-        "lower": 6656.24
+        "value": 164.61,
+        "pct": 2.41,
+        "upper": 6989.27,
+        "lower": 6660.05
       },
       "quarterly": {
-        "value": 291.72,
-        "pct": 4.27,
-        "upper": 7116.38,
-        "lower": 6532.94
+        "value": 285.12,
+        "pct": 4.18,
+        "upper": 7109.78,
+        "lower": 6539.54
       },
-      "iv": 14.1,
+      "iv": 13.9,
       "history": [
         {
           "date": "2026-03-29",
@@ -6737,9 +6737,9 @@
         {
           "date": "2026-04-10",
           "close": 6824.66,
-          "straddle": 114.4,
-          "weekly_em": 82.18,
-          "daily_em": 36.75
+          "straddle": 111.81,
+          "weekly_em": 80.32,
+          "daily_em": 35.92
         }
       ]
     }
