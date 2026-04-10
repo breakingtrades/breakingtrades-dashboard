@@ -1,83 +1,83 @@
 {
-  "updated": "2026-04-08T20:20:41Z",
-  "regime": "NEUTRAL",
-  "score": 49,
-  "color": "#8888aa",
+  "updated": "2026-04-10T20:21:03Z",
+  "regime": "BULL",
+  "score": 57,
+  "color": "#00d4aa",
   "previous": {
     "regime": "NEUTRAL",
     "score": 49
   },
-  "duration_days": 4,
-  "since": "2026-04-02",
+  "duration_days": 1,
+  "since": "2026-04-10",
   "cycle": {
-    "phase": "EXPANSION",
-    "score": 55
+    "phase": "LATE_CYCLE",
+    "score": 65
   },
   "components": {
     "move": {
-      "score": 55,
-      "value": 83.15,
-      "signal": "elevated",
+      "score": 86,
+      "value": 74.01,
+      "signal": "collapsing",
       "weight": 18
     },
     "fear_greed": {
-      "score": 31,
-      "value": 30.8,
+      "score": 38,
+      "value": 37.8,
       "signal": "fear",
       "weight": 10
     },
     "vix": {
-      "score": 55,
-      "value": 21.07,
-      "signal": "elevated",
+      "score": 63,
+      "value": 19.33,
+      "signal": "normal",
       "weight": 10
     },
     "breadth": {
       "score": 43,
-      "value": 66.8,
+      "value": 66.6,
       "signal": "strong",
       "weight": 8
     },
     "sp_vs_d200": {
-      "score": 50,
-      "value": 0,
-      "signal": "no_data",
+      "score": 81,
+      "value": 2.87,
+      "signal": "above",
       "weight": 8
     },
     "hyg_spy": {
       "score": 50,
-      "value": 0.34,
+      "value": -0.5,
       "signal": "neutral",
       "weight": 8
     },
     "xlf_spy": {
-      "score": 50,
-      "value": 0.25,
-      "signal": "neutral",
+      "score": 20,
+      "value": -1.06,
+      "signal": "weak",
       "weight": 6
     },
     "dxy": {
       "score": 55,
-      "value": 98.99,
+      "value": 98.67,
       "signal": "neutral",
       "weight": 5
     },
     "yield_curve": {
       "score": 50,
-      "value": 0.69,
+      "value": 0.73,
       "signal": "normal",
       "weight": 5
     },
     "growth_value": {
       "score": 50,
-      "value": 0.16,
+      "value": 0.83,
       "signal": "balanced",
       "weight": 4
     },
     "rsp_spy": {
-      "score": 50,
-      "value": -0.24,
-      "signal": "neutral",
+      "score": 30,
+      "value": -0.66,
+      "signal": "narrowing",
       "weight": 4
     },
     "put_call": {
@@ -87,67 +87,65 @@
       "weight": 4
     },
     "copper_gold": {
-      "score": 50,
-      "value": 0,
-      "signal": "no_data",
+      "score": 70,
+      "value": 2.04,
+      "signal": "growth",
       "weight": 4
     },
     "international": {
       "score": 50,
-      "value": 1.91,
+      "value": -0.41,
       "signal": "mixed",
       "weight": 4
     },
     "xly_xlp": {
-      "score": 50,
-      "value": -0.62,
-      "signal": "neutral",
+      "score": 70,
+      "value": 1.93,
+      "signal": "strong",
       "weight": 2
     }
   },
   "active_rules": [
     "R007",
-    "R010",
     "R013",
-    "R019"
+    "R029",
+    "R050"
   ],
   "playbook": {
     "position_size": 1.0,
-    "sector_bias": [],
+    "sector_bias": [
+      "XLK",
+      "XLY",
+      "XLF"
+    ],
     "avoid_sectors": [],
-    "stop_rule": "Standard \u2014 weekly 20 MA mean reversion (R007)",
-    "entry_rule": "Standard playbook. Less is more (R019).",
-    "key_watch": "F&G extremes (R013)"
+    "stop_rule": "Trail stop at weekly 20 MA (R050)",
+    "entry_rule": "Trend following. Let winners run.",
+    "key_watch": "F&G > 75 = start tightening (R013)"
   },
   "transition_signals": {
-    "target": "BULL",
+    "target": "STRONG_BULL",
     "conditions": [
       {
-        "label": "F&G > 55",
-        "current": 30.8,
-        "target": 55,
+        "label": "F&G > 65",
+        "current": 37.8,
+        "target": 65,
         "met": false
       },
       {
-        "label": "S&P > 2% above D200",
-        "current": 0,
-        "target": 2,
-        "met": false
+        "label": "Breadth > 65%",
+        "current": 66.6,
+        "target": 65,
+        "met": true
       },
       {
-        "label": "HYG/SPY strong",
-        "current": 0.34,
-        "target": 1,
-        "met": false
-      },
-      {
-        "label": "VIX < 16",
-        "current": 21.07,
-        "target": 16,
+        "label": "S&P > 5% above D200",
+        "current": 2.87,
+        "target": 5,
         "met": false
       }
     ],
-    "conditions_met": 0,
-    "conditions_total": 4
+    "conditions_met": 1,
+    "conditions_total": 3
   }
 }
