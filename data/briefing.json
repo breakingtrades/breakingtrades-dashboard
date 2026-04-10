@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Apr 09",
-  "headline": "Sharp rally, but flows and sentiment say 'keep your helmet on.'",
+  "title": "Daily Briefing \u2014 Apr 10",
+  "headline": "Flows are bullish, but defensive sectors are leading \u2014 watch for rotation.",
   "body": [
-    "Right, so markets are sprinting today\u2014SPY up +2.5% to 676.01, QQQ +3% to 606.09, and breadth is broad with tech and cyclicals leading. Fear & Greed is still at 32 (Fear), even after this pop, and VIX is elevated but easing (21.07, below SMA20). If you're bullish here, remember: follow the flows\u2014not the headlines. We're just now reclaiming daily 20 MAs across most majors, but weekly 20 MAs remain the mean reversion zone.",
-    "Sector rotation? Industrials (XLI, +3.8% to 170.44) and Real Estate (XLRE, +1.7% to 42.44) are in the 'leading' quadrant, with Utilities (XLU) also showing strong momentum. Tech is 'improving' but not leading\u2014note XLK at 141.69 (SMA20: 136.16). Energy (XLE) is tanking -3.5% and flashing 'elevated' sector risk, so don't chase those falling knives. Financials (XLF) are 'improving,' but they're not out of the woods yet, losing key SMA200 recently. Watch the canary.",
-    "Contrarian angle: Retail feels hesitant with Fear & Greed still in 'Fear,' but we've exited extreme fear territory (was <20 last week). This is usually the hunting ground for value, but the sheer speed of this rally means patience and reactions beat predictions. Don't ignore the VIX regime\u2014still 'elevated.' If it's in the press, it's in the price. Keep it tight above the 20 MA\u2014less trades, more wins."
+    "Right, so let's look at what the flows are telling us. Broad market is firming up: SPY at $679.91 is holding above all major MAs, VIX is dropping below the SMA20, and Fear & Greed has pulled up to 37.2 from extreme lows. We're seeing a shift from panic to cautious optimism \u2014 but not a euphoric chase.",
+    "Sector rotation is clear: Utilities (XLU $47.15), Real Estate (XLRE $42.73), and Industrials (XLI $172.19) are leading, all breaking above 20 MA and showing strong momentum. Meanwhile, Energy (XLE $57.33) is weakening with elevated risk, and Discretionary (XLY $112.74) remains lagging despite today's pop. Tech is improving: look at NVDA ($183.91) and ARM ($149.79) both active above 20 MA, but MSFT ($373.07) is still below the 20 MA \u2014 don't chase.",
+    "Contrarian warning: defensive sector leadership with Financials (XLF $51.33) still elevated risk says the market isn't fully risk-on. Fear & Greed rising but still 'fear' (not extreme greed, so rule R013 is clear). VIX normal regime gives breathing room, but if XLF breaks SMA200 ($52.28), that's your canary. Abundance mindset: less trades, more wins \u2014 don't chase AMZN (+5.6%) after a run, let it mean revert."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY reclaiming 20 MA (656.68) and approaching weekly mean reversion zone (673.54).<br>XLK (Tech) above 20 MA, next resistance around SMA50 (139.06).<br>XLE (Energy) breaking down, SMA20 at 59.36 now resistance.<br>XLF (Financials) must hold SMA200 at 52.27.<br>VIX holding above 20, volatility not fully gone.<br>Fear & Greed staying below 40 = still room for tactical longs, but not a green-light rally.",
+  "callout_body": "SPY: $679.91 (20 MA $656.96 \u2014 above = bullish)<br>NVDA: $183.91 (20 MA $177.15 \u2014 active)<br>XLU: $47.15 (20 MA $46.01 \u2014 leading quadrant)<br>XLF: $51.33 (SMA200 $52.28 \u2014 risk trigger)<br>XLE: $57.33 (20 MA $59.39 \u2014 risk in energy)<br>VIX: 19.34 (<SMA20 25.0 \u2014 contraction zone)<br>Fear & Greed 37.2 (climbing out of extreme fear)",
   "action_items": [
-    "Monitor SPY, QQQ, XLK daily closes\u2014stay long only if above 20 MA.",
-    "Avoid Energy sector (XLE, SM) until weakness reverses; watch Financials (XLF) for breakdown/rebound at 52.27."
+    "Monitor XLF close versus SMA200 ($52.28): breakdown triggers equity risk reduction per rule R001.",
+    "Watch tech leaders (NVDA, ARM, AAPL) \u2014 stay active only above 20 MA, exit if daily closes below."
   ],
-  "closing_quote": "If bonds freak out, everything breaks. Patience\u2014react, don't predict.",
-  "generatedAt": "2026-04-09T11:30:37.866733+00:00",
+  "closing_quote": "If it's in the press, it's in the price. Abundance mindset: next opportunity, not last chase.",
+  "generatedAt": "2026-04-10T11:25:13.413843+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
