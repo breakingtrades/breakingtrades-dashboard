@@ -3,8 +3,9 @@ name: Intraday Price Update
 on:
   schedule:
     # Mon-Fri during market hours (ET)
-    # 9:35 AM ET = 13:35 UTC (EDT) / 14:35 UTC (EST)
-    - cron: '35 13 * * 1-5'
+    # 9:50 AM ET = 13:50 UTC (EDT) / 14:50 UTC (EST)
+    # yfinance has 15-min delay — 9:35 would still show yesterday's close
+    - cron: '50 13 * * 1-5'
     # 12:00 PM ET = 16:00 UTC (EDT)
     - cron: '0 16 * * 1-5'
     # 3:00 PM ET = 19:00 UTC (EDT)
@@ -32,15 +33,18 @@ jobs:
       - name: Update prices
         run: python scripts/update-prices.py
 
+      - name: Update expected moves (daily tier)
+        run: python scripts/update-expected-moves.py --tier daily
+
       - name: Commit and push
         run: |
           git config user.name "BreakingTrades Bot"
           git config user.email "bot@breakingtrades.github.io"
-          git add data/prices.json
+          git add data/prices.json data/expected-moves.json
           if git diff --staged --quiet; then
             echo "No price changes"
           else
-            git commit -m "data: intraday prices $(date -u +%Y-%m-%dT%H:%M)"
+            git commit -m "data: intraday prices + EM(daily) $(date -u +%Y-%m-%dT%H:%M)"
             for i in 1 2 3; do
               git pull --rebase --no-edit origin main && git push && break
               echo "Push attempt $i failed, retrying..."
