@@ -194,22 +194,44 @@ else
         # idanshimon_microsoft is corp account — read-only on breakingtrades repos
         gh auth switch --user idanshimon 2>/dev/null || true
 
-        # Retry push up to 3 times (F&G workflow may push concurrently)
+        # Push strategy: fetch remote, take OURS for all data files, theirs for F&G only
+        # This prevents the recurring prices.json rebase conflict with the F&G GH Action
         PUSHED=0
         for attempt in 1 2 3; do
-            # Clean up any stuck rebase state
+            # Abort any stuck rebase
             if [ -d ".git/rebase-merge" ] || [ -d ".git/rebase-apply" ]; then
                 log "Cleaning stuck rebase state (attempt $attempt)"
                 git rebase --abort 2>/dev/null || true
                 rm -rf .git/rebase-merge .git/rebase-apply 2>/dev/null || true
             fi
-            if git pull --rebase --no-edit origin main 2>&1 | tee -a "$LOG"; then
-                if git push origin main 2>&1 | tee -a "$LOG"; then
-                    log "✅ Pushed to GitHub (attempt $attempt)"
-                    PUSHED=1
-                    break
-                fi
+
+            # Fetch latest remote state
+            git fetch origin main 2>&1 | tee -a "$LOG"
+
+            # Start rebase
+            if git rebase origin/main 2>&1 | tee -a "$LOG"; then
+                # Clean rebase — just push
+                : 
+            else
+                # Conflict — take ours for data files (EOD is authoritative), theirs for F&G
+                log "Rebase conflict detected — resolving: data/ = ours, fear-greed = theirs"
+                git checkout --ours data/ 2>/dev/null || true
+                git checkout --theirs data/fear-greed.json 2>/dev/null || true
+                git add data/ 2>/dev/null || true
+                GIT_EDITOR=true git rebase --continue 2>&1 | tee -a "$LOG" || {
+                    git rebase --abort 2>/dev/null || true
+                    log "Rebase continue failed — skipping push this attempt"
+                    sleep 10
+                    continue
+                }
             fi
+
+            if git push origin main 2>&1 | tee -a "$LOG"; then
+                log "✅ Pushed to GitHub (attempt $attempt)"
+                PUSHED=1
+                break
+            fi
+
             log "Push attempt $attempt failed, retrying in 10s..."
             sleep 10
         done
