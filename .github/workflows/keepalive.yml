@@ -2,14 +2,24 @@ name: Keepalive
 
 on:
   schedule:
-    # Runs daily at 8 AM ET (12 UTC) — prevents GitHub from pausing scheduled workflows
-    # GitHub pauses schedules on repos with no activity. This keeps them alive.
+    # Runs Mon-Fri at 8 AM ET (12 UTC)
+    # Prevents GitHub from disabling scheduled workflows due to repo inactivity
+    # Per GitHub docs: repos with no recent commits/issues/PRs may have schedules disabled
     - cron: '0 12 * * 1-5'
   workflow_dispatch: {}
 
 jobs:
   keepalive:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Ping — keep scheduled workflows active
-        run: echo "Keepalive $(date -u). This prevents GitHub from pausing intraday/EOD schedules."
+      - uses: actions/checkout@v4
+      - name: Commit keepalive to maintain repo activity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "$(date -u)" > .github/keepalive.txt
+          git add .github/keepalive.txt
+          git commit -m "chore: keepalive [skip ci]"
+          git push
