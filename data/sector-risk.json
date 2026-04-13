@@ -3,71 +3,71 @@
     "etf": "XLE",
     "quadrant": "Weakening",
     "risk": "elevated",
-    "rs": 125.09,
-    "momentum": 92.17
+    "rs": 125.1,
+    "momentum": 92.18
   },
   "Clean Energy": {
     "etf": "XLE",
     "quadrant": "Weakening",
     "risk": "elevated",
-    "rs": 125.09,
-    "momentum": 92.17
+    "rs": 125.1,
+    "momentum": 92.18
   },
   "Materials": {
     "etf": "XLB",
     "quadrant": "Weakening",
     "risk": "medium",
-    "rs": 110.16,
+    "rs": 110.17,
     "momentum": 96.59
   },
   "Agriculture": {
     "etf": "XLB",
     "quadrant": "Weakening",
     "risk": "medium",
-    "rs": 110.16,
+    "rs": 110.17,
     "momentum": 96.59
   },
   "Industrials": {
     "etf": "XLI",
     "quadrant": "Leading",
     "risk": "low",
-    "rs": 108.2,
-    "momentum": 100.19
+    "rs": 108.21,
+    "momentum": 100.2
   },
   "Discretionary": {
     "etf": "XLY",
     "quadrant": "Lagging",
     "risk": "high",
     "rs": 92.62,
-    "momentum": 97.36
+    "momentum": 97.37
   },
   "Retail": {
     "etf": "XLY",
     "quadrant": "Lagging",
     "risk": "high",
     "rs": 92.62,
-    "momentum": 97.36
+    "momentum": 97.37
   },
   "Staples": {
     "etf": "XLP",
     "quadrant": "Weakening",
     "risk": "medium",
-    "rs": 106.47,
+    "rs": 106.48,
     "momentum": 96.69
   },
   "Healthcare": {
     "etf": "XLV",
     "quadrant": "Lagging",
     "risk": "high",
-    "rs": 95.78,
-    "momentum": 97.26
+    "rs": 95.79,
+    "momentum": 97.27
   },
   "Financials": {
     "etf": "XLF",
     "quadrant": "Lagging",
     "risk": "high",
-    "rs": 93.31,
-    "momentum": 99.1
+    "rs": 93.28,
+    "momentum": 99.07
   },
   "Technology": {
     "etf": "XLK",
@@ -94,21 +94,21 @@
     "etf": "XLC",
     "quadrant": "Lagging",
     "risk": "high",
-    "rs": 98.75,
-    "momentum": 99.17
+    "rs": 98.77,
+    "momentum": 99.18
   },
   "Utilities": {
     "etf": "XLU",
     "quadrant": "Leading",
     "risk": "low",
-    "rs": 113.31,
-    "momentum": 100.93
+    "rs": 113.32,
+    "momentum": 100.94
   },
   "Real Estate": {
     "etf": "XLRE",
     "quadrant": "Leading",
     "risk": "low",
-    "rs": 108.42,
+    "rs": 108.43,
     "momentum": 100.61
   },
   "Bond": {
