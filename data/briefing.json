@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Apr 13",
-  "headline": "Market coiling under the surface as leadership quietly rotates \u2014 don't be fooled by the calm.",
+  "title": "Daily Briefing \u2014 Apr 14",
+  "headline": "Tech keeps grinding higher, but sector rotation is sneaking in under the surface.",
   "body": [
-    "Right, so let's look at what the flows are telling us: S&P (SPY $679.46) is nudging above its 20MA ($657.72) with tech and megacaps holding the line (NVDA, AAPL, AMZN all above their 20MAs). VIX remains elevated at 21.25 but trending down \u2013 volatility compression after a fear spike, not a fresh panic. Fear & Greed is 37.7 \u2014 recovering from last week's extreme fear but we're NOT in full FOMO mode yet.",
-    "Rotation is the story: Industrials (XLI) and Utilities (XLU, XLI $171.52, XLU $46.96) are leading while Energy (XLE $56.94) and Materials soften. Tech (XLK $142.62) is back in 'improving' territory on the RRG \u2014 watch for fresh leadership if these moves confirm above the 20MA. Real Estate (XLRE $42.82) triggered higher and is among the relative strength winners \u2014 not what you'd expect if recession was imminent.",
-    "Contrarian signal? Retail is NOT piling in, breadth is stable, and smart money isn't running for the hills. But XLF (Financials) is lagging and below its 200MA ($52.28) \u2014 the canary isn't singing but it's not exactly chirpy either. No gamma wall breakdowns or margin debt warnings yet, but keep an eye on Financials for early cracks."
+    "Right, so let's look at what the flows are telling us. Markets had a broad green session \u2014 SPY +1.0% to 686.10, QQQ +1.0%, with Tech once again holding the leadership baton (XLK +2.1%, approaching the 20 MA at 136.95). Bonds (HYG/LQD/TLT) all ticked up, so no immediate macro alarm bells \u2014 if bonds freak out, everything breaks, and they're not today.",
+    "Rotation watch: Tech (XLK/XLC) remains in the leading quadrant with strong momentum, but Industrials (XLI), Energy (XLE), and Materials (XLB) are losing steam (weakening quadrant). Defensive rotation hasn\u2019t fully triggered yet, but Healthcare (XLV, +0.5%) and Financials (XLF, +1.8%) are both improving \u2014 watch for mean reversion plays into these lagging sectors as they approach their 20 MAs.",
+    "Contrarian lens: Fear & Greed bouncing off lows (42.5, up from 21.4 a month ago) \u2014 we're rising out of Extreme Fear, so the easy mean reversion trade is fading. No Smart Money/Dumb Money signal tripped, but don't get complacent on crowded Tech. Less trades = more wins right now."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $657.72 = 20MA, bulls in control above<br>XLK: $138.60 = 200MA, base in play if held<br>XLF: $50.82 = 50MA, $52.28 = 200MA, watch for support test<br>VIX: Below 24.7 = volatility contraction, not crisis<br>NVDA: $177.42 = 20MA, leading tech barometer<br>XLE: $56.26 = 50MA, slipping below is a risk-off tell",
+  "callout_body": "SPY near 20 MA: 659.00 \u2014 bulls in control above<br>XLK at 145.61, well over 20 MA (136.95)<br>Watch XLF for follow-through above 50.79 (SMA50)<br>Healthcare (XLV) mean reversion zone: SMA20 = 146.68<br>VIX: 19.16 \u2014 below regime lines, risk appetite returning<br>Bonds (HYG/LQD) both approaching, not breaking \u2014 macro safe for now",
   "action_items": [
-    "Watch Financials (XLF) \u2014 reduction in equity exposure if $50.77 loses 200MA ($52.28), per rule R010.",
-    "Look for tech confirmation: NVDA, AAPL, and AMZN all need continued closes above 20MA for bullish continuation \u2014 don't chase, let confirmation come."
+    "Stay long Tech (XLK, QQQ) above their 20 MAs, but trail stops and don't chase runaways like DELL (+6.7%), ARM (+5.8%), NBIS (+6.6%) \u2014 abundance mindset.",
+    "Watch Healthcare (XLV, SYK, TMO, GKOS) and Financials (XLF) for rotation entries if they hold above their SMA20s, as sector rotation could start favouring laggards."
   ],
-  "closing_quote": "Patience, react, don\u2019t predict \u2014 less trades, more wins.",
-  "generatedAt": "2026-04-13T11:48:41.450891+00:00",
+  "closing_quote": "Remember: If it's in the press, it's in the price. Let the flows talk, not the headlines.",
+  "generatedAt": "2026-04-14T11:36:04.522268+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
