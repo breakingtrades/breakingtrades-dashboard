@@ -174,7 +174,16 @@
         // History
         '<div id="section-history">' +
           '<div class="section-title" id="hdr-history"><i data-lucide="clock"></i> Regime History</div>' +
-          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Daily regime scores over time — reveals trends, regime transitions, and how long each environment persists.</p>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Daily regime scores (0–100) over time — line color shows the active regime. Hover any point for full details.</p>' +
+          '<div class="regime-legend" style="display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:14px;">' +
+            '<div class="regime-legend-item" title="Score 0–25: Extreme market stress. Capital preservation priority. Avoid new longs, hold cash or hedges." style="cursor:help;"><span class="regime-legend-dot" style="background:#ef5350;"></span><span class="regime-legend-label">CRISIS <span style="color:#666;font-size:11px;">(0–25)</span></span></div>' +
+            '<div class="regime-legend-item" title="Score 26–38: Persistent downtrend, deteriorating internals. Defensive positioning, minimal new longs, reduced size." style="cursor:help;"><span class="regime-legend-dot" style="background:#ffa726;"></span><span class="regime-legend-label">BEAR <span style="color:#666;font-size:11px;">(26–38)</span></span></div>' +
+            '<div class="regime-legend-item" title="Score 39–47: Pullback within a broader trend. Reduce size, selective entries, tighter stops. Wait for stabilization." style="cursor:help;"><span class="regime-legend-dot" style="background:#ffeb3b;"></span><span class="regime-legend-label">CORRECTION <span style="color:#666;font-size:11px;">(39–47)</span></span></div>' +
+            '<div class="regime-legend-item" title="Score 48–54: Mixed signals, no clear directional edge. Normal sizing, follow individual setups, stay disciplined." style="cursor:help;"><span class="regime-legend-dot" style="background:#888;"></span><span class="regime-legend-label">NEUTRAL <span style="color:#666;font-size:11px;">(48–54)</span></span></div>' +
+            '<div class="regime-legend-item" title="Score 55–69: Broad market strength with confirming internals. Full position sizing, trend-following entries, trail stops." style="cursor:help;"><span class="regime-legend-dot" style="background:#00d4aa;"></span><span class="regime-legend-label">BULL <span style="color:#666;font-size:11px;">(55–69)</span></span></div>' +
+            '<div class="regime-legend-item" title="Score 70–84: Strong uptrend, wide participation across sectors. Aggressive sizing, let winners run, trail at Weekly 20." style="cursor:help;"><span class="regime-legend-dot" style="background:#00c853;"></span><span class="regime-legend-label">STRONG BULL <span style="color:#666;font-size:11px;">(70–84)</span></span></div>' +
+            '<div class="regime-legend-item" title="Score 85–100: Extreme optimism, stretched valuations. Take profits, tighten stops aggressively, watch for reversal signals." style="cursor:help;"><span class="regime-legend-dot" style="background:#ab47bc;"></span><span class="regime-legend-label">EUPHORIA <span style="color:#666;font-size:11px;">(85–100)</span></span></div>' +
+          '</div>' +
           '<div id="body-history">' +
             '<div class="regime-history-container" id="regime-history"><div class="skeleton" style="height:200px;border-radius:6px;"></div></div>' +
           '</div>' +
@@ -594,7 +603,17 @@
               title: function(items) { return items[0].label; },
               label: function(item) {
                 var d = data[item.dataIndex];
-                return (d.regime || '') + ' — Score: ' + item.raw;
+                var r = (d.regime || '').toUpperCase();
+                var desc = REGIME_DESCRIPTIONS[r] || '';
+                var lines = [
+                  '● ' + r + '  |  Score: ' + item.raw,
+                ];
+                if (d.vix != null)     lines.push('VIX: ' + Number(d.vix).toFixed(1));
+                if (d.fg != null)      lines.push('Fear & Greed: ' + Number(d.fg).toFixed(1));
+                if (d.breadth != null) lines.push('Breadth: ' + Number(d.breadth).toFixed(1) + '%');
+                if (d.cycle)           lines.push('Cycle: ' + d.cycle);
+                if (desc)              lines.push('', desc);
+                return lines;
               }
             }
           }
