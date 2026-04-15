@@ -1,14 +1,14 @@
 {
   "current": {
-    "value": 47,
+    "value": 46.9,
     "label": "Neutral"
   },
   "previousClose": {
-    "value": 41.0,
-    "label": "Fear"
+    "value": 47.0,
+    "label": "Neutral"
   },
   "oneWeekAgo": {
-    "value": 27.6,
+    "value": 34.4,
     "label": "Fear"
   },
   "oneMonthAgo": {
@@ -16,9 +16,9 @@
     "label": "Extreme Fear"
   },
   "oneYearAgo": {
-    "value": 12.3,
+    "value": 13.1,
     "label": "Extreme Fear"
   },
-  "updated": "2026-04-15T02:13:03.523235+00:00",
+  "updated": "2026-04-15T05:21:47.981755+00:00",
   "source": "cnn"
 }
