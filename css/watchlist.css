@@ -187,3 +187,339 @@
     display: none;
   }
 }
+
+/* =========================================================
+   Watchlist Refresh — Filter bar / Stat bar / Sector cards
+   ========================================================= */
+
+.wl-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wl-group-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-card, #0f0f1a);
+}
+.wl-group-btn {
+  background: transparent;
+  color: var(--text-dim, #6b7280);
+  border: none;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border-right: 1px solid var(--border, rgba(255,255,255,0.08));
+}
+.wl-group-btn:last-child { border-right: none; }
+.wl-group-btn.active {
+  background: var(--cyan, #00d4aa);
+  color: #0a0a0f;
+}
+.wl-group-btn:hover:not(.active) { color: var(--text, #e5e7eb); }
+
+.wl-icon-btn {
+  background: transparent;
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  color: var(--text-dim, #6b7280);
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.wl-icon-btn:hover { color: var(--text, #e5e7eb); }
+.wl-icon-btn i { width: 14px; height: 14px; }
+
+.wl-col-panel {
+  position: absolute;
+  right: 16px;
+  top: 68px;
+  z-index: 50;
+  background: var(--bg-card, #0f0f1a);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.wl-col-panel-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dim, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.wl-col-panel label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text, #e5e7eb);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+.wl-col-panel label:hover { background: rgba(255,255,255,0.04); }
+
+/* Filter bar */
+.wl-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--bg-card, #0f0f1a);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.wl-filter-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.wl-filter-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-dim, #6b7280);
+  margin-right: 6px;
+}
+.wl-pill {
+  background: transparent;
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  color: var(--text-dim, #6b7280);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+.wl-pill i { width: 11px; height: 11px; }
+.wl-pill:hover { color: var(--text, #e5e7eb); border-color: rgba(255,255,255,0.2); }
+.wl-pill.active {
+  background: var(--cyan, #00d4aa);
+  color: #0a0a0f;
+  border-color: var(--cyan, #00d4aa);
+}
+
+.wl-filter-selects {
+  margin-left: auto;
+  gap: 8px;
+}
+.wl-select {
+  background: var(--bg-primary, #0a0a0f);
+  color: var(--text, #e5e7eb);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  min-width: 120px;
+}
+.wl-select:focus { outline: 1px solid var(--cyan, #00d4aa); }
+
+.wl-search-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.wl-search-wrap i {
+  position: absolute;
+  left: 8px;
+  width: 13px;
+  height: 13px;
+  color: var(--text-dim, #6b7280);
+  pointer-events: none;
+}
+.wl-search-input {
+  background: var(--bg-primary, #0a0a0f);
+  color: var(--text, #e5e7eb);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 6px;
+  padding: 5px 8px 5px 26px;
+  font-size: 11px;
+  width: 180px;
+}
+.wl-search-input:focus { outline: 1px solid var(--cyan, #00d4aa); }
+
+.wl-reset-btn {
+  background: rgba(239, 83, 80, 0.15);
+  border: 1px solid var(--red, #ef5350);
+  color: var(--red, #ef5350);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.wl-reset-btn i { width: 11px; height: 11px; }
+
+/* Stat bar */
+.wl-stat-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px 16px;
+  background: var(--bg-card, #0f0f1a);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--text-dim, #6b7280);
+}
+.wl-stat { display: inline-flex; align-items: center; gap: 4px; }
+.wl-stat strong { color: var(--text, #e5e7eb); font-weight: 700; }
+.wl-stat.up { color: var(--cyan, #00d4aa); }
+.wl-stat.down { color: var(--red, #ef5350); }
+
+/* Sector cards */
+.wl-sector-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.wl-sector-card {
+  background: var(--bg-card, #0f0f1a);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease;
+}
+.wl-sector-card:hover { border-color: var(--cyan, #00d4aa); }
+.wl-sc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.wl-sc-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text, #e5e7eb);
+}
+.wl-sc-count {
+  font-size: 10px;
+  color: var(--text-dim, #6b7280);
+  background: rgba(255,255,255,0.05);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+.wl-sc-bar {
+  height: 4px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.wl-sc-bar-fill {
+  height: 100%;
+  background: var(--cyan, #00d4aa);
+  transition: width 0.2s ease;
+}
+.wl-sc-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.wl-sc-foot .up { color: var(--cyan, #00d4aa); }
+.wl-sc-foot .down { color: var(--red, #ef5350); }
+.wl-sc-dim { color: var(--text-dim, #6b7280); }
+
+/* Alert badges in ticker cell */
+.wl-badges {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.wl-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+}
+.wl-badge i { width: 12px; height: 12px; }
+.wl-badge-more {
+  color: var(--text-dim, #6b7280);
+  font-weight: 700;
+  font-size: 9px;
+}
+
+/* Group headers */
+.wl-group-header td {
+  background: rgba(0, 212, 170, 0.05);
+  border-top: 1px solid rgba(0, 212, 170, 0.2);
+  border-bottom: 1px solid rgba(0, 212, 170, 0.1);
+  padding: 8px 12px !important;
+  font-size: 11px;
+}
+.wl-gh-name {
+  font-weight: 700;
+  color: var(--text, #e5e7eb);
+  margin-right: 12px;
+}
+.wl-gh-count {
+  color: var(--text-dim, #6b7280);
+  margin-right: 12px;
+  background: rgba(255,255,255,0.05);
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+}
+.wl-gh-bull { color: var(--text-dim, #6b7280); margin-right: 12px; }
+.wl-gh-chg.up { color: var(--cyan, #00d4aa); }
+.wl-gh-chg.down { color: var(--red, #ef5350); }
+
+/* Sort arrow */
+.watchlist-table thead th .sort-arrow {
+  display: inline-block;
+  width: 10px;
+  color: var(--text-dim, #6b7280);
+  font-size: 9px;
+}
+.watchlist-table thead th.active-sort {
+  color: var(--cyan, #00d4aa);
+}
+.watchlist-table thead th.active-sort .sort-arrow {
+  color: var(--cyan, #00d4aa);
+}
+
+/* Earnings warning tone */
+.watchlist-table td.neutral-warn { color: var(--orange, #ffa726); }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .wl-filter-bar { padding: 10px; gap: 10px; }
+  .wl-filter-selects { width: 100%; margin-left: 0; }
+  .wl-search-input { width: 100%; }
+  .wl-stat-bar { gap: 12px; font-size: 11px; }
+  .wl-sector-cards { grid-template-columns: repeat(2, 1fr); }
+}
