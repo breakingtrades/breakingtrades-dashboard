@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Apr 16",
-  "headline": "Mega-cap tech is melting up, but sector breadth is flashing yellow \u2014 patience, react, don\u2019t predict.",
+  "title": "Daily Briefing \u2014 Apr 17",
+  "headline": "Tech leads the charge, but rotation signals say 'keep your head on a swivel.'",
   "body": [
-    "Right, so the big picture: Tech is on fire, with AAPL up +2.9% at $266.43 and NVDA pushing +1.2% at $198.87. Most majors and indices (SPY $699.94, QQQ $637.40) are flying well above the 20 MA, signalling risk-on momentum. VIX at 18.15, trending below its SMA20, says volatility is calming\u2014but the Fear & Greed Index has run from 20.4 to 57.6 in a month, so retail is piling back in.",
-    "Sector rotation shows XLK (Tech) and XLC (Comm) leading, but watch XLE (Energy), XLB (Materials), and XLU (Utilities)\u2014all weakening with elevated risk. Financials (XLF $52.17) are improving, but barely scraping their 200 MA ($52.29). If the canary rolls, we pull back exposure immediately. Staples and healthcare remain laggards, so don\u2019t expect defensive outperformance yet.",
-    "Contrarian risk: greed is rising but hasn\u2019t hit that extreme red line. Still, be suspicious\u2014upside looks stretched on several names; AAPL, NVDA, and QQQ are nearly 15% above their 20 MA. If price closes below the daily 20 MA, exit longs. Retail euphoria rising means abundance mindset: don\u2019t chase, wait for mean reversion zones (weekly 20 MA) and dark pool signals before stacking new trades."
+    "Right, so let's look at what the flows are telling us: SPY\u2019s holding $701.66, hugging that 20 MA at $664.01 like it's home base. The VIX has fallen back to 17.88, well below its 20-day, which means the market's caught a breather but isn\u2019t in full \u2018risk on\u2019 euphoria. Risk appetite has rebounded\u2014Fear & Greed is 63.3 (Greed)\u2014but we're not at the contrarian red zone just yet.",
+    "XLK (tech) and XLC (communication) are leading both in price and RRG momentum, with heavyweights like NVDA, MSFT, and GOOGL pushing new highs above their 20s and 50s. But keep an eye on sector divergence: energy (XLE), industrials (XLI), and materials (XLB) are rolling over, all in weakening or elevated risk regimes\u2014classic rotation out of cyclicals into growth. Financials (XLF, $52.03) are improving, but still lagging their major moving averages. That\u2019s not bullish confirmation for the whole economy.",
+    "Contrarian hat on: the last time Greed climbed this fast off a Fear low was just before several 5\u201310% tech pullbacks\u2014and we're seeing leaders extended well above their 20s (NVDA $18 above, MSFT $42 above). Retail FOMO is starting to show, so while trend is your friend, don\u2019t chase\u2014abundance mindset. No major breakdowns, but if bonds (HYG/LQD) start to slip, or if XLF rolls over, be ready to reduce risk. Less trades = more wins."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "AAPL: Watch for a daily close below $254.65 (20 MA) before trimming<br>NVDA: 20 MA support at $179.38, risk if breached<br>XLF: $52.29 (200 MA) = economic canary zone<br>SPY: $661.91 (20 MA)\u2014major risk if daily closes below<br>Fear & Greed: 57.6\u2014rising, but not extreme (no forced risk-off yet)<br>XLK/QQQ: Both >10% above 20 MA\u2014don\u2019t chase, watch for mean reversion",
+  "callout_body": "SPY: $664.01 (20 MA), $673.36 (50 MA) \u2014 mean reversion zones<br>NVDA: $180.28 (20 MA) \u2014 watch for snap-backs if stretched<br>XLF: $52.29 (200 MA resistance)<br>XLK: $138.67 (20 MA support)<br>VIX: Stay under 20, but first volatility spike warns of regime shift<br>HYG: $79.48 (20 MA) \u2014 early warning for credit risk",
   "action_items": [
-    "Set alerts for daily closes below the 20 MA on leading tech (AAPL, NVDA, QQQ, SPY) \u2014 if triggered, exit/reduce longs per rule R006.",
-    "Monitor Financials (XLF), especially $52.29\u2014any decisive breach triggers risk-off in broader equities per rule R001."
+    "Trim any tech laggards extended >10% above their 20 MAs; don\u2019t chase breakouts here.",
+    "Watch XLF and HYG/LQD closely\u2014if either breaks below their 20 MAs, shift defensive per rules."
   ],
-  "closing_quote": "If it\u2019s in the press, it\u2019s in the price. Patience\u2014next trade always comes.",
-  "generatedAt": "2026-04-16T11:36:25.446208+00:00",
+  "closing_quote": "Remember: If it's in the press, it's already in the price. Follow the flows.",
+  "generatedAt": "2026-04-17T11:29:15.879360+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
