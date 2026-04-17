@@ -69,7 +69,7 @@
 }
 .em-table { width: 100%; border-collapse: collapse; white-space: nowrap; }
 .em-table thead th {
-  position: sticky; top: 0;
+  position: sticky; top: var(--sticky-top-offset); z-index: var(--z-table-head);
   background: #0d0d1a;
   padding: 10px 14px;
   text-align: left;

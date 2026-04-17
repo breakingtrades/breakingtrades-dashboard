@@ -68,7 +68,7 @@
   padding: 10px 12px; text-align: left; font-size: 10px; text-transform: uppercase;
   letter-spacing: 1px; color: var(--text-dim); border-bottom: 1px solid var(--border);
   cursor: pointer; user-select: none; white-space: nowrap;
-  background: #0c0c18; position: sticky; top: 0; z-index: 10;
+  background: #0c0c18; position: sticky; top: var(--sticky-top-offset); z-index: var(--z-table-head);
 }
 .watchlist-table th:hover { color: var(--cyan); }
 .watchlist-table th .sort-arrow { margin-left: 4px; font-size: 8px; }
@@ -241,7 +241,7 @@
   position: absolute;
   right: 16px;
   top: 68px;
-  z-index: 50;
+  z-index: var(--z-dropdown);
   background: var(--bg-card, #0f0f1a);
   border: 1px solid var(--border, rgba(255,255,255,0.08));
   border-radius: 8px;

@@ -55,6 +55,8 @@
   --sidebar-width: 380px;
   --border-radius: 6px;
   --border-radius-sm: 4px;
+  /* Sticky offset for sub-page sticky elements so they clear the sticky nav */
+  --sticky-top-offset: var(--nav-height);
   --border-radius-lg: 8px;
 
   /* Transitions */
@@ -64,6 +66,7 @@
 
   /* Z-index layers */
   --z-ticker-tape: 90;
+  --z-table-head: 80;
   --z-nav: 100;
   --z-dropdown: 150;
   --z-modal: 200;

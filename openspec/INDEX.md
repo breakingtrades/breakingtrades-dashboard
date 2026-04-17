@@ -1,6 +1,6 @@
 # BreakingTrades Dashboard — OpenSpec Index
 
-> Last updated: 2026-04-17
+> Last updated: 2026-04-17 (sticky-nav-unified, watchlist-refresh)
 > Status: **Production (v1)** + **Staging (v2 SPA)** 
 > v1 live at: https://breakingtrades.github.io/breakingtrades-dashboard/
 > v2 staging at: https://brave-glacier-07c70460f.2.azurestaticapps.net/root index.html
