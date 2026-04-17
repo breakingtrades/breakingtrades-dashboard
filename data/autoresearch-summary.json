@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-04-17T04:05:55.684825+00:00",
+  "last_tuning": {
+    "date": "2026-04-17",
+    "improvement_pct": 0.01,
+    "experiments_run": 30,
+    "winners": [
+      {
+        "param": "sma_exit",
+        "from": "10",
+        "to": "25",
+        "plain": "Holding winners longer",
+        "impact": 0.0123,
+        "score_after": 0.6855
+      },
+      {
+        "param": "bond_filter",
+        "from": "False",
+        "to": "True",
+        "plain": "Trusting the bond market as a risk signal",
+        "impact": 0.012,
+        "score_after": 0.6681
+      },
+      {
+        "param": "vpr_va_pct",
+        "from": "70",
+        "to": "68",
+        "plain": "Tightening the value-area definition",
+        "impact": 0.0051,
+        "score_after": 0.6732
+      }
+    ],
+    "dead_ends": [
+      "Using Fear & Greed as an entry filter \u2014 tested, no improvement",
+      "Using volume-profile to filter entries \u2014 tested, no improvement",
+      "Adjusting volatility-based stops \u2014 tested, no improvement",
+      "Adjusting dark-pool sensitivity \u2014 tested, no improvement",
+      "Using long-term MA to gate entries \u2014 tested, no improvement"
+    ]
+  },
+  "regime_performance": [
+    {
+      "key": "selloff_spring25",
+      "label": "Tariff selloff (Mar\u2013Apr 2025)",
+      "verdict": "strong",
+      "verdict_label": "Strong",
+      "trades": 5,
+      "win_rate": 100.0,
+      "reliable": true,
+      "caption": "Tariff selloff \u2014 defensive names (GLD, XLP, XLU) held up."
+    },
+    {
+      "key": "bull_summer25",
+      "label": "Bull run (May\u2013Oct 2025)",
+      "verdict": "strong",
+      "verdict_label": "Strong",
+      "trades": 176,
+      "win_rate": 88.2,
+      "reliable": true,
+      "caption": "Summer bull run \u2014 broad participation, defensive tickers rotated."
+    },
+    {
+      "key": "chop_winter25",
+      "label": "Choppy range (Nov 2025\u2013Feb 2026)",
+      "verdict": "mixed",
+      "verdict_label": "Mixed",
+      "trades": 52,
+      "win_rate": 70.3,
+      "reliable": true,
+      "caption": "Choppy range \u2014 rewarded patience and selective entries."
+    },
+    {
+      "key": "selloff_spring26",
+      "label": "April 2026 selloff",
+      "verdict": "too_early",
+      "verdict_label": "Too early to tell",
+      "trades": 0,
+      "win_rate": 0,
+      "reliable": false,
+      "caption": "Recent selloff \u2014 still developing, insufficient trades to judge."
+    }
+  ],
+  "rules_in_play": [
+    "Enter on EMA-8/EMA-20 crossover confirmed by trend",
+    "Exit when price closes below 25-period average",
+    "Stop-loss placed at 1.5\u00d7 recent volatility",
+    "Risk 2.0% of account per trade",
+    "Structure trades around volume-profile value area (institutional zones)",
+    "Stops respect value-area boundaries, not just volatility",
+    "Skip entries when VIX > 22 (volatility too high)",
+    "Skip entries when bonds signal risk-off",
+    "Skip entries during extreme greed (>65) or extreme fear (<25)",
+    "Skip entries when macro breadth is weak"
+  ]
+}

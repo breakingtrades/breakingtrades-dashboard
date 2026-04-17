@@ -33,7 +33,7 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 | **Watchlist** | `watchlist.html` | `#watchlist` | 74-symbol tracker, table view, detail modals, EM banner, hash routing (`#watchlist/SPY`) |
 | **Expected Moves** | `expected-moves.html` | `#expected-moves` | Options EM risk heatmap, position bars, alert tags, staleness guard, filter/tier tabs, inline detail modal |
 | **Events** | `events.html` | `#events` | Calendar page, live countdowns, category filters, mini strip on signals |
-| **Autoresearch** | `autoresearch.html` | `#airesearcher` | AI Researcher — Regime Intelligence dashboard (15-signal regime scoring, playbook, market internals, commodity chain, transition signals) |
+| **Autoresearch** | `autoresearch.html` | `#airesearcher` | AI Researcher — strategy results (performance by regime, research findings, rules in play) + regime intelligence (15-signal scoring, playbook, market internals, commodity chain, transition signals) |
 
 ## Production Data Pipeline
 

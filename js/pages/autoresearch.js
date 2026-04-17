@@ -104,6 +104,31 @@
           '</p>' +
         '</div>' +
 
+        // ===== NEW: Strategy Results (Non-Technical) — shows autoresearch output =====
+        '<div id="section-perf">' +
+          '<div class="section-title" id="hdr-perf"><i data-lucide="trending-up"></i> How the strategy is performing</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">How our strategy has performed across different market conditions, tested on real history.</p>' +
+          '<div id="body-perf">' +
+            '<div id="strategy-perf" style="min-height:120px;"><div class="skeleton" style="height:120px;border-radius:6px;"></div></div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div id="section-findings">' +
+          '<div class="section-title" id="hdr-findings"><i data-lucide="flask-conical"></i> What the research found this week</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Plain-language summary of the most recent tuning run.</p>' +
+          '<div id="body-findings">' +
+            '<div id="research-findings" style="min-height:80px;"><div class="skeleton" style="height:80px;border-radius:6px;"></div></div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div id="section-rules">' +
+          '<div class="section-title" id="hdr-rules"><i data-lucide="check-square"></i> What rules are in play</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">The rules our strategy is actively following on every trade.</p>' +
+          '<div id="body-rules">' +
+            '<div id="strategy-rules" style="min-height:80px;"><div class="skeleton" style="height:80px;border-radius:6px;"></div></div>' +
+          '</div>' +
+        '</div>' +
+
         // Hero
         '<div id="regime-hero" class="regime-hero">' +
           '<div class="regime-hero-left"><div class="skeleton" style="width:180px;height:48px;border-radius:6px;"></div></div>' +
@@ -202,7 +227,8 @@
     var fetches = [
       fetch('data/regime.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
       fetch('data/regime-history.jsonl').then(function(r) { return r.ok ? r.text() : null; }).catch(function() { return null; }),
-      fetch('data/prices.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
+      fetch('data/prices.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
+      fetch('data/autoresearch-summary.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
     ];
 
     Promise.all(fetches).then(function(results) {
@@ -213,6 +239,12 @@
         }).filter(Boolean);
       }
       pricesData = results[2];
+      var summaryData = results[3];
+
+      // New result cards render independently of regime data
+      renderStrategyPerf(summaryData);
+      renderResearchFindings(summaryData);
+      renderStrategyRules(summaryData);
 
       if (!regimeData) {
         renderNoData();
@@ -230,6 +262,9 @@
 
       // Collapsibles
       var sections = [
+        ['regime:perf', 'hdr-perf', 'body-perf'],
+        ['regime:findings', 'hdr-findings', 'body-findings'],
+        ['regime:rules', 'hdr-rules', 'body-rules'],
         ['regime:components', 'hdr-components', 'body-components'],
         ['regime:playbook', 'hdr-playbook', 'body-playbook'],
         ['regime:internals', 'hdr-internals', 'body-internals'],
@@ -267,6 +302,132 @@
       var el = document.getElementById(id);
       if (el) el.innerHTML = '';
     });
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  // ===== NEW: Strategy Performance (non-technical per-regime verdict) =====
+  var VERDICT_COLORS = {
+    strong:    { color: 'var(--green)',  icon: 'check-circle-2', label: 'Strong' },
+    solid:     { color: 'var(--cyan)',   icon: 'check',          label: 'Solid' },
+    defensive: { color: 'var(--blue)',   icon: 'shield',         label: 'Defensive' },
+    mixed:     { color: 'var(--orange)', icon: 'alert-circle',   label: 'Mixed' },
+    weak:      { color: 'var(--red)',    icon: 'x-circle',       label: 'Weak' },
+    too_early: { color: 'var(--text-dim)', icon: 'hourglass',    label: 'Too early to tell' }
+  };
+
+  function renderStrategyPerf(summary) {
+    var el = document.getElementById('strategy-perf');
+    if (!el) return;
+    if (!summary || !summary.regime_performance || summary.regime_performance.length === 0) {
+      el.innerHTML = '<div style="padding:18px;background:var(--card-bg);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);font-size:14px;">' +
+        '<i data-lucide="info" style="width:16px;height:16px;vertical-align:-3px;margin-right:6px;"></i>' +
+        'Strategy tuning data unavailable. Regime analysis continues below.' +
+      '</div>';
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      return;
+    }
+
+    var tuning = summary.last_tuning || {};
+    var headerLine = '';
+    if (tuning.date) {
+      var improvement = '';
+      if (tuning.improvement_pct && Math.abs(tuning.improvement_pct) >= 0.5) {
+        var sign = tuning.improvement_pct > 0 ? '+' : '';
+        improvement = ' — improved <strong style="color:var(--green);">' + sign + tuning.improvement_pct.toFixed(1) + '%</strong> vs previous baseline';
+      }
+      headerLine = '<div style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">' +
+        'Last tuned <strong style="color:var(--text);">' + tuning.date + '</strong>' + improvement +
+        ' (' + (tuning.experiments_run || 0) + ' experiments run)' +
+      '</div>';
+    }
+
+    var rows = summary.regime_performance.map(function(r) {
+      var v = VERDICT_COLORS[r.verdict] || VERDICT_COLORS.too_early;
+      var verdictBadge = '<span style="display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:12px;background:' + v.color + '22;color:' + v.color + ';font-size:12px;font-weight:600;">' +
+        '<i data-lucide="' + v.icon + '" style="width:12px;height:12px;"></i>' + (r.verdict_label || v.label) +
+      '</span>';
+
+      var stats = '';
+      if (r.reliable && r.trades > 0) {
+        stats = '<span style="color:var(--text-dim);font-size:12px;">' + r.trades + ' trades·' + r.win_rate + '% avg win rate</span>';
+      } else if (!r.reliable) {
+        stats = '<span style="color:var(--text-dim);font-size:12px;font-style:italic;">insufficient data</span>';
+      }
+
+      return '<div style="display:grid;grid-template-columns:1fr auto;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);align-items:start;">' +
+        '<div>' +
+          '<div style="font-weight:600;color:var(--text);margin-bottom:4px;">' + (r.label || r.key) + '</div>' +
+          '<div style="font-size:13px;color:var(--text-dim);line-height:1.5;">' + (r.caption || '') + '</div>' +
+        '</div>' +
+        '<div style="text-align:right;">' +
+          verdictBadge +
+          '<div style="margin-top:6px;">' + stats + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    el.innerHTML = headerLine +
+      '<div style="background:var(--card-bg);border:1px solid var(--border);border-radius:6px;overflow:hidden;">' + rows + '</div>';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  // ===== NEW: Research Findings =====
+  function renderResearchFindings(summary) {
+    var el = document.getElementById('research-findings');
+    if (!el) return;
+    if (!summary || !summary.last_tuning) {
+      el.innerHTML = '<div style="padding:18px;background:var(--card-bg);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);font-size:14px;">Research summary unavailable.</div>';
+      return;
+    }
+
+    var winners = summary.last_tuning.winners || [];
+    var deadEnds = summary.last_tuning.dead_ends || [];
+
+    var paragraphs = [];
+    if (winners.length === 0) {
+      paragraphs.push('<p style="margin:0;color:var(--text-dim);">No meaningful improvements discovered in the last tuning run. Existing rules remain in play.</p>');
+    } else {
+      var winnerList = winners.map(function(w, i) {
+        return '<strong style="color:var(--text);">' + w.plain + '</strong>';
+      });
+      var joined;
+      if (winnerList.length === 1) joined = winnerList[0];
+      else if (winnerList.length === 2) joined = winnerList[0] + ' and ' + winnerList[1];
+      else joined = winnerList.slice(0, -1).join(', ') + ', and ' + winnerList[winnerList.length - 1];
+
+      paragraphs.push('<p style="margin:0 0 10px;color:var(--text);line-height:1.7;">This week\'s tuning discovered ' +
+        (winners.length === 1 ? '<strong>1 improvement</strong>' : '<strong>' + winners.length + ' improvements</strong>') +
+        ': ' + joined + '.</p>');
+    }
+
+    if (deadEnds.length > 0) {
+      paragraphs.push('<p style="margin:0;color:var(--text-dim);font-size:13px;line-height:1.6;"><i data-lucide="minus-circle" style="width:13px;height:13px;vertical-align:-2px;margin-right:4px;"></i>' +
+        'Things tested without meaningful gains: ' + deadEnds.slice(0, 3).map(function(d) {
+          return d.replace(' — tested, no improvement', '');
+        }).join('; ') + '.</p>');
+    }
+
+    el.innerHTML = '<div style="padding:16px 18px;background:var(--card-bg);border:1px solid var(--border);border-radius:6px;">' +
+      paragraphs.join('') + '</div>';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  // ===== NEW: Rules in Play =====
+  function renderStrategyRules(summary) {
+    var el = document.getElementById('strategy-rules');
+    if (!el) return;
+    var rules = (summary && summary.rules_in_play) || [];
+    if (rules.length === 0) {
+      el.innerHTML = '<div style="padding:18px;background:var(--card-bg);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);font-size:14px;">Strategy rules unavailable.</div>';
+      return;
+    }
+    var items = rules.map(function(r) {
+      return '<li style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--text);font-size:14px;line-height:1.5;display:flex;align-items:flex-start;gap:10px;">' +
+        '<i data-lucide="check" style="width:16px;height:16px;color:var(--cyan);margin-top:2px;flex-shrink:0;"></i>' +
+        '<span>' + r + '</span>' +
+      '</li>';
+    }).join('');
+    el.innerHTML = '<ul style="margin:0;padding:4px 18px;list-style:none;background:var(--card-bg);border:1px solid var(--border);border-radius:6px;">' + items + '</ul>';
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
