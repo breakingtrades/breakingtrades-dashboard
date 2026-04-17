@@ -469,29 +469,60 @@ def compute_duration(regime_name):
 
 # ── Main ──────────────────────────────────────────────────────────────────
 
+STALE_LABELS = {'no_data', 'no_sma'}
+
+def assign_signal(signals, key, compute_result, weight, prev_components):
+    """Write signals[key] from a compute_* return tuple, carrying forward prior
+    good values when the computation returns a stale/no_data sentinel."""
+    score, value, label = compute_result
+    if label in STALE_LABELS:
+        prev = (prev_components or {}).get(key) or {}
+        prev_label = prev.get('signal')
+        if prev.get('value') not in (None, 0) and prev_label not in STALE_LABELS:
+            print(f"[warn] {key}: compute returned {label}; carrying forward prior "
+                  f"value={prev.get('value')} score={prev.get('score')} label={prev_label}")
+            signals[key] = {
+                'score': prev.get('score', score),
+                'value': prev.get('value', value),
+                'signal': prev_label or label,
+                'weight': weight,
+                'stale': True,
+            }
+            return
+        # No prior to carry forward — fall through and record the fresh no_data.
+    signals[key] = {'score': score, 'value': value, 'signal': label, 'weight': weight}
+
 def main():
     prices = load_json(DATA / "prices.json")
     fg_data = load_json(DATA / "fear-greed.json")
     breadth_data = load_json(DATA / "breadth.json")
     watchlist = load_json(DATA / "watchlist.json")
 
+    # Load prior regime components so transient compute failures don't zero-out values.
+    prev_regime = {}
+    try:
+        prev_regime = load_json(DATA / "regime.json") or {}
+    except Exception as e:
+        print(f"[warn] could not load prior regime.json: {e}")
+    prev_components = prev_regime.get('components') if isinstance(prev_regime, dict) else {}
+
     # Compute all 15 signals: (score, raw_value, label)
     signals = {}
-    s, v, l = compute_move(prices);         signals['move'] = {'score': s, 'value': v, 'signal': l, 'weight': 18}
-    s, v, l = compute_fear_greed(fg_data);  signals['fear_greed'] = {'score': s, 'value': v, 'signal': l, 'weight': 10}
-    s, v, l = compute_vix(prices);          signals['vix'] = {'score': s, 'value': v, 'signal': l, 'weight': 10}
-    s, v, l = compute_breadth(breadth_data);signals['breadth'] = {'score': s, 'value': v, 'signal': l, 'weight': 8}
-    s, v, l = compute_sp_vs_d200(prices, watchlist); signals['sp_vs_d200'] = {'score': s, 'value': v, 'signal': l, 'weight': 8}
-    s, v, l = compute_hyg_spy(prices, watchlist);    signals['hyg_spy'] = {'score': s, 'value': v, 'signal': l, 'weight': 8}
-    s, v, l = compute_xlf_spy(prices, watchlist);    signals['xlf_spy'] = {'score': s, 'value': v, 'signal': l, 'weight': 6}
-    s, v, l = compute_dxy(prices);          signals['dxy'] = {'score': s, 'value': v, 'signal': l, 'weight': 5}
-    s, v, l = compute_yield_curve(prices);  signals['yield_curve'] = {'score': s, 'value': v, 'signal': l, 'weight': 5}
-    s, v, l = compute_growth_value(prices, watchlist); signals['growth_value'] = {'score': s, 'value': v, 'signal': l, 'weight': 4}
-    s, v, l = compute_rsp_spy(prices, watchlist);      signals['rsp_spy'] = {'score': s, 'value': v, 'signal': l, 'weight': 4}
-    s, v, l = compute_put_call();           signals['put_call'] = {'score': s, 'value': v, 'signal': l, 'weight': 4}
-    s, v, l = compute_copper_gold(prices, watchlist);  signals['copper_gold'] = {'score': s, 'value': v, 'signal': l, 'weight': 4}
-    s, v, l = compute_international(prices);signals['international'] = {'score': s, 'value': v, 'signal': l, 'weight': 4}
-    s, v, l = compute_xly_xlp(prices, watchlist);      signals['xly_xlp'] = {'score': s, 'value': v, 'signal': l, 'weight': 2}
+    assign_signal(signals, 'move',         compute_move(prices),                        18, prev_components)
+    assign_signal(signals, 'fear_greed',   compute_fear_greed(fg_data),                 10, prev_components)
+    assign_signal(signals, 'vix',          compute_vix(prices),                         10, prev_components)
+    assign_signal(signals, 'breadth',      compute_breadth(breadth_data),                8, prev_components)
+    assign_signal(signals, 'sp_vs_d200',   compute_sp_vs_d200(prices, watchlist),        8, prev_components)
+    assign_signal(signals, 'hyg_spy',      compute_hyg_spy(prices, watchlist),           8, prev_components)
+    assign_signal(signals, 'xlf_spy',      compute_xlf_spy(prices, watchlist),           6, prev_components)
+    assign_signal(signals, 'dxy',          compute_dxy(prices),                          5, prev_components)
+    assign_signal(signals, 'yield_curve',  compute_yield_curve(prices),                  5, prev_components)
+    assign_signal(signals, 'growth_value', compute_growth_value(prices, watchlist),      4, prev_components)
+    assign_signal(signals, 'rsp_spy',      compute_rsp_spy(prices, watchlist),           4, prev_components)
+    assign_signal(signals, 'put_call',     compute_put_call(),                           4, prev_components)
+    assign_signal(signals, 'copper_gold',  compute_copper_gold(prices, watchlist),       4, prev_components)
+    assign_signal(signals, 'international',compute_international(prices),                4, prev_components)
+    assign_signal(signals, 'xly_xlp',      compute_xly_xlp(prices, watchlist),           2, prev_components)
 
     # Weighted score
     total_weight = sum(sig['weight'] for sig in signals.values())
