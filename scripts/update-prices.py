@@ -195,8 +195,29 @@ def update_prices():
         "tickers": result,
     }
 
+    # Safety: never overwrite a good prices.json with an empty/degraded one.
+    # If we got zero tickers, bail out. If we got <50% of expected, preserve the
+    # prior file and merge fresh values on top so stale tickers remain usable.
+    expected = len(tickers)
+    got = len(result)
+    if got == 0:
+        print(f"❌ Refusing to write prices.json: got 0/{expected} tickers. Keeping prior file.")
+        return
+    if got < expected * 0.5 and OUT_FILE.exists():
+        try:
+            prior = json.loads(OUT_FILE.read_text())
+            prior_tickers = prior.get("tickers", {})
+            merged = dict(prior_tickers)
+            merged.update(result)  # fresh wins for symbols we did get
+            output["tickers"] = merged
+            output["source"] = "yfinance+carryforward"
+            print(f"⚠️  Partial fetch ({got}/{expected}); merged with prior "
+                  f"{len(prior_tickers)} tickers -> {len(merged)} total")
+        except Exception as e:
+            print(f"⚠️  Partial fetch and could not load prior to merge: {e}")
+
     OUT_FILE.write_text(json.dumps(output, indent=2))
-    print(f"✅ Wrote {len(result)} tickers to prices.json ({errors} errors)")
+    print(f"✅ Wrote {len(output['tickers'])} tickers to prices.json ({errors} errors)")
 
 
 def main():
