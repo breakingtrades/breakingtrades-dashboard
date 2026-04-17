@@ -196,6 +196,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative; /* anchor for wl-col-panel dropdown */
 }
 
 .wl-group-toggle {
@@ -235,23 +236,31 @@
   position: relative;
 }
 .wl-icon-btn:hover { color: var(--text, #e5e7eb); }
+.wl-icon-btn.active {
+  background: rgba(88,166,255,0.12);
+  border-color: var(--cyan, #00d4aa);
+  color: var(--cyan, #00d4aa);
+}
 .wl-icon-btn i { width: 14px; height: 14px; }
 
+/* Column dropdown — anchored below the Columns button */
+.wl-col-btn-wrap { position: relative; display: inline-flex; }
 .wl-col-panel {
   position: absolute;
-  right: 16px;
-  top: 68px;
+  right: 0;
+  top: calc(100% + 6px);
   z-index: var(--z-dropdown);
   background: var(--bg-card, #0f0f1a);
   border: 1px solid var(--border, rgba(255,255,255,0.08));
   border-radius: 8px;
-  padding: 12px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  min-width: 160px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  gap: 4px;
+  min-width: 180px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.55);
 }
+.wl-col-panel[hidden] { display: none !important; }
 .wl-col-panel-title {
   font-size: 10px;
   font-weight: 700;
@@ -319,6 +328,14 @@
   color: #0a0a0f;
   border-color: var(--cyan, #00d4aa);
 }
+.wl-pill.active::after {
+  /* tiny hint that active pills are clickable to clear */
+  content: '×';
+  margin-left: 4px;
+  opacity: 0.65;
+  font-weight: 700;
+}
+.wl-pill[data-val="all"].active::after { content: none; }
 
 .wl-filter-selects {
   margin-left: auto;
@@ -373,6 +390,24 @@
   align-items: center;
   gap: 4px;
 }
+.wl-reset-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background: transparent;
+  border-color: var(--border, rgba(255,255,255,0.08));
+  color: var(--text-dim, #6b7280);
+}
+.wl-reset-btn .wl-reset-count {
+  background: var(--red, #ef5350);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  min-width: 16px;
+  text-align: center;
+}
+.wl-reset-btn:disabled .wl-reset-count { display: none; }
 .wl-reset-btn i { width: 11px; height: 11px; }
 
 /* Stat bar */

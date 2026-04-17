@@ -141,15 +141,17 @@
               '<button class="wl-group-btn" data-group="sector">By Sector</button>' +
               '<button class="wl-group-btn" data-group="group">By Section</button>' +
             '</div>' +
-            '<button class="wl-icon-btn" id="wl-col-btn" title="Columns" aria-label="Columns"><i data-lucide="settings-2"></i></button>' +
-            '<div class="wl-col-panel" id="wl-col-panel" hidden>' +
-              '<div class="wl-col-panel-title">Columns</div>' +
-              '<label><input type="checkbox" data-col-toggle="rsi"> RSI</label>' +
-              '<label><input type="checkbox" data-col-toggle="atr"> ATR %</label>' +
-              '<label><input type="checkbox" data-col-toggle="volRatio"> Vol Ratio</label>' +
-              '<label><input type="checkbox" data-col-toggle="earnings"> Earnings</label>' +
-              '<label><input type="checkbox" data-col-toggle="bbWidth"> BB Width</label>' +
-              '<label><input type="checkbox" data-col-toggle="pos52w"> 52w Pos</label>' +
+            '<div class="wl-col-btn-wrap">' +
+              '<button class="wl-icon-btn" id="wl-col-btn" title="Toggle columns" aria-label="Toggle columns" aria-expanded="false"><i data-lucide="settings-2"></i></button>' +
+              '<div class="wl-col-panel" id="wl-col-panel" hidden>' +
+                '<div class="wl-col-panel-title">Show columns</div>' +
+                '<label><input type="checkbox" data-col-toggle="rsi"> RSI</label>' +
+                '<label><input type="checkbox" data-col-toggle="atr"> ATR %</label>' +
+                '<label><input type="checkbox" data-col-toggle="volRatio"> Vol Ratio</label>' +
+                '<label><input type="checkbox" data-col-toggle="earnings"> Earnings</label>' +
+                '<label><input type="checkbox" data-col-toggle="bbWidth"> BB Width</label>' +
+                '<label><input type="checkbox" data-col-toggle="pos52w"> 52w Pos</label>' +
+              '</div>' +
             '</div>' +
             '<div class="wl-view-toggle">' +
               '<button class="wl-view-btn" id="wl-btn-widget">Widget</button>' +
@@ -190,7 +192,7 @@
             '<select class="wl-select" id="wl-filter-sector" aria-label="Sector filter"><option value="all">All sectors</option></select>' +
             '<select class="wl-select" id="wl-filter-group" aria-label="Section filter"><option value="all">All sections</option></select>' +
             '<div class="wl-search-wrap"><i data-lucide="search"></i><input class="wl-search-input" id="wl-filter-search" type="text" placeholder="Search ticker or name…" aria-label="Search"></div>' +
-            '<button class="wl-reset-btn" id="wl-filter-reset" hidden><i data-lucide="x"></i> Reset</button>' +
+            '<button class="wl-reset-btn" id="wl-filter-reset" disabled title="Clear all active filters"><i data-lucide="filter-x"></i> Clear <span class="wl-reset-count" id="wl-reset-count">0</span></button>' +
           '</div>' +
         '</div>' +
 
@@ -263,11 +265,18 @@
       th.addEventListener('click', function() { doSort(parseInt(th.getAttribute('data-col'), 10)); });
     });
 
-    // Filter pills (delegate per filter-group)
+    // Filter pills (delegate per filter-group). Click an ACTIVE pill to clear it (returns to 'all').
     document.querySelectorAll('.wl-filter-group[data-filter]').forEach(function(grp) {
       var key = grp.getAttribute('data-filter');
       grp.querySelectorAll('.wl-pill').forEach(function(btn) {
-        btn.addEventListener('click', function() { _setFilter(key, btn.getAttribute('data-val')); });
+        btn.addEventListener('click', function() {
+          var val = btn.getAttribute('data-val');
+          if (val !== 'all' && activeFilters[key] === val) {
+            _setFilter(key, 'all');  // toggle off
+          } else {
+            _setFilter(key, val);
+          }
+        });
       });
     });
 
@@ -300,12 +309,20 @@
     var colBtn = document.getElementById('wl-col-btn');
     var colPanel = document.getElementById('wl-col-panel');
     if (colBtn && colPanel) {
+      var setOpen = function(open) {
+        colPanel.hidden = !open;
+        colBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        colBtn.classList.toggle('active', open);
+      };
       colBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        colPanel.hidden = !colPanel.hidden;
+        setOpen(colPanel.hidden);
       });
       document.addEventListener('click', function(e) {
-        if (!colPanel.hidden && !colPanel.contains(e.target) && e.target !== colBtn) colPanel.hidden = true;
+        if (!colPanel.hidden && !colPanel.contains(e.target) && e.target !== colBtn) setOpen(false);
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !colPanel.hidden) setOpen(false);
       });
       colPanel.querySelectorAll('input[data-col-toggle]').forEach(function(cb) {
         var k = cb.getAttribute('data-col-toggle');
@@ -390,11 +407,15 @@
     var selGroup  = document.getElementById('wl-filter-group');
     if (selSector) selSector.value = activeFilters.sector;
     if (selGroup)  selGroup.value  = activeFilters.group;
-    // Reset visibility
-    var anyActive = false;
-    for (var k in DEFAULT_FILTERS) { if (activeFilters[k] !== DEFAULT_FILTERS[k]) { anyActive = true; break; } }
+    // Reset visibility + count badge
+    var activeCount = 0;
+    for (var k in DEFAULT_FILTERS) {
+      if (activeFilters[k] !== DEFAULT_FILTERS[k]) activeCount++;
+    }
     var reset = document.getElementById('wl-filter-reset');
-    if (reset) reset.hidden = !anyActive;
+    var countEl = document.getElementById('wl-reset-count');
+    if (reset) reset.disabled = activeCount === 0;
+    if (countEl) countEl.textContent = String(activeCount);
     // Grouping
     document.querySelectorAll('.wl-group-btn').forEach(function(b) {
       b.classList.toggle('active', b.getAttribute('data-group') === grouping);
