@@ -3,7 +3,7 @@
 **Status:** Implemented
 **Owner:** Idan
 **Date:** 2026-04-17
-**Implemented commits:** `21e76ef` (v1 offset + padding), `0c23edb` (row stacking bandaid), `<pending>` (proper isolate fix)
+**Implemented commits:** `21e76ef` (v1 offset + padding), `0c23edb` (row stacking bandaid), `f78f688` (proper isolate fix)
 
 ## Why
 
