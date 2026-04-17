@@ -88,6 +88,7 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.4);  /* visual separation from first row */
   }
   tbody tr:first-child td { padding-top: 12px; }  /* extra breathing room so SPY isn't hugging the sticky header */
+  tbody tr { position: relative; z-index: 0; }  /* contain absolute children (pos-marker, risk-bar) so they don't paint above sticky thead */
   thead th:hover { color: var(--text); }
   thead th.sort-asc::after { content: ' ▲'; color: var(--cyan); }
   thead th.sort-desc::after { content: ' ▼'; color: var(--cyan); }
