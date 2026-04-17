@@ -116,3 +116,10 @@ const btPrices = (() => {
 
   return { load, get, price, change, updatedAt, updatedLabel, isLoaded, symbols, refresh, onRefresh, startAutoRefresh, stopAutoRefresh };
 })();
+
+// Expose globally so non-module page scripts can do `window.btPrices.price('QQQ')`.
+// Top-level `const` in a classic <script> does NOT attach to window; without this
+// every page falls back to stale EM-close or watchlist.json prices.
+if (typeof window !== 'undefined') {
+  window.btPrices = btPrices;
+}
