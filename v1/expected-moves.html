@@ -63,7 +63,11 @@
 
   /* Table */
   .em-table-wrap {
-    overflow-x: auto;
+    /* overflow-x:auto creates a scroll container that captures sticky thead
+       at the wrapper level (top:48px becomes 48px from wrapper top, not viewport).
+       overflow-x:clip clips without creating a scroll container — sticky thead
+       falls through to viewport and pins correctly under the global nav. */
+    overflow-x: clip;
     border: 1px solid var(--border);
     border-radius: 8px;
     /* Isolate so sticky thead z-index is scoped here. Prevents absolute-positioned
