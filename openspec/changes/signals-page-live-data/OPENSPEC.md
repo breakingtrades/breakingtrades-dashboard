@@ -3,7 +3,7 @@
 **Status:** Implemented
 **Owner:** Idan
 **Date:** 2026-04-17
-**Implemented commit:** _see git log_
+**Implemented commit:** `21e76ef`
 **Related:** `watchlist-page`, `data-integrity-guards`
 
 ## Why
