@@ -214,7 +214,7 @@ def main():
     print(f"Downloading daily data for {len(yf_symbols)} symbols...")
     
     # We need to make sure we download pairs that aren't in the watchlist
-    extra_pairs = ['RSP', 'SLV', 'GLD']
+    extra_pairs = ['RSP', 'SLV', 'GLD', 'IWF', 'IWD', 'XLY', 'XLP']
     all_symbols = list(set(yf_symbols + extra_pairs))
     
     data = yf.download(tickers=all_symbols, period="1y", interval="1d", group_by="ticker", auto_adjust=True, prepost=False, threads=True)
@@ -252,12 +252,13 @@ def main():
     
     # Build Pairs
     pairs = [
-        {"pair": "XLY/XLP", "desc": "Consumer weakening — risk-off rotation"},
+        {"pair": "XLY/XLP", "desc": "American Consumer Strength (Discretionary/Staples)"},
+        {"pair": "IWF/IWD", "desc": "Growth vs Value (Russell 1000)"},
         {"pair": "HYG/SPY", "desc": "Credit vs Equity — risk appetite"},
         {"pair": "RSP/SPY", "desc": "Breadth — equal vs cap weight"},
         {"pair": "XLV/SPY", "desc": "Defensive rotation"},
         {"pair": "IWM/SPY", "desc": "Small caps vs Large caps"},
-        {"pair": "IWM/QQQ", "desc": "Value vs Growth"},
+        {"pair": "IWM/QQQ", "desc": "Value vs Growth (broad)"},
         {"pair": "XLE/SPY", "desc": "Energy outperformance"},
         {"pair": "GLD/SPY", "desc": "Safe haven demand"},
         {"pair": "TLT/SPY", "desc": "Flight to bonds"},

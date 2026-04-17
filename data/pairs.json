@@ -1,7 +1,31 @@
 [
   {
+    "pair": "XLY/XLP",
+    "desc": "American Consumer Strength (Discretionary/Staples)",
+    "signal": "\u2197 RISING",
+    "color": "up"
+  },
+  {
+    "pair": "IWF/IWD",
+    "desc": "Growth vs Value (Russell 1000)",
+    "signal": "\u2197 RISING",
+    "color": "up"
+  },
+  {
+    "pair": "HYG/SPY",
+    "desc": "Credit vs Equity \u2014 risk appetite",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  },
+  {
     "pair": "RSP/SPY",
     "desc": "Breadth \u2014 equal vs cap weight",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  },
+  {
+    "pair": "XLV/SPY",
+    "desc": "Defensive rotation",
     "signal": "\u2198 FALLING",
     "color": "down"
   },
@@ -13,7 +37,19 @@
   },
   {
     "pair": "IWM/QQQ",
-    "desc": "Value vs Growth",
+    "desc": "Value vs Growth (broad)",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  },
+  {
+    "pair": "XLE/SPY",
+    "desc": "Energy outperformance",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  },
+  {
+    "pair": "GLD/SPY",
+    "desc": "Safe haven demand",
     "signal": "\u2198 FALLING",
     "color": "down"
   },
@@ -22,6 +58,18 @@
     "desc": "Flight to bonds",
     "signal": "\u2198 FALLING",
     "color": "down"
+  },
+  {
+    "pair": "SLV/GLD",
+    "desc": "Industrial vs safe haven",
+    "signal": "\u2197 RISING",
+    "color": "up"
+  },
+  {
+    "pair": "HYG/TLT",
+    "desc": "Credit vs treasuries",
+    "signal": "\u2197 RISING",
+    "color": "up"
   },
   {
     "pair": "IGV/QQQ",

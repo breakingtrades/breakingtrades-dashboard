@@ -30,12 +30,13 @@ BENCHMARK = "SPY"
 
 # Pair definitions
 PAIRS = [
-    {"pair": "XLY/XLP", "desc": "Consumer weakening — risk-off rotation"},
+    {"pair": "XLY/XLP", "desc": "American Consumer Strength (Discretionary/Staples)"},
+    {"pair": "IWF/IWD", "desc": "Growth vs Value (Russell 1000)"},
     {"pair": "HYG/SPY", "desc": "Credit vs Equity — risk appetite"},
     {"pair": "RSP/SPY", "desc": "Breadth — equal vs cap weight"},
     {"pair": "XLV/SPY", "desc": "Defensive rotation"},
     {"pair": "IWM/SPY", "desc": "Small caps vs Large caps"},
-    {"pair": "IWM/QQQ", "desc": "Value vs Growth"},
+    {"pair": "IWM/QQQ", "desc": "Value vs Growth (broad)"},
     {"pair": "XLE/SPY", "desc": "Energy outperformance"},
     {"pair": "GLD/SPY", "desc": "Safe haven demand"},
     {"pair": "TLT/SPY", "desc": "Flight to bonds"},
