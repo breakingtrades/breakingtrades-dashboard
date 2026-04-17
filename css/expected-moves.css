@@ -63,15 +63,17 @@
 
 /* === Table === */
 .em-table-wrap {
-  /* overflow-x: auto creates a vertical scroll container too (browser behavior),
-     which captures sticky thead at the wrapper level instead of the viewport.
-     overflow-x: clip clips horizontal overflow WITHOUT creating a scroll container,
-     so the sticky thead correctly pins under the global nav at viewport top: 48px. */
-  overflow-x: clip;
+  /* overflow: visible on desktop so the sticky thead falls through to the viewport
+     and pins correctly under the 48px global nav. Any non-visible overflow value
+     (auto/clip/scroll/hidden) either creates a scroll container that traps sticky
+     inside the wrapper, OR (with clip) removes the scroll container entirely so
+     sticky can't engage at all.
+     Mobile breakpoint restores overflow-x: auto for horizontal scroll of the
+     wider table (at the cost of sticky thead on small screens — acceptable). */
+  overflow: visible;
   border: 1px solid var(--border);
   border-radius: 8px;
-  /* Stacking context scope for sticky thead z-index (prevents absolute tbody
-     descendants like em-pos-marker from painting above the sticky header on scroll). */
+  /* Stacking context scope for sticky thead z-index. */
   isolation: isolate;
 }
 .em-table { width: 100%; border-collapse: collapse; white-space: nowrap; }

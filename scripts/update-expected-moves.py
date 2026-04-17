@@ -104,23 +104,85 @@ def find_expiry_in_range(expirations, min_dte, max_dte):
     return candidates[0][0], candidates[0][1]
 
 
-def compute_em_bands(straddle, close_price, dte):
-    """Compute EM bands from straddle price, scaling by sqrt(time)."""
+def find_weekly_expiry(expirations):
+    """Find the Friday expiry used for the WEEKLY EM tier.
+
+    On Friday: this is the Friday 7 days out (5-10 DTE).
+    On other days: this is the NEXT upcoming Friday (2-10 DTE).
+
+    NEVER returns a 0 or 1 DTE expiry — a 1-day straddle is not a
+    "weekly" EM, that's just an overnight / intraday move.
+    """
+    # Try 5-10 DTE first (standard next-Friday window Mon-Wed, or
+    # the Friday 7 days out when we run on a Friday)
+    exp, dte = find_expiry_in_range(expirations, 5, 10)
+    if exp:
+        return exp, dte
+    # Thursday case: the only Friday in range is 1 DTE which we reject.
+    # Go wider (2-14) but still prefer Fridays (find_expiry_in_range does).
+    exp, dte = find_expiry_in_range(expirations, 2, 14)
+    if exp:
+        return exp, dte
+    # Last resort: any 1-14 DTE. Caller should flag this as degraded.
+    return find_expiry_in_range(expirations, 1, 14)
+
+
+def find_weekly_anchor(history, today_date):
+    """Find the weekly EM anchor close + date.
+
+    Weekly EM is anchored at LAST FRIDAY'S CLOSE and held constant
+    Monday through Friday. Returns (close, YYYY-MM-DD) of the most
+    recent Friday on-or-before `today_date` that exists in history.
+
+    If today IS Friday, returns today's entry (the new anchor being set).
+    If no Friday found in history, returns (None, None) and the caller
+    should fall back to today's close (first-run / seeding).
+    """
+    if not history:
+        return None, None
+    # Sort by date ascending, iterate from most recent backward
+    by_date = sorted(history, key=lambda h: h.get('date', ''))
+    target = today_date  # YYYY-MM-DD string
+    for entry in reversed(by_date):
+        d = entry.get('date')
+        if not d or d > target:
+            continue
+        try:
+            dt = datetime.strptime(d, '%Y-%m-%d')
+        except Exception:
+            continue
+        if dt.weekday() == 4:  # Friday
+            return entry.get('close'), d
+    return None, None
+
+
+def compute_em_bands(straddle, close_price, dte, weekly_anchor_close=None):
+    """Compute EM bands from straddle price, scaling by sqrt(time).
+
+    Args:
+        straddle: ATM straddle price (call + put)
+        close_price: Spot / close used for daily/monthly/quarterly bands
+        dte: DTE of the straddle contract
+        weekly_anchor_close: If provided, the WEEKLY band is centered on
+            this anchor instead of close_price. Used to keep the weekly
+            range locked to last Friday's close throughout the week.
+    """
     em_raw = straddle * 0.85
     dte = max(1, dte)
 
-    def band(target_dte):
+    def band(target_dte, anchor=None):
         scaled = em_raw * math.sqrt(target_dte / dte)
+        a = anchor if anchor is not None else close_price
         return {
             'value': round(scaled, 2),
-            'pct': round(scaled / close_price * 100, 2),
-            'upper': round(close_price + scaled, 2),
-            'lower': round(close_price - scaled, 2),
+            'pct': round(scaled / a * 100, 2),
+            'upper': round(a + scaled, 2),
+            'lower': round(a - scaled, 2),
         }
 
     return {
         'daily': band(1),
-        'weekly': band(5),
+        'weekly': band(5, anchor=weekly_anchor_close),
         'monthly': band(21),
         'quarterly': band(63),
     }
@@ -130,7 +192,8 @@ def compute_em_bands(straddle, close_price, dte):
 # Source: yfinance (free, no gateway needed)
 # ============================================================
 
-def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, canonical_prices=None):
+def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, canonical_prices=None,
+                      weekly_anchor_close=None, weekly_anchor_date=None):
     """Process a single ticker via yfinance options chain."""
     import yfinance as yf
 
@@ -193,12 +256,12 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
     if ticker in FUTURES_PROXY:
         result['futures_proxy'] = FUTURES_PROXY[ticker]
 
-    # --- Nearest expiry ---
-    # Prefer weekly (1-8 DTE), then 0-14 DTE, then nearest monthly (up to 45 DTE)
-    weekly_exp, weekly_dte = find_expiry_in_range(expirations, 1, 8)
+    # --- Expiry selection ---
+    # "Weekly" EM must use a TRUE weekly expiry (5-10 DTE, preferably Friday).
+    # A 1-DTE straddle is NOT a weekly EM — it's an overnight move.
+    weekly_exp, weekly_dte = find_weekly_expiry(expirations)
     if not weekly_exp:
-        weekly_exp, weekly_dte = find_expiry_in_range(expirations, 0, 14)
-    if not weekly_exp:
+        # Fall back to anything inside 14-45 DTE for daily-only tickers
         weekly_exp, weekly_dte = find_expiry_in_range(expirations, 14, 45)
     if not weekly_exp:
         print("no expiry within 45 DTE", flush=True)
@@ -233,7 +296,19 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
 
     straddle = call_price + put_price
     atm_strike = atm_call['strike']
-    em = compute_em_bands(straddle, close_price, weekly_dte)
+
+    # Weekly anchor: if caller provided last Friday's close, use that for
+    # the weekly band. Otherwise anchor to today's close (first run / Friday run).
+    anchor_close = weekly_anchor_close if weekly_anchor_close else close_price
+    anchor_date = weekly_anchor_date if weekly_anchor_date else datetime.now().strftime('%Y-%m-%d')
+
+    em = compute_em_bands(straddle, close_price, weekly_dte, weekly_anchor_close=anchor_close)
+
+    # Stamp the weekly block with provenance so the UI + future runs can trust it
+    em['weekly']['anchor_close'] = round(anchor_close, 2)
+    em['weekly']['anchor_date'] = anchor_date
+    em['weekly']['straddle'] = round(straddle, 2)
+    em['weekly']['expiry'] = weekly_exp
 
     result.update({
         'strike': atm_strike,
@@ -331,7 +406,8 @@ def ib_connect(port, client_id=70):
         return None, str(e)
 
 
-def ib_process_ticker(ib, ticker, include_monthly=False, include_quarterly=False):
+def ib_process_ticker(ib, ticker, include_monthly=False, include_quarterly=False,
+                       weekly_anchor_close=None, weekly_anchor_date=None):
     """Process a single ticker via IB Gateway. Same logic as update-expected-moves-ib.py."""
     from ib_insync import Stock, Option
     print(f"\n[{ticker}]", end=' ', flush=True)
@@ -381,10 +457,8 @@ def ib_process_ticker(ib, ticker, include_monthly=False, include_quarterly=False
     if ticker in FUTURES_PROXY:
         result['futures_proxy'] = FUTURES_PROXY[ticker]
 
-    # Weekly expiry
-    weekly_exp, weekly_dte = find_expiry_in_range(chain.expirations, 1, 8)
-    if not weekly_exp:
-        weekly_exp, weekly_dte = find_expiry_in_range(chain.expirations, 0, 14)
+    # Weekly expiry — MUST be a true weekly (5-10 DTE Friday), not a 1-DTE
+    weekly_exp, weekly_dte = find_weekly_expiry(chain.expirations)
     if not weekly_exp:
         print("no weekly expiry", flush=True)
         return None
@@ -424,7 +498,16 @@ def ib_process_ticker(ib, ticker, include_monthly=False, include_quarterly=False
         return None
 
     straddle = call_close + put_close
-    em = compute_em_bands(straddle, close_price, weekly_dte)
+
+    anchor_close = weekly_anchor_close if weekly_anchor_close else close_price
+    anchor_date = weekly_anchor_date if weekly_anchor_date else datetime.now().strftime('%Y-%m-%d')
+
+    em = compute_em_bands(straddle, close_price, weekly_dte, weekly_anchor_close=anchor_close)
+
+    em['weekly']['anchor_close'] = round(anchor_close, 2)
+    em['weekly']['anchor_date'] = anchor_date
+    em['weekly']['straddle'] = round(straddle, 2)
+    em['weekly']['expiry'] = weekly_exp
 
     result.update({
         'strike': atm_strike,
@@ -598,27 +681,74 @@ def main():
     processed = 0
     errors = []
 
+    today_date = datetime.now().strftime('%Y-%m-%d')
+    today_is_friday = datetime.now().weekday() == 4
+
+    # Tier-aware merge policy:
+    #   'daily'              → only rewrite close/spot/updated/daily/history.
+    #                          Preserve weekly/monthly/quarterly from prior run
+    #                          so weekly anchor stays locked to last Friday.
+    #   'weekly'/'all'/'quarterly'/single-ticker → full replace.
+    preserve_weekly_block = (args.tier == 'daily' and not args.ticker)
+    if preserve_weekly_block:
+        print("Tier=daily: preserving existing weekly/monthly/quarterly blocks (weekly anchor locked to last Friday).")
+
     for ticker in sorted(tickers):
         try:
-            if use_yfinance:
-                data = yf_process_ticker(ticker, include_monthly, include_quarterly, canonical_prices)
+            prior = results.get(ticker, {}) or {}
+            prior_history = prior.get('history', [])
+
+            # Find weekly anchor from history. On Friday we set a NEW anchor
+            # (today's close), so don't look one up — the processor will use
+            # its own close as the anchor.
+            if today_is_friday:
+                anchor_close, anchor_date = None, None
             else:
-                data = ib_process_ticker(ib, ticker, include_monthly, include_quarterly)
+                anchor_close, anchor_date = find_weekly_anchor(prior_history, today_date)
+                # Fallback: reuse existing weekly.anchor_close if history doesn't have it yet
+                if anchor_close is None:
+                    w = prior.get('weekly', {}) or {}
+                    anchor_close = w.get('anchor_close')
+                    anchor_date = w.get('anchor_date')
+
+            if use_yfinance:
+                data = yf_process_ticker(
+                    ticker, include_monthly, include_quarterly, canonical_prices,
+                    weekly_anchor_close=anchor_close, weekly_anchor_date=anchor_date,
+                )
+            else:
+                data = ib_process_ticker(
+                    ib, ticker, include_monthly, include_quarterly,
+                    weekly_anchor_close=anchor_close, weekly_anchor_date=anchor_date,
+                )
 
             if data:
-                # Preserve history
-                history = results.get(ticker, {}).get('history', [])
+                # Apply tier-guarded merge
+                if preserve_weekly_block and prior:
+                    merged = dict(prior)  # start from prior (keeps weekly/monthly/quarterly/strike/straddle/etc.)
+                    # Overlay only fields that legitimately change daily
+                    for k in ('close', 'spot', 'updated', 'source', 'daily'):
+                        if k in data:
+                            merged[k] = data[k]
+                    # Update the 'pct' in daily against the new close just in case
+                    data_final = merged
+                else:
+                    data_final = data
+
+                # Preserve + append history
+                history = prior_history
                 entry = {
-                    'date': datetime.now().strftime('%Y-%m-%d'),
+                    'date': today_date,
                     'close': data.get('close'),
                     'straddle': data.get('straddle'),
                     'weekly_em': data.get('weekly', {}).get('value'),
                     'daily_em': data.get('daily', {}).get('value'),
+                    'is_friday': today_is_friday,
                 }
-                history = [h for h in history if h.get('date') != entry['date']]
+                history = [h for h in history if h.get('date') != today_date]
                 history.append(entry)
-                data['history'] = history[-52:]  # ~1yr weekly
-                results[ticker] = data
+                data_final['history'] = history[-52:]  # ~1yr weekly
+                results[ticker] = data_final
                 processed += 1
             else:
                 errors.append(ticker)
