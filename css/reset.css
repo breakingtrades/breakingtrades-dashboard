@@ -7,12 +7,18 @@ body {
   font-family: var(--font-mono);
   font-size: var(--font-size-base);
   line-height: 1.5;
-  overflow-x: hidden;
+  /* overflow-x: clip (not hidden) so body doesn't become a scroll container.
+     hidden forces overflow-y: auto per spec, which would trap sticky thead
+     inside <body> and prevent pinning to viewport under the global nav. */
+  overflow-x: clip;
   max-width: 100vw;
 }
 
 html {
-  overflow-x: hidden;
+  /* Same rationale as body. html MUST remain the document scroll container
+     so position:sticky elements pin correctly to the viewport. Using clip
+     here prevents accidental horizontal scroll without breaking sticky. */
+  overflow-x: clip;
 }
 
 /* Scrollbar styles — dark theme across Webkit (Chrome/Safari/Edge) and Firefox */
