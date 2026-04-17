@@ -319,7 +319,16 @@ def classify_regime(score):
 def get_transition_signals(regime, components):
     c = components
     def cond(label, key, target, op='>'):
-        val = c.get(key, {}).get('value', 0)
+        comp = c.get(key, {})
+        val = comp.get('value', 0)
+        signal_label = comp.get('signal', '')
+        # A condition SHALL NOT be declared met using stale or no_data values.
+        # When the underlying component is a sentinel or carry-forward, mark
+        # the condition stale so the UI can dim it + exclude it from 'met' counts.
+        is_stale = bool(comp.get('stale')) or signal_label in ('no_data', 'no_sma')
+        if is_stale:
+            return {'label': label, 'current': val, 'target': target,
+                    'met': False, 'stale': True}
         met = val > target if op == '>' else val < target
         return {'label': label, 'current': val, 'target': target, 'met': met}
 

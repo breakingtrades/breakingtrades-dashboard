@@ -679,6 +679,7 @@
 
     var met = ts.conditions_met || 0;
     var total = ts.conditions_total || ((ts.conditions || []).length);
+    var staleCount = (ts.conditions || []).filter(function(c) { return c.stale; }).length;
     var pctDone = total > 0 ? Math.round((met / total) * 100) : 0;
 
     var fromHuman = regimeHuman(d.regime);
@@ -710,6 +711,7 @@
           '<div class="tx-hero-progress-text">' +
             '<strong>' + met + ' of ' + total + '</strong> conditions met' +
             ' <span class="tx-hero-progress-pct">(' + pctDone + '%)</span>' +
+            (staleCount > 0 ? ' <span class="tx-hero-stale" title="Data source unavailable — some signals are stale"><i data-lucide="alert-circle"></i> ' + staleCount + ' stale</span>' : '') +
           '</div>' +
         '</div>' +
       '</div>';
@@ -741,9 +743,19 @@
       var statusCol  = c.met ? 'var(--cyan)' : 'var(--text-dim)';
       var barClass   = c.met ? 'tx-bar-fill met' : 'tx-bar-fill';
 
+      // Stale data: value carried forward from prior run or sentinel. Never lie
+      // to the user by showing it alongside real values. Override styling.
+      if (c.stale) {
+        statusIcon = 'alert-circle';
+        statusCol  = 'var(--text-dim)';
+        barClass   = 'tx-bar-fill stale';
+      }
+
       // Distance to target, human phrasing
       var gapText = '';
-      if (!c.met && c.current != null && c.target != null) {
+      if (c.stale) {
+        gapText = 'Stale';
+      } else if (!c.met && c.current != null && c.target != null) {
         var diff = Math.abs(c.target - c.current);
         gapText = diff.toFixed(diff < 10 ? 1 : 0) + ' to go';
       } else if (c.met) {
@@ -751,7 +763,8 @@
       }
 
       html +=
-        '<div class="tx-card' + (c.met ? ' met' : '') + '">' +
+        '<div class="tx-card' + (c.met ? ' met' : '') + (c.stale ? ' stale' : '') + '"' +
+          (c.stale ? ' title="Data source unavailable — value carried forward from last good run"' : '') + '>' +
           '<div class="tx-card-head">' +
             '<div class="tx-card-icon" style="color:' + statusCol + ';"><i data-lucide="' + statusIcon + '"></i></div>' +
             '<div class="tx-card-title">' + plain.name + '</div>' +

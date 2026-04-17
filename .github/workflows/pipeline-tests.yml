@@ -1,0 +1,29 @@
+name: Pipeline Tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**.py'
+      - 'tests/test_*.py'
+      - '.github/workflows/pipeline-tests.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/**.py'
+      - 'tests/test_*.py'
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install deps
+        run: pip install pytest yfinance pandas
+      - name: Run pipeline tests
+        run: python -m pytest tests/test_update_regime.py tests/test_update_prices.py tests/test_transition_signals.py tests/test_validate_regime.py -v
+      - name: Validate committed regime.json
+        run: python scripts/validate-regime.py

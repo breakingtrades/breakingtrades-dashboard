@@ -82,10 +82,54 @@ python3 -m pytest tests/ -v
 
 | Item | Priority | Notes |
 |------|----------|-------|
-| Surface `stale: True` badge in Research UI | Low | JSON flag exists, UI doesn't render it yet |
-| Pre-push git hook running `pytest tests/` | Medium | Would have caught the original bug before it shipped |
+| Surface `stale: True` badge in Research UI | ~~Low~~ **DONE** | See below |
+| Pre-push git hook running `pytest tests/` | Medium | CI gate added; local hook still optional |
 | Apply carry-forward pattern to `update-breadth.py`, `update-expected-moves.py` | Medium | Same `return None` pattern — less impact, but worth consistent treatment |
 | Watchlist.js — don't render missing `change` as green | Low | Cosmetic; unlikely to fire now that prices.json is protected |
+
+## Follow-up Hardening (Apr 17 — same day)
+
+After the initial 3-tier fix, we closed the remaining gaps:
+
+### 4. `cond()` stale-awareness in `get_transition_signals()` ✅
+Even with carry-forward, a stale component could silently flip a transition
+condition to `met=True` if its value straddled the threshold. `cond()` now
+inspects `comp.get('stale')` and `comp.get('signal')`. Sentinel or stale
+values short-circuit to `met=False, stale=True`. The `conditions_met` count
+automatically excludes them.
+
+### 5. UI treatment for stale conditions ✅
+`js/pages/autoresearch.js` + `css/autoresearch.css`:
+- `.tx-card.stale` — dashed border, 55% opacity, alert-circle icon, tooltip
+- Gap text replaced with "Stale"
+- Hero progress shows "N stale" badge when any condition is stale
+- Stale conditions can no longer be mistaken for real data
+
+### 6. Runtime validator — `scripts/validate-regime.py` ✅
+Six sanity checks run after every regime.json write:
+1. All 15 components present
+2. No `value=0` with non-sentinel signal (**catches the Apr 16 bug exactly**)
+3. `conditions_met` == count(met AND NOT stale)
+4. `regime` in known set
+5. Stale flag consistent with signal label
+6. File age ≤ 24h (pipeline stall detector)
+
+Wired into `scripts/eod-update.sh` (step 6b) and CI
+(`.github/workflows/pipeline-tests.yml`).
+
+### 7. Expanded test coverage ✅
+- `tests/test_transition_signals.py` — 9 tests for `cond()` stale handling
+- `tests/test_validate_regime.py` — 10 tests for the validator itself
+- **Total suite: 34 tests, all passing**
+
+### 8. Cross-workspace spec ✅
+`skills/uxui/openspec/specs/data-integrity/spec.md` (v1.3.0) — makes the
+pattern mandatory for every future dashboard built in this workspace.
+
+### 9. Full postmortem doc ✅
+`docs/AI-RESEARCHER-POSTMORTEM.md` — operator runbook, culprit chain,
+defense-in-depth diagram, invariants now enforced.
+
 
 ## Verification
 

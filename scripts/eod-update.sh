@@ -137,6 +137,13 @@ fi
 log "Step 6/7: Regime Intelligence (AI Researcher)"
 if $PYTHON scripts/update-regime.py 2>&1 | tee -a "$LOG"; then
     log "✅ Regime done"
+    # Post-write validation: catch the Apr 16 silent-zero bug class.
+    # Non-fatal — log warning so cron keeps moving but problem is visible.
+    if $PYTHON scripts/validate-regime.py 2>&1 | tee -a "$LOG"; then
+        log "✅ Regime validation passed"
+    else
+        warn "⚠️  Regime validation FAILED — data/regime.json has integrity violations"
+    fi
 else
     warn "Regime failed"
 fi

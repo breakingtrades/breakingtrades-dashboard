@@ -589,6 +589,22 @@
   color: var(--text-dim);
   margin-left: 4px;
 }
+.tx-hero-stale {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255, 180, 0, 0.08);
+  color: #e8b23d;
+  font-size: 12px;
+  cursor: help;
+}
+.tx-hero-stale [data-lucide], .tx-hero-stale .lucide {
+  width: 12px;
+  height: 12px;
+}
 
 .tx-conditions {
   display: flex;
@@ -605,6 +621,23 @@
 .tx-card.met {
   border-color: rgba(0, 212, 170, 0.35);
   background: rgba(0, 212, 170, 0.04);
+}
+.tx-card.stale {
+  border-style: dashed;
+  border-color: var(--border);
+  opacity: 0.55;
+  cursor: help;
+}
+.tx-card.stale .tx-card-gap {
+  color: var(--text-dim);
+  font-style: italic;
+}
+.tx-bar-fill.stale {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--border) 0 4px,
+    transparent 4px 8px
+  );
 }
 .tx-card-head {
   display: flex;
