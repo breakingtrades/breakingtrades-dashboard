@@ -17,16 +17,12 @@
   var TOP10_SP = ['AAPL','MSFT','NVDA','AMZN','META','GOOGL','GOOG','TSLA','BRK B','AVGO'];
   var INDICES = ['SPX','SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
 
+  // Legacy EXCHANGE_MAP retained for callers that need just the exchange string.
+  // Primary lookup is now BT.tvSymbol() which delegates to js/lib/tv-symbol.js.
   var EXCHANGE_MAP = {
-    'AAPL':'NASDAQ','AMZN':'NASDAQ','GOOG':'NASDAQ','GOOGL':'NASDAQ','MSFT':'NASDAQ','NVDA':'NASDAQ',
-    'META':'NASDAQ','COIN':'NASDAQ','ARM':'NASDAQ','DELL':'NYSE','TSLA':'NASDAQ','NFLX':'NASDAQ',
-    'AMD':'NASDAQ','AVGO':'NASDAQ','MU':'NASDAQ','QCOM':'NASDAQ','AMAT':'NASDAQ','LRCX':'NASDAQ',
-    'NBIS':'NASDAQ','SMCI':'NASDAQ','PLTR':'NASDAQ','SNOW':'NYSE','CRWD':'NASDAQ','PANW':'NASDAQ',
-    'BILI':'NASDAQ','BABA':'NYSE','JD':'NASDAQ','PDD':'NASDAQ','NIO':'NYSE','XPEV':'NYSE','LI':'NASDAQ',
     'SPX':'SP','SPY':'AMEX','QQQ':'NASDAQ','IWM':'AMEX','DIA':'AMEX','HYG':'AMEX','TLT':'NASDAQ',
     'XLU':'AMEX','XLK':'AMEX','XLE':'AMEX','XLV':'AMEX','XLF':'AMEX','XLP':'AMEX',
-    'GLD':'AMEX','SLV':'AMEX','URA':'AMEX','USO':'AMEX','UNG':'AMEX','IBIT':'NASDAQ',
-    'EQIX':'NASDAQ','DLR':'NYSE','AMT':'NYSE'
+    'GLD':'AMEX','SLV':'AMEX','URA':'AMEX','USO':'AMEX','UNG':'AMEX','IBIT':'NASDAQ'
   };
 
   function getRiskColor(pct) {
@@ -454,11 +450,9 @@
     var chgClass = change >= 0 ? 'up' : 'down';
     var chgSign = change >= 0 ? '+' : '';
     var bias = wl ? wl.bias : null;
-    // TradingView resolves bare symbols automatically; hardcoded exchange map was brittle
-    // (NBIS, BILI, and other ADRs/Nasdaq names kept defaulting to NYSE and failing).
-    // Keep EXCHANGE_MAP as a hint for future use but pass the bare symbol so TV picks it up.
-    var exchange = EXCHANGE_MAP[symbol] || '';
-    var tvSymbol = exchange ? (exchange + ':' + symbol) : symbol;
+    // Resolve TV symbol via shared utility — unknown tickers pass bare to TV which auto-resolves exchange.
+    var tvSymbol = (window.BT && BT.tvSymbol) ? BT.tvSymbol(symbol) : symbol;
+    var exchange = (window.BT && BT.getExchange) ? BT.getExchange(symbol) : (EXCHANGE_MAP[symbol] || '');
 
     document.getElementById('em-modal-ticker').textContent = symbol;
     document.getElementById('em-modal-name').textContent = isExternal

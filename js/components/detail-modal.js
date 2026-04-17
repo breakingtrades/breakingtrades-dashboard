@@ -28,7 +28,12 @@
     var t = options.tickerData;
     if (!t) return;
 
+    // Prefer options.tvSymbol (already resolved by caller via BT.tvSymbol);
+    // fall back to legacy 'exchange' + symbol concatenation.
+    var tvSymbol = options.tvSymbol ||
+      ((window.BT && BT.tvSymbol) ? BT.tvSymbol(symbol) : null);
     var exchange = options.exchange || 'NASDAQ';
+    if (!tvSymbol) tvSymbol = exchange + ':' + symbol;
     var sections = options.sections || ['charts', 'ta', 'pattern', 'range', 'levels', 'analysis'];
     _onClose = options.onClose || null;
 
@@ -181,7 +186,7 @@
 
     // Load charts
     if (sections.indexOf('charts') >= 0) {
-      _loadCharts(exchange, symbol);
+      _loadCharts(tvSymbol, symbol);
     }
 
     // Render Lucide icons in modal
@@ -189,7 +194,7 @@
 
     // Load TA widget
     if (sections.indexOf('ta') >= 0) {
-      setTimeout(function() { _loadTA(exchange, symbol); }, 100);
+      setTimeout(function() { _loadTA(tvSymbol, symbol); }, 100);
     }
   }
 
@@ -217,7 +222,7 @@
     if (_onClose) { _onClose(); _onClose = null; }
   }
 
-  function _loadCharts(exchange, symbol) {
+  function _loadCharts(tvSymbol, symbol) {
     var userTZ = BT.preferences.getPref('timezone') || 'America/New_York';
 
     if (_weeklyChartTimer) { clearTimeout(_weeklyChartTimer); _weeklyChartTimer = null; }
@@ -233,7 +238,7 @@
 
     var dailyWidget = new TradingView.widget({
       autosize: true,
-      symbol: exchange + ':' + symbol,
+      symbol: tvSymbol,
       interval: 'D', timezone: userTZ, theme: 'dark', style: '1', locale: 'en',
       hide_top_toolbar: false, hide_legend: false, allow_symbol_change: false,
       save_image: false, container_id: 'detail-chart-daily',
@@ -255,7 +260,7 @@
         observer.disconnect();
         iframe.addEventListener('load', function() {
           weeklyEl.innerHTML = '<div class="chart-skeleton">Loading weekly chart…</div>';
-          _weeklyChartTimer = setTimeout(function() { _loadWeekly(exchange, symbol, userTZ); }, 1000);
+          _weeklyChartTimer = setTimeout(function() { _loadWeekly(tvSymbol, symbol, userTZ); }, 1000);
         });
       }
     });
@@ -267,12 +272,12 @@
       if (_weeklyChartTimer === null && modal && modal.classList.contains('open')) {
         observer.disconnect();
         weeklyEl.innerHTML = '<div class="chart-skeleton">Loading weekly chart…</div>';
-        _weeklyChartTimer = setTimeout(function() { _loadWeekly(exchange, symbol, userTZ); }, 500);
+        _weeklyChartTimer = setTimeout(function() { _loadWeekly(tvSymbol, symbol, userTZ); }, 500);
       }
     }, 5000);
   }
 
-  function _loadWeekly(exchange, symbol, userTZ) {
+  function _loadWeekly(tvSymbol, symbol, userTZ) {
     var modal = getModalEl();
     if (!modal || !modal.classList.contains('open')) return;
     var el = document.getElementById('detail-chart-weekly');
@@ -283,7 +288,7 @@
 
     new TradingView.widget({
       autosize: true,
-      symbol: exchange + ':' + symbol,
+      symbol: tvSymbol,
       interval: 'W', timezone: userTZ, theme: 'dark', style: '1', locale: 'en',
       hide_top_toolbar: false, hide_legend: false, allow_symbol_change: false,
       save_image: false, container_id: 'detail-chart-weekly',
@@ -300,7 +305,7 @@
     _weeklyChartTimer = null;
   }
 
-  function _loadTA(exchange, symbol) {
+  function _loadTA(tvSymbol, symbol) {
     var taContainer = document.getElementById('detail-ta-widget');
     if (!taContainer) return;
     taContainer.innerHTML = '';
@@ -315,7 +320,7 @@
     script.async = true;
     script.textContent = JSON.stringify({
       interval: '1D', width: '100%', isTransparent: true,
-      height: 260, symbol: exchange + ':' + symbol,
+      height: 260, symbol: tvSymbol,
       showIntervalTabs: true, displayMode: 'single',
       locale: 'en', colorTheme: 'dark'
     });

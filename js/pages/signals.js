@@ -226,6 +226,10 @@
 
   // === UTILITY ===
   function getExchange(ticker) {
+    if (window.BT && BT.getExchange) {
+      var e = BT.getExchange(ticker);
+      if (e) return e;
+    }
     var nasdaq = ['AAPL','AMZN','GOOG','GOOGL','MSFT','NVDA','META','COIN','ARM','DELL','TSLA','NFLX','AMD','AVGO','MU','QCOM','AMAT','LRCX','MRVL','CRDO','ADSK','CHTR','TMUS','NBIS','SMCI','PLTR','CRWD','PANW','IBIT','EQIX','BILI','JD','PDD','LI'];
     var amex = ['XLU'];
     if (nasdaq.indexOf(ticker) >= 0) return 'NASDAQ';
@@ -459,6 +463,7 @@
     if (!t) return;
     BT.components.detailModal.open(symbol, {
       tickerData: t,
+      tvSymbol: (window.BT && BT.tvSymbol) ? BT.tvSymbol(symbol) : null,
       exchange: getExchange(symbol),
       sections: ['charts', 'ta', 'pattern', 'range', 'levels', 'analysis']
     });

@@ -106,23 +106,22 @@
     window.BT.watchlistEngine = { classifyAlerts: classifyAlerts, applyFilters: applyFilters, computeStats: computeStats, sectorAggregates: sectorAggregates };
   }
 
+  // Legacy EXCHANGE_MAP retained for callers that still use getExchange().
+  // Primary lookup is BT.tvSymbol() from js/lib/tv-symbol.js.
   var EXCHANGE_MAP = {
-    'AAPL':'NASDAQ','AMZN':'NASDAQ','GOOG':'NASDAQ','GOOGL':'NASDAQ','MSFT':'NASDAQ','NVDA':'NASDAQ',
-    'META':'NASDAQ','COIN':'NASDAQ','ARM':'NASDAQ','DELL':'NYSE','TSLA':'NASDAQ','NFLX':'NASDAQ',
-    'AMD':'NASDAQ','AVGO':'NASDAQ','MU':'NASDAQ','QCOM':'NASDAQ','AMAT':'NASDAQ','LRCX':'NASDAQ',
-    'MRVL':'NASDAQ','CRDO':'NASDAQ','ANET':'NYSE','VRT':'NYSE','CIEN':'NYSE','APH':'NYSE',
-    'ADSK':'NASDAQ','CHTR':'NASDAQ','TMUS':'NASDAQ',
-    'NBIS':'NASDAQ','SMCI':'NASDAQ','PLTR':'NASDAQ','SNOW':'NYSE','CRWD':'NASDAQ','PANW':'NASDAQ',
-    'BILI':'NASDAQ','BABA':'NYSE','JD':'NASDAQ','PDD':'NASDAQ','NIO':'NYSE','XPEV':'NYSE','LI':'NASDAQ',
     'SPY':'AMEX','QQQ':'NASDAQ','IWM':'AMEX','DIA':'AMEX','HYG':'AMEX','TLT':'NASDAQ',
     'XLU':'AMEX','XLK':'AMEX','XLE':'AMEX','XLV':'AMEX','XLF':'AMEX','XLP':'AMEX',
     'XLY':'AMEX','XLI':'AMEX','XLC':'AMEX','XLRE':'AMEX','RSP':'AMEX','IGV':'AMEX',
-    'IWF':'AMEX','IWD':'AMEX','GLD':'AMEX','SLV':'AMEX','URA':'AMEX','OIH':'AMEX','MOO':'AMEX',
-    'EQIX':'NASDAQ','DLR':'NYSE','AMT':'NYSE',
-    'KHC':'NASDAQ','CAG':'NYSE','TAP':'NYSE','SYK':'NYSE','KMB':'NYSE'
+    'IWF':'AMEX','IWD':'AMEX','GLD':'AMEX','SLV':'AMEX','URA':'AMEX','OIH':'AMEX','MOO':'AMEX'
   };
 
-  function getExchange(sym) { return EXCHANGE_MAP[sym] || 'NYSE'; }
+  function getExchange(sym) {
+    if (window.BT && BT.getExchange) {
+      var e = BT.getExchange(sym);
+      if (e) return e;
+    }
+    return EXCHANGE_MAP[sym] || '';
+  }
 
   function fmtVol(n) {
     if (n >= 1e9) return (n / 1e9).toFixed(1) + 'B';
@@ -765,9 +764,8 @@
     }
     if (!t) return;
 
-    var exchange = getExchange(symbol);
+    var tvSymbol = (window.BT && BT.tvSymbol) ? BT.tvSymbol(symbol) : symbol;
     var pc = (t.change || 0) >= 0 ? 'up' : 'down';
-    var tvSymbol = exchange + ':' + symbol;
 
     document.getElementById('wl-modal-ticker').textContent = t.symbol;
     document.getElementById('wl-modal-name').textContent = (t.name || '') + ' · ' + (t.sector || '');
