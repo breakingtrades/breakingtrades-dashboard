@@ -11,7 +11,7 @@
   // ===== Constants =====
   var REGIME_COLORS = {
     CRISIS: '#ef5350', BEAR: '#ffa726', CORRECTION: '#ffeb3b',
-    NEUTRAL: '#888', BULL: '#00d4aa', 'STRONG BULL': '#00c853', EUPHORIA: '#ab47bc'
+    NEUTRAL: '#888888', BULL: '#00d4aa', 'STRONG BULL': '#00c853', EUPHORIA: '#ab47bc'
   };
   var REGIME_CSS = {
     CRISIS: 'crisis', BEAR: 'bear', CORRECTION: 'correction',
@@ -724,13 +724,22 @@
     var scores = data.map(function(d) { return d.score; });
     var colors = data.map(function(d) {
       var r = (d.regime || '').toUpperCase();
-      return REGIME_COLORS[r] || '#888';
+      return REGIME_COLORS[r] || '#888888';
     });
+
+    // Expand 3-char hex (#888) to 6-char (#888888) so alpha suffix is valid
+    function normalizeHex(c) {
+      if (typeof c !== 'string' || c.charAt(0) !== '#') return c;
+      if (c.length === 4) {
+        return '#' + c.charAt(1) + c.charAt(1) + c.charAt(2) + c.charAt(2) + c.charAt(3) + c.charAt(3);
+      }
+      return c;
+    }
 
     // Build segments for coloring
     var bgColors = scores.map(function(s, i) {
-      var c = colors[i];
-      // Add alpha
+      var c = normalizeHex(colors[i]);
+      // Add 20% alpha (0x33 = 51/255)
       return c + '33';
     });
 
