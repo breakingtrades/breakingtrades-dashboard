@@ -15,11 +15,19 @@ html {
   overflow-x: hidden;
 }
 
-/* Scrollbar styles */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+/* Scrollbar styles — dark theme across Webkit (Chrome/Safari/Edge) and Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #333 transparent;
+}
+::-webkit-scrollbar { width: 8px; height: 8px; background: transparent; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
 ::-webkit-scrollbar-thumb:hover { background: #555; }
+::-webkit-scrollbar-corner { background: transparent; }
 
 /* Utility classes */
 .up { color: var(--cyan); }
