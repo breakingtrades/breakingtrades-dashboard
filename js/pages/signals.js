@@ -226,7 +226,7 @@
 
   // === UTILITY ===
   function getExchange(ticker) {
-    var nasdaq = ['AAPL','AMZN','GOOG','GOOGL','MSFT','NVDA','META','COIN','ARM','DELL','TSLA','NFLX','AMD','AVGO','MU','QCOM','AMAT','LRCX','MRVL','CRDO','ADSK','CHTR','TMUS','NBIS','SMCI','PLTR','CRWD','PANW','IBIT','EQIX'];
+    var nasdaq = ['AAPL','AMZN','GOOG','GOOGL','MSFT','NVDA','META','COIN','ARM','DELL','TSLA','NFLX','AMD','AVGO','MU','QCOM','AMAT','LRCX','MRVL','CRDO','ADSK','CHTR','TMUS','NBIS','SMCI','PLTR','CRWD','PANW','IBIT','EQIX','BILI','JD','PDD','LI'];
     var amex = ['XLU'];
     if (nasdaq.indexOf(ticker) >= 0) return 'NASDAQ';
     if (amex.indexOf(ticker) >= 0) return 'AMEX';

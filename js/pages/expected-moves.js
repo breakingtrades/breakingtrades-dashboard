@@ -22,6 +22,7 @@
     'META':'NASDAQ','COIN':'NASDAQ','ARM':'NASDAQ','DELL':'NYSE','TSLA':'NASDAQ','NFLX':'NASDAQ',
     'AMD':'NASDAQ','AVGO':'NASDAQ','MU':'NASDAQ','QCOM':'NASDAQ','AMAT':'NASDAQ','LRCX':'NASDAQ',
     'NBIS':'NASDAQ','SMCI':'NASDAQ','PLTR':'NASDAQ','SNOW':'NYSE','CRWD':'NASDAQ','PANW':'NASDAQ',
+    'BILI':'NASDAQ','BABA':'NYSE','JD':'NASDAQ','PDD':'NASDAQ','NIO':'NYSE','XPEV':'NYSE','LI':'NASDAQ',
     'SPX':'SP','SPY':'AMEX','QQQ':'NASDAQ','IWM':'AMEX','DIA':'AMEX','HYG':'AMEX','TLT':'NASDAQ',
     'XLU':'AMEX','XLK':'AMEX','XLE':'AMEX','XLV':'AMEX','XLF':'AMEX','XLP':'AMEX',
     'GLD':'AMEX','SLV':'AMEX','URA':'AMEX','USO':'AMEX','UNG':'AMEX','IBIT':'NASDAQ',
@@ -453,8 +454,11 @@
     var chgClass = change >= 0 ? 'up' : 'down';
     var chgSign = change >= 0 ? '+' : '';
     var bias = wl ? wl.bias : null;
-    var exchange = EXCHANGE_MAP[symbol] || 'NYSE';
-    var tvSymbol = exchange + ':' + symbol;
+    // TradingView resolves bare symbols automatically; hardcoded exchange map was brittle
+    // (NBIS, BILI, and other ADRs/Nasdaq names kept defaulting to NYSE and failing).
+    // Keep EXCHANGE_MAP as a hint for future use but pass the bare symbol so TV picks it up.
+    var exchange = EXCHANGE_MAP[symbol] || '';
+    var tvSymbol = exchange ? (exchange + ':' + symbol) : symbol;
 
     document.getElementById('em-modal-ticker').textContent = symbol;
     document.getElementById('em-modal-name').textContent = isExternal
