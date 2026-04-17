@@ -56,6 +56,39 @@
 
   var CYCLE_PHASES = ['TROUGH', 'RECOVERY', 'EXPANSION', 'PEAK', 'CONTRACTION'];
 
+  // Regime codes -> human labels
+  function regimeHuman(code) {
+    var map = {
+      CRISIS: 'Crisis', BEAR: 'Bear market', CORRECTION: 'Correction',
+      NEUTRAL: 'Neutral', BULL: 'Bull market', STRONG_BULL: 'Strong bull',
+      'STRONG BULL': 'Strong bull', EUPHORIA: 'Euphoria'
+    };
+    var key = (code || '').toUpperCase();
+    return map[key] || code || '?';
+  }
+
+  // Plain-English context for each known transition condition label
+  var TRANSITION_PLAIN = {
+    'F&G > 65':               { name: 'Fear & Greed above 65',        hint: 'Sentiment shifts from mixed to broadly bullish' },
+    'F&G > 75':               { name: 'Fear & Greed above 75',        hint: 'Crowd euphoria threshold' },
+    'F&G < 25':               { name: 'Fear & Greed below 25',        hint: 'Extreme fear — contrarian buy zone' },
+    'F&G < 35':               { name: 'Fear & Greed below 35',        hint: 'Fear building — defensive mode' },
+    'Breadth > 65%':          { name: 'Market breadth above 65%',     hint: '2 of 3 stocks above their 200-day trend' },
+    'Breadth > 70%':          { name: 'Market breadth above 70%',     hint: 'Broad participation — strong rally' },
+    'Breadth < 40%':          { name: 'Market breadth below 40%',     hint: 'Most stocks below trend — weak market' },
+    'Breadth < 30%':          { name: 'Market breadth below 30%',     hint: 'Broad weakness — bearish tape' },
+    'S&P > 5% above D200':    { name: 'S&P 500 more than 5% above its 200-day average', hint: 'Trend strengthening clearly above support' },
+    'S&P > 3% above D200':    { name: 'S&P 500 more than 3% above its 200-day average', hint: 'Trend regaining the 200-day zone' },
+    'S&P below D200':         { name: 'S&P 500 below its 200-day average', hint: 'Long-term trend breaks down' },
+    'VIX > 25':               { name: 'VIX above 25',                 hint: 'Volatility spike — stress emerging' },
+    'VIX < 18':               { name: 'VIX below 18',                 hint: 'Volatility cooling — calm returning' },
+    'VIX < 15':               { name: 'VIX below 15',                 hint: 'Low-volatility regime — complacency risk' }
+  };
+
+  function transitionPlain(rawLabel) {
+    return TRANSITION_PLAIN[rawLabel] || { name: rawLabel, hint: '' };
+  }
+
   // ===== Helpers =====
   function fmt(n, d) { return n != null ? Number(n).toFixed(d == null ? 2 : d) : '—'; }
   function pct(n) { return n != null ? (n >= 0 ? '+' : '') + Number(n).toFixed(2) + '%' : '—'; }
@@ -643,29 +676,97 @@
     var el = document.getElementById('regime-transition');
     if (!el || !d.transition_signals) return;
     var ts = d.transition_signals;
-    var html = '<div style="margin-bottom:10px;font-size:14px;color:var(--text-muted, #aaa);text-transform:uppercase;letter-spacing:1px;">What needs to change — <strong style="color:' + regimeColor(d.regime) + ';">' + d.regime + '</strong> → <strong>' + (ts.target || '?') + '</strong></div>';
-    html += '<div class="regime-transition-list">';
-    (ts.conditions || []).forEach(function(c) {
-      var progress = 0;
-      if (c.target != null && c.current != null) {
-        // Calculate progress toward target
-        var range = Math.abs(c.target - c.current);
-        var max = Math.max(Math.abs(c.target), Math.abs(c.current)) || 1;
-        progress = c.met ? 100 : Math.max(0, Math.min(95, (1 - range / max) * 100));
-      }
-      var icon = c.met ? 'check-circle' : 'circle';
-      var iconCol = c.met ? 'var(--cyan)' : 'var(--text-dim)';
-      var barCol = c.met ? 'var(--cyan)' : 'var(--orange)';
 
-      html += '<div class="regime-transition-item">' +
-        '<div class="regime-transition-icon"><i data-lucide="' + icon + '" style="color:' + iconCol + ';"></i></div>' +
-        '<div class="regime-transition-label">' + c.label + '</div>' +
-        '<div class="regime-transition-values">' + fmt(c.current) + ' → ' + fmt(c.target) + '</div>' +
-        '<div class="regime-transition-bar"><div class="regime-transition-bar-fill" style="width:' + progress + '%;background:' + barCol + ';"></div></div>' +
+    var met = ts.conditions_met || 0;
+    var total = ts.conditions_total || ((ts.conditions || []).length);
+    var pctDone = total > 0 ? Math.round((met / total) * 100) : 0;
+
+    var fromHuman = regimeHuman(d.regime);
+    var toHuman   = regimeHuman(ts.target);
+    var fromCol   = regimeColor(d.regime);
+    var toCol     = REGIME_COLORS[(ts.target || '').toUpperCase().replace('_', ' ')] ||
+                    REGIME_COLORS[(ts.target || '').toUpperCase()] || 'var(--cyan)';
+
+    var html = '';
+
+    // Hero header: clear regime-to-regime progression + big progress indicator
+    html +=
+      '<div class="tx-hero">' +
+        '<div class="tx-hero-path">' +
+          '<div class="tx-hero-from">' +
+            '<div class="tx-hero-label">Current</div>' +
+            '<div class="tx-hero-regime" style="color:' + fromCol + ';">' + fromHuman + '</div>' +
+          '</div>' +
+          '<div class="tx-hero-arrow"><i data-lucide="arrow-right"></i></div>' +
+          '<div class="tx-hero-to">' +
+            '<div class="tx-hero-label">If all conditions line up</div>' +
+            '<div class="tx-hero-regime" style="color:' + toCol + ';">' + toHuman + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="tx-hero-progress">' +
+          '<div class="tx-hero-progress-track">' +
+            '<div class="tx-hero-progress-fill" style="width:' + pctDone + '%;"></div>' +
+          '</div>' +
+          '<div class="tx-hero-progress-text">' +
+            '<strong>' + met + ' of ' + total + '</strong> conditions met' +
+            ' <span class="tx-hero-progress-pct">(' + pctDone + '%)</span>' +
+          '</div>' +
+        '</div>' +
       '</div>';
+
+    // Conditions list
+    html += '<div class="tx-conditions">';
+    (ts.conditions || []).forEach(function(c) {
+      var plain = transitionPlain(c.label);
+
+      // Honest progress: how close are we on a reasonable scale?
+      var pct = 0;
+      if (c.met) {
+        pct = 100;
+      } else if (c.current != null && c.target != null) {
+        // Normalize against the target magnitude
+        var scale = Math.max(Math.abs(c.target), 1);
+        var gap = Math.abs(c.target - c.current);
+        // 0% when gap >= scale, 100% when gap == 0 (capped at 95 until met)
+        pct = Math.max(0, Math.min(95, Math.round((1 - gap / scale) * 100)));
+      }
+
+      // Direction hint: are we moving toward the target?
+      var direction = '';
+      if (!c.met && c.current != null && c.target != null) {
+        direction = (c.current < c.target) ? 'needs-up' : 'needs-down';
+      }
+
+      var statusIcon = c.met ? 'check-circle-2' : (direction === 'needs-up' ? 'trending-up' : (direction === 'needs-down' ? 'trending-down' : 'minus-circle'));
+      var statusCol  = c.met ? 'var(--cyan)' : 'var(--text-dim)';
+      var barClass   = c.met ? 'tx-bar-fill met' : 'tx-bar-fill';
+
+      // Distance to target, human phrasing
+      var gapText = '';
+      if (!c.met && c.current != null && c.target != null) {
+        var diff = Math.abs(c.target - c.current);
+        gapText = diff.toFixed(diff < 10 ? 1 : 0) + ' to go';
+      } else if (c.met) {
+        gapText = 'Met';
+      }
+
+      html +=
+        '<div class="tx-card' + (c.met ? ' met' : '') + '">' +
+          '<div class="tx-card-head">' +
+            '<div class="tx-card-icon" style="color:' + statusCol + ';"><i data-lucide="' + statusIcon + '"></i></div>' +
+            '<div class="tx-card-title">' + plain.name + '</div>' +
+            '<div class="tx-card-gap">' + gapText + '</div>' +
+          '</div>' +
+          (plain.hint ? '<div class="tx-card-hint">' + plain.hint + '</div>' : '') +
+          '<div class="tx-card-meter">' +
+            '<div class="tx-card-now">Now <strong>' + fmt(c.current) + '</strong></div>' +
+            '<div class="tx-bar"><div class="' + barClass + '" style="width:' + pct + '%;"></div></div>' +
+            '<div class="tx-card-target">Target <strong>' + fmt(c.target) + '</strong></div>' +
+          '</div>' +
+        '</div>';
     });
     html += '</div>';
-    html += '<div class="regime-transition-summary">' + (ts.conditions_met || 0) + ' of ' + (ts.conditions_total || 0) + ' conditions met</div>';
+
     el.innerHTML = html;
   }
 
