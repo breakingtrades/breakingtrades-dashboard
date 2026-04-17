@@ -6,177 +6,52 @@
   'use strict';
 
   // === TICKER DATA ===
-  var TICKERS = [
-    {
-      symbol:'NVDA', name:'NVIDIA', sector:'Semiconductors', exchange:'NASDAQ',
-      price:183.22, change:-13.7, bias:'bear', status:'exit',
-      statusLabel:'EXIT SIGNAL', statusIcon:'<i data-lucide="triangle-alert"></i>', badgeClass:'exit-badge',
-      sma20:184.80, sma50:185.33, w20:184.00, rsi:38.2,
-      stop:170, entry:184, t1:210, t2:225,
-      entryZone:null,
-      pattern:{name:'Head & Shoulders',abbr:'H&S',type:'Bearish',level:'$170 neckline'},
-      vol:{atr:8.50,atrPct:4.6,rating:'High',current:'45.2M',avgRatio:1.8},
-      analysis:'Critical level: $170 H&S neckline. Below SMA20 ($184.80) and SMA50 ($185.33). Watching for break or resolution. If $170 holds, potential double-bottom. If lost, next support $150.',
-      exitWarning:'Below SMA20 ($184.80) — Critical $170 H&S neckline. Daily close below = confirmed breakdown.',
-      sparkline:[82,80,78,82,76,73,78,70,68,72,65,62,67,60,58,63,55,52,56,48,45,50,42,38,42,35,32,28,25,22]
-    },
-    {
-      symbol:'AAPL', name:'Apple', sector:'Technology', exchange:'NASDAQ',
-      price:252.82, change:-12.4, bias:'mixed', status:'exit',
-      statusLabel:'EXIT SIGNAL', statusIcon:'<i data-lucide="triangle-alert"></i>', badgeClass:'exit-badge',
-      sma20:262.45, sma50:262.26, w20:266.25, rsi:23.9,
-      stop:235, entry:248, t1:275, t2:290,
-      entryZone:null,
-      pattern:{name:'Falling Wedge',abbr:'Wedge',type:'Bullish',level:'$248 breakout'},
-      vol:{atr:6.20,atrPct:2.5,rating:'Normal',current:'52.1M',avgRatio:1.2},
-      analysis:'Below SMA20 ($262.45). RSI 23.9 deeply oversold — potential snap-back rally candidate. Falling wedge forming with breakout level at $248. Wait for daily close above SMA20 to re-enter.',
-      exitWarning:'Below SMA20 ($262.45) — RSI 23.9 oversold. Falling wedge forming, watch $248 breakout.',
-      sparkline:[75,72,70,74,68,65,70,63,60,64,58,55,59,52,50,54,47,44,48,42,38,42,36,33,37,30,28,25,22,20]
-    },
-    {
-      symbol:'PFE', name:'Pfizer', sector:'Healthcare', exchange:'NYSE',
-      price:26.61, change:-1.4, bias:'mixed', status:'approaching',
-      statusLabel:'APPROACHING', statusIcon:'<i data-lucide="clock"></i>', badgeClass:'approaching-badge',
-      sma20:26.98, sma50:26.46, w20:26.06, rsi:43.2,
-      stop:24.50, entry:26.00, t1:28.00, t2:29.50,
-      entryZone:{low:25.80,high:26.20,distance:1.6},
-      pattern:{name:'Double Bottom',abbr:'Dbl Btm',type:'Bullish',level:'$26.50 neckline'},
-      vol:{atr:0.65,atrPct:2.4,rating:'Normal',current:'28.5M',avgRatio:1.1},
-      analysis:'Healthcare holding relative strength. PFE testing SMA50 support at $26.46. If it holds and reclaims SMA20 ($26.98), that\'s the entry. Stop below Weekly 20 at $24.50. Pharma flows showing accumulation.',
-      exitWarning:null,
-      sparkline:[45,48,42,50,46,52,48,44,50,46,42,48,44,40,46,42,48,44,40,46,42,38,44,40,36,42,38,44,40,38]
-    },
-    {
-      symbol:'ABBV', name:'AbbVie', sector:'Healthcare', exchange:'NYSE',
-      price:221.45, change:-2.1, bias:'mixed', status:'approaching',
-      statusLabel:'APPROACHING', statusIcon:'<i data-lucide="clock"></i>', badgeClass:'approaching-badge',
-      sma20:228.29, sma50:224.43, w20:226.37, rsi:40.1,
-      stop:210, entry:219, t1:240, t2:245,
-      entryZone:{low:218,high:220,distance:0.7},
-      pattern:{name:'Pullback to Support',abbr:'PB Spt',type:'Neutral',level:'$218 support'},
-      vol:{atr:5.80,atrPct:2.6,rating:'Normal',current:'8.2M',avgRatio:1.3},
-      analysis:'Pulling back into value zone. All MAs above price = headwinds, but RSI 40 with healthcare relative strength says this is a dip-buy candidate. Need to see $218 hold.',
-      exitWarning:null,
-      sparkline:[55,58,52,56,50,54,48,52,46,50,44,48,42,46,40,44,48,42,46,40,44,38,42,38,44,40,42,38,40,36]
-    },
-    {
-      symbol:'XLU', name:'Utilities Select Sector', sector:'ETF', exchange:'AMEX',
-      price:47.26, change:0.9, bias:'bull', status:'active',
-      statusLabel:'BULLISH STACK', statusIcon:'<i data-lucide="trending-up"></i>', badgeClass:'active-badge',
-      sma20:46.82, sma50:44.68, w20:44.50, rsi:50.7,
-      stop:44.50, entry:45.50, t1:47.75, t2:49.00,
-      entryZone:null,
-      pattern:{name:'Bull Flag',abbr:'Bull Flag',type:'Bullish',level:'$47.50 breakout'},
-      vol:{atr:0.85,atrPct:1.8,rating:'Low',current:'12.8M',avgRatio:0.9},
-      analysis:'Perfect bullish stack: Price > SMA20 > SMA50 > W20. Utilities leading in late-cycle rotation — this is the playbook. Only -1.1% from 6mo high. Raise stop to SMA20 ($46.82).',
-      exitWarning:null,
-      sparkline:[25,28,30,27,32,35,33,38,40,37,42,45,43,48,50,47,52,55,53,58,60,57,62,65,63,68,70,72,75,78]
-    },
-    {
-      symbol:'AR', name:'Antero Resources', sector:'Energy', exchange:'NYSE',
-      price:41.03, change:11.0, bias:'bull', status:'active',
-      statusLabel:'TRAILING — Raise Stop', statusIcon:'<i data-lucide="move-up-right"></i>', badgeClass:'trailing-badge',
-      sma20:36.98, sma50:35.00, w20:35.48, rsi:83.3,
-      stop:35.00, entry:36.50, t1:42.00, t2:45.00,
-      entryZone:null,
-      pattern:{name:'Parabolic Extension',abbr:'Parabolic',type:'Caution',level:'$38 support'},
-      vol:{atr:2.40,atrPct:5.8,rating:'High',current:'6.5M',avgRatio:2.1},
-      analysis:'Energy is the best sector of 2026. AR extended but trend is powerful. Oil at $94 supports thesis. RSI overbought = don\'t chase, trail. Raise stop to $36.98 (SMA20). If daily close below $36.98, exit.',
-      exitWarning:'RSI 83.3 — Overbought. Consider trailing stop to SMA20 ($36.98) or partial take profit at $42.',
-      sparkline:[20,24,22,28,32,30,36,40,38,44,48,45,50,55,52,58,62,60,65,68,66,72,75,73,78,80,82,85,88,90]
-    },
-    {
-      symbol:'DELL', name:'Dell Technologies', sector:'Technology', exchange:'NASDAQ',
-      price:156.54, change:14.5, bias:'bull', status:'active',
-      statusLabel:'BULLISH STACK', statusIcon:'<i data-lucide="trending-up"></i>', badgeClass:'active-badge',
-      sma20:136.72, sma50:126.05, w20:132.03, rsi:80.0,
-      stop:136.72, entry:150, t1:165, t2:175,
-      entryZone:null,
-      pattern:{name:'Channel Breakout',abbr:'Ch Brk',type:'Bullish',level:'$150 support'},
-      vol:{atr:6.50,atrPct:4.2,rating:'High',current:'9.8M',avgRatio:1.5},
-      analysis:'Strong SMA stack but way extended — RSI 80. SMA20 is at $136 while price is $156. That\'s a 14.5% gap. Don\'t chase. If it pulls back to SMA20, that\'s the add. Current stop: SMA20 at $136.72.',
-      exitWarning:'RSI 80.0 — Overbought. Extended 14.5% above SMA20. Don\'t chase, trail stop.',
-      sparkline:[22,25,28,26,32,35,33,38,42,40,45,48,46,50,55,52,58,62,60,65,68,66,72,75,73,78,82,80,85,88]
-    },
-    {
-      symbol:'MSFT', name:'Microsoft', sector:'Technology', exchange:'NASDAQ',
-      price:399.95, change:-27.8, bias:'bear', status:'exit',
-      statusLabel:'EXIT SIGNAL', statusIcon:'<i data-lucide="triangle-alert"></i>', badgeClass:'exit-badge',
-      sma20:400.10, sma50:427.62, w20:440.75, rsi:35.0,
-      stop:375, entry:390, t1:430, t2:450,
-      entryZone:null,
-      pattern:{name:'Bear Flag',abbr:'Bear Flag',type:'Bearish',level:'$390 breakdown'},
-      vol:{atr:9.10,atrPct:2.3,rating:'Normal',current:'32.4M',avgRatio:1.4},
-      analysis:'Below ALL moving averages. SMA20 $400.10, SMA50 $427.62, W20 $440.75. Bearish structure. Bear flag forming — breakdown below $390 confirms further downside to $360.',
-      exitWarning:'Below ALL moving averages. Bear flag forming with $390 breakdown level.',
-      sparkline:[78,75,80,72,68,74,65,62,68,58,55,60,52,48,54,45,42,48,40,36,42,34,30,36,28,25,30,22,20,18]
-    },
-    {
-      symbol:'META', name:'Meta Platforms', sector:'Technology', exchange:'NASDAQ',
-      price:627.45, change:-20.7, bias:'bear', status:'exit',
-      statusLabel:'EXIT SIGNAL', statusIcon:'<i data-lucide="triangle-alert"></i>', badgeClass:'exit-badge',
-      sma20:640.00, sma50:660.00, w20:670.00, rsi:46.1,
-      stop:580, entry:600, t1:660, t2:700,
-      entryZone:null,
-      pattern:{name:'Descending Triangle',abbr:'Desc Tri',type:'Bearish',level:'$600 support'},
-      vol:{atr:18.50,atrPct:2.9,rating:'Normal',current:'18.7M',avgRatio:1.1},
-      analysis:'Below all MAs. Descending triangle forming with key support at $600. If $600 breaks, downside targets $550–$560. RSI 46.1 neutral but trend is bearish.',
-      exitWarning:'Below all MAs — Descending triangle. $600 support is critical.',
-      sparkline:[72,70,74,68,65,70,62,58,64,55,52,58,50,46,52,44,40,46,38,42,36,40,34,38,32,36,30,34,28,32]
-    },
-    {
-      symbol:'AMZN', name:'Amazon', sector:'Technology', exchange:'NASDAQ',
-      price:211.74, change:-18.1, bias:'mixed', status:'watching',
-      statusLabel:'WATCHING', statusIcon:'<i data-lucide="eye"></i>', badgeClass:'watching-badge',
-      sma20:208.00, sma50:220.00, w20:230.00, rsi:53.8,
-      stop:200, entry:215, t1:235, t2:250,
-      entryZone:null,
-      pattern:{name:'Inverse H&S',abbr:'Inv H&S',type:'Bullish',level:'$215 neckline'},
-      vol:{atr:7.20,atrPct:3.4,rating:'Normal',current:'42.3M',avgRatio:1.3},
-      analysis:'Above SMA20 but below SMA50 and W20. Inverse H&S forming with neckline at $215. Break above $215 needed for confirmation. RSI 53.8 neutral — room either way.',
-      exitWarning:null,
-      sparkline:[55,50,58,52,48,56,44,50,42,48,54,40,46,52,38,44,50,36,42,48,34,40,46,38,42,36,40,44,38,42]
-    },
-    {
-      symbol:'COIN', name:'Coinbase', sector:'Crypto', exchange:'NASDAQ',
-      price:203.32, change:10.3, bias:'mixed', status:'watching',
-      statusLabel:'WATCHING', statusIcon:'<i data-lucide="eye"></i>', badgeClass:'watching-badge',
-      sma20:195.00, sma50:190.00, w20:220.00, rsi:72.6,
-      stop:185, entry:210, t1:240, t2:260,
-      entryZone:null,
-      pattern:{name:'Ascending Triangle',abbr:'Asc Tri',type:'Bullish',level:'$210 breakout'},
-      vol:{atr:12.80,atrPct:6.3,rating:'Extreme',current:'15.2M',avgRatio:2.3},
-      analysis:'Above SMA20/50 but below W20 ($220). Ascending triangle with breakout at $210. BTC correlation key — if BTC breaks $70K, COIN follows. RSI 72.6 getting warm.',
-      exitWarning:null,
-      sparkline:[30,34,28,36,40,32,42,38,44,40,48,42,50,46,52,48,54,50,56,52,58,54,60,56,62,58,64,60,66,62]
-    },
-    {
-      symbol:'ARM', name:'Arm Holdings', sector:'Semiconductors', exchange:'NASDAQ',
-      price:121.70, change:-33.6, bias:'mixed', status:'watching',
-      statusLabel:'WATCHING', statusIcon:'<i data-lucide="eye"></i>', badgeClass:'watching-badge',
-      sma20:125.00, sma50:130.00, w20:121.67, rsi:42.5,
-      stop:105, entry:118, t1:140, t2:155,
-      entryZone:null,
-      pattern:{name:'Falling Wedge',abbr:'Wedge',type:'Bullish',level:'$118 breakout'},
-      vol:{atr:6.90,atrPct:5.7,rating:'High',current:'11.4M',avgRatio:1.6},
-      analysis:'At W20 ($121.67) — potential bounce zone. Falling wedge forming. Deep drawdown at -33.6% but semis are cyclical. Need confirmation above $125 to turn bullish.',
-      exitWarning:null,
-      sparkline:[68,65,70,62,58,64,55,60,52,56,48,52,44,48,40,44,36,40,32,36,38,34,42,36,38,34,40,36,38,34]
-    },
-    {
-      symbol:'GOOG', name:'Alphabet', sector:'Technology', exchange:'NASDAQ',
-      price:308.57, change:-11.9, bias:'mixed', status:'watching',
-      statusLabel:'WATCHING', statusIcon:'<i data-lucide="eye"></i>', badgeClass:'watching-badge',
-      sma20:306.80, sma50:320.00, w20:325.00, rsi:48.3,
-      stop:290, entry:306, t1:330, t2:350,
-      entryZone:null,
-      pattern:{name:'Support Test',abbr:'Spt Test',type:'Neutral',level:'$306 support'},
-      vol:{atr:8.30,atrPct:2.7,rating:'Normal',current:'22.8M',avgRatio:1.0},
-      analysis:'Just above SMA20 ($306.80) — needs to hold. Support test at $306 is critical. If it holds, could bounce to SMA50 ($320). If lost, $290 is next support.',
-      exitWarning:null,
-      sparkline:[50,48,52,46,50,44,48,42,46,40,44,48,42,46,40,44,40,46,42,38,44,40,42,38,44,40,38,42,38,40]
-    }
-  ];
+  // Populated at init() from data/watchlist.json (live). Never hardcoded.
+  // See: openspec/changes/signals-page-live-data/OPENSPEC.md
+  var TICKERS = [];
+
+  // Sector/exchange fallback map (watchlist.json has sector; exchange is cosmetic).
+  var EXCHANGE_HINTS = {
+    'NVDA':'NASDAQ','AAPL':'NASDAQ','MSFT':'NASDAQ','META':'NASDAQ','GOOG':'NASDAQ',
+    'GOOGL':'NASDAQ','AMZN':'NASDAQ','TSLA':'NASDAQ','NFLX':'NASDAQ','AVGO':'NASDAQ',
+    'AMD':'NASDAQ','INTC':'NASDAQ','COIN':'NASDAQ','DELL':'NASDAQ','ARM':'NASDAQ',
+    'PFE':'NYSE','ABBV':'NYSE','JPM':'NYSE','V':'NYSE','UNH':'NYSE','XOM':'NYSE',
+    'AR':'NYSE','SPY':'AMEX','QQQ':'NASDAQ','IWM':'AMEX','XLU':'AMEX','XLE':'AMEX',
+    'XLF':'AMEX','XLK':'AMEX','XLV':'AMEX','XLY':'AMEX','XLP':'AMEX','XLI':'AMEX',
+    'XLC':'AMEX','XLRE':'AMEX','XLB':'AMEX'
+  };
+
+  /**
+   * Map one watchlist.json entry → Signals card shape.
+   * Returns null if required fields are missing (skip rendering).
+   */
+  function mapWatchlistToSignal(w) {
+    if (!w || !w.symbol) return null;
+    if (!w.status || w.price == null) return null;  // skip broken rows
+    return {
+      symbol: w.symbol,
+      name: w.name || w.symbol,
+      sector: w.sector || '',
+      group: w.group || '',
+      exchange: EXCHANGE_HINTS[w.symbol] || '',
+      price: w.price,
+      change: w.change == null ? 0 : w.change,
+      bias: w.bias || 'mixed',
+      status: w.status,           // exit | triggered | approaching | active | watching
+      sma20: w.sma20, sma50: w.sma50, sma200: w.sma200, w20: w.w20,
+      rsi: w.rsi == null ? null : w.rsi,
+      atr: w.atr, atrPct: w.atrPct,
+      volRating: w.volRating || 'Normal',
+      volume: w.volume, volumeAvg20: w.volumeAvg20, volumeRatio: w.volumeRatio,
+      high52w: w.high52w, low52w: w.low52w,
+      pctFrom52wHigh: w.pctFrom52wHigh,
+      earningsDate: w.earningsDate, earningsDays: w.earningsDays,
+      smaCrossover: w.smaCrossover, smaCrossoverDate: w.smaCrossoverDate,
+      updated: w.updated,
+      _sectorRisk: null  // filled in later from sector-risk.json
+    };
+  }
+
 
   // === SECTOR ROTATION DATA ===
   var sectorRotation = [
@@ -193,12 +68,33 @@
     { symbol:'XLB', name:'Materials', x:-10, y:10, px:5, py:30, quadrant:'improving' }
   ];
 
-  var STATUS_ORDER = ['approaching','active','exit','watching'];
+  var STATUS_ORDER = ['triggered','approaching','active','exit','watching'];
   var STATUS_CONFIG = {
-    approaching: { icon:'<i data-lucide="clock"></i>', label:'Approaching Entry', filter:'approaching' },
-    active: { icon:'<i data-lucide="trending-up"></i>', label:'Active / Bullish Stack', filter:'active' },
-    exit: { icon:'<i data-lucide="triangle-alert"></i>', label:'Exit Signals — Below SMA20', filter:'exit' },
-    watching: { icon:'<i data-lucide="eye"></i>', label:'Watching', filter:'watching' }
+    triggered: {
+      icon:'<i data-lucide="target"></i>', label:'Triggered',
+      filter:'triggered', badgeClass:'triggered-badge',
+      tip:'Crossed above a key moving average today — actionable entry.'
+    },
+    approaching: {
+      icon:'<i data-lucide="clock"></i>', label:'Approaching Entry',
+      filter:'approaching', badgeClass:'approaching-badge',
+      tip:'Within 2% of SMA20 or SMA50 — watching for a trigger.'
+    },
+    active: {
+      icon:'<i data-lucide="trending-up"></i>', label:'Active / Bullish Stack',
+      filter:'active', badgeClass:'active-badge',
+      tip:'Bull stack + extended >5% above SMA20. Consider trailing stop.'
+    },
+    exit: {
+      icon:'<i data-lucide="triangle-alert"></i>', label:'Exit Signal',
+      filter:'exit', badgeClass:'exit-badge',
+      tip:'Crossed below SMA20 today — risk management trigger.'
+    },
+    watching: {
+      icon:'<i data-lucide="eye"></i>', label:'Watching',
+      filter:'watching', badgeClass:'watching-badge',
+      tip:'No active trigger — monitoring conditions.'
+    }
   };
 
   // === PAIR RATIOS CONFIG ===
@@ -248,6 +144,46 @@
 
   function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  /** Build a short, human-readable reason for why this ticker has this status. */
+  function buildStatusReason(t) {
+    var p = t.price;
+    var parts = [];
+    if (t.sma20 != null) parts.push('SMA20 $' + fmt2(t.sma20) + ' (' + (p > t.sma20 ? 'above' : 'below') + ')');
+    if (t.sma50 != null) parts.push('SMA50 $' + fmt2(t.sma50) + ' (' + (p > t.sma50 ? 'above' : 'below') + ')');
+    if (t.w20 != null)   parts.push('W20 $' + fmt2(t.w20) + ' (' + (p > t.w20 ? 'above' : 'below') + ')');
+    var cfg = STATUS_CONFIG[t.status] || {};
+    return (cfg.tip || '') + ' — ' + parts.join(', ');
+  }
+
+  function biasTip(t) {
+    var p = t.price;
+    var rel = function(label, v) {
+      if (v == null) return '';
+      return label + ' ' + (p > v ? '>' : '<') + ' $' + fmt2(v);
+    };
+    var stack = [rel('SMA20', t.sma20), rel('SMA50', t.sma50), rel('W20', t.w20)].filter(Boolean).join(' • ');
+    var desc = t.bias === 'bull' ? 'All MAs below price (bull stack)'
+             : t.bias === 'bear' ? 'All MAs above price (bear stack)'
+             : 'MAs mixed vs price';
+    return desc + '. ' + stack;
+  }
+
+  function fmt2(n) { return Number(n).toFixed(2); }
+
+  function volRatingClass(r) {
+    if (!r) return 'vol-normal';
+    var k = String(r).toLowerCase();
+    return k === 'extreme' ? 'vol-extreme'
+         : k === 'high' ? 'vol-high'
+         : k === 'low' ? 'vol-low' : 'vol-normal';
+  }
+
   function generateSparkline(data, bias) {
     var w = 200, h = 36, pad = 2;
     var max = Math.max.apply(null, data), min = Math.min.apply(null, data);
@@ -276,16 +212,15 @@
     var counts = { all: TICKERS.length };
     STATUS_ORDER.forEach(function(s) { counts[s] = TICKERS.filter(function(t) { return t.status === s; }).length; });
 
-    var tabs = [
-      { key:'all', label:'All', icon:'' },
-      { key:'approaching', label:'Approaching', icon:'<i data-lucide="clock"></i> ' },
-      { key:'active', label:'Active', icon:'<i data-lucide="trending-up"></i> ' },
-      { key:'exit', label:'Exit Signal', icon:'<i data-lucide="triangle-alert"></i> ' },
-      { key:'watching', label:'Watching', icon:'<i data-lucide="eye"></i> ' }
-    ];
+    var tabs = [{ key:'all', label:'All', icon:'', tip:'Show every watched ticker.' }];
+    STATUS_ORDER.forEach(function(s) {
+      var c = STATUS_CONFIG[s];
+      tabs.push({ key:s, label:c.label, icon:c.icon + ' ', tip:c.tip });
+    });
 
     el.innerHTML = tabs.map(function(t) {
-      return '<div class="status-tab' + (activeStatusFilter === t.key ? ' active' : '') + '" data-filter="' + t.key + '">' +
+      return '<div class="status-tab' + (activeStatusFilter === t.key ? ' active' : '') + '" ' +
+        'data-filter="' + t.key + '" title="' + esc(t.tip || '') + '">' +
         t.icon + t.label + ' <span class="badge">' + counts[t.key] + '</span></div>';
     }).join('');
 
@@ -308,93 +243,131 @@
     var pc = t.change >= 0 ? 'up' : 'down';
     var arrow = t.change >= 0 ? '▲' : '▼';
     var bc = 'bias-' + t.bias;
-    var sma20Rel = t.price > t.sma20 ? 'above' : 'below';
-    var sma50Rel = t.price > t.sma50 ? 'above' : 'below';
-    var w20Rel = t.price > t.w20 ? 'above' : 'below';
+
+    var cfg = STATUS_CONFIG[t.status] || STATUS_CONFIG.watching;
+    var statusLabel = cfg.label.toUpperCase();
+    var statusIcon = cfg.icon;
+    var badgeClass = cfg.badgeClass;
+    var statusClass = 's-' + t.status;
+
+    // ---- Technical Range bar (52w low ↔ 52w high, with SMA markers) ----
+    var rangeBarHtml = '';
+    if (t.low52w != null && t.high52w != null && t.high52w > t.low52w) {
+      var lo = t.low52w, hi = t.high52w;
+      var span = hi - lo;
+      var pos = function(v) { return clamp(((v - lo) / span) * 100, 0, 100); };
+      var pricePct = pos(t.price);
+      var pctHigh = t.pctFrom52wHigh != null ? t.pctFrom52wHigh : ((t.price - hi) / hi * 100);
+      var pctLow = ((t.price - lo) / lo) * 100;
+
+      var markers = '';
+      var addMarker = function(label, v, cls) {
+        if (v == null || v < lo || v > hi) return;
+        var tipText = label + ' $' + fmt2(v) + ' (' + (t.price > v ? 'price above' : 'price below') + ', ' + pctDiff(v, t.price) + '% away)';
+        markers += '<span class="tr-mark ' + cls + '" style="left:' + pos(v).toFixed(1) + '%" title="' + esc(tipText) + '">' + label + '</span>';
+      };
+      addMarker('SMA200', t.sma200, 'tr-sma200');
+      addMarker('SMA50',  t.sma50,  'tr-sma50');
+      addMarker('SMA20',  t.sma20,  'tr-sma20');
+
+      var barTip = '52-week range $' + fmt2(lo) + ' – $' + fmt2(hi) +
+        '. Currently ' + pctHigh.toFixed(1) + '% off high, +' + pctLow.toFixed(1) + '% above low.';
+      rangeBarHtml =
+        '<div class="range-bar-container" title="' + esc(barTip) + '">' +
+          '<div class="tech-range-bar">' +
+            '<span class="tr-end tr-lo" title="52w low $' + fmt2(lo) + '">$' + fmt2(lo) + '</span>' +
+            '<span class="tr-end tr-hi" title="52w high $' + fmt2(hi) + '">$' + fmt2(hi) + '</span>' +
+            markers +
+            '<div class="tr-fill" style="width:' + pricePct.toFixed(1) + '%"></div>' +
+            '<div class="price-dot" style="left:' + pricePct.toFixed(1) + '%" title="Price $' + fmt2(t.price) + '"></div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    // ---- Badges: status + bias (always), RSI (if OB/OS), Earnings (if <=14d), Sector-risk ----
+    var statusTip = buildStatusReason(t);
+    var biasBadgeTip = biasTip(t);
+
+    var rsiBadge = '';
+    if (t.rsi != null && (t.rsi > 70 || t.rsi < 30)) {
+      var ob = t.rsi > 70;
+      var rTip = 'RSI ' + t.rsi.toFixed(1) + ' — ' + (ob ? 'overbought (>70)' : 'oversold (<30)');
+      rsiBadge = '<span class="rsi-badge ' + (ob ? 'rsi-ob' : 'rsi-os') + '" title="' + esc(rTip) + '">' +
+        '<i data-lucide="activity"></i> RSI ' + t.rsi.toFixed(0) + (ob ? ' OB' : ' OS') + '</span>';
+    }
+
+    var earnBadge = '';
+    if (t.earningsDays != null && t.earningsDays <= 14 && t.earningsDays >= 0) {
+      var eTip = 'Earnings in ' + t.earningsDays + ' day' + (t.earningsDays === 1 ? '' : 's') +
+        (t.earningsDate ? ' — ' + t.earningsDate : '');
+      earnBadge = '<span class="earnings-badge" title="' + esc(eTip) + '">' +
+        '<i data-lucide="calendar"></i> Earnings ' + t.earningsDays + 'd</span>';
+    }
+
+    var sectorRiskHtml = '';
+    if (t._sectorRisk) {
+      var srTip = (t._sectorRisk.etf || '') + ' sector rotation quadrant: ' + t._sectorRisk.quadrant +
+        ' (risk: ' + t._sectorRisk.risk + ')';
+      sectorRiskHtml = '<span class="sector-risk-badge sr-' + t._sectorRisk.risk + '" title="' + esc(srTip) + '">' +
+        '<i data-lucide="refresh-cw"></i> ' + esc(t._sectorRisk.quadrant) + '</span>';
+    }
+
+    // ---- Stats row (volume + ATR with tooltips) ----
+    var volTxt = t.volume != null ? (t.volume / 1e6).toFixed(1) + 'M' : '—';
+    var volRatioTxt = t.volumeRatio != null ? t.volumeRatio.toFixed(1) + 'x avg' : '';
+    var volTip = 'Volume today ' + volTxt + (volRatioTxt ? ' (' + volRatioTxt + '). Rating: ' + t.volRating : '');
+    var atrTip = t.atr != null
+      ? 'ATR $' + fmt2(t.atr) + ' (' + (t.atrPct != null ? t.atrPct.toFixed(1) : '?') + '% of price) — typical daily range'
+      : 'ATR unavailable';
+
+    var sma20Rel = t.sma20 != null ? (t.price > t.sma20 ? 'above' : 'below') : '';
+    var sma50Rel = t.sma50 != null ? (t.price > t.sma50 ? 'above' : 'below') : '';
+    var w20Rel = t.w20 != null ? (t.price > t.w20 ? 'above' : 'below') : '';
     var sma20Arr = t.price > t.sma20 ? '↑' : '↓';
     var sma50Arr = t.price > t.sma50 ? '↑' : '↓';
     var w20Arr = t.price > t.w20 ? '↑' : '↓';
 
-    var range = t.t2 - t.stop;
-    var pricePct = clamp(((t.price - t.stop) / range) * 100, 2, 98);
-    var entryPct = clamp(((t.entry - t.stop) / range) * 100, 5, 95);
-    var t1Pct = clamp(((t.t1 - t.stop) / range) * 100, 5, 95);
-
-    var fillColor = t.change >= 0
-      ? 'linear-gradient(90deg, #00d4aa 0%, #00d4aa 100%)'
-      : 'linear-gradient(90deg, #ef5350 0%, #ffa726 100%)';
-
-    var patClass = t.pattern.type === 'Bearish' ? 'pat-bearish'
-      : t.pattern.type === 'Bullish' || (t.pattern.type && t.pattern.type.indexOf('reversal') >= 0) ? 'pat-bullish'
-      : t.pattern.type === 'Caution' ? 'pat-caution' : 'pat-neutral';
-
-    var volClass = t.vol.rating === 'Extreme' ? 'vol-extreme'
-      : t.vol.rating === 'High' ? 'vol-high'
-      : t.vol.rating === 'Low' ? 'vol-low' : 'vol-normal';
-
-    var rsiStyle = t.rsi > 70 ? ' style="color:var(--red)"' : t.rsi < 30 ? ' style="color:var(--cyan)"' : '';
-    var rsiSuffix = t.rsi > 70 ? ' OB' : t.rsi < 30 ? ' OS' : '';
-
-    var t1Pctg = pctDiff(t.price, t.t1);
-    var stopPctg = pctDiff(t.price, t.stop);
-
-    var statusClass = t.badgeClass === 'trailing-badge' ? 's-trailing' : 's-' + t.status;
-
-    var distLine = t.entryZone
-      ? '<div class="distance-line">Entry zone: $' + t.entryZone.low + '–$' + t.entryZone.high + ' — <strong>' + t.entryZone.distance + '% away</strong></div>' : '';
-
-    var exitLine = t.exitWarning
-      ? '<div class="exit-warning">⚠ ' + t.exitWarning + '</div>' : '';
-
-    var sectorRiskHtml = '';
-    if (t._sectorRisk) {
-      sectorRiskHtml = '<span class="sector-risk-badge sr-' + t._sectorRisk.risk + '" title="' + (t._sectorRisk.etf||'') + ' ' + t._sectorRisk.quadrant + '"><i data-lucide="refresh-cw"></i> ' + t._sectorRisk.quadrant + '</span>';
-    }
-
-    return '<div class="setup-card ' + statusClass + ' card-animate" data-ticker="' + t.symbol + '" data-status="' + t.status + '" data-bias="' + t.bias + '" data-sector="' + t.sector + '" style="animation-delay:' + (idx * 0.04) + 's">' +
+    return '<div class="setup-card ' + statusClass + ' card-animate" data-ticker="' + t.symbol + '"' +
+      ' data-status="' + t.status + '" data-bias="' + t.bias + '" data-sector="' + esc(t.sector) + '"' +
+      ' style="animation-delay:' + (idx * 0.04) + 's">' +
       '<div class="card-top">' +
         '<div>' +
-          '<div class="card-ticker">' + t.symbol + '</div>' +
-          '<div class="card-name">' + t.name + ' · ' + t.sector + '</div>' +
+          '<div class="card-ticker">' + esc(t.symbol) + '</div>' +
+          '<div class="card-name">' + esc(t.name) + ' · ' + esc(t.sector) + '</div>' +
         '</div>' +
         '<div class="card-price">' +
-          '<div class="price ' + pc + '">$' + fmtPrice(t.price) + '</div>' +
-          '<div class="change ' + pc + '">' + arrow + ' ' + Math.abs(t.change).toFixed(1) + '%</div>' +
+          '<div class="price ' + pc + '" title="Last price $' + fmt2(t.price) + '">$' + fmtPrice(t.price) + '</div>' +
+          '<div class="change ' + pc + '" title="Intraday change">' + arrow + ' ' + Math.abs(t.change).toFixed(1) + '%</div>' +
         '</div>' +
       '</div>' +
       '<div class="card-meta">' +
-        '<span class="status-badge ' + t.badgeClass + '">' + t.statusIcon + ' ' + t.statusLabel + '</span>' +
-        '<span class="bias-badge ' + bc + '">' + t.bias.toUpperCase() + '</span>' +
-        '<span class="pattern-badge ' + patClass + '"><i data-lucide="bar-chart-3"></i> ' + t.pattern.abbr + '</span>' +
-        '<span class="volatility-badge ' + volClass + '"><i data-lucide="zap"></i> ' + t.vol.rating + '</span>' +
+        '<span class="status-badge ' + badgeClass + '" title="' + esc(statusTip) + '">' + statusIcon + ' ' + statusLabel + '</span>' +
+        '<span class="bias-badge ' + bc + '" title="' + esc(biasBadgeTip) + '">' + t.bias.toUpperCase() + '</span>' +
+        rsiBadge +
+        earnBadge +
         sectorRiskHtml +
       '</div>' +
-      distLine +
-      '<div class="range-bar-container">' +
-        '<div class="range-bar">' +
-          '<span class="range-marker stop" style="left:0%">$' + t.stop + '</span>' +
-          '<span class="range-marker entry" style="left:' + entryPct + '%">$' + t.entry + '</span>' +
-          '<span class="range-marker t1" style="left:' + t1Pct + '%">$' + t.t1 + '</span>' +
-          '<span class="range-marker t2" style="left:100%">$' + t.t2 + '</span>' +
-          '<div class="range-fill" style="width:' + pricePct + '%;background:' + fillColor + ';opacity:0.2;"></div>' +
-          '<div class="price-dot" style="left:' + pricePct + '%"></div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="sparkline-container">' + generateSparkline(t.sparkline, t.bias) + '</div>' +
+      rangeBarHtml +
       '<div class="levels-row">' +
-        '<div class="level-pill"><div class="dot ' + sma20Rel + '"></div><span class="lbl">SMA20</span><span class="val">$' + t.sma20.toFixed(2) + ' ' + sma20Arr + '</span></div>' +
-        '<div class="level-pill"><div class="dot ' + sma50Rel + '"></div><span class="lbl">SMA50</span><span class="val">$' + t.sma50.toFixed(2) + ' ' + sma50Arr + '</span></div>' +
-        '<div class="level-pill"><div class="dot ' + w20Rel + '"></div><span class="lbl">W20</span><span class="val">$' + t.w20.toFixed(2) + ' ' + w20Arr + '</span></div>' +
-        '<div class="level-pill"><span class="lbl"' + rsiStyle + '>RSI</span><span class="val"' + rsiStyle + '>' + t.rsi + rsiSuffix + '</span></div>' +
+        '<div class="level-pill" title="SMA20 — 20-day simple moving average">' +
+          '<div class="dot ' + sma20Rel + '"></div><span class="lbl">SMA20</span>' +
+          '<span class="val">$' + (t.sma20 != null ? fmt2(t.sma20) : '—') + ' ' + sma20Arr + '</span></div>' +
+        '<div class="level-pill" title="SMA50 — 50-day simple moving average">' +
+          '<div class="dot ' + sma50Rel + '"></div><span class="lbl">SMA50</span>' +
+          '<span class="val">$' + (t.sma50 != null ? fmt2(t.sma50) : '—') + ' ' + sma50Arr + '</span></div>' +
+        '<div class="level-pill" title="Weekly 20 — 20-week moving average (longer trend)">' +
+          '<div class="dot ' + w20Rel + '"></div><span class="lbl">W20</span>' +
+          '<span class="val">$' + (t.w20 != null ? fmt2(t.w20) : '—') + ' ' + w20Arr + '</span></div>' +
+        '<div class="level-pill" title="Relative Strength Index (14) — >70 overbought, <30 oversold">' +
+          '<span class="lbl">RSI</span>' +
+          '<span class="val">' + (t.rsi != null ? t.rsi.toFixed(1) : '—') + '</span></div>' +
       '</div>' +
       '<div class="card-stats">' +
-        '<span><i data-lucide="crosshair"></i> T1: $' + t.t1 + ' (' + (t1Pctg > 0 ? '+' : '') + t1Pctg + '%) · Stop: $' + t.stop + ' (' + stopPctg + '%)</span>' +
-        '<span><i data-lucide="zap"></i> Vol: ' + t.vol.current + ' (' + t.vol.avgRatio + 'x avg) · ATR: $' + t.vol.atr + ' (' + t.vol.atrPct + '%)</span>' +
-      '</div>' +
-      exitLine +
-      '<div class="toms-take">' +
-        '<div class="take-header">Analysis</div>' +
-        t.analysis +
+        '<span title="' + esc(volTip) + '"><i data-lucide="bar-chart-3"></i> Vol: ' + volTxt +
+          (volRatioTxt ? ' (' + volRatioTxt + ')' : '') + '</span>' +
+        '<span title="' + esc(atrTip) + '"><i data-lucide="zap"></i> ATR: ' +
+          (t.atr != null ? '$' + fmt2(t.atr) : '—') +
+          (t.atrPct != null ? ' (' + t.atrPct.toFixed(1) + '%)' : '') + '</span>' +
       '</div>' +
     '</div>';
   }
@@ -681,15 +654,15 @@
       var sectorRisk = results[2];
       _sectorRiskData = sectorRisk;
 
-      var wlMap = {};
-      for (var w = 0; w < watchlist.length; w++) {
-        if (watchlist[w].symbol) wlMap[watchlist[w].symbol] = watchlist[w];
-      }
+      // Build TICKERS live from watchlist.json (replaces legacy hardcoded array).
+      TICKERS = (watchlist || [])
+        .map(mapWatchlistToSignal)
+        .filter(function(x) { return x !== null; });
 
       TICKERS.forEach(function(t) {
         t._sectorRisk = _sectorRiskData[t.sector] || null;
 
-        // Overlay live prices
+        // Overlay live intraday prices (bt-prices.js → prices.json)
         if (typeof btPrices !== 'undefined' && btPrices.isLoaded && btPrices.isLoaded()) {
           var p = btPrices.get(t.symbol);
           if (p) {
@@ -697,21 +670,13 @@
             t.change = p.change;
           }
         }
-
-        // Overlay live technicals from watchlist
-        var wl = wlMap[t.symbol];
-        if (wl) {
-          if (wl.sma20 != null) t.sma20 = wl.sma20;
-          if (wl.sma50 != null) t.sma50 = wl.sma50;
-          if (wl.sma200 != null) t.sma200 = wl.sma200;
-          if (wl.w20 != null) t.w20 = wl.w20;
-          if (wl.rsi != null) t.rsi = wl.rsi;
-          if (wl.atr != null) t.vol = { atr: wl.atr, atrPct: wl.atrPct, rating: wl.volRating || t.vol.rating, current: t.vol.current, avgRatio: t.vol.avgRatio };
-          if (wl.volume != null) t.vol = { atr: t.vol.atr, atrPct: t.vol.atrPct, rating: t.vol.rating, current: (wl.volume / 1e6).toFixed(1) + 'M', avgRatio: wl.volumeRatio || t.vol.avgRatio };
-          if (wl.bias) t.bias = wl.bias;
-        }
       });
 
+      if (typeof console !== 'undefined' && TICKERS.length === 0) {
+        console.warn('[signals] watchlist.json empty or missing — no cards to render');
+      }
+
+      renderStatusTabs();
       renderCards();
       renderPairRatios(watchlist);
     });
@@ -820,6 +785,10 @@
   BT.pages.signals = {
     render: render,
     init: init,
-    destroy: destroy
+    destroy: destroy,
+    // Exposed for testing / debugging:
+    _mapWatchlistToSignal: mapWatchlistToSignal,
+    _buildStatusReason: buildStatusReason,
+    _biasTip: biasTip
   };
 })();

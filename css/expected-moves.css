@@ -80,7 +80,9 @@
   border-bottom: 1px solid var(--border);
   cursor: pointer;
   user-select: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);  /* visual separation so first row never looks tucked under */
 }
+.em-table tbody tr:first-child td { padding-top: 12px; }
 .em-table thead th:hover { color: var(--text); }
 .em-table thead th.sort-asc::after { content: ' ▲'; color: var(--cyan); }
 .em-table thead th.sort-desc::after { content: ' ▼'; color: var(--cyan); }

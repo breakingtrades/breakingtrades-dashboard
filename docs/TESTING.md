@@ -96,6 +96,17 @@ Tests use `monkeypatch` + `unittest.mock.patch` on `yfinance.download` —
 See existing `tests/*.test.js` for pattern. Jest config in
 `tests/package.json`.
 
+**Signals page (`tests/signals.test.js`, 13 tests):**
+- Loads `js/pages/signals.js` inside a `vm.Context` scaffold so the IIFE
+  registers on a stub `BT` object, then pulls the `_mapWatchlistToSignal`,
+  `_buildStatusReason`, `_biasTip` helpers off `BT.pages.signals`.
+- Covers: null/broken input, canonical mapping, safe defaults, tooltip
+  strings, and a live-data integration test that reads the real
+  `data/watchlist.json` for MSFT and asserts no logic contradictions
+  (e.g. "exit + bull + price above SMA20").
+- This guards against the class of bug where the hardcoded
+  `TICKERS` array shipped labels that contradicted the actual price state.
+
 ## Philosophy
 
 The Apr 16 "0% above D200" bug would have been caught by either:

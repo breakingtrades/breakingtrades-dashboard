@@ -587,3 +587,76 @@
   .status-tab { min-height: 44px; display: flex; align-items: center; }
   .bias-toggle { min-height: 44px; }
 }
+
+/* === Signals: Technical Range bar (replaces hardcoded stop/entry/T1/T2) === */
+.tech-range-bar {
+  position: relative;
+  height: 8px;
+  margin: 22px 4px 28px 4px;
+  background: linear-gradient(90deg, rgba(239,83,80,0.25) 0%, rgba(255,167,38,0.25) 50%, rgba(0,212,170,0.25) 100%);
+  border-radius: 4px;
+}
+.tech-range-bar .tr-end {
+  position: absolute;
+  top: -18px;
+  font-size: 10px;
+  color: var(--text-dim, #888);
+  white-space: nowrap;
+}
+.tech-range-bar .tr-end.tr-lo { left: 0; }
+.tech-range-bar .tr-end.tr-hi { right: 0; }
+.tech-range-bar .tr-mark {
+  position: absolute;
+  top: 12px;
+  transform: translateX(-50%);
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.08);
+  color: var(--text-dim, #aaa);
+  white-space: nowrap;
+  cursor: help;
+}
+.tech-range-bar .tr-mark.tr-sma20  { background: rgba(66,165,245,0.18); color: #64b5f6; }
+.tech-range-bar .tr-mark.tr-sma50  { background: rgba(255,167,38,0.18); color: #ffb74d; }
+.tech-range-bar .tr-mark.tr-sma200 { background: rgba(239,83,80,0.18);  color: #ef8e8e; }
+.tech-range-bar .tr-fill {
+  position: absolute; top: 0; left: 0; height: 100%;
+  background: rgba(0,212,170,0.15); border-radius: 4px;
+}
+.tech-range-bar .price-dot {
+  position: absolute; top: 50%;
+  width: 10px; height: 10px;
+  margin-left: -5px; margin-top: -5px;
+  background: var(--text, #fff);
+  border: 2px solid var(--cyan, #00d4aa);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(0,212,170,0.6);
+  cursor: help;
+}
+
+/* Contextual badges (RSI overbought/oversold, earnings proximity) */
+.rsi-badge, .earnings-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: help;
+}
+.rsi-badge .bt-icon, .earnings-badge .bt-icon,
+.rsi-badge svg, .earnings-badge svg { width: 11px; height: 11px; }
+.rsi-badge.rsi-ob   { background: rgba(239,83,80,0.18); color: #ef8e8e; border: 1px solid rgba(239,83,80,0.3); }
+.rsi-badge.rsi-os   { background: rgba(66,165,245,0.18); color: #64b5f6; border: 1px solid rgba(66,165,245,0.3); }
+.earnings-badge     { background: rgba(171,71,188,0.18); color: #ce93d8; border: 1px solid rgba(171,71,188,0.3); }
+
+/* Triggered status (new from watchlist pipeline) */
+.triggered-badge { background: rgba(0,212,170,0.18); color: var(--cyan, #00d4aa); border: 1px solid rgba(0,212,170,0.35); }
+.setup-card.s-triggered { border-left: 3px solid var(--cyan, #00d4aa); }
+
+/* Every badge = help cursor to hint at title tooltip */
+.status-badge, .bias-badge, .sector-risk-badge { cursor: help; }
+.level-pill { cursor: help; }

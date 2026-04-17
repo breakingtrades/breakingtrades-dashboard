@@ -73,7 +73,7 @@
     white-space: nowrap;
   }
   thead th {
-    position: sticky; top: 0;
+    position: sticky; top: var(--nav-height, 48px);
     background: #0d0d1a;
     padding: 10px 14px;
     text-align: left;
@@ -84,7 +84,10 @@
     border-bottom: 1px solid var(--border);
     cursor: pointer;
     user-select: none;
+    z-index: 5;  /* above tbody rows so sticky header always paints on top */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);  /* visual separation from first row */
   }
+  tbody tr:first-child td { padding-top: 12px; }  /* extra breathing room so SPY isn't hugging the sticky header */
   thead th:hover { color: var(--text); }
   thead th.sort-asc::after { content: ' ▲'; color: var(--cyan); }
   thead th.sort-desc::after { content: ' ▼'; color: var(--cyan); }
