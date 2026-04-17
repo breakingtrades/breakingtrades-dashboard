@@ -279,6 +279,45 @@ font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-
 
 ---
 
+## Sticky Headers & Stacking Contexts
+
+Any table or panel with a sticky header **must** wrap its content in a container that establishes its own stacking context via `isolation: isolate`. This scopes the sticky element's `z-index` and prevents absolute-positioned descendants (markers, bars, overlays) from accidentally painting above the header when the content scrolls past it.
+
+**Pattern:**
+```css
+.scrollable-wrap {
+  overflow-x: auto;        /* or overflow-y / overflow: auto */
+  isolation: isolate;      /* REQUIRED — scope sticky z-index here */
+}
+.scrollable-wrap thead th,
+.scrollable-wrap .sticky-header {
+  position: sticky;
+  top: var(--sticky-top-offset);  /* = --nav-height (48px) */
+  z-index: var(--z-table-head);   /* 80 */
+  background: #0d0d1a;             /* opaque — never transparent */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);  /* visual separation */
+}
+.scrollable-wrap tbody tr {
+  position: relative; z-index: 0;  /* contain absolute descendants in-row */
+}
+```
+
+**Why all three are needed:**
+1. `isolation: isolate` — the wrapper owns its z-index space. Without it, the sticky header's z:80 competes with the page's root stacking context and can lose to later-DOM-order descendants.
+2. Opaque `background` on the sticky header — transparent backgrounds defeat the purpose; the row behind will show through.
+3. `position: relative; z-index: 0` on rows — contains any `position: absolute` children (marker dots, progress fills) so they can't escape the row's layer.
+
+**Do NOT use** `transform: translateZ(0)` or `will-change: transform` to create stacking contexts for this purpose. They trigger GPU layer promotion with paint side effects. `isolation: isolate` is the canonical primitive for "establish a stacking context with no other changes."
+
+**Tokens:**
+- `--sticky-top-offset: var(--nav-height)` → `48px` (in `css/variables.css`)
+- `--z-table-head: 80` (in `css/variables.css`)
+- `--z-nav: 100` (nav must always beat table headers)
+
+**Reference:** `openspec/changes/em-sticky-header-fix/OPENSPEC.md` — documents the SPY-glow bug that drove this pattern.
+
+---
+
 ## TradingView Widget Theme
 
 All TradingView embeds use:

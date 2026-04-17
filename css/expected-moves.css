@@ -66,6 +66,11 @@
   overflow-x: auto;
   border: 1px solid var(--border);
   border-radius: 8px;
+  /* Create an isolated stacking context so the sticky thead's z-index is scoped
+     to this wrapper. Without this, absolutely-positioned tbody descendants
+     (em-pos-marker, em-risk-fill) can escape into the page's root stacking
+     context and paint above the sticky header on scroll. */
+  isolation: isolate;
 }
 .em-table { width: 100%; border-collapse: collapse; white-space: nowrap; }
 .em-table thead th {

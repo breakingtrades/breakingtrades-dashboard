@@ -66,6 +66,9 @@
     overflow-x: auto;
     border: 1px solid var(--border);
     border-radius: 8px;
+    /* Isolate so sticky thead z-index is scoped here. Prevents absolute-positioned
+       tbody descendants (pos-marker, risk-fill) from painting above the sticky header. */
+    isolation: isolate;
   }
   table {
     width: 100%;
