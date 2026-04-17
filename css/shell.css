@@ -129,7 +129,12 @@
 /* ===== Main Content ===== */
 #content {
   min-height: calc(100vh - var(--nav-height));
-  overflow-x: hidden;
+  /* overflow-x: clip instead of hidden — hidden forces overflow-y: auto per CSS
+     spec, which makes #content a scroll container and traps sticky thead inside.
+     clip clips horizontal overflow WITHOUT establishing a scroll container, so
+     sticky elements (e.g. .em-table thead) correctly fall through to the viewport
+     and pin under the global nav at top: 48px. */
+  overflow-x: clip;
   max-width: 100vw;
 }
 
