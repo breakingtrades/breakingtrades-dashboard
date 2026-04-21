@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Apr 20",
-  "headline": "Tech surges, but flows and greed tell you to keep your guard up.",
+  "title": "Daily Briefing \u2014 Apr 21",
+  "headline": "Tech and cyclicals lead, greed surges \u2014 time to tighten stops and respect the data.",
   "body": [
-    "Right, so equities are ripping \u2014 SPY up 1.2% to 710, QQQ up 1.3% to 648.85, with tech and comms leading like it's AI-fueled 2021 again. Big names AAPL ($270.23), NVDA ($201.68), GOOGL ($341.68) are all cleanly above their 20 MA, which is classic momentum confirmation. But Fear & Greed has spiked from extreme fear (15.6) to greed (68.1) in just a month \u2014 that's a rapid shift, and the kind you don't chase blindly.",
-    "Sector rotation is textbook: XLK (Tech) and XLC (Comms) in the 'leading' quadrant with low risk, while XLE (Energy), XLB (Materials), XLI (Industrials), and XLU (Utilities) are rolling over. XLF (Financials) is improving, so the canary isn't gasping yet, but staples and healthcare lag \u2014 defensive sectors are not participating. Watch for rotational plays as XLY (Discretionary) picks up steam.",
-    "Contrarian lens: retail greed is flashing, breadth still looks wide, but elevated risk in materials and energy (see AA -6.8%, SM -7.5%), and the speed of this rally means you stick to the flow \u2014 not chase headlines. No breakdowns in bonds (HYG $80.65, LQD $110.04, both above their 20 MA), so macro risk isn't flashing red, but with momentum this fast, extreme retail enthusiasm is your warning, not your confirmation. Patience, react, don't predict."
+    "Right, so let's look at what the flows are telling us. SPY and QQQ both tagging new highs, handily above their 20 and 50 MAs (SPY: $708.72 vs 20MA $669.62), but Fear & Greed just printed 70.9 \u2014 that's a sharp ramp from 15.6 a month back. We're not at full-blown euphoria yet, but greed regimes don't last forever, so start dialing in on risk.",
+    "Sector rotation is clean: Tech (XLK $154.56), Industrials (XLI $173.90), Utilities (XLU $45.75), and Real Estate (XLRE $44.64) are all in the leading quadrant with price momentum above their short-term MAs. Meanwhile, Discretionary, Staples, Healthcare, and Communication are lagging. Translation: Defensive plays are underperforming, risk-on leadership is dominant \u2014 for now.",
+    "Contrarian red flag: Retail is piling into momentum (look at DELL + ARM + Meta runners), while the put/call is nowhere near max fear, and F&G is screaming greed. No active sell signal \u2014 but when everyone wants tech at ATH, that's usually when mean reversion shows up. If it's in the press, it's in the price. Patience, react, don't predict."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $710.14 (20 MA: 666.62) \u2014 momentum zone<br>NVDA: $201.68 (20 MA: 181.44) \u2014 tech leadership<br>XLE: $55.02 (20 MA: 58.90) \u2014 breaking down, risk elevated<br>Fear & Greed: 68.1 \u2014 caution needed<br>AA: $65.62 (20 MA: 66.53) \u2014 materials weakness<br>HYG/LQD: Both above 20 MA \u2014 no macro breakdown",
+  "callout_body": "SPY: Watch the 20MA at $669.62 for trend guardrail<br>QQQ: Mean reversion zone is $601<br>XLK: $140.45 (20MA) is your line in the sand<br>XLF: $50.36 (20MA) \u2014 financials holding, so no 'canary' risk<br>VIX staying below 20 \u2014 calm, but don't get lulled",
   "action_items": [
-    "Stick to tech momentum: AAPL, NVDA, GOOGL, XLK above 20 MA; trail stops with the daily 20 MA",
-    "Reduce exposure to energy (XLE, AA, SM) and materials; wait for mean reversion or sector improvement"
+    "Raise stops on tech leaders approaching parabolic extensions (AAPL $273, NVDA $202, Meta $670 \u2014 all stretched above 20MA).",
+    "Don't chase breakouts in laggards; look at Industrials (XLI $173.90, 20MA $166.86) and Real Estate (XLRE $44.64, triggered) for rotational follow-through if market holds."
   ],
-  "closing_quote": "If it's in the press, it's in the price. Abundance mindset \u2014 next trade, not last chase.",
-  "generatedAt": "2026-04-20T11:50:33.317365+00:00",
+  "closing_quote": "Less trades = more wins. Abundance mindset. If you missed the move, wait for the mean.",
+  "generatedAt": "2026-04-21T11:37:44.764454+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
