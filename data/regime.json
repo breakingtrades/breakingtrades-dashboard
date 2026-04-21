@@ -1,13 +1,13 @@
 {
-  "updated": "2026-04-20T20:20:45Z",
+  "updated": "2026-04-21T20:20:44Z",
   "regime": "BULL",
-  "score": 61,
+  "score": 62,
   "color": "#00d4aa",
   "previous": {
     "regime": "BULL",
-    "score": 60
+    "score": 61
   },
-  "duration_days": 6,
+  "duration_days": 7,
   "since": "2026-04-10",
   "cycle": {
     "phase": "LATE_CYCLE",
@@ -15,14 +15,14 @@
   },
   "components": {
     "move": {
-      "score": 94,
-      "value": 65.7,
+      "score": 92,
+      "value": 67.9,
       "signal": "collapsing",
       "weight": 18
     },
     "fear_greed": {
-      "score": 70,
-      "value": 70.0,
+      "score": 68,
+      "value": 67.7,
       "signal": "greed",
       "weight": 10
     },
@@ -30,11 +30,12 @@
       "score": 65,
       "value": 18.84,
       "signal": "normal",
-      "weight": 10
+      "weight": 10,
+      "stale": true
     },
     "breadth": {
-      "score": 44,
-      "value": 65.5,
+      "score": 50,
+      "value": 58.4,
       "signal": "strong",
       "weight": 8
     },
@@ -42,23 +43,26 @@
       "score": 90,
       "value": 6.79,
       "signal": "above",
-      "weight": 8
+      "weight": 8,
+      "stale": true
     },
     "hyg_spy": {
       "score": 20,
       "value": -3.76,
       "signal": "weak",
-      "weight": 8
+      "weight": 8,
+      "stale": true
     },
     "xlf_spy": {
       "score": 20,
       "value": -1.14,
       "signal": "weak",
-      "weight": 6
+      "weight": 6,
+      "stale": true
     },
     "dxy": {
       "score": 55,
-      "value": 98.06,
+      "value": 98.42,
       "signal": "neutral",
       "weight": 5
     },
@@ -66,11 +70,12 @@
       "score": 50,
       "value": 0.65,
       "signal": "normal",
-      "weight": 5
+      "weight": 5,
+      "stale": true
     },
     "growth_value": {
       "score": 50,
-      "value": -0.41,
+      "value": -0.11,
       "signal": "balanced",
       "weight": 4
     },
@@ -78,7 +83,8 @@
       "score": 70,
       "value": 0.52,
       "signal": "broadening",
-      "weight": 4
+      "weight": 4,
+      "stale": true
     },
     "put_call": {
       "score": 50,
@@ -87,20 +93,20 @@
       "weight": 4
     },
     "copper_gold": {
-      "score": 50,
-      "value": 0.11,
-      "signal": "neutral",
+      "score": 70,
+      "value": 1.61,
+      "signal": "growth",
       "weight": 4
     },
     "international": {
       "score": 50,
-      "value": -0.5,
+      "value": -0.39,
       "signal": "mixed",
       "weight": 4
     },
     "xly_xlp": {
       "score": 70,
-      "value": 8.25,
+      "value": 8.0,
       "signal": "strong",
       "weight": 2
     }
@@ -128,24 +134,25 @@
     "conditions": [
       {
         "label": "F&G > 65",
-        "current": 70.0,
+        "current": 67.7,
         "target": 65,
         "met": true
       },
       {
         "label": "Breadth > 65%",
-        "current": 65.5,
+        "current": 58.4,
         "target": 65,
-        "met": true
+        "met": false
       },
       {
         "label": "S&P > 5% above D200",
         "current": 6.79,
         "target": 5,
-        "met": true
+        "met": false,
+        "stale": true
       }
     ],
-    "conditions_met": 3,
+    "conditions_met": 1,
     "conditions_total": 3
   }
 }

@@ -1,131 +1,131 @@
 {
-  "updated": "2026-04-20T16:20:10.071476",
+  "updated": "2026-04-21T16:20:09.502883",
   "quotes": [
     {
       "symbol": "ES=F",
       "label": "S&P 500",
       "group": "indices",
-      "price": 7147.25,
-      "change": -14.25,
-      "changePct": -0.2,
-      "prevClose": 7161.5
+      "price": 7115.5,
+      "change": -32.5,
+      "changePct": -0.45,
+      "prevClose": 7148.0
     },
     {
       "symbol": "NQ=F",
       "label": "Nasdaq",
       "group": "indices",
-      "price": 26745.75,
-      "change": -79.75,
-      "changePct": -0.3,
-      "prevClose": 26825.5
+      "price": 26702.5,
+      "change": -46.25,
+      "changePct": -0.17,
+      "prevClose": 26748.75
     },
     {
       "symbol": "RTY=F",
       "label": "Russell",
       "group": "indices",
-      "price": 2803.8,
-      "change": 14.9,
-      "changePct": 0.53,
-      "prevClose": 2788.9
+      "price": 2785.4,
+      "change": -19.0,
+      "changePct": -0.68,
+      "prevClose": 2804.4
     },
     {
       "symbol": "YM=F",
       "label": "Dow",
       "group": "indices",
-      "price": 49631.0,
-      "change": -10.0,
-      "changePct": -0.02,
-      "prevClose": 49641.0
+      "price": 49436.0,
+      "change": -203.0,
+      "changePct": -0.41,
+      "prevClose": 49639.0
     },
     {
       "symbol": "CL=F",
       "label": "Crude",
       "group": "commodities",
-      "price": 86.87,
-      "change": 4.28,
-      "changePct": 5.18,
-      "prevClose": 82.59
+      "price": 89.51,
+      "change": -0.1,
+      "changePct": -0.11,
+      "prevClose": 89.61
     },
     {
       "symbol": "NG=F",
       "label": "Nat Gas",
       "group": "commodities",
-      "price": 2.68,
-      "change": 0.01,
-      "changePct": 0.3,
-      "prevClose": 2.67
+      "price": 2.71,
+      "change": 0.02,
+      "changePct": 0.71,
+      "prevClose": 2.69
     },
     {
       "symbol": "GC=F",
       "label": "Gold",
       "group": "commodities",
-      "price": 4834.8,
-      "change": -44.8,
-      "changePct": -0.92,
-      "prevClose": 4879.6
+      "price": 4703.0,
+      "change": -103.6,
+      "changePct": -2.16,
+      "prevClose": 4806.6
     },
     {
       "symbol": "SI=F",
       "label": "Silver",
       "group": "commodities",
-      "price": 79.83,
-      "change": -2.02,
-      "changePct": -2.46,
-      "prevClose": 81.84
+      "price": 75.96,
+      "change": -3.99,
+      "changePct": -4.99,
+      "prevClose": 79.95
     },
     {
       "symbol": "HG=F",
       "label": "Copper",
       "group": "commodities",
-      "price": 6.05,
-      "change": -0.07,
-      "changePct": -1.1,
-      "prevClose": 6.11
+      "price": 5.98,
+      "change": -0.05,
+      "changePct": -0.86,
+      "prevClose": 6.04
     },
     {
       "symbol": "^TNX",
       "label": "US10Y",
       "group": "rates",
-      "price": 4.25,
-      "change": 0.0,
-      "changePct": 0.09,
+      "price": 4.29,
+      "change": 0.04,
+      "changePct": 0.99,
       "prevClose": 4.25
     },
     {
       "symbol": "DX-Y.NYB",
       "label": "DXY",
       "group": "rates",
-      "price": 98.06,
-      "change": -0.04,
-      "changePct": -0.04,
-      "prevClose": 98.1
+      "price": 98.42,
+      "change": 0.37,
+      "changePct": 0.38,
+      "prevClose": 98.05
     },
     {
       "symbol": "^VIX",
       "label": "VIX",
       "group": "volatility",
-      "price": 18.84,
-      "change": 1.36,
-      "changePct": 7.78,
-      "prevClose": 17.48
+      "price": 20.56,
+      "change": 1.69,
+      "changePct": 8.96,
+      "prevClose": 18.87
     },
     {
       "symbol": "BTC-USD",
       "label": "BTC",
       "group": "crypto",
-      "price": 76430.87,
-      "change": 2574.52,
-      "changePct": 3.49,
-      "prevClose": 73856.35
+      "price": 75541.84,
+      "change": -330.68,
+      "changePct": -0.44,
+      "prevClose": 75872.52
     },
     {
       "symbol": "ETH-USD",
       "label": "ETH",
       "group": "crypto",
-      "price": 2337.32,
-      "change": 72.4,
-      "changePct": 3.2,
-      "prevClose": 2264.92
+      "price": 2318.59,
+      "change": 3.38,
+      "changePct": 0.15,
+      "prevClose": 2315.21
     }
   ]
 }
