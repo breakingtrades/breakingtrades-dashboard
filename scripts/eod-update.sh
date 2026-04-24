@@ -181,6 +181,52 @@ else
     log "Step 7/7: Quarterly EM History — not a post-quarter-end day"
 fi
 
+# --- 7b. Sync prices.json with EOD closes from expected-moves.json ---
+# expected-moves.py uses fast_info.previousClose (official close) while
+# update-prices.py uses yf.download daily bars (can be stale after close).
+# This step patches prices.json so both files agree on the closing price.
+log "Step 7b: Syncing prices.json with EOD closes from expected-moves.json"
+$PYTHON - <<'PYEOF' 2>&1 | tee -a "$LOG"
+import json, os
+from pathlib import Path
+
+repo = Path(os.environ.get('PWD', '.'))
+prices_file = repo / 'data' / 'prices.json'
+em_file = repo / 'data' / 'expected-moves.json'
+
+if not prices_file.exists() or not em_file.exists():
+    print('⚠️  prices.json or expected-moves.json missing — skipping sync')
+else:
+    prices = json.loads(prices_file.read_text())
+    em = json.loads(em_file.read_text())
+    em_tickers = em.get('tickers', {})
+    updated = 0
+    for sym, em_data in em_tickers.items():
+        eod_close = em_data.get('close') or em_data.get('spot')
+        if not eod_close or eod_close <= 0:
+            continue
+        if sym in prices.get('tickers', {}):
+            old = prices['tickers'][sym]['price']
+            if abs(old - eod_close) > 0.01:  # only patch if different
+                prices['tickers'][sym]['price'] = round(eod_close, 2)
+                # Recalculate change% using prior day's close from EM history
+                try:
+                    history = em_data.get('history', [])
+                    if len(history) >= 2:
+                        prev_close = history[-2].get('close')
+                        if prev_close and prev_close > 0:
+                            prices['tickers'][sym]['change'] = round((eod_close - prev_close) / prev_close * 100, 2)
+                except Exception:
+                    pass
+                updated += 1
+    if updated > 0:
+        prices['source'] = 'yfinance+eod-sync'
+        prices_file.write_text(json.dumps(prices, indent=2))
+        print(f'✅ Synced {updated} ticker prices from expected-moves.json')
+    else:
+        print('✅ prices.json already consistent with expected-moves.json')
+PYEOF
+
 # --- Git commit + push ---
 log "Committing changes..."
 git add data/ || true
