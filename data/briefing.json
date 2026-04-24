@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Apr 23",
-  "headline": "Tech ramping, greed rising, but flows say don\u2019t chase just yet.",
+  "title": "Daily Briefing \u2014 Apr 24",
+  "headline": "Flows strong, volatility muted, but tech wobble = caution zone.",
   "body": [
-    "Right, so the rally today is all about tech leadership. SPY at $711.21, QQQ $655.11 \u2014 both approaching new highs and snapping above the 20 MA (SPY: 674.96, QQQ: 607.62). Everything looks bullish, VIX is chill at 19.62 and contracting. Fear & Greed screaming up to 68.5, not quite in extreme territory, but the crowd has definitely swung from panic to FOMO in under a month.",
-    "Sector rotation? Tech (XLK $158.09) is the clear leader with low risk, while Energy (XLE $56.54) and Materials (XLB $51.83) are weakening despite short-term bounces. Financials (XLF $52.21) are improving, but everything else is lagging hard \u2014 Healthcare, Staples, Discretionary all flagged as high risk. Flows still favour mega-cap tech but the rotation is getting thin, so breadth is a concern if leadership narrows.",
-    "Contrarian? We're not hitting my AAII or Smart Money extreme levels, but this bounce is classic 'press in the price' \u2014 retail piling in after the rally, margin debt ticking up, and most names are miles above their 20MA (AAPL $273.17 vs 20MA $259.45, MSFT $432.92 vs $386.80, ARM +12%). Less trades = more wins: do NOT chase these highs. Abundance mindset \u2014 next setup will come when this mania cools. And keep an eye for any sudden HYG/LQD breakdown \u2014 if bonds freak out, everything breaks."
+    "Right, big picture: the market\u2019s grinding higher with SPY at $708.45, daily closes well above the 20 MA ($677.54) and breadth holding up. Despite some lumps in mega-cap tech (MSFT -4.0%, NVDA -1.4%), we\u2019re in a \u2018greed but not peak greed\u2019 environment \u2014 Fear & Greed at 66.7, just shy of the danger zone, and VIX is trending comfortably below the SMA20 (18.63 vs 21.57). Patience, react, don\u2019t predict.",
+    "Sector rotation is classic mean reversion: Energy (XLE $56.98) and Industrials (XLI $174.07) leading with low risk, while Utilities (XLU $46.09) and Real Estate (XLRE $43.96) are both triggered and showing momentum. Tech\u2019s still \u2018approaching\u2019 but faces near-term whipsaws \u2014 watch that XLK $155.84 vs 20 MA ($143.39) zone. The canary (XLF $51.80) is improving, so the economy isn\u2019t dead yet.",
+    "Contrarian signals: mega-cap retail crowding (AAPL, MSFT, NVDA, AMZN) into highs is always worth a side eye. Nothing in the press that isn\u2019t already priced, but MSFT\u2019s 4% drop and that cluster of bear signals in healthcare (TMO -9.2%, DHR -3.0%) is mental. No bond breakdown (HYG/LQD strong), but keep one hand on the exit if that changes. Less trades = more wins."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: Weekly mean reversion zone at 20MA $674.96 \u2014 trend stays up as long as this holds.<br>XLK: $158.09, breakout above 20MA $142.43 is very strong.<br>XLE: $56.54, but below 20MA $58.31 \u2014 sector rotation weakening.<br>Arm (ARM): $196.57, +12% \u2014 outlier move, but watch for exhaustion.<br>VIX: 19.62, below 20MA \u2014 volatility contraction, don't get lulled.<br>Fear & Greed: 68.5 \u2014 getting hot, but not at sell signal yet.",
+  "callout_body": "SPY: $677.54 (20 MA support) \u2014 above, bullish bias<br>MSFT: Watching $389.04 (20 MA) for reversal opportunity<br>NVDA: $186.53 (20 MA) is the pivot, $199.64 near resistance<br>XLK: Hold $143.39 (20 MA); sector rotation strong<br>XLE: Confirm $58.13 (20 MA) breakdown for energy risk<br>XLU, XLRE: Triggered, valid for momentum rotation<br>VIX: 18.63 \u2014 fading volatility<br>Fear & Greed: 66.7 \u2014 not extreme, but watch for push toward 75",
   "action_items": [
-    "Trail stops on any long tech trades (AAPL, MSFT, NVDA, ARM) \u2014 do not chase new entries at these extended levels.",
-    "Watch for sector rotation \u2014 if Financials (XLF) reclaim and hold above $52.30 (SMA200), start looking at rotational plays away from lagging Healthcare/Staples."
+    "Hold longs in indices/leading sectors (SPY, XLU, XLI, XLRE) while above 20 MA; rotate out if breakdown occurs",
+    "Watch MSFT, NVDA, and Tech for bounce off the 20 MA; don\u2019t chase, react to flows at support"
   ],
-  "closing_quote": "If it\u2019s in the press, it\u2019s in the price. Patience, react, don\u2019t predict.",
-  "generatedAt": "2026-04-23T11:37:27.794072+00:00",
+  "closing_quote": "If bonds freak out, everything breaks. Until then, abundance mindset: next trade.",
+  "generatedAt": "2026-04-24T11:39:23.819054+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
