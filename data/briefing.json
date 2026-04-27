@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Apr 24",
-  "headline": "Flows strong, volatility muted, but tech wobble = caution zone.",
+  "title": "Daily Briefing \u2014 Apr 27",
+  "headline": "Tech steamrolls, but flows not euphoric \u2014 patience before chasing.",
   "body": [
-    "Right, big picture: the market\u2019s grinding higher with SPY at $708.45, daily closes well above the 20 MA ($677.54) and breadth holding up. Despite some lumps in mega-cap tech (MSFT -4.0%, NVDA -1.4%), we\u2019re in a \u2018greed but not peak greed\u2019 environment \u2014 Fear & Greed at 66.7, just shy of the danger zone, and VIX is trending comfortably below the SMA20 (18.63 vs 21.57). Patience, react, don\u2019t predict.",
-    "Sector rotation is classic mean reversion: Energy (XLE $56.98) and Industrials (XLI $174.07) leading with low risk, while Utilities (XLU $46.09) and Real Estate (XLRE $43.96) are both triggered and showing momentum. Tech\u2019s still \u2018approaching\u2019 but faces near-term whipsaws \u2014 watch that XLK $155.84 vs 20 MA ($143.39) zone. The canary (XLF $51.80) is improving, so the economy isn\u2019t dead yet.",
-    "Contrarian signals: mega-cap retail crowding (AAPL, MSFT, NVDA, AMZN) into highs is always worth a side eye. Nothing in the press that isn\u2019t already priced, but MSFT\u2019s 4% drop and that cluster of bear signals in healthcare (TMO -9.2%, DHR -3.0%) is mental. No bond breakdown (HYG/LQD strong), but keep one hand on the exit if that changes. Less trades = more wins."
+    "Right, the big picture: SPY is ramping up to $713.94, firmly above the 20 MA ($680.99), with tech leading the charge \u2014 NVDA up 4.3% and MSFT popping 2.1%. VIX sits at 18.95, trending below its 20 MA, so volatility is cooling off but not dead. Fear & Greed is at 66 (greed), but nowhere near extreme \u2014 market\u2019s \u2018risk-on\u2019 but there\u2019s space left before full FOMO.",
+    "Rotation check: Tech (XLK $160.22) and Utilities (XLU $46.18) are both leading with LOW risk, while Energy (XLE $56.87) and Materials (XLB $51.92) are weakening. Financials (XLF $51.42) are lagging but still above all their key MAs \u2014 no canary panic yet. Watch XLI ($172.47), which is strong and leading, signalling some industrial participation, but Discretionary (XLY $118.69) is still lagging and at HIGH risk.",
+    "Contrarian lens: Not seeing full retail mania yet \u2014 Fear & Greed just moved out of last month\u2019s extreme fear (14.5) zone, so the crowd is in, but not giddy. No Smart Money/Dumb Money extreme, no gamma wall craziness flagged. That said, I\u2019d be patient \u2014 chasing tech after these outsized moves is how you get run over. If it\u2019s in the press, it\u2019s in the price: keep eyes on sector rotations and dark pool activity before adding risk."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $677.54 (20 MA support) \u2014 above, bullish bias<br>MSFT: Watching $389.04 (20 MA) for reversal opportunity<br>NVDA: $186.53 (20 MA) is the pivot, $199.64 near resistance<br>XLK: Hold $143.39 (20 MA); sector rotation strong<br>XLE: Confirm $58.13 (20 MA) breakdown for energy risk<br>XLU, XLRE: Triggered, valid for momentum rotation<br>VIX: 18.63 \u2014 fading volatility<br>Fear & Greed: 66.7 \u2014 not extreme, but watch for push toward 75",
+  "callout_body": "SPY: Watching $713.94, 20 MA $680.99 \u2014 above, so trend intact<br>NVDA: $208.27, 20 MA $188.38 \u2014 approaching, but don\u2019t chase<br>XLK: $160.22 near 20 MA $144.77 \u2014 tech momentum strong<br>XLF: $51.42 above 20/50/200 MA \u2014 financials not breaking (no economic risk trigger)<br>XLE: $56.87 below 20 MA $57.90 and weakening \u2014 energy cooling off<br>Fear & Greed at 66 \u2014 rising, but not extreme greed",
   "action_items": [
-    "Hold longs in indices/leading sectors (SPY, XLU, XLI, XLRE) while above 20 MA; rotate out if breakdown occurs",
-    "Watch MSFT, NVDA, and Tech for bounce off the 20 MA; don\u2019t chase, react to flows at support"
+    "Watch NVDA and XLK for mean reversion setups \u2014 don\u2019t chase breakouts, wait for pullbacks to 20 MA zone.",
+    "Monitor XLF and sector laggards for signs of breakdown; if financials slip below $50.90 (20 MA), macro risk rises fast."
   ],
-  "closing_quote": "If bonds freak out, everything breaks. Until then, abundance mindset: next trade.",
-  "generatedAt": "2026-04-24T11:39:23.819054+00:00",
+  "closing_quote": "Abundance mindset \u2014 miss the move, find the next trade. Less trades = more wins.",
+  "generatedAt": "2026-04-27T12:05:40.947381+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
