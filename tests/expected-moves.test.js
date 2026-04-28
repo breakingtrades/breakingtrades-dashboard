@@ -140,12 +140,14 @@ describeWithData('EM Anchor vs Live Price Independence', () => {
 // BAND SYMMETRY & SANITY
 // ============================================================
 describeWithData('EM Band Integrity', () => {
-  test('bands are symmetric around anchor (close ± EM)', () => {
+  test('bands are symmetric around anchor_close (weekly EM uses anchor, not spot)', () => {
     for (const [sym, t] of Object.entries(emData.tickers)) {
       if (!t.weekly) continue;
       const midpoint = (t.weekly.upper + t.weekly.lower) / 2;
-      // Midpoint should equal close price (bands are centered on close)
-      expect(Math.abs(midpoint - t.close)).toBeLessThan(0.02);
+      // Weekly EM is centered on anchor_close (previous period's close), not today's spot.
+      // Fall back to t.close if anchor_close is absent.
+      const anchor = t.weekly.anchor_close ?? t.close;
+      expect(Math.abs(midpoint - anchor)).toBeLessThan(0.02);
     }
   });
 
@@ -182,21 +184,71 @@ describeWithData('EM Band Integrity', () => {
 // ============================================================
 // DATA FRESHNESS
 // ============================================================
+
+/**
+ * isMarketDay: returns true if the given Date is Mon–Fri (ET).
+ * Does not account for holidays — good enough for staleness checks.
+ */
+function isMarketDay(d) {
+  // Convert to ET wall-clock day-of-week
+  const etStr = d.toLocaleString('en-US', { timeZone: 'America/New_York', weekday: 'short' });
+  return !['Sat', 'Sun'].includes(etStr);
+}
+
+/**
+ * maxAgeHours: returns the acceptable max age for EM data.
+ *  - Market day before 10 AM ET  → allow up to 20h (yesterday's EOD still valid)
+ *  - Market day after  10 AM ET  → allow up to 20h (today's EOD not yet run)
+ *  - Weekend                     → allow up to 72h (last Friday's EOD)
+ */
+function maxAgeHours(now) {
+  if (!isMarketDay(now)) return 72;  // weekend
+  return 28;  // trading day — EOD runs 4:20 PM; by next morning <20h old
+}
+
 describeWithData('EM Data Freshness', () => {
-  test('EM data updated within last 3 days', () => {
+  test('EM data is not stale (market-day-aware)', () => {
+    const now = new Date();
     const updated = new Date(emData.updated);
-    const ageDays = (Date.now() - updated.getTime()) / (1000 * 60 * 60 * 24);
-    expect(ageDays).toBeLessThan(3);
+    const ageHours = (now - updated) / (1000 * 60 * 60);
+    const maxAge = maxAgeHours(now);
+
+    // Provide a clear failure message showing actual age
+    expect(ageHours).toBeLessThan(maxAge);
   });
 
-  test('prices.json updated within last 3 days', () => {
+  test('prices.json is not stale (market-day-aware)', () => {
+    const now = new Date();
     const updated = new Date(pricesData.updated);
-    const ageDays = (Date.now() - updated.getTime()) / (1000 * 60 * 60 * 24);
-    expect(ageDays).toBeLessThan(3);
+    const ageHours = (now - updated) / (1000 * 60 * 60);
+    const maxAge = maxAgeHours(now);
+
+    expect(ageHours).toBeLessThan(maxAge);
   });
 
   test('at least 70 tickers in EM data', () => {
     expect(Object.keys(emData.tickers).length).toBeGreaterThanOrEqual(70);
+  });
+
+  test('all recently-updated tickers have a weekly expiry date', () => {
+    // Tickers with stale data (updated > 7 days ago) may have incomplete fields
+    // from an old IB Gateway run — warn but don't fail the suite for those.
+    const now = new Date();
+    const missing = Object.entries(emData.tickers)
+      .filter(([, t]) => {
+        const age = (now - new Date(t.updated || emData.updated)) / (1000 * 60 * 60 * 24);
+        return age < 7 && (!t.weekly || !t.weekly.expiry);
+      })
+      .map(([sym]) => sym);
+    // Log stale tickers separately for visibility
+    const staleNoExpiry = Object.entries(emData.tickers)
+      .filter(([, t]) => {
+        const age = (now - new Date(t.updated || emData.updated)) / (1000 * 60 * 60 * 24);
+        return age >= 7 && (!t.weekly || !t.weekly.expiry);
+      })
+      .map(([sym, t]) => `${sym} (stale ${Math.round((now - new Date(t.updated || emData.updated)) / 86400000)}d)`);
+    if (staleNoExpiry.length) console.warn('  ⚠ Stale tickers missing expiry:', staleNoExpiry.join(', '));
+    expect(missing).toEqual([]);
   });
 
   test('source field is present', () => {

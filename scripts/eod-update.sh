@@ -110,12 +110,37 @@ fi
 # --- 4. Expected Moves (IB → yfinance fallback) ---
 # Friday: all tiers (weekly + monthly + quarterly recalc)
 # Mon-Thu: daily tier only (fast — 8 index/futures proxies)
+# STALENESS GUARD: if weekly anchor is >7 days old (e.g. missed Friday run
+#   due to git push failure), force --tier all to re-anchor regardless of day.
+EM_ANCHOR_AGE_DAYS=0
+if [[ "$IS_EFFECTIVE_FRIDAY" != "1" ]]; then
+    EM_ANCHOR_AGE_DAYS=$($PYTHON -c "
+import json, sys
+from datetime import date
+try:
+    d = json.load(open('data/expected-moves.json'))
+    # Sample SPY anchor_date as representative
+    anchor = d.get('tickers',{}).get('SPY',{}).get('weekly',{}).get('anchor_date','')
+    if anchor:
+        delta = (date.today() - date.fromisoformat(anchor)).days
+        print(delta)
+    else:
+        print(999)
+except Exception:
+    print(0)
+" 2>/dev/null || echo 0)
+fi
+
 if [[ "$IS_EFFECTIVE_FRIDAY" == "1" ]]; then
     EM_TIER="all"
     EM_LABEL="all tiers (last trading day of week)"
+elif [[ "$EM_ANCHOR_AGE_DAYS" -gt 7 ]]; then
+    EM_TIER="all"
+    EM_LABEL="all tiers (STALENESS GUARD: anchor ${EM_ANCHOR_AGE_DAYS}d old)"
+    log "⚠️  Weekly EM anchor is ${EM_ANCHOR_AGE_DAYS} days old — forcing full refresh"
 else
     EM_TIER="daily"
-    EM_LABEL="daily tier"
+    EM_LABEL="daily tier (anchor ${EM_ANCHOR_AGE_DAYS}d old)"
 fi
 
 log "Step 4/7: Expected Moves ($EM_LABEL) — IB→yfinance"
@@ -131,6 +156,19 @@ if $PYTHON scripts/export-yfinance-fallback.py 2>&1 | tee -a "$LOG"; then
     log "✅ yfinance fallback done"
 else
     warn "yfinance fallback failed"
+fi
+
+# --- 5b. Autoresearch Summary (AI Researcher page) ---
+# Regenerates dashboard display from latest optimizer results. Fast (<1s), no network.
+AUTORESEARCH_RESULTS="$(dirname "$REPO")/data/autoresearch-results.json"
+if [[ -f "$AUTORESEARCH_RESULTS" ]]; then
+    if $PYTHON "$(dirname "$REPO")/autoresearch/summarize.py" 2>&1 | tee -a "$LOG"; then
+        log "✅ Autoresearch summary updated"
+    else
+        warn "Autoresearch summary failed (non-fatal)"
+    fi
+else
+    log "⏭️  Autoresearch summary skipped (no results file yet)"
 fi
 
 # --- 6. Regime Intelligence ---
