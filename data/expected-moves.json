@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-28T20:17:56.685086",
+  "updated": "2026-04-28T20:59:46.395995+00:00",
   "source": "yfinance",
   "tier": "daily",
   "tickers": {
@@ -1865,11 +1865,11 @@
       },
       "weekly": {
         "value": 3.82,
-        "pct": 5.21,
-        "upper": 77.09,
-        "lower": 69.45,
-        "anchor_close": 73.27,
-        "anchor_date": "2026-04-10",
+        "pct": 5.79,
+        "upper": 69.83,
+        "lower": 62.19,
+        "anchor_close": 66.01,
+        "anchor_date": "2026-04-24",
         "straddle": 6.35,
         "expiry": "20260508"
       },
@@ -1953,6 +1953,14 @@
           "daily_em": 2.58
         },
         {
+          "date": "2026-04-24",
+          "close": 66.01,
+          "straddle": 6.35,
+          "weekly_em": 3.82,
+          "daily_em": 1.71,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 66.01,
           "straddle": 6.35,
@@ -1981,11 +1989,11 @@
       },
       "weekly": {
         "value": 7.96,
-        "pct": 3.06,
-        "upper": 268.45,
-        "lower": 252.53,
-        "anchor_close": 260.49,
-        "anchor_date": "2026-04-10",
+        "pct": 2.94,
+        "upper": 279.02,
+        "lower": 263.1,
+        "anchor_close": 271.06,
+        "anchor_date": "2026-04-24",
         "straddle": 13.25,
         "expiry": "20260508"
       },
@@ -2071,6 +2079,14 @@
           "daily_em": 2.59
         },
         {
+          "date": "2026-04-24",
+          "close": 271.06,
+          "straddle": 13.25,
+          "weekly_em": 7.96,
+          "daily_em": 3.56,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 271.06,
           "straddle": 13.25,
@@ -2099,11 +2115,11 @@
       },
       "weekly": {
         "value": 6.89,
-        "pct": 3.25,
-        "upper": 219.29,
-        "lower": 205.51,
-        "anchor_close": 212.4,
-        "anchor_date": "2026-04-10",
+        "pct": 3.47,
+        "upper": 205.6,
+        "lower": 191.82,
+        "anchor_close": 198.71,
+        "anchor_date": "2026-04-24",
         "straddle": 11.47,
         "expiry": "20260508"
       },
@@ -2187,6 +2203,14 @@
           "daily_em": 2.31
         },
         {
+          "date": "2026-04-24",
+          "close": 198.71,
+          "straddle": 11.47,
+          "weekly_em": 6.89,
+          "daily_em": 3.08,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 198.71,
           "straddle": 11.47,
@@ -2215,11 +2239,11 @@
       },
       "weekly": {
         "value": 0.46,
-        "pct": 2.65,
-        "upper": 17.93,
-        "lower": 17.01,
-        "anchor_close": 17.47,
-        "anchor_date": "2026-04-10",
+        "pct": 2.77,
+        "upper": 17.08,
+        "lower": 16.16,
+        "anchor_close": 16.62,
+        "anchor_date": "2026-04-24",
         "straddle": 0.77,
         "expiry": "20260508"
       },
@@ -2303,6 +2327,14 @@
           "daily_em": 0.42
         },
         {
+          "date": "2026-04-24",
+          "close": 16.62,
+          "straddle": 0.77,
+          "weekly_em": 0.46,
+          "daily_em": 0.21,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 16.62,
           "straddle": 0.77,
@@ -2331,11 +2363,11 @@
       },
       "weekly": {
         "value": 8.91,
-        "pct": 3.96,
-        "upper": 234.04,
-        "lower": 216.22,
-        "anchor_close": 225.13,
-        "anchor_date": "2026-04-10",
+        "pct": 3.75,
+        "upper": 246.35,
+        "lower": 228.53,
+        "anchor_close": 237.44,
+        "anchor_date": "2026-04-24",
         "straddle": 14.82,
         "expiry": "20260508"
       },
@@ -2419,6 +2451,14 @@
           "daily_em": 4.48
         },
         {
+          "date": "2026-04-24",
+          "close": 237.44,
+          "straddle": 14.82,
+          "weekly_em": 8.91,
+          "daily_em": 3.98,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 237.44,
           "straddle": 14.82,
@@ -2447,11 +2487,11 @@
       },
       "weekly": {
         "value": 12.54,
-        "pct": 5.37,
-        "upper": 246.19,
-        "lower": 221.11,
-        "anchor_close": 233.65,
-        "anchor_date": "2026-04-10",
+        "pct": 4.75,
+        "upper": 276.53,
+        "lower": 251.45,
+        "anchor_close": 263.99,
+        "anchor_date": "2026-04-24",
         "straddle": 20.86,
         "expiry": "20260508"
       },
@@ -2537,6 +2577,14 @@
           "daily_em": 3.02
         },
         {
+          "date": "2026-04-24",
+          "close": 263.99,
+          "straddle": 20.86,
+          "weekly_em": 12.54,
+          "daily_em": 5.61,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 263.99,
           "straddle": 20.86,
@@ -2565,11 +2613,11 @@
       },
       "weekly": {
         "value": 1.92,
-        "pct": 5.02,
-        "upper": 40.13,
-        "lower": 36.29,
-        "anchor_close": 38.21,
-        "anchor_date": "2026-04-10",
+        "pct": 5.07,
+        "upper": 39.76,
+        "lower": 35.92,
+        "anchor_close": 37.84,
+        "anchor_date": "2026-04-24",
         "straddle": 3.19,
         "expiry": "20260508"
       },
@@ -2653,6 +2701,14 @@
           "daily_em": 0.73
         },
         {
+          "date": "2026-04-24",
+          "close": 37.84,
+          "straddle": 3.19,
+          "weekly_em": 1.92,
+          "daily_em": 0.86,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 37.84,
           "straddle": 3.19,
@@ -2681,11 +2737,11 @@
       },
       "weekly": {
         "value": 25.34,
-        "pct": 16.92,
-        "upper": 175.13,
-        "lower": 124.45,
-        "anchor_close": 149.79,
-        "anchor_date": "2026-04-10",
+        "pct": 10.79,
+        "upper": 260.15,
+        "lower": 209.47,
+        "anchor_close": 234.81,
+        "anchor_date": "2026-04-24",
         "straddle": 42.16,
         "expiry": "20260508"
       },
@@ -2769,6 +2825,14 @@
           "daily_em": 4.05
         },
         {
+          "date": "2026-04-24",
+          "close": 234.81,
+          "straddle": 42.16,
+          "weekly_em": 25.34,
+          "daily_em": 11.33,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 234.81,
           "straddle": 42.16,
@@ -2797,11 +2861,11 @@
       },
       "weekly": {
         "value": 18.36,
-        "pct": 5.17,
-        "upper": 373.27,
-        "lower": 336.55,
-        "anchor_close": 354.91,
-        "anchor_date": "2026-04-10",
+        "pct": 4.34,
+        "upper": 441.12,
+        "lower": 404.4,
+        "anchor_close": 422.76,
+        "anchor_date": "2026-04-24",
         "straddle": 30.55,
         "expiry": "20260508"
       },
@@ -2880,6 +2944,14 @@
           "daily_em": 7.86
         },
         {
+          "date": "2026-04-24",
+          "close": 422.76,
+          "straddle": 30.55,
+          "weekly_em": 18.36,
+          "daily_em": 8.21,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 422.76,
           "straddle": 30.55,
@@ -2908,11 +2980,11 @@
       },
       "weekly": {
         "value": 27.57,
-        "pct": 17.22,
-        "upper": 187.7,
-        "lower": 132.56,
-        "anchor_close": 160.13,
-        "anchor_date": "2026-04-10",
+        "pct": 11.93,
+        "upper": 258.74,
+        "lower": 203.6,
+        "anchor_close": 231.17,
+        "anchor_date": "2026-04-24",
         "straddle": 45.87,
         "expiry": "20260508"
       },
@@ -2996,6 +3068,14 @@
           "daily_em": 6.6
         },
         {
+          "date": "2026-04-24",
+          "close": 231.17,
+          "straddle": 45.87,
+          "weekly_em": 27.57,
+          "daily_em": 12.33,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 231.17,
           "straddle": 45.87,
@@ -3024,11 +3104,11 @@
       },
       "weekly": {
         "value": 1.89,
-        "pct": 7.94,
-        "upper": 25.66,
-        "lower": 21.88,
-        "anchor_close": 23.77,
-        "anchor_date": "2026-04-10",
+        "pct": 8.49,
+        "upper": 24.14,
+        "lower": 20.36,
+        "anchor_close": 22.25,
+        "anchor_date": "2026-04-24",
         "straddle": 3.14,
         "expiry": "20260508"
       },
@@ -3110,6 +3190,14 @@
           "straddle": 1.23,
           "weekly_em": 1.17,
           "daily_em": 0.52
+        },
+        {
+          "date": "2026-04-24",
+          "close": 22.25,
+          "straddle": 3.14,
+          "weekly_em": 1.89,
+          "daily_em": 0.84,
+          "is_friday": true
         },
         {
           "date": "2026-04-28",
@@ -3202,11 +3290,11 @@
       },
       "weekly": {
         "value": 0.41,
-        "pct": 2.63,
-        "upper": 15.96,
-        "lower": 15.14,
-        "anchor_close": 15.55,
-        "anchor_date": "2026-04-10",
+        "pct": 2.89,
+        "upper": 14.58,
+        "lower": 13.76,
+        "anchor_close": 14.17,
+        "anchor_date": "2026-04-24",
         "straddle": 0.68,
         "expiry": "20260508"
       },
@@ -3290,6 +3378,14 @@
           "daily_em": 0.21
         },
         {
+          "date": "2026-04-24",
+          "close": 14.17,
+          "straddle": 0.68,
+          "weekly_em": 0.41,
+          "daily_em": 0.18,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 14.17,
           "straddle": 0.68,
@@ -3318,11 +3414,11 @@
       },
       "weekly": {
         "value": 8.14,
-        "pct": 3.65,
-        "upper": 231.37,
-        "lower": 215.09,
-        "anchor_close": 223.23,
-        "anchor_date": "2026-04-10",
+        "pct": 4.52,
+        "upper": 188.27,
+        "lower": 171.99,
+        "anchor_close": 180.13,
+        "anchor_date": "2026-04-24",
         "straddle": 13.55,
         "expiry": "20260508"
       },
@@ -3406,6 +3502,14 @@
           "daily_em": 3.9
         },
         {
+          "date": "2026-04-24",
+          "close": 180.13,
+          "straddle": 13.55,
+          "weekly_em": 8.14,
+          "daily_em": 3.64,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 180.13,
           "straddle": 13.55,
@@ -3434,11 +3538,11 @@
       },
       "weekly": {
         "value": 14.77,
-        "pct": 8.74,
-        "upper": 183.79,
-        "lower": 154.25,
-        "anchor_close": 169.02,
-        "anchor_date": "2026-04-10",
+        "pct": 7.39,
+        "upper": 214.54,
+        "lower": 185.0,
+        "anchor_close": 199.77,
+        "anchor_date": "2026-04-24",
         "straddle": 24.57,
         "expiry": "20260508"
       },
@@ -3522,6 +3626,14 @@
           "daily_em": 5.36
         },
         {
+          "date": "2026-04-24",
+          "close": 199.77,
+          "straddle": 24.57,
+          "weekly_em": 14.77,
+          "daily_em": 6.6,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 199.77,
           "straddle": 24.57,
@@ -3550,11 +3662,11 @@
       },
       "weekly": {
         "value": 10.79,
-        "pct": 5.95,
-        "upper": 192.25,
-        "lower": 170.67,
-        "anchor_close": 181.46,
-        "anchor_date": "2026-04-10",
+        "pct": 4.99,
+        "upper": 226.88,
+        "lower": 205.3,
+        "anchor_close": 216.09,
+        "anchor_date": "2026-04-24",
         "straddle": 17.95,
         "expiry": "20260508"
       },
@@ -3638,6 +3750,14 @@
           "daily_em": 4.12
         },
         {
+          "date": "2026-04-24",
+          "close": 216.09,
+          "straddle": 17.95,
+          "weekly_em": 10.79,
+          "daily_em": 4.82,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 216.09,
           "straddle": 17.95,
@@ -3666,11 +3786,11 @@
       },
       "weekly": {
         "value": 5.3,
-        "pct": 2.75,
-        "upper": 198.29,
-        "lower": 187.69,
-        "anchor_close": 192.99,
-        "anchor_date": "2026-04-10",
+        "pct": 2.99,
+        "upper": 182.55,
+        "lower": 171.95,
+        "anchor_close": 177.25,
+        "anchor_date": "2026-04-24",
         "straddle": 8.82,
         "expiry": "20260508"
       },
@@ -3754,6 +3874,14 @@
           "daily_em": 2.46
         },
         {
+          "date": "2026-04-24",
+          "close": 177.25,
+          "straddle": 8.82,
+          "weekly_em": 5.3,
+          "daily_em": 2.37,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 177.25,
           "straddle": 8.82,
@@ -3782,11 +3910,11 @@
       },
       "weekly": {
         "value": 14.11,
-        "pct": 4.43,
-        "upper": 332.6,
-        "lower": 304.38,
-        "anchor_close": 318.49,
-        "anchor_date": "2026-04-10",
+        "pct": 4.1,
+        "upper": 358.51,
+        "lower": 330.29,
+        "anchor_close": 344.4,
+        "anchor_date": "2026-04-24",
         "straddle": 23.47,
         "expiry": "20260508"
       },
@@ -3872,6 +4000,14 @@
           "daily_em": 3.44
         },
         {
+          "date": "2026-04-24",
+          "close": 344.4,
+          "straddle": 23.47,
+          "weekly_em": 14.11,
+          "daily_em": 6.31,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 344.4,
           "straddle": 23.47,
@@ -3901,10 +4037,10 @@
       "weekly": {
         "value": 0.31,
         "pct": 0.39,
-        "upper": 80.59,
-        "lower": 79.97,
-        "anchor_close": 80.28,
-        "anchor_date": "2026-04-10",
+        "upper": 80.79,
+        "lower": 80.17,
+        "anchor_close": 80.48,
+        "anchor_date": "2026-04-24",
         "straddle": 0.52,
         "expiry": "20260508"
       },
@@ -3988,6 +4124,14 @@
           "daily_em": 0.14
         },
         {
+          "date": "2026-04-24",
+          "close": 80.48,
+          "straddle": 0.52,
+          "weekly_em": 0.31,
+          "daily_em": 0.14,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 80.48,
           "straddle": 0.52,
@@ -4016,11 +4160,11 @@
       },
       "weekly": {
         "value": 2.92,
-        "pct": 3.8,
-        "upper": 79.56,
-        "lower": 73.72,
-        "anchor_close": 76.64,
-        "anchor_date": "2026-04-10",
+        "pct": 3.43,
+        "upper": 88.12,
+        "lower": 82.28,
+        "anchor_close": 85.2,
+        "anchor_date": "2026-04-24",
         "straddle": 4.85,
         "expiry": "20260508"
       },
@@ -4104,6 +4248,14 @@
           "daily_em": 1.29
         },
         {
+          "date": "2026-04-24",
+          "close": 85.2,
+          "straddle": 4.85,
+          "weekly_em": 2.92,
+          "daily_em": 1.3,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 85.2,
           "straddle": 4.85,
@@ -4132,11 +4284,11 @@
       },
       "weekly": {
         "value": 0.76,
-        "pct": 3.28,
-        "upper": 24.03,
-        "lower": 22.51,
-        "anchor_close": 23.27,
-        "anchor_date": "2026-04-10",
+        "pct": 3.46,
+        "upper": 22.7,
+        "lower": 21.18,
+        "anchor_close": 21.94,
+        "anchor_date": "2026-04-24",
         "straddle": 1.27,
         "expiry": "20260508"
       },
@@ -4220,6 +4372,14 @@
           "daily_em": 0.35
         },
         {
+          "date": "2026-04-24",
+          "close": 21.94,
+          "straddle": 1.27,
+          "weekly_em": 0.76,
+          "daily_em": 0.34,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 21.94,
           "straddle": 1.27,
@@ -4249,10 +4409,10 @@
       "weekly": {
         "value": 3.17,
         "pct": 3.24,
-        "upper": 101.13,
-        "lower": 94.79,
-        "anchor_close": 97.96,
-        "anchor_date": "2026-04-10",
+        "upper": 101.02,
+        "lower": 94.68,
+        "anchor_close": 97.85,
+        "anchor_date": "2026-04-24",
         "straddle": 5.28,
         "expiry": "20260508"
       },
@@ -4336,6 +4496,14 @@
           "daily_em": 1.28
         },
         {
+          "date": "2026-04-24",
+          "close": 97.85,
+          "straddle": 5.28,
+          "weekly_em": 3.17,
+          "daily_em": 1.42,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 97.85,
           "straddle": 5.28,
@@ -4364,11 +4532,11 @@
       },
       "weekly": {
         "value": 44.81,
-        "pct": 4.69,
-        "upper": 1000.0,
-        "lower": 910.38,
-        "anchor_close": 955.19,
-        "anchor_date": "2026-04-10",
+        "pct": 5.07,
+        "upper": 928.77,
+        "lower": 839.15,
+        "anchor_close": 883.96,
+        "anchor_date": "2026-04-24",
         "straddle": 74.55,
         "expiry": "20260508"
       },
@@ -4447,6 +4615,14 @@
           "daily_em": 11.75
         },
         {
+          "date": "2026-04-24",
+          "close": 883.96,
+          "straddle": 74.55,
+          "weekly_em": 44.81,
+          "daily_em": 20.04,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 883.96,
           "straddle": 74.55,
@@ -4475,11 +4651,11 @@
       },
       "weekly": {
         "value": 0.6,
-        "pct": 0.54,
-        "upper": 110.09,
-        "lower": 108.89,
-        "anchor_close": 109.49,
-        "anchor_date": "2026-04-10",
+        "pct": 0.55,
+        "upper": 110.2,
+        "lower": 109.0,
+        "anchor_close": 109.6,
+        "anchor_date": "2026-04-24",
         "straddle": 0.99,
         "expiry": "20260508"
       },
@@ -4563,6 +4739,14 @@
           "daily_em": 0.41
         },
         {
+          "date": "2026-04-24",
+          "close": 109.6,
+          "straddle": 0.99,
+          "weekly_em": 0.6,
+          "daily_em": 0.27,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 109.6,
           "straddle": 0.99,
@@ -4591,11 +4775,11 @@
       },
       "weekly": {
         "value": 34.06,
-        "pct": 5.42,
-        "upper": 662.45,
-        "lower": 594.33,
-        "anchor_close": 628.39,
-        "anchor_date": "2026-04-10",
+        "pct": 5.05,
+        "upper": 709.09,
+        "lower": 640.97,
+        "anchor_close": 675.03,
+        "anchor_date": "2026-04-24",
         "straddle": 56.67,
         "expiry": "20260508"
       },
@@ -4681,6 +4865,14 @@
           "daily_em": 8.09
         },
         {
+          "date": "2026-04-24",
+          "close": 675.03,
+          "straddle": 56.67,
+          "weekly_em": 34.06,
+          "daily_em": 15.23,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 675.03,
           "straddle": 56.67,
@@ -4709,11 +4901,11 @@
       },
       "weekly": {
         "value": 19.32,
-        "pct": 5.18,
-        "upper": 392.39,
-        "lower": 353.75,
-        "anchor_close": 373.07,
-        "anchor_date": "2026-04-10",
+        "pct": 4.55,
+        "upper": 443.94,
+        "lower": 405.3,
+        "anchor_close": 424.62,
+        "anchor_date": "2026-04-24",
         "straddle": 32.15,
         "expiry": "20260508"
       },
@@ -4799,6 +4991,14 @@
           "daily_em": 4.34
         },
         {
+          "date": "2026-04-24",
+          "close": 424.62,
+          "straddle": 32.15,
+          "weekly_em": 19.32,
+          "daily_em": 8.64,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 424.62,
           "straddle": 32.15,
@@ -4827,11 +5027,11 @@
       },
       "weekly": {
         "value": 13.23,
-        "pct": 9.71,
-        "upper": 149.56,
-        "lower": 123.1,
-        "anchor_close": 136.33,
-        "anchor_date": "2026-04-10",
+        "pct": 8.99,
+        "upper": 160.39,
+        "lower": 133.93,
+        "anchor_close": 147.16,
+        "anchor_date": "2026-04-24",
         "straddle": 22.02,
         "expiry": "20260508"
       },
@@ -4915,6 +5115,14 @@
           "daily_em": 6.25
         },
         {
+          "date": "2026-04-24",
+          "close": 147.16,
+          "straddle": 22.02,
+          "weekly_em": 13.23,
+          "daily_em": 5.92,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 147.16,
           "straddle": 22.02,
@@ -4943,11 +5151,11 @@
       },
       "weekly": {
         "value": 2.07,
-        "pct": 2.19,
-        "upper": 96.55,
-        "lower": 92.41,
-        "anchor_close": 94.48,
-        "anchor_date": "2026-04-10",
+        "pct": 2.17,
+        "upper": 97.35,
+        "lower": 93.21,
+        "anchor_close": 95.28,
+        "anchor_date": "2026-04-24",
         "straddle": 3.45,
         "expiry": "20260508"
       },
@@ -5031,6 +5239,14 @@
           "daily_em": 0.88
         },
         {
+          "date": "2026-04-24",
+          "close": 95.28,
+          "straddle": 3.45,
+          "weekly_em": 2.07,
+          "daily_em": 0.93,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 95.28,
           "straddle": 3.45,
@@ -5059,11 +5275,11 @@
       },
       "weekly": {
         "value": 9.18,
-        "pct": 4.99,
-        "upper": 193.09,
-        "lower": 174.73,
-        "anchor_close": 183.91,
-        "anchor_date": "2026-04-10",
+        "pct": 4.41,
+        "upper": 217.45,
+        "lower": 199.09,
+        "anchor_close": 208.27,
+        "anchor_date": "2026-04-24",
         "straddle": 15.28,
         "expiry": "20260508"
       },
@@ -5149,6 +5365,14 @@
           "daily_em": 2.42
         },
         {
+          "date": "2026-04-24",
+          "close": 208.27,
+          "straddle": 15.28,
+          "weekly_em": 9.18,
+          "daily_em": 4.11,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 208.27,
           "straddle": 15.28,
@@ -5177,11 +5401,11 @@
       },
       "weekly": {
         "value": 0.82,
-        "pct": 3.0,
-        "upper": 28.04,
-        "lower": 26.4,
-        "anchor_close": 27.22,
-        "anchor_date": "2026-04-10",
+        "pct": 3.04,
+        "upper": 27.82,
+        "lower": 26.18,
+        "anchor_close": 27.0,
+        "anchor_date": "2026-04-24",
         "straddle": 1.36,
         "expiry": "20260508"
       },
@@ -5265,6 +5489,14 @@
           "daily_em": 0.26
         },
         {
+          "date": "2026-04-24",
+          "close": 27.0,
+          "straddle": 1.36,
+          "weekly_em": 0.82,
+          "daily_em": 0.37,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 27.0,
           "straddle": 1.36,
@@ -5293,11 +5525,11 @@
       },
       "weekly": {
         "value": 0.87,
-        "pct": 6.82,
-        "upper": 13.64,
-        "lower": 11.9,
-        "anchor_close": 12.77,
-        "anchor_date": "2026-04-10",
+        "pct": 6.11,
+        "upper": 15.11,
+        "lower": 13.37,
+        "anchor_close": 14.24,
+        "anchor_date": "2026-04-24",
         "straddle": 1.45,
         "expiry": "20260508"
       },
@@ -5381,6 +5613,14 @@
           "daily_em": 0.23
         },
         {
+          "date": "2026-04-24",
+          "close": 14.24,
+          "straddle": 1.45,
+          "weekly_em": 0.87,
+          "daily_em": 0.39,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 14.24,
           "straddle": 1.45,
@@ -5409,11 +5649,11 @@
       },
       "weekly": {
         "value": 3.64,
-        "pct": 2.94,
-        "upper": 127.67,
-        "lower": 120.39,
-        "anchor_close": 124.03,
-        "anchor_date": "2026-04-10",
+        "pct": 2.82,
+        "upper": 132.9,
+        "lower": 125.62,
+        "anchor_close": 129.26,
+        "anchor_date": "2026-04-24",
         "straddle": 6.06,
         "expiry": "20260508"
       },
@@ -5497,6 +5737,14 @@
           "daily_em": 1.3
         },
         {
+          "date": "2026-04-24",
+          "close": 129.26,
+          "straddle": 6.06,
+          "weekly_em": 3.64,
+          "daily_em": 1.63,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 129.26,
           "straddle": 6.06,
@@ -5526,10 +5774,10 @@
       "weekly": {
         "value": 0.76,
         "pct": 0.88,
-        "upper": 87.46,
-        "lower": 85.94,
-        "anchor_close": 86.7,
-        "anchor_date": "2026-04-10",
+        "upper": 87.47,
+        "lower": 85.95,
+        "anchor_close": 86.71,
+        "anchor_date": "2026-04-24",
         "straddle": 1.27,
         "expiry": "20260508"
       },
@@ -5613,6 +5861,14 @@
           "daily_em": 0.34
         },
         {
+          "date": "2026-04-24",
+          "close": 86.71,
+          "straddle": 1.27,
+          "weekly_em": 0.76,
+          "daily_em": 0.34,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 86.71,
           "straddle": 1.27,
@@ -5641,11 +5897,11 @@
       },
       "weekly": {
         "value": 13.7,
-        "pct": 2.74,
-        "upper": 514.16,
-        "lower": 486.76,
-        "anchor_close": 500.46,
-        "anchor_date": "2026-04-10",
+        "pct": 2.92,
+        "upper": 483.41,
+        "lower": 456.01,
+        "anchor_close": 469.71,
+        "anchor_date": "2026-04-24",
         "straddle": 22.8,
         "expiry": "20260508"
       },
@@ -5729,6 +5985,14 @@
           "daily_em": 6.5
         },
         {
+          "date": "2026-04-24",
+          "close": 469.71,
+          "straddle": 22.8,
+          "weekly_em": 13.7,
+          "daily_em": 6.13,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 469.71,
           "straddle": 22.8,
@@ -5757,11 +6021,11 @@
       },
       "weekly": {
         "value": 6.33,
-        "pct": 3.2,
-        "upper": 203.87,
-        "lower": 191.21,
-        "anchor_close": 197.54,
-        "anchor_date": "2026-04-10",
+        "pct": 3.34,
+        "upper": 196.13,
+        "lower": 183.47,
+        "anchor_close": 189.8,
+        "anchor_date": "2026-04-24",
         "straddle": 10.53,
         "expiry": "20260508"
       },
@@ -5845,6 +6109,14 @@
           "daily_em": 3.24
         },
         {
+          "date": "2026-04-24",
+          "close": 189.8,
+          "straddle": 10.53,
+          "weekly_em": 6.33,
+          "daily_em": 2.83,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 189.8,
           "straddle": 10.53,
@@ -5873,11 +6145,11 @@
       },
       "weekly": {
         "value": 14.07,
-        "pct": 4.07,
-        "upper": 359.69,
-        "lower": 331.55,
-        "anchor_close": 345.62,
-        "anchor_date": "2026-04-10",
+        "pct": 3.74,
+        "upper": 390.37,
+        "lower": 362.23,
+        "anchor_close": 376.3,
+        "anchor_date": "2026-04-24",
         "straddle": 23.41,
         "expiry": "20260508"
       },
@@ -5956,6 +6228,14 @@
           "daily_em": 5.05
         },
         {
+          "date": "2026-04-24",
+          "close": 376.3,
+          "straddle": 23.41,
+          "weekly_em": 14.07,
+          "daily_em": 6.29,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 376.3,
           "straddle": 23.41,
@@ -5984,11 +6264,11 @@
       },
       "weekly": {
         "value": 6.37,
-        "pct": 2.54,
-        "upper": 257.52,
-        "lower": 244.78,
-        "anchor_close": 251.15,
-        "anchor_date": "2026-04-10",
+        "pct": 2.37,
+        "upper": 275.07,
+        "lower": 262.33,
+        "anchor_close": 268.7,
+        "anchor_date": "2026-04-24",
         "straddle": 10.6,
         "expiry": "20260508"
       },
@@ -6072,6 +6352,14 @@
           "daily_em": 2.57
         },
         {
+          "date": "2026-04-24",
+          "close": 268.7,
+          "straddle": 10.6,
+          "weekly_em": 6.37,
+          "daily_em": 2.85,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 268.7,
           "straddle": 10.6,
@@ -6100,11 +6388,11 @@
       },
       "weekly": {
         "value": 4.72,
-        "pct": 4.64,
-        "upper": 106.36,
-        "lower": 96.92,
-        "anchor_close": 101.64,
-        "anchor_date": "2026-04-10",
+        "pct": 4.41,
+        "upper": 111.74,
+        "lower": 102.3,
+        "anchor_close": 107.02,
+        "anchor_date": "2026-04-24",
         "straddle": 7.85,
         "expiry": "20260508"
       },
@@ -6188,6 +6476,14 @@
           "daily_em": 1.08
         },
         {
+          "date": "2026-04-24",
+          "close": 107.02,
+          "straddle": 7.85,
+          "weekly_em": 4.72,
+          "daily_em": 2.11,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 107.02,
           "straddle": 7.85,
@@ -6216,11 +6512,11 @@
       },
       "weekly": {
         "value": 2.62,
-        "pct": 5.15,
-        "upper": 53.55,
-        "lower": 48.31,
-        "anchor_close": 50.93,
-        "anchor_date": "2026-04-10",
+        "pct": 4.74,
+        "upper": 57.93,
+        "lower": 52.69,
+        "anchor_close": 55.31,
+        "anchor_date": "2026-04-24",
         "straddle": 4.36,
         "expiry": "20260508"
       },
@@ -6304,6 +6600,14 @@
           "daily_em": 1.16
         },
         {
+          "date": "2026-04-24",
+          "close": 55.31,
+          "straddle": 4.36,
+          "weekly_em": 2.62,
+          "daily_em": 1.17,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 55.31,
           "straddle": 4.36,
@@ -6332,11 +6636,11 @@
       },
       "weekly": {
         "value": 0.96,
-        "pct": 1.86,
-        "upper": 52.63,
-        "lower": 50.71,
-        "anchor_close": 51.67,
-        "anchor_date": "2026-04-10",
+        "pct": 1.85,
+        "upper": 52.88,
+        "lower": 50.96,
+        "anchor_close": 51.92,
+        "anchor_date": "2026-04-24",
         "straddle": 1.6,
         "expiry": "20260508"
       },
@@ -6420,6 +6724,14 @@
           "daily_em": 0.47
         },
         {
+          "date": "2026-04-24",
+          "close": 51.92,
+          "straddle": 1.6,
+          "weekly_em": 0.96,
+          "daily_em": 0.43,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 51.92,
           "straddle": 1.6,
@@ -6448,11 +6760,11 @@
       },
       "weekly": {
         "value": 2.28,
-        "pct": 2.0,
-        "upper": 116.55,
-        "lower": 111.99,
-        "anchor_close": 114.27,
-        "anchor_date": "2026-04-10",
+        "pct": 1.97,
+        "upper": 117.82,
+        "lower": 113.26,
+        "anchor_close": 115.54,
+        "anchor_date": "2026-04-24",
         "straddle": 3.8,
         "expiry": "20260508"
       },
@@ -6536,6 +6848,14 @@
           "daily_em": 0.99
         },
         {
+          "date": "2026-04-24",
+          "close": 115.54,
+          "straddle": 3.8,
+          "weekly_em": 2.28,
+          "daily_em": 1.02,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 115.54,
           "straddle": 3.8,
@@ -6564,11 +6884,11 @@
       },
       "weekly": {
         "value": 1.36,
-        "pct": 2.38,
-        "upper": 58.69,
-        "lower": 55.97,
-        "anchor_close": 57.33,
-        "anchor_date": "2026-04-10",
+        "pct": 2.39,
+        "upper": 58.23,
+        "lower": 55.51,
+        "anchor_close": 56.87,
+        "anchor_date": "2026-04-24",
         "straddle": 2.27,
         "expiry": "20260508"
       },
@@ -6652,6 +6972,14 @@
           "daily_em": 0.73
         },
         {
+          "date": "2026-04-24",
+          "close": 56.87,
+          "straddle": 2.27,
+          "weekly_em": 1.36,
+          "daily_em": 0.61,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 56.87,
           "straddle": 2.27,
@@ -6680,11 +7008,11 @@
       },
       "weekly": {
         "value": 0.82,
-        "pct": 1.6,
-        "upper": 52.15,
-        "lower": 50.51,
-        "anchor_close": 51.33,
-        "anchor_date": "2026-04-10",
+        "pct": 1.59,
+        "upper": 52.24,
+        "lower": 50.6,
+        "anchor_close": 51.42,
+        "anchor_date": "2026-04-24",
         "straddle": 1.37,
         "expiry": "20260508"
       },
@@ -6768,6 +7096,14 @@
           "daily_em": 0.49
         },
         {
+          "date": "2026-04-24",
+          "close": 51.42,
+          "straddle": 1.37,
+          "weekly_em": 0.82,
+          "daily_em": 0.37,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 51.42,
           "straddle": 1.37,
@@ -6797,10 +7133,10 @@
       "weekly": {
         "value": 3.91,
         "pct": 2.27,
-        "upper": 176.1,
-        "lower": 168.28,
-        "anchor_close": 172.19,
-        "anchor_date": "2026-04-10",
+        "upper": 176.38,
+        "lower": 168.56,
+        "anchor_close": 172.47,
+        "anchor_date": "2026-04-24",
         "straddle": 6.51,
         "expiry": "20260508"
       },
@@ -6884,6 +7220,14 @@
           "daily_em": 1.48
         },
         {
+          "date": "2026-04-24",
+          "close": 172.47,
+          "straddle": 6.51,
+          "weekly_em": 3.91,
+          "daily_em": 1.75,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 172.47,
           "straddle": 6.51,
@@ -6912,11 +7256,11 @@
       },
       "weekly": {
         "value": 3.88,
-        "pct": 2.73,
-        "upper": 145.95,
-        "lower": 138.19,
-        "anchor_close": 142.07,
-        "anchor_date": "2026-04-10",
+        "pct": 2.42,
+        "upper": 164.1,
+        "lower": 156.34,
+        "anchor_close": 160.22,
+        "anchor_date": "2026-04-24",
         "straddle": 6.45,
         "expiry": "20260508"
       },
@@ -7000,6 +7344,14 @@
           "daily_em": 1.46
         },
         {
+          "date": "2026-04-24",
+          "close": 160.22,
+          "straddle": 6.45,
+          "weekly_em": 3.88,
+          "daily_em": 1.73,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 160.22,
           "straddle": 6.45,
@@ -7028,11 +7380,11 @@
       },
       "weekly": {
         "value": 1.24,
-        "pct": 1.48,
-        "upper": 84.69,
-        "lower": 82.21,
-        "anchor_close": 83.45,
-        "anchor_date": "2026-04-10",
+        "pct": 1.49,
+        "upper": 84.47,
+        "lower": 81.99,
+        "anchor_close": 83.23,
+        "anchor_date": "2026-04-24",
         "straddle": 2.06,
         "expiry": "20260508"
       },
@@ -7116,6 +7468,14 @@
           "daily_em": 1.38
         },
         {
+          "date": "2026-04-24",
+          "close": 83.23,
+          "straddle": 2.06,
+          "weekly_em": 1.24,
+          "daily_em": 0.55,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 83.23,
           "straddle": 2.06,
@@ -7144,11 +7504,11 @@
       },
       "weekly": {
         "value": 0.78,
-        "pct": 1.66,
-        "upper": 47.93,
-        "lower": 46.37,
-        "anchor_close": 47.15,
-        "anchor_date": "2026-04-10",
+        "pct": 1.69,
+        "upper": 46.96,
+        "lower": 45.4,
+        "anchor_close": 46.18,
+        "anchor_date": "2026-04-24",
         "straddle": 1.3,
         "expiry": "20260508"
       },
@@ -7232,6 +7592,14 @@
           "daily_em": 0.39
         },
         {
+          "date": "2026-04-24",
+          "close": 46.18,
+          "straddle": 1.3,
+          "weekly_em": 0.78,
+          "daily_em": 0.35,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 46.18,
           "straddle": 1.3,
@@ -7260,11 +7628,11 @@
       },
       "weekly": {
         "value": 2.25,
-        "pct": 1.51,
-        "upper": 151.58,
-        "lower": 147.08,
-        "anchor_close": 149.33,
-        "anchor_date": "2026-04-10",
+        "pct": 1.56,
+        "upper": 146.43,
+        "lower": 141.93,
+        "anchor_close": 144.18,
+        "anchor_date": "2026-04-24",
         "straddle": 3.74,
         "expiry": "20260508"
       },
@@ -7348,6 +7716,14 @@
           "daily_em": 1.12
         },
         {
+          "date": "2026-04-24",
+          "close": 144.18,
+          "straddle": 3.74,
+          "weekly_em": 2.25,
+          "daily_em": 1.01,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 144.18,
           "straddle": 3.74,
@@ -7376,11 +7752,11 @@
       },
       "weekly": {
         "value": 2.84,
-        "pct": 2.52,
-        "upper": 115.58,
-        "lower": 109.9,
-        "anchor_close": 112.74,
-        "anchor_date": "2026-04-10",
+        "pct": 2.39,
+        "upper": 121.53,
+        "lower": 115.85,
+        "anchor_close": 118.69,
+        "anchor_date": "2026-04-24",
         "straddle": 4.73,
         "expiry": "20260508"
       },
@@ -7464,6 +7840,14 @@
           "daily_em": 1.15
         },
         {
+          "date": "2026-04-24",
+          "close": 118.69,
+          "straddle": 4.73,
+          "weekly_em": 2.84,
+          "daily_em": 1.27,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 118.69,
           "straddle": 4.73,
@@ -7492,11 +7876,11 @@
       },
       "weekly": {
         "value": 3.94,
-        "pct": 4.69,
-        "upper": 87.97,
-        "lower": 80.09,
-        "anchor_close": 84.03,
-        "anchor_date": "2026-04-10",
+        "pct": 4.28,
+        "upper": 95.97,
+        "lower": 88.09,
+        "anchor_close": 92.03,
+        "anchor_date": "2026-04-24",
         "straddle": 6.56,
         "expiry": "20260508"
       },
@@ -7578,6 +7962,14 @@
           "straddle": 3.43,
           "weekly_em": 3.26,
           "daily_em": 1.46
+        },
+        {
+          "date": "2026-04-24",
+          "close": 92.03,
+          "straddle": 6.56,
+          "weekly_em": 3.94,
+          "daily_em": 1.76,
+          "is_friday": true
         },
         {
           "date": "2026-04-28",
@@ -7675,11 +8067,11 @@
       },
       "weekly": {
         "value": 2.81,
-        "pct": 4.11,
-        "upper": 71.2,
-        "lower": 65.58,
-        "anchor_close": 68.39,
-        "anchor_date": "2026-04-10",
+        "pct": 4.08,
+        "upper": 71.6,
+        "lower": 65.98,
+        "anchor_close": 68.79,
+        "anchor_date": "2026-04-24",
         "straddle": 4.68,
         "expiry": "20260508"
       },
@@ -7742,6 +8134,14 @@
           "daily_em": 1.56
         },
         {
+          "date": "2026-04-24",
+          "close": 68.79,
+          "straddle": 4.68,
+          "weekly_em": 2.81,
+          "daily_em": 1.26,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 68.79,
           "straddle": 4.68,
@@ -7770,11 +8170,11 @@
       },
       "weekly": {
         "value": 2.3,
-        "pct": 3.28,
-        "upper": 72.65,
-        "lower": 68.05,
-        "anchor_close": 70.35,
-        "anchor_date": "2026-04-10",
+        "pct": 3.32,
+        "upper": 71.53,
+        "lower": 66.93,
+        "anchor_close": 69.23,
+        "anchor_date": "2026-04-24",
         "straddle": 5.0,
         "expiry": "20260515"
       },
@@ -7830,6 +8230,14 @@
           "daily_em": 1.02
         },
         {
+          "date": "2026-04-24",
+          "close": 69.23,
+          "straddle": 5.0,
+          "weekly_em": 2.3,
+          "daily_em": 1.03,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 69.23,
           "straddle": 5.0,
@@ -7858,11 +8266,11 @@
       },
       "weekly": {
         "value": 4.21,
-        "pct": 3.03,
-        "upper": 143.46,
-        "lower": 135.04,
-        "anchor_close": 139.25,
-        "anchor_date": "2026-04-10",
+        "pct": 3.18,
+        "upper": 136.63,
+        "lower": 128.21,
+        "anchor_close": 132.42,
+        "anchor_date": "2026-04-24",
         "straddle": 9.14,
         "expiry": "20260515"
       },
@@ -7918,6 +8326,14 @@
           "daily_em": 1.42
         },
         {
+          "date": "2026-04-24",
+          "close": 132.42,
+          "straddle": 9.14,
+          "weekly_em": 4.21,
+          "daily_em": 1.88,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 132.42,
           "straddle": 9.14,
@@ -7946,11 +8362,11 @@
       },
       "weekly": {
         "value": 2.4,
-        "pct": 2.56,
-        "upper": 96.06,
-        "lower": 91.26,
-        "anchor_close": 93.66,
-        "anchor_date": "2026-04-10",
+        "pct": 2.54,
+        "upper": 96.71,
+        "lower": 91.91,
+        "anchor_close": 94.31,
+        "anchor_date": "2026-04-24",
         "straddle": 5.2,
         "expiry": "20260515"
       },
@@ -8006,6 +8422,14 @@
           "daily_em": 1.4
         },
         {
+          "date": "2026-04-24",
+          "close": 94.31,
+          "straddle": 5.2,
+          "weekly_em": 2.4,
+          "daily_em": 1.07,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 94.31,
           "straddle": 5.2,
@@ -8034,11 +8458,11 @@
       },
       "weekly": {
         "value": 2.12,
-        "pct": 2.44,
-        "upper": 88.95,
-        "lower": 84.71,
-        "anchor_close": 86.83,
-        "anchor_date": "2026-04-10",
+        "pct": 2.53,
+        "upper": 86.0,
+        "lower": 81.76,
+        "anchor_close": 83.88,
+        "anchor_date": "2026-04-24",
         "straddle": 4.6,
         "expiry": "20260515"
       },
@@ -8094,6 +8518,14 @@
           "daily_em": 1.08
         },
         {
+          "date": "2026-04-24",
+          "close": 83.88,
+          "straddle": 4.6,
+          "weekly_em": 2.12,
+          "daily_em": 0.95,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 83.88,
           "straddle": 4.6,
@@ -8122,11 +8554,11 @@
       },
       "weekly": {
         "value": 1.59,
-        "pct": 1.96,
-        "upper": 82.79,
-        "lower": 79.61,
-        "anchor_close": 81.2,
-        "anchor_date": "2026-04-10",
+        "pct": 1.83,
+        "upper": 88.48,
+        "lower": 85.3,
+        "anchor_close": 86.89,
+        "anchor_date": "2026-04-24",
         "straddle": 3.45,
         "expiry": "20260515"
       },
@@ -8182,6 +8614,14 @@
           "daily_em": 0.95
         },
         {
+          "date": "2026-04-24",
+          "close": 86.89,
+          "straddle": 3.45,
+          "weekly_em": 1.59,
+          "daily_em": 0.71,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 86.89,
           "straddle": 3.45,
@@ -8210,11 +8650,11 @@
       },
       "weekly": {
         "value": 1.33,
-        "pct": 2.07,
-        "upper": 65.44,
-        "lower": 62.78,
-        "anchor_close": 64.11,
-        "anchor_date": "2026-04-10",
+        "pct": 2.13,
+        "upper": 63.91,
+        "lower": 61.25,
+        "anchor_close": 62.58,
+        "anchor_date": "2026-04-24",
         "straddle": 2.88,
         "expiry": "20260515"
       },
@@ -8270,6 +8710,14 @@
           "daily_em": 0.53
         },
         {
+          "date": "2026-04-24",
+          "close": 62.58,
+          "straddle": 2.88,
+          "weekly_em": 1.33,
+          "daily_em": 0.59,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 62.58,
           "straddle": 2.88,
@@ -8298,11 +8746,11 @@
       },
       "weekly": {
         "value": 6.12,
-        "pct": 5.12,
-        "upper": 125.57,
-        "lower": 113.33,
-        "anchor_close": 119.45,
-        "anchor_date": "2026-04-10",
+        "pct": 5.04,
+        "upper": 127.6,
+        "lower": 115.36,
+        "anchor_close": 121.48,
+        "anchor_date": "2026-04-24",
         "straddle": 13.27,
         "expiry": "20260515"
       },
@@ -8358,6 +8806,14 @@
           "daily_em": 4.79
         },
         {
+          "date": "2026-04-24",
+          "close": 121.48,
+          "straddle": 13.27,
+          "weekly_em": 6.12,
+          "daily_em": 2.74,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 121.48,
           "straddle": 13.27,
@@ -8386,11 +8842,11 @@
       },
       "weekly": {
         "value": 2.93,
-        "pct": 4.0,
-        "upper": 76.06,
-        "lower": 70.2,
-        "anchor_close": 73.13,
-        "anchor_date": "2026-04-10",
+        "pct": 4.12,
+        "upper": 74.07,
+        "lower": 68.21,
+        "anchor_close": 71.14,
+        "anchor_date": "2026-04-24",
         "straddle": 6.35,
         "expiry": "20260515"
       },
@@ -8446,6 +8902,14 @@
           "daily_em": 1.53
         },
         {
+          "date": "2026-04-24",
+          "close": 71.14,
+          "straddle": 6.35,
+          "weekly_em": 2.93,
+          "daily_em": 1.31,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 71.14,
           "straddle": 6.35,
@@ -8474,11 +8938,11 @@
       },
       "weekly": {
         "value": 1.61,
-        "pct": 1.89,
-        "upper": 87.14,
-        "lower": 83.92,
-        "anchor_close": 85.53,
-        "anchor_date": "2026-04-10",
+        "pct": 1.96,
+        "upper": 83.76,
+        "lower": 80.54,
+        "anchor_close": 82.15,
+        "anchor_date": "2026-04-24",
         "straddle": 3.5,
         "expiry": "20260515"
       },
@@ -8534,6 +8998,14 @@
           "daily_em": 0.91
         },
         {
+          "date": "2026-04-24",
+          "close": 82.15,
+          "straddle": 3.5,
+          "weekly_em": 1.61,
+          "daily_em": 0.72,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 82.15,
           "straddle": 3.5,
@@ -8562,11 +9034,11 @@
       },
       "weekly": {
         "value": 14.38,
-        "pct": 3.5,
-        "upper": 425.42,
-        "lower": 396.66,
-        "anchor_close": 411.04,
-        "anchor_date": "2026-04-10",
+        "pct": 3.29,
+        "upper": 451.62,
+        "lower": 422.86,
+        "anchor_close": 437.24,
+        "anchor_date": "2026-04-24",
         "straddle": 31.2,
         "expiry": "20260515"
       },
@@ -8622,6 +9094,14 @@
           "daily_em": 6.57
         },
         {
+          "date": "2026-04-24",
+          "close": 437.24,
+          "straddle": 31.2,
+          "weekly_em": 14.38,
+          "daily_em": 6.43,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 437.24,
           "straddle": 31.2,
@@ -8650,11 +9130,11 @@
       },
       "weekly": {
         "value": 2.58,
-        "pct": 3.45,
-        "upper": 77.46,
-        "lower": 72.3,
-        "anchor_close": 74.88,
-        "anchor_date": "2026-04-10",
+        "pct": 3.41,
+        "upper": 78.32,
+        "lower": 73.16,
+        "anchor_close": 75.74,
+        "anchor_date": "2026-04-24",
         "straddle": 5.6,
         "expiry": "20260515"
       },
@@ -8710,6 +9190,14 @@
           "daily_em": 1.17
         },
         {
+          "date": "2026-04-24",
+          "close": 75.74,
+          "straddle": 5.6,
+          "weekly_em": 2.58,
+          "daily_em": 1.15,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 75.74,
           "straddle": 5.6,
@@ -8738,11 +9226,11 @@
       },
       "weekly": {
         "value": 5.14,
-        "pct": 5.68,
-        "upper": 95.6,
-        "lower": 85.32,
-        "anchor_close": 90.46,
-        "anchor_date": "2026-04-10",
+        "pct": 5.92,
+        "upper": 91.91,
+        "lower": 81.63,
+        "anchor_close": 86.77,
+        "anchor_date": "2026-04-24",
         "straddle": 11.14,
         "expiry": "20260515"
       },
@@ -8798,6 +9286,14 @@
           "daily_em": 2.86
         },
         {
+          "date": "2026-04-24",
+          "close": 86.77,
+          "straddle": 11.14,
+          "weekly_em": 5.14,
+          "daily_em": 2.3,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 86.77,
           "straddle": 11.14,
@@ -8826,11 +9322,11 @@
       },
       "weekly": {
         "value": 1.49,
-        "pct": 5.27,
-        "upper": 29.82,
-        "lower": 26.84,
-        "anchor_close": 28.33,
-        "anchor_date": "2026-04-10",
+        "pct": 5.18,
+        "upper": 30.27,
+        "lower": 27.29,
+        "anchor_close": 28.78,
+        "anchor_date": "2026-04-24",
         "straddle": 3.24,
         "expiry": "20260515"
       },
@@ -8886,6 +9382,14 @@
           "daily_em": 0.92
         },
         {
+          "date": "2026-04-24",
+          "close": 28.78,
+          "straddle": 3.24,
+          "weekly_em": 1.49,
+          "daily_em": 0.67,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 28.78,
           "straddle": 3.24,
@@ -8914,11 +9418,11 @@
       },
       "weekly": {
         "value": 9.5,
-        "pct": 2.8,
-        "upper": 348.64,
-        "lower": 329.64,
-        "anchor_close": 339.14,
-        "anchor_date": "2026-04-10",
+        "pct": 2.9,
+        "upper": 337.01,
+        "lower": 318.01,
+        "anchor_close": 327.51,
+        "anchor_date": "2026-04-24",
         "straddle": 20.6,
         "expiry": "20260515"
       },
@@ -8974,6 +9478,14 @@
           "daily_em": 4.29
         },
         {
+          "date": "2026-04-24",
+          "close": 327.51,
+          "straddle": 20.6,
+          "weekly_em": 9.5,
+          "daily_em": 4.25,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 327.51,
           "straddle": 20.6,
@@ -9002,11 +9514,11 @@
       },
       "weekly": {
         "value": 1.58,
-        "pct": 3.54,
-        "upper": 46.26,
-        "lower": 43.1,
-        "anchor_close": 44.68,
-        "anchor_date": "2026-04-10",
+        "pct": 3.72,
+        "upper": 44.02,
+        "lower": 40.86,
+        "anchor_close": 42.44,
+        "anchor_date": "2026-04-24",
         "straddle": 3.43,
         "expiry": "20260515"
       },
@@ -9062,6 +9574,14 @@
           "daily_em": 0.64
         },
         {
+          "date": "2026-04-24",
+          "close": 42.44,
+          "straddle": 3.43,
+          "weekly_em": 1.58,
+          "daily_em": 0.71,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 42.44,
           "straddle": 3.43,
@@ -9090,11 +9610,11 @@
       },
       "weekly": {
         "value": 0.2,
-        "pct": 0.72,
+        "pct": 0.73,
         "upper": 27.68,
         "lower": 27.28,
         "anchor_close": 27.48,
-        "anchor_date": "2026-04-10",
+        "anchor_date": "2026-04-24",
         "straddle": 0.43,
         "expiry": "20260515"
       },
@@ -9143,6 +9663,14 @@
           "daily_em": 0.23
         },
         {
+          "date": "2026-04-24",
+          "close": 27.48,
+          "straddle": 0.43,
+          "weekly_em": 0.2,
+          "daily_em": 0.09,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 27.48,
           "straddle": 0.43,
@@ -9171,11 +9699,11 @@
       },
       "weekly": {
         "value": 0.41,
-        "pct": 0.97,
-        "upper": 43.14,
-        "lower": 42.32,
-        "anchor_close": 42.73,
-        "anchor_date": "2026-04-10",
+        "pct": 0.94,
+        "upper": 44.24,
+        "lower": 43.42,
+        "anchor_close": 43.83,
+        "anchor_date": "2026-04-24",
         "straddle": 0.9,
         "expiry": "20260515"
       },
@@ -9229,6 +9757,14 @@
           "straddle": 0.55,
           "weekly_em": 0.52,
           "daily_em": 0.23
+        },
+        {
+          "date": "2026-04-24",
+          "close": 43.83,
+          "straddle": 0.9,
+          "weekly_em": 0.41,
+          "daily_em": 0.19,
+          "is_friday": true
         },
         {
           "date": "2026-04-28",
@@ -9468,11 +10004,11 @@
       },
       "weekly": {
         "value": 21.37,
-        "pct": 5.41,
-        "upper": 416.05,
-        "lower": 373.31,
-        "anchor_close": 394.68,
-        "anchor_date": "2026-04-10",
+        "pct": 4.77,
+        "upper": 469.5,
+        "lower": 426.76,
+        "anchor_close": 448.13,
+        "anchor_date": "2026-04-24",
         "straddle": 35.55,
         "expiry": "20260508"
       },
@@ -9507,6 +10043,14 @@
           "daily_em": 9.78
         },
         {
+          "date": "2026-04-24",
+          "close": 448.13,
+          "straddle": 35.55,
+          "weekly_em": 21.37,
+          "daily_em": 9.56,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 448.13,
           "straddle": 35.55,
@@ -9535,11 +10079,11 @@
       },
       "weekly": {
         "value": 39.63,
-        "pct": 9.4,
-        "upper": 461.14,
-        "lower": 381.88,
-        "anchor_close": 421.51,
-        "anchor_date": "2026-04-10",
+        "pct": 7.98,
+        "upper": 536.35,
+        "lower": 457.09,
+        "anchor_close": 496.72,
+        "anchor_date": "2026-04-24",
         "straddle": 65.94,
         "expiry": "20260508"
       },
@@ -9574,6 +10118,14 @@
           "daily_em": 11.92
         },
         {
+          "date": "2026-04-24",
+          "close": 496.72,
+          "straddle": 65.94,
+          "weekly_em": 39.63,
+          "daily_em": 17.72,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 496.72,
           "straddle": 65.94,
@@ -9602,11 +10154,11 @@
       },
       "weekly": {
         "value": 9.3,
-        "pct": 9.3,
-        "upper": 109.34,
-        "lower": 90.74,
-        "anchor_close": 100.04,
-        "anchor_date": "2026-04-10",
+        "pct": 8.07,
+        "upper": 124.52,
+        "lower": 105.92,
+        "anchor_close": 115.22,
+        "anchor_date": "2026-04-24",
         "straddle": 15.48,
         "expiry": "20260508"
       },
@@ -9641,6 +10193,14 @@
           "daily_em": 2.12
         },
         {
+          "date": "2026-04-24",
+          "close": 115.22,
+          "straddle": 15.48,
+          "weekly_em": 9.3,
+          "daily_em": 4.16,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 115.22,
           "straddle": 15.48,
@@ -9669,11 +10229,11 @@
       },
       "weekly": {
         "value": 16.74,
-        "pct": 4.58,
-        "upper": 382.23,
-        "lower": 348.75,
-        "anchor_close": 365.49,
-        "anchor_date": "2026-04-10",
+        "pct": 4.16,
+        "upper": 419.2,
+        "lower": 385.72,
+        "anchor_close": 402.46,
+        "anchor_date": "2026-04-24",
         "straddle": 27.86,
         "expiry": "20260508"
       },
@@ -9708,6 +10268,14 @@
           "daily_em": 8.44
         },
         {
+          "date": "2026-04-24",
+          "close": 402.46,
+          "straddle": 27.86,
+          "weekly_em": 16.74,
+          "daily_em": 7.49,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 402.46,
           "straddle": 27.86,
@@ -9736,11 +10304,11 @@
       },
       "weekly": {
         "value": 8.72,
-        "pct": 2.84,
-        "upper": 315.63,
-        "lower": 298.19,
-        "anchor_close": 306.91,
-        "anchor_date": "2026-04-10",
+        "pct": 2.46,
+        "upper": 363.64,
+        "lower": 346.2,
+        "anchor_close": 354.92,
+        "anchor_date": "2026-04-24",
         "straddle": 14.5,
         "expiry": "20260508"
       },
@@ -9775,6 +10343,14 @@
           "daily_em": 3.57
         },
         {
+          "date": "2026-04-24",
+          "close": 354.92,
+          "straddle": 14.5,
+          "weekly_em": 8.72,
+          "daily_em": 3.9,
+          "is_friday": true
+        },
+        {
           "date": "2026-04-28",
           "close": 354.92,
           "straddle": 14.5,
@@ -9803,11 +10379,11 @@
       },
       "weekly": {
         "value": 3.92,
-        "pct": 3.48,
-        "upper": 116.63,
-        "lower": 108.79,
-        "anchor_close": 112.71,
-        "anchor_date": "2026-04-10",
+        "pct": 3.33,
+        "upper": 121.7,
+        "lower": 113.86,
+        "anchor_close": 117.78,
+        "anchor_date": "2026-04-24",
         "straddle": 8.5,
         "expiry": "20260515"
       },
@@ -9840,6 +10416,14 @@
           "straddle": 4.63,
           "weekly_em": 4.4,
           "daily_em": 1.97
+        },
+        {
+          "date": "2026-04-24",
+          "close": 117.78,
+          "straddle": 8.5,
+          "weekly_em": 3.92,
+          "daily_em": 1.75,
+          "is_friday": true
         },
         {
           "date": "2026-04-28",
