@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "pair": "XLY/XLP",
+    "desc": "American Consumer Strength (Discretionary/Staples)",
+    "signal": "\u2192 FLAT DOWN",
+    "color": "neutral"
+  },
+  {
+    "pair": "XLE/SPY",
+    "desc": "Energy outperformance",
+    "signal": "\u2197 RISING",
+    "color": "up"
+  },
+  {
+    "pair": "GLD/SPY",
+    "desc": "Safe haven demand",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  },
+  {
+    "pair": "SLV/GLD",
+    "desc": "Industrial vs safe haven",
+    "signal": "\u2198 FALLING",
+    "color": "down"
+  }
+]
