@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Apr 28",
-  "headline": "Tech rips, but sector rotation is subtle \u2014 flows keep us honest.",
+  "title": "Daily Briefing \u2014 Apr 29",
+  "headline": "Flows bullish, but cracks showing in rotation and breadth \u2014 patience is king.",
   "body": [
-    "Right, so the market continues to grind higher, led by the usual suspects \u2014 SPY at $715.17 is moving toward the 20 MA ($685.04), with breadth improving as mega-cap tech (AAPL, MSFT, NVDA, GOOGL) all rocket well above their short-term moving averages. VIX is normal, volatility contracting, and Fear & Greed is in classic greed territory at 68 \u2014 not extreme, but more than enough to warrant caution. If it's in the press, it's in the price.",
-    "Sector rotation shows XLK (Tech) and XLB (Materials) firmly leading, while XLF (Financials) and XLY (Discretionary) are improving with elevated risk. Staples (XLP) and Communication (XLC) lag, signalling ongoing risk-off sentiment underneath the headline tech run. Watch Energy (XLE), now weakening \u2014 don't blindly chase the previous leaders.",
-    "Contrarian signals building: after last month's extreme Fear spike (now reversed to Greed), we're due for mean reversion. No major rule triggers on bonds (HYG, LQD) \u2014 both holding above 20 MA, so risk-on still stands. But tech's vertical move (AAPL, NVDA, ARM, DELL) and retail FOMO means abundance mindset: don't chase highs, bank gains, and wait for weekly 20 MA pullbacks. If Smart Money starts to dry up near highs, reduce exposure. Less trades = more wins."
+    "Right, so the big picture: Markets are still riding the bull wave with SPY at $711.69, well above its 20 MA ($689.02) and VIX hanging around normal at 17.97, but we're no longer in extreme greed (Fear & Greed down to 63.8 from last week's 68.6, coming off an extreme low last month). Tech is leading\u2014AAPL, MSFT, NVDA, GOOGL, AMZN all sitting miles above key moving averages. Momentum strong, but weekly rotation hints at sector fatigue.",
+    "Key sector action: Energy (XLE $57.71) and Materials (XLB $51.40) have rotated to 'Weakening' and 'Leading' respectively on RRG, but watch Industrials (XLI $170.98) and Financials (XLF $51.85)\u2014they're in elevated risk and improving, but not breaking out, which is classic late-cycle behaviour. Real Estate (XLRE $43.91) is triggered and leading, Utilities (XLU $46.25) starting to fade\u2014classic defensive creep.",
+    "Contrarian/risk angle: We're not in dumb-money mania yet, but several stocks (ARM down -8%, DELL -4.7%, AA -6.2%) are flashing real volatility even as SPY and QQQ march higher. Retail is cooling off (Fear & Greed back from 14.5 lows), but risk pockets are building in high-beta names. If you missed the tech run, don't chase\u2014abundance mindset. Watch for cracks under the surface; breadth is starting to lag, so cycles within cycles here."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $715.17 \u2014 Approaching 20 MA ($685.04).<br>NVDA: $216.61 \u2014 Watch for consolidation above $190.84 (SMA20).<br>XLF: $51.81 \u2014 Improving, but SMA200 ($52.29) is resistance.<br>XLK: $160.57 \u2014 Leading, 20 MA ($146.30) is mean reversion.<br>AAPL: $267.61 \u2014 Approaching SMA20 ($262.34).<br>HYG: $80.51 \u2014 Above all MAs, no bond breakdown.<br>Fear & Greed: 67.9 \u2014 Greed, but not extreme.<br>ENERGY: XLE $56.77 \u2014 Weakening, below SMA20 ($57.61).",
+  "callout_body": "SPY: $711.69 (20 MA $689.02)<br>QQQ: $657.55 (20 MA $625.35)<br>XLF: $51.85 (watch 20 MA $51.27)<br>XLK: $157.85 (20 MA $147.82)<br>ARM: $198.65 \u2014 high volatility, 20 MA $170.20, caution<br>HYG: $80.40 (20 MA $80.17) \u2014 if HYG/LQD break, reduce equity risk",
   "action_items": [
-    "Trim tech longs as price stretches above short-term MAs, look for mean reversion setups near weekly 20 MA",
-    "Watch Financials (XLF) \u2014 improving but not out of the woods. Hold, but stay defensive until SMA200 ($52.29) is cleared"
+    "Stay long core tech (AAPL, MSFT, NVDA, XLK) as long as daily closes remain above 20 MA\u2014don't chase after missed moves.",
+    "Rotate partial focus to defensive (XLRE, XLU, XLV) and monitor Financials (XLF $51.85). If any break below 20 MA, reduce exposure\u2014especially if HYG/LQD roll over."
   ],
-  "closing_quote": "Don't chase \u2014 if you missed the rocket, catch the next train. Abundance mindset.",
-  "generatedAt": "2026-04-28T12:10:01.206109+00:00",
+  "closing_quote": "If it's in the press, it's already in the price. Patience, react, don't predict.",
+  "generatedAt": "2026-04-29T11:58:10.655555+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
