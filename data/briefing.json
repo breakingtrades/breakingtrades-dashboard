@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Apr 29",
-  "headline": "Flows bullish, but cracks showing in rotation and breadth \u2014 patience is king.",
+  "title": "Daily Briefing \u2014 Apr 30",
+  "headline": "Flows support, but bonds wobble\u2014eyes open for cracks, don't chase new highs.",
   "body": [
-    "Right, so the big picture: Markets are still riding the bull wave with SPY at $711.69, well above its 20 MA ($689.02) and VIX hanging around normal at 17.97, but we're no longer in extreme greed (Fear & Greed down to 63.8 from last week's 68.6, coming off an extreme low last month). Tech is leading\u2014AAPL, MSFT, NVDA, GOOGL, AMZN all sitting miles above key moving averages. Momentum strong, but weekly rotation hints at sector fatigue.",
-    "Key sector action: Energy (XLE $57.71) and Materials (XLB $51.40) have rotated to 'Weakening' and 'Leading' respectively on RRG, but watch Industrials (XLI $170.98) and Financials (XLF $51.85)\u2014they're in elevated risk and improving, but not breaking out, which is classic late-cycle behaviour. Real Estate (XLRE $43.91) is triggered and leading, Utilities (XLU $46.25) starting to fade\u2014classic defensive creep.",
-    "Contrarian/risk angle: We're not in dumb-money mania yet, but several stocks (ARM down -8%, DELL -4.7%, AA -6.2%) are flashing real volatility even as SPY and QQQ march higher. Retail is cooling off (Fear & Greed back from 14.5 lows), but risk pockets are building in high-beta names. If you missed the tech run, don't chase\u2014abundance mindset. Watch for cracks under the surface; breadth is starting to lag, so cycles within cycles here."
+    "Right, let's look at what the flows are telling us: SPY, QQQ, XLK all approaching new highs and above their 20 MAs, with tech leading the pack (XLK at $159.11, SMA20 $149.13). This is a bull trend, but the Fear & Greed index has cooled from extreme\u2014now 63.4 (greed) vs last month\u2019s 13.7 (abject fear). Volatility (VIX 18.02) is normal and contracting, so the algo crowd is back in force.",
+    "Sector rotation is clear: Energy (XLE $59.03, SMA20 $57.28) and tech are driving, with financials and healthcare improving but still flagged by elevated risk. Industrials (XLI $169.93, SMA20 $170.43) and staples remain lagging. Don't assume leadership lasts forever\u2014cycle phase matters. XLRE just triggered above all MAs; the rotational play is real estate for mean reversion.",
+    "Contrarian lens: Bonds (TLT $85.70, below SMA20 $86.63) and HYG ($80.13, approaching SMA20 $80.22) are breaking down\u2014R001 triggered. If bonds freak out, everything breaks, so reduce equity exposure any time credit rolls over. COIN (-6.4%) and CHTR (-8.3%) are warning shots from financials and comms; the canary in the coal mine is twitching. Abundance mindset\u2014don\u2019t chase, find the next setup. If it's in the press, it's in the price."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $711.69 (20 MA $689.02)<br>QQQ: $657.55 (20 MA $625.35)<br>XLF: $51.85 (watch 20 MA $51.27)<br>XLK: $157.85 (20 MA $147.82)<br>ARM: $198.65 \u2014 high volatility, 20 MA $170.20, caution<br>HYG: $80.40 (20 MA $80.17) \u2014 if HYG/LQD break, reduce equity risk",
+  "callout_body": "SPY: $711.58 \u2014 watch for a daily close < SMA20 $692.09<br>XLK: $159.11 \u2014 leadership zone, SMA20 $149.13<br>XLE: $59.03 \u2014 leading, SMA20 $57.28<br>TLT/HYG: Both triggered breakdowns \u2014 flag for risk<br>COIN: $181.73 \u2014 weak, below SMA20<br>XLRE: $43.64 \u2014 triggered, above all MAs<br>Fear & Greed cooling from extreme \u2014 not a sell, but caution<br>",
   "action_items": [
-    "Stay long core tech (AAPL, MSFT, NVDA, XLK) as long as daily closes remain above 20 MA\u2014don't chase after missed moves.",
-    "Rotate partial focus to defensive (XLRE, XLU, XLV) and monitor Financials (XLF $51.85). If any break below 20 MA, reduce exposure\u2014especially if HYG/LQD roll over."
+    "Reduce equity exposure if TLT/HYG continue breaking down on daily closes (apply R001).",
+    "Watch XLRE for rotational mean reversion and real estate momentum above all MAs; don't chase tech highs, wait for pullbacks to 20 MA."
   ],
-  "closing_quote": "If it's in the press, it's already in the price. Patience, react, don't predict.",
-  "generatedAt": "2026-04-29T11:58:10.655555+00:00",
+  "closing_quote": "Patience, react\u2014don't predict. If bonds freak out, everything breaks. Simple as that.",
+  "generatedAt": "2026-04-30T11:57:16.336998+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
