@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Apr 30",
-  "headline": "Flows support, but bonds wobble\u2014eyes open for cracks, don't chase new highs.",
+  "title": "Daily Briefing \u2014 May 01",
+  "headline": "Tech stumbles, but rotation is alive and well\u2014flows say follow the leaders, not the laggards.",
   "body": [
-    "Right, let's look at what the flows are telling us: SPY, QQQ, XLK all approaching new highs and above their 20 MAs, with tech leading the pack (XLK at $159.11, SMA20 $149.13). This is a bull trend, but the Fear & Greed index has cooled from extreme\u2014now 63.4 (greed) vs last month\u2019s 13.7 (abject fear). Volatility (VIX 18.02) is normal and contracting, so the algo crowd is back in force.",
-    "Sector rotation is clear: Energy (XLE $59.03, SMA20 $57.28) and tech are driving, with financials and healthcare improving but still flagged by elevated risk. Industrials (XLI $169.93, SMA20 $170.43) and staples remain lagging. Don't assume leadership lasts forever\u2014cycle phase matters. XLRE just triggered above all MAs; the rotational play is real estate for mean reversion.",
-    "Contrarian lens: Bonds (TLT $85.70, below SMA20 $86.63) and HYG ($80.13, approaching SMA20 $80.22) are breaking down\u2014R001 triggered. If bonds freak out, everything breaks, so reduce equity exposure any time credit rolls over. COIN (-6.4%) and CHTR (-8.3%) are warning shots from financials and comms; the canary in the coal mine is twitching. Abundance mindset\u2014don\u2019t chase, find the next setup. If it's in the press, it's in the price."
+    "Right, so big picture: Equities are pushing highs again, SPY up 1.0% at $718.66, decisively above its 20 MA ($695.26). VIX is drifting lower, now at 17.05 and below its SMA20\u2014volatility is getting crushed as greed keeps climbing (Fear & Greed: 66.7). Tech is mixed: GOOGL rockets (+10%) while NVDA (-4.6%), MSFT (-3.9%), and META (-8.6%) get hammered\u2014showing a clear divergence between mega-cap winners and losers.",
+    "Sector rotation is a monster: XLE (Energy), XLB (Materials), XLI (Industrials), XLK (Tech), XLRE (Real Estate) are all in the 'Leading' quadrant, pulling away from the pack. Notably, energy and materials have LOW risk and momentum is positive, while defensives like staples and utilities are only 'improving.' Financials (XLF) are finally above their 20 MA ($51.54), but risk remains 'elevated'\u2014keep an eye on the canary.",
+    "Contrarian view: Greed is high but not 'extreme'\u2014we're not at R013 territory yet. The market is frothy, but smarter money isn't stepping out, and bonds (HYG, LQD) are both stable or slightly bull-biased, so no macro alarm bells (R001). But watch for retail chasing tech\u2014NVDA/MSFT selloffs after peak, with GOOGL flying, smells like late-stage FOMO. Don't chase the last move; abundance mindset, look for rotational plays."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $711.58 \u2014 watch for a daily close < SMA20 $692.09<br>XLK: $159.11 \u2014 leadership zone, SMA20 $149.13<br>XLE: $59.03 \u2014 leading, SMA20 $57.28<br>TLT/HYG: Both triggered breakdowns \u2014 flag for risk<br>COIN: $181.73 \u2014 weak, below SMA20<br>XLRE: $43.64 \u2014 triggered, above all MAs<br>Fear & Greed cooling from extreme \u2014 not a sell, but caution<br>",
+  "callout_body": "- SPY: $718.66 (20 MA: $695.26, bullish above)<br>- NVDA: $199.57 (watch $196.17, 20 MA support)<br>- GOOGL: $384.80 (massive momentum, 20 MA: $332.52)<br>- META: $611.91 (bear bias, below 20 MA: $645.34)<br>- XLE: $59.65 (20 MA: $57.32)<br>- XLK: $159.50 (20 MA: $150.36)<br>- XLF: $52.13 (20 MA: $51.54, must hold for 'canary')<br>- VIX: 17.05 (signals calm, risk of complacency)",
   "action_items": [
-    "Reduce equity exposure if TLT/HYG continue breaking down on daily closes (apply R001).",
-    "Watch XLRE for rotational mean reversion and real estate momentum above all MAs; don't chase tech highs, wait for pullbacks to 20 MA."
+    "Watch NVDA, MSFT for price stabilization\u2014don't chase while below 20 MA, but monitor for dark pool flow resets.",
+    "Focus on sector rotation: Energy (XLE $59.65), Materials (XLB $51.47), Industrials (XLI $174.58) are strong\u2014look for continuation trades above their 20 MAs."
   ],
-  "closing_quote": "Patience, react\u2014don't predict. If bonds freak out, everything breaks. Simple as that.",
-  "generatedAt": "2026-04-30T11:57:16.336998+00:00",
+  "closing_quote": "If it's in the press, it's in the price\u2014flows first, memes later.",
+  "generatedAt": "2026-05-01T11:36:57.361866+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
