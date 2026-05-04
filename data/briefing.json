@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 01",
-  "headline": "Tech stumbles, but rotation is alive and well\u2014flows say follow the leaders, not the laggards.",
+  "title": "Daily Briefing \u2014 May 04",
+  "headline": "Tech rips, breadth stretches, but financials lag: Flows favour patience over chase.",
   "body": [
-    "Right, so big picture: Equities are pushing highs again, SPY up 1.0% at $718.66, decisively above its 20 MA ($695.26). VIX is drifting lower, now at 17.05 and below its SMA20\u2014volatility is getting crushed as greed keeps climbing (Fear & Greed: 66.7). Tech is mixed: GOOGL rockets (+10%) while NVDA (-4.6%), MSFT (-3.9%), and META (-8.6%) get hammered\u2014showing a clear divergence between mega-cap winners and losers.",
-    "Sector rotation is a monster: XLE (Energy), XLB (Materials), XLI (Industrials), XLK (Tech), XLRE (Real Estate) are all in the 'Leading' quadrant, pulling away from the pack. Notably, energy and materials have LOW risk and momentum is positive, while defensives like staples and utilities are only 'improving.' Financials (XLF) are finally above their 20 MA ($51.54), but risk remains 'elevated'\u2014keep an eye on the canary.",
-    "Contrarian view: Greed is high but not 'extreme'\u2014we're not at R013 territory yet. The market is frothy, but smarter money isn't stepping out, and bonds (HYG, LQD) are both stable or slightly bull-biased, so no macro alarm bells (R001). But watch for retail chasing tech\u2014NVDA/MSFT selloffs after peak, with GOOGL flying, smells like late-stage FOMO. Don't chase the last move; abundance mindset, look for rotational plays."
+    "Right, so markets are still riding momentum \u2014 SPY pushing $720.65 with a daily close well above the 20 MA ($698.50), and Tech leading the pack (XLK RS=107.9, Mom=101.3, price $161.87). Fear & Greed is at 66.1, up from the panic lows last month (23.7) but not yet in the danger zone; sentiment is heating up, but hasn't boiled over.",
+    "Sector rotation is textbook: XLK and XLRE are firmly in the 'Leading' quadrant, with XLK\u2019s price and Real Estate (XLRE) running ahead of their MAs. Meanwhile, Energy (XLE $58.85) and Industrials (XLI $172.96) are weakening, Financials (XLF $51.92) are high-risk and lagging AGAIN \u2014 the canary stays muted. Healthcare and Discretionary show some improvement but still carry elevated risk.",
+    "Contrarian lens: Retail is chasing hard (look at AAPL $280.14, AMZN $268.26 \u2014 both stretched above their 20/50/200 MAs), but we\u2019re not at extreme greed\u2014yet. VIX is normal (18.11), so volatility doesn\u2019t shout \u2018danger.\u2019 Still, financials lag, pair ratios are drifting down, and with the weekly mean reversion zone way below, patience rules: abundance mindset, not FOMO. If it\u2019s in the press, it\u2019s probably in the price."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "- SPY: $718.66 (20 MA: $695.26, bullish above)<br>- NVDA: $199.57 (watch $196.17, 20 MA support)<br>- GOOGL: $384.80 (massive momentum, 20 MA: $332.52)<br>- META: $611.91 (bear bias, below 20 MA: $645.34)<br>- XLE: $59.65 (20 MA: $57.32)<br>- XLK: $159.50 (20 MA: $150.36)<br>- XLF: $52.13 (20 MA: $51.54, must hold for 'canary')<br>- VIX: 17.05 (signals calm, risk of complacency)",
+  "callout_body": "SPY: 20 MA=$698.50, 50 MA=$679.48<br>XLK: $161.87 (approaching), 20 MA=$151.66<br>XLF: $51.92, SMA200=$52.30 (watch for 200 MA test)<br>AAPL: $280.14, 20 MA=$266.36<br>NVDA: $198.45, 20 MA=$197.22<br>Financials lagging: High risk, no breakouts<br>Fear & Greed: 66.1 \u2014 elevated but not extreme",
   "action_items": [
-    "Watch NVDA, MSFT for price stabilization\u2014don't chase while below 20 MA, but monitor for dark pool flow resets.",
-    "Focus on sector rotation: Energy (XLE $59.65), Materials (XLB $51.47), Industrials (XLI $174.58) are strong\u2014look for continuation trades above their 20 MAs."
+    "Watch Financials (XLF $51.92) for breakdowns \u2014 reduction in equity risk if it loses SMA200 ($52.30)",
+    "Stick to weekly mean reversion zones; do NOT chase stretched leaders like AAPL or AMZN above their 20/50/200 MAs"
   ],
-  "closing_quote": "If it's in the press, it's in the price\u2014flows first, memes later.",
-  "generatedAt": "2026-05-01T11:36:57.361866+00:00",
+  "closing_quote": "Less trades = more wins. Patience, react, don\u2019t predict.",
+  "generatedAt": "2026-05-04T12:09:28.690832+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
