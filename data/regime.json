@@ -1,13 +1,13 @@
 {
-  "updated": "2026-05-01T20:26:26Z",
+  "updated": "2026-05-04T20:26:26Z",
   "regime": "BULL",
   "score": 59,
   "color": "#00d4aa",
   "previous": {
     "regime": "BULL",
-    "score": 60
+    "score": 59
   },
-  "duration_days": 15,
+  "duration_days": 16,
   "since": "2026-04-10",
   "cycle": {
     "phase": "EXPANSION",
@@ -15,56 +15,56 @@
   },
   "components": {
     "move": {
-      "score": 88,
-      "value": 72.07,
+      "score": 90,
+      "value": 70.41,
       "signal": "collapsing",
       "weight": 18
     },
     "fear_greed": {
-      "score": 67,
-      "value": 66.6,
+      "score": 63,
+      "value": 62.9,
       "signal": "greed",
       "weight": 10
     },
     "vix": {
-      "score": 72,
-      "value": 16.95,
+      "score": 67,
+      "value": 18.29,
       "signal": "normal",
       "weight": 10
     },
     "breadth": {
       "score": 50,
-      "value": 57.8,
-      "signal": "strong",
+      "value": 47.2,
+      "signal": "neutral",
       "weight": 8
     },
     "sp_vs_d200": {
       "score": 90,
-      "value": 7.91,
+      "value": 7.42,
       "signal": "above",
       "weight": 8
     },
     "hyg_spy": {
       "score": 20,
-      "value": -5.36,
+      "value": -4.73,
       "signal": "weak",
       "weight": 8
     },
     "xlf_spy": {
       "score": 20,
-      "value": -3.19,
+      "value": -3.37,
       "signal": "weak",
       "weight": 6
     },
     "dxy": {
       "score": 55,
-      "value": 98.22,
+      "value": 98.46,
       "signal": "neutral",
       "weight": 5
     },
     "yield_curve": {
       "score": 50,
-      "value": 0.8,
+      "value": 0.86,
       "signal": "normal",
       "weight": 5
     },
@@ -76,9 +76,9 @@
       "stale": true
     },
     "rsp_spy": {
-      "score": 30,
-      "value": -0.59,
-      "signal": "narrowing",
+      "score": 50,
+      "value": -0.22,
+      "signal": "neutral",
       "weight": 4
     },
     "put_call": {
@@ -89,19 +89,19 @@
     },
     "copper_gold": {
       "score": 50,
-      "value": -0.72,
+      "value": 0.21,
       "signal": "neutral",
       "weight": 4
     },
     "international": {
       "score": 50,
-      "value": -0.29,
+      "value": -0.77,
       "signal": "mixed",
       "weight": 4
     },
     "xly_xlp": {
       "score": 70,
-      "value": 3.61,
+      "value": 3.49,
       "signal": "strong",
       "weight": 2
     }
@@ -129,24 +129,24 @@
     "conditions": [
       {
         "label": "F&G > 65",
-        "current": 66.6,
+        "current": 62.9,
         "target": 65,
-        "met": true
+        "met": false
       },
       {
         "label": "Breadth > 65%",
-        "current": 57.8,
+        "current": 47.2,
         "target": 65,
         "met": false
       },
       {
         "label": "S&P > 5% above D200",
-        "current": 7.91,
+        "current": 7.42,
         "target": 5,
         "met": true
       }
     ],
-    "conditions_met": 2,
+    "conditions_met": 1,
     "conditions_total": 3
   }
 }
