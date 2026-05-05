@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 04",
-  "headline": "Tech rips, breadth stretches, but financials lag: Flows favour patience over chase.",
+  "title": "Daily Briefing \u2014 May 05",
+  "headline": "Tech leads, defensives lag, but bond cracks warn: flows say patience over chasing.",
   "body": [
-    "Right, so markets are still riding momentum \u2014 SPY pushing $720.65 with a daily close well above the 20 MA ($698.50), and Tech leading the pack (XLK RS=107.9, Mom=101.3, price $161.87). Fear & Greed is at 66.1, up from the panic lows last month (23.7) but not yet in the danger zone; sentiment is heating up, but hasn't boiled over.",
-    "Sector rotation is textbook: XLK and XLRE are firmly in the 'Leading' quadrant, with XLK\u2019s price and Real Estate (XLRE) running ahead of their MAs. Meanwhile, Energy (XLE $58.85) and Industrials (XLI $172.96) are weakening, Financials (XLF $51.92) are high-risk and lagging AGAIN \u2014 the canary stays muted. Healthcare and Discretionary show some improvement but still carry elevated risk.",
-    "Contrarian lens: Retail is chasing hard (look at AAPL $280.14, AMZN $268.26 \u2014 both stretched above their 20/50/200 MAs), but we\u2019re not at extreme greed\u2014yet. VIX is normal (18.11), so volatility doesn\u2019t shout \u2018danger.\u2019 Still, financials lag, pair ratios are drifting down, and with the weekly mean reversion zone way below, patience rules: abundance mindset, not FOMO. If it\u2019s in the press, it\u2019s probably in the price."
+    "Right, so big picture: despite a sea of red and -0.4% on SPY ($718.01), equities are still above their 20 MA (SPY: 701.45). Tech remains the strongest horse in the race \u2014 NVDA ($198.48), MSFT ($413.62), and GOOGL ($383.25) all hugging or riding above daily MAs, while Energy and Real Estate show some resilience. VIX is drifting lower (17.69), volatility is fading \u2014 but don't let that lull you.",
+    "Sector rotation is clear: XLK (Tech, $162.05) is leading with RS 110.3 and momentum 102.2, but watch weakening XLE (Energy), XLU (Utilities), and XLRE (Real Estate). Staples (XLP: $83.54), Industrials (XLI: $170.98), and Financials (XLF: $51.58) are lagging with HIGH risk tagged \u2014 the canary isn't singing, it's coughing. Defensive sectors are just not seeing real bid here.",
+    "Contrarian warning: Fear & Greed back in 'Greed' at 62.2 \u2014 not extreme, but notable considering we were at 23.7 only a month ago. Bonds are breaking down hard: TLT ($84.96) triggered below all MAs, HYG ($79.80) and LQD ($108.25) rolling over. R001 triggered: if bonds freak out, everything breaks. Don't chase. Abundance mindset, wait for mean reversion or flows to reset."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: 20 MA=$698.50, 50 MA=$679.48<br>XLK: $161.87 (approaching), 20 MA=$151.66<br>XLF: $51.92, SMA200=$52.30 (watch for 200 MA test)<br>AAPL: $280.14, 20 MA=$266.36<br>NVDA: $198.45, 20 MA=$197.22<br>Financials lagging: High risk, no breakouts<br>Fear & Greed: 66.1 \u2014 elevated but not extreme",
+  "callout_body": "SPY: Support at 701.45 (20 MA), resistance at 718.01<br>NVDA: Mean reversion zone 198.27 (20 MA)<br>XLK: Watch 152.92 (20 MA) for momentum shifts<br>TLT/HYG/LQD: Reduce equity exposure until bonds base<br>XLF: High risk, lagging \u2014 financials are canary in coal mine<br>Fear & Greed: 75+ = reduce, 25- = opportunity (we're in a 'not-chasing' zone)",
   "action_items": [
-    "Watch Financials (XLF $51.92) for breakdowns \u2014 reduction in equity risk if it loses SMA200 ($52.30)",
-    "Stick to weekly mean reversion zones; do NOT chase stretched leaders like AAPL or AMZN above their 20/50/200 MAs"
+    "Move any trailing stops up on tech (XLK, NVDA, MSFT); do NOT add fresh longs here \u2014 wait for a proper pullback or mean reversion to 20 MA.",
+    "Reduce exposure to cyclicals and lagging financials (XLF, HYG/LQD flag), and monitor bond ETF action \u2014 any further breakdown means defensive stance."
   ],
-  "closing_quote": "Less trades = more wins. Patience, react, don\u2019t predict.",
-  "generatedAt": "2026-05-04T12:09:28.690832+00:00",
+  "closing_quote": "If bonds freak out, everything breaks. Simple as that. Patience, react, don't predict.",
+  "generatedAt": "2026-05-05T11:46:24.164891+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }

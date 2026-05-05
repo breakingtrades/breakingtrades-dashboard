@@ -2,7 +2,7 @@
   "benchmark": "SPY",
   "lookback": 13,
   "trailLength": 26,
-  "generatedAt": "2026-05-04T12:09:18.799723+00:00",
+  "generatedAt": "2026-05-05T11:46:15.058061+00:00",
   "source": "yfinance",
   "sectors": [
     {
@@ -11,11 +11,6 @@
       "color": "#FF5722",
       "quadrant": "Weakening",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 100.694,
-          "momentum": 106.67
-        },
         {
           "date": "2025-11-10",
           "rs": 103.582,
@@ -83,7 +78,7 @@
         },
         {
           "date": "2026-02-09",
-          "rs": 117.071,
+          "rs": 117.072,
           "momentum": 100.751
         },
         {
@@ -140,6 +135,11 @@
           "date": "2026-04-27",
           "rs": 111.111,
           "momentum": 99.176
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 107.683,
+          "momentum": 96.915
         }
       ]
     },
@@ -147,13 +147,8 @@
       "symbol": "XLB",
       "name": "Materials",
       "color": "#795548",
-      "quadrant": "Weakening",
+      "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 92.426,
-          "momentum": 102.438
-        },
         {
           "date": "2025-11-10",
           "rs": 92.474,
@@ -278,6 +273,11 @@
           "date": "2026-04-27",
           "rs": 100.245,
           "momentum": 99.768
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 94.741,
+          "momentum": 94.51
         }
       ]
     },
@@ -285,13 +285,8 @@
       "symbol": "XLI",
       "name": "Industrials",
       "color": "#607D8B",
-      "quadrant": "Weakening",
+      "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 96.669,
-          "momentum": 102.274
-        },
         {
           "date": "2025-11-10",
           "rs": 96.89,
@@ -416,6 +411,11 @@
           "date": "2026-04-27",
           "rs": 100.393,
           "momentum": 99.01
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 94.971,
+          "momentum": 94.599
         }
       ]
     },
@@ -425,11 +425,6 @@
       "color": "#FFA500",
       "quadrant": "Improving",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 99.99,
-          "momentum": 98.894
-        },
         {
           "date": "2025-11-10",
           "rs": 96.436,
@@ -554,6 +549,11 @@
           "date": "2026-04-27",
           "rs": 93.94,
           "momentum": 101.021
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 95.896,
+          "momentum": 102.083
         }
       ]
     },
@@ -563,11 +563,6 @@
       "color": "#28A745",
       "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 88.681,
-          "momentum": 101.821
-        },
         {
           "date": "2025-11-10",
           "rs": 90.57,
@@ -692,6 +687,11 @@
           "date": "2026-04-27",
           "rs": 97.059,
           "momentum": 99.863
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 91.637,
+          "momentum": 94.414
         }
       ]
     },
@@ -699,13 +699,8 @@
       "symbol": "XLV",
       "name": "Healthcare",
       "color": "#DC3545",
-      "quadrant": "Improving",
+      "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 106.814,
-          "momentum": 106.332
-        },
         {
           "date": "2025-11-10",
           "rs": 106.933,
@@ -830,6 +825,11 @@
           "date": "2026-04-27",
           "rs": 90.2,
           "momentum": 101.912
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 88.39,
+          "momentum": 97.994
         }
       ]
     },
@@ -839,11 +839,6 @@
       "color": "#1E90FF",
       "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 96.717,
-          "momentum": 104.085
-        },
         {
           "date": "2025-11-10",
           "rs": 95.791,
@@ -968,6 +963,11 @@
           "date": "2026-04-27",
           "rs": 93.513,
           "momentum": 99.735
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 91.654,
+          "momentum": 98.012
         }
       ]
     },
@@ -977,11 +977,6 @@
       "color": "#00BCD4",
       "quadrant": "Leading",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 102.754,
-          "momentum": 96.52
-        },
         {
           "date": "2025-11-10",
           "rs": 103.697,
@@ -1075,7 +1070,7 @@
         {
           "date": "2026-03-16",
           "rs": 98.04,
-          "momentum": 100.18
+          "momentum": 100.181
         },
         {
           "date": "2026-03-23",
@@ -1106,6 +1101,11 @@
           "date": "2026-04-27",
           "rs": 107.866,
           "momentum": 101.332
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 110.279,
+          "momentum": 102.237
         }
       ]
     },
@@ -1113,13 +1113,8 @@
       "symbol": "XLC",
       "name": "Communication",
       "color": "#9C27B0",
-      "quadrant": "Lagging",
+      "quadrant": "Improving",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 98.987,
-          "momentum": 100.303
-        },
         {
           "date": "2025-11-10",
           "rs": 95.699,
@@ -1244,6 +1239,11 @@
           "date": "2026-04-27",
           "rs": 93.376,
           "momentum": 97.868
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 96.512,
+          "momentum": 103.358
         }
       ]
     },
@@ -1253,11 +1253,6 @@
       "color": "#6366F1",
       "quadrant": "Weakening",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 99.222,
-          "momentum": 104.408
-        },
         {
           "date": "2025-11-10",
           "rs": 99.664,
@@ -1382,6 +1377,11 @@
           "date": "2026-04-27",
           "rs": 103.786,
           "momentum": 98.66
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 103.323,
+          "momentum": 99.554
         }
       ]
     },
@@ -1389,13 +1389,8 @@
       "symbol": "XLRE",
       "name": "Real Estate",
       "color": "#009688",
-      "quadrant": "Leading",
+      "quadrant": "Weakening",
       "trail": [
-        {
-          "date": "2025-11-03",
-          "rs": 95.471,
-          "momentum": 105.225
-        },
         {
           "date": "2025-11-10",
           "rs": 95.339,
@@ -1520,6 +1515,11 @@
           "date": "2026-04-27",
           "rs": 103.127,
           "momentum": 100.138
+        },
+        {
+          "date": "2026-05-04",
+          "rs": 101.375,
+          "momentum": 98.301
         }
       ]
     }
