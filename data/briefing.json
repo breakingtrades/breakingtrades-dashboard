@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 05",
-  "headline": "Tech leads, defensives lag, but bond cracks warn: flows say patience over chasing.",
+  "title": "Daily Briefing \u2014 May 06",
+  "headline": "Tech leads, but the rally is getting greedy and breadth is lagging \u2014 patience is king.",
   "body": [
-    "Right, so big picture: despite a sea of red and -0.4% on SPY ($718.01), equities are still above their 20 MA (SPY: 701.45). Tech remains the strongest horse in the race \u2014 NVDA ($198.48), MSFT ($413.62), and GOOGL ($383.25) all hugging or riding above daily MAs, while Energy and Real Estate show some resilience. VIX is drifting lower (17.69), volatility is fading \u2014 but don't let that lull you.",
-    "Sector rotation is clear: XLK (Tech, $162.05) is leading with RS 110.3 and momentum 102.2, but watch weakening XLE (Energy), XLU (Utilities), and XLRE (Real Estate). Staples (XLP: $83.54), Industrials (XLI: $170.98), and Financials (XLF: $51.58) are lagging with HIGH risk tagged \u2014 the canary isn't singing, it's coughing. Defensive sectors are just not seeing real bid here.",
-    "Contrarian warning: Fear & Greed back in 'Greed' at 62.2 \u2014 not extreme, but notable considering we were at 23.7 only a month ago. Bonds are breaking down hard: TLT ($84.96) triggered below all MAs, HYG ($79.80) and LQD ($108.25) rolling over. R001 triggered: if bonds freak out, everything breaks. Don't chase. Abundance mindset, wait for mean reversion or flows to reset."
+    "Right, so the big picture: Markets are grinding higher with SPY at $723.77 and a greed-heavy Fear & Greed index now at 67.3. We're well above daily and weekly 20 MAs across indices, volatility is contracting (VIX 16.44 below its SMA20 18.29), and breadth is feeling a bit narrow \u2014 classic late-stage bull vibes.",
+    "Technology (XLK $165.63) remains the only sector firmly in \u2018Leading\u2019 territory, with momentum and relative strength streets ahead. Cyclicals and defensives are lagging or weakening; XLF (Financials) is still below its weekly 20 MA ($52.30) and showing risk signals. Rotation is favouring tech, but it's a \u2018one-horse race\u2019 \u2014 RSP/SPY divergence is reminiscent of those dot-com narrow rallies.",
+    "Contrarian check: Greed is ramping (was 22.5 a month ago \u2014 now 67.3), so one more push and I\u2019ll be reducing exposure; sentiment extremes are lurking. If you\u2019re not already long, don\u2019t chase \u2014 abundance mindset. Watch NVDA ($196.50, bearish bias) closer to its SMA20 ($199.19), and keep an eye on HYG ($79.92) and LQD ($108.65) as both are drifting below critical levels: if they break, everything breaks (rule R001)."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: Support at 701.45 (20 MA), resistance at 718.01<br>NVDA: Mean reversion zone 198.27 (20 MA)<br>XLK: Watch 152.92 (20 MA) for momentum shifts<br>TLT/HYG/LQD: Reduce equity exposure until bonds base<br>XLF: High risk, lagging \u2014 financials are canary in coal mine<br>Fear & Greed: 75+ = reduce, 25- = opportunity (we're in a 'not-chasing' zone)",
+  "callout_body": "SPY: $723.77 (20 MA $704.68) \u2014 still strong, but getting stretched<br>XLK: $165.63 (20 MA $154.33) \u2014 tech leadership, but watch breadth divergence<br>XLF: $51.59 (weekly 20 MA $52.30) \u2014 financials lagging, a canary<br>NVDA: $196.50 (20 MA $199.19) \u2014 bearish bias near support<br>HYG: $79.92 / LQD: $108.65 \u2014 bonds drifting, risky if break<br>Fear & Greed: 67.3 (reduce if >75 per R013)",
   "action_items": [
-    "Move any trailing stops up on tech (XLK, NVDA, MSFT); do NOT add fresh longs here \u2014 wait for a proper pullback or mean reversion to 20 MA.",
-    "Reduce exposure to cyclicals and lagging financials (XLF, HYG/LQD flag), and monitor bond ETF action \u2014 any further breakdown means defensive stance."
+    "Start prepping to trim tech longs if Fear & Greed hits 75 or VIX spikes \u2014 don't chase, wait for mean reversion.",
+    "Monitor NVDA and financials (XLF): If NVDA closes below its 20 MA ($199.19) or XLF breaks $51.59, step back \u2014 defensive mode per Tom\u2019s rules."
   ],
-  "closing_quote": "If bonds freak out, everything breaks. Simple as that. Patience, react, don't predict.",
-  "generatedAt": "2026-05-05T11:46:24.164891+00:00",
+  "closing_quote": "If it\u2019s in the press and everyone\u2019s chasing, it\u2019s already priced. Patience, react \u2014 don\u2019t predict.",
+  "generatedAt": "2026-05-06T12:15:00.626030+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
