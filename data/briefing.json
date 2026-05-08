@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 07",
-  "headline": "Mega-cap tech rallies hard, but the party is thinning \u2014 breadth and sector risk up, flows drive everything.",
+  "title": "Daily Briefing \u2014 May 08",
+  "headline": "Tech\u2019s running while the rest limps; flows show the split, so don\u2019t chase\u2014abundance mindset.",
   "body": [
-    "Right, so today's data shows tech leading again: AAPL $287.51 and NVDA $207.83 both torching their 20 MA, with QQQ and SPY breaking out ($695.77 and $733.83 respectively). VIX is cooling off, but don't let the calm fool you \u2014 last month's Fear & Greed was panic (27.6), now it's 68.6 (greed), creeping toward extreme territory.",
-    "On rotation, XLK (Tech) is still the low-risk, leading sector \u2014 RS 113.2, Mom 105.0 \u2014 but almost everything else is lagging or outright sick. XLE (Energy) and XLRE (Real Estate) are weakening. Financials (XLF $51.84) are stuck below the 200 MA ($52.30), classic canary signal, so risk remains elevated in non-tech.",
-    "Contrarian radar: When sentiment swings this fast from 'fear' to 'greed', be suspicious. Back in 2021, similar Smart Money/Dumb Money extremes set up the 2022 drawdown. Energy names showing active breakdown (SM -8.5%, AR -5.8%) as tech runs hot \u2014 that's rotational divergence. Abundance mindset here: don't chase, watch for mean reversion at weekly 20 MA if tech gets vertical."
+    "Right, so let\u2019s look at what the flows are telling us: SPY holds strong at $731.58, well above the 20 MA ($710.16), with QQQ showing similar strength. VIX is drifting below its 20 MA\u2014volatility contracting, but sentiment is stuck in greed (66.8). Markets are still bullish, but breadth is thinning; tech carries the torch while most cyclicals lag.",
+    "Sector rotation is screaming that XLK (Tech) remains the lone leader (RS=113.3, Momentum=105.1), while everything else\u2014XLE, XLI, XLB, XLF, XLV, XLP\u2014is lagging hard and showing high risk. Communication (XLC) and Consumer Discretionary (XLY) are improving relative strength, but the rest are still rolling over. XLF at $51.55 sits just above the 20 MA ($51.87)\u2014financials are the canary, and they\u2019re barely hanging on.",
+    "Contrarian warning: Fear & Greed is high but not extreme (66.8); last month was extreme fear (34.4), so retail has poured back in quickly. Watch out for overexposure\u2014most names are extended well above the 20 MA (e.g., AAPL $287.44 vs. SMA20 $271.57), and laggards are breaking down. HYG, LQD, and TLT all show bearish signals. If bonds freak out, everything breaks\u2014reduce equity risk if these start closing below their weekly 20 MA."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "AAPL: 20 MA $270.22 \u2014 holding, strong<br>NVDA: $207.83 (20 MA $200.47) \u2014 breakout<br>SPY: $733.83 (20 MA $707.57) \u2014 momentum pivot<br>XLF: $51.84 (200 MA $52.30) \u2014 canary on watch<br>XLK: RS 113.2, momentum 105.0 \u2014 leader sector<br>Fear & Greed: 68.6 \u2014 approaching contrarian zone<br>XLE: $57.00 (200 MA $48.24) \u2014 sellers active<br>VIX: 17.43 \u2014 low, but monitor mean reversion",
+  "callout_body": "SPY: $731.58 (SMA20 $710.16) \u2014 strong tech leadership<br>QQQ: $694.94 (SMA20 $655.79) \u2014 momentum intact<br>XLF: $51.55 (SMA20 $51.87) \u2014 canary at the wire<br>HYG: $79.86 (SMA20 $79.97) \u2014 risk zone<br>AAPL: $287.44 (approaching SMA20 $271.57)<br>Fear & Greed: 66.8 \u2014 caution, but not extreme<br>Watch for daily closes below 20 MA for exit triggers",
   "action_items": [
-    "Tech breakout trades: NVDA, AAPL, QQQ above 20 MA \u2014 monitor for flow exhaustion or dark pool accumulation, don't chase highs.",
-    "Rotate out of lagging risk: Watch Financials (XLF), Energy (XLE), and Healthcare (XLV) for further breakdown or sector recovery at weekly 20 MA."
+    "Rotate into XLK (Tech) only on pullbacks to weekly 20 MA\u2014don\u2019t chase extended moves",
+    "Monitor XLF and HYG for breakdowns\u2014if either closes below the 20 MA, reduce equity exposure across portfolio"
   ],
-  "closing_quote": "If it's in the press, it's in the price\u2014wait for the flows to paint the next move.",
-  "generatedAt": "2026-05-07T12:16:03.874503+00:00",
+  "closing_quote": "If it\u2019s in the press, it\u2019s in the price. Patience, react, don\u2019t predict.",
+  "generatedAt": "2026-05-08T11:51:31.095506+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
