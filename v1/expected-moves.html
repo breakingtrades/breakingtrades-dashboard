@@ -245,6 +245,72 @@
     0%, 100% { opacity: 1; }
     50% { opacity: 0.7; }
   }
+  /* Stale data banner — top of page when EM data > 48h old.
+     Existing red timestamp was easy to miss (Mar 27 staleness incident). */
+  .stale-banner {
+    background: rgba(239,83,80,0.14);
+    border: 1px solid rgba(239,83,80,0.45);
+    color: var(--red);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stale-banner .stale-icon { font-size: 14px; }
+
+  /* IV trend pill rendered in the IV Trend column */
+  .iv-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.04);
+  }
+  .iv-trend.up    { color: #ef5350; background: rgba(239,83,80,0.10); }
+  .iv-trend.down  { color: #4caf50; background: rgba(76,175,80,0.10); }
+  .iv-trend.flat  { color: var(--text-dim); }
+  .iv-trend.empty { color: var(--text-dim); opacity: 0.5; }
+
+  /* Bias breakdown pills shown inside stat-sub */
+  .bias-pill {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    margin: 0 2px;
+    letter-spacing: 0.4px;
+  }
+  .bias-pill.bull  { color: #4caf50; background: rgba(76,175,80,0.14); }
+  .bias-pill.bear  { color: #f44336; background: rgba(244,67,54,0.14); }
+  .bias-pill.mixed { color: var(--text-dim); background: rgba(255,255,255,0.05); }
+
+  /* Detail-modal history chart (close vs predicted EM band over the last N days) */
+  .em-history-box {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #0c0c18;
+    padding: 12px 16px 16px;
+    margin-bottom: 20px;
+  }
+  .em-history-head {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-dim); margin-bottom: 8px;
+  }
+  .em-history-caption {
+    margin-top: 6px; font-size: 11px; color: var(--text-dim);
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .em-history-caption strong { color: var(--text); font-weight: 600; }
+  .em-history-svg { width: 100%; height: 140px; display: block; }
+
   /* === DETAIL MODAL === */
   .modal-overlay {
     position: fixed; inset: 0; z-index: 1000;
@@ -303,6 +369,8 @@
     <div class="updated" id="em-updated"></div>
   </div>
 
+  <div id="stale-banner-slot"></div>
+
   <div class="stats-row" id="stats-row"></div>
 
   <div class="legend">
@@ -330,6 +398,13 @@
     </div>
   </div>
 
+  <div class="tier-tabs" style="margin-bottom:16px;" aria-label="Alert filter chips">
+    <span style="color:var(--text-dim);font-size:11px;align-self:center;margin-right:4px;">Show only:</span>
+    <button class="tier-tab alert-filter-tab" data-alertfilter="buy">🟢 Buy zone</button>
+    <button class="tier-tab alert-filter-tab" data-alertfilter="extended">🔴 Extended</button>
+    <button class="tier-tab alert-filter-tab" data-alertfilter="outside">⚡ Outside EM</button>
+  </div>
+
   <div class="em-table-wrap">
     <table>
       <thead>
@@ -343,7 +418,7 @@
           <th data-col="upper">High</th>
           <th data-col="position" style="min-width:140px;">Position in Range</th>
           <th data-col="risk">Risk Level</th>
-          <th data-col="riskbar" style="min-width:130px;">Risk Meter</th>
+          <th data-col="ivtrend" style="min-width:110px;" title="Implied vol trend: avg weekly EM% over last 5 days vs prior 5 days">IV Trend</th>
           <th data-col="bias">Bias</th>
         </tr>
       </thead>
@@ -375,6 +450,7 @@ let watchlistData = [];
 let currentTier = 'weekly';
 let sortCol = null;
 let currentFilter = 'all';
+const activeAlertFilters = new Set();
 const TOP10_SP = ['AAPL','MSFT','NVDA','AMZN','META','GOOGL','GOOG','TSLA','BRK B','AVGO'];
 const INDICES = ['SPX','SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
 let sortAsc = false;
@@ -393,10 +469,17 @@ async function loadData() {
     const updatedDate = new Date(em.updated);
     const ageHours = (Date.now() - updatedDate.getTime()) / 3600000;
     let emLabel = `EM Ranges: ${updatedDate.toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/New_York' })} ET`;
-    // Stale data warning: log only, no UI banner
+    const banner = document.getElementById('stale-banner-slot');
+    banner.innerHTML = '';
     if (ageHours > 48) {
       updatedEl.style.color = 'var(--red)';
-      emLabel += ` (${Math.round(ageHours / 24)}d old)`;
+      const dAge = Math.round(ageHours / 24);
+      emLabel += ` (${dAge}d old)`;
+      banner.innerHTML = `<div class="stale-banner">
+        <span class="stale-icon">⚠️</span>
+        <span><strong>Expected Move data is ${dAge} day${dAge === 1 ? '' : 's'} old.</strong>
+        Bands and risk levels below may be misleading. Run <code>scripts/update-expected-moves.py</code> to refresh.</span>
+      </div>`;
       console.warn(`[EM] Data stale: ${Math.round(ageHours)}h old. Run update-expected-moves.py to refresh.`);
     } else if (ageHours > 24) {
       updatedEl.style.color = 'var(--orange)';
@@ -446,7 +529,7 @@ function buildRows() {
     const currentPrice = btPrices.price(sym) ?? wl?.price ?? t.close;
     const change = btPrices.change(sym) ?? wl?.change ?? 0;
 
-    // Filter
+    // Symbol-category filter (single-pick)
     if (currentFilter === 'indices' && !INDICES.includes(sym)) continue;
     if (currentFilter === 'top10' && !TOP10_SP.includes(sym)) continue;
     if (currentFilter === 'watchlist' && !wl) continue;
@@ -459,8 +542,22 @@ function buildRows() {
     const position = range > 0 ? ((currentPrice - lo) / range) * 100 : 50;
     const clampedPos = Math.max(0, Math.min(100, position));
 
+    // Alert-tag filter (multi-toggle, OR within set, AND with category)
+    if (activeAlertFilters.size > 0) {
+      const isBuy      = position <= 20;
+      const isExtended = position >= 85 && position <= 100;
+      const isOutside  = position < 0 || position > 100;
+      const ok = (activeAlertFilters.has('buy')      && isBuy)
+              || (activeAlertFilters.has('extended') && isExtended)
+              || (activeAlertFilters.has('outside')  && isOutside);
+      if (!ok) continue;
+    }
+
     const risk = getRiskLabel(position);
     const riskColor = getRiskColor(position);
+
+    // IV trend: avg weekly_em% over last 5 history snapshots vs prior 5
+    const ivTrend = computeIVTrend(t.history, t.close);
 
     // Bias from watchlist
     let bias = null;
@@ -494,12 +591,52 @@ function buildRows() {
       strike: t.strike,
       expiry: t.weekly_expiry,
       proxy: t.futures_proxy,
+      bias: bias,
       biasHtml: biasHtml,
+      ivTrend: ivTrend,
     });
   }
 
   return rows;
 }
+
+// Compute IV trend signal from `history[]` snapshots.
+// Compares mean weekly_em% over last 5 entries vs prior 5 entries.
+// Exposed on `window` for unit tests.
+function computeIVTrend(history, anchorClose) {
+  if (!Array.isArray(history) || history.length < 4) {
+    return { kind: 'empty', delta: null, label: '—', title: 'Insufficient history (need ≥4 daily snapshots)' };
+  }
+  const pctOf = (snap) => {
+    if (!snap || typeof snap.weekly_em !== 'number') return null;
+    const denom = (typeof snap.close === 'number' && snap.close > 0) ? snap.close : anchorClose;
+    if (!denom) return null;
+    return (snap.weekly_em / denom) * 100;
+  };
+  const pcts = history.map(pctOf).filter(v => v != null && Number.isFinite(v));
+  if (pcts.length < 4) {
+    return { kind: 'empty', delta: null, label: '—', title: 'Insufficient history (need ≥4 daily snapshots)' };
+  }
+  const recentN = Math.min(5, Math.floor(pcts.length / 2));
+  const recent = pcts.slice(-recentN);
+  const prior  = pcts.slice(-recentN * 2, -recentN);
+  if (!prior.length) {
+    return { kind: 'empty', delta: null, label: '—', title: 'Insufficient history (need ≥4 daily snapshots)' };
+  }
+  const mean = (arr) => arr.reduce((s, v) => s + v, 0) / arr.length;
+  const r = mean(recent);
+  const p = mean(prior);
+  if (!p) {
+    return { kind: 'empty', delta: null, label: '—', title: 'Insufficient history' };
+  }
+  const delta = ((r - p) / p) * 100;
+  const sign = delta >= 0 ? '+' : '−';
+  const mag = Math.abs(delta).toFixed(1);
+  if (delta >= 5)  return { kind: 'up',   delta, label: `▲ ${sign}${mag}%`, title: `IV expanding: avg ${recentN}d EM% rose ${mag}% vs prior ${recentN}d` };
+  if (delta <= -5) return { kind: 'down', delta, label: `▼ ${sign}${mag}%`, title: `IV contracting: avg ${recentN}d EM% fell ${mag}% vs prior ${recentN}d` };
+  return { kind: 'flat', delta, label: `— ${sign}${mag}%`, title: `IV roughly flat (≤5% delta over ${recentN}d window)` };
+}
+window.computeIVTrend = computeIVTrend;
 
 function render() {
   if (!emData.tickers) return;
@@ -515,8 +652,8 @@ function renderStats(rows) {
   const avgPct = rows.reduce((s, r) => s + (r.pct || 0), 0) / rows.length;
   const maxEM = rows.reduce((max, r) => (r.pct || 0) > (max.pct || 0) ? r : max, rows[0]);
   const minEM = rows.reduce((min, r) => (r.pct || 0) < (min.pct || 0) ? r : min, rows[0]);
-  const extended = rows.filter(r => r.position > 85).length;
-  const buyZone = rows.filter(r => r.position <= 20).length;
+  const extendedRows = rows.filter(r => r.position > 85);
+  const buyRows = rows.filter(r => r.position <= 20);
 
   document.getElementById('stats-row').innerHTML = `
     <div class="stat-card">
@@ -531,15 +668,37 @@ function renderStats(rows) {
     </div>
     <div class="stat-card">
       <div class="stat-label">🟢 Buy Zone</div>
-      <div class="stat-value" style="color:${buyZone > 0 ? '#4caf50' : 'var(--text-dim)'}">${buyZone}</div>
-      <div class="stat-sub">near low of EM range</div>
+      <div class="stat-value" style="color:${buyRows.length > 0 ? '#4caf50' : 'var(--text-dim)'}">${buyRows.length}</div>
+      <div class="stat-sub">${buyRows.length ? biasBreakdownHtml(buyRows) : 'near low of EM range'}</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">🔴 Extended</div>
-      <div class="stat-value" style="color:${extended > 0 ? 'var(--red)' : 'var(--text-dim)'}">${extended}</div>
-      <div class="stat-sub">at/above EM ceiling</div>
+      <div class="stat-value" style="color:${extendedRows.length > 0 ? 'var(--red)' : 'var(--text-dim)'}">${extendedRows.length}</div>
+      <div class="stat-sub">${extendedRows.length ? biasBreakdownHtml(extendedRows) : 'at/above EM ceiling'}</div>
     </div>
   `;
+}
+
+// Compute counts of {bull, bear, mixed} from a list of rows.
+// Exposed on window for tests.
+function biasBreakdown(rows) {
+  let bull = 0, bear = 0, mixed = 0;
+  for (const r of rows) {
+    if (r.bias === 'bull') bull++;
+    else if (r.bias === 'bear') bear++;
+    else mixed++;
+  }
+  return { bull, bear, mixed };
+}
+window.biasBreakdown = biasBreakdown;
+
+function biasBreakdownHtml(rows) {
+  const b = biasBreakdown(rows);
+  const parts = [];
+  if (b.bull)  parts.push(`<span class="bias-pill bull">${b.bull} BULL</span>`);
+  if (b.bear)  parts.push(`<span class="bias-pill bear">${b.bear} BEAR</span>`);
+  if (b.mixed) parts.push(`<span class="bias-pill mixed">${b.mixed} MIXED</span>`);
+  return parts.join(' ');
 }
 
 function renderTable(rows) {
@@ -590,18 +749,18 @@ function renderTable(rows) {
         <div class="dim" style="margin-top:3px;">${r.position.toFixed(0)}% of range</div>
       </td>
       <td><span class="risk-badge" style="color:${r.risk.color};background:${r.risk.bg};border:1px solid ${r.risk.color}40;">${r.risk.text}</span></td>
-      <td>
-        <div class="risk-bar-wrap">
-          <div class="risk-fill" style="width:${Math.max(4, Math.min(100, r.position))}%;background:${needleColor};"></div>
-        </div>
-      </td>
+      <td><span class="iv-trend ${r.ivTrend.kind}" title="${r.ivTrend.title}">${r.ivTrend.label}</span></td>
       <td style="white-space:nowrap;">${r.biasHtml}</td>
     </tr>`;
   }).join('');
 }
 
 function sortRows(rows) {
-  if (!sortCol) return; // No sort active — keep default data order
+  // Default sort when no user sort is active: position ASC = buy zones at top.
+  if (!sortCol) {
+    rows.sort((a, b) => a.position - b.position);
+    return;
+  }
   const col = sortCol;
   rows.sort((a, b) => {
     let va, vb;
@@ -615,7 +774,12 @@ function sortRows(rows) {
       case 'upper': va = a.upper; vb = b.upper; break;
       case 'position': va = a.position; vb = b.position; break;
       case 'risk': va = a.position; vb = b.position; break;
-      case 'riskbar': va = a.position; vb = b.position; break;
+      case 'ivtrend': va = a.ivTrend?.delta ?? -Infinity; vb = b.ivTrend?.delta ?? -Infinity; break;
+      case 'bias':
+        // Bull > Mixed > Bear when ascending — so a "bias asc" sort surfaces best longs first
+        va = a.bias === 'bull' ? 2 : a.bias === 'bear' ? 0 : 1;
+        vb = b.bias === 'bull' ? 2 : b.bias === 'bear' ? 0 : 1;
+        break;
       default: va = a.position; vb = b.position;
     }
     if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
@@ -639,6 +803,21 @@ document.querySelectorAll('.filter-tab[data-filter]').forEach(btn => {
     document.querySelectorAll('.filter-tab[data-filter]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentFilter = btn.dataset.filter;
+    render();
+  });
+});
+
+// Alert-tag filter chips (multi-toggle, OR within set, AND with category filter)
+document.querySelectorAll('.alert-filter-tab[data-alertfilter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.dataset.alertfilter;
+    if (activeAlertFilters.has(key)) {
+      activeAlertFilters.delete(key);
+      btn.classList.remove('active');
+    } else {
+      activeAlertFilters.add(key);
+      btn.classList.add('active');
+    }
     render();
   });
 });
@@ -701,6 +880,93 @@ const EXCHANGE_MAP = {
   'GLD':'AMEX','SLV':'AMEX','URA':'AMEX','USO':'AMEX','UNG':'AMEX','IBIT':'NASDAQ',
   'EQIX':'NASDAQ','DLR':'NYSE','AMT':'NYSE',
 };
+
+// Render the per-ticker history box: SVG showing close vs predicted EM band
+// across the last N daily snapshots, plus breach markers and an IV-trend line.
+// Returns empty string when there isn't enough history (< 2 snapshots).
+// Exposed on window for unit tests.
+function renderHistoryBox(symbol, t) {
+  const chart = buildHistoryChart(t, 30);
+  if (!chart) return '';
+  const trendBadge = t.history && t.history.length >= 4
+    ? (() => {
+        const tr = computeIVTrend(t.history, t.close);
+        return `<span class="iv-trend ${tr.kind}" title="${tr.title}">${tr.label}</span>`;
+      })()
+    : '';
+  return `<div class="em-history-box">
+    <div class="em-history-head">
+      <span>${symbol} — Last ${chart.points.length}d · close vs predicted weekly EM band</span>
+      ${trendBadge}
+    </div>
+    <svg class="em-history-svg" viewBox="0 0 ${chart.w} ${chart.h}" preserveAspectRatio="none">
+      <polygon points="${chart.bandPolygon}" fill="rgba(0,212,170,0.10)" stroke="rgba(0,212,170,0.30)" stroke-width="1"/>
+      <polyline points="${chart.linePolyline}" fill="none" stroke="#ffd700" stroke-width="1.5"/>
+      ${chart.breachMarkers.map(m =>
+        `<circle cx="${m.x}" cy="${m.y}" r="3" fill="${m.color}" stroke="#0c0c18" stroke-width="1"><title>${m.title}</title></circle>`
+      ).join('')}
+    </svg>
+    <div class="em-history-caption">
+      <span><strong>${chart.points.length}</strong> daily snapshots</span>
+      <span><strong>${chart.breachCount}</strong> band breach${chart.breachCount === 1 ? '' : 'es'}</span>
+      <span>Range: $${chart.lo.toFixed(2)} – $${chart.hi.toFixed(2)}</span>
+    </div>
+  </div>`;
+}
+window.renderHistoryBox = renderHistoryBox;
+
+// Pure data-only helper that produces SVG geometry from a ticker's history array.
+// Exposed on window for unit tests; returns null when input is unusable.
+function buildHistoryChart(t, maxPoints = 30) {
+  const history = Array.isArray(t.history) ? t.history.slice(-maxPoints) : [];
+  if (history.length < 2) return null;
+
+  const W = 360, H = 100, padX = 4, padY = 6;
+  const innerW = W - padX * 2;
+  const innerH = H - padY * 2;
+
+  const points = history.map(h => {
+    if (h == null) return null;
+    if (h.close == null || h.weekly_em == null) return null;
+    const close = Number(h.close);
+    const em    = Number(h.weekly_em);
+    if (!Number.isFinite(close) || !Number.isFinite(em)) return null;
+    return { date: h.date, close, em, upper: close + em, lower: close - em };
+  }).filter(Boolean);
+  if (points.length < 2) return null;
+
+  const lo = Math.min(...points.map(p => p.lower));
+  const hi = Math.max(...points.map(p => p.upper));
+  const span = hi - lo || 1;
+  const x = (i) => padX + (i / (points.length - 1)) * innerW;
+  const y = (val) => padY + (1 - (val - lo) / span) * innerH;
+
+  const linePolyline = points.map((p, i) => `${x(i).toFixed(2)},${y(p.close).toFixed(2)}`).join(' ');
+  const upperPath = points.map((p, i) => `${x(i).toFixed(2)},${y(p.upper).toFixed(2)}`);
+  const lowerPath = points.map((p, i) => `${x(i).toFixed(2)},${y(p.lower).toFixed(2)}`).reverse();
+  const bandPolygon = upperPath.concat(lowerPath).join(' ');
+
+  // Breach: today's close moved beyond yesterday's predicted band
+  const breachMarkers = [];
+  for (let i = 1; i < points.length; i++) {
+    const prev = points[i - 1];
+    const cur  = points[i];
+    if (cur.close > prev.upper) {
+      breachMarkers.push({ x: x(i).toFixed(2), y: y(cur.close).toFixed(2),
+        color: '#ef5350', title: `${cur.date}: $${cur.close.toFixed(2)} broke above prior upper $${prev.upper.toFixed(2)}` });
+    } else if (cur.close < prev.lower) {
+      breachMarkers.push({ x: x(i).toFixed(2), y: y(cur.close).toFixed(2),
+        color: '#00d4aa', title: `${cur.date}: $${cur.close.toFixed(2)} broke below prior lower $${prev.lower.toFixed(2)}` });
+    }
+  }
+
+  return {
+    w: W, h: H, lo, hi, points,
+    linePolyline, bandPolygon,
+    breachMarkers, breachCount: breachMarkers.length
+  };
+}
+window.buildHistoryChart = buildHistoryChart;
 
 function openEMDetail(symbol) {
   const t = emData.tickers?.[symbol];
@@ -771,6 +1037,7 @@ function openEMDetail(symbol) {
         <div class="chart-label">${symbol} — Daily Chart</div>
         <div id="em-tv-chart"></div>
       </div>
+      ${renderHistoryBox(symbol, t)}
       <div class="info-row">${tierCards}</div>`;
   }
 
