@@ -113,6 +113,7 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 |--------|--------|-------------|
 | [SPA v2 Cutover](changes/spa-root OPENSPEC.md) | Phase 4 pending | Move `root ` to root, archive v1, configure auth, custom domain |
 | [Data Pipeline](changes/data-pipeline/) | Partial | Core signals + EOD pipeline shipped; lifecycle classifier + per-ticker Tom pending |
+| [EM History Sparkline + Triage UX](changes/em-history-sparkline/OPENSPEC.md) | PR open | v1 EM page: detail-modal history chart (price vs predicted EM band), IV Trend column (replaces redundant Risk Meter), bias-aware Buy Zone/Extended stats, alert-tag filter chips, default sort = position ASC, stale-data top banner. Single-file change (`v1/expected-moves.html`) + 22 new Jest tests. v2 SPA parity tracked as follow-up. |
 
 ## Planned Changes (not started)
 
@@ -129,7 +130,7 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 | SPA v2 Cutover (Phase 4) | **Medium** | Retire v1, configure Azure SWA auth + custom domain. v2 SPA is production. |
 | [Regime Intelligence Dashboard](changes/regime-intelligence/OPENSPEC.md) | **Shipped** | ✅ Shipped as AI Researcher (`#airesearcher`). Computed regime score from 15 weighted signals, 7 regimes (CRISIS→EUPHORIA), Tom's rules mapped, playbook per regime, transition signals, market internals, commodity chain, regime history. Added to EOD pipeline. |
 | Earnings Calendar | High | Dedicated earnings tool — EarningsWhisper (primary), TradingView (secondary). Upcoming earnings for watchlist + broader market. |
-| EM History Sparkline | Medium | Per-ticker mini sparkline of historical EM values on expected-moves.html. *Partially addressed by Quarterly EM History (2026-04-03) — quarterly range bars in detail modal. Inline table sparkline still planned.* |
+| EM History Sparkline | Medium | Per-ticker mini sparkline of historical EM values on expected-moves.html. *Partially addressed by Quarterly EM History (2026-04-03) — quarterly range bars in detail modal. Now in progress: see Active Changes → "EM History Sparkline + Triage UX".* |
 | EM Columns on Watchlist | Medium | Compact weekly EM% + position in range columns on watchlist table |
 | [AI-Ready Architecture](changes/ai-ready-architecture/) | Medium | Tom agent multi-channel output: alerts, ticker notes, market pulse, feed panel |
 | Trade Lifecycle Engine | Medium | 9-state status classifier for ticker cards |
