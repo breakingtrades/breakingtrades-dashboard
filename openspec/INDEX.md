@@ -1,6 +1,6 @@
 # BreakingTrades Dashboard — OpenSpec Index
 
-> Last updated: 2026-04-28 (eod-pipeline-fixes, em-anchor-fix, autoresearch-wired)
+> Last updated: 2026-05-09 (em-history-sparkline shipped)
 > Status: **Production (v1)** + **Staging (v2 SPA)** 
 > v1 live at: https://breakingtrades.github.io/breakingtrades-dashboard/
 > v2 staging at: https://brave-glacier-07c70460f.2.azurestaticapps.net/root index.html
@@ -106,6 +106,7 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 | [EM Staleness Guard + Anchor Fix](changes/expected-moves/) | 2026-04-28 | **Bug fix:** 75/85 tickers had stale Apr 10 weekly anchors (2.5 weeks old). Root cause: GH Actions + Mac cron ran at exact same time (4:20 PM ET) → rebase conflict → Friday `--tier all` commit lost. Fix: (1) Mac cron shifted to 4:25 PM (5-min offset, Mac wins push), (2) staleness guard in `eod-update.sh` — if anchor >7 days old, forces `--tier all` regardless of weekday, (3) one-time backfill injected Apr 24 closes into history for all 73 stale tickers. EM page now shows correct current-week bands. |
 | [Autoresearch Summary Wired to EOD](changes/ci-data-pipeline/) | 2026-04-28 | `autoresearch/summarize.py` added as step 5b in `eod-update.sh`. Was orphaned (never auto-ran), causing AI Researcher page to go 11 days stale. Now regenerates every EOD from latest optimizer results. |
 | [EM Tests — Staleness + Anchor](changes/expected-moves/) | 2026-04-28 | Added market-day-aware staleness test to `tests/expected-moves.test.js`: trading days allow 28h max age, weekends 72h. Fixed incorrect symmetry test (was checking `close` as midpoint; correct is `anchor_close`). Added per-ticker weekly expiry check (warns on stale tickers, doesn't fail for recently-updated ones). 17/17 tests pass. | v1: sticky `thead th { top: 0 }` pinned under the 48px nav (offset bug). v2: `em-pos-marker` (absolute, `top: -3px`) painted above the sticky thead on scroll because `.em-table-wrap` had no stacking context scope. Proper fix: `isolation: isolate` on `.em-table-wrap` + `tbody tr { position: relative; z-index: 0 }` for row-level containment + v1 offset correction. Codified in `docs/DESIGN_SYSTEM.md` as the canonical sticky-header pattern. CSS-only, applies to v1 and v2. |
+| [EM History Sparkline + Triage UX](changes/em-history-sparkline/OPENSPEC.md) | 2026-05-09 | `a8bfb02` | **v1 EM page improvements (PR #3).** Surfaces previously-unused producer data + tightens triage UX. (1) Detail-modal history chart — inline SVG of close-price line + shaded predicted weekly EM band over last 30 days, with breach-day markers (red up / cyan down). Uses the existing `history[]` array (up to 33 daily snapshots/ticker). (2) **IV Trend column replaces the redundant Risk Meter column** — computes avg weekly EM% over last 5 history snapshots vs prior 5; displays ▲/▼/— with delta %, sortable. (3) Bias-aware Buy Zone / Extended stats — `8 (3 BULL · 5 MIXED)` instead of flat count. (4) Alert-tag filter chips (🟢 Buy zone / 🔴 Extended / ⚡ Outside EM) — multi-toggle, OR-within, AND with category filter. (5) **Default sort = position ASC** when no user sort active — buy zones float to top (was JSON insertion order). (6) Stale-data top-of-page banner when EM data >48h old (Mar 27 incident showed timestamp alone was easy to miss). Single-file change to `v1/expected-moves.html` + new `tests/em-page-improvements.test.js` (22 Jest tests covering IV trend, history-chart geometry, breach detection, bias breakdown, default sort, alert-filter predicate, real-data smoke). Test counts: jest 137→159 all green; `test-em-formula.js` unchanged. No producer changes, no new dependencies. v2 SPA parity tracked as follow-up. |
 
 ## Active Changes (in progress)
 
@@ -113,7 +114,6 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 |--------|--------|-------------|
 | [SPA v2 Cutover](changes/spa-root OPENSPEC.md) | Phase 4 pending | Move `root ` to root, archive v1, configure auth, custom domain |
 | [Data Pipeline](changes/data-pipeline/) | Partial | Core signals + EOD pipeline shipped; lifecycle classifier + per-ticker Tom pending |
-| [EM History Sparkline + Triage UX](changes/em-history-sparkline/OPENSPEC.md) | PR open | v1 EM page: detail-modal history chart (price vs predicted EM band), IV Trend column (replaces redundant Risk Meter), bias-aware Buy Zone/Extended stats, alert-tag filter chips, default sort = position ASC, stale-data top banner. Single-file change (`v1/expected-moves.html`) + 22 new Jest tests. v2 SPA parity tracked as follow-up. |
 
 ## Planned Changes (not started)
 
@@ -130,7 +130,7 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 | SPA v2 Cutover (Phase 4) | **Medium** | Retire v1, configure Azure SWA auth + custom domain. v2 SPA is production. |
 | [Regime Intelligence Dashboard](changes/regime-intelligence/OPENSPEC.md) | **Shipped** | ✅ Shipped as AI Researcher (`#airesearcher`). Computed regime score from 15 weighted signals, 7 regimes (CRISIS→EUPHORIA), Tom's rules mapped, playbook per regime, transition signals, market internals, commodity chain, regime history. Added to EOD pipeline. |
 | Earnings Calendar | High | Dedicated earnings tool — EarningsWhisper (primary), TradingView (secondary). Upcoming earnings for watchlist + broader market. |
-| EM History Sparkline | Medium | Per-ticker mini sparkline of historical EM values on expected-moves.html. *Partially addressed by Quarterly EM History (2026-04-03) — quarterly range bars in detail modal. Now in progress: see Active Changes → "EM History Sparkline + Triage UX".* |
+| EM History Sparkline | Medium | Per-ticker mini sparkline of historical EM values on expected-moves.html. *Partially addressed by Quarterly EM History (2026-04-03) — quarterly range bars in detail modal. **Shipped 2026-05-09 (`a8bfb02`)** — see Shipped Changes → "EM History Sparkline + Triage UX".* |
 | EM Columns on Watchlist | Medium | Compact weekly EM% + position in range columns on watchlist table |
 | [AI-Ready Architecture](changes/ai-ready-architecture/) | Medium | Tom agent multi-channel output: alerts, ticker notes, market pulse, feed panel |
 | Trade Lifecycle Engine | Medium | 9-state status classifier for ticker cards |

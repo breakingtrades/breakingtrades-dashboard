@@ -1,7 +1,8 @@
 # EM History Sparkline + Triage UX — OpenSpec
 
 > Created: 2026-05-09
-> Status: **In Progress**
+> Status: **Shipped**
+> Shipped: 2026-05-09 · commit `a8bfb02`
 > Priority: **Medium**
 > Page: `v1/expected-moves.html`
 > Tracking: was Planned in INDEX.md ("EM History Sparkline — Inline table sparkline still planned")
