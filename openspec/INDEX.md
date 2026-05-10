@@ -52,6 +52,7 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 | **Daily Briefing** | Every 30 min | `generate-briefing.py` → `data/briefing.json` |
 | **Dashboard Export** | On demand | `export-dashboard-data.py` — bridge from parent data CSVs → dashboard JSON |
 | **Trump Monitor** | On demand | `trump-monitor.py` — Google News RSS → LLM classify → `events.jsonl` |
+| **Economic Calendar** | On demand / pre-EOD | `fetch-economic-calendar.py` — Investing.com → US 3-star events only → `data/economic-calendar.json`. Frontend `events.js` merges into Live Countdowns. Top 3 upcoming within 14 days. No API key. |
 
 ## Shipped Changes (Chronological)
 
@@ -119,6 +120,7 @@ Vanilla JS SPA in `root ` subdirectory. Hash router, persistent nav + ticker tap
 
 | Change | Priority | Description |
 |--------|----------|-------------|
+| Economic Calendar Integration | **High** | ✅ **First slice shipped 2026-05-10:** `scripts/fetch-economic-calendar.py` pulls US 3-star events from Investing.com (no API key, scrapes their public AJAX endpoint with `country[]=5&importance[]=3`). Top 3 upcoming events within 14 days written to `data/economic-calendar.json`; `events.js` merges them into Live Countdowns with forecast/previous values inline (e.g. "Core CPI (MoM) — fc 0.3% / prev 0.2%"). Still planned: hook into EOD pipeline cron, expand to FOMC/FRED feeds, add severity tiering by event class. |
 | **Signal Scanner** | **Critical** | Nightly scanner: EMA 13/26 crossover state × weekly alignment × regime filter × EM position × volume profile S/R. Outputs `data/scan-results.json` + Telegram alerts. Replaces static signals cards with computed, ranked setups. Runs in EOD pipeline. |
 | **GEX / Gamma Levels (Self-Computed)** | **High** | Compute dealer gamma exposure from options chain data (IB Gateway + yfinance). Put wall = support, call wall = resistance. Net GEX sign (positive = mean-reversion, negative = trend-amplifying). Highest Volume Level (HVL) as price magnet. Output: `data/gex.json` per major ticker. No paid service — we have the options data from IB. |
 | **Volume Profile S/R Levels** | **High** | Compute support/resistance from volume-at-price (VAP) using IB 1h/daily bars. Point of Control (POC), Value Area High/Low (VAH/VAL), High Volume Nodes (HVN). Display on detail modal charts + feed into signal scanner as entry/exit levels. Tom's primary S/R method. |

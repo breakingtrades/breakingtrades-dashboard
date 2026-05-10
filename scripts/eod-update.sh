@@ -171,6 +171,14 @@ else
     log "⏭️  Autoresearch summary skipped (no results file yet)"
 fi
 
+# --- 5c. Economic Calendar (Investing.com US 3-star events) ---
+log "Step 5c: Economic Calendar (US 3-star)"
+if $PYTHON scripts/fetch-economic-calendar.py --limit 3 --days 14 2>&1 | tee -a "$LOG"; then
+    log "✅ Economic Calendar done"
+else
+    warn "Economic Calendar failed (non-fatal)"
+fi
+
 # --- 6. Regime Intelligence ---
 log "Step 6/7: Regime Intelligence (AI Researcher)"
 if $PYTHON scripts/update-regime.py 2>&1 | tee -a "$LOG"; then

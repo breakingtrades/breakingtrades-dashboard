@@ -79,13 +79,35 @@
   function loadEvents() {
     return Promise.all([
       fetch('data/events.jsonl').then(function(r) { return r.text(); }),
-      fetch('data/market-hours.json').then(function(r) { return r.json(); }).catch(function() { return null; })
+      fetch('data/market-hours.json').then(function(r) { return r.json(); }).catch(function() { return null; }),
+      fetch('data/economic-calendar.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
     ]).then(function(results) {
       var text = results[0];
       var mh = results[1];
+      var econ = results[2];
       var events = text.trim().split('\n')
         .filter(function(l) { return l.trim() && !l.startsWith('#'); })
         .map(function(l) { return JSON.parse(l); });
+
+      // Inject US 3-star economic calendar events (Investing.com), max 3 upcoming
+      if (econ && Array.isArray(econ.events)) {
+        econ.events.forEach(function(e) {
+          events.push({
+            id: e.id,
+            title: e.title + (e.forecast ? ' — fc ' + e.forecast + (e.previous ? ' / prev ' + e.previous : '') : (e.previous ? ' — prev ' + e.previous : '')),
+            category: 'macro',
+            severity: e.severity || 'high',
+            status: 'active',
+            deadline: e.deadline,
+            created: econ.fetched_at || new Date().toISOString(),
+            countdown: true,
+            market_impact: 'US 3-star economic data release. High-volatility window for SPY, QQQ, TLT, DXY, GLD.',
+            tickers: ['SPY','QQQ','TLT','DXY','GLD'],
+            notes: '★★★ from Investing.com economic calendar' + (e.forecast ? ' · forecast: ' + e.forecast : '') + (e.previous ? ' · previous: ' + e.previous : ''),
+            _econ: true
+          });
+        });
+      }
 
       // Inject NYSE holidays/early-closes as events (next 30 days)
       if (mh) {
@@ -166,11 +188,21 @@
     });
 
     var countdowns = filtered.filter(function(e) {
-      return e.countdown && e.deadline && (e.severity === 'critical' || e.severity === 'high');
+      if (!(e.countdown && e.deadline)) return false;
+      if (!(e.severity === 'critical' || e.severity === 'high')) return false;
+      // Defense in depth: only show countdowns whose deadline is still in the future.
+      // (bt-event expire should already flip past deadlines to status=expired, but
+      // naive-datetime deadlines historically slipped through.)
+      var dl = new Date(e.deadline).getTime();
+      return !isNaN(dl) && dl > now;
     });
     var upcoming = filtered.filter(function(e) {
-      if (!e.deadline) return true;
+      // Only show events with a real future deadline within the next 7 days.
+      // Events without a deadline (e.g. open-ended Trump-monitor classifications)
+      // would otherwise flood this column.
+      if (!e.deadline) return false;
       var dl = new Date(e.deadline).getTime();
+      if (isNaN(dl)) return false;
       return dl > now && dl - now < weekMs;
     });
     var intel = filtered.filter(function(e) { return e.category === 'analyst_flag'; });
@@ -300,8 +332,11 @@
   // === Mini Strip (called from signals page) ===
   function initEventsMiniStrip() {
     loadEvents().then(function(events) {
+      var nowMs = Date.now();
       var active = events.filter(function(e) {
-        return e.status === 'active' && (e.severity === 'critical' || e.severity === 'high') && e.countdown && e.deadline;
+        if (!(e.status === 'active' && (e.severity === 'critical' || e.severity === 'high') && e.countdown && e.deadline)) return false;
+        var dl = new Date(e.deadline).getTime();
+        return !isNaN(dl) && dl > nowMs;
       });
       active.sort(function(a, b) { return new Date(a.deadline) - new Date(b.deadline); });
       var top = active.slice(0, 2);

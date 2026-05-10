@@ -1,0 +1,47 @@
+{
+  "fetched_at": "2026-05-10T06:40:52.428888Z",
+  "source": "investing.com",
+  "country": "US",
+  "stars": 3,
+  "events": [
+    {
+      "id": "econ-546637",
+      "title": "Existing Home Sales (Apr)",
+      "deadline": "2026-05-11T14:00:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": "4.05M",
+      "previous": "3.98M",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-546687",
+      "title": "Core CPI (MoM) (Apr)",
+      "deadline": "2026-05-12T12:30:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": "0.3%",
+      "previous": "0.2%",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-546683",
+      "title": "CPI (MoM) (Apr)",
+      "deadline": "2026-05-12T12:30:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": "0.6%",
+      "previous": "0.9%",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    }
+  ]
+}
