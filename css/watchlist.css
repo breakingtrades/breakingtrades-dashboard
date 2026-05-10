@@ -563,3 +563,81 @@
   .wl-stat-bar { gap: 12px; font-size: 11px; }
   .wl-sector-cards { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* === Weekly EM + EM Position columns (added 2026-05-10) === */
+.watchlist-table td.wl-em-cell {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.watchlist-table td.wl-em-cell.wl-em-hi  { color: var(--orange, #ffa726); font-weight: 600; }
+.watchlist-table td.wl-em-cell.wl-em-mid { color: var(--text-bright, #e6e6f0); }
+.watchlist-table td.wl-em-cell.wl-em-lo  { color: var(--text-dim, #6b7280); }
+.watchlist-table td.wl-em-cell .wl-em-dim { color: var(--text-dim, #6b7280); }
+
+.watchlist-table td.wl-em-pos-cell {
+  min-width: 110px;
+  position: relative;
+  padding-right: 8px;
+}
+.wl-em-pos-track {
+  position: relative;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 3px;
+}
+.wl-em-pos-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: linear-gradient(90deg, rgba(0,212,170,0.3), rgba(0,212,170,0.6));
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+.wl-em-pos-cell.pos-low  .wl-em-pos-fill,
+.wl-em-pos-cell.pos-below .wl-em-pos-fill {
+  background: linear-gradient(90deg, rgba(0,212,170,0.5), rgba(0,212,170,0.85));
+}
+.wl-em-pos-cell.pos-high .wl-em-pos-fill,
+.wl-em-pos-cell.pos-above .wl-em-pos-fill {
+  background: linear-gradient(90deg, rgba(239,83,80,0.5), rgba(239,83,80,0.85));
+}
+.wl-em-pos-marker {
+  position: absolute;
+  top: -2px;
+  width: 2px;
+  height: 10px;
+  background: var(--text-bright, #e6e6f0);
+  transform: translateX(-1px);
+  pointer-events: none;
+}
+.wl-em-pos-label {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-dim, #6b7280);
+  font-weight: 600;
+}
+.wl-em-pos-cell.pos-low  .wl-em-pos-label,
+.wl-em-pos-cell.pos-below .wl-em-pos-label { color: var(--cyan, #00d4aa); }
+.wl-em-pos-cell.pos-high .wl-em-pos-label,
+.wl-em-pos-cell.pos-above .wl-em-pos-label { color: var(--red, #ef5350); }
+
+/* === EM Staleness Banner === */
+.wl-em-staleness {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 167, 38, 0.10);
+  border: 1px solid rgba(255, 167, 38, 0.4);
+  border-left: 4px solid var(--orange, #ffa726);
+  color: var(--orange, #ffa726);
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin: 8px 0 12px;
+  line-height: 1.4;
+}
+.wl-em-staleness strong { color: var(--text-bright, #e6e6f0); margin-right: 4px; }
+.wl-em-staleness .wl-em-stale-icon { font-size: 16px; flex-shrink: 0; }

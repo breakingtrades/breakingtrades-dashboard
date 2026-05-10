@@ -21,7 +21,8 @@
     search: ''
   };
   var DEFAULT_COLUMNS = {
-    rsi: true, atr: true, volRatio: true, earnings: true, bbWidth: false, pos52w: false
+    rsi: true, atr: true, volRatio: true, earnings: true, bbWidth: false, pos52w: false,
+    emPct: true, emPos: true
   };
   var activeFilters = Object.assign({}, DEFAULT_FILTERS);
   var visibleCols = Object.assign({}, DEFAULT_COLUMNS);
@@ -151,6 +152,8 @@
                 '<label><input type="checkbox" data-col-toggle="earnings"> Earnings</label>' +
                 '<label><input type="checkbox" data-col-toggle="bbWidth"> BB Width</label>' +
                 '<label><input type="checkbox" data-col-toggle="pos52w"> 52w Pos</label>' +
+                '<label><input type="checkbox" data-col-toggle="emPct"> Weekly EM %</label>' +
+                '<label><input type="checkbox" data-col-toggle="emPos"> EM Position</label>' +
               '</div>' +
             '</div>' +
             '<div class="wl-view-toggle">' +
@@ -223,11 +226,13 @@
               '<th data-col="10" data-key="bbWidthPercentile" data-optcol="bbWidth">BB % <span class="sort-arrow"></span></th>' +
               '<th data-col="11" data-key="pctFrom52wHigh" data-optcol="pos52w">52w <span class="sort-arrow"></span></th>' +
               '<th data-col="12" data-key="earningsDays" data-optcol="earnings">Earnings <span class="sort-arrow"></span></th>' +
+              '<th data-col="15" data-key="emPct" data-optcol="emPct" title="Weekly options-implied expected move (%) — straddle × 0.85 / spot">Weekly EM <span class="sort-arrow"></span></th>' +
+              '<th data-col="16" data-key="emPos" data-optcol="emPos" title="Position within weekly EM band: 0% = lower bound (buy zone), 100% = upper bound (extended)">EM Pos <span class="sort-arrow"></span></th>' +
               '<th data-col="13" data-key="bias">Bias <span class="sort-arrow"></span></th>' +
               '<th data-col="14" data-key="status">Status <span class="sort-arrow"></span></th>' +
             '</tr></thead>' +
             '<tbody id="wl-tbody">' +
-              Array(20).join('<tr><td colspan="15"><div class="skeleton skeleton-table-row"></div></td></tr>') +
+              Array(20).join('<tr><td colspan="17"><div class="skeleton skeleton-table-row"></div></td></tr>') +
             '</tbody>' +
           '</table>' +
         '</div>' +
@@ -500,6 +505,12 @@
         });
       }
 
+      // Attach synthetic EM fields (emPct, emPos) for sorting + rendering
+      _attachEMFields(watchlist);
+
+      // Surface EM staleness banner if data is too old
+      _renderEMStalenessBanner(emRaw);
+
       var totalEl = document.getElementById('wl-total');
       if (totalEl) totalEl.textContent = watchlist.length;
 
@@ -515,7 +526,7 @@
     }).catch(function(err) {
       console.error('Failed to load watchlist data:', err);
       var tbody = document.getElementById('wl-tbody');
-      if (tbody) tbody.innerHTML = '<tr><td colspan="15" style="text-align:center;color:var(--red);">Error loading data</td></tr>';
+      if (tbody) tbody.innerHTML = '<tr><td colspan="17" style="text-align:center;color:var(--red);">Error loading data</td></tr>';
     });
   }
 
@@ -547,8 +558,31 @@
   var COL_KEYS = [
     'symbol','name','sector','price','change','sma20','sma50',
     'rsi','atrPct','volumeRatio','bbWidthPercentile','pctFrom52wHigh','earningsDays',
-    'bias','status'
+    'bias','status','emPct','emPos'
   ];
+
+  // Compute synthetic EM fields onto each watchlist item from emData lookup.
+  // Called after both watchlist + emData have been loaded.
+  function _attachEMFields(list) {
+    list.forEach(function(it) {
+      var em = emData[it.symbol];
+      if (em && em.weekly && typeof em.weekly.upper === 'number' && typeof em.weekly.lower === 'number') {
+        it.emPct = (typeof em.weekly.pct === 'number') ? em.weekly.pct : null;
+        var span = em.weekly.upper - em.weekly.lower;
+        if (span > 0 && typeof it.price === 'number') {
+          it.emPos = ((it.price - em.weekly.lower) / span) * 100;
+        } else {
+          it.emPos = null;
+        }
+        it.emUpper = em.weekly.upper;
+        it.emLower = em.weekly.lower;
+        it.emAnchor = em.weekly.anchor_close;
+      } else {
+        it.emPct = null;
+        it.emPos = null;
+      }
+    });
+  }
 
   function _sortList(list) {
     var key = COL_KEYS[sortCol] || 'symbol';
@@ -620,9 +654,82 @@
       '<td class="' + bbCls + '"' + style('bbWidth') + '>' + (s.bbWidthPercentile != null ? s.bbWidthPercentile + '%' : '—') + '</td>' +
       '<td class="' + hiCls + '"' + style('pos52w') + '>' + (s.pctFrom52wHigh != null ? s.pctFrom52wHigh.toFixed(1) + '%' : '—') + '</td>' +
       '<td class="' + erCls + '"' + style('earnings') + '>' + erTxt + '</td>' +
+      _emPctCell(s, style('emPct')) +
+      _emPosCell(s, style('emPos')) +
       '<td><span class="bias-badge ' + (s.bias || 'mixed') + '">' + (s.bias || 'mixed').toUpperCase() + '</span></td>' +
       '<td><span class="status-badge ' + (s.status || 'watching') + '">' + (s.status || 'watching').toUpperCase() + '</span></td>' +
     '</tr>';
+  }
+
+  // === EM cell renderers ===
+  function _emPctCell(s, styleAttr) {
+    if (s.emPct == null) return '<td' + styleAttr + ' class="wl-em-cell"><span class="wl-em-dim">—</span></td>';
+    // High weekly EM (>3.5%) = elevated vol, bright; low (<1.5%) = compressed, dim
+    var v = s.emPct;
+    var cls = v >= 3.5 ? 'wl-em-hi' : v <= 1.5 ? 'wl-em-lo' : 'wl-em-mid';
+    return '<td' + styleAttr + ' class="wl-em-cell ' + cls + '">' + v.toFixed(1) + '%</td>';
+  }
+  function _emPosCell(s, styleAttr) {
+    if (s.emPos == null) return '<td' + styleAttr + ' class="wl-em-cell"><span class="wl-em-dim">—</span></td>';
+    // Clamp to 0-100 visual but show actual breach in label
+    var pos = s.emPos;
+    var clamp = Math.max(0, Math.min(100, pos));
+    var label;
+    var posCls;
+    if (pos < 0) { label = 'BUY'; posCls = 'pos-below'; }
+    else if (pos > 100) { label = 'EXT'; posCls = 'pos-above'; }
+    else if (pos < 25) { label = 'BUY'; posCls = 'pos-low'; }
+    else if (pos > 75) { label = 'EXT'; posCls = 'pos-high'; }
+    else { label = 'MID'; posCls = 'pos-mid'; }
+    var tooltip = 'Position ' + pos.toFixed(0) + '% in weekly EM band'
+      + (s.emLower != null ? ' · lower $' + s.emLower.toFixed(2) : '')
+      + (s.emUpper != null ? ' · upper $' + s.emUpper.toFixed(2) : '');
+    return '<td' + styleAttr + ' class="wl-em-cell wl-em-pos-cell ' + posCls + '" title="' + tooltip + '">' +
+      '<div class="wl-em-pos-track">' +
+        '<div class="wl-em-pos-fill" style="width:' + clamp.toFixed(0) + '%"></div>' +
+        '<div class="wl-em-pos-marker" style="left:' + clamp.toFixed(0) + '%"></div>' +
+      '</div>' +
+      '<span class="wl-em-pos-label">' + label + ' ' + pos.toFixed(0) + '</span>' +
+    '</td>';
+  }
+
+  // === EM staleness banner ===
+  function _renderEMStalenessBanner(emRaw) {
+    var host = document.getElementById('wl-em-staleness-banner');
+    if (!host) {
+      // Inject host above the stat bar if missing
+      var statBar = document.getElementById('wl-stat-bar');
+      if (statBar && statBar.parentNode) {
+        host = document.createElement('div');
+        host.id = 'wl-em-staleness-banner';
+        host.style.display = 'none';
+        statBar.parentNode.insertBefore(host, statBar);
+      } else {
+        return;
+      }
+    }
+    var ts = emRaw && emRaw.updated ? emRaw.updated : null;
+    if (!ts) { host.style.display = 'none'; return; }
+    var t = new Date(ts).getTime();
+    if (isNaN(t)) { host.style.display = 'none'; return; }
+    var ageH = (Date.now() - t) / 3600000;
+
+    // During market hours (Mon-Fri 9:30-16:00 ET) the threshold is 8h; off-market 48h.
+    // Approximation: use UTC offset from local browser, fall back to 24h threshold.
+    var now = new Date();
+    var dow = now.getUTCDay();
+    var isWeekend = dow === 0 || dow === 6;
+    var threshold = isWeekend ? 72 : 24;
+    if (ageH < threshold) { host.style.display = 'none'; return; }
+
+    var hAgo = ageH < 24 ? ageH.toFixed(1) + 'h' : (ageH / 24).toFixed(1) + 'd';
+    host.className = 'wl-em-staleness';
+    host.style.display = 'block';
+    host.innerHTML =
+      '<span class="wl-em-stale-icon">⚠</span>' +
+      '<span><strong>Expected Move data is ' + hAgo + ' old.</strong> ' +
+      'Weekly EM bands are based on prior straddles and may misrepresent current risk. ' +
+      'Last update: ' + new Date(ts).toLocaleString() + '.</span>';
   }
 
   function _updateSortArrows() {
@@ -691,7 +798,7 @@
     _renderSectorCards(filtered);
 
     if (!sorted.length) {
-      tbody.innerHTML = '<tr><td colspan="15" style="text-align:center;color:var(--text-dim);padding:32px;">No symbols match the current filters</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="17" style="text-align:center;color:var(--text-dim);padding:32px;">No symbols match the current filters</td></tr>';
       if (typeof lucide !== 'undefined') lucide.createIcons();
       _applyColumnVisibility();
       return;
@@ -716,7 +823,7 @@
         rows.forEach(function(r) { if (r.change != null) { sumChg += r.change; cn++; } });
         var avgChg = cn ? sumChg / cn : 0;
         var chgCls = avgChg > 0 ? 'up' : avgChg < 0 ? 'down' : '';
-        return '<tr class="wl-group-header"><td colspan="15">' +
+        return '<tr class="wl-group-header"><td colspan="17">' +
             '<span class="wl-gh-name">' + k + '</span>' +
             '<span class="wl-gh-count">' + rows.length + '</span>' +
             '<span class="wl-gh-bull">' + pctBull + '% bull</span>' +
