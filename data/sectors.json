@@ -1,74 +1,74 @@
 [
   {
-    "symbol": "XLE",
-    "name": "Energy",
-    "change": 5.6,
-    "rs": 70.9
-  },
-  {
-    "symbol": "XLU",
-    "name": "Utilities",
-    "change": -0.5,
-    "rs": 25.4
-  },
-  {
-    "symbol": "XLB",
-    "name": "Materials",
-    "change": -0.4,
-    "rs": -2.8
-  },
-  {
-    "symbol": "XLRE",
-    "name": "Real Estate",
-    "change": -3.3,
-    "rs": -7.0
-  },
-  {
     "symbol": "XLK",
     "name": "Technology",
-    "change": -2.9,
-    "rs": -24.8
-  },
-  {
-    "symbol": "XLI",
-    "name": "Industrials",
-    "change": -4.6,
-    "rs": -28.9
-  },
-  {
-    "symbol": "XLC",
-    "name": "Communication",
-    "change": -5.4,
-    "rs": -29.4
-  },
-  {
-    "symbol": "XLF",
-    "name": "Financials",
-    "change": -2.8,
-    "rs": -29.9
-  },
-  {
-    "symbol": "XLP",
-    "name": "Staples",
-    "change": -3.6,
-    "rs": -34.6
-  },
-  {
-    "symbol": "XLV",
-    "name": "Healthcare",
-    "change": -4.2,
-    "rs": -38.7
-  },
-  {
-    "symbol": "XLY",
-    "name": "Discretionary",
-    "change": -7.0,
-    "rs": -60.1
+    "change": 21.6,
+    "rs": 207.2
   },
   {
     "symbol": "IBIT",
     "name": "Bitcoin",
-    "change": -6.0,
-    "rs": -67.4
+    "change": 10.1,
+    "rs": 103.6
+  },
+  {
+    "symbol": "XLRE",
+    "name": "Real Estate",
+    "change": 3.8,
+    "rs": 45.4
+  },
+  {
+    "symbol": "XLY",
+    "name": "Discretionary",
+    "change": 4.1,
+    "rs": 39.4
+  },
+  {
+    "symbol": "XLB",
+    "name": "Materials",
+    "change": -0.0,
+    "rs": 31.2
+  },
+  {
+    "symbol": "XLI",
+    "name": "Industrials",
+    "change": 0.8,
+    "rs": 29.6
+  },
+  {
+    "symbol": "XLF",
+    "name": "Financials",
+    "change": -0.7,
+    "rs": 14.2
+  },
+  {
+    "symbol": "XLC",
+    "name": "Communication",
+    "change": 1.2,
+    "rs": 11.3
+  },
+  {
+    "symbol": "XLP",
+    "name": "Staples",
+    "change": 2.1,
+    "rs": 2.0
+  },
+  {
+    "symbol": "XLV",
+    "name": "Healthcare",
+    "change": -2.3,
+    "rs": -20.2
+  },
+  {
+    "symbol": "XLU",
+    "name": "Utilities",
+    "change": -2.7,
+    "rs": -20.7
+  },
+  {
+    "symbol": "XLE",
+    "name": "Energy",
+    "change": -1.0,
+    "rs": -22.1
   }
 ]
