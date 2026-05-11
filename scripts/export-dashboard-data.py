@@ -70,6 +70,7 @@ WATCHLIST = [
   {'symbol':'OIH', 'name':'Oil Services', 'sector':'Energy', 'group':'Energy & Commodities'},
   {'symbol':'SM', 'name':'SM Energy', 'sector':'Energy', 'group':'Energy & Commodities'},
   {'symbol':'URA', 'name':'Uranium', 'sector':'Energy', 'group':'Energy & Commodities'},
+  {'symbol':'COPX', 'name':'Copper Miners ETF', 'sector':'Materials', 'group':'Energy & Commodities'},
   {'symbol':'BE', 'name':'Bloom Energy', 'sector':'Clean Energy', 'group':'Energy & Commodities'},
   {'symbol':'AA', 'name':'Alcoa', 'sector':'Materials', 'group':'Energy & Commodities'},
   
