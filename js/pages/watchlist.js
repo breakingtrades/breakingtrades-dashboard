@@ -101,10 +101,29 @@
 
   // Expose for tests (node require or window)
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { classifyAlerts: classifyAlerts, applyFilters: applyFilters, computeStats: computeStats, sectorAggregates: sectorAggregates };
+    module.exports = { classifyAlerts: classifyAlerts, applyFilters: applyFilters, computeStats: computeStats, sectorAggregates: sectorAggregates, refreshEarningsDays: _refreshEarningsDaysExport };
   } else if (typeof window !== 'undefined') {
     window.BT = window.BT || {};
-    window.BT.watchlistEngine = { classifyAlerts: classifyAlerts, applyFilters: applyFilters, computeStats: computeStats, sectorAggregates: sectorAggregates };
+    window.BT.watchlistEngine = { classifyAlerts: classifyAlerts, applyFilters: applyFilters, computeStats: computeStats, sectorAggregates: sectorAggregates, refreshEarningsDays: _refreshEarningsDaysExport };
+  }
+
+  // Standalone export: same logic as the closure-private _refreshEarningsDays
+  // but accepts an optional "today" override for testability.
+  function _refreshEarningsDaysExport(list, todayOverride) {
+    var today = todayOverride || new Date();
+    var todayUTC = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+    list.forEach(function(it) {
+      if (it.earningsDate) {
+        var parts = it.earningsDate.split('-');
+        if (parts.length === 3) {
+          var earnUTC = Date.UTC(parseInt(parts[0],10), parseInt(parts[1],10) - 1, parseInt(parts[2],10));
+          var days = Math.round((earnUTC - todayUTC) / 86400000);
+          if (days >= -7 && days <= 365) it.earningsDays = days;
+          else it.earningsDays = null;
+        }
+      }
+    });
+    return list;
   }
 
   // Legacy EXCHANGE_MAP retained for callers that still use getExchange().
@@ -505,6 +524,9 @@
         });
       }
 
+      // Recompute earningsDays from earningsDate (snapshot value is stale by definition)
+      _refreshEarningsDays(watchlist);
+
       // Attach synthetic EM fields (emPct, emPos) for sorting + rendering
       _attachEMFields(watchlist);
 
@@ -560,6 +582,33 @@
     'rsi','atrPct','volumeRatio','bbWidthPercentile','pctFrom52wHigh','earningsDays',
     'bias','status','emPct','emPos'
   ];
+
+  // Recompute earningsDays live from earningsDate so a stale snapshot doesn't
+  // tell users "NVDA earnings in 12 days" when it's actually 10. earningsDate
+  // is the canonical source (set once by export-yfinance-fallback.py); the
+  // earningsDays integer is just a convenience that goes stale immediately
+  // after export. Mutates each item in place.
+  function _refreshEarningsDays(list) {
+    var today = new Date();
+    // Use UTC date math to match the producer (uses UTC date)
+    var todayUTC = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+    list.forEach(function(it) {
+      if (it.earningsDate) {
+        var parts = it.earningsDate.split('-');
+        if (parts.length === 3) {
+          var earnUTC = Date.UTC(parseInt(parts[0],10), parseInt(parts[1],10) - 1, parseInt(parts[2],10));
+          var days = Math.round((earnUTC - todayUTC) / 86400000);
+          // Hide once 7 days past — matches export's 90-day forward window
+          // behavior (which silently drops past dates). Negative = already happened.
+          if (days >= -7 && days <= 365) {
+            it.earningsDays = days;
+          } else {
+            it.earningsDays = null;
+          }
+        }
+      }
+    });
+  }
 
   // Compute synthetic EM fields onto each watchlist item from emData lookup.
   // Called after both watchlist + emData have been loaded.

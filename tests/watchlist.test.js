@@ -191,3 +191,52 @@ describe('Filter persistence shape', () => {
     expect(applyFilters(list, f).length).toBe(1);
   });
 });
+
+describe('refreshEarningsDays (live)', () => {
+  const { refreshEarningsDays } = engine;
+  test('exported helper exists', () => {
+    expect(typeof refreshEarningsDays).toBe('function');
+  });
+  test('derives positive days correctly', () => {
+    // Pretend today is 2026-05-10. NVDA earnings 2026-05-20 → 10 days.
+    const today = new Date(Date.UTC(2026, 4, 10));
+    const list = [makeTicker({ symbol: 'NVDA', earningsDate: '2026-05-20', earningsDays: 12 /* stale */ })];
+    refreshEarningsDays(list, today);
+    expect(list[0].earningsDays).toBe(10);
+  });
+  test('handles same-day = 0', () => {
+    const today = new Date(Date.UTC(2026, 4, 10));
+    const list = [makeTicker({ earningsDate: '2026-05-10', earningsDays: 5 })];
+    refreshEarningsDays(list, today);
+    expect(list[0].earningsDays).toBe(0);
+  });
+  test('keeps recently-past (within 7 days) as negative', () => {
+    const today = new Date(Date.UTC(2026, 4, 10));
+    const list = [makeTicker({ earningsDate: '2026-05-07', earningsDays: 5 })];
+    refreshEarningsDays(list, today);
+    expect(list[0].earningsDays).toBe(-3);
+  });
+  test('nulls out far-past dates (>7 days ago)', () => {
+    const today = new Date(Date.UTC(2026, 4, 10));
+    const list = [makeTicker({ earningsDate: '2026-04-01', earningsDays: 5 })];
+    refreshEarningsDays(list, today);
+    expect(list[0].earningsDays).toBe(null);
+  });
+  test('nulls out far-future dates (>365 days)', () => {
+    const today = new Date(Date.UTC(2026, 4, 10));
+    const list = [makeTicker({ earningsDate: '2028-01-01', earningsDays: 5 })];
+    refreshEarningsDays(list, today);
+    expect(list[0].earningsDays).toBe(null);
+  });
+  test('leaves items without earningsDate untouched', () => {
+    const today = new Date(Date.UTC(2026, 4, 10));
+    const list = [makeTicker({ earningsDays: 5 })];
+    refreshEarningsDays(list, today);
+    expect(list[0].earningsDays).toBe(5);
+  });
+  test('handles bad date strings gracefully', () => {
+    const today = new Date(Date.UTC(2026, 4, 10));
+    const list = [makeTicker({ earningsDate: 'not-a-date', earningsDays: 5 })];
+    expect(() => refreshEarningsDays(list, today)).not.toThrow();
+  });
+});

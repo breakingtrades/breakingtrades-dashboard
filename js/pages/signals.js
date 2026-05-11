@@ -10,6 +10,21 @@
   // See: openspec/changes/signals-page-live-data/OPENSPEC.md
   var TICKERS = [];
 
+  // Recompute days-until-earnings from the canonical earningsDate string.
+  // The snapshot's earningsDays goes stale immediately after export, so we
+  // never trust it; we derive every render.
+  function _liveEarningsDays(earningsDate, fallback) {
+    if (!earningsDate) return fallback != null ? fallback : null;
+    var parts = String(earningsDate).split('-');
+    if (parts.length !== 3) return fallback != null ? fallback : null;
+    var now = new Date();
+    var todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    var earnUTC = Date.UTC(parseInt(parts[0],10), parseInt(parts[1],10) - 1, parseInt(parts[2],10));
+    var days = Math.round((earnUTC - todayUTC) / 86400000);
+    if (days < -7 || days > 365) return null;
+    return days;
+  }
+
   // Sector/exchange fallback map (watchlist.json has sector; exchange is cosmetic).
   var EXCHANGE_HINTS = {
     'NVDA':'NASDAQ','AAPL':'NASDAQ','MSFT':'NASDAQ','META':'NASDAQ','GOOG':'NASDAQ',
@@ -45,7 +60,7 @@
       volume: w.volume, volumeAvg20: w.volumeAvg20, volumeRatio: w.volumeRatio,
       high52w: w.high52w, low52w: w.low52w,
       pctFrom52wHigh: w.pctFrom52wHigh,
-      earningsDate: w.earningsDate, earningsDays: w.earningsDays,
+      earningsDate: w.earningsDate, earningsDays: _liveEarningsDays(w.earningsDate, w.earningsDays),
       smaCrossover: w.smaCrossover, smaCrossoverDate: w.smaCrossoverDate,
       updated: w.updated,
       _sectorRisk: null  // filled in later from sector-risk.json
