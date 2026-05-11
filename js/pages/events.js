@@ -80,11 +80,13 @@
     return Promise.all([
       fetch('data/events.jsonl').then(function(r) { return r.text(); }),
       fetch('data/market-hours.json').then(function(r) { return r.json(); }).catch(function() { return null; }),
-      fetch('data/economic-calendar.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
+      fetch('data/economic-calendar.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
+      fetch('data/watchlist.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
     ]).then(function(results) {
       var text = results[0];
       var mh = results[1];
       var econ = results[2];
+      var wl = results[3];
       var events = text.trim().split('\n')
         .filter(function(l) { return l.trim() && !l.startsWith('#'); })
         .map(function(l) { return JSON.parse(l); });
@@ -108,6 +110,51 @@
           });
         });
       }
+
+      // Inject upcoming earnings from watchlist.json (next 30 days).
+      // Source of truth: watchlist[].earningsDate (set by export-yfinance-fallback.py).
+      // Days-until is recomputed live so the badge stays current between exports.
+      if (wl && Array.isArray(wl)) {
+        var nowMs = Date.now();
+        var horizon = nowMs + 30 * 86400000;
+        var todayUTC = (function(){ var d = new Date(); return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()); })();
+        wl.forEach(function(t) {
+          if (!t.earningsDate) return;
+          var parts = String(t.earningsDate).split('-');
+          if (parts.length !== 3) return;
+          var earnUTC = Date.UTC(parseInt(parts[0],10), parseInt(parts[1],10) - 1, parseInt(parts[2],10));
+          if (isNaN(earnUTC)) return;
+          // Skip past earnings (cleaner than showing as "passed")
+          if (earnUTC < todayUTC) return;
+          if (earnUTC > horizon) return;
+          var daysUntil = Math.round((earnUTC - todayUTC) / 86400000);
+          // Severity tiering: critical for mega caps within a week, high <=14d, medium otherwise
+          var MEGA_CAP = ['NVDA','AAPL','MSFT','META','GOOGL','GOOG','AMZN','TSLA','SPY','QQQ'];
+          var isMega = MEGA_CAP.indexOf(t.symbol) !== -1;
+          var sev = (isMega && daysUntil <= 7) ? 'critical' : (daysUntil <= 7 ? 'high' : (daysUntil <= 14 ? 'high' : 'medium'));
+          // Earnings hit the tape after market close → use 4:00 PM ET that day.
+          // (We don't know AMC vs BMO without a separate field, but post-close is
+          // the conservative default since most reports drop AMC.)
+          var deadlineISO = t.earningsDate + 'T16:00:00-04:00';
+          events.push({
+            id: 'earnings-' + t.symbol + '-' + t.earningsDate,
+            title: t.symbol + ' Earnings' + (t.name ? ' — ' + t.name : ''),
+            category: 'earnings',
+            severity: sev,
+            status: 'active',
+            deadline: deadlineISO,
+            created: new Date().toISOString(),
+            countdown: daysUntil <= 14,  // show in Live Countdowns when ≤14d
+            market_impact: 'Quarterly earnings release for ' + t.symbol +
+              (t.sector ? ' (' + t.sector + ')' : '') +
+              '. Implied move from options: see Expected Moves page.',
+            tickers: [t.symbol],
+            notes: 'Live from watchlist.json · ' + daysUntil + ' day' + (daysUntil === 1 ? '' : 's') + ' away',
+            _earnings: true
+          });
+        });
+      }
+
 
       // Inject NYSE holidays/early-closes as events (next 30 days)
       if (mh) {
