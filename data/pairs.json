@@ -2,14 +2,14 @@
   {
     "pair": "XLY/XLP",
     "desc": "American Consumer Strength (Discretionary/Staples)",
-    "signal": "\u2192 FLAT",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "IWF/IWD",
     "desc": "Growth vs Value (Russell 1000)",
-    "signal": "\u2192 FLAT",
-    "color": "neutral"
+    "signal": "\u2197 RISING",
+    "color": "up"
   },
   {
     "pair": "HYG/SPY",
@@ -32,8 +32,8 @@
   {
     "pair": "IWM/SPY",
     "desc": "Small caps vs Large caps",
-    "signal": "\u2192 FLAT",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "IWM/QQQ",
@@ -50,8 +50,8 @@
   {
     "pair": "GLD/SPY",
     "desc": "Safe haven demand",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
   },
   {
     "pair": "TLT/SPY",
@@ -68,8 +68,8 @@
   {
     "pair": "HYG/TLT",
     "desc": "Credit vs treasuries",
-    "signal": "\u2192 FLAT",
-    "color": "neutral"
+    "signal": "\u2197 RISING",
+    "color": "up"
   },
   {
     "pair": "IGV/QQQ",
