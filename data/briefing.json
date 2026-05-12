@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 11",
-  "headline": "Tech takes the lead as laggards stay sick\u2014don't chase, follow the flows.",
+  "title": "Daily Briefing \u2014 May 12",
+  "headline": "Tech leads, but bond breakdowns and lagging sectors flash early warning \u2014 patience, react, don't predict.",
   "body": [
-    "Right, so the broad tape is bullish with SPY at $737.62 approaching the 20 MA ($713.06) but the big story is tech\u2014XLK is leading hard (RS=116.3, Mom=107.8) while everything else is lagging or outright sick. VIX is ticking higher above the 20 MA, so volatility is expanding but not screaming panic just yet. Fear & Greed's at 66.9, stubbornly greedy with no sign of movement.",
-    "Sector rotation is textbook: XLK and QQQ (+2.3%) are powering higher, with XLK now 10% above its SMA20. Meanwhile, Energy (XLE $55.70), Financials (XLF $51.24), and Utilities (XLU $44.72) are all lagging\u2014the canaries aren't singing, they're coughing, and XLF is flirting with losing its 20 MA. Breadth is narrow, leadership is concentrated in large cap tech (AAPL, NVDA, DELL, MU), so watch out for the same old 2000 playbook.",
-    "Contrarian flags: When everyone's piling into tech with lagging breadth and Greed near 70, patience is warranted. Financials are on edge, volatility is firming, and we\u2019re approaching sentiment and technical warning levels\u2014but no hard rule triggers today. If it's in the press, it's in the price\u2014don't chase these moves, abundance mindset."
+    "Right, so here's what the flows are telling us: SPY and QQQ pushing toward new highs, with the 20 MA still comfortably below price (SPY: 715.72, QQQ: 665.59). Fear & Greed is at 65.9 \u2014 firmly Greed, but not extreme. VIX expanding above its 20 MA (18.85 vs 18.1), suggesting rising volatility just as indices test resistance.",
+    "XLK remains firmly in the Leading quadrant per sector RRG (RS=117.4, Mom=100.9), but every other major sector is lagging or stuck with HIGH risk. That\u2019s classic narrow breadth \u2014 tech is dragging the rest of the market up while Energy, Materials, Industrials, Staples, and Healthcare all signal severe lag. XLF (Financials) is the canary; risk is elevated but it\u2019s improving, so keep an eye on the weekly 20 MA here.",
+    "Now for the contrarian flag: Bond proxies HYG, TLT, and LQD all approaching or triggering bear bias with daily closes below their 20 MA. Rule R001 says reduce equity exposure if bonds break down \u2014 we've got TLT triggered (85.56 < 86.01). When the canary (XLF) is wobbly and bond flows are negative, don't ignore it. Also, if it's in the press, it's in the price \u2014 all eyes on tech just as lag is broadening. Abundance mindset: don't chase."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY resistance: $737.62<br>SPY 20 MA: $713.06 (watch for mean reversion)<br>XLF 20 MA: $51.89 (critical for the canary)<br>XLK 20 MA: $158.77 (tech leadership)<br>VIX: 18.26 (watch for >20 acceleration)<br>Fear & Greed: 66.9 (high, but not extreme)<br>QQQ $711.23 (approaching trigger zone)<br>XLE $55.70 (lagging, risk high)<br>",
+  "callout_body": "SPY: Weekly 20 MA 684.83 \u2014 mean reversion zone<br>XLK: Watch 160.39 (daily 20 MA)<br>XLF: 51.87 (daily 20 MA), 52.29 (SMA200) \u2014 critical support<br>HYG: Bear bias active, daily close below 80.01<br>TLT: Triggered bear, daily close below 86.01<br>VIX: Above 20 MA, volatility is rising<br>NVDA: Strong bull bias, watch 204.69 (SMA20) for pullbacks",
   "action_items": [
-    "Monitor Financials (XLF $51.24) for support\u2014daily close below 20 MA is a risk trigger per rule R010.",
-    "Avoid chasing Tech momentum\u2014wait for a retest of 20 MA zones or a volatility spike for entry, per abundance mindset."
+    "Reduce equity exposure on any fresh daily or weekly bond breakdowns; watch for HYG/LQD/TLT confirming moves.",
+    "Do NOT chase tech \u2014 focus on the mean reversion zone (SPY 684.83, XLK 160.39) for best risk/reward. If missed, wait for next setup."
   ],
-  "closing_quote": "Less trades = more wins. If you missed the move, don\u2019t break something that\u2019s still simple and good.",
-  "generatedAt": "2026-05-11T13:23:13.827450+00:00",
+  "closing_quote": "If bonds freak out, everything breaks. Patience, react, don\u2019t predict.",
+  "generatedAt": "2026-05-12T12:23:35.989229+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
