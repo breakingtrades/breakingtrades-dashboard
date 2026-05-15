@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 14",
-  "headline": "Tech still driving, but flows hint at rotation while defensive sectors lag hard.",
+  "title": "Daily Briefing \u2014 May 15",
+  "headline": "Tech's leading, but sector rotation screams lag \u2014 don't chase, follow the flows.",
   "body": [
-    "Right, so big picture: SPY ramps to $742.31 (+0.6%), well above its 20 MA ($720.03), QQQ pushing $714.71 (+1.1%). We're seeing relentless tech strength\u2014AAPL, NVDA, GOOGL, AMZN, ARM all bullish and grinding higher above their 20s. VIX clocks in at 17.84, volatility still muted, and Fear & Greed sits at 64.4\u2014greedy, but not extreme.",
-    "But look at the sector rotation: XLK (tech) is weakening in momentum, still dominant at RS=116.2, but starting to stall. Defensive sectors like XLU, XLP, XLV, XLF, and XLI are lagging and flagged HIGH risk or ELEVATED. Healthcare (XLV) and Financials (XLF) show 'improving' momentum, but Financials are still below the 20 MA ($51.80 vs $50.99)\u2014the canary is not singing health. Watch for any mean reversion.",
-    "Contrarian note: Yes, tech is on fire and retail looks like it's piling in, but if it's in the press, it's in the price. Utilities, staples, and real estate all lag hard. No sentiment extreme triggers yet\u2014Fear & Greed isn't at 75+, but you'd want to see breadth widen if this rally is to stick. If bonds freak out (HYG, LQD both soft), everything breaks, so stay nimble."
+    "Right, so here's the big picture: SPY pushing up to $748.17, well above the 20 MA at $722.35. Tech (XLK, NVDA, ARM) remains king, with XLK at $179.50 \u2014 that's a solid premium to the mean reversion zone, and the flows are still bullish there. But the majority of sectors are lagging or carrying elevated risk, and VIX is creeping above its 20-day, hinting at expanding volatility. Fear & Greed sits at 65 \u2014 not extreme, but inching closer to danger.",
+    "Key sector insight: XLK continues to lead (RS=117.0), driven by monster moves from NVDA ($235.74, +4.4%, SMA20 at $209.12) and ARM ($228.50, +3.3%, SMA20 at $206.86) \u2014 these setups are still active, so strength there is real. XLF (Financials) is improving but still lagging long-term (SMA200 at $52.27, current $51.29), while everything else \u2014 Energy, Industrials, Healthcare, Staples \u2014 is either lagging or risk elevated. Rotation hasn't followed tech's momentum; breadth is a concern.",
+    "Contrarian/risk flag: Bonds (HYG $79.85, LQD $108.55, TLT $84.92) are flirting with bearish signals \u2014 TLT triggered below its 20 MA, and HYG is hugging the breakdown zone at SMA20 ($79.99). If bonds freak out, everything breaks \u2014 watch these closely. Most sectors are high risk, and retail is still piling in on tech. If consensus is all-in tech, be suspicious \u2014 cycles within cycles, mean reversion is overdue."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $742.31 (watch 20 MA at $720.03 as immediate support)<br>QQQ: $714.71 (mean reversion zone is $673.39)<br>NVDA: $225.83, active bull, well above 20 MA ($207.25)<br>XLF: $50.99\u2014below 20 MA ($51.80), financials flashing caution<br>XLK: $176.85\u2014tech still leading but watch for momentum fade<br>HYG: $79.91\u2014just below 20 MA ($79.99); if this loses support, cut risk",
+  "callout_body": "SPY: $748.17 (20 MA: $722.35, 50 MA: $688.48)<br>XLK: $179.50 (20 MA: $164.45)<br>NVDA: $235.74 (Watch the 20 MA: $209.12)<br>XLF: $51.29 (SMA200: $52.27 \u2014 if it breaks, trouble)<br>HYG: $79.85 (20 MA: $79.99 \u2014 bonds at risk)<br>VIX: 19.02 (SMA20: 18.08 \u2014 volatility expanding)",
   "action_items": [
-    "Tighten stops on high-flying tech names\u2014momentum weakening and sector leadership may rotate.",
-    "Monitor XLF (Financials) and HYG\u2014any breakdown below today\u2019s levels triggers defensive shift per macro rule."
+    "Maintain exposure in XLK leaders (NVDA, ARM, DELL) so long as daily closes hold above the 20 MA.",
+    "Monitor bonds (HYG, TLT, LQD) \u2014 any confirmed breakdown triggers Rule R001: reduce equity exposure immediately."
   ],
-  "closing_quote": "Patience, react, don\u2019t predict\u2014abundance mindset, next trade always comes.",
-  "generatedAt": "2026-05-14T12:11:00.457727+00:00",
+  "closing_quote": "If it's in the press, it's in the price. Abundance mindset \u2014 next trade.",
+  "generatedAt": "2026-05-15T12:16:43.253111+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
