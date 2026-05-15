@@ -26,8 +26,8 @@
   {
     "pair": "XLV/SPY",
     "desc": "Defensive rotation",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
   },
   {
     "pair": "IWM/SPY",
@@ -44,8 +44,8 @@
   {
     "pair": "XLE/SPY",
     "desc": "Energy outperformance",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
+    "signal": "\u2197 RISING",
+    "color": "up"
   },
   {
     "pair": "GLD/SPY",
@@ -62,8 +62,8 @@
   {
     "pair": "SLV/GLD",
     "desc": "Industrial vs safe haven",
-    "signal": "\u2197 RISING",
-    "color": "up"
+    "signal": "\u2192 FLAT DOWN",
+    "color": "neutral"
   },
   {
     "pair": "HYG/TLT",
@@ -74,7 +74,7 @@
   {
     "pair": "IGV/QQQ",
     "desc": "Software vs Broad Tech",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2197 RISING",
+    "color": "up"
   }
 ]
