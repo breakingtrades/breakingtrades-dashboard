@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 15",
-  "headline": "Tech's leading, but sector rotation screams lag \u2014 don't chase, follow the flows.",
+  "title": "Daily Briefing \u2014 Mar 18",
+  "headline": "Tech leads wobble as sector rotation and volatility expansion test the bulls' conviction.",
   "body": [
-    "Right, so here's the big picture: SPY pushing up to $748.17, well above the 20 MA at $722.35. Tech (XLK, NVDA, ARM) remains king, with XLK at $179.50 \u2014 that's a solid premium to the mean reversion zone, and the flows are still bullish there. But the majority of sectors are lagging or carrying elevated risk, and VIX is creeping above its 20-day, hinting at expanding volatility. Fear & Greed sits at 65 \u2014 not extreme, but inching closer to danger.",
-    "Key sector insight: XLK continues to lead (RS=117.0), driven by monster moves from NVDA ($235.74, +4.4%, SMA20 at $209.12) and ARM ($228.50, +3.3%, SMA20 at $206.86) \u2014 these setups are still active, so strength there is real. XLF (Financials) is improving but still lagging long-term (SMA200 at $52.27, current $51.29), while everything else \u2014 Energy, Industrials, Healthcare, Staples \u2014 is either lagging or risk elevated. Rotation hasn't followed tech's momentum; breadth is a concern.",
-    "Contrarian/risk flag: Bonds (HYG $79.85, LQD $108.55, TLT $84.92) are flirting with bearish signals \u2014 TLT triggered below its 20 MA, and HYG is hugging the breakdown zone at SMA20 ($79.99). If bonds freak out, everything breaks \u2014 watch these closely. Most sectors are high risk, and retail is still piling in on tech. If consensus is all-in tech, be suspicious \u2014 cycles within cycles, mean reversion is overdue."
+    "Right, so let's look at what the flows are telling us: SPY hovering at $739.09, grinding above the 20 MA (725.32) but with volatility picking up (VIX at 18.62, now above its 20-day), we\u2019re in a tug-of-war between momentum and defensive posture. Most key indices\u2014SPY, QQQ, DIA\u2014approach stretched levels up against rising volatility, so the chase isn\u2019t rewarded here. As always, patience\u2014react, don't predict.",
+    "Sector rotation says it all: Energy (XLE $59.41) is still leading with low risk, but Technology (XLK $174.56) is weakening just as Staples (XLP $85.66), Healthcare (XLV $145.55), and Utilities (XLU $44.05) shift into improving momentum. Watch for opportunistic flows out of stretched tech and into sectors like Staples and Healthcare\u2014classic late-cycle behaviour.",
+    "Contrarians: while Fear & Greed at 62.9 isn\u2019t in the danger zone, bullish consensus is creeping up, and Financials (XLF $51.63) have not yet broken support\u2014but keep that as your canary. VIX expansion signals underlying nerves. No rule triggers on sentiment extremes today, but breadth isn\u2019t broadening\u2014this is retail chasing leadership, not a new expansion. If it\u2019s in the press, it\u2019s in the price."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $748.17 (20 MA: $722.35, 50 MA: $688.48)<br>XLK: $179.50 (20 MA: $164.45)<br>NVDA: $235.74 (Watch the 20 MA: $209.12)<br>XLF: $51.29 (SMA200: $52.27 \u2014 if it breaks, trouble)<br>HYG: $79.85 (20 MA: $79.99 \u2014 bonds at risk)<br>VIX: 19.02 (SMA20: 18.08 \u2014 volatility expanding)",
+  "callout_body": "SPY: Support at 725.32 (20 MA), resistance at 739+<br>XLK: Watch 166.55 (20 MA) for pullback support<br>XLE: Momentum above 57.75 (20 MA) stays bullish<br>XLF: Needs to hold 51.65 (20 MA)\u2014if it breaks, risk-off<br>VIX above 18.04 = volatility expansion, caution",
   "action_items": [
-    "Maintain exposure in XLK leaders (NVDA, ARM, DELL) so long as daily closes hold above the 20 MA.",
-    "Monitor bonds (HYG, TLT, LQD) \u2014 any confirmed breakdown triggers Rule R001: reduce equity exposure immediately."
+    "Don\u2019t chase tech here\u2014wait for mean reversion toward the 20 MA on XLK, NVDA, and AAPL.",
+    "Rotate partial exposure toward Staples (XLP $85.66) and Healthcare (XLV $145.55) with improving momentum for new entries."
   ],
-  "closing_quote": "If it's in the press, it's in the price. Abundance mindset \u2014 next trade.",
-  "generatedAt": "2026-05-15T12:16:43.253111+00:00",
+  "closing_quote": "Less trades, more clarity. If bonds freak out\u2014everything breaks. That\u2019s the tweet.",
+  "generatedAt": "2026-05-18T14:05:01.818400+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
