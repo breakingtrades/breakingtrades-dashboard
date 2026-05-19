@@ -18,20 +18,8 @@
     "color": "down"
   },
   {
-    "pair": "XLV/SPY",
-    "desc": "Defensive rotation",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
-  },
-  {
-    "pair": "IWM/SPY",
-    "desc": "Small caps vs Large caps",
-    "signal": "\u2198 FALLING",
-    "color": "down"
-  },
-  {
-    "pair": "IWM/QQQ",
-    "desc": "Value vs Growth (broad)",
+    "pair": "RSP/SPY",
+    "desc": "Breadth \u2014 equal vs cap weight",
     "signal": "\u2198 FALLING",
     "color": "down"
   },
@@ -56,8 +44,8 @@
   {
     "pair": "SLV/GLD",
     "desc": "Industrial vs safe haven",
-    "signal": "\u2192 FLAT DOWN",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "HYG/TLT",
