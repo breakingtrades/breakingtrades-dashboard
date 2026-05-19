@@ -3,113 +3,113 @@
     "etf": "XLE",
     "quadrant": "Leading",
     "risk": "low",
-    "rs": 101.45,
-    "momentum": 100.19
+    "rs": 103.79,
+    "momentum": 102.51
   },
   "Clean Energy": {
     "etf": "XLE",
     "quadrant": "Leading",
     "risk": "low",
-    "rs": 101.45,
-    "momentum": 100.19
+    "rs": 103.79,
+    "momentum": 102.51
   },
   "Materials": {
     "etf": "XLB",
     "quadrant": "Improving",
     "risk": "elevated",
-    "rs": 89.05,
-    "momentum": 102.16
+    "rs": 87.28,
+    "momentum": 100.12
   },
   "Agriculture": {
     "etf": "XLB",
     "quadrant": "Improving",
     "risk": "elevated",
-    "rs": 89.05,
-    "momentum": 102.16
+    "rs": 87.28,
+    "momentum": 100.12
   },
   "Industrials": {
     "etf": "XLI",
     "quadrant": "Lagging",
     "risk": "high",
-    "rs": 89.6,
-    "momentum": 98.7
+    "rs": 89.37,
+    "momentum": 98.45
   },
   "Discretionary": {
     "etf": "XLY",
-    "quadrant": "Improving",
-    "risk": "elevated",
-    "rs": 92.97,
-    "momentum": 100.56
+    "quadrant": "Lagging",
+    "risk": "high",
+    "rs": 91.42,
+    "momentum": 98.9
   },
   "Retail": {
     "etf": "XLY",
-    "quadrant": "Improving",
-    "risk": "elevated",
-    "rs": 92.97,
-    "momentum": 100.56
+    "quadrant": "Lagging",
+    "risk": "high",
+    "rs": 91.42,
+    "momentum": 98.9
   },
   "Staples": {
     "etf": "XLP",
     "quadrant": "Improving",
     "risk": "elevated",
-    "rs": 91.16,
-    "momentum": 104.22
+    "rs": 91.4,
+    "momentum": 104.5
   },
   "Healthcare": {
     "etf": "XLV",
     "quadrant": "Improving",
     "risk": "elevated",
-    "rs": 86.66,
-    "momentum": 101.96
+    "rs": 87.15,
+    "momentum": 102.54
   },
   "Financials": {
     "etf": "XLF",
     "quadrant": "Improving",
     "risk": "elevated",
-    "rs": 91.97,
-    "momentum": 100.55
+    "rs": 92.11,
+    "momentum": 100.69
   },
   "Technology": {
     "etf": "XLK",
     "quadrant": "Weakening",
     "risk": "medium",
-    "rs": 115.44,
-    "momentum": 99.25
+    "rs": 116.14,
+    "momentum": 99.85
   },
   "Telecom": {
     "etf": "XLK",
     "quadrant": "Weakening",
     "risk": "medium",
-    "rs": 115.44,
-    "momentum": 99.25
+    "rs": 116.14,
+    "momentum": 99.85
   },
   "Semiconductors": {
     "etf": "XLK",
     "quadrant": "Weakening",
     "risk": "medium",
-    "rs": 115.44,
-    "momentum": 99.25
+    "rs": 116.14,
+    "momentum": 99.85
   },
   "Communication": {
     "etf": "XLC",
     "quadrant": "Improving",
     "risk": "elevated",
-    "rs": 93.7,
-    "momentum": 100.23
+    "rs": 93.57,
+    "momentum": 100.09
   },
   "Utilities": {
     "etf": "XLU",
     "quadrant": "Improving",
     "risk": "elevated",
-    "rs": 89.0,
-    "momentum": 101.85
+    "rs": 89.11,
+    "momentum": 101.98
   },
   "Real Estate": {
     "etf": "XLRE",
     "quadrant": "Improving",
     "risk": "elevated",
-    "rs": 93.89,
-    "momentum": 102.02
+    "rs": 94.32,
+    "momentum": 102.5
   },
   "Bond": {
     "etf": null,

@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Mar 18",
-  "headline": "Tech leads wobble as sector rotation and volatility expansion test the bulls' conviction.",
+  "title": "Daily Briefing \u2014 May 19",
+  "headline": "Bonds blinking yellow, sector tides turning, but tech holding the 20 MA line... for now.",
   "body": [
-    "Right, so let's look at what the flows are telling us: SPY hovering at $739.09, grinding above the 20 MA (725.32) but with volatility picking up (VIX at 18.62, now above its 20-day), we\u2019re in a tug-of-war between momentum and defensive posture. Most key indices\u2014SPY, QQQ, DIA\u2014approach stretched levels up against rising volatility, so the chase isn\u2019t rewarded here. As always, patience\u2014react, don't predict.",
-    "Sector rotation says it all: Energy (XLE $59.41) is still leading with low risk, but Technology (XLK $174.56) is weakening just as Staples (XLP $85.66), Healthcare (XLV $145.55), and Utilities (XLU $44.05) shift into improving momentum. Watch for opportunistic flows out of stretched tech and into sectors like Staples and Healthcare\u2014classic late-cycle behaviour.",
-    "Contrarians: while Fear & Greed at 62.9 isn\u2019t in the danger zone, bullish consensus is creeping up, and Financials (XLF $51.63) have not yet broken support\u2014but keep that as your canary. VIX expansion signals underlying nerves. No rule triggers on sentiment extremes today, but breadth isn\u2019t broadening\u2014this is retail chasing leadership, not a new expansion. If it\u2019s in the press, it\u2019s in the price."
+    "Right, so let's look at what the flows are telling us \u2014 SPY ($735.56) and QQQ ($704.69) both grinding just above their respective SMA20s, but HYG ($79.38) and TLT ($82.99) are both on approach/triggered bear signals. Per my first rule: if bonds freak out, everything breaks. Equity exposure here needs to be sized down while bonds test support.",
+    "Energy (XLE) stays the canary in the green zone (RS=103.8, leading, SMA20 at $58.04 and price at $60.54), but look at tech: XLK ($174.86) still in the leadership quadrant but 'weakening' on rotation, and Financials (XLF $51.44) stuck below its own 20-day. Defensive sectors (XLP, XLV, XLU, XLRE) are quietly improving, so the rotation is underway towards safety.",
+    "Fear & Greed is at 62.2 \u2014 not redline yet, but greed decaying. VIX is normal but sneaking higher (17.98 > SMA20). No outright panic, but with TLT below all MAs and HYG threatening, this feels like a late-cycle setup where consensus is still a little too comfortable. Patience, react, don\u2019t predict \u2014 look for failed retests and wait for a clean sector rotation, not a hero move."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: Support at 725.32 (20 MA), resistance at 739+<br>XLK: Watch 166.55 (20 MA) for pullback support<br>XLE: Momentum above 57.75 (20 MA) stays bullish<br>XLF: Needs to hold 51.65 (20 MA)\u2014if it breaks, risk-off<br>VIX above 18.04 = volatility expansion, caution",
+  "callout_body": "SPY: Watch $726.88 (SMA20) \u2014 daily close below = caution<br>HYG: $79.38 (nearing breakdown), TLT: Triggered below $85.30 (SMA20)<br>XLK: $167.54 (SMA20) support<br>XLF: $51.61 (SMA20) \u2014 needs to reclaim for bulls<br>XLE is the only sector firmly above all major MAs<br>AAII not provided; Fear & Greed not extreme, but watch for cracks<br>Don\u2019t chase \u2014 abundance mindset!",
   "action_items": [
-    "Don\u2019t chase tech here\u2014wait for mean reversion toward the 20 MA on XLK, NVDA, and AAPL.",
-    "Rotate partial exposure toward Staples (XLP $85.66) and Healthcare (XLV $145.55) with improving momentum for new entries."
+    "Reduce equity exposure and stop adding to tech if HYG and TLT both close red",
+    "Look for rotation opportunities in Energy (XLE, OIH) and defensive sectors (XLP, XLV) \u2014 don\u2019t front-run, wait for daily closes above respective SMA20s"
   ],
-  "closing_quote": "Less trades, more clarity. If bonds freak out\u2014everything breaks. That\u2019s the tweet.",
-  "generatedAt": "2026-05-18T14:05:01.818400+00:00",
+  "closing_quote": "When bonds blink, equities flinch \u2014 follow the flows, not the headlines.",
+  "generatedAt": "2026-05-19T13:40:20.334570+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
