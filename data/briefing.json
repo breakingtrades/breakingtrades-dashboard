@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 19",
-  "headline": "Bonds blinking yellow, sector tides turning, but tech holding the 20 MA line... for now.",
+  "title": "Daily Briefing \u2014 May 20",
+  "headline": "Early cracks beneath the surface as tech holds up, but defensive flows start circling.",
   "body": [
-    "Right, so let's look at what the flows are telling us \u2014 SPY ($735.56) and QQQ ($704.69) both grinding just above their respective SMA20s, but HYG ($79.38) and TLT ($82.99) are both on approach/triggered bear signals. Per my first rule: if bonds freak out, everything breaks. Equity exposure here needs to be sized down while bonds test support.",
-    "Energy (XLE) stays the canary in the green zone (RS=103.8, leading, SMA20 at $58.04 and price at $60.54), but look at tech: XLK ($174.86) still in the leadership quadrant but 'weakening' on rotation, and Financials (XLF $51.44) stuck below its own 20-day. Defensive sectors (XLP, XLV, XLU, XLRE) are quietly improving, so the rotation is underway towards safety.",
-    "Fear & Greed is at 62.2 \u2014 not redline yet, but greed decaying. VIX is normal but sneaking higher (17.98 > SMA20). No outright panic, but with TLT below all MAs and HYG threatening, this feels like a late-cycle setup where consensus is still a little too comfortable. Patience, react, don\u2019t predict \u2014 look for failed retests and wait for a clean sector rotation, not a hero move."
+    "Right, so let's look at what the flows are telling us: SPY grinds higher (+0.4%) but breadth is getting thin, with lagging industrials (XLI -1.2%), materials (XLB -2.4%), and discretionary (XLY -1.1%) flashing red. Bonds (HYG $79.35, LQD $107.12, TLT $83.02) remain heavy\u2014TLT triggered below all key MAs, so per rule: if bonds freak out, everything breaks. Tech strength (AAPL, NVDA, XLK) props up the tape, but there's definite rotation brewing.",
+    "Sector view: Energy (XLE) is the only clear leader (RS=105.3, price $61.29 well above all MAs), while defensives like staples (XLP), healthcare (XLV), and utilities (XLU) are quietly improving\u2014classic pre-risk-off profile. Financials (XLF $51.10) are wobbling near support (SMA200 $52.26) and that's the canary\u2014keep an eye there for any flush.",
+    "Contrarian lens: Greed is up but not extreme (F&G 59.3), VIX is ticking higher, and mega-cap tech MAs are stretched (AAPL $299 vs $284.26 20MA, NVDA $220.61 vs $212.35 20MA)\u2014don't chase extended leaders. This market smells like mid-2021: buy-the-dip crowd is crowding, but flows are rotating to defense, not confirmation of a new bull leg. Patience, react, don\u2019t predict."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: Watch $726.88 (SMA20) \u2014 daily close below = caution<br>HYG: $79.38 (nearing breakdown), TLT: Triggered below $85.30 (SMA20)<br>XLK: $167.54 (SMA20) support<br>XLF: $51.61 (SMA20) \u2014 needs to reclaim for bulls<br>XLE is the only sector firmly above all major MAs<br>AAII not provided; Fear & Greed not extreme, but watch for cracks<br>Don\u2019t chase \u2014 abundance mindset!",
+  "callout_body": "SPY support: $726.78 (20MA), $733.73 (current) <br> Tech floors: NVDA $212.35 (20MA), AAPL $284.26 (20MA) <br> XLF critical: $51.10 (current), $52.26 (200MA support) <br> TLT broke: $83.02 (well below all MAs, risk-off trigger) <br> Watch Energy: XLE $61.29 leading, well above all MAs",
   "action_items": [
-    "Reduce equity exposure and stop adding to tech if HYG and TLT both close red",
-    "Look for rotation opportunities in Energy (XLE, OIH) and defensive sectors (XLP, XLV) \u2014 don\u2019t front-run, wait for daily closes above respective SMA20s"
+    "Reduce equity exposure on TLT/HYG breakdown (R001), especially industrials/materials/discretionary.",
+    "Trail stops up tight in tech leaders\u2014don\u2019t chase (NVDA, AAPL both stretched above 20MA); focus on relative strength in energy and defensives if adding."
   ],
-  "closing_quote": "When bonds blink, equities flinch \u2014 follow the flows, not the headlines.",
-  "generatedAt": "2026-05-19T13:40:20.334570+00:00",
+  "closing_quote": "If it\u2019s in the press, it\u2019s in the price. Abundance mindset\u2014next trade.",
+  "generatedAt": "2026-05-20T12:42:11.723080+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
