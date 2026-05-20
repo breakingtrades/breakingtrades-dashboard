@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 08",
-  "headline": "Tech\u2019s running while the rest limps; flows show the split, so don\u2019t chase\u2014abundance mindset.",
+  "title": "Daily Briefing \u2014 May 19",
+  "headline": "Bonds blinking yellow, sector tides turning, but tech holding the 20 MA line... for now.",
   "body": [
-    "Right, so let\u2019s look at what the flows are telling us: SPY holds strong at $731.58, well above the 20 MA ($710.16), with QQQ showing similar strength. VIX is drifting below its 20 MA\u2014volatility contracting, but sentiment is stuck in greed (66.8). Markets are still bullish, but breadth is thinning; tech carries the torch while most cyclicals lag.",
-    "Sector rotation is screaming that XLK (Tech) remains the lone leader (RS=113.3, Momentum=105.1), while everything else\u2014XLE, XLI, XLB, XLF, XLV, XLP\u2014is lagging hard and showing high risk. Communication (XLC) and Consumer Discretionary (XLY) are improving relative strength, but the rest are still rolling over. XLF at $51.55 sits just above the 20 MA ($51.87)\u2014financials are the canary, and they\u2019re barely hanging on.",
-    "Contrarian warning: Fear & Greed is high but not extreme (66.8); last month was extreme fear (34.4), so retail has poured back in quickly. Watch out for overexposure\u2014most names are extended well above the 20 MA (e.g., AAPL $287.44 vs. SMA20 $271.57), and laggards are breaking down. HYG, LQD, and TLT all show bearish signals. If bonds freak out, everything breaks\u2014reduce equity risk if these start closing below their weekly 20 MA."
+    "Right, so let's look at what the flows are telling us \u2014 SPY ($735.56) and QQQ ($704.69) both grinding just above their respective SMA20s, but HYG ($79.38) and TLT ($82.99) are both on approach/triggered bear signals. Per my first rule: if bonds freak out, everything breaks. Equity exposure here needs to be sized down while bonds test support.",
+    "Energy (XLE) stays the canary in the green zone (RS=103.8, leading, SMA20 at $58.04 and price at $60.54), but look at tech: XLK ($174.86) still in the leadership quadrant but 'weakening' on rotation, and Financials (XLF $51.44) stuck below its own 20-day. Defensive sectors (XLP, XLV, XLU, XLRE) are quietly improving, so the rotation is underway towards safety.",
+    "Fear & Greed is at 62.2 \u2014 not redline yet, but greed decaying. VIX is normal but sneaking higher (17.98 > SMA20). No outright panic, but with TLT below all MAs and HYG threatening, this feels like a late-cycle setup where consensus is still a little too comfortable. Patience, react, don\u2019t predict \u2014 look for failed retests and wait for a clean sector rotation, not a hero move."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $731.58 (SMA20 $710.16) \u2014 strong tech leadership<br>QQQ: $694.94 (SMA20 $655.79) \u2014 momentum intact<br>XLF: $51.55 (SMA20 $51.87) \u2014 canary at the wire<br>HYG: $79.86 (SMA20 $79.97) \u2014 risk zone<br>AAPL: $287.44 (approaching SMA20 $271.57)<br>Fear & Greed: 66.8 \u2014 caution, but not extreme<br>Watch for daily closes below 20 MA for exit triggers",
+  "callout_body": "SPY: Watch $726.88 (SMA20) \u2014 daily close below = caution<br>HYG: $79.38 (nearing breakdown), TLT: Triggered below $85.30 (SMA20)<br>XLK: $167.54 (SMA20) support<br>XLF: $51.61 (SMA20) \u2014 needs to reclaim for bulls<br>XLE is the only sector firmly above all major MAs<br>AAII not provided; Fear & Greed not extreme, but watch for cracks<br>Don\u2019t chase \u2014 abundance mindset!",
   "action_items": [
-    "Rotate into XLK (Tech) only on pullbacks to weekly 20 MA\u2014don\u2019t chase extended moves",
-    "Monitor XLF and HYG for breakdowns\u2014if either closes below the 20 MA, reduce equity exposure across portfolio"
+    "Reduce equity exposure and stop adding to tech if HYG and TLT both close red",
+    "Look for rotation opportunities in Energy (XLE, OIH) and defensive sectors (XLP, XLV) \u2014 don\u2019t front-run, wait for daily closes above respective SMA20s"
   ],
-  "closing_quote": "If it\u2019s in the press, it\u2019s in the price. Patience, react, don\u2019t predict.",
-  "generatedAt": "2026-05-08T11:51:31.095506+00:00",
+  "closing_quote": "When bonds blink, equities flinch \u2014 follow the flows, not the headlines.",
+  "generatedAt": "2026-05-19T13:40:20.334570+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
