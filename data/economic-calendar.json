@@ -1,35 +1,9 @@
 {
-  "fetched_at": "2026-05-19T20:25:51.355813Z",
+  "fetched_at": "2026-05-20T20:25:53.491401Z",
   "source": "investing.com",
   "country": "US",
   "stars": 3,
   "events": [
-    {
-      "id": "econ-548540",
-      "title": "Crude Oil Inventories",
-      "deadline": "2026-05-20T14:30:00Z",
-      "category": "macro",
-      "severity": "high",
-      "stars": 3,
-      "forecast": null,
-      "previous": "-4.306M",
-      "countdown": true,
-      "status": "active",
-      "source": "investing.com"
-    },
-    {
-      "id": "econ-548263",
-      "title": "FOMC Meeting Minutes",
-      "deadline": "2026-05-20T18:00:00Z",
-      "category": "macro",
-      "severity": "high",
-      "stars": 3,
-      "forecast": null,
-      "previous": "&nbsp;",
-      "countdown": true,
-      "status": "active",
-      "source": "investing.com"
-    },
     {
       "id": "econ-548108",
       "title": "Initial Jobless Claims",
@@ -39,6 +13,32 @@
       "stars": 3,
       "forecast": "210K",
       "previous": "211K",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-547430",
+      "title": "Philadelphia Fed Manufacturing Index (May)",
+      "deadline": "2026-05-21T12:30:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": "17.6",
+      "previous": "26.7",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-547437",
+      "title": "S&P Global Manufacturing PMI (May)",
+      "deadline": "2026-05-21T13:45:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": "53.8",
+      "previous": "54.5",
       "countdown": true,
       "status": "active",
       "source": "investing.com"
