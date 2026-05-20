@@ -150,6 +150,33 @@ else
     warn "Expected Moves failed ($EM_LABEL)"
 fi
 
+# --- 4b. Stale-ticker patrol (runs DAILY, not just Friday) ---
+# Catches the "all-tier silent skip" mode: tickers yfinance refuses on
+# their nearest weekly expiry (GOOG, CRWD, MU, ROKU, TSM, UNH, XME, ...)
+# get force-refreshed individually every day so staleness caps at ~5 trading days.
+log "Step 4b: Stale-ticker patrol"
+STALE_TICKERS=$($PYTHON -c "
+import json
+from datetime import date, timedelta
+d = json.load(open('data/expected-moves.json'))
+cutoff = (date.today() - timedelta(days=5)).isoformat()
+stale = [s for s,v in d['tickers'].items()
+         if v.get('updated','')[:10] < cutoff and s.strip() and ' ' not in s and s != 'SPX']
+print(' '.join(stale))
+" 2>/dev/null || echo "")
+if [[ -n "$STALE_TICKERS" ]]; then
+    log "Stale tickers needing patrol: $STALE_TICKERS"
+    for sym in $STALE_TICKERS; do
+        if $PYTHON scripts/update-expected-moves.py --tier all --ticker "$sym" 2>&1 | tee -a "$LOG"; then
+            log "  ✅ patrolled $sym"
+        else
+            warn "  patrol failed for $sym (will retry next day)"
+        fi
+    done
+else
+    log "✅ No stale tickers (all within 5 trading days)"
+fi
+
 # --- 5. yfinance fallback (refreshes spot prices for briefing) ---
 log "Step 5/7: yfinance fallback data"
 if $PYTHON scripts/export-yfinance-fallback.py 2>&1 | tee -a "$LOG"; then

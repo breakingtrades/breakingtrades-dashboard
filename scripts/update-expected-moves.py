@@ -28,7 +28,8 @@ Environment:
   BT_EM_SOURCE    — force source: ib | yfinance (default: auto)
 """
 
-import json, os, sys, math, argparse, time
+import json
+import sys, os, sys, math, argparse, time
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -270,13 +271,45 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
     # yfinance uses YYYY-MM-DD format for option_chain()
     yf_exp = f"{weekly_exp[:4]}-{weekly_exp[4:6]}-{weekly_exp[6:8]}"
 
+    chain = calls = puts = None
     try:
         chain = t.option_chain(yf_exp)
-        calls = chain.calls
-        puts = chain.puts
+        calls, puts = chain.calls, chain.puts
+        if calls is None or puts is None or calls.empty or puts.empty:
+            raise RuntimeError("empty chain")
     except Exception as e:
-        print(f"chain error: {e}", flush=True)
-        return None
+        # Alt-expiry retry: walk forward to next available expiry within 21 DTE.
+        # Fixes recurring "yfinance returns nothing for nearest Friday on
+        # heavy-options names" (GOOG, CRWD, MU, ROKU, TSM, UNH, XME).
+        import time as _time
+        alt_exp = alt_dte = None
+        for cand in expirations:
+            try:
+                cand_dt = datetime.strptime(cand, '%Y-%m-%d')
+            except Exception:
+                continue
+            d = (cand_dt - datetime.now()).days
+            if 2 <= d <= 21 and cand != yf_exp:
+                alt_exp, alt_dte = cand, d
+                break
+        if alt_exp:
+            print(f"chain error on {yf_exp} ({e}); retrying alt-expiry {alt_exp} ({alt_dte}DTE)", flush=True)
+            _time.sleep(2)
+            try:
+                chain = t.option_chain(alt_exp)
+                calls, puts = chain.calls, chain.puts
+                if calls.empty or puts.empty:
+                    raise RuntimeError("empty chain on alt-expiry too")
+                # Use the alt expiry for the rest of this function
+                weekly_exp = alt_exp.replace('-','')
+                weekly_dte = alt_dte
+                yf_exp = alt_exp
+            except Exception as e2:
+                print(f"alt-expiry also failed: {e2}", flush=True)
+                return None
+        else:
+            print(f"chain error: {e} (no alt-expiry candidates)", flush=True)
+            return None
 
     # Find ATM
     atm_call = calls.iloc[(calls['strike'] - close_price).abs().argsort().iloc[0]]
@@ -763,6 +796,8 @@ def main():
         'updated': datetime.now().isoformat(),
         'source': 'ib' if not use_yfinance else 'yfinance',
         'tier': args.tier,
+        'failures': errors,
+        'failure_count': len(errors),
         'tickers': results,
     }
     OUT_FILE.write_text(json.dumps(output, indent=2))
@@ -772,6 +807,15 @@ def main():
     print(f"Saved: {OUT_FILE}")
     if errors:
         print(f"Errors ({len(errors)}): {errors}")
+
+    # Exit non-zero on the "all-tier silent skip" mode that broke us:
+    # if we asked for a full refresh and ≥5% of tickers still failed after
+    # alt-expiry retry, surface it so CI flags red rather than green.
+    if args.tier in ('all', 'weekly') and not args.ticker:
+        threshold = max(2, int(0.05 * len(tickers)))
+        if len(errors) >= threshold:
+            print(f"⚠️  FAILURE THRESHOLD: {len(errors)} failures ≥ {threshold} — exiting non-zero")
+            sys.exit(2)
 
 
 if __name__ == '__main__':
