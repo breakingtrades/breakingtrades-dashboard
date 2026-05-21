@@ -1,33 +1,33 @@
 [
   {
-    "pair": "XLY/XLP",
-    "desc": "American Consumer Strength (Discretionary/Staples)",
-    "signal": "\u2198 FALLING",
-    "color": "down"
-  },
-  {
-    "pair": "IWF/IWD",
-    "desc": "Growth vs Value (Russell 1000)",
-    "signal": "\u2197 RISING",
-    "color": "up"
-  },
-  {
     "pair": "HYG/SPY",
     "desc": "Credit vs Equity \u2014 risk appetite",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
   },
   {
     "pair": "RSP/SPY",
     "desc": "Breadth \u2014 equal vs cap weight",
-    "signal": "\u2198 FALLING",
-    "color": "down"
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
+  },
+  {
+    "pair": "IWM/SPY",
+    "desc": "Small caps vs Large caps",
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
+  },
+  {
+    "pair": "IWM/QQQ",
+    "desc": "Value vs Growth (broad)",
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
   },
   {
     "pair": "XLE/SPY",
     "desc": "Energy outperformance",
-    "signal": "\u2197 RISING",
-    "color": "up"
+    "signal": "\u2192 FLAT UP",
+    "color": "neutral"
   },
   {
     "pair": "GLD/SPY",
@@ -42,20 +42,8 @@
     "color": "down"
   },
   {
-    "pair": "SLV/GLD",
-    "desc": "Industrial vs safe haven",
-    "signal": "\u2198 FALLING",
-    "color": "down"
-  },
-  {
     "pair": "HYG/TLT",
     "desc": "Credit vs treasuries",
-    "signal": "\u2197 RISING",
-    "color": "up"
-  },
-  {
-    "pair": "IGV/QQQ",
-    "desc": "Software vs Broad Tech",
     "signal": "\u2197 RISING",
     "color": "up"
   }
