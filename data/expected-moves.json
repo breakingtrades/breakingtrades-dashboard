@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-21T16:30:38.001016",
+  "updated": "2026-05-21T17:53:17.795967",
   "source": "yfinance",
   "tier": "daily",
   "failures": [],
@@ -8,7 +8,7 @@
     "SPY": {
       "close": 741.25,
       "spot": 741.25,
-      "updated": "2026-05-21T16:30:36.775899",
+      "updated": "2026-05-21T17:53:16.634724",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "ES",
@@ -21,10 +21,10 @@
       "weekly_expiry": "20260522",
       "weekly_dte": 7,
       "daily": {
-        "value": 3.49,
-        "pct": 0.47,
-        "upper": 744.74,
-        "lower": 737.76
+        "value": 3.61,
+        "pct": 0.49,
+        "upper": 744.86,
+        "lower": 737.64
       },
       "weekly": {
         "value": 9.54,
@@ -375,9 +375,9 @@
         {
           "date": "2026-05-21",
           "close": 741.25,
-          "straddle": 11.62,
-          "weekly_em": 7.81,
-          "daily_em": 3.49,
+          "straddle": 12.01,
+          "weekly_em": 8.07,
+          "daily_em": 3.61,
           "is_friday": false
         }
       ]
@@ -385,7 +385,7 @@
     "QQQ": {
       "close": 713.15,
       "spot": 713.15,
-      "updated": "2026-05-21T16:30:35.126635",
+      "updated": "2026-05-21T17:53:15.273347",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "NQ",
@@ -398,10 +398,10 @@
       "weekly_expiry": "20260522",
       "weekly_dte": 7,
       "daily": {
-        "value": 5.09,
+        "value": 5.07,
         "pct": 0.71,
-        "upper": 718.24,
-        "lower": 708.06
+        "upper": 718.22,
+        "lower": 708.08
       },
       "weekly": {
         "value": 13.38,
@@ -752,9 +752,9 @@
         {
           "date": "2026-05-21",
           "close": 713.15,
-          "straddle": 16.93,
-          "weekly_em": 11.38,
-          "daily_em": 5.09,
+          "straddle": 16.88,
+          "weekly_em": 11.34,
+          "daily_em": 5.07,
           "is_friday": false
         }
       ]
@@ -762,7 +762,7 @@
     "IWM": {
       "close": 279.87,
       "spot": 279.87,
-      "updated": "2026-05-21T16:30:34.541640",
+      "updated": "2026-05-21T17:53:14.488385",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "RTY",
@@ -775,10 +775,10 @@
       "weekly_expiry": "20260522",
       "weekly_dte": 7,
       "daily": {
-        "value": 2.06,
-        "pct": 0.74,
-        "upper": 281.93,
-        "lower": 277.81
+        "value": 2.29,
+        "pct": 0.82,
+        "upper": 282.16,
+        "lower": 277.58
       },
       "weekly": {
         "value": 5.68,
@@ -1129,9 +1129,9 @@
         {
           "date": "2026-05-21",
           "close": 279.87,
-          "straddle": 6.87,
-          "weekly_em": 4.62,
-          "daily_em": 2.06,
+          "straddle": 7.63,
+          "weekly_em": 5.13,
+          "daily_em": 2.29,
           "is_friday": false
         }
       ]
@@ -1139,7 +1139,7 @@
     "DIA": {
       "close": 500.24,
       "spot": 500.24,
-      "updated": "2026-05-21T16:30:32.770103",
+      "updated": "2026-05-21T17:53:12.231725",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "YM",
@@ -1152,10 +1152,10 @@
       "weekly_expiry": "20260522",
       "weekly_dte": 7,
       "daily": {
-        "value": 2.36,
-        "pct": 0.47,
-        "upper": 502.6,
-        "lower": 497.88
+        "value": 2.39,
+        "pct": 0.48,
+        "upper": 502.63,
+        "lower": 497.85
       },
       "weekly": {
         "value": 5.57,
@@ -1506,9 +1506,9 @@
         {
           "date": "2026-05-21",
           "close": 500.24,
-          "straddle": 7.84,
-          "weekly_em": 5.27,
-          "daily_em": 2.36,
+          "straddle": 7.95,
+          "weekly_em": 5.34,
+          "daily_em": 2.39,
           "is_friday": false
         }
       ]
@@ -1516,7 +1516,7 @@
     "IBIT": {
       "close": 43.99,
       "spot": 43.99,
-      "updated": "2026-05-21T16:30:33.956804",
+      "updated": "2026-05-21T17:53:13.574531",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "BTC",
@@ -1529,10 +1529,10 @@
       "weekly_expiry": "20260522",
       "weekly_dte": 7,
       "daily": {
-        "value": 0.51,
-        "pct": 1.16,
-        "upper": 44.5,
-        "lower": 43.48
+        "value": 0.5,
+        "pct": 1.13,
+        "upper": 44.49,
+        "lower": 43.49
       },
       "weekly": {
         "value": 1.34,
@@ -1881,9 +1881,9 @@
         {
           "date": "2026-05-21",
           "close": 43.99,
-          "straddle": 1.7,
-          "weekly_em": 1.14,
-          "daily_em": 0.51,
+          "straddle": 1.65,
+          "weekly_em": 1.11,
+          "daily_em": 0.5,
           "is_friday": false
         }
       ]
@@ -1891,7 +1891,7 @@
     "UNG": {
       "close": 11.49,
       "spot": 11.49,
-      "updated": "2026-05-21T16:30:37.501348",
+      "updated": "2026-05-21T17:53:17.185004",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "NG",
@@ -1904,10 +1904,10 @@
       "weekly_expiry": "20260508",
       "weekly_dte": 10,
       "daily": {
-        "value": 0.22,
-        "pct": 1.94,
-        "upper": 11.71,
-        "lower": 11.27
+        "value": 0.18,
+        "pct": 1.57,
+        "upper": 11.67,
+        "lower": 11.31
       },
       "weekly": {
         "value": 0.43,
@@ -2221,9 +2221,9 @@
         {
           "date": "2026-05-21",
           "close": 11.49,
-          "straddle": 0.74,
-          "weekly_em": 0.5,
-          "daily_em": 0.22,
+          "straddle": 0.6,
+          "weekly_em": 0.4,
+          "daily_em": 0.18,
           "is_friday": false
         }
       ]
@@ -2231,7 +2231,7 @@
     "USO": {
       "close": 144.27,
       "spot": 144.27,
-      "updated": "2026-05-21T16:30:37.937598",
+      "updated": "2026-05-21T17:53:17.724115",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "CL",
@@ -2244,10 +2244,10 @@
       "weekly_expiry": "20260522",
       "weekly_dte": 7,
       "daily": {
-        "value": 4.55,
-        "pct": 3.16,
-        "upper": 148.82,
-        "lower": 139.72
+        "value": 4.98,
+        "pct": 3.45,
+        "upper": 149.25,
+        "lower": 139.29
       },
       "weekly": {
         "value": 8.76,
@@ -2575,9 +2575,9 @@
         {
           "date": "2026-05-21",
           "close": 144.27,
-          "straddle": 15.15,
-          "weekly_em": 10.18,
-          "daily_em": 4.55,
+          "straddle": 16.56,
+          "weekly_em": 11.13,
+          "daily_em": 4.98,
           "is_friday": false
         }
       ]
@@ -2585,7 +2585,7 @@
     "GLD": {
       "close": 417.4,
       "spot": 417.4,
-      "updated": "2026-05-21T16:30:33.370994",
+      "updated": "2026-05-21T17:53:12.825977",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "GC",
@@ -2598,10 +2598,10 @@
       "weekly_expiry": "20260522",
       "weekly_dte": 7,
       "daily": {
-        "value": 3.09,
-        "pct": 0.74,
-        "upper": 420.49,
-        "lower": 414.31
+        "value": 3.21,
+        "pct": 0.77,
+        "upper": 420.61,
+        "lower": 414.19
       },
       "weekly": {
         "value": 9.19,
@@ -2929,9 +2929,9 @@
         {
           "date": "2026-05-21",
           "close": 417.4,
-          "straddle": 10.28,
-          "weekly_em": 6.91,
-          "daily_em": 3.09,
+          "straddle": 10.69,
+          "weekly_em": 7.18,
+          "daily_em": 3.21,
           "is_friday": false
         }
       ]
@@ -11933,7 +11933,7 @@
     "SPX": {
       "close": 7432.97,
       "spot": 7432.97,
-      "updated": "2026-05-21T16:30:35.927129",
+      "updated": "2026-05-21T17:53:15.907957",
       "source": "yfinance",
       "strike": 7500.0,
       "straddle": 132.19,
@@ -11942,10 +11942,10 @@
       "weekly_expiry": "20260522",
       "weekly_dte": 7,
       "daily": {
-        "value": 34.36,
-        "pct": 0.46,
-        "upper": 7467.33,
-        "lower": 7398.61
+        "value": 32.88,
+        "pct": 0.44,
+        "upper": 7465.85,
+        "lower": 7400.09
       },
       "weekly": {
         "value": 94.96,
@@ -12268,9 +12268,9 @@
         {
           "date": "2026-05-21",
           "close": 7432.97,
-          "straddle": 114.34,
-          "weekly_em": 76.83,
-          "daily_em": 34.36,
+          "straddle": 109.4,
+          "weekly_em": 73.52,
+          "daily_em": 32.88,
           "is_friday": false
         }
       ]
