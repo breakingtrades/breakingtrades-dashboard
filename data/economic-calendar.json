@@ -1,22 +1,9 @@
 {
-  "fetched_at": "2026-05-25T20:26:25.003382Z",
+  "fetched_at": "2026-05-26T21:26:22.325577Z",
   "source": "investing.com",
   "country": "US",
   "stars": 3,
   "events": [
-    {
-      "id": "econ-547647",
-      "title": "CB Consumer Confidence (May)",
-      "deadline": "2026-05-26T14:00:00Z",
-      "category": "macro",
-      "severity": "high",
-      "stars": 3,
-      "forecast": "91.9",
-      "previous": "92.8",
-      "countdown": true,
-      "status": "active",
-      "source": "investing.com"
-    },
     {
       "id": "econ-547858",
       "title": "Core PCE Price Index (MoM) (Apr)",
@@ -39,6 +26,19 @@
       "stars": 3,
       "forecast": null,
       "previous": "3.2%",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-547867",
+      "title": "Durable Goods Orders (MoM) (Apr)",
+      "deadline": "2026-05-28T12:30:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": "3.3%",
+      "previous": "0.8%",
       "countdown": true,
       "status": "active",
       "source": "investing.com"
