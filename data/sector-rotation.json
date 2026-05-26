@@ -2,7 +2,7 @@
   "benchmark": "SPY",
   "lookback": 13,
   "trailLength": 26,
-  "generatedAt": "2026-05-25T13:45:03.958222+00:00",
+  "generatedAt": "2026-05-26T13:26:31.595984+00:00",
   "source": "yfinance",
   "sectors": [
     {
@@ -89,7 +89,7 @@
         {
           "date": "2026-03-09",
           "rs": 131.237,
-          "momentum": 103.886
+          "momentum": 103.885
         },
         {
           "date": "2026-03-16",
