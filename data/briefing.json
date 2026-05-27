@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 26",
-  "headline": "Steady grind higher, but sector rotation is getting choppy \u2014 flows and 20 MAs are your guide.",
+  "title": "Daily Briefing \u2014 May 27",
+  "headline": "Tech is leading, defensive sectors lag, but flows say don't chase the rip.",
   "body": [
-    "Right, so today the market\u2019s crawling along with SPY at $745.64 (+0.4%), VIX sinking under the 20-day\u2014volatility is dying and nobody\u2019s panicking. Fear & Greed parked at 58.6: not euphoria, not opportunity. The big picture? Uptrend intact, but momentum is thinning out and leadership is narrowing.",
-    "Sector rotation is flashing classic late-cycle signals. Tech (XLK, $180.39) still leads, but Materials (XLB), Healthcare (XLV), Staples (XLP), and Financials (XLF) are all showing improving momentum\u2014rotational plays are back on the table. Industrials (XLI) and Communications (XLC) are lagging hard\u2014avoid the canaries. Watch Financials (XLF): $51.94 just above the 20 MA ($51.59), so nothing broken yet, but sickly sectors can turn fast.",
-    "Contrarian radar: No extreme sentiment triggers today, but DELL\u2019s wild 16.8% pump and several high-flyers (ARM, AA, SM) look stretched\u2014if you missed those, abundance mindset: don\u2019t chase, wait for mean reversion back to the weekly 20 MA. Bonds aren\u2019t freaking out (HYG flat, LQD inching up), so the macro structure holds. Weakness in commodities (GLD, SLV, CL=F) is worth noting\u2014flows out of hard assets, back into risk. Keep watching dark pool levels and MAs: if we get a daily close below 20 MA on majors, hit the exit button fast."
+    "Right, so the big picture: Markets are grinding higher, with SPY at $750.13 and QQQ at $729.04 \u2014 both well above their 20 MA (SPY 735.28, QQQ 701.79), showing trend resilience. Volatility is easing (VIX 17.01) and Fear & Greed sits at 61.4 \u2014 solid greed but not in dangerous territory yet.",
+    "Sector-wise, XLK (tech) is the lone leader: RS 121.8, momentum 103.0, with mega-cap names like AAPL ($310.65 vs SMA20 $293.28) and DELL ($305.68 vs SMA20 $243.85) stretching well above their moving averages. Meanwhile, Energy, Materials, Staples, Healthcare, and Utilities are all lagging and flagged as high risk. Financials (XLF $51.66 vs SMA20 $51.58) are improving, but still not leading \u2014 keep an eye on the canary.",
+    "Contrarian lens: Most momentum is concentrated in tech and a handful of names, classic narrow breadth. Retail is probably piling into hot tickers, so don't get FOMO \u2014 remember, if it's in the press, it's in the price. Commodities (CL=F $89.64, USO $131.50, both crashing well below SMA20) and crypto (BTC-USD $74,813.77 vs SMA20 $78,295.74) are weak \u2014 another signal that flows are rotating out of the 'riskier' assets. Don't break something if it's simple and good: risk-on, but patience."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $745.64, 20 MA $731.58 \u2014 uptrend intact<br>XLK: $180.39, leadership, momentum strong<br>XLF: $51.94 (watch for 20 MA break)<br>DELL: $295.19 (+16.8%), way above 20 MA ($234.41) \u2014 don't chase<br>HYG: $79.91 (macro canary)<br>VIX: 16.78, regime = contraction",
+  "callout_body": "SPY support: 20 MA ($735.28) <br> QQQ support: 20 MA ($701.79) <br> XLK resistance: $184.39 <br> XLE support: SMA200 ($49.37) <br> Energy & commodity bounce zones: CL=F SMA200 ($71.80), USO SMA200 ($89.48) <br> XLF weekly 20 MA for financials health check",
   "action_items": [
-    "Rotate into Healthcare (XLV), Materials (XLB), and Staples (XLP) if you need edges\u2014momentum/relative strength is peaking.",
-    "Set alerts for daily closes below 20 MA on SPY, XLK, XLF. If the break comes, reset risk immediately."
+    "Stick to tech leaders above 20 MA \u2014 AAPL, DELL, NVDA (watch for daily close below MA for exit)",
+    "Monitor financials (XLF) for any breakdown \u2014 if it closes below SMA20 ($51.58), tighten exposure"
   ],
-  "closing_quote": "If it's in the press, it's in the price. Patience, react, don't predict.",
-  "generatedAt": "2026-05-26T13:26:43.459311+00:00",
+  "closing_quote": "Patience, react, don\u2019t predict \u2014 less trades, more wins. If bonds freak out, everything breaks.",
+  "generatedAt": "2026-05-27T13:55:42.821319+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
