@@ -2,7 +2,7 @@
   "benchmark": "SPY",
   "lookback": 13,
   "trailLength": 26,
-  "generatedAt": "2026-05-26T21:26:20.526997+00:00",
+  "generatedAt": "2026-05-28T14:08:44.737886+00:00",
   "source": "yfinance",
   "sectors": [
     {
@@ -63,7 +63,7 @@
         },
         {
           "date": "2026-02-09",
-          "rs": 117.071,
+          "rs": 117.072,
           "momentum": 100.751
         },
         {
@@ -138,8 +138,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 94.906,
-          "momentum": 94.332
+          "rs": 94.056,
+          "momentum": 93.487
         }
       ]
     },
@@ -276,8 +276,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 87.402,
-          "momentum": 99.376
+          "rs": 86.873,
+          "momentum": 98.775
         }
       ]
     },
@@ -285,7 +285,7 @@
       "symbol": "XLI",
       "name": "Industrials",
       "color": "#607D8B",
-      "quadrant": "Improving",
+      "quadrant": "Lagging",
       "trail": [
         {
           "date": "2025-12-01",
@@ -414,8 +414,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 89.935,
-          "momentum": 100.352
+          "rs": 88.942,
+          "momentum": 99.243
         }
       ]
     },
@@ -423,7 +423,7 @@
       "symbol": "XLY",
       "name": "Discretionary",
       "color": "#FFA500",
-      "quadrant": "Lagging",
+      "quadrant": "Improving",
       "trail": [
         {
           "date": "2025-12-01",
@@ -552,8 +552,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 93.352,
-          "momentum": 99.569
+          "rs": 94.316,
+          "momentum": 100.597
         }
       ]
     },
@@ -690,8 +690,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 85.161,
-          "momentum": 95.185
+          "rs": 86.248,
+          "momentum": 96.4
         }
       ]
     },
@@ -828,8 +828,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 84.841,
-          "momentum": 95.869
+          "rs": 85.872,
+          "momentum": 97.033
         }
       ]
     },
@@ -837,7 +837,7 @@
       "symbol": "XLF",
       "name": "Financials",
       "color": "#1E90FF",
-      "quadrant": "Improving",
+      "quadrant": "Lagging",
       "trail": [
         {
           "date": "2025-12-01",
@@ -966,8 +966,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 92.361,
-          "momentum": 100.707
+          "rs": 91.277,
+          "momentum": 99.525
         }
       ]
     },
@@ -1055,7 +1055,7 @@
         {
           "date": "2026-03-16",
           "rs": 98.04,
-          "momentum": 100.18
+          "momentum": 100.181
         },
         {
           "date": "2026-03-23",
@@ -1104,8 +1104,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 121.76,
-          "momentum": 102.998
+          "rs": 121.619,
+          "momentum": 102.878
         }
       ]
     },
@@ -1242,8 +1242,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 89.499,
-          "momentum": 97.874
+          "rs": 90.067,
+          "momentum": 98.495
         }
       ]
     },
@@ -1380,8 +1380,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 87.167,
-          "momentum": 95.903
+          "rs": 86.669,
+          "momentum": 95.356
         }
       ]
     },
@@ -1518,8 +1518,8 @@
         },
         {
           "date": "2026-05-25",
-          "rs": 93.578,
-          "momentum": 98.544
+          "rs": 93.026,
+          "momentum": 97.963
         }
       ]
     }

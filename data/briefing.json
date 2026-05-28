@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 27",
-  "headline": "Tech is leading, defensive sectors lag, but flows say don't chase the rip.",
+  "title": "Daily Briefing \u2014 May 28",
+  "headline": "Tech leads, everything else limps\u2014breadth is getting dangerously narrow.",
   "body": [
-    "Right, so the big picture: Markets are grinding higher, with SPY at $750.13 and QQQ at $729.04 \u2014 both well above their 20 MA (SPY 735.28, QQQ 701.79), showing trend resilience. Volatility is easing (VIX 17.01) and Fear & Greed sits at 61.4 \u2014 solid greed but not in dangerous territory yet.",
-    "Sector-wise, XLK (tech) is the lone leader: RS 121.8, momentum 103.0, with mega-cap names like AAPL ($310.65 vs SMA20 $293.28) and DELL ($305.68 vs SMA20 $243.85) stretching well above their moving averages. Meanwhile, Energy, Materials, Staples, Healthcare, and Utilities are all lagging and flagged as high risk. Financials (XLF $51.66 vs SMA20 $51.58) are improving, but still not leading \u2014 keep an eye on the canary.",
-    "Contrarian lens: Most momentum is concentrated in tech and a handful of names, classic narrow breadth. Retail is probably piling into hot tickers, so don't get FOMO \u2014 remember, if it's in the press, it's in the price. Commodities (CL=F $89.64, USO $131.50, both crashing well below SMA20) and crypto (BTC-USD $74,813.77 vs SMA20 $78,295.74) are weak \u2014 another signal that flows are rotating out of the 'riskier' assets. Don't break something if it's simple and good: risk-on, but patience."
+    "Right, so let's look at what the flows are telling us: Mega-cap tech is still king, with XLK running hot (RS=121.6) and names like MSFT ($425.39, +3.1%) and ARM ($323.76, +7.0%) smashing their SMA20s. SPY and QQQ hugging fresh highs above their mean reversion zones (SMA20: 737.24 for SPY, 705.18 for QQQ), while volatility contracts (VIX 16.15) and Fear & Greed sits at a lukewarm 61.2. That\u2019s not an all-clear: breadth is narrowing, and the rally is getting concentrated.",
+    "Sector rotation is mental right now. XLK (tech) is the only leader\u2014everything else (XLE, XLF, XLV, XLI, XLB, XLP, XLU, XLRE) is lagging and carrying 'high' risk. Industrial, staples, materials, and financials are all below their SMA20s or just grinding sideways. If you want momentum, you\u2019re in the tech crowd; for everything else, patience, abundance mindset, don\u2019t chase.",
+    "Contrarian signal: Retail is piling into high beta names, but dark pools aren\u2019t showing monster accumulation outside XLK and select tech. XLF ($51.27, bias bear) is flirting with a SMA20 break\u2014financials are the canary in the coal mine (R010). VIX is normal, but this is no time to be complacent; breadth divergence reminds me of late 2021, right before the drawdown. If it\u2019s in the press, it\u2019s in the price. Mind your exits: daily closes below 20 MA\u2014especially for lagging ETFs\u2014mean risk gets real fast (R006)."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY support: 20 MA ($735.28) <br> QQQ support: 20 MA ($701.79) <br> XLK resistance: $184.39 <br> XLE support: SMA200 ($49.37) <br> Energy & commodity bounce zones: CL=F SMA200 ($71.80), USO SMA200 ($89.48) <br> XLF weekly 20 MA for financials health check",
+  "callout_body": "SPY: $750.52 (SMA20: 737.24)\u2014watch for support<br>MSFT: $425.39 (SMA20: 414.72)\u2014momentum leader<br>XLK: $184.87 (SMA20: 174.41)\u2014only sector in leading quadrant<br>XLF: $51.27 (SMA20: 51.54)\u2014financials at risk<br>NVDA: $213.11 (SMA20: 214.82)\u2014watch for daily close below 20MA<br>VIX: 16.15\u2014volatility very low, don't sleep on it<br>Fear & Greed: 61.2\u2014not extreme, but creeping up",
   "action_items": [
-    "Stick to tech leaders above 20 MA \u2014 AAPL, DELL, NVDA (watch for daily close below MA for exit)",
-    "Monitor financials (XLF) for any breakdown \u2014 if it closes below SMA20 ($51.58), tighten exposure"
+    "Stick with tech momentum\u2014MSFT, ARM, XLK\u2014while above 20MA; avoid lagging sectors (XLE, XLF, XLI, etc.) unless reversal triggers.",
+    "Watch for daily closes below 20 MA on lagging ETFs and risk names (XLF, NVDA, XLE)\u2014if triggered, tighten stops or exit per rule R006."
   ],
-  "closing_quote": "Patience, react, don\u2019t predict \u2014 less trades, more wins. If bonds freak out, everything breaks.",
-  "generatedAt": "2026-05-27T13:55:42.821319+00:00",
+  "closing_quote": "Breadth narrows, risk rises\u2014patience, react, don\u2019t predict.",
+  "generatedAt": "2026-05-28T14:08:55.098227+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
