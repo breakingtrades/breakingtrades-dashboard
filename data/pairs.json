@@ -8,8 +8,8 @@
   {
     "pair": "IWF/IWD",
     "desc": "Growth vs Value (Russell 1000)",
-    "signal": "\u2192 FLAT DOWN",
-    "color": "neutral"
+    "signal": "\u2197 RISING",
+    "color": "up"
   },
   {
     "pair": "HYG/SPY",
@@ -26,8 +26,8 @@
   {
     "pair": "XLV/SPY",
     "desc": "Defensive rotation",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "IWM/SPY",
@@ -38,8 +38,8 @@
   {
     "pair": "IWM/QQQ",
     "desc": "Value vs Growth (broad)",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "XLE/SPY",
@@ -56,25 +56,25 @@
   {
     "pair": "TLT/SPY",
     "desc": "Flight to bonds",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "SLV/GLD",
     "desc": "Industrial vs safe haven",
-    "signal": "\u2197 RISING",
-    "color": "up"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "HYG/TLT",
     "desc": "Credit vs treasuries",
-    "signal": "\u2192 FLAT DOWN",
-    "color": "neutral"
+    "signal": "\u2198 FALLING",
+    "color": "down"
   },
   {
     "pair": "IGV/QQQ",
     "desc": "Software vs Broad Tech",
-    "signal": "\u2192 FLAT DOWN",
-    "color": "neutral"
+    "signal": "\u2197 RISING",
+    "color": "up"
   }
 ]
