@@ -30,31 +30,22 @@ jobs:
       - name: Install dependencies
         run: pip install requests yfinance pandas numpy
 
-      - name: Run EOD update
+      - name: Run EOD update (commits + pushes inline)
         env:
           BT_EM_SOURCE: yfinance
-          BT_SKIP_PUSH: '1'  # We push in the next step with proper git config
+          # NOTE: do NOT set BT_SKIP_PUSH here. eod-update.sh has its own
+          # commit+push with rebase/conflict resolution and retry. Skipping
+          # its push and re-staging in a downstream step strands the commit
+          # on the runner (no-staged-diff -> "No changes to commit" -> nothing
+          # pushed). That's exactly the bug that buried the Friday EM(all)
+          # commits for weeks. Let the script own the push.
         run: |
           chmod +x scripts/eod-update.sh
+          # Configure git identity for the in-script commit
+          git config user.name  "BreakingTrades Bot"
+          git config user.email "bot@breakingtrades.github.io"
           # Override tier if manually specified
           if [ -n "${{ github.event.inputs.tier }}" ]; then
             python scripts/update-expected-moves.py --source yfinance --tier "${{ github.event.inputs.tier }}" || echo "EM override failed"
           fi
           bash scripts/eod-update.sh
-
-      - name: Commit and push
-        run: |
-          git config user.name "BreakingTrades Bot"
-          git config user.email "bot@breakingtrades.github.io"
-          git add data/
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "data: EOD update $(date -u +%Y-%m-%d) — automated"
-            # Retry push up to 3 times (F&G workflow may push concurrently)
-            for i in 1 2 3; do
-              git pull --rebase --no-edit origin main && git push && break
-              echo "Push attempt $i failed, retrying in 10s..."
-              sleep 10
-            done
-          fi
