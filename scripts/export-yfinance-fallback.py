@@ -380,7 +380,7 @@ def fetch_sector_rotation():
     # Sector risk map (same logic as export-sector-rotation.py)
     SECTOR_NAME_MAP = {
         "Energy": ["Energy", "Clean Energy"], "Materials": ["Materials", "Agriculture"],
-        "Industrials": ["Industrials"], "Discretionary": ["Discretionary", "Retail"],
+        "Industrials": ["Industrials", "Space"], "Discretionary": ["Discretionary", "Retail"],
         "Staples": ["Staples"], "Healthcare": ["Healthcare"], "Financials": ["Financials"],
         "Technology": ["Technology", "Telecom", "Semiconductors"],
         "Communication": ["Communication"], "Utilities": ["Utilities"], "Real Estate": [],

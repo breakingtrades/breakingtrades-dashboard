@@ -101,7 +101,15 @@ WATCHLIST = [
   {'symbol':'KMB', 'name':'Kimberly-Clark', 'sector':'Staples', 'group':'Community Ideas'},
   {'symbol':'S', 'name':'SentinelOne', 'sector':'Technology', 'group':'Community Ideas'},
   {'symbol':'UPS', 'name':'UPS', 'sector':'Industrials', 'group':'Community Ideas'},
-  {'symbol':'NBIS', 'name':'Nebius Group', 'sector':'Technology', 'group':'Community Ideas'}
+  {'symbol':'NBIS', 'name':'Nebius Group', 'sector':'Technology', 'group':'Community Ideas'},
+
+  # Space
+  {'symbol':'FLY', 'name':'Firefly Aerospace', 'sector':'Space', 'group':'Space'},
+  {'symbol':'RKLB', 'name':'Rocket Lab', 'sector':'Space', 'group':'Space'},
+  {'symbol':'ASTS', 'name':'AST SpaceMobile', 'sector':'Space', 'group':'Space'},
+  {'symbol':'LUNR', 'name':'Intuitive Machines', 'sector':'Space', 'group':'Space'},
+  {'symbol':'RDW', 'name':'Redwire', 'sector':'Space', 'group':'Space'},
+  {'symbol':'PL', 'name':'Planet Labs', 'sector':'Space', 'group':'Space'}
 ]
 
 def get_fear_greed():

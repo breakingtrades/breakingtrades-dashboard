@@ -140,7 +140,7 @@ def main():
     SECTOR_NAME_MAP = {
         "Energy": ["Energy", "Clean Energy"],
         "Materials": ["Materials", "Agriculture"],
-        "Industrials": ["Industrials"],
+        "Industrials": ["Industrials", "Space"],
         "Discretionary": ["Discretionary", "Retail"],
         "Staples": ["Staples"],
         "Healthcare": ["Healthcare"],
