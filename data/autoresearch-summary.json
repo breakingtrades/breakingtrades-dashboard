@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-29T20:26:07.048518+00:00",
+  "generated_at": "2026-06-01T04:10:51.696671+00:00",
   "last_tuning": {
-    "date": "2026-05-22",
-    "improvement_pct": 0.0,
+    "date": "2026-05-31",
+    "improvement_pct": 0.45,
     "experiments_run": 20,
     "winners": [],
     "dead_ends": []
@@ -11,13 +11,11 @@
   "rules_in_play": [
     "Enter on EMA-10/EMA-21 crossover confirmed by trend",
     "Exit when price closes below 25-period average",
-    "Stop-loss placed at 1.5\u00d7 recent volatility",
+    "Stop-loss placed at 2.0\u00d7 recent volatility",
     "Risk 2.0% of account per trade",
     "Structure trades around volume-profile value area (institutional zones)",
     "Stops respect value-area boundaries, not just volatility",
-    "Skip entries when VIX > 22 (volatility too high)",
     "Skip entries when bonds signal risk-off",
-    "Skip entries during extreme greed (>65) or extreme fear (<25)",
     "Skip entries when long-term trend is against the setup",
     "Skip entries when macro breadth is weak",
     "Require dark-pool confirmation before entering"

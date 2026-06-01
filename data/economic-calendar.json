@@ -1,22 +1,9 @@
 {
-  "fetched_at": "2026-05-29T20:26:07.799952Z",
+  "fetched_at": "2026-06-01T04:10:52.194943Z",
   "source": "investing.com",
   "country": "US",
   "stars": 3,
   "events": [
-    {
-      "id": "econ-550532",
-      "title": "Fed Chair Powell Speaks",
-      "deadline": "2026-06-01T00:30:00Z",
-      "category": "macro",
-      "severity": "high",
-      "stars": 3,
-      "forecast": null,
-      "previous": "&nbsp;",
-      "countdown": true,
-      "status": "active",
-      "source": "investing.com"
-    },
     {
       "id": "econ-548158",
       "title": "S&P Global Manufacturing PMI (May)",
@@ -25,7 +12,7 @@
       "severity": "high",
       "stars": 3,
       "forecast": "55.3",
-      "previous": "54.5",
+      "previous": "55.3",
       "countdown": true,
       "status": "active",
       "source": "investing.com"
@@ -39,6 +26,19 @@
       "stars": 3,
       "forecast": "53.3",
       "previous": "52.7",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-548163",
+      "title": "ISM Manufacturing Prices (May)",
+      "deadline": "2026-06-01T14:00:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": "85.3",
+      "previous": "84.6",
       "countdown": true,
       "status": "active",
       "source": "investing.com"

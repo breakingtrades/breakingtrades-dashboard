@@ -1,13 +1,13 @@
 {
-  "updated": "2026-05-29T20:26:07Z",
+  "updated": "2026-06-01T04:10:52Z",
   "regime": "BULL",
   "score": 60,
   "color": "#00d4aa",
   "previous": {
     "regime": "BULL",
-    "score": 59
+    "score": 60
   },
-  "duration_days": 3,
+  "duration_days": 4,
   "since": "2026-05-22",
   "cycle": {
     "phase": "EXPANSION",
@@ -16,7 +16,7 @@
   "components": {
     "move": {
       "score": 90,
-      "value": 69.74,
+      "value": 70.22,
       "signal": "collapsing",
       "weight": 18
     },
@@ -28,39 +28,37 @@
     },
     "vix": {
       "score": 79,
-      "value": 15.33,
+      "value": 15.32,
       "signal": "normal",
       "weight": 10
     },
     "breadth": {
       "score": 50,
-      "value": 39.7,
+      "value": 40.6,
       "signal": "weak",
       "weight": 8
     },
     "sp_vs_d200": {
       "score": 90,
-      "value": 10.99,
+      "value": 11.46,
       "signal": "above",
-      "weight": 8,
-      "stale": true
+      "weight": 8
     },
     "hyg_spy": {
       "score": 20,
-      "value": -6.38,
+      "value": -6.16,
       "signal": "weak",
-      "weight": 8,
-      "stale": true
+      "weight": 8
     },
     "xlf_spy": {
       "score": 20,
-      "value": -5.93,
+      "value": -5.95,
       "signal": "weak",
       "weight": 6
     },
     "dxy": {
       "score": 55,
-      "value": 98.91,
+      "value": 99.07,
       "signal": "neutral",
       "weight": 5
     },
@@ -96,13 +94,13 @@
     },
     "international": {
       "score": 50,
-      "value": -0.69,
+      "value": 1.04,
       "signal": "mixed",
       "weight": 4
     },
     "xly_xlp": {
       "score": 70,
-      "value": 4.83,
+      "value": 4.78,
       "signal": "strong",
       "weight": 2
     }
@@ -136,19 +134,18 @@
       },
       {
         "label": "Breadth > 65%",
-        "current": 39.7,
+        "current": 40.6,
         "target": 65,
         "met": false
       },
       {
         "label": "S&P > 5% above D200",
-        "current": 10.99,
+        "current": 11.46,
         "target": 5,
-        "met": false,
-        "stale": true
+        "met": true
       }
     ],
-    "conditions_met": 0,
+    "conditions_met": 1,
     "conditions_total": 3
   }
 }
