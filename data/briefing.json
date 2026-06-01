@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 May 29",
-  "headline": "Tech's running hot, but lagging sectors are flashing risk\u2014flows, not FOMO, dictate next moves.",
+  "title": "Daily Briefing \u2014 Jun 01",
+  "headline": "Tech leadership is getting mental while every other sector looks sick \u2014 flows, not narratives, are driving this market.",
   "body": [
-    "Right, so let's look at what the flows are telling us: the market keeps marching higher, with SPY closing at $757.00 well above the 20 MA ($739.36)\u2014no technical breakdowns here. VIX is normal and trending lower, and Fear & Greed sits at 60.3 (greed, but nowhere near bubble territory), so it's calm. Flows and momentum in XLK (Technology) are leading, but underlying breadth in lagging sectors is getting ugly.",
-    "Sector rotation is clear: XLK has RS=124.0, Mom=104.9\u2014leading by miles, and most tech names (AAPL, MSFT, AMZN, META, ARM) are extended from their 20 MA. Meanwhile, XLE, XLF, XLP, XLV, and XLI are lagging hard, all with high risk ratings. The market remains narrow\u2014breadth is soft, leadership concentrated, and this never lasts forever. If you lose financials (XLF $51.35 vs. 20 MA $51.50), economy sickness is on the table.",
-    "Contrarian radar: NVDA looks suspicious, sitting below its 20 MA ($215.62) with a bear bias\u2014watch for institutions accumulating near $214. Energy (XLE, USO) and commodities are rolling over, with everything below 20 MAs (R006 triggered for exit, do not chase). Too many lagging sectors = fragility, but nothing's breaking yet. Patience: if bonds (HYG/LQD/TLT) start selling, that's your real risk signal. Retail FOMO is absent, but if press headlines start pumping 'soft landing,' archive it for later."
+    "Right, so let's look at what the flows are telling us \u2014 SPY and QQQ are holding above their 20 MA (SPY 741.12, QQQ 712.35) and tech's got XLK in the 'leading' quadrant with RS=124.6, Mom=105.4. The rest of the market is lagging hard; Financials (XLF 51.33) just triggered a bearish status, and the canary is coughing.",
+    "Sector rotation is brutal: Tech is the only game in town, everything else is lagging and flagged as high risk (Energy, Materials, Industrials, Discretionary, Staples, Healthcare, Financials, Utilities, Real Estate, Communication \u2014 all lagging, all high risk). If you're not in tech, you're basically fighting the tape. Momentum trades like ARM (+17.8%), NBIS (+16.5%), DELL (+7.5%), ZM (+12.5%) are going vertical, but the non-techs are rolling over below 20 MA.",
+    "Contrarian warning: Greed is cooling (Fear & Greed at 59.7, down from 71), but we're not at extreme levels yet. Watch for retail piling in \u2014 flows in NVDA, ARM, DELL are nuts, but stay suspicious. The 20 MA is king: any daily close below it = exit longs. Financials breaking support triggers R001 \u2014 economy sickness risk. Don't chase \u2014 abundance mindset."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $757.00 (20 MA: $739.36) \u2014 bullish, momentum intact<br>NVDA: $214.38 (20 MA: $215.62) \u2014 below 20 MA, bear bias, flag for accumulation<br>XLK: $190.11 (20 MA: $176.04) \u2014 extended tech leadership<br>XLF: $51.35 (20 MA: $51.50) \u2014 flirting with mean, canary status<br>XLE: $56.50 (20 MA: $58.24) \u2014 exit, energy rolling over<br>VIX: 15.7 \u2014 calm regime, but don't let your guard down",
+  "callout_body": "SPY: 741.12 (20 MA support), 756.34 (current)<br>QQQ: 712.35 (20 MA support), 740.38 (current)<br>XLK: 177.73 (20 MA), 194.81 (current)<br>XLF: 51.48 (20 MA), 51.33 (current) \u2014 triggered bearish status<br>NVDA: 216.58 (20 MA), 220.91 (current) \u2014 watching dark pool flows<br>Financials (XLF): triggered R001 \u2014 reduce risk<br>Fear & Greed: 59.7 (Greed but not extreme)<br>Watch for daily closes below 20 MA on tech \u2014 that's your risk switch",
   "action_items": [
-    "Trail stops on tech leaders (AAPL, MSFT, AMZN, XLK) but avoid chasing\u2014abundance mindset, wait for mean reversion.",
-    "Exit or reduce exposure in lagging/triggered sectors (Energy, Staples, Real Estate, NVDA)\u2014R006 rule: daily close below 20 MA, exit longs."
+    "Stay overweight tech (XLK, NVDA, ARM, DELL) while they're above 20 MA, but trail stops tight.",
+    "Reduce/avoid exposure to financials (XLF) and lagging sectors; flag any daily closes below 20 MA as exits."
   ],
-  "closing_quote": "If it's in the press, it's in the price\u2014follow the flows, not the headlines.",
-  "generatedAt": "2026-05-29T13:41:43.756108+00:00",
+  "closing_quote": "If bonds freak out, everything breaks. Don't chase \u2014 next trade comes to the patient.",
+  "generatedAt": "2026-06-01T16:20:48.212405+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
