@@ -206,6 +206,25 @@ else
     warn "Economic Calendar failed (non-fatal)"
 fi
 
+# --- 5d. Sync events.jsonl from parent (source of truth) ---
+# Event writers (extract-events.py, trump-monitor.py, bt-event) only ever
+# append to the PARENT copy at <parent>/data/events.jsonl. The dashboard copy
+# is a derived artifact, so re-copy it each run to prevent drift. Parent is
+# always a strict superset (no writer touches the dashboard copy), making an
+# overwrite lossless. Guarded: skip cleanly if the parent file is absent.
+log "Step 5d: Sync events.jsonl from parent"
+PARENT_EVENTS="${BT_PARENT_EVENTS:-$(dirname "$REPO")/data/events.jsonl}"
+if [[ -f "$PARENT_EVENTS" ]]; then
+    if $PYTHON -c "import json,sys; [json.loads(l) for l in open('$PARENT_EVENTS') if l.strip()]" 2>/dev/null; then
+        cp "$PARENT_EVENTS" "$REPO/data/events.jsonl"
+        log "✅ events.jsonl synced from parent ($(wc -l < "$REPO/data/events.jsonl" | tr -d ' ') rows)"
+    else
+        warn "Parent events.jsonl failed JSONL validation — keeping dashboard copy"
+    fi
+else
+    warn "Parent events.jsonl not found at $PARENT_EVENTS — keeping dashboard copy"
+fi
+
 # --- 6. Regime Intelligence ---
 log "Step 6/7: Regime Intelligence (AI Researcher)"
 if $PYTHON scripts/update-regime.py 2>&1 | tee -a "$LOG"; then

@@ -282,3 +282,57 @@ function createWeeklyChart(containerId, symbol) {
   });
 }
 ```
+
+---
+
+## events.jsonl — Source of Truth & Auto-Sync
+
+`data/events.jsonl` exists in **two** places and they are NOT peers:
+
+- **PARENT** `~/projects/breakingtrades/data/events.jsonl` — the **authoritative** copy.
+- **DASHBOARD** `breakingtrades-dashboard/data/events.jsonl` — a **derived artifact** that ships with the site.
+
+### Why two copies
+
+Every event writer appends to the PARENT copy only:
+
+- `scripts/extract-events.py` (`EVENTS_FILE` -> parent `data/events.jsonl`)
+- `scripts/trump-monitor.py`
+- `scripts/bt-event`
+
+Nothing writes the dashboard copy directly. It is a snapshot taken so the
+static site has the data committed alongside it. Because only the parent is
+ever appended to, the parent is **always a strict superset** of the dashboard
+copy — there is no scenario where the dashboard legitimately holds events the
+parent lacks.
+
+### The drift problem (historical)
+
+The dashboard copy was a one-time manual snapshot, so over time the parent
+accumulated events the dashboard never received (observed: parent 164 rows vs
+dashboard 149 — 15 parent-only, 0 dashboard-only). The site shipped a stale
+subset.
+
+### The fix — auto-resync in EOD
+
+`scripts/eod-update.sh` **Step 5d** re-copies the parent file into the
+dashboard each run, making the dashboard copy a true derived artifact:
+
+```
+PARENT_EVENTS="${BT_PARENT_EVENTS:-$(dirname "$REPO")/data/events.jsonl}"
+# if parent exists AND passes JSONL validation -> cp into dashboard
+# else -> warn (non-fatal) and keep the existing dashboard copy
+```
+
+Properties:
+
+- **Lossless** — overwrite is safe because parent is a superset of dashboard by construction.
+- **Guarded** — missing parent or invalid JSONL skips the copy and warns
+  instead of failing the EOD run (`set -euo pipefail` safe).
+- **Overridable** — set `BT_PARENT_EVENTS` to point at a non-default parent path.
+
+### Operational rule
+
+Do **not** hand-edit the dashboard `data/events.jsonl`. Any manual edit is
+overwritten on the next EOD run. To add/fix events, write to the **parent**
+copy (via the event-writer scripts) and let Step 5d propagate it.
