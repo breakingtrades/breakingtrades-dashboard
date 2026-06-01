@@ -113,6 +113,15 @@ describeWithData('EM Anchor vs Live Price Independence', () => {
   test('EM close (anchor) should NOT equal prices.json for majority of tickers', () => {
     // This is the direct test for the root cause.
     // If the EM script uses prices.json as its anchor, they'll match exactly.
+    //
+    // EXCEPTION: after an EOD run, eod-update.sh step 7b deliberately syncs
+    // prices.json price = EM close so both files agree on the official close
+    // (source tag "yfinance+eod-sync"). In that post-close state anchor == spot
+    // is correct by design, so the independence check does not apply.
+    if ((pricesData.source || '').includes('eod-sync')) {
+      console.warn('⏭  Skipping anchor-independence check: prices.json is EOD close-synced');
+      return;
+    }
     const tickers = emData.tickers || {};
     const priceTickers = pricesData.tickers || {};
     let exactMatches = 0;
