@@ -515,11 +515,17 @@
 
 /* Group headers */
 .wl-group-header td {
-  background: rgba(0, 212, 170, 0.05);
+  background: #0e1a1d;
   border-top: 1px solid rgba(0, 212, 170, 0.2);
   border-bottom: 1px solid rgba(0, 212, 170, 0.1);
   padding: 8px 12px !important;
   font-size: 11px;
+  /* Stick just below the sticky column-header row so the first band never
+     tucks underneath it. thead th is sticky at --sticky-top-offset (z 80);
+     offset this row by the thead height (~36px) and stack it just below. */
+  position: sticky;
+  top: calc(var(--sticky-top-offset) + 36px);
+  z-index: calc(var(--z-table-head) - 1);
 }
 .wl-gh-name {
   font-weight: 700;
