@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Jun 01",
-  "headline": "Tech leadership is getting mental while every other sector looks sick \u2014 flows, not narratives, are driving this market.",
+  "title": "Daily Briefing \u2014 Jun 02",
+  "headline": "Tech leads, but under the hood we\u2019re seeing laggards and defensive rotation \u2014 flows aren\u2019t confirming the euphoria.",
   "body": [
-    "Right, so let's look at what the flows are telling us \u2014 SPY and QQQ are holding above their 20 MA (SPY 741.12, QQQ 712.35) and tech's got XLK in the 'leading' quadrant with RS=124.6, Mom=105.4. The rest of the market is lagging hard; Financials (XLF 51.33) just triggered a bearish status, and the canary is coughing.",
-    "Sector rotation is brutal: Tech is the only game in town, everything else is lagging and flagged as high risk (Energy, Materials, Industrials, Discretionary, Staples, Healthcare, Financials, Utilities, Real Estate, Communication \u2014 all lagging, all high risk). If you're not in tech, you're basically fighting the tape. Momentum trades like ARM (+17.8%), NBIS (+16.5%), DELL (+7.5%), ZM (+12.5%) are going vertical, but the non-techs are rolling over below 20 MA.",
-    "Contrarian warning: Greed is cooling (Fear & Greed at 59.7, down from 71), but we're not at extreme levels yet. Watch for retail piling in \u2014 flows in NVDA, ARM, DELL are nuts, but stay suspicious. The 20 MA is king: any daily close below it = exit longs. Financials breaking support triggers R001 \u2014 economy sickness risk. Don't chase \u2014 abundance mindset."
+    "Right, so S&P (SPY $758.57) and Nasdaq (QQQ $743.32) are grinding higher, but it's not the broad market strength everyone wants to see. VIX is behaving, trending below its 20-day (16.05 vs 17.14), and Fear & Greed has cooled off to 57.1 \u2014 no longer extreme, but still complacent territory.",
+    "Sector rotation is messy: XLK (Tech) is the sole leader, with SMA20 at $179.51 and price way above at $196.66. But financials (XLF $51.17) have triggered support breaches \u2014 below weekly SMA200 ($52.27) is a real canary moment, and energy, discretionary, and comms all lagging. Money is starting to drift into materials (XLB $51.21) and industrials (XLI $173.45), but healthcare, staples, and utilities are only 'improving,' not out of the woods.",
+    "Contrarian flags: Retail still chasing tech (AAPL, NVDA, MSFT) while financials break, so be suspicious. Weekly closes below key MAs (GOOGL, XLC, XLRE, ADSK, S, KMB) are triggering exits per the 20 MA rule. Don\u2019t chase: abundance mindset. Macro flows aren\u2019t showing panic, but if bonds freak out (watch HYG/LQD), reduce exposure fast."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: 741.12 (20 MA support), 756.34 (current)<br>QQQ: 712.35 (20 MA support), 740.38 (current)<br>XLK: 177.73 (20 MA), 194.81 (current)<br>XLF: 51.48 (20 MA), 51.33 (current) \u2014 triggered bearish status<br>NVDA: 216.58 (20 MA), 220.91 (current) \u2014 watching dark pool flows<br>Financials (XLF): triggered R001 \u2014 reduce risk<br>Fear & Greed: 59.7 (Greed but not extreme)<br>Watch for daily closes below 20 MA on tech \u2014 that's your risk switch",
+  "callout_body": "SPY: $743.26 (SMA20) \u2014 must hold for trend<br>XLF: $51.17 (price) vs $52.27 (SMA200) \u2014 support broken, risk up<br>GOOGL: $371.29 (price) vs $390.09 (SMA20) \u2014 bearish trigger<br>AAPL: $310.19 (price) vs $300.46 (SMA20) \u2014 breakout zone<br>HYG: $79.87 (approaching SMA20 $79.55) \u2014 monitor closely<br>Fear & Greed: 57.1 \u2014 no edge, but getting complacent",
   "action_items": [
-    "Stay overweight tech (XLK, NVDA, ARM, DELL) while they're above 20 MA, but trail stops tight.",
-    "Reduce/avoid exposure to financials (XLF) and lagging sectors; flag any daily closes below 20 MA as exits."
+    "Exit or reduce XLF, XLRE, XLC exposure \u2014 support breaks and lagging signals",
+    "Watch HYG/LQD for macro breakdown \u2014 first defense if bonds roll over"
   ],
-  "closing_quote": "If bonds freak out, everything breaks. Don't chase \u2014 next trade comes to the patient.",
-  "generatedAt": "2026-06-01T16:20:48.212405+00:00",
+  "closing_quote": "If financials are sick, it's not bullish \u2014 patience, react, don't predict.",
+  "generatedAt": "2026-06-02T14:35:54.488414+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
