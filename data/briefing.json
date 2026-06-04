@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Jun 03",
-  "headline": "Tech still leads but financials coughing up a lung \u2014 watch the canary.",
+  "title": "Daily Briefing \u2014 Jun 04",
+  "headline": "Rotational shift in play: tech showing cracks, cyclicals quietly improving.",
   "body": [
-    "Right, so today's tape is mixed: SPY holding well above its 20 MA ($744.92) at $756.05, but under the hood, tech momentum is slowing and financials (XLF) are breaking support. VIX is low at 15.77 \u2014 feels calm, but that's usually when you want to sharpen your risk radar.",
-    "Tech (XLK) remains the only sector with LOW risk and leading status (RS=127.6; price at $196.89 well above all MAs). Meanwhile, lagging sectors like XLF ($50.55, triggered bear, below all MAs) and XLC (exit) are flashing caution. Rotation favours select healthcare and industrials \u2014 XLV, XLI, XLB are improving, but nothing turbo. Energy (XLE) is still high risk and lagging.",
-    "Financials breaking their 20 MA and triggering bear (R010 canary rule) is a major warning \u2014 economy sickness alert. Sentiment is in moderate greed (57), not extreme, but margin debt and high retail flows have been near record, so I'm not chasing. If it's in the press, it's in the price. Less trades = more wins."
+    "Right, so here's the big picture: Tech is still in the lead (XLK RS=127.2), but we're seeing bearish biases emerge in NVDA, GOOGL, AMZN, and XLK is actually down -2.4% today. The VIX is holding at 16.06, trending below its SMA20, signaling low volatility and complacency in the tape. Fear & Greed is neutral at 53.5 \u2014 no outright signals, but momentum is cooling off from the highs last month.",
+    "Rotation is the story: Energy (XLE), Materials (XLB), Industrials (XLI), and Healthcare (XLV) are all moving from 'elevated risk' to 'improving.' RS levels are rising, and price is climbing above the 20 and 50 MAs. DHR just triggered above its MAs, and UPS & AA broke out above all key levels \u2014 classic rotational play. Tech leadership is getting crowded, but cyclicals are quietly gaining strength beneath the surface.",
+    "Contrarian flag: NVDA, AMZN, GOOGL all sitting below their 20 MA. That triggers my technical risk rule \u2014 when leaders daily close under 20 MA, exit or reduce longs. XLF (the canary) is lagging despite a price pop, and Discretionary (XLY) remains high risk and lagging. If it's in the press, it's in the price, and right now consensus is still tech. Flows are signaling a stealth rotation \u2014 patience, don't chase."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY 20 MA: $744.92 (holds, bullish)<br>XLF: $50.55 (triggered bear, below 51.42 MA)<br>NVDA: $218.97 20 MA \u2014 watch for daily close below for exit<br>XLK: $196.89 (leading, safe haven zone)<br>VIX: 15.77 (complacency zone \u2014 stay tighten-up)<br>XLE, XLF, XLC, XLRE: avoid, lagging/high risk<br>Tech: Only sector to overweight short-term",
+  "callout_body": "NVDA: $219.26 (20 MA \u2014 below, caution zone)<br>AMZN: $265.39 (20 MA \u2014 below, caution zone)<br>XLF: $51.43 (20 MA \u2014 just above, but lagging in RRG, watch for breakdown)<br>DHR: $172.32 (20 MA \u2014 triggered long, relative strength pickup)<br>XLE: $58.12 (20 MA \u2014 holding, improving quadrant)<br>SPY: $745.81 (20 MA \u2014 above, bull bias intact)",
   "action_items": [
-    "Watch NVDA \u2014 if daily close < $218.97, exit any longs (R007 technical rule)",
-    "Rotate to XLK/XLV/XLI (tech, healthcare, industrials) only if holding above their weekly 20 MA \u2014 hands off lagging sectors"
+    "Rotate watchlist toward improving sectors: XLE, XLB, XLI, XLV. Watch for confirmation above weekly 20 MA.",
+    "Reduce exposure or place stops on tech names below their 20 MA \u2014 NVDA, AMZN, GOOGL \u2014 per technical risk rule."
   ],
-  "closing_quote": "If bonds freak out, everything breaks. Right now? The canary\u2019s wheezing, so don\u2019t get greedy.",
-  "generatedAt": "2026-06-03T15:13:39.611560+00:00",
+  "closing_quote": "Abundance mindset: missed tech isn't a tragedy, it's a signal \u2014 find the next setup.",
+  "generatedAt": "2026-06-04T13:38:16.209513+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
