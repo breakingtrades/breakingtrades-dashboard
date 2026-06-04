@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-04T20:57:00.609498",
+  "updated": "2026-06-04T21:56:16.824562",
   "source": "yfinance",
   "tier": "daily",
   "failures": [],
@@ -8,7 +8,7 @@
     "SPY": {
       "close": 754.24,
       "spot": 754.24,
-      "updated": "2026-06-04T20:56:59.834378",
+      "updated": "2026-06-04T21:56:16.090732",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "ES",
@@ -459,7 +459,7 @@
     "QQQ": {
       "close": 744.21,
       "spot": 744.21,
-      "updated": "2026-06-04T20:56:59.060851",
+      "updated": "2026-06-04T21:56:15.278838",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "NQ",
@@ -910,7 +910,7 @@
     "IWM": {
       "close": 287.67,
       "spot": 287.67,
-      "updated": "2026-06-04T20:56:58.657540",
+      "updated": "2026-06-04T21:56:14.966647",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "RTY",
@@ -1361,7 +1361,7 @@
     "DIA": {
       "close": 508.26,
       "spot": 508.26,
-      "updated": "2026-06-04T20:56:57.622294",
+      "updated": "2026-06-04T21:56:14.037686",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "YM",
@@ -1812,7 +1812,7 @@
     "IBIT": {
       "close": 37.0,
       "spot": 37.0,
-      "updated": "2026-06-04T20:56:58.292902",
+      "updated": "2026-06-04T21:56:14.634381",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "BTC",
@@ -2261,7 +2261,7 @@
     "UNG": {
       "close": 11.71,
       "spot": 11.71,
-      "updated": "2026-06-04T20:57:00.196212",
+      "updated": "2026-06-04T21:56:16.387782",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "NG",
@@ -2681,7 +2681,7 @@
     "USO": {
       "close": 140.86,
       "spot": 140.86,
-      "updated": "2026-06-04T20:57:00.535587",
+      "updated": "2026-06-04T21:56:16.761429",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "CL",
@@ -3123,7 +3123,7 @@
     "GLD": {
       "close": 407.87,
       "spot": 407.87,
-      "updated": "2026-06-04T20:56:57.966421",
+      "updated": "2026-06-04T21:56:14.330515",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "GC",
@@ -13103,7 +13103,7 @@
     "SPX": {
       "close": 7553.68,
       "spot": 7553.68,
-      "updated": "2026-06-04T20:56:59.421941",
+      "updated": "2026-06-04T21:56:15.675899",
       "source": "yfinance",
       "strike": 7565.0,
       "straddle": 93.72,
