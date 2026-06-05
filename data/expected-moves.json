@@ -1,9 +1,19 @@
 {
-  "updated": "2026-06-05T17:49:50.182858",
+  "updated": "2026-06-05T20:48:05.142664",
   "source": "yfinance",
   "tier": "daily",
-  "failures": [],
-  "failure_count": 0,
+  "failures": [
+    "DIA",
+    "GLD",
+    "IBIT",
+    "IWM",
+    "QQQ",
+    "SPX",
+    "SPY",
+    "UNG",
+    "USO"
+  ],
+  "failure_count": 9,
   "tickers": {
     "SPY": {
       "close": 757.09,
