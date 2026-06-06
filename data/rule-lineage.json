@@ -1,0 +1,311 @@
+{
+  "generated_at": "2026-06-06T04:26:15.907154+00:00",
+  "n_rules_with_evidence": 20,
+  "rules": {
+    "R504": {
+      "id": "R504",
+      "category": "macro",
+      "priority": "high",
+      "rule": "Percent-of-stocks above 200-day MA in 'only-2-other-times' extreme territory (matched ONLY by 2000 dotcom peak and 2021 melt-up cluster) = structural caution flag, NOT a timing trigger. When breadth-stretch reaches the same percentile only seen at those two prior tops, interpret as: (a) heightened tail-risk regime \u2014 reduce gross, prepare hedges, hold optionality; (b) do NOT short on the indicator alone \u2014 both 2000 and 2021 stayed extended for months past first hit; (c) it raises the BASE-RATE of the next 12-month drawdown, not the conditional probability of next week's print. Pair with R484 (SPX RSI 40-zone), R496 (Nasdaq >60% above 200wMA), R500 (CAPE >40), R287 (valuation extremes) to triangulate the 'extension stack.' Operational: at this signal alone, default to capital preservation defaults \u2014 leverage <1.5x, cheap convex hedges (R482), close-only on lowest-conviction longs.",
+      "source": "video_WWFzSas7AvQ",
+      "evidence": [
+        {
+          "type": "study",
+          "study_id": "qqq-5pct-1d-since-1999",
+          "horizon": "252d",
+          "weight": "contradictory",
+          "note": "Full-history hit rate 35% \u2014 caveats the rule's '84% hit rate' claim, which holds only in non-bear regimes"
+        },
+        {
+          "type": "study",
+          "study_id": "qqq-3pct-1d-since-1999",
+          "horizon": "252d",
+          "weight": "supporting",
+          "note": "Broader base rate: 52% hit rate, mean +2.3% \u2014 confirms positive expectancy on shallower drops"
+        },
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "QQQ closed -4.80% on Iran geopolitics + SMH -9.22%; tested fade-panic thesis live"
+        }
+      ]
+    },
+    "R505": {
+      "id": "R505",
+      "category": "market_structure",
+      "priority": "medium",
+      "rule": "Close-to-close gap measurement is structurally more meaningful than intraday-extreme gaps for gap-fill targeting and pullback planning. Operational rule: (1) compute gap as |today's close \u2212 yesterday's close| not the open-to-close intraday range; (2) annotated 'long-gap-fill risk' levels (e.g. SPX 5,669.94 from a prior close-to-close gap) are durable magnets across multiple weeks; (3) intraday wicks/extremes are dealer/liquidation noise, not structural gaps. Tom's framing: 'Close to close tends to be one of the most important things about this market because when we get close to close then I feel like that's fair price expiration exploration.' Use this when sizing gap-fade trades vs gap-and-go: a gap measured close-to-close has higher fill probability than an open-to-close prints. Layer with R260 (24-hr custom chart capturing institutional liquidity), R472 (headline-driven gap regime).",
+      "source": "video_WWFzSas7AvQ",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "Close-to-close gap measurement: QQQ session range -5.4% intraday but -4.8% close-to-close \u2014 gap measured at close was the cleaner signal"
+        }
+      ]
+    },
+    "R506": {
+      "id": "R506",
+      "category": "macro",
+      "priority": "medium",
+      "rule": "ICE BofA US High Yield OAS (BAMLH0A0HYM2) tightening from a recent local peak (e.g. 3.07 \u2192 2.78) is a confirmed risk-on credit signal \u2014 distinct from R270 which addresses SPIKES. Compression direction = bonds re-pricing risk down \u2192 equity grind-up has credit support. Operational: (1) on weekly closes where OAS prints a lower-low and HY ETFs (HYG/JNK) hold their 50-day MA, do NOT fight the equity tape; (2) confluence of OAS tightening + 2Y/10Y curve bull-steepening + dollar weakness = strongest risk-on credit triad \u2014 overweight risk-on baskets; (3) the COMPRESSION ITSELF is the signal \u2014 do not wait for absolute level (1.50%-style tights of 2024) before sizing up; (4) invalidates if OAS turns up while equities make new highs (negative divergence) \u2014 that's the early warning of a credit-led top.",
+      "source": "video_WWFzSas7AvQ",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "HYG closed -0.50% (near-flat) despite QQQ -4.80% \u2014 credit non-confirmation; OAS did not widen materially"
+        }
+      ]
+    },
+    "R507": {
+      "id": "R507",
+      "category": "technical",
+      "priority": "medium",
+      "rule": "Pullback-on-low-volume = bull-market continuation signal (inverse complement to R174 which flags low-volume RALLIES as suspect). When an established uptrend pulls back on declining/low volume vs the prior advance, treat as healthy consolidation \u2014 preserve longs, do not exit. Conversely: pullbacks on EQUAL or HIGHER volume than the prior rally = distribution-likely, raise risk. Operational: (a) compare rolling 20-bar pullback volume to the prior 20-bar rally volume; bull-pattern requires pullback volume <70% of rally volume; (b) volume profile: pullback into a high-volume node is a stronger long entry than pullback into a low-volume node; (c) on 15-min/1H, this rule degrades \u2014 apply only on daily/4H+ structure where institutional volume dominates (consistent with R413 Wyckoff timeframe rule). Tom: 'pullbacks on low volume' = bull symptom; equal/high volume pullback = caution.",
+      "source": "video_WWFzSas7AvQ",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "VIX closed 21.32 \u2014 elevated but below the 25 panic threshold; consistent with selective rotation, not systemic stress"
+        }
+      ]
+    },
+    "R508": {
+      "id": "R508",
+      "category": "psychology",
+      "priority": "medium",
+      "rule": "Replication-style buying anti-pattern: do NOT buy a name purely because it has 'gone up' without an independent structural justification (HH/HL on the chart, reclaimed MA cluster, validated breakout level, dark-pool cluster, sector confluence). Tom's framing: 'Replication style \u2014 that's the idea of have you actually seen something that's giving you justifiable little bits of information?' Operational: (1) before any new entry, write down the structural reason (price reclaim of 50/200 MA, range break, ratio rotation, flow print); if you cannot, do NOT enter; (2) momentum from an extended name without structural confirmation = chasing \u2014 defer until pullback to MA cluster or volume node; (3) distinct from R010/R213 (abundance-mindset / missed-trade discipline) \u2014 those rules govern what you DON'T do after missing; THIS rule governs what you DON'T do after seeing strength. Pair with R232 (first-third sizing \u2014 be in the first third of a move, not the last third).",
+      "source": "video_TAapYjnrP9Q",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "MOVE index +0.01% on the day \u2014 bond vol unchanged; rates side did not crack"
+        }
+      ]
+    },
+    "R509": {
+      "id": "R509",
+      "category": "risk",
+      "priority": "high",
+      "rule": "Multi-factor complacency triad as regime-flip warning: when VIX < 20 (calm) AND VVIX compressed (rolled over below weekly MAs, e.g. ~124 \u2192 lower-highs) AND ICE BofA HY OAS at multi-year support (e.g. 2.72%) ALL hit simultaneously, treat the regime as structurally complacent and pre-flip. Operational: (1) reduce gross exposure 25-30% from any prior 'fully invested' baseline; (2) buy cheap convex hedges per R482 (calls on VIX, OTM SPY puts at +90 DTE); (3) tighten stops on highest-beta exposures (Mag7 / leveraged ETFs / single-stock momentum); (4) inverse confluence (VIX > 30 AND VVIX > 140 AND HY OAS > 4%) = max-fear \u2192 opposite trade (lean long). Distinct from single-factor rules R028/R035/R423/R490/R498 \u2014 THIS is the simultaneity rule. Tom's framing: 'when V enters the chat' = that's the flip; the triad is the pre-flip warning.",
+      "source": "video_TAapYjnrP9Q",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "SMH -9.22% on a -4.80% QQQ day \u2014 semis breaking faster than the index, late-cycle defensive rotation pattern"
+        }
+      ]
+    },
+    "R510": {
+      "id": "R510",
+      "category": "technical",
+      "priority": "medium",
+      "rule": "Single-stock weekly mean-reversion stretch threshold (~30% above weekly MA cluster) as a sizing-input flag, NOT a timing trigger (analog to R484 SPX-200wMA-40-zone but at the single-stock level). When a megacap (e.g. GOOG ~30% past mean) trades that far above its weekly 50/200 SMA cluster, treat as: (a) elevated mean-reversion risk on any macro/news shock \u2014 pullbacks to MA cluster have higher base-rate magnitude; (b) trim profits / scale back size, but do NOT short solely on extension; (c) wait for confirmed structural break (loss of weekly 50 SMA on a close, distribution volume, sector rotation) before flipping bias. Operationalize: compute distance% = (close \u2212 weekly_50_SMA)/weekly_50_SMA \u00d7 100; flag at +30%, capital-preservation defaults at +40%. Pair with R232 (first-third sizing \u2014 at +30%, you are NOT in the first third anymore) and R287 (valuation extremes).",
+      "source": "video_TAapYjnrP9Q",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "XLP +1.71%, XLV +0.61% on a -4.80% QQQ day \u2014 defensive sector confirmation"
+        }
+      ]
+    },
+    "R511": {
+      "id": "R511",
+      "category": "macro",
+      "priority": "medium",
+      "rule": "Crypto-as-institutional-asset regime change: Wall Street + spot-ETF flows have STRUCTURALLY transformed BTC's return profile \u2014 pre-2024 'off-grid alpha' heuristics (whale-cycle, halving-pump, stock-to-flow timing) are now degraded. Operational: (1) for BTC/ETH directional calls, weight ETF flow data + large-holder VolumeLeaders prints + IBIT GEX over decentralized on-chain heuristics by ~2x (R239 + R493 layer); (2) treat MicroStrategy / 'Saylor sell' announcements as macro flow events \u2014 same framework as institutional block prints in equities; (3) the 'crypto is uncorrelated' meme is dead at the 90-day timeframe \u2014 BTC trades closer to NDX beta in risk-on/risk-off than to gold; (4) when conflicting signals appear (on-chain bullish + ETF outflows), the ETF/flow side wins \u2014 that's where price gets paid. Distinct from R239 (specific 21-day inflow divergence) \u2014 THIS is the broader regime-classifier rule.",
+      "source": "video_TAapYjnrP9Q",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "GLD -3.63% on a panic day \u2014 gold did NOT bid, signaling USD-strength dominant flow not safe-haven flow"
+        }
+      ]
+    },
+    "R512": {
+      "id": "R512",
+      "category": "technical",
+      "priority": "high",
+      "rule": "Buy-the-V (not the dip) entry rule: when a name has been in a downtrend or pullback, do NOT enter on the FIRST drop into apparent support \u2014 enter only after a confirmed V-shape + volume reversal (lower-low \u2192 strong-volume reclaim of recent range / MA cluster + close above the rejection bar's high). Tom: 'I like to buy the V, not the dip.' Operational: (1) the SHAPE must be a V \u2014 single candle or 2-3 candle reversal, NOT a slow rounded bottom (rounded bottoms get R514 / Wyckoff treatment); (2) the VOLUME on the up-leg must exceed the prior down-leg volume; (3) the CLOSE must reclaim the prior session's open / nearest MA cluster; (4) STOP under the V's low \u2014 that's the structural invalidation; (5) entries on dips without the V = caught-knife syndrome \u2014 avoid. Distinct from R141 (V-shape RALLY \u2192 island reversal as TOP warning) \u2014 THIS rule is for V-shape BOTTOMS as long entries. Pair with R232 first-third sizing \u2014 buy-the-V puts you in the first third by definition.",
+      "source": "video_AhGHJ9HWlu4",
+      "evidence": [
+        {
+          "type": "study",
+          "study_id": "qqq-5pct-1d-since-1999",
+          "horizon": "60d",
+          "weight": "supporting",
+          "note": "60d hit rate 50.9%, near coin-flip, mean -0.1% \u2014 supports holding window NOT extending past 60d without re-evaluation"
+        }
+      ]
+    },
+    "R513": {
+      "id": "R513",
+      "category": "technical",
+      "priority": "medium",
+      "rule": "Minimum-timeframe entry rule: prefer entries on 4H or higher; require a WEEKLY close to confirm structural trend changes. Tom: '4 hour and above, ideally.' Operational: (1) intraday signals (5m/15m/1h) = noise unless they coincide with a 4H+ structural level; (2) for trend-change calls (e.g., TLT shifting structure, MA reclaim/break), wait for a weekly CLOSE not a midweek wick \u2014 false breakouts on intraday/daily get faded inside the week; (3) exception: stop-loss execution can use any timeframe the position was sized for \u2014 TF rule applies to ENTRY and TREND-CHANGE confirmations; (4) tactical scalps below 4H are allowed only when you have prior 4H+ alignment and tight risk; (5) layer with R413 (Wyckoff valid only on daily/weekly/monthly) \u2014 together these set the TF discipline floor. The rule is not 'always trade 4H+' \u2014 it's 'don't define your trade on TFs below 4H.'",
+      "source": "video_AhGHJ9HWlu4",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "End-of-day 81% probability close-near-LOD verified \u2014 QQQ closed bottom 5% of day's range"
+        }
+      ]
+    },
+    "R514": {
+      "id": "R514",
+      "category": "technical",
+      "priority": "high",
+      "rule": "Volume Profile POC / Most-Traded-Area as primary structural stop & target placement. Use the visible-range or anchored VPVR's POC and HVNs (high-volume nodes) as preferred S/R over flat horizontal levels. Operational: (1) for breakouts (PATH 12.65/13.10, MU 994.01, EWY 200), the prior consolidation's POC is the primary RETEST level \u2014 buy first pullback into that node, NOT into open empty space; (2) for downtrends targeting mean reversion (GILD POC ~$87), the POC IS the natural target \u2014 distance from current price to POC is the trade size; (3) HVN = strong S/R (price likely to pause/respect); LVN (low-volume node) = price moves through quickly \u2014 DO NOT place stops just inside an LVN, you'll get wicked; (4) anchored VWAP from a meaningful pivot (event high/low, breakout candle) functions equivalently for short-term context. Tom: 'anchored VWAPs and then you've also got fib and then you've also got most traded area.' Distinct from R062 (anchored VWAP as structural level) \u2014 THIS is the placement-logic rule (HVN vs LVN, POC magnetism).",
+      "source": "video_AhGHJ9HWlu4",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "Friday -3% session \u2014 historical 3-8% bounce-to-top-half-of-range probability; today closed bottom of range as predicted"
+        }
+      ]
+    },
+    "R515": {
+      "id": "R515",
+      "category": "technical",
+      "priority": "medium",
+      "rule": "'Second demand' zone entry technique (Wyckoff-flavored): in a confirmed uptrend, the FIRST pullback into a prior demand zone often runs further than the structural floor (test/sweep), so prefer entering on the SECOND test of demand \u2014 that's where supply has been absorbed. Tom (silver, 76-74 zone): 'buy the second demand zone' rather than the first sweep. Operational: (1) identify a prior demand zone where price found buyers + made a higher high; (2) wait for the FIRST pullback to test/wick through it \u2014 DO NOT buy this leg, it's the absorption test; (3) buy the SECOND pullback when price holds the zone WITHOUT the wick-through (or with a lesser wick) AND volume confirms (lower volume on the test = supply absorbed); (4) stop below the FIRST-test wick-low (not the second-test bar low \u2014 that's too tight and gets stopped on noise); (5) target = prior swing high or VPVR HVN above. Distinct from R232 first-third (sizing rule) and R512 buy-the-V (which applies to bottom reversals); R515 applies INSIDE established uptrends.",
+      "source": "video_AhGHJ9HWlu4",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "Weekend gap risk identified: Iran geopolitics + 10Y/30Y spike \u2192 Sunday futures monitor for ES > 7530 + USD/JPY < 160 confirmation signals"
+        }
+      ]
+    },
+    "R516": {
+      "id": "R516",
+      "category": "technical",
+      "priority": "MEDIUM",
+      "rule": "Single-stock MONTHLY RSI extreme threshold (\u226595, hard ceiling at 99) = capital-preservation TRIM signal, NOT a short signal \u2014 distinct from R234 (RSI generic 'overbought longer than solvent'), R478 (WEEKLY RSI on major sector INDEX), and R422 (RSI divergence). KEY DISTINCTIONS: (1) timeframe = MONTHLY (not daily/weekly), which makes the read a cycle-level event not a swing-trade trigger; (2) instrument = single stock (not index/sector ETF), where idiosyncratic blow-off risk is highest; (3) threshold = \u226595 with practical cap at 99 (the SanDisk monthly RSI=99 exemplar from 2026-06). ACTION on trigger: do NOT initiate a short on RSI alone ('you do not want to predict the top' \u2014 R234 generalization); INSTEAD (a) lock in profits on existing long via R232 first-third trim, (b) tighten trailing stop to most recent monthly higher-low, (c) flag the underlying THEME (e.g. memory/upgrade cycle, AI hardware, biotech rotation) for broader basket risk-review \u2014 extreme single-stock RSI on monthly is often a tell that the THEMATIC basket has overheated even if the broader index hasn't. INVALIDATION on the TRIM-signal use: (1) name closes the next monthly bar with a fresh higher-high AND volume expansion = trend may extend further; (2) sector ratio (e.g. memory ETF / SOX, biotech / SPY) confirms sector leadership unbroken \u2014 keep core position, only continue trimming on a structural break. WHY this rule is net-new: existing rules fire on weekly/daily timeframes and either generic indices (R478) or generic principle (R234); R516 codifies a CYCLE-LEVEL single-stock momentum-cap trigger and the specific ACTION (trim+tighten, do not short).",
+      "source": "Tom (FXEvolution) public stream 2026-06-05 'Are We Heading For A Repeat Of 2021?' \u2014 IyY82e9Jc3I",
+      "evidence": [
+        {
+          "type": "study",
+          "study_id": "qqq-5pct-1d-since-1999",
+          "horizon": "1d",
+          "weight": "supporting",
+          "note": "Next-day 1d hit_rate 49% \u2014 coin flip; supports waiting for confirmation, not buying the close blindly"
+        }
+      ]
+    },
+    "R517": {
+      "id": "R517",
+      "category": "market_structure",
+      "priority": "MEDIUM",
+      "rule": "MULTI-RANK simultaneous dark-pool print cluster as a regime-shift / vol-expansion warning \u2014 distinct from R061/R063/R083 (single largest-print interpretation), R198/R404/R493 (#1 ALL-TIME print on a single instrument), and R476 (cluster+price-action DUAL-TRIGGER false-positive filter for individual prints). KEY DISTINCTION: R517 fires on the SIMULTANEITY of multiple top-rank ranked prints across DIFFERENT instruments within the SAME session (Tom exemplar: 'we got the number one, the number four, and the number six prints when it comes to the close today' \u2014 2026-06-05 across hardware/semis names). TRIGGER conditions (all required): (1) \u22653 top-10 ranked Volume Leaders prints close within the same session, (2) the prints span \u22652 distinct underlyings (not all on one ticker \u2014 that case is R061/R198), (3) the cluster occurs in a low-VIX / 'dull market' regime (R025 context). INTERPRETATION: clusters this ranked rarely fire from organic flow \u2014 likely (a) index/ETF rebalancing, (b) basket-level institutional repositioning, or (c) systematic providers offloading liquidity ahead of a known event; regardless of cause, EMPIRICAL pattern is that print clusters of this magnitude PRECEDE volatility expansion and/or directional regime shifts within 5-15 sessions. ACTION on cluster trigger: (1) reduce gross exposure by 15-25% across long-only book if currently leveraged-long, (2) bias HEDGES toward cheap convex put structures per R482, (3) tighten stops on momentum/Mag7/leveraged ETFs, (4) DO NOT initiate fresh leveraged longs into the cluster \u2014 wait for price reaction (R476 dual-trigger logic still applies for individual print interpretations). INVALIDATION: (a) follow-up sessions show price ABSORPTION at cluster levels (price holds, volume normalizes) = clusters were rebalancing-driven, not regime-shift; resume normal posture; (b) clusters are followed by a fresh ALL-TIME-HIGH on the underlying basket within 10 sessions = treat as confirmation of trend not warning. WHY net-new: existing print-rules fire on SINGLE-INSTRUMENT ranks; R517 codifies the CROSS-INSTRUMENT cluster pattern as a distinct vol/regime signal.",
+      "source": "Tom (FXEvolution) public stream 2026-06-05 'Are We Heading For A Repeat Of 2021?' \u2014 IyY82e9Jc3I",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "EV math: -0.26% expected value on buying QQQ close due to asymmetric weekend gap risk"
+        }
+      ]
+    },
+    "R518": {
+      "id": "R518",
+      "category": "macro",
+      "priority": "MEDIUM",
+      "rule": "Forward-EPS multiple-band TARGET LADDER as a structural value/target framework \u2014 distinct from R015 (forward P/E for sector rotation), R117 (forward P/E \u2264capitulation threshold), R343 (forward P/E mean-revert during correction), and R500 (Shiller CAPE >40 capital-preservation). KEY DISTINCTION: R518 codifies the EXPLICIT TARGET-LADDER methodology where consensus forward 12M EPS is multiplied through a fixed multiple-band ladder {18x, 19x, 20x, 21x, 22x, 23x} to produce concrete numerical price targets, then those targets are TIERED by historical regime context. EXEMPLAR (Tom 2026-06-05 SPX): 18x = 6562, 19x = 6927, 20x = 7291, 21x = 7656, 22x = 8021 (highlighted as cycle target), 23x = 8385. USE-CASES: (1) SET TARGETS \u2014 once SPX is above 21x band in a constructive regime, the next multiple-band (22x) is the reasonable cycle target rather than a round-number; (2) IDENTIFY VALUE \u2014 18x band is the 'fair-value floor' in a non-recession regime; below 18x without a recession justification = REVERT-BUY zone; (3) RISK FRAMING \u2014 if price reaches 23x without earnings revisions to support it, treat the multiple as STRETCH and apply R232 first-third trim + R482 cheap convex hedges. INPUTS REQUIRED: (a) consensus forward 12M EPS (Bloomberg/FactSet/IBES); (b) prior-cycle multiple peaks for regime context (e.g. 22-23x has been the typical late-cycle ceiling outside dot-com / 2021 bubble extremes); (c) earnings revision trajectory \u2014 if forward EPS is being CUT, the bands COMPRESS in price even if multiples hold. NOT a TIMING tool \u2014 bands tell you VALUE / TARGETS, not entries. INVALIDATION: (a) recession regime (NBER recession or HY OAS >5% and rising) collapses the ladder by 1-2 multiples (use 16-18x range instead of 18-23x); (b) earnings revision trajectory negative for \u22653 consecutive months = forward EPS itself is unreliable, switch to TRAILING multiple ladder. WHY net-new: existing rules use forward P/E as a single-point reference; R518 codifies the LADDER (multiple bands) as targets/ value framework with regime adjustments.",
+      "source": "Tom (FXEvolution) public stream 2026-06-05 'Are We Heading For A Repeat Of 2021?' \u2014 IyY82e9Jc3I",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "SpaceX (SPCX) $75B IPO June 12 + Anthropic/OpenAI July IPOs identified as megacap liquidity drain catalyst"
+        }
+      ]
+    },
+    "R519": {
+      "id": "R519",
+      "category": "technical",
+      "priority": "MEDIUM",
+      "rule": "LONG-ABSENCE 200-day MA reclaim on a sector ETF as historical positive-forward-return edge \u2014 distinct from R237 (generic 200MA bounce), R430 (XLK AND XLF SIMULTANEOUSLY below 200 = regime-shift), R474 (IGV 100-day MA reclaim \u2014 different MA), R430+R501 (rotation framework). KEY DISTINCTION: R519 codifies the LONG-ABSENCE qualifier \u2014 the 200-DAY MA has been BELOW spot for \u226575 trading days (4+ months) before the reclaim \u2014 and the empirical edge is on the SECTOR ETF level (not single-stock, not broad-index). EXEMPLAR: IGV (software ETF) reclaiming the 200-DMA in 2026-06 after 97+ days below \u2014 historically similar long-absence reclaims on IGV / XLK / XBI have produced statistically positive forward 30 / 60 / 90-day returns. TRIGGER conditions (all required): (1) sector ETF (IGV, XLK, XBI, SMH, XLF, XLE etc.) DAILY CLOSE above 200-DMA for \u22652 consecutive sessions, (2) prior streak below 200-DMA was \u226575 trading days, (3) reclaim accompanied by volume \u22651.2\u00d7 50-day average on at least one of the reclaim sessions. ACTION: BIAS LONG the sector ETF on first PULLBACK to or just above the reclaimed 200-DMA \u2014 entry is the RETEST not the breakout (apply R515 second-demand-zone logic). PROBABILITY note: NOT a directional certainty \u2014 the rule is that the historical base-rate of FORWARD returns is positive after long-absence reclaims, BUT individual instances can fail; SIZE position at first-third (R232) and place stop below the 200-DMA on a daily close basis (R513 \u2014 daily close not intraday wick). INVALIDATION: (a) reclaim FAILS (price closes back below 200-DMA within 5 sessions) = trade is wrong, no re-entry until a fresh reclaim attempt; (b) the long-absence streak occurred WITHIN a confirmed bear-market regime (SPX <200 wMA, R087/R489 context) = reclaim is more likely a counter-trend rally than regime-change, halve position size and tighten stop. WHY net-new: R237 is generic 200MA, R474 is 100-day MA on IGV specifically, R430 is two-ETF SIMULTANEOUS BELOW (different signal direction); R519 codifies the LONG-ABSENCE single-ETF RECLAIM as its own edge.",
+      "source": "Tom (FXEvolution) public stream 2026-06-05 'Are We Heading For A Repeat Of 2021?' \u2014 IyY82e9Jc3I",
+      "evidence": [
+        {
+          "type": "study",
+          "study_id": "qqq-5pct-1d-since-1999",
+          "horizon": "252d",
+          "weight": "primary",
+          "note": "Regime-conditional 252d returns: 100% hit rate in non-bear regimes vs 35% structural-bear \u2192 grounds the regime-aware variant of fade-panic"
+        },
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "Selloff_spring26 regime classification \u2014 non-bear, late-cycle defensive rotation"
+        }
+      ]
+    },
+    "R520": {
+      "id": "R520",
+      "category": "market_structure",
+      "priority": "HIGH",
+      "rule": "Dark-pool block-print TIERED threshold framework \u2014 codifies Tom's explicit size-tiering of single-print institutional footprints into operational ACTION buckets. KEY DISTINCTION: existing rules R061/R063/R083/R198/R404/R485/R493 fire on SINGLE prints with specific ranks/all-time records, but no rule codifies the THRESHOLD LADDER that Tom uses to classify ANY block-print's INSTITUTIONAL CONVICTION level on first inspection. THE LADDER (Tom 2026-06-05 exemplar): TIER 1 (\u2265$50M) = actionable institutional footprint (deserves attention; check VP context); TIER 2 ($100-200M) = high-conviction institutional flow (treat as directional bias confirmation; trade ETF or top names in basket); TIER 3 (\u2265$200M, e.g. $240M @ $68.00 DRAM) = STRUCTURAL FOOTPRINT (top-tier 'smart money' anchor; highest-conviction trade-anchor on entry/stop placement; bias entire underlying-basket directionally for 4-12 weeks). USE PATTERN per tier: TIER 1 \u2014 note the level, do NOT size up; pair with R025 dull-market context and R061 confirmation. TIER 2 \u2014 size first-third per R232, place stop within HVN/LVN logic per R514, target swing-high or VPVR HVN. TIER 3 \u2014 TREAT AS CYCLE-LEVEL ANCHOR: bias underlying basket directionally; price holding above the print level for \u226510 sessions = institutional accumulation confirmed; price LOSING the print level on volume = institutional distribution / R523 walking-stops warning. INVALIDATION: (a) tier inflated by ETF rebalance window or known fund-launch flow = ignore until follow-through prints emerge; (b) print is in a derivative/inverse ETF (PSQ, SQQQ, SDS) = R485 inverse-ETF-as-hedge interpretation overrides this rule (the print is institutional HEDGE not basket directional); (c) print followed by a R517 multi-rank simultaneous cluster within same session = treat as systematic rebalancing, downgrade tier-3 to tier-2 conviction.",
+      "source": "Tom (FXEvolution) public stream 2026-06-05 'A New Number 1 From Wall Street...' \u2014 QzwFrQcYnzQ",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "Defensive value/platform rotation thesis: XLP, XLV, IGV/software vs SMH/NVDA short basket through mid-June"
+        }
+      ]
+    },
+    "R521": {
+      "id": "R521",
+      "category": "macro",
+      "priority": "MEDIUM",
+      "rule": "JUNE in mid-term election years \u2014 specific seasonality stat (-2.11% average return, 36.8% hit-rate) operational risk-reduction trigger \u2014 distinct from R047/R087/R145/R159/R163 (midterm-year ROADMAP rules: April-May rally, Q3 top, Q4 recovery; multi-month framework). KEY DISTINCTION: R521 is the SPECIFIC MONTH-LEVEL CALIBRATION for JUNE in midterm years \u2014 SP500 average return = -2.11% with hit-rate 36.8% (positive months only ~37% of the time, vs ~58% for non-midterm Junes). This is the one month where the midterm-year ROADMAP (covered by R145/R159/R163) translates into an EXPLICIT statistical edge for tactical risk-reduction. ACTION on entering a midterm-year June with elevated complacency (R509 triad warning, low VIX, narrow breadth): (1) reduce equity gross 10-15% by start of June; (2) skew portfolio toward defensive sectors (XLP, XLU, XLV) per R047 second-selloff prep; (3) buy cheap convex hedges per R482 \u2014 the seasonal stat says ~63% of the time June produces a drawdown, and the hedges become statistically expected-value positive over the month; (4) DO NOT add new leveraged longs to momentum/Mag7/leveraged ETF book during the month \u2014 wait for the month-end print to confirm or invalidate the seasonal pattern. INPUTS REQUIRED: (a) confirmation that the year IS a midterm election year (US House midterms \u2014 every 2 years offset from presidential cycle); (b) the broader R145/R159/R163 ROADMAP context \u2014 i.e. has there been an April-May rally to set up the June pullback? \u2014 without prior rally context, the -2.11% stat may not reproduce. INVALIDATION: (a) June opens with a R517 BULLISH cluster trigger or fresh ATH on SPX with broad participation = seasonal stat doesn't apply this cycle, normalize posture; (b) macro recession signal (HY OAS >5% trending wider) = the drawdown will be DEEPER than -2.11%, switch to R484 capital-preservation framework. WHY net-new: existing midterm rules cover the full year ROADMAP and individual qualitative signals; R521 codifies the SPECIFIC JUNE STATISTICAL EDGE as an operational tactical trigger.",
+      "source": "Tom (FXEvolution) public stream 2026-06-05 'A New Number 1 From Wall Street...' \u2014 QzwFrQcYnzQ",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "NVDA -7.1% spike through volume profile \u2014 momentum break confirmed by volume"
+        }
+      ]
+    },
+    "R522": {
+      "id": "R522",
+      "category": "market_structure",
+      "priority": "MEDIUM",
+      "rule": "ETF-LEVEL dark-pool block prints as DIRECTIONAL BIAS for the entire underlying BASKET (not just the ETF or its single largest holdings) \u2014 distinct from R061/R063/R083 (single-name print rules), R485 (inverse-ETF print as hedge interpretation), R519 (long-absence 200-DMA reclaim sector-ETF mechanic), R501 (picks-and-shovels rotation framework). KEY DISTINCTION: R522 codifies the use of LARGE BLOCK PRINTS ON THEMATIC ETFs (e.g. MAGS = Magnificent Seven basket, DRAM = memory basket, IGV = software basket, SMH = semis basket) as DIRECTIONAL BIAS for the ENTIRE UNDERLYING BASKET \u2014 which means trade the ETF level AND the top constituents. EXEMPLARS (Tom 2026-06-05): (a) MAGS $54M @ $68.40 + $78M @ $70.70 = directional bias for Mag7 basket = trade BOTH MAGS AND each constituent (NVDA/MSFT/META/etc); (b) DRAM $240M @ $68.00 (R520 tier-3) = directional bias for ENTIRE memory basket = trade DRAM AND MU/SNDK/STX/WDC. RATIONALE: an institutional buyer accumulating $200M+ on a thematic ETF is expressing a BASKET-LEVEL bullish thesis \u2014 they would not bother with the ETF if they wanted single-name exposure; the ETF print confirms a 'basket reflation' bias the trader can express through THE LIQUID NAME OF CHOICE within the basket. ACTION on ETF-level block trigger (\u2265R520 tier-2): (1) bias the ETF AND its top-5 weighted constituents directionally with the block; (2) prefer entering the constituent with the BEST INDIVIDUAL TECHNICAL SETUP (cleanest level, R515 second-demand, R512 buy-the-V) within the basket \u2014 the basket flow tilt provides the wind, the individual setup provides the entry; (3) place stops at structural-level basis (R514 VPVR POC) \u2014 a basket-level thesis tolerates wider single-name noise within. INVALIDATION: (a) the ETF is INVERSE/LEVERAGED \u2014 R485 hedge interpretation overrides; (b) the ETF block is concurrent with R517 cluster across MULTIPLE thematic ETFs same session = systematic rebalancing not directional thesis; (c) underlying basket members DIVERGE \u2014 top constituents stall while ETF rallies on a few outliers \u2014 basket-bias thesis is broken, revert to single-name analysis. WHY net-new: existing rules treat ETF prints either as inverse-ETF hedge (R485) or generic single-print rules; R522 codifies the BASKET-DIRECTIONAL interpretation of THEMATIC-ETF block prints as a distinct framework.",
+      "source": "Tom (FXEvolution) public stream 2026-06-05 'A New Number 1 From Wall Street...' \u2014 QzwFrQcYnzQ",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "Yield curve slope (10Y-2Y) widened \u2014 risk-off duration rotation observed in real time"
+        }
+      ]
+    },
+    "R523": {
+      "id": "R523",
+      "category": "market_structure",
+      "priority": "HIGH",
+      "rule": "Pre-BREAKDOWN dark-pool print as 'walking stops' / liquidity-hunt INVERSE warning signal \u2014 distinct from R061/R063 (single-print confirmation rules), R198/R404 (record-print bullish inflection), and especially R493 (record single-ticker block AT a local LOW = institutional bullish inflection). KEY DISTINCTION: R523 is the OPPOSITE-DIRECTION pattern of R493 \u2014 when an exceptionally large dark-pool print posts on an instrument SHORTLY BEFORE (within 1-10 sessions) a structural BREAKDOWN of a major higher-timeframe level (weekly 200 MA, multi-year support, anchored VWAP from a major low), the prior print should be re-classified retroactively as INSTITUTIONAL DISTRIBUTION at the highs (NOT accumulation at the lows like R493). Tom's framing: 'the last big dark pool was here \u2014 number one largest transaction ever on IBIT \u2014 before BTC broke the weekly 200; that's institutions walking the stops.' MECHANISM: large institutional providers offload exposure into thin retail bid before known structural levels fail; the apparent 'large buy' (the print) is sized to absorb DEAL-SIZE liquidity from a counterparty selling into strength, with the institution then FLIPPING / HEDGING externally \u2014 the print masquerades as accumulation but the price action that follows reveals it as distribution. TRIGGER conditions (all required): (1) a single dark-pool print that would otherwise qualify as R061/R063 ALL-TIME or top-rank (a tier-2 or tier-3 block per R520); (2) within 1-10 sessions, the underlying loses a STRUCTURAL higher-timeframe support \u2014 weekly 200 MA, multi-year trendline, weekly anchored VWAP from major low; (3) the broader regime is at multi-year HIGHS or near a known structural ceiling (NOT at a local low \u2014 at a local low, R493 inflection-buy interpretation applies instead). ACTION on retroactive re-classification: (1) DO NOT buy the dip into the breakdown \u2014 the print just confirmed institutions are SELLING not buying; (2) treat the prior print level as RESISTANCE on any subsequent rally attempt; (3) target measured-move downside based on prior consolidation range; (4) flag the thematic basket for similar pre-breakdown prints (e.g. one IBIT pre-print \u2192 check MSTR, COIN, MARA for similar pre-print warning). INVALIDATION: (a) price reclaims the structural level (e.g. weekly 200 MA) within 5 sessions of the breakdown = breakdown was a fakeout, R493 inflection-buy interpretation may apply retroactively; (b) the print was a CONFIRMED ETF rebalance per public ETF flow data = not directional, ignore. WHY net-new: R493 and R198/R404 cover the BULLISH inflection case (print at a low signals accumulation); R523 codifies the BEARISH inverse case (print near a high preceding a structural break = institutional distribution / liquidity hunt) as a distinct pattern with its own triggers and actions.",
+      "source": "Tom (FXEvolution) public stream 2026-06-05 'A New Number 1 From Wall Street...' \u2014 QzwFrQcYnzQ",
+      "evidence": [
+        {
+          "type": "live_observation",
+          "date": "2026-06-05",
+          "context": "Late-cycle defensive rotation full pattern verified: KIE +2.97%, XLU bid, XLP/XLV outperforming, SMH leading lower"
+        }
+      ]
+    }
+  }
+}

@@ -414,5 +414,152 @@ def main():
     except Exception as e:
         print(f"Error exporting sector rotation: {e}")
 
+    # Export empirical-priors layer (autoresearch-empirical-priors)
+    try:
+        export_empirical_priors_layer()
+    except Exception as e:
+        print(f"Error exporting empirical-priors layer: {e}")
+
+
+# ===== Empirical-Priors Layer Export =====
+# Reads parent repo: data/empirical-priors.jsonl, data/trading-days.parquet,
+#                    agents/tom-fxevolution/RULES.json
+# Writes dashboard:  data/empirical-priors.json (latest-version-per-study)
+#                    data/regime-explorer.json (regime → stats)
+#                    data/rule-lineage.json (rule_id → evidence + rule text)
+
+PARENT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+PRIORS_JSONL = os.path.join(PARENT_ROOT, "data", "empirical-priors.jsonl")
+TRADING_DAYS_PARQUET = os.path.join(PARENT_ROOT, "data", "trading-days.parquet")
+RULES_JSON = os.path.join(PARENT_ROOT, "agents", "tom-fxevolution", "RULES.json")
+
+
+def _load_priors_latest():
+    """Read empirical-priors.jsonl, return list of latest-version-per-study entries."""
+    if not os.path.exists(PRIORS_JSONL):
+        return []
+    by_id = {}
+    with open(PRIORS_JSONL) as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                e = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            sid = e.get("study_id")
+            if not sid:
+                continue
+            if sid not in by_id or e.get("version", 0) > by_id[sid].get("version", 0):
+                by_id[sid] = e
+    return list(by_id.values())
+
+
+def _load_rules():
+    """Read RULES.json, return rules list."""
+    if not os.path.exists(RULES_JSON):
+        return []
+    with open(RULES_JSON) as f:
+        d = json.load(f)
+    return d.get("rules", []) if isinstance(d, dict) else []
+
+
+def export_empirical_priors_layer():
+    """Emit empirical-priors.json, regime-explorer.json, rule-lineage.json."""
+    print("\n=== Empirical-Priors Layer Export ===")
+
+    # 1. empirical-priors.json — array of latest-version-per-study
+    studies = _load_priors_latest()
+    print(f"  empirical-priors.json: {len(studies)} studies (latest version each)")
+    with open(os.path.join(DATA_DIR, "empirical-priors.json"), "w") as f:
+        json.dump({
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "n_studies": len(studies),
+            "studies": studies,
+        }, f, indent=2, default=str)
+
+    # 2. regime-explorer.json — regime → {n_days, member_dates_summary, top_studies}
+    regime_data = {}
+    try:
+        if os.path.exists(TRADING_DAYS_PARQUET):
+            import pandas as pd
+            td = pd.read_parquet(TRADING_DAYS_PARQUET)
+            for regime, sub in td.groupby("regime_label"):
+                # Per-ticker summary
+                per_ticker = {}
+                for ticker, t_sub in sub.groupby("ticker"):
+                    t_sub = t_sub.sort_values("date")
+                    if len(t_sub) == 0:
+                        continue
+                    first_close = t_sub["close"].iloc[0]
+                    last_close = t_sub["close"].iloc[-1]
+                    cumret = (last_close / first_close - 1.0) if first_close else None
+                    per_ticker[str(ticker)] = {
+                        "n_days": int(len(t_sub)),
+                        "cum_return": float(cumret) if cumret is not None else None,
+                        "mean_return_1d": float(t_sub["return_1d"].dropna().mean()) if "return_1d" in t_sub else None,
+                    }
+                # Studies that touch this regime
+                touching = []
+                for s in studies:
+                    rb = s.get("regime_breakdown", {})
+                    if regime in rb:
+                        rb_entry = rb[regime]
+                        touching.append({
+                            "study_id": s["study_id"],
+                            "title": s.get("title", ""),
+                            "n": rb_entry.get("n"),
+                            "horizon_hit_rate": next(
+                                (rb_entry.get(k) for k in rb_entry if k.endswith("_hit_rate")),
+                                None,
+                            ),
+                        })
+                regime_data[str(regime)] = {
+                    "n_days": int(len(sub)),
+                    "date_range": [str(sub["date"].min().date()), str(sub["date"].max().date())],
+                    "per_ticker": per_ticker,
+                    "studies_touching": touching,
+                }
+        else:
+            print(f"  regime-explorer: trading-days.parquet missing at {TRADING_DAYS_PARQUET}, skipping")
+    except Exception as e:
+        print(f"  regime-explorer: error {e}")
+
+    print(f"  regime-explorer.json: {len(regime_data)} regimes")
+    with open(os.path.join(DATA_DIR, "regime-explorer.json"), "w") as f:
+        json.dump({
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "regimes": regime_data,
+        }, f, indent=2, default=str)
+
+    # 3. rule-lineage.json — only rules with evidence; rule_id → {category, rule_text, evidence, priority}
+    rules = _load_rules()
+    lineage = {}
+    for r in rules:
+        if not isinstance(r, dict):
+            continue
+        ev = r.get("evidence")
+        if not ev:
+            continue
+        lineage[r["id"]] = {
+            "id": r["id"],
+            "category": r.get("category"),
+            "priority": r.get("priority"),
+            "rule": r.get("rule"),
+            "source": r.get("source"),
+            "evidence": ev,
+        }
+    print(f"  rule-lineage.json: {len(lineage)} rules with evidence")
+    with open(os.path.join(DATA_DIR, "rule-lineage.json"), "w") as f:
+        json.dump({
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "n_rules_with_evidence": len(lineage),
+            "rules": lineage,
+        }, f, indent=2, default=str)
+
+    print("=== Empirical-Priors Layer Export complete ===")
+
+
 if __name__ == "__main__":
     main()

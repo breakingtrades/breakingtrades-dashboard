@@ -247,6 +247,33 @@
           '</div>' +
         '</div>' +
 
+        // ===== Empirical Priors (autoresearch-empirical-priors) =====
+        '<div id="section-priors">' +
+          '<div class="section-title" id="hdr-priors"><i data-lucide="database"></i> Empirical Priors</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Statistical studies — every condition we asked the data, persisted and re-runnable. Click a row to see the full breakdown by regime and forward horizon.</p>' +
+          '<div id="body-priors">' +
+            '<div id="empirical-priors-container" style="min-height:120px;"><div class="skeleton" style="height:120px;border-radius:6px;"></div></div>' +
+          '</div>' +
+        '</div>' +
+
+        // ===== Regime Explorer =====
+        '<div id="section-regime-explorer">' +
+          '<div class="section-title" id="hdr-regime-explorer"><i data-lucide="compass"></i> Regime Explorer</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Member days, per-ticker returns, and studies that touch each labeled regime. Pick a regime to drill in.</p>' +
+          '<div id="body-regime-explorer">' +
+            '<div id="regime-explorer-container" style="min-height:120px;"><div class="skeleton" style="height:120px;border-radius:6px;"></div></div>' +
+          '</div>' +
+        '</div>' +
+
+        // ===== Rule Lineage =====
+        '<div id="section-rule-lineage">' +
+          '<div class="section-title" id="hdr-rule-lineage"><i data-lucide="git-branch"></i> Rule Lineage</div>' +
+          '<p class="section-subtitle" style="margin:-4px 0 12px;font-size:14px;color:var(--text-muted, #aaa);line-height:1.6;">Rules that cite their grounding evidence. Each rule traces back to studies and live observations — the empirical foundation behind the strategy.</p>' +
+          '<div id="body-rule-lineage">' +
+            '<div id="rule-lineage-container" style="min-height:120px;"><div class="skeleton" style="height:120px;border-radius:6px;"></div></div>' +
+          '</div>' +
+        '</div>' +
+
       '</div>';
   }
 
@@ -261,7 +288,10 @@
       fetch('data/regime.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
       fetch('data/regime-history.jsonl').then(function(r) { return r.ok ? r.text() : null; }).catch(function() { return null; }),
       fetch('data/prices.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
-      fetch('data/autoresearch-summary.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
+      fetch('data/autoresearch-summary.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
+      fetch('data/empirical-priors.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
+      fetch('data/regime-explorer.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
+      fetch('data/rule-lineage.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
     ];
 
     Promise.all(fetches).then(function(results) {
@@ -273,14 +303,37 @@
       }
       pricesData = results[2];
       var summaryData = results[3];
+      var priorsData = results[4];
+      var regimeExplorerData = results[5];
+      var ruleLineageData = results[6];
 
       // New result cards render independently of regime data
       renderStrategyPerf(summaryData);
       renderResearchFindings(summaryData);
       renderStrategyRules(summaryData);
 
+      // Empirical-priors layer renders independently of regime data
+      renderEmpiricalPriors(priorsData);
+      renderRegimeExplorer(regimeExplorerData);
+      renderRuleLineage(ruleLineageData);
+
       if (!regimeData) {
         renderNoData();
+        // Still wire the empirical-priors collapsibles even without regime data
+        var fallbackSections = [
+          ['regime:priors', 'hdr-priors', 'body-priors'],
+          ['regime:regime-explorer', 'hdr-regime-explorer', 'body-regime-explorer'],
+          ['regime:rule-lineage', 'hdr-rule-lineage', 'body-rule-lineage']
+        ];
+        _collapsibles = [];
+        fallbackSections.forEach(function(s) {
+          var hdr = document.getElementById(s[1]);
+          var body = document.getElementById(s[2]);
+          if (hdr && body) {
+            _collapsibles.push(BT.components.collapsible.init(s[0], hdr, body));
+          }
+        });
+        if (typeof lucide !== 'undefined') lucide.createIcons();
         return;
       }
 
@@ -304,7 +357,10 @@
         ['regime:commodity', 'hdr-commodity', 'body-commodity'],
         ['regime:transition', 'hdr-transition', 'body-transition'],
         ['regime:cycle', 'hdr-cycle', 'body-cycle'],
-        ['regime:history', 'hdr-history', 'body-history']
+        ['regime:history', 'hdr-history', 'body-history'],
+        ['regime:priors', 'hdr-priors', 'body-priors'],
+        ['regime:regime-explorer', 'hdr-regime-explorer', 'body-regime-explorer'],
+        ['regime:rule-lineage', 'hdr-rule-lineage', 'body-rule-lineage']
       ];
       _collapsibles = [];
       sections.forEach(function(s) {
@@ -916,6 +972,292 @@
       }
     });
     _charts.push(chart);
+  }
+
+  // ===== Empirical-Priors Layer (autoresearch-empirical-priors) =====
+  function escAttr(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  function renderEmpiricalPriors(data) {
+    var el = document.getElementById('empirical-priors-container');
+    if (!el) return;
+    if (!data || !data.studies || data.studies.length === 0) {
+      el.innerHTML = '<div style="padding:20px;color:var(--text-muted, #aaa);font-size:14px;">No studies yet. Add a study under <code>autoresearch/studies/</code> and run <code>python autoresearch/run_study.py &lt;path&gt;</code>.</div>';
+      return;
+    }
+    var studies = data.studies.slice().sort(function(a, b) {
+      return (a.study_id || '').localeCompare(b.study_id || '');
+    });
+    var rows = studies.map(function(s) {
+      var pop = s.population || {};
+      var ticker = pop.ticker || '—';
+      var cond = pop.condition || '—';
+      var horizon252 = (s.outcomes && s.outcomes['252d']) || {};
+      var hr = horizon252.hit_rate_pos != null ? (horizon252.hit_rate_pos * 100).toFixed(1) + '%' : '—';
+      var mean = horizon252.mean != null ? ((horizon252.mean >= 0 ? '+' : '') + (horizon252.mean * 100).toFixed(1) + '%') : '—';
+      var meanColor = horizon252.mean != null && horizon252.mean >= 0 ? 'var(--green, #00d4aa)' : 'var(--red, #ef5350)';
+      var ruleRefs = (s.rule_refs || []).join(', ') || '—';
+      var titleEsc = escAttr(s.title || s.study_id);
+      return (
+        '<tr class="prior-row" data-study-id="' + escAttr(s.study_id) + '" style="cursor:pointer;border-top:1px solid var(--border, #2a2a2a);">' +
+          '<td style="padding:10px 12px;font-family:ui-monospace,monospace;font-size:13px;color:var(--cyan, #00d4ff);">' + escAttr(s.study_id) + '<span style="color:var(--text-muted);font-size:11px;"> v' + (s.version || 1) + '</span></td>' +
+          '<td style="padding:10px 12px;font-size:13px;">' + escAttr(ticker) + '</td>' +
+          '<td style="padding:10px 12px;font-size:12px;color:var(--text-muted);font-family:ui-monospace,monospace;">' + escAttr(cond) + '</td>' +
+          '<td style="padding:10px 12px;text-align:right;font-size:13px;">' + (s.n != null ? s.n : '—') + '</td>' +
+          '<td style="padding:10px 12px;text-align:right;font-size:13px;">' + hr + '</td>' +
+          '<td style="padding:10px 12px;text-align:right;font-size:13px;color:' + meanColor + ';">' + mean + '</td>' +
+          '<td style="padding:10px 12px;font-size:12px;color:var(--text-muted);">' + escAttr(ruleRefs) + '</td>' +
+        '</tr>'
+      );
+    }).join('');
+    el.innerHTML =
+      '<div style="margin-bottom:8px;font-size:12px;color:var(--text-muted, #aaa);">' + studies.length + ' studies · 252d horizon shown · click a row for full breakdown</div>' +
+      '<div style="overflow-x:auto;border:1px solid var(--border, #2a2a2a);border-radius:6px;background:var(--card-bg);">' +
+        '<table style="width:100%;border-collapse:collapse;font-size:13px;">' +
+          '<thead><tr style="background:var(--card-bg-2, #161616);color:var(--text-muted);">' +
+            '<th style="padding:10px 12px;text-align:left;font-weight:600;">Study</th>' +
+            '<th style="padding:10px 12px;text-align:left;font-weight:600;">Ticker</th>' +
+            '<th style="padding:10px 12px;text-align:left;font-weight:600;">Condition</th>' +
+            '<th style="padding:10px 12px;text-align:right;font-weight:600;">N</th>' +
+            '<th style="padding:10px 12px;text-align:right;font-weight:600;">1Y Hit Rate</th>' +
+            '<th style="padding:10px 12px;text-align:right;font-weight:600;">1Y Mean</th>' +
+            '<th style="padding:10px 12px;text-align:left;font-weight:600;">Rules</th>' +
+          '</tr></thead>' +
+          '<tbody>' + rows + '</tbody>' +
+        '</table>' +
+      '</div>' +
+      '<div id="prior-detail" style="margin-top:14px;"></div>';
+    // Wire row clicks
+    var byId = {};
+    studies.forEach(function(s) { byId[s.study_id] = s; });
+    el.querySelectorAll('.prior-row').forEach(function(row) {
+      row.addEventListener('click', function() {
+        var sid = row.getAttribute('data-study-id');
+        showStudyDetail(byId[sid]);
+      });
+      row.addEventListener('mouseover', function() { row.style.background = 'var(--card-bg-2, #161616)'; });
+      row.addEventListener('mouseout', function() { row.style.background = ''; });
+    });
+  }
+
+  function showStudyDetail(s) {
+    var box = document.getElementById('prior-detail');
+    if (!box || !s) return;
+    var horizons = ['1d', '5d', '20d', '60d', '252d'];
+    var rows = horizons.map(function(h) {
+      var oc = (s.outcomes && s.outcomes[h]) || {};
+      if (oc.hit_rate_pos == null) return '';
+      var meanColor = oc.mean >= 0 ? 'var(--green, #00d4aa)' : 'var(--red, #ef5350)';
+      return (
+        '<tr style="border-top:1px solid var(--border);">' +
+          '<td style="padding:6px 10px;font-family:ui-monospace,monospace;">' + h + '</td>' +
+          '<td style="padding:6px 10px;text-align:right;">' + oc.n + '</td>' +
+          '<td style="padding:6px 10px;text-align:right;">' + (oc.hit_rate_pos * 100).toFixed(1) + '%</td>' +
+          '<td style="padding:6px 10px;text-align:right;color:' + meanColor + ';">' + (oc.mean >= 0 ? '+' : '') + (oc.mean * 100).toFixed(2) + '%</td>' +
+          '<td style="padding:6px 10px;text-align:right;">' + (oc.median * 100).toFixed(2) + '%</td>' +
+          '<td style="padding:6px 10px;text-align:right;color:var(--text-muted);">' + (oc.p25 * 100).toFixed(2) + '%</td>' +
+          '<td style="padding:6px 10px;text-align:right;color:var(--text-muted);">' + (oc.p75 * 100).toFixed(2) + '%</td>' +
+        '</tr>'
+      );
+    }).join('');
+    var regBreakdown = s.regime_breakdown || {};
+    var regRows = Object.keys(regBreakdown).map(function(name) {
+      var rb = regBreakdown[name];
+      var hrKey = Object.keys(rb).filter(function(k) { return k.indexOf('hit_rate') >= 0; })[0];
+      var hr = hrKey && rb[hrKey] != null ? (rb[hrKey] * 100).toFixed(1) + '%' : '—';
+      return (
+        '<tr style="border-top:1px solid var(--border);">' +
+          '<td style="padding:6px 10px;">' + escAttr(name) + '</td>' +
+          '<td style="padding:6px 10px;text-align:right;">' + (rb.n != null ? rb.n : '—') + '</td>' +
+          '<td style="padding:6px 10px;text-align:right;">' + hr + '</td>' +
+        '</tr>'
+      );
+    }).join('');
+    var notes = s.notes ? '<div style="margin-top:10px;padding:10px;background:var(--card-bg-2);border-left:3px solid var(--cyan, #00d4ff);font-size:13px;color:var(--text-muted);line-height:1.6;">' + escAttr(s.notes) + '</div>' : '';
+    var ruleRefs = (s.rule_refs || []).length ? '<div style="margin-top:8px;font-size:13px;"><strong style="color:var(--text-muted);">Linked rules:</strong> ' + (s.rule_refs || []).map(escAttr).join(', ') + '</div>' : '';
+    box.innerHTML =
+      '<div style="padding:14px;border:1px solid var(--cyan, #00d4ff);border-radius:6px;background:var(--card-bg);">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">' +
+          '<div>' +
+            '<h3 style="margin:0;color:var(--text);">' + escAttr(s.title || s.study_id) + '</h3>' +
+            '<div style="font-family:ui-monospace,monospace;font-size:12px;color:var(--text-muted);margin-top:3px;">' + escAttr(s.study_id) + ' · v' + (s.version || 1) + ' · n=' + s.n + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="margin-bottom:14px;font-size:13px;color:var(--text-muted);">' +
+          '<strong>Population:</strong> ' + escAttr(s.population && s.population.description || s.population && s.population.condition || '—') +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">' +
+          '<div>' +
+            '<div style="font-weight:600;color:var(--text);margin-bottom:6px;font-size:13px;">Forward Returns by Horizon</div>' +
+            '<table style="width:100%;border-collapse:collapse;font-size:12px;">' +
+              '<thead><tr style="color:var(--text-muted);"><th style="padding:6px 10px;text-align:left;">H</th><th style="padding:6px 10px;text-align:right;">N</th><th style="padding:6px 10px;text-align:right;">Hit %</th><th style="padding:6px 10px;text-align:right;">Mean</th><th style="padding:6px 10px;text-align:right;">Median</th><th style="padding:6px 10px;text-align:right;">P25</th><th style="padding:6px 10px;text-align:right;">P75</th></tr></thead>' +
+              '<tbody>' + rows + '</tbody>' +
+            '</table>' +
+          '</div>' +
+          '<div>' +
+            '<div style="font-weight:600;color:var(--text);margin-bottom:6px;font-size:13px;">Regime Breakdown (252d)</div>' +
+            '<table style="width:100%;border-collapse:collapse;font-size:12px;">' +
+              '<thead><tr style="color:var(--text-muted);"><th style="padding:6px 10px;text-align:left;">Regime</th><th style="padding:6px 10px;text-align:right;">N</th><th style="padding:6px 10px;text-align:right;">Hit %</th></tr></thead>' +
+              '<tbody>' + regRows + '</tbody>' +
+            '</table>' +
+          '</div>' +
+        '</div>' +
+        notes + ruleRefs +
+      '</div>';
+  }
+
+  function renderRegimeExplorer(data) {
+    var el = document.getElementById('regime-explorer-container');
+    if (!el) return;
+    if (!data || !data.regimes) {
+      el.innerHTML = '<div style="padding:20px;color:var(--text-muted);font-size:14px;">Regime explorer data unavailable. Rebuild trading-days.parquet and re-run the export.</div>';
+      return;
+    }
+    var regimes = data.regimes;
+    var names = Object.keys(regimes).sort(function(a, b) {
+      // Put 'unknown' last
+      if (a === 'unknown') return 1;
+      if (b === 'unknown') return -1;
+      return a.localeCompare(b);
+    });
+    var cards = names.map(function(name) {
+      var r = regimes[name];
+      var dr = r.date_range || ['—', '—'];
+      var pt = r.per_ticker || {};
+      var tickers = Object.keys(pt).sort();
+      var tickerRows = tickers.map(function(t) {
+        var d = pt[t];
+        var cum = d.cum_return;
+        var color = cum != null ? (cum >= 0 ? 'var(--green, #00d4aa)' : 'var(--red, #ef5350)') : 'var(--text-muted)';
+        var cumStr = cum != null ? ((cum >= 0 ? '+' : '') + (cum * 100).toFixed(1) + '%') : '—';
+        return (
+          '<tr style="border-top:1px solid var(--border);">' +
+            '<td style="padding:5px 10px;font-family:ui-monospace,monospace;font-size:12px;">' + escAttr(t) + '</td>' +
+            '<td style="padding:5px 10px;text-align:right;font-size:12px;">' + d.n_days + '</td>' +
+            '<td style="padding:5px 10px;text-align:right;font-size:12px;color:' + color + ';">' + cumStr + '</td>' +
+          '</tr>'
+        );
+      }).join('');
+      var studies = (r.studies_touching || []).map(function(s) {
+        var hr = s.horizon_hit_rate != null ? (s.horizon_hit_rate * 100).toFixed(0) + '%' : '—';
+        return '<li style="margin:3px 0;font-size:12px;color:var(--text-muted);"><span style="font-family:ui-monospace,monospace;color:var(--cyan);">' + escAttr(s.study_id) + '</span> · n=' + (s.n != null ? s.n : '—') + ' · ' + hr + '</li>';
+      }).join('');
+      var nameLabel = name === 'unknown' ? 'Unknown / Unlabeled' : name;
+      var nameColor = name === 'unknown' ? 'var(--text-muted)' : 'var(--text)';
+      return (
+        '<div style="border:1px solid var(--border);border-radius:6px;padding:14px;background:var(--card-bg);">' +
+          '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">' +
+            '<h4 style="margin:0;color:' + nameColor + ';font-family:ui-monospace,monospace;">' + escAttr(nameLabel) + '</h4>' +
+            '<span style="color:var(--text-muted);font-size:12px;">' + r.n_days + ' rows</span>' +
+          '</div>' +
+          '<div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">' + escAttr(dr[0]) + ' → ' + escAttr(dr[1]) + '</div>' +
+          (tickerRows ? '<table style="width:100%;border-collapse:collapse;margin-bottom:10px;"><tbody>' + tickerRows + '</tbody></table>' : '') +
+          (studies ? '<div style="margin-top:8px;"><div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Studies touching</div><ul style="margin:4px 0 0;padding-left:18px;">' + studies + '</ul></div>' : '<div style="font-size:11px;color:var(--text-muted);font-style:italic;">No studies touch this regime yet</div>') +
+        '</div>'
+      );
+    }).join('');
+    el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:14px;">' + cards + '</div>';
+  }
+
+  function renderRuleLineage(data) {
+    var el = document.getElementById('rule-lineage-container');
+    if (!el) return;
+    if (!data || !data.rules || Object.keys(data.rules).length === 0) {
+      el.innerHTML = '<div style="padding:20px;color:var(--text-muted);font-size:14px;">No rules with evidence yet. Curate <code>autoresearch/rule-evidence-map.json</code> and run <code>python autoresearch/link_rules_to_studies.py</code>.</div>';
+      return;
+    }
+    var rules = data.rules;
+    var ruleIds = Object.keys(rules).sort(function(a, b) {
+      // Numeric sort by R-prefix
+      var na = parseInt(a.replace(/[^0-9]/g, ''), 10);
+      var nb = parseInt(b.replace(/[^0-9]/g, ''), 10);
+      return na - nb;
+    });
+    var rows = ruleIds.map(function(rid) {
+      var r = rules[rid];
+      var ev = r.evidence || [];
+      var evTypes = {};
+      ev.forEach(function(e) { evTypes[e.type] = (evTypes[e.type] || 0) + 1; });
+      var typeBadges = Object.keys(evTypes).map(function(t) {
+        var color = t === 'study' ? 'var(--cyan, #00d4ff)' : 'var(--orange, #ffa726)';
+        return '<span style="display:inline-block;padding:2px 8px;margin-right:4px;border-radius:10px;background:transparent;border:1px solid ' + color + ';color:' + color + ';font-size:11px;font-family:ui-monospace,monospace;">' + t + ' ×' + evTypes[t] + '</span>';
+      }).join('');
+      var ruleSnippet = (r.rule || '').substring(0, 220) + ((r.rule || '').length > 220 ? '…' : '');
+      return (
+        '<tr class="lineage-row" data-rule-id="' + escAttr(rid) + '" style="cursor:pointer;border-top:1px solid var(--border);">' +
+          '<td style="padding:10px 12px;font-family:ui-monospace,monospace;font-size:13px;color:var(--cyan, #00d4ff);vertical-align:top;">' + escAttr(rid) + '</td>' +
+          '<td style="padding:10px 12px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;vertical-align:top;">' + escAttr(r.category || '—') + '</td>' +
+          '<td style="padding:10px 12px;font-size:13px;line-height:1.5;color:var(--text);">' + escAttr(ruleSnippet) + '</td>' +
+          '<td style="padding:10px 12px;vertical-align:top;white-space:nowrap;">' + typeBadges + '</td>' +
+        '</tr>'
+      );
+    }).join('');
+    el.innerHTML =
+      '<div style="margin-bottom:8px;font-size:12px;color:var(--text-muted);">' + ruleIds.length + ' rules with grounded evidence · click a row for full citation chain</div>' +
+      '<div style="overflow-x:auto;border:1px solid var(--border);border-radius:6px;background:var(--card-bg);">' +
+        '<table style="width:100%;border-collapse:collapse;font-size:13px;">' +
+          '<thead><tr style="background:var(--card-bg-2);color:var(--text-muted);">' +
+            '<th style="padding:10px 12px;text-align:left;font-weight:600;">Rule</th>' +
+            '<th style="padding:10px 12px;text-align:left;font-weight:600;">Category</th>' +
+            '<th style="padding:10px 12px;text-align:left;font-weight:600;">Statement</th>' +
+            '<th style="padding:10px 12px;text-align:left;font-weight:600;">Evidence</th>' +
+          '</tr></thead>' +
+          '<tbody>' + rows + '</tbody>' +
+        '</table>' +
+      '</div>' +
+      '<div id="lineage-detail" style="margin-top:14px;"></div>';
+    el.querySelectorAll('.lineage-row').forEach(function(row) {
+      row.addEventListener('click', function() {
+        var rid = row.getAttribute('data-rule-id');
+        showRuleLineageDetail(rules[rid]);
+      });
+      row.addEventListener('mouseover', function() { row.style.background = 'var(--card-bg-2, #161616)'; });
+      row.addEventListener('mouseout', function() { row.style.background = ''; });
+    });
+  }
+
+  function showRuleLineageDetail(r) {
+    var box = document.getElementById('lineage-detail');
+    if (!box || !r) return;
+    var ev = r.evidence || [];
+    var evHtml = ev.map(function(e) {
+      if (e.type === 'study') {
+        var weightColor = e.weight === 'primary' ? 'var(--green, #00d4aa)' :
+                          e.weight === 'contradictory' ? 'var(--red, #ef5350)' :
+                          'var(--text-muted)';
+        return (
+          '<div style="padding:10px 12px;border-left:3px solid var(--cyan, #00d4ff);background:var(--card-bg-2);margin-bottom:8px;">' +
+            '<div style="display:flex;justify-content:space-between;align-items:baseline;">' +
+              '<span style="font-family:ui-monospace,monospace;color:var(--cyan, #00d4ff);font-size:13px;">study · ' + escAttr(e.study_id) + '</span>' +
+              '<span style="color:' + weightColor + ';font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">' + escAttr(e.weight || '—') + ' · ' + escAttr(e.horizon || '—') + '</span>' +
+            '</div>' +
+            (e.note ? '<div style="margin-top:5px;color:var(--text-muted);font-size:12px;line-height:1.5;">' + escAttr(e.note) + '</div>' : '') +
+          '</div>'
+        );
+      } else if (e.type === 'live_observation') {
+        return (
+          '<div style="padding:10px 12px;border-left:3px solid var(--orange, #ffa726);background:var(--card-bg-2);margin-bottom:8px;">' +
+            '<div style="display:flex;justify-content:space-between;align-items:baseline;">' +
+              '<span style="color:var(--orange, #ffa726);font-size:13px;">live observation · ' + escAttr(e.date) + '</span>' +
+            '</div>' +
+            '<div style="margin-top:5px;color:var(--text);font-size:12px;line-height:1.5;">' + escAttr(e.context || '') + '</div>' +
+          '</div>'
+        );
+      }
+      return '';
+    }).join('');
+    box.innerHTML =
+      '<div style="padding:14px;border:1px solid var(--cyan, #00d4ff);border-radius:6px;background:var(--card-bg);">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">' +
+          '<div>' +
+            '<h3 style="margin:0;font-family:ui-monospace,monospace;color:var(--cyan, #00d4ff);">' + escAttr(r.id) + '</h3>' +
+            '<div style="font-size:11px;color:var(--text-muted);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px;">' + escAttr(r.category || '—') + ' · ' + escAttr(r.priority || 'normal') + '</div>' +
+          '</div>' +
+          (r.source ? '<div style="font-size:11px;color:var(--text-muted);font-family:ui-monospace,monospace;">source: ' + escAttr(r.source) + '</div>' : '') +
+        '</div>' +
+        '<div style="margin-bottom:14px;padding:12px;background:var(--card-bg-2);border-radius:4px;font-size:13px;line-height:1.6;color:var(--text);">' + escAttr(r.rule || '') + '</div>' +
+        '<div style="font-weight:600;color:var(--text);margin-bottom:8px;font-size:13px;">Evidence chain (' + ev.length + ')</div>' +
+        evHtml +
+      '</div>';
   }
 
   // ===== Destroy =====

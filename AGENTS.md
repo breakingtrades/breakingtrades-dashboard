@@ -111,6 +111,7 @@ See [openspec/INDEX.md](openspec/INDEX.md) for full change log.
 | `shared-nav-component` | ✅ Shipped — Nav bar, ticker search, market status, timezone |
 | `sector-rotation-chart` | ✅ Shipped — RRG + risk badges |
 | `ci-data-pipeline` | ✅ Shipped — yfinance fallback + GitHub Models briefing |
+| `autoresearch-empirical-priors` | ✅ Shipped — Empirical Priors / Regime Explorer / Rule Lineage sections on `/#autoresearch` SPA route. Reads `data/{empirical-priors,regime-explorer,rule-lineage}.json` exported from parent repo by `export-dashboard-data.py`. Full spec at `../openspec/changes/autoresearch-empirical-priors/` (parent repo). |
 | `data-pipeline` | Designed | 
 | `dashboard-ui` | Designed |
 | `tom-chat` | Designed |
