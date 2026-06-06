@@ -717,3 +717,74 @@
   .tx-card-meter { flex-wrap: wrap; padding-left: 0; }
   .tx-card-hint { margin-left: 0; }
 }
+
+/* ===== Empirical-Priors UI — mobile responsiveness =====
+   Covers the 3 sections added in 2026-06-06 (Empirical Priors, Regime Explorer,
+   Rule Lineage). The render functions use inline styles for layout; these rules
+   override at narrow widths where the inline layout cramps. */
+
+/* Tablet — narrow desktops & landscape phones */
+@media (max-width: 900px) {
+  /* Study-detail panel: side-by-side horizon + regime tables → stack */
+  #prior-detail > div > div[style*="grid-template-columns:1fr 1fr"],
+  #prior-detail > div > div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Phone-ish — 768px and below */
+@media (max-width: 768px) {
+  /* Tighter horizontal padding so 7-col tables are scrollable without giving up
+     most of the viewport to padding */
+  #empirical-priors-container table th,
+  #empirical-priors-container table td,
+  #rule-lineage-container table th,
+  #rule-lineage-container table td {
+    padding: 8px 10px !important;
+  }
+
+  /* Larger tap targets for clickable rows (iOS HIG: 44pt min) */
+  .prior-row, .lineage-row {
+    min-height: 44px;
+  }
+  .prior-row td, .lineage-row td {
+    line-height: 1.5;
+  }
+
+  /* Detail panels: tighter inner padding */
+  #prior-detail > div, #lineage-detail > div {
+    padding: 12px !important;
+  }
+  #prior-detail h3, #lineage-detail h3 {
+    font-size: 16px;
+  }
+}
+
+/* Phone — 480px and below */
+@media (max-width: 480px) {
+  /* Regime Explorer: force single column even if viewport is exactly 480px
+     (auto-fit minmax(300px, 1fr) sometimes renders 2 cramped columns there) */
+  #regime-explorer-container > div[style*="auto-fit"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Rule Lineage: hide the Category column (just noise on mobile —
+     evidence badges + rule statement carry the meaning) */
+  #rule-lineage-container table th:nth-child(2),
+  #rule-lineage-container table td:nth-child(2) {
+    display: none;
+  }
+
+  /* Empirical Priors: hide the Condition column (Ticker + N + Hit Rate are the
+     at-a-glance fields; condition is visible in the click-detail) */
+  #empirical-priors-container table th:nth-child(3),
+  #empirical-priors-container table td:nth-child(3) {
+    display: none;
+  }
+
+  /* Study detail tables: smaller font + tighter padding so all 7 columns fit */
+  #prior-detail table td, #prior-detail table th {
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+  }
+}
