@@ -346,7 +346,7 @@
     var ax1 = cx + r * Math.cos(startAngle), ay1 = cy + r * Math.sin(startAngle);
     var ax2 = cx + r * Math.cos(activeEnd), ay2 = cy + r * Math.sin(activeEnd);
     var largeArc = avg > 50 ? 1 : 0;
-    arcs += '<path d="M ' + ax1 + ' ' + ay1 + ' A ' + r + ' ' + r + ' 0 ' + largeArc + ' 1 ' + ax2 + ' ' + ay2 + '" fill="none" stroke="' + color + '" stroke-width="18" stroke-linecap="round" opacity="0.9"/>';
+    arcs += '<path d="M ' + ax1 + ' ' + ay1 + ' A ' + r + ' ' + r + ' 0 ' + largeArc + ' 1 ' + ax2 + ' ' + ay2 + '" fill="none" stroke="' + color + '" stroke-width="18" stroke-linecap="butt" opacity="0.9"/>';
 
     var nx = cx + (r - 30) * Math.cos(needleAngle);
     var ny = cy + (r - 30) * Math.sin(needleAngle);
