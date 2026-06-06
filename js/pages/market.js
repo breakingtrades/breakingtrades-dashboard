@@ -345,7 +345,11 @@
     var activeEnd = startAngle + (avg / 100) * Math.PI;
     var ax1 = cx + r * Math.cos(startAngle), ay1 = cy + r * Math.sin(startAngle);
     var ax2 = cx + r * Math.cos(activeEnd), ay2 = cy + r * Math.sin(activeEnd);
-    var largeArc = avg > 50 ? 1 : 0;
+    // Half-circle gauge sweeps 180° total; any 0-100% reading is ≤180°, so largeArc is always 0.
+    // (The previous `avg > 50 ? 1 : 0` was correct for a full-circle gauge but wrong here —
+    //  it forced SVG to take the LONG way around the circle for any value >50%, painting the
+    //  active arc all the way around the bottom and back up, producing the orange-tab artifacts.)
+    var largeArc = 0;
     arcs += '<path d="M ' + ax1 + ' ' + ay1 + ' A ' + r + ' ' + r + ' 0 ' + largeArc + ' 1 ' + ax2 + ' ' + ay2 + '" fill="none" stroke="' + color + '" stroke-width="18" stroke-linecap="butt" opacity="0.9"/>';
 
     var nx = cx + (r - 30) * Math.cos(needleAngle);
