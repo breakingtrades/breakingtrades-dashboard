@@ -359,7 +359,9 @@
 
     arcs += '<text x="18" y="' + (cy + 16) + '" fill="#00d4aa" font-size="9" font-family="monospace" font-weight="700">0%</text>';
     arcs += '<text x="270" y="' + (cy + 16) + '" fill="#ef5350" font-size="9" font-family="monospace" font-weight="700" text-anchor="end">100%</text>';
-    arcs += '<text x="' + cx + '" y="18" fill="#ffa726" font-size="8" font-family="monospace" text-anchor="middle" opacity="0.6">50%</text>';
+    // 50% label sits above the arc's top edge (arc spans cy-r=25 to cy-r+stroke=43 at apex);
+    // y=12 keeps it clear of the colored band. Slightly larger + higher opacity for legibility.
+    arcs += '<text x="' + cx + '" y="12" fill="#ffa726" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle" opacity="0.85">50%</text>';
 
     svg.innerHTML = arcs;
 
