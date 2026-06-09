@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Jun 08",
-  "headline": "Volatility is waking up, tech's leading but rotation churn is everywhere \u2014 patience rules today.",
+  "title": "Daily Briefing \u2014 Jun 09",
+  "headline": "Market breadth narrowing, tech still leading, but defensive signals are creeping in\u2014patience is king.",
   "body": [
-    "Right, so let's look at what the flows are telling us: VIX is elevated at 21.51, trending above its 20 MA (17.12), and Fear & Greed has cratered from last month's greed (67.3) to a steady 'fear' at 42.1. That's your recipe for chop, not runaway bull. SPY is still below the daily 20 MA (746.55), so no long chases here \u2014 less trades = more wins.",
-    "On sector rotation, XLK (Technology) is still the only clear leader (RS=120.4, Mom=100.7), but everything else is cycling through 'improving' or 'lagging'. Industrials (XLI), Healthcare (XLV), and Financials (XLF) are showing improving momentum \u2014 keep an eye. Utilities, Energy, and Staples are lagging hard and risk is HIGH here, so step lightly.",
-    "Contrarian play? Retail support is thin, dark pool signals are muted, and most tickers are in 'approaching' or 'watching' status with very few actual triggers. AAPL, XLK, and DELL are above their 20 MAs \u2014 if you must play, stick with the real strength. With VIX up and SPY still below mean reversion, don't try to be a hero. Patience, react, don't predict."
+    "Right, so the market's bounced off lows with SPY holding $739.22, but price remains below the daily 20 MA ($746.37). Not chasing this. Volatility is ticking up (VIX 18.92 > SMA20) and Fear & Greed has cratered from 67 to 39\u2014what was greed last month is now solid fear. Flows aren\u2019t showing panic, but momentum is waning.",
+    "Sector rotation is classic: XLK (Tech) still leads (RS 120.4), while laggards stack up in Energy, Utilities, Staples, and Healthcare\u2014risk levels are high across those. Financials (XLF $51.97) are improving; keep them on radar as the canary. Industrials and Discretionary are rotating up, but XLI ($173.63) just barely above the 20 MA ($173.08)\u2014watch for confirmation.",
+    "Contrarian watch: Most big tech names (AAPL, MSFT, META, GOOGL) are all below their 20 MAs and flashing bearish bias\u2014per rule R006, treat daily closes under 20 MA as exit signals for longs. Fear is climbing, but we aren't at extreme. Record tech outperformance and lagging breadth hint at late-cycle action (think early 2022 analogs). Don\u2019t break something simple\u2014a mean reversion to the weekly 20 MA zones could be on deck."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: 746.55 daily MA (the pivot \u2014 no long exposure below)<br>XLK: 183.27 daily MA (tech's support)<br>VIX: 21.51 \u2014 above 20 MA, volatility regime confirmed<br>XLF: 51.55 daily MA (financials must hold)<br>Fear & Greed: 42.1 \u2014 defensive posture<br>MSFT, NVDA, GOOGL, META \u2014 all still below their respective 20 MAs, avoid chasing<br>COIN: 185.37 daily MA (resistance), approaching status",
+  "callout_body": "- SPY: $746.37 (20 MA), $715.39 (50 MA), $682.10 (200 MA)<br>- XLK: $183.24 (20 MA support), RS 120.4 \u2014 king of leadership<br>- XLF: $51.97 ready to confirm improving sector, watch weekly close<br>- AAPL: $304.66 (20 MA), closing below = exit longs<br>- VIX: 18.92 rising above SMA20; risk-on fades<br>- Fear & Greed: 39.4 \u2014 not extreme, but patience required",
   "action_items": [
-    "If SPY closes below 746.55, maintain defensive exposure; no new longs until reclaimed.",
-    "Watch Financials (XLF) at 51.55 \u2014 if support breaks, reduce risk across portfolio."
+    "Reduce exposure on any watchlist name closing below its daily 20 MA\u2014flagged across AAPL, MSFT, META, GOOGL, and AMZN",
+    "Monitor XLF (Financials) for follow-through; improving momentum could signal rotational opportunity if 20 MA holds"
   ],
-  "closing_quote": "If it's in the press, it's in the price \u2014 Volatility's the only headline worth following today.",
-  "generatedAt": "2026-06-08T14:32:52.370977+00:00",
+  "closing_quote": "If it's in the press, it's in the price\u2014follow the flows, not the headlines.",
+  "generatedAt": "2026-06-09T13:22:04.161849+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
