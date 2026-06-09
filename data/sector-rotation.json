@@ -2,7 +2,7 @@
   "benchmark": "SPY",
   "lookback": 13,
   "trailLength": 26,
-  "generatedAt": "2026-06-08T14:32:44.106567+00:00",
+  "generatedAt": "2026-06-09T20:26:03.223646+00:00",
   "source": "yfinance",
   "sectors": [
     {
@@ -74,7 +74,7 @@
         {
           "date": "2026-03-09",
           "rs": 131.237,
-          "momentum": 103.885
+          "momentum": 103.886
         },
         {
           "date": "2026-03-16",
@@ -138,8 +138,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 90.934,
-          "momentum": 97.476
+          "rs": 89.706,
+          "momentum": 96.159
         }
       ]
     },
@@ -147,7 +147,7 @@
       "symbol": "XLB",
       "name": "Materials",
       "color": "#795548",
-      "quadrant": "Lagging",
+      "quadrant": "Improving",
       "trail": [
         {
           "date": "2025-12-15",
@@ -276,8 +276,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 91.258,
-          "momentum": 98.413
+          "rs": 92.894,
+          "momentum": 100.177
         }
       ]
     },
@@ -414,8 +414,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 94.574,
-          "momentum": 101.207
+          "rs": 95.833,
+          "momentum": 102.554
         }
       ]
     },
@@ -552,8 +552,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 93.076,
-          "momentum": 101.797
+          "rs": 93.842,
+          "momentum": 102.636
         }
       ]
     },
@@ -561,7 +561,7 @@
       "symbol": "XLP",
       "name": "Staples",
       "color": "#28A745",
-      "quadrant": "Lagging",
+      "quadrant": "Improving",
       "trail": [
         {
           "date": "2025-12-15",
@@ -690,8 +690,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 87.924,
-          "momentum": 98.865
+          "rs": 89.429,
+          "momentum": 100.557
         }
       ]
     },
@@ -828,8 +828,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 91.661,
-          "momentum": 100.203
+          "rs": 92.844,
+          "momentum": 101.497
         }
       ]
     },
@@ -966,8 +966,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 95.483,
-          "momentum": 101.03
+          "rs": 96.642,
+          "momentum": 102.257
         }
       ]
     },
@@ -975,7 +975,7 @@
       "symbol": "XLK",
       "name": "Technology",
       "color": "#00BCD4",
-      "quadrant": "Leading",
+      "quadrant": "Weakening",
       "trail": [
         {
           "date": "2025-12-15",
@@ -1104,8 +1104,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 120.362,
-          "momentum": 100.682
+          "rs": 118.585,
+          "momentum": 99.196
         }
       ]
     },
@@ -1113,7 +1113,7 @@
       "symbol": "XLC",
       "name": "Communication",
       "color": "#9C27B0",
-      "quadrant": "Lagging",
+      "quadrant": "Improving",
       "trail": [
         {
           "date": "2025-12-15",
@@ -1242,8 +1242,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 86.432,
-          "momentum": 99.68
+          "rs": 87.558,
+          "momentum": 100.978
         }
       ]
     },
@@ -1380,8 +1380,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 83.937,
-          "momentum": 96.624
+          "rs": 84.505,
+          "momentum": 97.278
         }
       ]
     },
@@ -1389,7 +1389,7 @@
       "symbol": "XLRE",
       "name": "Real Estate",
       "color": "#009688",
-      "quadrant": "Lagging",
+      "quadrant": "Improving",
       "trail": [
         {
           "date": "2025-12-15",
@@ -1518,8 +1518,8 @@
         },
         {
           "date": "2026-06-08",
-          "rs": 94.191,
-          "momentum": 98.744
+          "rs": 96.015,
+          "momentum": 100.655
         }
       ]
     }
