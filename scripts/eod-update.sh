@@ -321,6 +321,22 @@ PYEOF
 
 # --- Git commit + push ---
 log "Committing changes..."
+
+# CRITICAL: if HEAD is not on main, do NOT auto-commit/push — the user is
+# working on a feature branch and our automated commit-and-rebase would
+# either land on the wrong branch or trigger a stash that wipes their work.
+# The 2026-06-09 incident (week-ahead branch dev wiped by EOD rebase): see
+# AGENTS.md "EOD cron rebase ate untracked work" / skill weekly-catalyst-scan.
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "?")
+if [[ "$CURRENT_BRANCH" != "main" ]]; then
+    log "WARNING: Current branch is '$CURRENT_BRANCH', not main."
+    log "Refusing to auto-commit data updates on a non-main branch."
+    log "User must manually merge their feature branch back to main, or"
+    log "rerun this script after switching: git checkout main"
+    log "Skipping commit + push. Data files left uncommitted in working tree."
+    exit 0
+fi
+
 git add data/ || true
 
 if git diff --staged --quiet 2>/dev/null; then
@@ -335,6 +351,19 @@ else
     if [[ "${BT_SKIP_PUSH:-0}" == "1" ]]; then
         log "Skipping push (BT_SKIP_PUSH=1)"
     else
+        # Belt + suspenders: if working tree has uncommitted changes BEYOND
+        # what we just committed (e.g. dev work in progress), abort push.
+        # Untracked files (new dev files not yet `git add`-ed) — `git status`
+        # without --porcelain catches these. We just committed `data/` so a
+        # clean tree should produce empty status output. Any output = abort.
+        if [[ -n "$(git status --porcelain)" ]]; then
+            log "WARNING: Uncommitted changes detected after data commit:"
+            git status --porcelain | head -20 | tee -a "$LOG"
+            log "Refusing to rebase + push (would risk the user's in-flight work)."
+            log "User should commit/stash these manually before next EOD run."
+            exit 0
+        fi
+
         # Switch gh auth to idanshimon (has write access to breakingtrades org)
         # idanshimon_microsoft is corp account — read-only on breakingtrades repos
         gh auth switch --user idanshimon 2>/dev/null || true
