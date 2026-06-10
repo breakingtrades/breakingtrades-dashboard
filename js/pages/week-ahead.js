@@ -17,6 +17,7 @@
   'use strict';
 
   var _countdownInterval = null;
+  var _lastCatalysts = null;
 
   var SEVERITY_COLORS = {
     critical: '#ef5350',
@@ -126,6 +127,42 @@
   function init() {
     loadAndRender();
     _countdownInterval = setInterval(updateCountdowns, 1000);
+
+    // Ensure btPrices is loaded — it's the canonical EOD-bot price snapshot
+    // (always fresher than weekly-catalysts.json's Sunday-night spot). When it
+    // arrives or refreshes, re-render the EM cards so cards show today's close.
+    if (window.btPrices && typeof window.btPrices.load === 'function') {
+      window.btPrices.load().then(function() {
+        rerenderAllCards();
+      });
+      if (typeof window.btPrices.onRefresh === 'function') {
+        window.btPrices.onRefresh(rerenderAllCards);
+      }
+      if (typeof window.btPrices.startAutoRefresh === 'function') {
+        window.btPrices.startAutoRefresh();
+      }
+    }
+  }
+
+  // Re-render all EM cards using the current btPrices/livePrices state.
+  // Called when btPrices.load() finishes or when prices.json refreshes.
+  function rerenderAllCards() {
+    if (!_lastCatalysts || !_lastCatalysts.index_expected_moves) return;
+    var grid = document.getElementById('wa-em-grid');
+    if (!grid) return;
+    var em = _lastCatalysts.index_expected_moves;
+    var cards = grid.querySelectorAll('.wa-em-card');
+    cards.forEach(function(card) {
+      var sym = card.getAttribute('data-sym');
+      if (!sym || !em[sym]) return;
+      // Use cached live quote if available
+      var liveSpot = null;
+      if (window.livePrices && window.livePrices._cache && window.livePrices._cache[sym]) {
+        var c = window.livePrices._cache[sym];
+        if (c.quote && c.quote.price != null) liveSpot = c.quote.price;
+      }
+      card.outerHTML = renderEMCard(sym, em[sym], liveSpot);
+    });
   }
 
   function destroy() {
@@ -140,6 +177,7 @@
     ]).then(function(results) {
       var catalysts = results[0];
       var brief = results[1];
+      _lastCatalysts = catalysts;
 
       if (!catalysts) {
         document.getElementById('wa-brief').innerHTML =
@@ -365,8 +403,7 @@
       '<div class="wa-em-banner">' +
         '<i data-lucide="info"></i>' +
         '<span>' +
-          'Weekly EM bands anchored to <strong>last Friday\'s close</strong> ' +
-          '(Mike Silva / FOM convention). ' +
+          'Weekly EM bands anchored to <strong>last Friday\'s close</strong> and held constant Mon-Fri. ' +
           '<span class="wa-em-band-key"><span class="wa-em-key-anchor"></span>anchored band</span>' +
           ' &middot; ' +
           '<span class="wa-em-band-key"><span class="wa-em-key-live"></span>live-recentered</span>' +
@@ -392,12 +429,29 @@
         '<div class="wa-em-empty">no data</div></div>';
     }
 
+    // Resolve the freshest spot we can find. Priority order:
+    //   1. liveSpot (Yahoo chart endpoint, intraday)
+    //   2. window.btPrices.price(sym) (canonical EOD-bot snapshot, always fresher than weekly-catalysts.json)
+    //   3. staticSpot (Sunday-night scan, always stalest)
+    var resolvedSpot = staticSpot;
+    var spotSource = 'sunday-scan';
+    if (liveSpot != null) {
+      resolvedSpot = liveSpot;
+      spotSource = 'live';
+    } else if (window.btPrices && typeof window.btPrices.price === 'function') {
+      var btSpot = window.btPrices.price(sym);
+      if (btSpot != null && btSpot > 0) {
+        resolvedSpot = btSpot;
+        spotSource = 'eod-snapshot';
+      }
+    }
+
     // Anchored band geometry (the static "as priced Sunday night" band)
     var range = hi - lo;
     var em = (hi - lo) / 2;   // half-width = 1 expected-move unit
-    var spot = (liveSpot != null) ? liveSpot : staticSpot;
+    var spot = resolvedSpot;
 
-    // Live-recentered band: same EM width, but centered on live spot
+    // Live-recentered band: same EM width, but centered on resolved spot
     var liveLo = spot - em;
     var liveHi = spot + em;
 
@@ -427,8 +481,6 @@
     else { statusLabel = 'MID'; statusColor = '#64748b'; }
 
     // Live band overlay: where would the band be if recentered to live spot?
-    // Position the overlay relative to the displayed anchored-band axis.
-    // The track axis runs from lo to hi visually.
     var liveLoPct = ((liveLo - lo) / range) * 100;
     var liveHiPct = ((liveHi - lo) / range) * 100;
     var liveBandLeft = Math.max(-50, Math.min(150, liveLoPct));
@@ -437,11 +489,15 @@
     // Anchor (vertical tick at the static anchor) — for context
     var anchorPct = anchor ? ((anchor - lo) / range) * 100 : null;
 
-    // Indicate live-ness in the spot color
-    var spotIsLive = (liveSpot != null);
-    var spotLabel = spotIsLive
-      ? '<strong>$' + Number(spot).toFixed(2) + '</strong> <span class="wa-em-live-dot" title="Live"></span>'
-      : '<strong>$' + Number(spot).toFixed(2) + '</strong>';
+    // Indicate spot freshness in the price label
+    var spotLabel;
+    if (spotSource === 'live') {
+      spotLabel = '<strong>$' + Number(spot).toFixed(2) + '</strong> <span class="wa-em-live-dot" title="Live"></span>';
+    } else if (spotSource === 'eod-snapshot') {
+      spotLabel = '<strong>$' + Number(spot).toFixed(2) + '</strong>';
+    } else {
+      spotLabel = '<strong style="opacity:0.65;" title="Stale Sunday-scan spot — live feed unreachable">$' + Number(spot).toFixed(2) + '</strong>';
+    }
 
     return '<div class="wa-em-card" data-sym="' + escapeHtml(sym) + '">' +
       '<div class="wa-em-head">' +

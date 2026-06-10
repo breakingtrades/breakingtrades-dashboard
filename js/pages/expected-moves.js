@@ -54,7 +54,7 @@
             '<h1 style="font-size:20px;color:var(--text-bright);margin:0;"><i data-lucide="ruler"></i> Expected Moves</h1>' +
             '<div style="font-size:12px;color:var(--text-dim);">' +
               'Options-implied ranges · ATM straddle × 0.85 · ' +
-              '<span title="Weekly tier is anchored to last Friday\'s close (Mike Silva / FOM convention) and held constant Mon-Fri. The teal overlay shows where the band WOULD be if recentered to current live spot.">' +
+              '<span title="Weekly tier is anchored to last Friday\'s close and held constant Mon-Fri. The teal overlay shows where the band WOULD be if recentered to current live spot.">' +
                 '<i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px;"></i> band convention' +
               '</span>' +
             '</div>' +
