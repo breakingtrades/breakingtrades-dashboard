@@ -107,6 +107,14 @@
           '</div>' +
         '</section>' +
 
+        // Recent IPO performance — regime tell for upcoming IPOs
+        '<section class="wa-section">' +
+          '<h3 class="wa-section-title"><i data-lucide="rocket"></i> Recent IPO Performance <span class="wa-section-sub">(regime tell)</span></h3>' +
+          '<div class="wa-ipo-tracker" id="wa-ipo-tracker">' +
+            '<div class="skeleton skeleton-card" style="height:140px;"></div>' +
+          '</div>' +
+        '</section>' +
+
         // Footer attribution
         '<div class="wa-footer" id="wa-footer"></div>' +
       '</div>';
@@ -142,6 +150,7 @@
       renderHotDays(catalysts);
       renderCatalystGrid(catalysts);
       renderEMoves(catalysts);
+      renderIpoTracker(catalysts);
       renderFooter(catalysts, brief);
 
       if (typeof lucide !== 'undefined' && lucide.createIcons) {
@@ -350,6 +359,127 @@
         '</div>' +
       '</div>';
     }).join('') + '</div>';
+  }
+
+  function renderIpoTracker(c) {
+    var el = document.getElementById('wa-ipo-tracker');
+    if (!el) return;
+    var regime = c.ipo_regime || null;
+    var ipos = c.recent_ipos || [];
+
+    if (!ipos.length && !regime) {
+      el.innerHTML = '<div class="wa-empty">No recent IPO data. Run <code>python3 scripts/track-ipo-performance.py</code>.</div>';
+      return;
+    }
+
+    // Regime banner — exhaustion / mixed / robust
+    var regimeColor = '#64748b';
+    var regimeIcon = 'minus';
+    if (regime) {
+      if (regime.signal === 'exhaustion') { regimeColor = '#ef5350'; regimeIcon = 'trending-down'; }
+      else if (regime.signal === 'robust') { regimeColor = '#26a69a'; regimeIcon = 'trending-up'; }
+      else if (regime.signal === 'mixed') { regimeColor = '#ffa726'; regimeIcon = 'activity'; }
+    }
+    var regimeBanner = regime ? (
+      '<div class="wa-ipo-regime" style="border-color:' + regimeColor + ';">' +
+        '<div class="wa-ipo-regime-head">' +
+          '<i data-lucide="' + regimeIcon + '" style="color:' + regimeColor + ';"></i>' +
+          '<span class="wa-ipo-regime-label" style="color:' + regimeColor + ';">' +
+            'Regime: ' + escapeHtml(String(regime.signal || 'unknown').toUpperCase()) +
+          '</span>' +
+          '<span class="wa-ipo-regime-stats">' +
+            (regime.ipos_tracked || 0) + ' tracked &middot; ' +
+            (regime.broke_ipo_price_count || 0) + ' broke IPO (' +
+            (regime.broke_ipo_price_pct != null ? Number(regime.broke_ipo_price_pct).toFixed(0) : '?') + '%) &middot; ' +
+            'avg ' + (regime.avg_return_from_ipo_pct != null ? (regime.avg_return_from_ipo_pct >= 0 ? '+' : '') + Number(regime.avg_return_from_ipo_pct).toFixed(1) + '%' : 'n/a') +
+          '</span>' +
+        '</div>' +
+        '<div class="wa-ipo-regime-interp">' + escapeHtml(regime.interpretation || '') + '</div>' +
+      '</div>'
+    ) : '';
+
+    // Status tag → color + label
+    var TAG_META = {
+      'blowout-pop':       { color: '#26a69a', label: 'BLOWOUT' },
+      'solid-pop':         { color: '#26a69a', label: 'POP' },
+      'pop-and-hold':      { color: '#26a69a', label: 'POP+HOLD' },
+      'holding-IPO':       { color: '#a5d6a7', label: 'HOLDING' },
+      'flat-debut':        { color: '#64748b', label: 'FLAT' },
+      'pop-and-fade':      { color: '#ffa726', label: 'POP+FADE' },
+      'below-IPO':         { color: '#ef5350', label: 'BELOW IPO' },
+      'sub-IPO-fade':      { color: '#ef5350', label: 'SUB-IPO FADE' },
+      'broken-ipo-day-1':  { color: '#ef5350', label: 'BROKE DAY 1' },
+      'crashed':           { color: '#b71c1c', label: 'CRASHED' },
+      'unknown':           { color: '#64748b', label: '—' }
+    };
+
+    var cards = ipos.map(function(rec) {
+      var m = rec.metrics || null;
+      if (!m) {
+        return '<div class="wa-ipo-card wa-ipo-card-error">' +
+          '<div class="wa-ipo-sym">' + escapeHtml(rec.symbol || '?') + '</div>' +
+          '<div class="wa-ipo-name">' + escapeHtml(rec.name || '') + '</div>' +
+          '<div class="wa-ipo-err">no data (' + escapeHtml(rec.error || '') + ')</div>' +
+        '</div>';
+      }
+      var tag = TAG_META[m.status_tag] || TAG_META.unknown;
+      var lastPct = m.return_from_ipo_pct;
+      var lastPctClass = lastPct == null ? '' : (lastPct >= 0 ? 'pos' : 'neg');
+      var d1HighPct = m.day1_high_pct;
+      var d1HighClass = d1HighPct == null ? '' : (d1HighPct >= 0 ? 'pos' : 'neg');
+      var dropFromHigh = m.return_from_d1_high_pct;
+      var dropClass = dropFromHigh == null ? '' : (dropFromHigh >= 0 ? 'pos' : 'neg');
+      var brokeBadge = m.broke_ipo_price
+        ? '<span class="wa-ipo-broke" title="Closed below IPO price on a post-debut session">BROKE</span>'
+        : '';
+      var volCollapseStr = '';
+      if (m.volume_collapse_pct != null && m.volume_d1) {
+        var sign = m.volume_collapse_pct >= 0 ? '+' : '';
+        volCollapseStr = '<div class="wa-ipo-vol">vol ' + sign + Number(m.volume_collapse_pct).toFixed(0) + '% vs d1</div>';
+      }
+      return '<div class="wa-ipo-card">' +
+        '<div class="wa-ipo-card-head">' +
+          '<div>' +
+            '<div class="wa-ipo-sym">' + escapeHtml(rec.symbol) + '</div>' +
+            '<div class="wa-ipo-name">' + escapeHtml(rec.name || '') + '</div>' +
+          '</div>' +
+          '<div class="wa-ipo-tag-wrap">' +
+            '<span class="wa-ipo-tag" style="background:' + tag.color + '22;color:' + tag.color + ';border-color:' + tag.color + ';">' +
+              escapeHtml(tag.label) +
+            '</span>' +
+            brokeBadge +
+          '</div>' +
+        '</div>' +
+        '<div class="wa-ipo-meta">' +
+          '<span>' + escapeHtml(rec.ipo_date) + ' &middot; $' + Number(rec.ipo_price).toFixed(2) + ' IPO &middot; ' +
+          m.days_since_ipo + 'd ago</span>' +
+        '</div>' +
+        '<div class="wa-ipo-stats">' +
+          '<div class="wa-ipo-stat">' +
+            '<div class="wa-ipo-stat-label">Day-1 high</div>' +
+            '<div class="wa-ipo-stat-val ' + d1HighClass + '">' +
+              (d1HighPct != null ? (d1HighPct >= 0 ? '+' : '') + Number(d1HighPct).toFixed(1) + '%' : '—') +
+            '</div>' +
+          '</div>' +
+          '<div class="wa-ipo-stat">' +
+            '<div class="wa-ipo-stat-label">Now vs IPO</div>' +
+            '<div class="wa-ipo-stat-val ' + lastPctClass + '">' +
+              (lastPct != null ? (lastPct >= 0 ? '+' : '') + Number(lastPct).toFixed(1) + '%' : '—') +
+            '</div>' +
+          '</div>' +
+          '<div class="wa-ipo-stat">' +
+            '<div class="wa-ipo-stat-label">From d1 high</div>' +
+            '<div class="wa-ipo-stat-val ' + dropClass + '">' +
+              (dropFromHigh != null ? (dropFromHigh >= 0 ? '+' : '') + Number(dropFromHigh).toFixed(1) + '%' : '—') +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        (rec.category ? '<div class="wa-ipo-cat">' + escapeHtml(rec.category) + '</div>' : '') +
+        volCollapseStr +
+      '</div>';
+    }).join('');
+
+    el.innerHTML = regimeBanner + '<div class="wa-ipo-grid">' + cards + '</div>';
   }
 
   function renderFooter(catalysts, brief) {
