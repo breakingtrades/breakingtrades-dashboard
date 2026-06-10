@@ -52,7 +52,12 @@
         '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">' +
           '<div>' +
             '<h1 style="font-size:20px;color:var(--text-bright);margin:0;"><i data-lucide="ruler"></i> Expected Moves</h1>' +
-            '<div style="font-size:12px;color:var(--text-dim);">Options-implied weekly ranges · ATM straddle × 0.85</div>' +
+            '<div style="font-size:12px;color:var(--text-dim);">' +
+              'Options-implied ranges · ATM straddle × 0.85 · ' +
+              '<span title="Weekly tier is anchored to last Friday\'s close (Mike Silva / FOM convention) and held constant Mon-Fri. The teal overlay shows where the band WOULD be if recentered to current live spot.">' +
+                '<i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px;"></i> band convention' +
+              '</span>' +
+            '</div>' +
           '</div>' +
           '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">' +
             '<span class="em-live-pill live-pending" id="em-live-status" title="Live top-up from Yahoo chart endpoint">⏳ Loading live prices…</span>' +
@@ -323,10 +328,39 @@
 
       var lo = tier.lower, hi = tier.upper;
       var range = hi - lo;
+      var em = range > 0 ? range / 2 : 0;  // EM half-width = 1σ unit
+      var anchor = (currentTier === 'weekly' && tier.anchor_close != null) ? tier.anchor_close : null;
       var position = range > 0 ? ((currentPrice - lo) / range) * 100 : 50;
       var clampedPos = Math.max(0, Math.min(100, position));
       var risk = getRiskLabel(position);
       var riskColor = getRiskColor(position);
+
+      // Breach magnitude (only meaningful when price is outside the band)
+      var breachAmt = 0, breachSigma = 0, breachDir = null;
+      if (em > 0) {
+        if (currentPrice < lo) {
+          breachAmt = lo - currentPrice;
+          breachSigma = breachAmt / em;
+          breachDir = 'down';
+        } else if (currentPrice > hi) {
+          breachAmt = currentPrice - hi;
+          breachSigma = breachAmt / em;
+          breachDir = 'up';
+        }
+      }
+
+      // Live-recentered band geometry (only for weekly tier where anchor matters)
+      var liveBandLeft = null, liveBandWidth = null, anchorPct = null;
+      if (anchor && em > 0 && range > 0) {
+        var liveLo = currentPrice - em;
+        var liveHi = currentPrice + em;
+        liveBandLeft = ((liveLo - lo) / range) * 100;
+        liveBandWidth = ((liveHi - liveLo) / range) * 100;
+        liveBandLeft = Math.max(-50, Math.min(150, liveBandLeft));
+        liveBandWidth = Math.max(0, Math.min(200, liveBandWidth));
+        anchorPct = ((anchor - lo) / range) * 100;
+        anchorPct = Math.max(0, Math.min(100, anchorPct));
+      }
 
       var biasHtml = '<span style="color:var(--text-dim)">—</span>';
       if (wl) {
@@ -345,7 +379,11 @@
         em: tier.value, pct: tier.pct, lower: lo, upper: hi,
         position: position, clampedPos: clampedPos,
         risk: risk, riskColor: riskColor,
-        proxy: t.futures_proxy, biasHtml: biasHtml
+        proxy: t.futures_proxy, biasHtml: biasHtml,
+        // Dual-band live overlay fields
+        anchor: anchor, anchorPct: anchorPct,
+        liveBandLeft: liveBandLeft, liveBandWidth: liveBandWidth,
+        breachAmt: breachAmt, breachSigma: breachSigma, breachDir: breachDir
       });
     }
     return rows;
@@ -447,6 +485,33 @@
         rowClass = 'alert-sell';
       }
 
+      // Build position cell HTML with optional dual-band overlay
+      var posCellInner =
+        '<div class="em-pos-bar">' +
+          '<div class="em-pos-fill" style="width:' + r.clampedPos + '%;background:' + r.riskColor + ';opacity:0.3;"></div>';
+      if (r.liveBandLeft != null) {
+        posCellInner +=
+          '<div class="em-pos-live-band" style="left:' + r.liveBandLeft + '%;width:' + r.liveBandWidth + '%;" title="Live-recentered EM band"></div>';
+      }
+      if (r.anchorPct != null) {
+        posCellInner +=
+          '<div class="em-pos-anchor-tick" style="left:' + r.anchorPct + '%;" title="Anchor: $' + Number(r.anchor).toFixed(2) + '"></div>';
+      }
+      posCellInner +=
+          '<div class="em-pos-marker" style="left:' + r.clampedPos + '%;"></div>' +
+        '</div>';
+
+      // Position label: bare percent for in-band, or breach magnitude for out-of-band
+      var posLabel;
+      if (r.breachDir === 'down') {
+        posLabel = '<span style="color:#26a69a;font-weight:600;">BREACH DOWN -$' + r.breachAmt.toFixed(2) + ' (' + r.breachSigma.toFixed(1) + '\u03c3)</span>';
+      } else if (r.breachDir === 'up') {
+        posLabel = '<span style="color:#ef5350;font-weight:600;">BREACH UP +$' + r.breachAmt.toFixed(2) + ' (' + r.breachSigma.toFixed(1) + '\u03c3)</span>';
+      } else {
+        posLabel = r.position.toFixed(0) + '% of range';
+      }
+      posCellInner += '<div style="color:var(--text-dim);font-size:11px;margin-top:3px;">' + posLabel + '</div>';
+
       return '<tr class="' + rowClass + '" data-sym="' + r.symbol + '">' +
         '<td class="ticker-cell">' + r.symbol + (r.proxy ? ' <span style="color:var(--text-dim);font-size:11px;">(' + r.proxy.futures + ')</span>' : '') + ' ' + alertTag + '</td>' +
         '<td>$' + r.current.toFixed(2) + '</td>' +
@@ -455,13 +520,7 @@
         '<td style="color:var(--orange)">±' + r.pct + '%</td>' +
         '<td style="color:var(--cyan)">$' + r.lower.toFixed(2) + '</td>' +
         '<td style="color:var(--red)">$' + r.upper.toFixed(2) + '</td>' +
-        '<td>' +
-          '<div class="em-pos-bar">' +
-            '<div class="em-pos-fill" style="width:' + r.clampedPos + '%;background:' + r.riskColor + ';opacity:0.3;"></div>' +
-            '<div class="em-pos-marker" style="left:' + r.clampedPos + '%;"></div>' +
-          '</div>' +
-          '<div style="color:var(--text-dim);font-size:11px;margin-top:3px;">' + r.position.toFixed(0) + '% of range</div>' +
-        '</td>' +
+        '<td>' + posCellInner + '</td>' +
         '<td><span class="em-risk-badge" style="color:' + r.risk.color + ';background:' + r.risk.bg + ';border:1px solid ' + r.risk.color + '40;">' + r.risk.text + '</span></td>' +
         '<td><div class="em-risk-bar-wrap"><div class="em-risk-fill" style="width:' + Math.max(4, Math.min(100, r.position)) + '%;background:' + r.riskColor + ';"></div></div></td>' +
         '<td style="white-space:nowrap;">' + r.biasHtml + '</td>' +

@@ -316,6 +316,24 @@
   height: 6px; background: rgba(255,255,255,0.06);
   border-radius: 3px; overflow: visible;
 }
+.wa-em-anchor-tick {
+  position: absolute;
+  top: -2px;
+  width: 1px; height: 10px;
+  background: rgba(255,255,255,0.35);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+.wa-em-live-band {
+  position: absolute;
+  top: -2px;
+  height: 10px;
+  background: rgba(38,166,154,0.18);
+  border: 1px solid rgba(38,166,154,0.55);
+  border-radius: 3px;
+  z-index: 2;
+  pointer-events: none;
+}
 .wa-em-marker {
   position: absolute;
   top: -3px;
@@ -323,6 +341,7 @@
   background: var(--cyan); border-radius: 2px;
   transform: translateX(-50%);
   box-shadow: 0 0 4px var(--cyan);
+  z-index: 3;
 }
 .wa-em-status {
   font-size: 11px; font-weight: 600;
@@ -330,6 +349,54 @@
   font-family: var(--font-mono);
 }
 .wa-em-empty { color: var(--text-dim); font-size: 11px; font-style: italic; }
+.wa-em-live-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan);
+  margin-left: 4px;
+  animation: wa-em-pulse 2s ease-in-out infinite;
+  vertical-align: middle;
+}
+@keyframes wa-em-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Convention banner above the EM grid */
+.wa-em-banner {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 8px 12px; margin-bottom: 12px;
+  background: rgba(38,166,154,0.06);
+  border: 1px solid rgba(38,166,154,0.2);
+  border-radius: 6px;
+  color: var(--text-dim);
+  font-size: 11px; line-height: 1.5;
+}
+.wa-em-banner i { color: var(--cyan); flex-shrink: 0; margin-top: 2px; }
+.wa-em-banner strong { color: var(--text); font-weight: 600; }
+.wa-em-band-key {
+  display: inline-flex; align-items: center; gap: 4px;
+  white-space: nowrap;
+}
+.wa-em-key-anchor, .wa-em-key-live {
+  display: inline-block;
+  width: 18px; height: 6px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.wa-em-key-anchor { background: rgba(255,255,255,0.15); }
+.wa-em-key-live  { background: rgba(38,166,154,0.18); border: 1px solid rgba(38,166,154,0.55); }
+
+.wa-em-expiry-tag {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-dim);
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
 
 /* ==== Recent IPO Performance ==== */
 .wa-section-sub {
