@@ -1,17 +1,32 @@
 /**
- * shell.js — Build nav bar, ticker tape toggle, mobile hamburger
+ * shell.js — Build nav bar, snapshot strip, mobile hamburger.
+ *
+ * Nav structure (post-overhaul):
+ *   [Logo] [Primary links] [More ⋯] | [Search] [Snapshot toggle] [Tape toggle] [TZ]
+ *
+ * Primary links are the 5 most-used routes; secondary (Events/Week Ahead/
+ * Research) live in the "More" dropdown to keep the nav from overflowing
+ * on common viewport widths. Logo wordmark hidden under 1100px to free
+ * more horizontal space.
+ *
+ * Default top-of-page widget = our snapshot-strip (live SPY/QQQ/IWM/VIX/
+ * BTC/Gold via Yahoo chart endpoint). TradingView ticker tape is opt-in
+ * via the second toggle button.
  */
 (function() {
   'use strict';
 
-  var PAGES = [
+  var PRIMARY_PAGES = [
     { route: 'market', label: 'Market' },
     { route: 'signals', label: 'Signals' },
     { route: 'watchlist', label: 'Watchlist' },
     { route: 'expected-moves', label: 'Expected Moves' },
-    { route: 'events', label: 'Events' },
-    { route: 'week-ahead', label: 'Week Ahead' },
-    { route: 'airesearcher', label: 'Research' },
+    { route: 'week-ahead', label: 'Week Ahead' }
+  ];
+
+  var MORE_PAGES = [
+    { route: 'events',       label: 'Events',     icon: 'calendar' },
+    { route: 'airesearcher', label: 'Research',   icon: 'flask-conical' }
   ];
 
   var TZ_OPTIONS = [
@@ -23,7 +38,7 @@
     { value: 'Asia/Jerusalem', label: 'IST' },
     { value: 'Asia/Tokyo', label: 'JST' },
     { value: 'Australia/Sydney', label: 'AEST' },
-    { value: 'UTC', label: 'UTC' },
+    { value: 'UTC', label: 'UTC' }
   ];
 
   function buildNav() {
@@ -58,11 +73,23 @@
     // Hamburger
     var hamburger = '<button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><i data-lucide="menu"></i></button>';
 
-    // Links
+    // Primary links
     var links = '<div class="nav-links" id="nav-links">';
-    PAGES.forEach(function(p) {
+    PRIMARY_PAGES.forEach(function(p) {
       links += '<a href="#' + p.route + '" class="nav-link" data-route="' + p.route + '">' + p.label + '</a>';
     });
+    // "More" dropdown trigger + menu
+    links += '<div class="nav-more" id="nav-more">' +
+      '<button class="nav-link nav-more-toggle" id="nav-more-toggle" aria-label="More" aria-haspopup="true" aria-expanded="false">' +
+        'More <i data-lucide="chevron-down" class="nav-more-chev"></i>' +
+      '</button>' +
+      '<div class="nav-more-menu" id="nav-more-menu" role="menu">';
+    MORE_PAGES.forEach(function(p) {
+      links += '<a href="#' + p.route + '" class="nav-link nav-more-item" data-route="' + p.route + '" role="menuitem">' +
+        '<i data-lucide="' + p.icon + '"></i> ' + p.label +
+      '</a>';
+    });
+    links += '</div></div>';
     links += '</div>';
 
     // Search
@@ -70,26 +97,40 @@
 
     // Right section
     var right = '<div class="nav-right">';
-    // Market status
+    // Market status (shrinks to icon only on narrow viewports)
     right += '<span id="market-status"></span>';
+    // Snapshot strip toggle (default ON)
+    var snapVisible = BT.preferences.getPref('snapshotStrip') !== false;
+    right += '<button class="nav-icon-btn ticker-tape-toggle' + (snapVisible ? ' active' : '') + '"' +
+             ' id="snapshot-toggle" title="Toggle snapshot strip">' +
+             '<i data-lucide="activity"></i></button>';
+    // Ticker tape toggle (default OFF — opt-in for TradingView tape)
+    var tapeVisible = BT.preferences.getPref('tickerTape') === true;
+    right += '<button class="nav-icon-btn ticker-tape-toggle' + (tapeVisible ? ' active' : '') + '"' +
+             ' id="ticker-tape-toggle" title="Toggle scrolling ticker tape (TradingView)">' +
+             '<i data-lucide="' + (tapeVisible ? 'eye' : 'eye-off') + '"></i></button>';
     // Timezone picker
     var savedTz = BT.preferences.getPref('timezone') || 'America/New_York';
-    right += '<select class="tz-select" id="tz-picker">';
+    right += '<select class="tz-select" id="tz-picker" title="Display timezone">';
     TZ_OPTIONS.forEach(function(tz) {
       right += '<option value="' + tz.value + '"' + (tz.value === savedTz ? ' selected' : '') + '>' + tz.label + '</option>';
     });
     right += '</select>';
-    // Ticker tape toggle
-    var tapeVisible = BT.preferences.getPref('tickerTape') !== false;
-    right += '<button class="ticker-tape-toggle' + (tapeVisible ? ' active' : '') + '" id="ticker-tape-toggle" title="Toggle ticker tape"><i data-lucide="' + (tapeVisible ? 'eye' : 'eye-off') + '"></i></button>';
     right += '</div>';
 
     nav.innerHTML = hamburger + logo + links + search + right;
 
     // Bind events
     bindHamburger();
+    bindMoreDropdown();
     bindTickerTapeToggle();
+    bindSnapshotToggle();
     bindTimezone();
+
+    // Mount snapshot strip (default visible)
+    if (snapVisible && window.snapshotStrip) {
+      window.snapshotStrip.mount('body');
+    }
 
     // Fire nav:ready
     document.dispatchEvent(new Event('nav:ready'));
@@ -106,16 +147,37 @@
       e.stopPropagation();
       links.classList.toggle('open');
     });
-    // Close menu when tapping outside
     document.addEventListener('click', function(e) {
       if (!btn.contains(e.target) && !links.contains(e.target)) {
         links.classList.remove('open');
       }
     });
-    // Close on link click
     links.addEventListener('click', function(e) {
       if (e.target.classList.contains('nav-link')) {
         links.classList.remove('open');
+      }
+    });
+  }
+
+  function bindMoreDropdown() {
+    var toggle = document.getElementById('nav-more-toggle');
+    var menu = document.getElementById('nav-more-menu');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', function(e) {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    menu.addEventListener('click', function(e) {
+      if (e.target.closest && e.target.closest('.nav-more-item')) {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
       }
     });
   }
@@ -124,16 +186,32 @@
     var btn = document.getElementById('ticker-tape-toggle');
     if (!btn) return;
     btn.addEventListener('click', function() {
-      var visible = BT.preferences.getPref('tickerTape') !== false;
+      var visible = BT.preferences.getPref('tickerTape') === true;
       var newState = !visible;
       BT.preferences.setPref('tickerTape', newState);
       btn.classList.toggle('active', newState);
       btn.innerHTML = '<i data-lucide="' + (newState ? 'eye' : 'eye-off') + '"></i>';
       if (typeof lucide !== 'undefined') lucide.createIcons({ attrs: { class: 'lucide' }, nameAttr: 'data-lucide' });
       if (newState) {
-        tickerTape.show();
+        if (typeof tickerTape !== 'undefined') tickerTape.show();
       } else {
-        tickerTape.hide();
+        if (typeof tickerTape !== 'undefined') tickerTape.hide();
+      }
+    });
+  }
+
+  function bindSnapshotToggle() {
+    var btn = document.getElementById('snapshot-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      var visible = BT.preferences.getPref('snapshotStrip') !== false;
+      var newState = !visible;
+      BT.preferences.setPref('snapshotStrip', newState);
+      btn.classList.toggle('active', newState);
+      if (newState && window.snapshotStrip) {
+        window.snapshotStrip.mount('body');
+      } else if (window.snapshotStrip) {
+        window.snapshotStrip.destroy();
       }
     });
   }
@@ -157,6 +235,11 @@
         link.classList.remove('active');
       }
     }
+    // Highlight "More" toggle if route is in MORE_PAGES
+    var inMore = MORE_PAGES.some(function(p) { return p.route === route; });
+    var moreToggle = document.getElementById('nav-more-toggle');
+    if (moreToggle) moreToggle.classList.toggle('active', inMore);
+
     // Close mobile menu
     var navLinks = document.getElementById('nav-links');
     if (navLinks) navLinks.classList.remove('open');

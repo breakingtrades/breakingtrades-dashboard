@@ -33,11 +33,16 @@
   <div id="detail-modal" class="modal-overlay"></div>
 
   <!-- Core JS -->
+  <!-- fetch-json.js MUST load first so its window.fetch interceptor
+       is installed before any page scripts run their data/*.json reads -->
+  <script src="js/lib/fetch-json.js"></script>
   <script src="js/lib/bt-prices.js"></script>
+  <script src="js/lib/live-prices.js"></script>
   <script src="js/lib/tv-symbol.js"></script>
   <script src="js/lib/market-status.js"></script>
   <script src="js/lib/ticker-search.js"></script>
   <script src="js/lib/ticker-tape.js"></script>
+  <script src="js/lib/snapshot-strip.js"></script>
   <script src="js/lib/sector-rotation.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/preferences.js"></script>

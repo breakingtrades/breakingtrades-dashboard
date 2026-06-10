@@ -13,6 +13,7 @@
   var sortCol = null;
   var sortAsc = false;
   var _collapsibles = [];
+  var _emLiveTopUpHandle = null;
 
   var TOP10_SP = ['AAPL','MSFT','NVDA','AMZN','META','GOOGL','GOOG','TSLA','BRK B','AVGO'];
   var INDICES = ['SPX','SPY','QQQ','IWM','DIA','TLT','HYG','LQD','GLD','USO','UNG','IBIT'];
@@ -53,7 +54,10 @@
             '<h1 style="font-size:20px;color:var(--text-bright);margin:0;"><i data-lucide="ruler"></i> Expected Moves</h1>' +
             '<div style="font-size:12px;color:var(--text-dim);">Options-implied weekly ranges · ATM straddle × 0.85</div>' +
           '</div>' +
-          '<div style="font-size:11px;color:var(--text-dim);" id="em-updated"></div>' +
+          '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">' +
+            '<span class="em-live-pill live-pending" id="em-live-status" title="Live top-up from Yahoo chart endpoint">⏳ Loading live prices…</span>' +
+            '<div style="font-size:11px;color:var(--text-dim);" id="em-updated"></div>' +
+          '</div>' +
         '</div>' +
         '<div id="section-em-stats">' +
           '<div class="section-title" id="hdr-em-stats" style="font-size:10px;margin-bottom:8px;"><i data-lucide="bar-chart-3"></i> Statistics</div>' +
@@ -204,6 +208,41 @@
       });
       btPricesRef.startAutoRefresh();
     }
+
+    // Live price top-up via Yahoo chart endpoint — fixes the "stale prices"
+    // complaint. Hits the live feed for the visible tickers on init + every
+    // 60s during market hours. Honors livePrices' 30s cache so adjacent
+    // pages don't double-fetch.
+    var _liveTopUpInterval = null;
+    function runLiveTopUp() {
+      if (!emData || !emData.tickers || !btPricesRef || !btPricesRef.liveTopUp) return;
+      // Visible-symbol heuristic: all tickers in emData. EM page is dense
+      // but only ~85 symbols — Yahoo handles this fine with the cache.
+      var syms = Object.keys(emData.tickers);
+      btPricesRef.liveTopUp(syms).then(function(n) {
+        if (n > 0) {
+          // Re-render the table so live prices flow through
+          doRender();
+          // Update freshness label
+          var liveEl = document.getElementById('em-live-status');
+          if (liveEl) {
+            liveEl.textContent = '🟢 Live (' + n + ' tickers)';
+            liveEl.className = 'em-live-pill live-fresh';
+          }
+        }
+      });
+    }
+    // Initial fire + interval (only ticks during market hours; livePrices.subscribe
+    // does the market-hours check internally — but we still call topUp once on init
+    // unconditionally so off-hours users get a one-time freshen.)
+    setTimeout(runLiveTopUp, 800);  // give loadData a moment to populate emData
+    if (_liveTopUpInterval) clearInterval(_liveTopUpInterval);
+    _liveTopUpInterval = setInterval(function() {
+      if (window.livePrices && window.livePrices.isMarketHours()) {
+        runLiveTopUp();
+      }
+    }, 60 * 1000);
+    _emLiveTopUpHandle = _liveTopUpInterval;
   }
 
   function destroy() {
@@ -218,6 +257,7 @@
     currentFilter = 'all';
     var btPricesRef = window.btPrices;
     if (btPricesRef && btPricesRef.stopAutoRefresh) btPricesRef.stopAutoRefresh();
+    if (_emLiveTopUpHandle) { clearInterval(_emLiveTopUpHandle); _emLiveTopUpHandle = null; }
   }
 
   function _onKeyDown(e) { if (e.key === 'Escape') closeEMDetail(); }

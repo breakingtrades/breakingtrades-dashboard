@@ -24,10 +24,11 @@
   }
 
   // Restore ticker tape state from preferences
+  // NOTE: post-2026-06-10 UI overhaul, ticker tape default is OFF
+  // (snapshot strip replaces it). Only show if user explicitly opted in.
   document.addEventListener('nav:ready', function() {
-    var tapeVisible = BT.preferences.getPref('tickerTape') !== false;
-    if (!tapeVisible) {
-      // Hide after a short delay to let it inject first
+    var tapeVisible = BT.preferences.getPref('tickerTape') === true;
+    if (!tapeVisible && typeof tickerTape !== 'undefined') {
       setTimeout(function() { tickerTape.hide(); }, 100);
     }
   });
