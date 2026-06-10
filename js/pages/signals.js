@@ -165,15 +165,148 @@
     });
   }
 
-  /** Build a short, human-readable reason for why this ticker has this status. */
-  function buildStatusReason(t) {
+  /** Build a structured, ticker-specific reasoning object for the status badge.
+   *
+   * Returns:
+   *   {
+   *     headline: 1-liner,
+   *     reasons: [ { ok: true|false|'mixed', text: "..." }, ... ],
+   *     stats: ["RSI 63 (neutral)", "ATR 2.8%", ...]
+   *   }
+   *
+   * Used in two places:
+   *   - title attribute on the status badge (flattened to multi-line text)
+   *   - inline "Why?" popover (rendered as structured HTML)
+   */
+  function buildStatusReasoning(t) {
     var p = t.price;
-    var parts = [];
-    if (t.sma20 != null) parts.push('SMA20 $' + fmt2(t.sma20) + ' (' + (p > t.sma20 ? 'above' : 'below') + ')');
-    if (t.sma50 != null) parts.push('SMA50 $' + fmt2(t.sma50) + ' (' + (p > t.sma50 ? 'above' : 'below') + ')');
-    if (t.w20 != null)   parts.push('W20 $' + fmt2(t.w20) + ' (' + (p > t.w20 ? 'above' : 'below') + ')');
-    var cfg = STATUS_CONFIG[t.status] || {};
-    return (cfg.tip || '') + ' — ' + parts.join(', ');
+    var sma20 = t.sma20, sma50 = t.sma50, sma200 = t.sma200, w20 = t.w20;
+    var bias = t.bias;
+    var rsi = t.rsi;
+    var atrPct = t.atrPct;
+    var vol = t.volRating;
+    var pctHigh = t.pctFrom52wHigh;
+    var ed = t.earningsDays;
+    var cross = t.smaCrossover;
+
+    var reasons = [];
+    var H = {
+      triggered:   'Reclaimed a key MA today — entry signal.',
+      approaching: 'Within 2% of SMA20 / SMA50 — watching for reclaim.',
+      active:      'Bullish stack — price extended above SMA20.',
+      exit:        'Closed below SMA20 — risk-management trigger.',
+      watching:    'No active trigger — monitoring conditions.'
+    };
+    var headline = H[t.status] || 'Monitoring.';
+
+    var pp = function(label, v) {
+      if (v == null) return null;
+      var pct = ((p - v) / v * 100);
+      return { label: label, value: v, above: p > v, pct: pct };
+    };
+    var mas = [pp('SMA20', sma20), pp('SMA50', sma50), pp('W20', w20), pp('SMA200', sma200)].filter(Boolean);
+
+    // Bias stack interpretation
+    if (bias === 'bull') {
+      reasons.push({ ok: true, text: 'Bull stack: price above primary MAs (trend follower\u2019s long zone)' });
+    } else if (bias === 'bear') {
+      reasons.push({ ok: false, text: 'Bear stack: MAs above price \u2014 broader downtrend in force' });
+    } else {
+      reasons.push({ ok: 'mixed', text: 'Mixed stack: price between MAs, no clean trend yet' });
+    }
+
+    // Status-specific reasons
+    if (t.status === 'triggered') {
+      var sma20Above = sma20 != null && p > sma20;
+      reasons.push({ ok: sma20Above,
+        text: sma20Above
+          ? 'Trigger: price $' + fmt2(p) + ' is ABOVE SMA20 $' + fmt2(sma20) + ' (+' + ((p - sma20) / sma20 * 100).toFixed(2) + '%)'
+          : 'Note: status flagged but price NOT above SMA20 \u2014 verify' });
+      if (cross === 'golden_cross')   reasons.push({ ok: true,  text: 'Golden cross: SMA50 > SMA200 (medium-term tailwind)' });
+      if (cross === 'death_cross')    reasons.push({ ok: false, text: 'Death cross: SMA50 < SMA200 \u2014 broader downtrend not reclaimed yet' });
+      if (sma200 != null && p < sma200) reasons.push({ ok: false, text: 'Caveat: still below SMA200 $' + fmt2(sma200) + ' (' + ((p - sma200) / sma200 * 100).toFixed(1) + '%) \u2014 daily reclaim only, not a regime shift' });
+    }
+
+    if (t.status === 'approaching') {
+      var nearest = mas.filter(function(m) { return m.label === 'SMA20' || m.label === 'SMA50'; })
+        .sort(function(a,b){ return Math.abs(a.pct) - Math.abs(b.pct); })[0];
+      if (nearest) {
+        reasons.push({ ok: 'mixed',
+          text: 'Closest MA: ' + nearest.label + ' $' + fmt2(nearest.value) + ' \u2014 price ' + nearest.pct.toFixed(2) + '% ' + (nearest.above ? 'above' : 'below') });
+      }
+      reasons.push({ ok: 'mixed', text: 'Watching for daily close above the level for a "triggered" promotion' });
+    }
+
+    if (t.status === 'active') {
+      if (sma20 != null && p > sma20) {
+        var ext = ((p - sma20) / sma20 * 100);
+        reasons.push({ ok: ext < 8 ? true : 'mixed',
+          text: 'Extended +' + ext.toFixed(2) + '% above SMA20' + (ext > 8 ? ' \u2014 stretched, consider trailing stop' : ' \u2014 in trend zone') });
+      }
+    }
+
+    if (t.status === 'exit') {
+      if (sma20 != null) {
+        reasons.push({ ok: false,
+          text: 'Trigger: price $' + fmt2(p) + ' is BELOW SMA20 $' + fmt2(sma20) + ' (' + ((p - sma20) / sma20 * 100).toFixed(2) + '%)' });
+      }
+      if (sma50 != null && p < sma50) {
+        reasons.push({ ok: false, text: 'Also below SMA50 $' + fmt2(sma50) + ' \u2014 multi-MA breakdown, not a routine pullback' });
+      }
+    }
+
+    if (t.status === 'watching') {
+      mas.slice(0, 2).forEach(function(m) {
+        reasons.push({ ok: m.above ? true : false,
+          text: m.label + ' $' + fmt2(m.value) + ' \u2014 price ' + (m.above ? 'above' : 'below') + ' (' + m.pct.toFixed(1) + '%)' });
+      });
+    }
+
+    // Stats context (always shown)
+    var stats = [];
+    if (rsi != null) {
+      var rsiTag = rsi >= 70 ? 'overbought' : rsi <= 30 ? 'oversold' : rsi >= 60 ? 'strong' : rsi <= 40 ? 'weak' : 'neutral';
+      stats.push('RSI ' + rsi.toFixed(0) + ' (' + rsiTag + ')');
+    }
+    if (atrPct != null) stats.push('ATR ' + atrPct.toFixed(1) + '%');
+    if (vol) stats.push('Vol ' + vol);
+    if (pctHigh != null) stats.push(pctHigh.toFixed(1) + '% from 52w high');
+    if (ed != null && ed >= 0 && ed <= 14) {
+      stats.push('\u26A0 Earnings in ' + ed + 'd');
+    }
+
+    return { headline: headline, reasons: reasons, stats: stats };
+  }
+
+  /** Flatten reasoning to a multi-line string for the title attribute. */
+  function buildStatusReason(t) {
+    var r = buildStatusReasoning(t);
+    var lines = [r.headline, ''];
+    r.reasons.forEach(function(x) {
+      var glyph = x.ok === true ? '\u2713' : x.ok === false ? '\u2717' : '\u2022';
+      lines.push(glyph + ' ' + x.text);
+    });
+    if (r.stats.length) {
+      lines.push('');
+      lines.push(r.stats.join(' \u2022 '));
+    }
+    return lines.join('\n');
+  }
+
+  /** Render reasoning as inline HTML for the "Why?" popover. */
+  function renderStatusReasoningHTML(t) {
+    var r = buildStatusReasoning(t);
+    var rows = r.reasons.map(function(x) {
+      var cls = x.ok === true ? 'why-ok' : x.ok === false ? 'why-bad' : 'why-mixed';
+      var glyph = x.ok === true ? '\u2713' : x.ok === false ? '\u2717' : '\u2022';
+      return '<li class="' + cls + '"><span class="why-glyph">' + glyph + '</span>' + esc(x.text) + '</li>';
+    }).join('');
+    var stats = r.stats.length
+      ? '<div class="why-stats">' + r.stats.map(esc).join(' \u2022 ') + '</div>'
+      : '';
+    return '<div class="why-headline">' + esc(r.headline) + '</div>' +
+           '<ul class="why-list">' + rows + '</ul>' +
+           stats;
   }
 
   function biasTip(t) {
@@ -356,7 +489,9 @@
         '</div>' +
       '</div>' +
       '<div class="card-meta">' +
-        '<span class="status-badge ' + badgeClass + '" title="' + esc(statusTip) + '">' + statusIcon + ' ' + statusLabel + '</span>' +
+        '<span class="status-badge ' + badgeClass + '" title="' + esc(statusTip) + '" data-why-sym="' + esc(t.symbol) + '">' + statusIcon + ' ' + statusLabel +
+        ' <span class="why-affordance" aria-label="Why?" title="Why this signal?">\u24D8</span>' +
+        '</span>' +
         '<span class="bias-badge ' + bc + '" title="' + esc(biasBadgeTip) + '">' + t.bias.toUpperCase() + '</span>' +
         rsiBadge +
         earnBadge +
@@ -433,14 +568,84 @@
     // Bind card clicks
     var cards = container.querySelectorAll('.setup-card');
     for (var i = 0; i < cards.length; i++) {
-      cards[i].addEventListener('click', function() {
-        var sym = this.getAttribute('data-ticker');
-        _openDetail(sym);
+      cards[i].addEventListener('click', function(ev) {
+        // If the click was on a "Why?" affordance, show popover instead of opening detail
+        var whyEl = ev.target.closest && ev.target.closest('.why-affordance');
+        if (whyEl) {
+          ev.stopPropagation();
+          var badge = whyEl.closest('.status-badge');
+          var sym = badge && badge.getAttribute('data-why-sym');
+          if (sym) _showWhyPopover(badge, sym);
+          return;
+        }
+        var sym2 = this.getAttribute('data-ticker');
+        _openDetail(sym2);
       });
     }
 
     // Render Lucide icons
     if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  function _showWhyPopover(anchorEl, symbol) {
+    // Find the ticker
+    var t = null;
+    for (var i = 0; i < TICKERS.length; i++) {
+      if (TICKERS[i].symbol === symbol) { t = TICKERS[i]; break; }
+    }
+    if (!t) return;
+
+    // Remove any existing popover
+    var existing = document.getElementById('why-popover');
+    if (existing) existing.remove();
+
+    var pop = document.createElement('div');
+    pop.id = 'why-popover';
+    pop.className = 'why-popover why-status-' + t.status;
+    pop.innerHTML =
+      '<div class="why-pop-head">' +
+        '<span class="why-pop-sym">' + esc(t.symbol) + '</span>' +
+        '<span class="why-pop-status">' + esc(String(t.status).toUpperCase()) + '</span>' +
+        '<button class="why-pop-close" aria-label="Close">&times;</button>' +
+      '</div>' +
+      '<div class="why-pop-body">' + renderStatusReasoningHTML(t) + '</div>' +
+      '<div class="why-pop-foot">Click "View Detail" for chart + full breakdown.' +
+        ' <button class="why-pop-detail">View Detail</button>' +
+      '</div>';
+
+    document.body.appendChild(pop);
+
+    // Position next to anchor
+    var rect = anchorEl.getBoundingClientRect();
+    var top = rect.bottom + window.scrollY + 6;
+    var left = rect.left + window.scrollX;
+    var maxLeft = window.innerWidth - 360 - 16;
+    if (left > maxLeft) left = maxLeft;
+    if (left < 12) left = 12;
+    pop.style.top = top + 'px';
+    pop.style.left = left + 'px';
+
+    var close = function() {
+      if (pop.parentNode) pop.parentNode.removeChild(pop);
+      document.removeEventListener('click', outsideClick, true);
+      document.removeEventListener('keydown', escClose);
+    };
+    var outsideClick = function(ev) {
+      if (!pop.contains(ev.target)) close();
+    };
+    var escClose = function(ev) {
+      if (ev.key === 'Escape') close();
+    };
+    pop.querySelector('.why-pop-close').addEventListener('click', close);
+    pop.querySelector('.why-pop-detail').addEventListener('click', function(ev) {
+      ev.stopPropagation();
+      close();
+      _openDetail(symbol);
+    });
+    setTimeout(function() {
+      document.addEventListener('click', outsideClick, true);
+      document.addEventListener('keydown', escClose);
+    }, 0);
   }
 
   function _openDetail(symbol) {

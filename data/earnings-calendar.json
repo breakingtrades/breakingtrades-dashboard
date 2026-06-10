@@ -1,0 +1,200 @@
+{
+  "fetched_at": "2026-06-09T19:44:02.061610Z",
+  "source": "investing.com",
+  "country": "US",
+  "weeks": 2,
+  "min_cap_b": 5.0,
+  "events": [
+    {
+      "id": "earn-CHWY-2026-06-10",
+      "category": "earnings",
+      "title": "Chewy (CHWY) \u2014 Earnings",
+      "context": "Chewy (CHWY) reports before market open. $8.6B mkt cap. Small/mid-cap print.",
+      "deadline": "2026-06-10T08:30:00Z",
+      "tickers": [
+        "CHWY"
+      ],
+      "severity": "medium",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 8.62,
+        "eps_forecast": "0.2405",
+        "name": "Chewy"
+      }
+    },
+    {
+      "id": "earn-ORCL-2026-06-10",
+      "category": "earnings",
+      "title": "Oracle (ORCL) \u2014 Earnings",
+      "context": "Oracle (ORCL) reports after market close. $587.7B mkt cap. Mega-cap quarterly print \u2014 sector tell + index weight.",
+      "deadline": "2026-06-10T16:00:00Z",
+      "tickers": [
+        "ORCL"
+      ],
+      "severity": "critical",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "AMC",
+        "market_cap_b": 587.66,
+        "eps_forecast": "1.95",
+        "name": "Oracle"
+      }
+    },
+    {
+      "id": "earn-BMWKY-2026-06-11",
+      "category": "earnings",
+      "title": "BMW ADR (BMWKY) \u2014 Earnings",
+      "context": "BMW ADR (BMWKY) reports before market open. $48.4B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-11T08:30:00Z",
+      "tickers": [
+        "BMWKY"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 48.41,
+        "eps_forecast": "--",
+        "name": "BMW ADR"
+      }
+    },
+    {
+      "id": "earn-ADBE-2026-06-11",
+      "category": "earnings",
+      "title": "Adobe (ADBE) \u2014 Earnings",
+      "context": "Adobe (ADBE) reports after market close. $96.4B mkt cap. Large-cap print \u2014 sector read with ATM-straddle implied move.",
+      "deadline": "2026-06-11T16:00:00Z",
+      "tickers": [
+        "ADBE"
+      ],
+      "severity": "critical",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "AMC",
+        "market_cap_b": 96.4,
+        "eps_forecast": "5.82",
+        "name": "Adobe"
+      }
+    },
+    {
+      "id": "earn-LEN-2026-06-11",
+      "category": "earnings",
+      "title": "Lennar (LEN) \u2014 Earnings",
+      "context": "Lennar (LEN) reports after market close. $22.8B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-11T16:00:00Z",
+      "tickers": [
+        "LEN"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "AMC",
+        "market_cap_b": 22.81,
+        "eps_forecast": "1.25",
+        "name": "Lennar"
+      }
+    },
+    {
+      "id": "earn-JBL-2026-06-17",
+      "category": "earnings",
+      "title": "Jabil Circuit (JBL) \u2014 Earnings",
+      "context": "Jabil Circuit (JBL) reports before market open. $38.0B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-17T08:30:00Z",
+      "tickers": [
+        "JBL"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 37.95,
+        "eps_forecast": "3.08",
+        "name": "Jabil Circuit"
+      }
+    },
+    {
+      "id": "earn-KMX-2026-06-17",
+      "category": "earnings",
+      "title": "CarMax (KMX) \u2014 Earnings",
+      "context": "CarMax (KMX) reports before market open. $6.8B mkt cap. Small/mid-cap print.",
+      "deadline": "2026-06-17T08:30:00Z",
+      "tickers": [
+        "KMX"
+      ],
+      "severity": "medium",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 6.82,
+        "eps_forecast": "0.9537",
+        "name": "CarMax"
+      }
+    },
+    {
+      "id": "earn-ACN-2026-06-18",
+      "category": "earnings",
+      "title": "Accenture (ACN) \u2014 Earnings",
+      "context": "Accenture (ACN) reports before market open. $105.8B mkt cap. Mega-cap quarterly print \u2014 sector tell + index weight.",
+      "deadline": "2026-06-18T08:30:00Z",
+      "tickers": [
+        "ACN"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 105.85,
+        "eps_forecast": "3.72",
+        "name": "Accenture"
+      }
+    },
+    {
+      "id": "earn-TSCDY-2026-06-18",
+      "category": "earnings",
+      "title": "Tesco PLC (TSCDY) \u2014 Earnings",
+      "context": "Tesco PLC (TSCDY) reports before market open. $38.8B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-18T08:30:00Z",
+      "tickers": [
+        "TSCDY"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 38.8,
+        "eps_forecast": "--",
+        "name": "Tesco PLC"
+      }
+    },
+    {
+      "id": "earn-KR-2026-06-18",
+      "category": "earnings",
+      "title": "Kroger (KR) \u2014 Earnings",
+      "context": "Kroger (KR) reports before market open. $38.6B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-18T08:30:00Z",
+      "tickers": [
+        "KR"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 38.57,
+        "eps_forecast": "1.58",
+        "name": "Kroger"
+      }
+    }
+  ],
+  "errors": null
+}

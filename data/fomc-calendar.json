@@ -1,0 +1,173 @@
+{
+  "fetched_at": "2026-06-09T19:44:02.168567Z",
+  "source": "federalreserve.gov",
+  "next_meeting": {
+    "year": 2026,
+    "month": 6,
+    "day": 17,
+    "datetime_utc": "2026-06-17T18:00:00Z",
+    "press_conference": true,
+    "raw_date_label": "16-17*"
+  },
+  "upcoming_meetings": [
+    {
+      "year": 2026,
+      "month": 6,
+      "day": 17,
+      "datetime_utc": "2026-06-17T18:00:00Z",
+      "press_conference": true,
+      "raw_date_label": "16-17*"
+    },
+    {
+      "year": 2026,
+      "month": 7,
+      "day": 29,
+      "datetime_utc": "2026-07-29T18:00:00Z",
+      "press_conference": false,
+      "raw_date_label": "28-29"
+    },
+    {
+      "year": 2026,
+      "month": 9,
+      "day": 16,
+      "datetime_utc": "2026-09-16T18:00:00Z",
+      "press_conference": true,
+      "raw_date_label": "15-16*"
+    },
+    {
+      "year": 2026,
+      "month": 10,
+      "day": 28,
+      "datetime_utc": "2026-10-28T18:00:00Z",
+      "press_conference": false,
+      "raw_date_label": "27-28"
+    },
+    {
+      "year": 2026,
+      "month": 12,
+      "day": 9,
+      "datetime_utc": "2026-12-09T19:00:00Z",
+      "press_conference": true,
+      "raw_date_label": "8-9*"
+    }
+  ],
+  "recent_speeches": [
+    {
+      "date": "2026-06-06",
+      "speaker_slug": "barr",
+      "title": "Speech by Governor Barr on supervision and regulation",
+      "url": "https://www.federalreserve.gov/newsevents/speech/barr20260606a.htm"
+    },
+    {
+      "date": "2026-05-31",
+      "speaker_slug": "powell",
+      "title": "Acceptance remarks by Governor Powell at the John F. Kennedy Library Foundation",
+      "url": "https://www.federalreserve.gov/newsevents/speech/powell20260531a.htm"
+    },
+    {
+      "date": "2026-05-29",
+      "speaker_slug": "bowman",
+      "title": "Speech by Vice Chair for Supervision Bowman on monetary policy",
+      "url": "https://www.federalreserve.gov/newsevents/speech/bowman20260529a.htm"
+    },
+    {
+      "date": "2026-05-27",
+      "speaker_slug": "jefferson",
+      "title": "Speech by Vice Chair Jefferson on global economic developments and the U.S. economy",
+      "url": "https://www.federalreserve.gov/newsevents/speech/jefferson20260527a.htm"
+    },
+    {
+      "date": "2026-05-27",
+      "speaker_slug": "cook",
+      "title": "Speech by Governor Cook on AI, the economy, and the financial system",
+      "url": "https://www.federalreserve.gov/newsevents/speech/cook20260527a.htm"
+    }
+  ],
+  "events": [
+    {
+      "id": "fomc-2026-06-17",
+      "category": "fed",
+      "title": "FOMC Meeting \u2014 FOMC Decision + Press Conference",
+      "context": "FOMC Decision + Press Conference. Press release ~2:00 PM ET, Powell press conference ~2:30 PM ET. Major binary event for SPY/QQQ/TLT/DXY/GLD \u2014 rate path + dot-plot + economic projections drive multi-day positioning.",
+      "deadline": "2026-06-17T18:00:00Z",
+      "tickers": [
+        "SPY",
+        "QQQ",
+        "TLT",
+        "DXY",
+        "GLD"
+      ],
+      "severity": "critical",
+      "stars": null,
+      "source": "fed.gov",
+      "extra": {
+        "press_conference": true,
+        "raw_date_label": "16-17*"
+      }
+    },
+    {
+      "id": "fomc-2026-07-29",
+      "category": "fed",
+      "title": "FOMC Meeting \u2014 FOMC Decision",
+      "context": "FOMC Decision. Press release ~2:00 PM ET, Rate decision only (no presser). Lower-impact than press-conference meetings but still a binary catalyst.",
+      "deadline": "2026-07-29T18:00:00Z",
+      "tickers": [
+        "SPY",
+        "QQQ",
+        "TLT",
+        "DXY",
+        "GLD"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "fed.gov",
+      "extra": {
+        "press_conference": false,
+        "raw_date_label": "28-29"
+      }
+    },
+    {
+      "id": "fomc-2026-09-16",
+      "category": "fed",
+      "title": "FOMC Meeting \u2014 FOMC Decision + Press Conference",
+      "context": "FOMC Decision + Press Conference. Press release ~2:00 PM ET, Powell press conference ~2:30 PM ET. Major binary event for SPY/QQQ/TLT/DXY/GLD \u2014 rate path + dot-plot + economic projections drive multi-day positioning.",
+      "deadline": "2026-09-16T18:00:00Z",
+      "tickers": [
+        "SPY",
+        "QQQ",
+        "TLT",
+        "DXY",
+        "GLD"
+      ],
+      "severity": "critical",
+      "stars": null,
+      "source": "fed.gov",
+      "extra": {
+        "press_conference": true,
+        "raw_date_label": "15-16*"
+      }
+    },
+    {
+      "id": "fomc-2026-10-28",
+      "category": "fed",
+      "title": "FOMC Meeting \u2014 FOMC Decision",
+      "context": "FOMC Decision. Press release ~2:00 PM ET, Rate decision only (no presser). Lower-impact than press-conference meetings but still a binary catalyst.",
+      "deadline": "2026-10-28T18:00:00Z",
+      "tickers": [
+        "SPY",
+        "QQQ",
+        "TLT",
+        "DXY",
+        "GLD"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "fed.gov",
+      "extra": {
+        "press_conference": false,
+        "raw_date_label": "27-28"
+      }
+    }
+  ],
+  "errors": null
+}

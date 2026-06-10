@@ -1,0 +1,803 @@
+{
+  "schema_version": 1,
+  "week_of": "2026-06-15",
+  "generated_at": "2026-06-10T01:15:18.867101Z",
+  "horizon_days": 8,
+  "summary": {
+    "total_events": 18,
+    "by_category": {
+      "macro": 3,
+      "fed": 1,
+      "earnings": 7,
+      "geopolitical": 0,
+      "ipo": 7
+    },
+    "hottest_day": {
+      "date": "2026-06-10",
+      "score": 18,
+      "event_count": 5,
+      "by_category": {
+        "macro": 3,
+        "earnings": 2
+      }
+    },
+    "per_day": [
+      {
+        "date": "2026-06-10",
+        "weekday": "Wednesday",
+        "event_count": 5,
+        "max_severity": "critical",
+        "by_category": {
+          "macro": 3,
+          "earnings": 2
+        },
+        "headline_events": [
+          {
+            "category": "macro",
+            "title": "Core CPI (MoM) (May)",
+            "severity": "critical"
+          },
+          {
+            "category": "macro",
+            "title": "CPI (MoM) (May)",
+            "severity": "critical"
+          },
+          {
+            "category": "macro",
+            "title": "CPI (YoY) (May)",
+            "severity": "critical"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-11",
+        "weekday": "Thursday",
+        "event_count": 3,
+        "max_severity": "critical",
+        "by_category": {
+          "earnings": 3
+        },
+        "headline_events": [
+          {
+            "category": "earnings",
+            "title": "Adobe (ADBE) \u2014 Earnings",
+            "severity": "critical"
+          },
+          {
+            "category": "earnings",
+            "title": "BMW ADR (BMWKY) \u2014 Earnings",
+            "severity": "high"
+          },
+          {
+            "category": "earnings",
+            "title": "Lennar (LEN) \u2014 Earnings",
+            "severity": "high"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-17",
+        "weekday": "Wednesday",
+        "event_count": 3,
+        "max_severity": "critical",
+        "by_category": {
+          "fed": 1,
+          "earnings": 2
+        },
+        "headline_events": [
+          {
+            "category": "fed",
+            "title": "FOMC Meeting \u2014 FOMC Decision + Press Conference",
+            "severity": "critical"
+          },
+          {
+            "category": "earnings",
+            "title": "Jabil Circuit (JBL) \u2014 Earnings",
+            "severity": "high"
+          },
+          {
+            "category": "earnings",
+            "title": "CarMax (KMX) \u2014 Earnings",
+            "severity": "medium"
+          }
+        ]
+      }
+    ]
+  },
+  "categories": {
+    "macro": [
+      {
+        "id": "econ-549987",
+        "category": "macro",
+        "title": "Core CPI (MoM) (May)",
+        "context": "US 3-star economic data release. Consensus forecast: 0.3%. Previous reading: 0.4%. High-volatility window for SPY, QQQ, TLT, DXY, GLD.",
+        "deadline": "2026-06-10T12:30:00Z",
+        "tickers": [
+          "SPY",
+          "QQQ",
+          "TLT",
+          "DXY",
+          "GLD"
+        ],
+        "severity": "critical",
+        "stars": 3,
+        "source": "investing.com",
+        "extra": {
+          "forecast": "0.3%",
+          "previous": "0.4%"
+        }
+      },
+      {
+        "id": "econ-549986",
+        "category": "macro",
+        "title": "CPI (MoM) (May)",
+        "context": "US 3-star economic data release. Consensus forecast: 0.5%. Previous reading: 0.6%. High-volatility window for SPY, QQQ, TLT, DXY, GLD.",
+        "deadline": "2026-06-10T12:30:00Z",
+        "tickers": [
+          "SPY",
+          "QQQ",
+          "TLT",
+          "DXY",
+          "GLD"
+        ],
+        "severity": "critical",
+        "stars": 3,
+        "source": "investing.com",
+        "extra": {
+          "forecast": "0.5%",
+          "previous": "0.6%"
+        }
+      },
+      {
+        "id": "econ-549988",
+        "category": "macro",
+        "title": "CPI (YoY) (May)",
+        "context": "US 3-star economic data release. Consensus forecast: 4.2%. Previous reading: 3.8%. High-volatility window for SPY, QQQ, TLT, DXY, GLD.",
+        "deadline": "2026-06-10T12:30:00Z",
+        "tickers": [
+          "SPY",
+          "QQQ",
+          "TLT",
+          "DXY",
+          "GLD"
+        ],
+        "severity": "critical",
+        "stars": 3,
+        "source": "investing.com",
+        "extra": {
+          "forecast": "4.2%",
+          "previous": "3.8%"
+        }
+      }
+    ],
+    "fed": [
+      {
+        "id": "fomc-2026-06-17",
+        "category": "fed",
+        "title": "FOMC Meeting \u2014 FOMC Decision + Press Conference",
+        "context": "FOMC Decision + Press Conference. Press release ~2:00 PM ET, Powell press conference ~2:30 PM ET. Major binary event for SPY/QQQ/TLT/DXY/GLD \u2014 rate path + dot-plot + economic projections drive multi-day positioning.",
+        "deadline": "2026-06-17T18:00:00Z",
+        "tickers": [
+          "SPY",
+          "QQQ",
+          "TLT",
+          "DXY",
+          "GLD"
+        ],
+        "severity": "critical",
+        "stars": null,
+        "source": "fed.gov",
+        "extra": {
+          "press_conference": true,
+          "raw_date_label": "16-17*"
+        }
+      }
+    ],
+    "earnings": [
+      {
+        "id": "earn-CHWY-2026-06-10",
+        "category": "earnings",
+        "title": "Chewy (CHWY) \u2014 Earnings",
+        "context": "Chewy (CHWY) reports before market open. $8.6B mkt cap. Small/mid-cap print.",
+        "deadline": "2026-06-10T08:30:00Z",
+        "tickers": [
+          "CHWY"
+        ],
+        "severity": "medium",
+        "stars": null,
+        "source": "investing.com",
+        "extra": {
+          "bmo_amc": "BMO",
+          "market_cap_b": 8.62,
+          "eps_forecast": "0.2405",
+          "name": "Chewy"
+        }
+      },
+      {
+        "id": "earn-ORCL-2026-06-10",
+        "category": "earnings",
+        "title": "Oracle (ORCL) \u2014 Earnings",
+        "context": "Oracle (ORCL) reports after market close. $587.7B mkt cap. Mega-cap quarterly print \u2014 sector tell + index weight.",
+        "deadline": "2026-06-10T16:00:00Z",
+        "tickers": [
+          "ORCL"
+        ],
+        "severity": "critical",
+        "stars": null,
+        "source": "investing.com",
+        "extra": {
+          "bmo_amc": "AMC",
+          "market_cap_b": 587.66,
+          "eps_forecast": "1.95",
+          "name": "Oracle"
+        }
+      },
+      {
+        "id": "earn-BMWKY-2026-06-11",
+        "category": "earnings",
+        "title": "BMW ADR (BMWKY) \u2014 Earnings",
+        "context": "BMW ADR (BMWKY) reports before market open. $48.4B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+        "deadline": "2026-06-11T08:30:00Z",
+        "tickers": [
+          "BMWKY"
+        ],
+        "severity": "high",
+        "stars": null,
+        "source": "investing.com",
+        "extra": {
+          "bmo_amc": "BMO",
+          "market_cap_b": 48.41,
+          "eps_forecast": "--",
+          "name": "BMW ADR"
+        }
+      },
+      {
+        "id": "earn-ADBE-2026-06-11",
+        "category": "earnings",
+        "title": "Adobe (ADBE) \u2014 Earnings",
+        "context": "Adobe (ADBE) reports after market close. $96.4B mkt cap. Large-cap print \u2014 sector read with ATM-straddle implied move.",
+        "deadline": "2026-06-11T16:00:00Z",
+        "tickers": [
+          "ADBE"
+        ],
+        "severity": "critical",
+        "stars": null,
+        "source": "investing.com",
+        "extra": {
+          "bmo_amc": "AMC",
+          "market_cap_b": 96.4,
+          "eps_forecast": "5.82",
+          "name": "Adobe"
+        }
+      },
+      {
+        "id": "earn-LEN-2026-06-11",
+        "category": "earnings",
+        "title": "Lennar (LEN) \u2014 Earnings",
+        "context": "Lennar (LEN) reports after market close. $22.8B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+        "deadline": "2026-06-11T16:00:00Z",
+        "tickers": [
+          "LEN"
+        ],
+        "severity": "high",
+        "stars": null,
+        "source": "investing.com",
+        "extra": {
+          "bmo_amc": "AMC",
+          "market_cap_b": 22.81,
+          "eps_forecast": "1.25",
+          "name": "Lennar"
+        }
+      },
+      {
+        "id": "earn-JBL-2026-06-17",
+        "category": "earnings",
+        "title": "Jabil Circuit (JBL) \u2014 Earnings",
+        "context": "Jabil Circuit (JBL) reports before market open. $38.0B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+        "deadline": "2026-06-17T08:30:00Z",
+        "tickers": [
+          "JBL"
+        ],
+        "severity": "high",
+        "stars": null,
+        "source": "investing.com",
+        "extra": {
+          "bmo_amc": "BMO",
+          "market_cap_b": 37.95,
+          "eps_forecast": "3.08",
+          "name": "Jabil Circuit"
+        }
+      },
+      {
+        "id": "earn-KMX-2026-06-17",
+        "category": "earnings",
+        "title": "CarMax (KMX) \u2014 Earnings",
+        "context": "CarMax (KMX) reports before market open. $6.8B mkt cap. Small/mid-cap print.",
+        "deadline": "2026-06-17T08:30:00Z",
+        "tickers": [
+          "KMX"
+        ],
+        "severity": "medium",
+        "stars": null,
+        "source": "investing.com",
+        "extra": {
+          "bmo_amc": "BMO",
+          "market_cap_b": 6.82,
+          "eps_forecast": "0.9537",
+          "name": "CarMax"
+        }
+      }
+    ],
+    "geopolitical": [],
+    "ipo": [
+      {
+        "id": "a5f3ed87-1d94-49c2-8b13-e58a45fe0ade",
+        "category": "ipo",
+        "title": "ERock (EROC) IPO \u2014 Energy $642M",
+        "context": "Energy IPO during Iran-tension regime. Validates XLE rotation thesis if priced firm.",
+        "deadline": "2026-06-11T16:00:00Z",
+        "tickers": [
+          "EROC",
+          "XLE"
+        ],
+        "severity": "medium",
+        "stars": null,
+        "source": "manual",
+        "extra": {
+          "notes": "$20-23 range. Read against Tom R025/R029 energy leadership."
+        }
+      },
+      {
+        "id": "306634cb-e404-46d0-b4fe-88e22be0ca9b",
+        "category": "ipo",
+        "title": "Forbright (FRBT) IPO \u2014 Bank $158M",
+        "context": "Regional bank IPO. Tell on small-cap financial appetite into Fed cycle.",
+        "deadline": "2026-06-11T16:00:00Z",
+        "tickers": [
+          "FRBT",
+          "XLF"
+        ],
+        "severity": "low",
+        "stars": null,
+        "source": "manual",
+        "extra": {
+          "notes": "$18-20 range."
+        }
+      },
+      {
+        "id": "1c974572-e9b2-45c9-83ee-bda2178b7443",
+        "category": "ipo",
+        "title": "SpaceX (SPCX) IPO \u2014 $75B mega-deal",
+        "context": "Largest IPO ever, $75B drain. Forces megacap rebalance (NVDA/MSFT sells). S&P REJECTED 12-mo index inclusion = no passive bid. Per Tom R122/R219: avoid day-1 chasing, wait 12-18mo.",
+        "deadline": "2026-06-12T16:00:00Z",
+        "tickers": [
+          "SPCX",
+          "TSLA",
+          "QQQ",
+          "NVDA",
+          "SMH"
+        ],
+        "severity": "high",
+        "stars": null,
+        "source": "manual",
+        "extra": {
+          "notes": "Roadshow Jun 8. Pricing Jun 12 ($135/sh). Trading starts ~Jun 15-16. Pre-greys pricing $135\u2192$200. R487 macro demand shock active. Iran/JPY weekend risk overlay."
+        }
+      },
+      {
+        "id": "09d7e4a9-9ca0-40d6-9cda-a71318a525cd",
+        "category": "ipo",
+        "title": "Parabilis Medicines (PBLS) IPO \u2014 Biotech",
+        "context": "Biotech IPO during XLV defensive rotation regime. $450M at $17-19 range.",
+        "deadline": "2026-06-15T16:00:00Z",
+        "tickers": [
+          "PBLS",
+          "XBI"
+        ],
+        "severity": "low",
+        "stars": null,
+        "source": "manual",
+        "extra": {
+          "notes": "Date approximate (mid-month). Tom R031 healthcare leadership ongoing."
+        }
+      },
+      {
+        "id": "72b3e4d2-99b0-49f1-86a3-eda8d2602a7b",
+        "category": "ipo",
+        "title": "Deep Fission (FISN) IPO \u2014 Nuclear $150M",
+        "context": "Nuclear-tech IPO. Energy-adjacent, AI-power demand tie. $24-26 range.",
+        "deadline": "2026-06-15T16:00:00Z",
+        "tickers": [
+          "FISN",
+          "URA",
+          "URNM"
+        ],
+        "severity": "low",
+        "stars": null,
+        "source": "manual",
+        "extra": {
+          "notes": "Date approximate. AI capex narrative tie via power demand."
+        }
+      },
+      {
+        "id": "a90cd7ef-aa26-4fce-8ee2-c88fe148e80e",
+        "category": "ipo",
+        "title": "Anthropic (ANTP) IPO \u2014 $200B+ AI",
+        "context": "Second mega-IPO of summer. Compounds June SpaceX drain. Watch ANTP day-1 vs SpaceX day-1 \u2014 if both weak, IPO market reset signal.",
+        "deadline": "2026-07-09T16:00:00Z",
+        "tickers": [
+          "ANTP",
+          "GOOGL",
+          "MSFT",
+          "NVDA"
+        ],
+        "severity": "high",
+        "stars": null,
+        "source": "manual",
+        "extra": {
+          "notes": "Confidentially filed. Roadshow expected late June. R122/R219/R420 active. GOOGL stake = direct beneficiary."
+        }
+      },
+      {
+        "id": "1f469e83-ccd7-4b6e-9249-a194a3507e06",
+        "category": "ipo",
+        "title": "OpenAI (OAI) IPO \u2014 $1T target valuation",
+        "context": "Third mega-IPO. $1T target = single-largest equity raise in history if priced. MSFT direct stake. Combined with SpaceX+Anthropic = $200B+ liquidity drain in 60 days.",
+        "deadline": "2026-07-09T16:00:00Z",
+        "tickers": [
+          "OAI",
+          "MSFT",
+          "NVDA"
+        ],
+        "severity": "high",
+        "stars": null,
+        "source": "manual",
+        "extra": {
+          "notes": "Confidentially filed. Same week as Anthropic. R487 macro demand shock at peak."
+        }
+      }
+    ]
+  },
+  "index_expected_moves": {
+    "SPY": {
+      "spot": 739.22,
+      "anchor": 757.09,
+      "lower": 743.25,
+      "upper": 770.93,
+      "pct": 1.83,
+      "expiry": "20260612"
+    },
+    "QQQ": {
+      "spot": 716.07,
+      "anchor": 740.61,
+      "lower": 716.11,
+      "upper": 765.11,
+      "pct": 3.31,
+      "expiry": "20260612"
+    },
+    "IWM": {
+      "spot": 284.11,
+      "anchor": 292.01,
+      "lower": 283.28,
+      "upper": 300.74,
+      "pct": 2.99,
+      "expiry": "20260612"
+    },
+    "DIA": {
+      "spot": 508.91,
+      "anchor": 516.7,
+      "lower": 508.91,
+      "upper": 524.49,
+      "pct": 1.51,
+      "expiry": "20260612"
+    },
+    "XLK": {
+      "spot": 193.17,
+      "anchor": 193.17,
+      "lower": 184.93,
+      "upper": 201.41,
+      "pct": 4.27,
+      "expiry": "20260612"
+    },
+    "XLF": {
+      "spot": 52.19,
+      "anchor": 52.19,
+      "lower": 51.39,
+      "upper": 52.99,
+      "pct": 1.54,
+      "expiry": "20260612"
+    },
+    "XLV": {
+      "spot": 152.08,
+      "anchor": 152.08,
+      "lower": 149.2,
+      "upper": 154.96,
+      "pct": 1.89,
+      "expiry": "20260612"
+    },
+    "XLE": {
+      "spot": 58.75,
+      "anchor": 58.75,
+      "lower": 57.56,
+      "upper": 59.94,
+      "pct": 2.03,
+      "expiry": "20260612"
+    },
+    "XLI": {
+      "spot": 176.16,
+      "anchor": 176.16,
+      "lower": 172.99,
+      "upper": 179.33,
+      "pct": 1.8,
+      "expiry": "20260612"
+    },
+    "XLY": {
+      "spot": 117.26,
+      "anchor": 117.26,
+      "lower": 115.81,
+      "upper": 118.71,
+      "pct": 1.24,
+      "expiry": "20260612"
+    }
+  },
+  "ipo_regime": {
+    "signal": "mixed",
+    "interpretation": "Mixed regime \u2014 3/6 held, 3/6 faded. Selectivity matters. Watch sector tilt: AI/quantum buying impulses are sector-specific not market-wide.",
+    "ipos_tracked": 6,
+    "broke_ipo_price_count": 3,
+    "broke_ipo_price_pct": 50.0,
+    "avg_return_from_ipo_pct": 6.73,
+    "median_return_from_ipo_pct": 11.0,
+    "by_status_tag": {
+      "sub-IPO-fade": 3,
+      "pop-and-hold": 3
+    }
+  },
+  "recent_ipos": [
+    {
+      "symbol": "QNT",
+      "name": "Quantinuum",
+      "ipo_date": "2026-06-04",
+      "ipo_price": 60.0,
+      "range_low": 53,
+      "range_high": 55,
+      "shares_offered_m": 28,
+      "raised_b": 1.68,
+      "oversubscribed_x": 20,
+      "category": "quantum",
+      "regime_tag": "sub-IPO-fade",
+      "note": "Upsized twice in roadshow, 20x oversubscribed. Opened $68 (+13%), intraday high $71.35, closed flat $60.38 day 1, broke $60 day 2 ($51.15 low). Validates Tom R122/R219.",
+      "metrics": {
+        "days_since_ipo": 6,
+        "history_days": 4,
+        "ipo_price": 60.0,
+        "day1_close": 60.38,
+        "day1_high": 71.35,
+        "day1_close_pct": 0.63,
+        "day1_high_pct": 18.92,
+        "last_date": "2026-06-09",
+        "last_close": 54.94,
+        "return_from_ipo_pct": -8.43,
+        "return_from_d1_high_pct": -23.0,
+        "broke_ipo_price": true,
+        "day5": null,
+        "day30": null,
+        "volume_d1": 29612000,
+        "volume_last": 4539902,
+        "volume_collapse_pct": -84.7,
+        "status_tag": "sub-IPO-fade"
+      },
+      "history_days": 4,
+      "error": null
+    },
+    {
+      "symbol": "CBRS",
+      "name": "Cerebras Systems",
+      "ipo_date": "2026-05-14",
+      "ipo_price": 185.0,
+      "range_low": null,
+      "range_high": null,
+      "shares_offered_m": 30.0,
+      "raised_b": 5.55,
+      "oversubscribed_x": null,
+      "category": "ai-hardware",
+      "regime_tag": "pop-and-hold",
+      "note": "AI-chip rival to NVDA. First-day open above range, sustained the move \u2014 strong AI hardware appetite case.",
+      "metrics": {
+        "days_since_ipo": 27,
+        "history_days": 18,
+        "ipo_price": 185.0,
+        "day1_close": 311.07,
+        "day1_high": 386.34,
+        "day1_close_pct": 68.15,
+        "day1_high_pct": 108.83,
+        "last_date": "2026-06-09",
+        "last_close": 226.815,
+        "return_from_ipo_pct": 22.6,
+        "return_from_d1_high_pct": -41.29,
+        "broke_ipo_price": false,
+        "day5": {
+          "date": "2026-05-20",
+          "close": 290.69,
+          "pct_from_ipo": 57.13
+        },
+        "day30": null,
+        "volume_d1": 33497900,
+        "volume_last": 5678881,
+        "volume_collapse_pct": -83.0,
+        "status_tag": "pop-and-hold"
+      },
+      "history_days": 18,
+      "error": null
+    },
+    {
+      "symbol": "HAWK",
+      "name": "HawkEye 360",
+      "ipo_date": "2026-05-07",
+      "ipo_price": 26.0,
+      "range_low": null,
+      "range_high": null,
+      "shares_offered_m": 16.0,
+      "raised_b": 0.416,
+      "oversubscribed_x": null,
+      "category": "defense-space",
+      "regime_tag": "pop-and-hold",
+      "note": "RF intel / space-based geolocation. Defense+space tailwind.",
+      "metrics": {
+        "days_since_ipo": 34,
+        "history_days": 23,
+        "ipo_price": 26.0,
+        "day1_close": 34.0,
+        "day1_high": 34.49,
+        "day1_close_pct": 30.77,
+        "day1_high_pct": 32.65,
+        "last_date": "2026-06-09",
+        "last_close": 24.34,
+        "return_from_ipo_pct": -6.38,
+        "return_from_d1_high_pct": -29.43,
+        "broke_ipo_price": true,
+        "day5": {
+          "date": "2026-05-13",
+          "close": 33.69,
+          "pct_from_ipo": 29.58
+        },
+        "day30": null,
+        "volume_d1": 11444900,
+        "volume_last": 1101299,
+        "volume_collapse_pct": -90.4,
+        "status_tag": "sub-IPO-fade"
+      },
+      "history_days": 23,
+      "error": null
+    },
+    {
+      "symbol": "PSUS",
+      "name": "Pershing Square USA",
+      "ipo_date": "2026-04-29",
+      "ipo_price": 50.0,
+      "range_low": null,
+      "range_high": null,
+      "shares_offered_m": 100.0,
+      "raised_b": 5.0,
+      "oversubscribed_x": null,
+      "category": "closed-end-fund",
+      "regime_tag": "sub-IPO-fade",
+      "note": "Bill Ackman closed-end fund. Broke IPO price within days, traded down to $42.71 \u2014 regime tell that even brand-name asset managers can't sustain auctions in this tape.",
+      "metrics": {
+        "days_since_ipo": 42,
+        "history_days": 29,
+        "ipo_price": 50.0,
+        "day1_close": 40.9,
+        "day1_high": 42.71,
+        "day1_close_pct": -18.2,
+        "day1_high_pct": -14.58,
+        "last_date": "2026-06-09",
+        "last_close": 37.99,
+        "return_from_ipo_pct": -24.02,
+        "return_from_d1_high_pct": -11.05,
+        "broke_ipo_price": true,
+        "day5": {
+          "date": "2026-05-05",
+          "close": 42.98,
+          "pct_from_ipo": -14.04
+        },
+        "day30": null,
+        "volume_d1": 9103800,
+        "volume_last": 516520,
+        "volume_collapse_pct": -94.3,
+        "status_tag": "sub-IPO-fade"
+      },
+      "history_days": 29,
+      "error": null
+    },
+    {
+      "symbol": "AVEX",
+      "name": "Aevex Aerospace",
+      "ipo_date": "2026-04-17",
+      "ipo_price": 20.0,
+      "range_low": null,
+      "range_high": null,
+      "shares_offered_m": 16.0,
+      "raised_b": 0.32,
+      "oversubscribed_x": null,
+      "category": "defense",
+      "regime_tag": "pop-and-hold",
+      "note": "Defense / aerospace. +34% sustained post-debut.",
+      "metrics": {
+        "days_since_ipo": 54,
+        "history_days": 37,
+        "ipo_price": 20.0,
+        "day1_close": 26.93,
+        "day1_high": 27.96,
+        "day1_close_pct": 34.65,
+        "day1_high_pct": 39.8,
+        "last_date": "2026-06-09",
+        "last_close": 22.2,
+        "return_from_ipo_pct": 11.0,
+        "return_from_d1_high_pct": -20.6,
+        "broke_ipo_price": false,
+        "day5": {
+          "date": "2026-04-23",
+          "close": 31.77,
+          "pct_from_ipo": 58.85
+        },
+        "day30": {
+          "date": "2026-05-29",
+          "close": 38.47,
+          "pct_from_ipo": 92.35
+        },
+        "volume_d1": 16686700,
+        "volume_last": 3634238,
+        "volume_collapse_pct": -78.2,
+        "status_tag": "pop-and-hold"
+      },
+      "history_days": 37,
+      "error": null
+    },
+    {
+      "symbol": "ARXS",
+      "name": "Arxis",
+      "ipo_date": "2026-04-16",
+      "ipo_price": 28.0,
+      "range_low": null,
+      "range_high": null,
+      "shares_offered_m": 40.5,
+      "raised_b": 1.13,
+      "oversubscribed_x": null,
+      "category": "other",
+      "regime_tag": "pop-and-hold",
+      "note": "+38% sustained post-debut.",
+      "metrics": {
+        "days_since_ipo": 55,
+        "history_days": 38,
+        "ipo_price": 28.0,
+        "day1_close": 38.75,
+        "day1_high": 39.05,
+        "day1_close_pct": 38.39,
+        "day1_high_pct": 39.46,
+        "last_date": "2026-06-09",
+        "last_close": 40.77,
+        "return_from_ipo_pct": 45.61,
+        "return_from_d1_high_pct": 4.4,
+        "broke_ipo_price": false,
+        "day5": {
+          "date": "2026-04-22",
+          "close": 36.26,
+          "pct_from_ipo": 29.5
+        },
+        "day30": {
+          "date": "2026-05-28",
+          "close": 46.83,
+          "pct_from_ipo": 67.25
+        },
+        "volume_d1": 19256400,
+        "volume_last": 772665,
+        "volume_collapse_pct": -96.0,
+        "status_tag": "pop-and-hold"
+      },
+      "history_days": 38,
+      "error": null
+    }
+  ],
+  "producers": []
+}

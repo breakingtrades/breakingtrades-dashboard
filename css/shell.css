@@ -199,3 +199,185 @@
   #market-status { font-size: 9px; }
   #market-status .ms-label, #market-status .ms-sub, #market-status .ms-date { display: none; }
 }
+
+/* ============================================================
+ * Nav redesign 2026-06-10 — "More" dropdown, compact toggles,
+ * responsive logo wordmark
+ * ============================================================ */
+
+/* "More" dropdown */
+.nav-more { position: relative; }
+.nav-more-toggle {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: transparent; border: 0; font: inherit;
+  cursor: pointer;
+}
+.nav-more-toggle .nav-more-chev {
+  width: 12px; height: 12px;
+  transition: transform 0.15s;
+}
+.nav-more-toggle[aria-expanded="true"] .nav-more-chev {
+  transform: rotate(180deg);
+}
+.nav-more-menu {
+  display: none;
+  position: absolute;
+  top: 100%; left: 0;
+  margin-top: 4px;
+  min-width: 180px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  z-index: var(--z-dropdown);
+  padding: 4px 0;
+}
+.nav-more-menu.open { display: block; }
+.nav-more-item {
+  display: flex !important;
+  align-items: center; gap: 8px;
+  padding: 8px 14px !important;
+  height: auto !important;
+  font-size: 12px;
+  border-bottom: 0 !important;
+  text-transform: none !important;
+  letter-spacing: 0.4px !important;
+}
+.nav-more-item i {
+  width: 14px; height: 14px;
+  flex-shrink: 0;
+  color: var(--text-dim);
+}
+.nav-more-item:hover {
+  background: rgba(0,200,255,0.08);
+  color: var(--text) !important;
+}
+.nav-more-item.active {
+  color: var(--cyan) !important;
+}
+
+/* Generic icon button — unifies the toggle styling */
+.nav-icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 24px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.nav-icon-btn i { width: 14px; height: 14px; }
+.nav-icon-btn:hover { color: var(--text); border-color: var(--text-dim); }
+.nav-icon-btn.active {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  background: rgba(0,200,255,0.08);
+}
+
+/* Hide logo wordmark on tight widths to save room */
+@media (max-width: 1180px) {
+  .nav-logo-wordmark { display: none; }
+}
+
+/* ============================================================
+ * Snapshot strip — replaces TradingView ticker tape as default
+ * ============================================================ */
+
+.snap-strip {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.snap-strip::-webkit-scrollbar { height: 4px; }
+.snap-strip::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+.snap-tile {
+  display: flex; align-items: baseline;
+  flex-shrink: 0;
+  gap: 8px;
+  padding: 8px 18px;
+  border-right: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.12s;
+  min-width: 140px;
+}
+.snap-tile:hover { background: rgba(0,200,255,0.05); }
+
+.snap-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-dim);
+  font-weight: 600;
+  min-width: 50px;
+}
+.snap-price {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.5px;
+  transition: color 0.4s;
+}
+.snap-change {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: auto;
+}
+.snap-change.sn-up { color: #26a69a; }
+.snap-change.sn-down { color: #ef5350; }
+
+.snap-flash-up {
+  animation: snFlashUp 0.7s ease-out;
+}
+.snap-flash-down {
+  animation: snFlashDown 0.7s ease-out;
+}
+@keyframes snFlashUp {
+  0%   { background: rgba(38,166,154,0.4); color: #26a69a; }
+  100% { background: transparent; color: var(--text); }
+}
+@keyframes snFlashDown {
+  0%   { background: rgba(239,83,80,0.4); color: #ef5350; }
+  100% { background: transparent; color: var(--text); }
+}
+
+.snap-clock {
+  display: flex; flex-direction: column; align-items: flex-end;
+  margin-left: auto;
+  padding: 6px 18px;
+  border-left: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.snap-clock-time {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text);
+  font-weight: 600;
+}
+.snap-clock-status {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+.snap-clock-status.sn-up { color: #26a69a; }
+.snap-clock-status.sn-dim { color: var(--text-dim); }
+
+@media (max-width: 600px) {
+  .snap-tile { padding: 6px 12px; min-width: 110px; }
+  .snap-label { font-size: 9px; }
+  .snap-price { font-size: 13px; }
+  .snap-change { font-size: 10px; }
+  .snap-clock { padding: 4px 12px; }
+}
