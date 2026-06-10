@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Jun 09",
-  "headline": "Market breadth narrowing, tech still leading, but defensive signals are creeping in\u2014patience is king.",
+  "title": "Daily Briefing \u2014 Jun 10",
+  "headline": "Tech rolls over as defensive sectors quietly rotate up\u2014flows matter, not headlines.",
   "body": [
-    "Right, so the market's bounced off lows with SPY holding $739.22, but price remains below the daily 20 MA ($746.37). Not chasing this. Volatility is ticking up (VIX 18.92 > SMA20) and Fear & Greed has cratered from 67 to 39\u2014what was greed last month is now solid fear. Flows aren\u2019t showing panic, but momentum is waning.",
-    "Sector rotation is classic: XLK (Tech) still leads (RS 120.4), while laggards stack up in Energy, Utilities, Staples, and Healthcare\u2014risk levels are high across those. Financials (XLF $51.97) are improving; keep them on radar as the canary. Industrials and Discretionary are rotating up, but XLI ($173.63) just barely above the 20 MA ($173.08)\u2014watch for confirmation.",
-    "Contrarian watch: Most big tech names (AAPL, MSFT, META, GOOGL) are all below their 20 MAs and flashing bearish bias\u2014per rule R006, treat daily closes under 20 MA as exit signals for longs. Fear is climbing, but we aren't at extreme. Record tech outperformance and lagging breadth hint at late-cycle action (think early 2022 analogs). Don\u2019t break something simple\u2014a mean reversion to the weekly 20 MA zones could be on deck."
+    "Right, so let\u2019s look at what the flows are telling us: Tech leadership (AAPL, MSFT, NVDA, AMZN, XLK) is fading, with all trading below their 20 MA (AAPL $288.62 vs 20 MA $304.25, MSFT $402.64 vs $421.42), triggering the classic exit signal. VIX rising above its SMA20 (19.87 > 17.24) confirms volatility picking up, while the Fear & Greed index is parked at 33.7\u2014just plain fear, nothing extreme.",
+    "Sector rotation is quietly underway: XLF (Financials) is improving and triggered bull status ($52.67 > 20/50 MA), XLV (Healthcare), XLI (Industrials), and even some staples (XLP) are showing bullish bias and improving momentum. Meanwhile, XLK\u2019s RS is weakening with tech risk firmly MEDIUM and declining, and energy (XLE) and utilities (XLU) are lagging hard\u2014risk stays elevated here.",
+    "Contrarian/risk check: Institutional flows are not chasing tech. Daily closes under 20 MA for SPY ($735.35 < $746.12), QQQ ($704.98 < $721.87), and XLK ($180.19 < $183.63) all reinforce less trades = more wins. No extreme fear, so it\u2019s not an aggressive buy-the-dip; instead, watch for mean reversion on weekly 20 MA and sector rotation opportunities. If it's in the press, it's in the price."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "- SPY: $746.37 (20 MA), $715.39 (50 MA), $682.10 (200 MA)<br>- XLK: $183.24 (20 MA support), RS 120.4 \u2014 king of leadership<br>- XLF: $51.97 ready to confirm improving sector, watch weekly close<br>- AAPL: $304.66 (20 MA), closing below = exit longs<br>- VIX: 18.92 rising above SMA20; risk-on fades<br>- Fear & Greed: 39.4 \u2014 not extreme, but patience required",
+  "callout_body": "SPY: $746.12 (20 MA) \u2014 bear bias, watching<br>QQQ: $721.87 (20 MA) \u2014 bear bias, watching<br>XLK: $183.63 (20 MA) \u2014 exit active<br>XLF: $52.27 (200 MA) \u2014 bull zone, triggered<br>DHI: $175.67 (20 MA), active bull<br>VIX: 19.87 \u2014 rising volatility<br>IWM: $285.18 (20 MA) \u2014 bull zone, watching",
   "action_items": [
-    "Reduce exposure on any watchlist name closing below its daily 20 MA\u2014flagged across AAPL, MSFT, META, GOOGL, and AMZN",
-    "Monitor XLF (Financials) for follow-through; improving momentum could signal rotational opportunity if 20 MA holds"
+    "Reduce exposure on any lingering tech longs\u2014daily closes below 20 MA trigger exits (AAPL, MSFT, NVDA, AMZN, XLK, QQQ, SPY)",
+    "Rotate capital into improving sectors: XLF (financials), XLV, XLI, and select staples (XLP) above their short-term MAs"
   ],
-  "closing_quote": "If it's in the press, it's in the price\u2014follow the flows, not the headlines.",
-  "generatedAt": "2026-06-09T13:22:04.161849+00:00",
+  "closing_quote": "Patience, react, don\u2019t predict\u2014the 20 MA is king. Don\u2019t chase, abundance mindset!",
+  "generatedAt": "2026-06-10T13:54:23.163886+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
