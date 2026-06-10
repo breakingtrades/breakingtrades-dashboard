@@ -24,7 +24,11 @@ const btPrices = (() => {
 
   async function _fetchPrices() {
     try {
-      const r = await fetch('data/prices.json', { cache: 'no-cache' });
+      // Cache-bust per-minute so the user never sees yesterday's JSON cached
+      // by the browser. The producer cron stamps `updated`; a minute-resolution
+      // bust is fine for an EOD/intraday pipeline that runs at most every 30min.
+      const bust = Math.floor(Date.now() / 60000);
+      const r = await fetch('data/prices.json?t=' + bust, { cache: 'no-cache' });
       if (!r.ok) throw new Error('prices.json: ' + r.status);
       const d = await r.json();
       _data = d;
@@ -34,6 +38,50 @@ const btPrices = (() => {
       console.warn('btPrices: failed to load prices.json —', e.message);
       _loaded = true;
       return null;
+    }
+  }
+
+  /** Top up the canonical prices with live Yahoo chart-endpoint data.
+   *
+   *  Why: the EOD pipeline writes prices.json at 4:25 PM ET and the intraday
+   *  cron runs at 9:50/12:00/3:00 ET. Between those intervals, the page reads
+   *  whatever was last written — which can be an hour stale. This function
+   *  hits Yahoo's chart endpoint (free, no key, no auth) for a list of
+   *  symbols and merges the result into _data.tickers, so subsequent
+   *  btPrices.get() calls return the live value.
+   *
+   *  Caller responsibility: pass only the symbols visible on the current page
+   *  to avoid wasting requests. Honors a soft cache in live-prices.js.
+   *
+   *  Returns Promise resolving to the count of tickers actually updated.
+   */
+  async function liveTopUp(symbols) {
+    if (!window.livePrices || !symbols || !symbols.length) return 0;
+    try {
+      const quotes = await window.livePrices.getMany(symbols);
+      var updated = 0;
+      _data.tickers = _data.tickers || {};
+      Object.keys(quotes).forEach(function(sym) {
+        var q = quotes[sym];
+        if (!q || q.price == null) return;
+        var prev = _data.tickers[sym] || {};
+        _data.tickers[sym] = {
+          price: q.price,
+          change: q.changePct != null ? Math.round(q.changePct * 100) / 100 : prev.change,
+          updated: new Date(q.timestamp).toISOString(),
+          source: 'yahoo-live'
+        };
+        updated += 1;
+      });
+      if (updated > 0) {
+        _data.updated = new Date().toISOString();
+        _data.source = (_data.source || '') + '+yahoo-live';
+        _onRefreshCallbacks.forEach(function(cb) { try { cb(); } catch(e) {} });
+      }
+      return updated;
+    } catch (e) {
+      console.warn('btPrices: live top-up failed —', e.message || e);
+      return 0;
     }
   }
 
@@ -114,7 +162,7 @@ const btPrices = (() => {
   /** Get all ticker symbols. */
   function symbols() { return Object.keys(_data?.tickers || {}); }
 
-  return { load, get, price, change, updatedAt, updatedLabel, isLoaded, symbols, refresh, onRefresh, startAutoRefresh, stopAutoRefresh };
+  return { load, get, price, change, updatedAt, updatedLabel, isLoaded, symbols, refresh, onRefresh, startAutoRefresh, stopAutoRefresh, liveTopUp };
 })();
 
 // Expose globally so non-module page scripts can do `window.btPrices.price('QQQ')`.

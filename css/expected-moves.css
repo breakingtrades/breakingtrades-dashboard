@@ -386,3 +386,44 @@
   .em-qh-scale { padding-right: 0; }
   .em-qh-legend { gap: var(--space-md); }
 }
+
+/* Live-prices freshness pill — header status indicator */
+.em-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0.4px;
+  border: 1px solid;
+  cursor: help;
+  transition: all 0.2s;
+}
+.em-live-pill.live-pending {
+  color: var(--text-dim);
+  border-color: var(--border);
+  background: rgba(255,255,255,0.03);
+}
+.em-live-pill.live-fresh {
+  color: #26a69a;
+  border-color: rgba(38,166,154,0.4);
+  background: rgba(38,166,154,0.10);
+  animation: liveFreshFlash 0.6s ease-out;
+}
+@keyframes liveFreshFlash {
+  0%   { background: rgba(38,166,154,0.4); }
+  100% { background: rgba(38,166,154,0.10); }
+}
+.em-live-pill.live-stale {
+  color: #ffa726;
+  border-color: rgba(255,167,38,0.4);
+  background: rgba(255,167,38,0.10);
+}
+.em-live-pill.live-error {
+  color: #ef5350;
+  border-color: rgba(239,83,80,0.4);
+  background: rgba(239,83,80,0.10);
+}
