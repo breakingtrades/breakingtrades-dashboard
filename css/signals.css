@@ -660,3 +660,172 @@
 /* Every badge = help cursor to hint at title tooltip */
 .status-badge, .bias-badge, .sector-risk-badge { cursor: help; }
 .level-pill { cursor: help; }
+
+/* === Status badge "Why?" affordance + popover === */
+.status-badge {
+  position: relative;
+}
+.why-affordance {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 11px;
+  color: var(--text-dim);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.12s, color 0.12s;
+  vertical-align: -1px;
+}
+.why-affordance:hover {
+  opacity: 1;
+  color: var(--cyan);
+}
+
+.why-popover {
+  position: absolute;
+  z-index: 9000;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4);
+  font-size: 12px;
+  color: var(--text);
+  animation: whyPopIn 0.15s ease-out;
+}
+@keyframes whyPopIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Status-specific accent colors on the popover left border */
+.why-popover.why-status-triggered    { border-left: 3px solid #00d4aa; }
+.why-popover.why-status-active       { border-left: 3px solid #00d4aa; }
+.why-popover.why-status-approaching  { border-left: 3px solid #ffa726; }
+.why-popover.why-status-exit         { border-left: 3px solid #ef5350; }
+.why-popover.why-status-watching     { border-left: 3px solid #64748b; }
+
+.why-pop-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px 8px 0 0;
+}
+.why-pop-sym {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+}
+.why-pop-status {
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+.why-pop-close {
+  margin-left: auto;
+  background: transparent;
+  border: 0;
+  color: var(--text-dim);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.why-pop-close:hover {
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+}
+
+.why-pop-body {
+  padding: 12px;
+}
+.why-headline {
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.why-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.why-list li {
+  display: flex;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  border-top: 1px dashed rgba(255,255,255,0.04);
+}
+.why-list li:first-child { border-top: 0; }
+.why-glyph {
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+.why-list li.why-ok    .why-glyph { color: #00d4aa; }
+.why-list li.why-bad   .why-glyph { color: #ef5350; }
+.why-list li.why-mixed .why-glyph { color: #ffa726; }
+.why-list li.why-ok    { color: var(--text); }
+.why-list li.why-bad   { color: rgba(255,255,255,0.78); }
+.why-list li.why-mixed { color: rgba(255,255,255,0.78); }
+
+.why-stats {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  line-height: 1.5;
+}
+
+.why-pop-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 10.5px;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+  background: rgba(0,0,0,0.18);
+  border-radius: 0 0 8px 8px;
+}
+.why-pop-detail {
+  margin-left: auto;
+  background: rgba(0,200,255,0.12);
+  border: 1px solid rgba(0,200,255,0.3);
+  color: var(--cyan);
+  padding: 3px 10px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.why-pop-detail:hover {
+  background: rgba(0,200,255,0.22);
+}
+
+@media (max-width: 600px) {
+  .why-popover {
+    left: 12px !important;
+    right: 12px !important;
+    width: auto;
+    max-width: none;
+  }
+}
