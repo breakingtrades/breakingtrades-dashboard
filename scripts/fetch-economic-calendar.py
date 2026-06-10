@@ -50,7 +50,9 @@ PREV_RE = re.compile(r'event-\d+-previous"[^>]*><span[^>]*>([^<]*)</span>')
 FORECAST_RE = re.compile(r'event-\d+-forecast[^>]*>([^<]*)<')
 
 
-def fetch_tab(tab: str) -> str:
+def fetch_tab(tab: str, attempts: int = 3, backoff: float = 2.0) -> str:
+    """Fetch one calendar tab with cloudflare-empty-body retry."""
+    import time
     body = urllib.parse.urlencode([
         ("country[]", COUNTRY_US),
         ("importance[]", STARS_THREE),
@@ -60,10 +62,21 @@ def fetch_tab(tab: str) -> str:
         ("submitFilters", "1"),
         ("limit_from", "0"),
     ])
-    req = urllib.request.Request(ENDPOINT, data=body.encode(), headers=HEADERS, method="POST")
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        payload = json.loads(resp.read())
-    return payload.get("data", "") or ""
+    last_err = None
+    for i in range(attempts):
+        try:
+            req = urllib.request.Request(ENDPOINT, data=body.encode(), headers=HEADERS, method="POST")
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                raw = resp.read()
+            if len(raw) < 200:
+                raise RuntimeError(f"suspiciously short body ({len(raw)} bytes)")
+            payload = json.loads(raw)
+            return payload.get("data", "") or ""
+        except Exception as ex:
+            last_err = ex
+            if i + 1 < attempts:
+                time.sleep(backoff * (i + 1))
+    raise RuntimeError(f"fetch_tab({tab}) failed after {attempts}: {last_err}")
 
 
 def parse_rows(html: str):
@@ -97,8 +110,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=3, help="Max events to keep (default 3)")
     ap.add_argument("--days", type=int, default=14, help="Look-ahead window in days (default 14)")
+    ap.add_argument("--week-mode", action="store_true",
+                    help="Week-ahead mode: capture ALL US 3-star events in window, no top-N cap (used by weekly-catalyst-scan.py)")
     ap.add_argument("--out", default=None, help="Output JSON path (default: data/economic-calendar.json next to repo root)")
+    ap.add_argument("--dry-run", action="store_true", help="Print output, don't write file")
     args = ap.parse_args()
+    if args.week_mode:
+        args.limit = 100
+        args.days = max(args.days, 9)
 
     repo_root = Path(__file__).resolve().parent.parent
     out_path = Path(args.out) if args.out else repo_root / "data" / "economic-calendar.json"
@@ -152,6 +171,11 @@ def main():
             for r in keep
         ],
     }
+
+    if args.dry_run:
+        print(json.dumps(payload, indent=2))
+        print(f"\n[dry-run] {len(payload['events'])} events, would write to {out_path}", file=sys.stderr)
+        return
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w") as f:

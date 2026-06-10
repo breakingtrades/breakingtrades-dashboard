@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "week_of": "2026-06-15",
-  "generated_at": "2026-06-09T19:44:56.338784Z",
+  "generated_at": "2026-06-10T01:15:18.867101Z",
   "horizon_days": 8,
   "summary": {
-    "total_events": 25,
+    "total_events": 18,
     "by_category": {
-      "macro": 10,
+      "macro": 3,
       "fed": 1,
       "earnings": 7,
       "geopolitical": 0,
@@ -14,10 +14,10 @@
     },
     "hottest_day": {
       "date": "2026-06-10",
-      "score": 24,
-      "event_count": 7,
+      "score": 18,
+      "event_count": 5,
       "by_category": {
-        "macro": 5,
+        "macro": 3,
         "earnings": 2
       }
     },
@@ -25,10 +25,10 @@
       {
         "date": "2026-06-10",
         "weekday": "Wednesday",
-        "event_count": 7,
+        "event_count": 5,
         "max_severity": "critical",
         "by_category": {
-          "macro": 5,
+          "macro": 3,
           "earnings": 2
         },
         "headline_events": [
@@ -52,26 +52,25 @@
       {
         "date": "2026-06-11",
         "weekday": "Thursday",
-        "event_count": 5,
+        "event_count": 3,
         "max_severity": "critical",
         "by_category": {
-          "macro": 2,
           "earnings": 3
         },
         "headline_events": [
-          {
-            "category": "macro",
-            "title": "PPI (MoM) (May)",
-            "severity": "critical"
-          },
           {
             "category": "earnings",
             "title": "Adobe (ADBE) \u2014 Earnings",
             "severity": "critical"
           },
           {
-            "category": "macro",
-            "title": "Initial Jobless Claims",
+            "category": "earnings",
+            "title": "BMW ADR (BMWKY) \u2014 Earnings",
+            "severity": "high"
+          },
+          {
+            "category": "earnings",
+            "title": "Lennar (LEN) \u2014 Earnings",
             "severity": "high"
           }
         ]
@@ -79,28 +78,27 @@
       {
         "date": "2026-06-17",
         "weekday": "Wednesday",
-        "event_count": 6,
+        "event_count": 3,
         "max_severity": "critical",
         "by_category": {
-          "macro": 3,
           "fed": 1,
           "earnings": 2
         },
         "headline_events": [
           {
-            "category": "macro",
-            "title": "Core Retail Sales (MoM) (May)",
-            "severity": "critical"
-          },
-          {
-            "category": "macro",
-            "title": "Retail Sales (MoM) (May)",
-            "severity": "critical"
-          },
-          {
             "category": "fed",
             "title": "FOMC Meeting \u2014 FOMC Decision + Press Conference",
             "severity": "critical"
+          },
+          {
+            "category": "earnings",
+            "title": "Jabil Circuit (JBL) \u2014 Earnings",
+            "severity": "high"
+          },
+          {
+            "category": "earnings",
+            "title": "CarMax (KMX) \u2014 Earnings",
+            "severity": "medium"
           }
         ]
       }
@@ -169,153 +167,6 @@
         "extra": {
           "forecast": "4.2%",
           "previous": "3.8%"
-        }
-      },
-      {
-        "id": "econ-550980",
-        "category": "macro",
-        "title": "Crude Oil Inventories",
-        "context": "US 3-star economic data release. Consensus forecast: -5.100M. Previous reading: -7.974M. High-volatility window for SPY, QQQ, TLT, DXY, GLD.",
-        "deadline": "2026-06-10T14:30:00Z",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "TLT",
-          "DXY",
-          "GLD"
-        ],
-        "severity": "high",
-        "stars": 3,
-        "source": "investing.com",
-        "extra": {
-          "forecast": "-5.100M",
-          "previous": "-7.974M"
-        }
-      },
-      {
-        "id": "econ-550796",
-        "category": "macro",
-        "title": "10-Year Note Auction",
-        "context": "US 3-star economic data release. Previous reading: 4.468%. High-volatility window for SPY, QQQ, TLT, DXY, GLD.",
-        "deadline": "2026-06-10T17:00:00Z",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "TLT",
-          "DXY",
-          "GLD"
-        ],
-        "severity": "high",
-        "stars": 3,
-        "source": "investing.com",
-        "extra": {
-          "forecast": null,
-          "previous": "4.468%"
-        }
-      },
-      {
-        "id": "econ-550775",
-        "category": "macro",
-        "title": "Initial Jobless Claims",
-        "context": "US 3-star economic data release. Consensus forecast: 225K. Previous reading: 225K. High-volatility window for SPY, QQQ, TLT, DXY, GLD.",
-        "deadline": "2026-06-11T12:30:00Z",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "TLT",
-          "DXY",
-          "GLD"
-        ],
-        "severity": "high",
-        "stars": 3,
-        "source": "investing.com",
-        "extra": {
-          "forecast": "225K",
-          "previous": "225K"
-        }
-      },
-      {
-        "id": "econ-550079",
-        "category": "macro",
-        "title": "PPI (MoM) (May)",
-        "context": "US 3-star economic data release. Consensus forecast: 0.7%. Previous reading: 1.4%. High-volatility window for SPY, QQQ, TLT, DXY, GLD.",
-        "deadline": "2026-06-11T12:30:00Z",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "TLT",
-          "DXY",
-          "GLD"
-        ],
-        "severity": "critical",
-        "stars": 3,
-        "source": "investing.com",
-        "extra": {
-          "forecast": "0.7%",
-          "previous": "1.4%"
-        }
-      },
-      {
-        "id": "econ-550495",
-        "category": "macro",
-        "title": "Core Retail Sales (MoM) (May)",
-        "context": "US 3-star economic data release. Previous reading: 0.7%. High-volatility window for SPY, QQQ, TLT, DXY, GLD.",
-        "deadline": "2026-06-17T12:30:00Z",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "TLT",
-          "DXY",
-          "GLD"
-        ],
-        "severity": "critical",
-        "stars": 3,
-        "source": "investing.com",
-        "extra": {
-          "forecast": null,
-          "previous": "0.7%"
-        }
-      },
-      {
-        "id": "econ-550493",
-        "category": "macro",
-        "title": "Retail Sales (MoM) (May)",
-        "context": "US 3-star economic data release. Previous reading: 0.5%. High-volatility window for SPY, QQQ, TLT, DXY, GLD.",
-        "deadline": "2026-06-17T12:30:00Z",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "TLT",
-          "DXY",
-          "GLD"
-        ],
-        "severity": "critical",
-        "stars": 3,
-        "source": "investing.com",
-        "extra": {
-          "forecast": null,
-          "previous": "0.5%"
-        }
-      },
-      {
-        "id": "econ-516970",
-        "category": "macro",
-        "title": "Fed Interest Rate Decision",
-        "context": "US 3-star economic data release. Previous reading: 3.75%. High-volatility window for SPY, QQQ, TLT, DXY, GLD.",
-        "deadline": "2026-06-17T18:00:00Z",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "TLT",
-          "DXY",
-          "GLD"
-        ],
-        "severity": "high",
-        "stars": 3,
-        "source": "investing.com",
-        "extra": {
-          "forecast": null,
-          "previous": "3.75%"
         }
       }
     ],
@@ -609,7 +460,7 @@
   },
   "index_expected_moves": {
     "SPY": {
-      "spot": 737.55,
+      "spot": 739.22,
       "anchor": 757.09,
       "lower": 743.25,
       "upper": 770.93,
@@ -617,7 +468,7 @@
       "expiry": "20260612"
     },
     "QQQ": {
-      "spot": 705.06,
+      "spot": 716.07,
       "anchor": 740.61,
       "lower": 716.11,
       "upper": 765.11,
@@ -625,7 +476,7 @@
       "expiry": "20260612"
     },
     "IWM": {
-      "spot": 281.65,
+      "spot": 284.11,
       "anchor": 292.01,
       "lower": 283.28,
       "upper": 300.74,
@@ -633,7 +484,7 @@
       "expiry": "20260612"
     },
     "DIA": {
-      "spot": 509.7,
+      "spot": 508.91,
       "anchor": 516.7,
       "lower": 508.91,
       "upper": 524.49,
@@ -689,5 +540,264 @@
       "expiry": "20260612"
     }
   },
+  "ipo_regime": {
+    "signal": "mixed",
+    "interpretation": "Mixed regime \u2014 3/6 held, 3/6 faded. Selectivity matters. Watch sector tilt: AI/quantum buying impulses are sector-specific not market-wide.",
+    "ipos_tracked": 6,
+    "broke_ipo_price_count": 3,
+    "broke_ipo_price_pct": 50.0,
+    "avg_return_from_ipo_pct": 6.73,
+    "median_return_from_ipo_pct": 11.0,
+    "by_status_tag": {
+      "sub-IPO-fade": 3,
+      "pop-and-hold": 3
+    }
+  },
+  "recent_ipos": [
+    {
+      "symbol": "QNT",
+      "name": "Quantinuum",
+      "ipo_date": "2026-06-04",
+      "ipo_price": 60.0,
+      "range_low": 53,
+      "range_high": 55,
+      "shares_offered_m": 28,
+      "raised_b": 1.68,
+      "oversubscribed_x": 20,
+      "category": "quantum",
+      "regime_tag": "sub-IPO-fade",
+      "note": "Upsized twice in roadshow, 20x oversubscribed. Opened $68 (+13%), intraday high $71.35, closed flat $60.38 day 1, broke $60 day 2 ($51.15 low). Validates Tom R122/R219.",
+      "metrics": {
+        "days_since_ipo": 6,
+        "history_days": 4,
+        "ipo_price": 60.0,
+        "day1_close": 60.38,
+        "day1_high": 71.35,
+        "day1_close_pct": 0.63,
+        "day1_high_pct": 18.92,
+        "last_date": "2026-06-09",
+        "last_close": 54.94,
+        "return_from_ipo_pct": -8.43,
+        "return_from_d1_high_pct": -23.0,
+        "broke_ipo_price": true,
+        "day5": null,
+        "day30": null,
+        "volume_d1": 29612000,
+        "volume_last": 4539902,
+        "volume_collapse_pct": -84.7,
+        "status_tag": "sub-IPO-fade"
+      },
+      "history_days": 4,
+      "error": null
+    },
+    {
+      "symbol": "CBRS",
+      "name": "Cerebras Systems",
+      "ipo_date": "2026-05-14",
+      "ipo_price": 185.0,
+      "range_low": null,
+      "range_high": null,
+      "shares_offered_m": 30.0,
+      "raised_b": 5.55,
+      "oversubscribed_x": null,
+      "category": "ai-hardware",
+      "regime_tag": "pop-and-hold",
+      "note": "AI-chip rival to NVDA. First-day open above range, sustained the move \u2014 strong AI hardware appetite case.",
+      "metrics": {
+        "days_since_ipo": 27,
+        "history_days": 18,
+        "ipo_price": 185.0,
+        "day1_close": 311.07,
+        "day1_high": 386.34,
+        "day1_close_pct": 68.15,
+        "day1_high_pct": 108.83,
+        "last_date": "2026-06-09",
+        "last_close": 226.815,
+        "return_from_ipo_pct": 22.6,
+        "return_from_d1_high_pct": -41.29,
+        "broke_ipo_price": false,
+        "day5": {
+          "date": "2026-05-20",
+          "close": 290.69,
+          "pct_from_ipo": 57.13
+        },
+        "day30": null,
+        "volume_d1": 33497900,
+        "volume_last": 5678881,
+        "volume_collapse_pct": -83.0,
+        "status_tag": "pop-and-hold"
+      },
+      "history_days": 18,
+      "error": null
+    },
+    {
+      "symbol": "HAWK",
+      "name": "HawkEye 360",
+      "ipo_date": "2026-05-07",
+      "ipo_price": 26.0,
+      "range_low": null,
+      "range_high": null,
+      "shares_offered_m": 16.0,
+      "raised_b": 0.416,
+      "oversubscribed_x": null,
+      "category": "defense-space",
+      "regime_tag": "pop-and-hold",
+      "note": "RF intel / space-based geolocation. Defense+space tailwind.",
+      "metrics": {
+        "days_since_ipo": 34,
+        "history_days": 23,
+        "ipo_price": 26.0,
+        "day1_close": 34.0,
+        "day1_high": 34.49,
+        "day1_close_pct": 30.77,
+        "day1_high_pct": 32.65,
+        "last_date": "2026-06-09",
+        "last_close": 24.34,
+        "return_from_ipo_pct": -6.38,
+        "return_from_d1_high_pct": -29.43,
+        "broke_ipo_price": true,
+        "day5": {
+          "date": "2026-05-13",
+          "close": 33.69,
+          "pct_from_ipo": 29.58
+        },
+        "day30": null,
+        "volume_d1": 11444900,
+        "volume_last": 1101299,
+        "volume_collapse_pct": -90.4,
+        "status_tag": "sub-IPO-fade"
+      },
+      "history_days": 23,
+      "error": null
+    },
+    {
+      "symbol": "PSUS",
+      "name": "Pershing Square USA",
+      "ipo_date": "2026-04-29",
+      "ipo_price": 50.0,
+      "range_low": null,
+      "range_high": null,
+      "shares_offered_m": 100.0,
+      "raised_b": 5.0,
+      "oversubscribed_x": null,
+      "category": "closed-end-fund",
+      "regime_tag": "sub-IPO-fade",
+      "note": "Bill Ackman closed-end fund. Broke IPO price within days, traded down to $42.71 \u2014 regime tell that even brand-name asset managers can't sustain auctions in this tape.",
+      "metrics": {
+        "days_since_ipo": 42,
+        "history_days": 29,
+        "ipo_price": 50.0,
+        "day1_close": 40.9,
+        "day1_high": 42.71,
+        "day1_close_pct": -18.2,
+        "day1_high_pct": -14.58,
+        "last_date": "2026-06-09",
+        "last_close": 37.99,
+        "return_from_ipo_pct": -24.02,
+        "return_from_d1_high_pct": -11.05,
+        "broke_ipo_price": true,
+        "day5": {
+          "date": "2026-05-05",
+          "close": 42.98,
+          "pct_from_ipo": -14.04
+        },
+        "day30": null,
+        "volume_d1": 9103800,
+        "volume_last": 516520,
+        "volume_collapse_pct": -94.3,
+        "status_tag": "sub-IPO-fade"
+      },
+      "history_days": 29,
+      "error": null
+    },
+    {
+      "symbol": "AVEX",
+      "name": "Aevex Aerospace",
+      "ipo_date": "2026-04-17",
+      "ipo_price": 20.0,
+      "range_low": null,
+      "range_high": null,
+      "shares_offered_m": 16.0,
+      "raised_b": 0.32,
+      "oversubscribed_x": null,
+      "category": "defense",
+      "regime_tag": "pop-and-hold",
+      "note": "Defense / aerospace. +34% sustained post-debut.",
+      "metrics": {
+        "days_since_ipo": 54,
+        "history_days": 37,
+        "ipo_price": 20.0,
+        "day1_close": 26.93,
+        "day1_high": 27.96,
+        "day1_close_pct": 34.65,
+        "day1_high_pct": 39.8,
+        "last_date": "2026-06-09",
+        "last_close": 22.2,
+        "return_from_ipo_pct": 11.0,
+        "return_from_d1_high_pct": -20.6,
+        "broke_ipo_price": false,
+        "day5": {
+          "date": "2026-04-23",
+          "close": 31.77,
+          "pct_from_ipo": 58.85
+        },
+        "day30": {
+          "date": "2026-05-29",
+          "close": 38.47,
+          "pct_from_ipo": 92.35
+        },
+        "volume_d1": 16686700,
+        "volume_last": 3634238,
+        "volume_collapse_pct": -78.2,
+        "status_tag": "pop-and-hold"
+      },
+      "history_days": 37,
+      "error": null
+    },
+    {
+      "symbol": "ARXS",
+      "name": "Arxis",
+      "ipo_date": "2026-04-16",
+      "ipo_price": 28.0,
+      "range_low": null,
+      "range_high": null,
+      "shares_offered_m": 40.5,
+      "raised_b": 1.13,
+      "oversubscribed_x": null,
+      "category": "other",
+      "regime_tag": "pop-and-hold",
+      "note": "+38% sustained post-debut.",
+      "metrics": {
+        "days_since_ipo": 55,
+        "history_days": 38,
+        "ipo_price": 28.0,
+        "day1_close": 38.75,
+        "day1_high": 39.05,
+        "day1_close_pct": 38.39,
+        "day1_high_pct": 39.46,
+        "last_date": "2026-06-09",
+        "last_close": 40.77,
+        "return_from_ipo_pct": 45.61,
+        "return_from_d1_high_pct": 4.4,
+        "broke_ipo_price": false,
+        "day5": {
+          "date": "2026-04-22",
+          "close": 36.26,
+          "pct_from_ipo": 29.5
+        },
+        "day30": {
+          "date": "2026-05-28",
+          "close": 46.83,
+          "pct_from_ipo": 67.25
+        },
+        "volume_d1": 19256400,
+        "volume_last": 772665,
+        "volume_collapse_pct": -96.0,
+        "status_tag": "pop-and-hold"
+      },
+      "history_days": 38,
+      "error": null
+    }
+  ],
   "producers": []
 }

@@ -10,6 +10,7 @@
     { route: 'watchlist', label: 'Watchlist' },
     { route: 'expected-moves', label: 'Expected Moves' },
     { route: 'events', label: 'Events' },
+    { route: 'week-ahead', label: 'Week Ahead' },
     { route: 'airesearcher', label: 'Research' },
   ];
 
