@@ -101,7 +101,10 @@
 
         // Index EMs
         '<section class="wa-section">' +
-          '<h3 class="wa-section-title"><i data-lucide="bar-chart-2"></i> Index & Sector Expected Moves</h3>' +
+          '<h3 class="wa-section-title">' +
+            '<i data-lucide="bar-chart-2"></i> Index & Sector Expected Moves' +
+            '<span class="wa-em-expiry-tag" id="wa-em-expiry-tag"></span>' +
+          '</h3>' +
           '<div class="wa-emoves" id="wa-emoves">' +
             '<div class="skeleton skeleton-card" style="height:120px;"></div>' +
           '</div>' +
@@ -127,6 +130,7 @@
 
   function destroy() {
     if (_countdownInterval) { clearInterval(_countdownInterval); _countdownInterval = null; }
+    if (_liveUnsub) { try { _liveUnsub(); } catch (_) {} _liveUnsub = null; }
   }
 
   function loadAndRender() {
@@ -327,38 +331,161 @@
       el.innerHTML = '<div class="wa-empty">No expected moves data.</div>';
       return;
     }
-    el.innerHTML = '<div class="wa-em-grid">' + symbols.map(function(sym) {
-      var d = em[sym];
-      var spot = d.spot, lo = d.lower, hi = d.upper, pct = d.pct;
-      if (!spot || !lo || !hi) {
-        return '<div class="wa-em-card"><div class="wa-em-sym">' + escapeHtml(sym) + '</div><div class="wa-em-empty">no data</div></div>';
+
+    // Populate the expiry tag in the section title — be honest about which
+    // Friday these bands actually expire on (often THIS Friday, not next week).
+    var expiryTag = document.getElementById('wa-em-expiry-tag');
+    if (expiryTag) {
+      // Find the most common expiry across symbols (they should all be the same Friday)
+      var expiries = {};
+      symbols.forEach(function(s) {
+        var ex = em[s] && em[s].expiry;
+        if (ex) expiries[ex] = (expiries[ex] || 0) + 1;
+      });
+      var primaryExp = null, primaryCount = 0;
+      for (var k in expiries) {
+        if (expiries[k] > primaryCount) { primaryCount = expiries[k]; primaryExp = k; }
       }
-      var range = hi - lo;
-      var pos = ((spot - lo) / range) * 100;
-      var posClamped = Math.max(0, Math.min(100, pos));
-      var statusLabel = '', statusColor = '#26a69a';
-      if (pos < 0) { statusLabel = 'BREACH DOWN'; statusColor = '#26a69a'; }
-      else if (pos > 100) { statusLabel = 'BREACH UP'; statusColor = '#ef5350'; }
-      else if (pos < 25) { statusLabel = 'BUY ZONE'; statusColor = '#26a69a'; }
-      else if (pos > 75) { statusLabel = 'EXTENDED'; statusColor = '#ffa726'; }
-      else { statusLabel = 'MID'; statusColor = '#64748b'; }
-      return '<div class="wa-em-card">' +
-        '<div class="wa-em-head">' +
-          '<span class="wa-em-sym">' + escapeHtml(sym) + '</span>' +
-          '<span class="wa-em-pct">\u00b1' + Number(pct).toFixed(2) + '%</span>' +
-        '</div>' +
-        '<div class="wa-em-range">' +
-          '<span class="wa-em-lo">$' + Number(lo).toFixed(2) + '</span>' +
-          '<div class="wa-em-track">' +
-            '<div class="wa-em-marker" style="left:' + posClamped + '%;"></div>' +
-          '</div>' +
-          '<span class="wa-em-hi">$' + Number(hi).toFixed(2) + '</span>' +
-        '</div>' +
-        '<div class="wa-em-status" style="color:' + statusColor + ';">' +
-          '<strong>$' + Number(spot).toFixed(2) + '</strong> &bull; ' + statusLabel +
-        '</div>' +
+      if (primaryExp && primaryExp.length === 8) {
+        // YYYYMMDD → human label
+        var y = primaryExp.slice(0,4), mo = primaryExp.slice(4,6), da = primaryExp.slice(6,8);
+        var dt = new Date(y + '-' + mo + '-' + da + 'T16:00:00-04:00');
+        var label = dt.toLocaleString('en-US', { weekday:'short', month:'short', day:'numeric' });
+        var daysUntil = Math.round((dt.getTime() - Date.now()) / 86400000);
+        var dteLabel = daysUntil <= 0 ? ' (expired)' :
+                       daysUntil === 1 ? ' (tomorrow)' :
+                       ' (' + daysUntil + 'd out)';
+        expiryTag.textContent = ' · expiry ' + label + dteLabel;
+      }
+    }
+
+    // Convention banner: explain anchor + dual-band so users aren't confused
+    // by an "anchored" $743-$770 band when live SPY trades $729.
+    var bannerHtml =
+      '<div class="wa-em-banner">' +
+        '<i data-lucide="info"></i>' +
+        '<span>' +
+          'Weekly EM bands anchored to <strong>last Friday\'s close</strong> ' +
+          '(Mike Silva / FOM convention). ' +
+          '<span class="wa-em-band-key"><span class="wa-em-key-anchor"></span>anchored band</span>' +
+          ' &middot; ' +
+          '<span class="wa-em-band-key"><span class="wa-em-key-live"></span>live-recentered</span>' +
+          ' shown as overlay during market hours.' +
+        '</span>' +
       '</div>';
+
+    el.innerHTML = bannerHtml + '<div class="wa-em-grid" id="wa-em-grid">' + symbols.map(function(sym) {
+      return renderEMCard(sym, em[sym]);
     }).join('') + '</div>';
+
+    // Wire up live re-centering: subscribe to live spots and re-render each card
+    // with a teal live-band overlay + accurate breach magnitude.
+    setupLiveRecentering(em);
+  }
+
+  function renderEMCard(sym, d, liveSpot) {
+    var anchor = d.anchor != null ? d.anchor : (d.spot || null);
+    var staticSpot = d.spot, lo = d.lower, hi = d.upper, pct = d.pct;
+    if (!staticSpot || !lo || !hi) {
+      return '<div class="wa-em-card" data-sym="' + escapeHtml(sym) + '">' +
+        '<div class="wa-em-sym">' + escapeHtml(sym) + '</div>' +
+        '<div class="wa-em-empty">no data</div></div>';
+    }
+
+    // Anchored band geometry (the static "as priced Sunday night" band)
+    var range = hi - lo;
+    var em = (hi - lo) / 2;   // half-width = 1 expected-move unit
+    var spot = (liveSpot != null) ? liveSpot : staticSpot;
+
+    // Live-recentered band: same EM width, but centered on live spot
+    var liveLo = spot - em;
+    var liveHi = spot + em;
+
+    // Position of spot WITHIN the anchored band's range
+    var pos = ((spot - lo) / range) * 100;
+    var posClamped = Math.max(0, Math.min(100, pos));
+
+    // Breach magnitude — how many EM units past the band edge?
+    var breachAmt = 0, breachSigma = 0;
+    if (spot < lo) {
+      breachAmt = lo - spot;
+      breachSigma = breachAmt / em;
+    } else if (spot > hi) {
+      breachAmt = spot - hi;
+      breachSigma = breachAmt / em;
+    }
+
+    var statusLabel, statusColor;
+    if (pos < 0) {
+      statusLabel = 'BREACH DOWN -$' + breachAmt.toFixed(2) + ' (' + breachSigma.toFixed(1) + '\u03c3)';
+      statusColor = '#26a69a';
+    } else if (pos > 100) {
+      statusLabel = 'BREACH UP +$' + breachAmt.toFixed(2) + ' (' + breachSigma.toFixed(1) + '\u03c3)';
+      statusColor = '#ef5350';
+    } else if (pos < 25) { statusLabel = 'BUY ZONE'; statusColor = '#26a69a'; }
+    else if (pos > 75) { statusLabel = 'EXTENDED'; statusColor = '#ffa726'; }
+    else { statusLabel = 'MID'; statusColor = '#64748b'; }
+
+    // Live band overlay: where would the band be if recentered to live spot?
+    // Position the overlay relative to the displayed anchored-band axis.
+    // The track axis runs from lo to hi visually.
+    var liveLoPct = ((liveLo - lo) / range) * 100;
+    var liveHiPct = ((liveHi - lo) / range) * 100;
+    var liveBandLeft = Math.max(-50, Math.min(150, liveLoPct));
+    var liveBandWidth = Math.max(0, Math.min(200, liveHiPct - liveLoPct));
+
+    // Anchor (vertical tick at the static anchor) — for context
+    var anchorPct = anchor ? ((anchor - lo) / range) * 100 : null;
+
+    // Indicate live-ness in the spot color
+    var spotIsLive = (liveSpot != null);
+    var spotLabel = spotIsLive
+      ? '<strong>$' + Number(spot).toFixed(2) + '</strong> <span class="wa-em-live-dot" title="Live"></span>'
+      : '<strong>$' + Number(spot).toFixed(2) + '</strong>';
+
+    return '<div class="wa-em-card" data-sym="' + escapeHtml(sym) + '">' +
+      '<div class="wa-em-head">' +
+        '<span class="wa-em-sym">' + escapeHtml(sym) + '</span>' +
+        '<span class="wa-em-pct">\u00b1' + Number(pct).toFixed(2) + '%</span>' +
+      '</div>' +
+      '<div class="wa-em-range">' +
+        '<span class="wa-em-lo">$' + Number(lo).toFixed(2) + '</span>' +
+        '<div class="wa-em-track" title="Anchored to ' + (anchor ? '$' + Number(anchor).toFixed(2) : 'last Fri close') + '">' +
+          (anchorPct != null ?
+            '<div class="wa-em-anchor-tick" style="left:' + Math.max(0, Math.min(100, anchorPct)) + '%;" title="Anchor (Fri close)"></div>' : '') +
+          '<div class="wa-em-live-band" style="left:' + liveBandLeft + '%;width:' + liveBandWidth + '%;" title="Live-recentered EM band"></div>' +
+          '<div class="wa-em-marker" style="left:' + posClamped + '%;"></div>' +
+        '</div>' +
+        '<span class="wa-em-hi">$' + Number(hi).toFixed(2) + '</span>' +
+      '</div>' +
+      '<div class="wa-em-status" style="color:' + statusColor + ';">' +
+        spotLabel + ' &bull; ' + statusLabel +
+      '</div>' +
+    '</div>';
+  }
+
+  // Live re-centering: subscribe to live prices and re-render each card
+  // with the dual-band overlay. Stored on module so destroy() can tear down.
+  var _liveUnsub = null;
+  function setupLiveRecentering(em) {
+    if (_liveUnsub) { try { _liveUnsub(); } catch (_) {} _liveUnsub = null; }
+    if (!window.livePrices || !em) return;
+    var syms = Object.keys(em);
+    if (!syms.length) return;
+    _liveUnsub = window.livePrices.subscribe(syms, function(quotes) {
+      var grid = document.getElementById('wa-em-grid');
+      if (!grid) return;
+      var cards = grid.querySelectorAll('.wa-em-card');
+      cards.forEach(function(card) {
+        var sym = card.getAttribute('data-sym');
+        if (!sym || !em[sym]) return;
+        var q = quotes[sym];
+        var livePrice = (q && q.price != null) ? q.price : null;
+        var html = renderEMCard(sym, em[sym], livePrice);
+        // Replace this card's outerHTML in-place
+        card.outerHTML = html;
+      });
+    }, { alwaysPoll: false });
   }
 
   function renderIpoTracker(c) {

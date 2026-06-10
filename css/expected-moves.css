@@ -119,6 +119,23 @@
   position: absolute; top: 0; bottom: 0; left: 0;
   border-radius: 4px; transition: width 0.3s;
 }
+.em-pos-anchor-tick {
+  position: absolute; top: -2px;
+  width: 1px; height: 12px;
+  background: rgba(255,255,255,0.4);
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+.em-pos-live-band {
+  position: absolute; top: -1px;
+  height: 10px;
+  background: rgba(38,166,154,0.15);
+  border: 1px solid rgba(38,166,154,0.5);
+  border-radius: 3px;
+  z-index: 2;
+  pointer-events: none;
+}
 .em-pos-marker {
   position: absolute; top: -3px;
   width: 4px; height: 14px;
@@ -126,6 +143,7 @@
   background: var(--gold);
   transform: translateX(-50%);
   box-shadow: 0 0 4px rgba(255,215,0,0.5);
+  z-index: 3;
 }
 
 /* === Risk Bar === */
