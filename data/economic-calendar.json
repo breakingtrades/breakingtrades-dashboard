@@ -1,35 +1,9 @@
 {
-  "fetched_at": "2026-06-10T22:22:04.170629Z",
+  "fetched_at": "2026-06-11T20:28:25.919014Z",
   "source": "investing.com",
   "country": "US",
   "stars": 3,
   "events": [
-    {
-      "id": "econ-550775",
-      "title": "Initial Jobless Claims",
-      "deadline": "2026-06-11T12:30:00Z",
-      "category": "macro",
-      "severity": "high",
-      "stars": 3,
-      "forecast": "220K",
-      "previous": "225K",
-      "countdown": true,
-      "status": "active",
-      "source": "investing.com"
-    },
-    {
-      "id": "econ-550079",
-      "title": "PPI (MoM) (May)",
-      "deadline": "2026-06-11T12:30:00Z",
-      "category": "macro",
-      "severity": "high",
-      "stars": 3,
-      "forecast": "0.7%",
-      "previous": "1.4%",
-      "countdown": true,
-      "status": "active",
-      "source": "investing.com"
-    },
     {
       "id": "econ-550495",
       "title": "Core Retail Sales (MoM) (May)",
@@ -39,6 +13,32 @@
       "stars": 3,
       "forecast": null,
       "previous": "0.7%",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-550493",
+      "title": "Retail Sales (MoM) (May)",
+      "deadline": "2026-06-17T12:30:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": null,
+      "previous": "0.5%",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-551489",
+      "title": "Crude Oil Inventories",
+      "deadline": "2026-06-17T14:30:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": null,
+      "previous": "-7.227M",
       "countdown": true,
       "status": "active",
       "source": "investing.com"
