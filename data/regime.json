@@ -1,13 +1,13 @@
 {
-  "updated": "2026-06-11T20:28:26Z",
+  "updated": "2026-06-11T22:19:42Z",
   "regime": "BULL",
-  "score": 56,
+  "score": 57,
   "color": "#00d4aa",
   "previous": {
     "regime": "BULL",
-    "score": 57
+    "score": 56
   },
-  "duration_days": 2,
+  "duration_days": 3,
   "since": "2026-06-09",
   "cycle": {
     "phase": "LATE_CYCLE",
@@ -15,8 +15,8 @@
   },
   "components": {
     "move": {
-      "score": 86,
-      "value": 73.95,
+      "score": 91,
+      "value": 69.45,
       "signal": "collapsing",
       "weight": 18
     },
@@ -28,13 +28,13 @@
     },
     "vix": {
       "score": 62,
-      "value": 19.54,
+      "value": 19.44,
       "signal": "normal",
       "weight": 10
     },
     "breadth": {
       "score": 50,
-      "value": 57.8,
+      "value": 58.7,
       "signal": "strong",
       "weight": 8
     },
@@ -58,7 +58,7 @@
     },
     "dxy": {
       "score": 55,
-      "value": 99.66,
+      "value": 99.68,
       "signal": "neutral",
       "weight": 5
     },
@@ -88,19 +88,19 @@
     },
     "copper_gold": {
       "score": 50,
-      "value": 0.11,
+      "value": 0.1,
       "signal": "neutral",
       "weight": 4
     },
     "international": {
       "score": 50,
-      "value": -0.81,
+      "value": -1.02,
       "signal": "mixed",
       "weight": 4
     },
     "xly_xlp": {
       "score": 20,
-      "value": -2.72,
+      "value": -2.74,
       "signal": "weak",
       "weight": 2
     }
@@ -134,7 +134,7 @@
       },
       {
         "label": "Breadth > 65%",
-        "current": 57.8,
+        "current": 58.7,
         "target": 65,
         "met": false
       },
