@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Jun 10",
-  "headline": "Tech rolls over as defensive sectors quietly rotate up\u2014flows matter, not headlines.",
+  "title": "Daily Briefing \u2014 Jun 11",
+  "headline": "Volatility\u2019s back, tech\u2019s stumbling, and fear is finally showing up in the crowd.",
   "body": [
-    "Right, so let\u2019s look at what the flows are telling us: Tech leadership (AAPL, MSFT, NVDA, AMZN, XLK) is fading, with all trading below their 20 MA (AAPL $288.62 vs 20 MA $304.25, MSFT $402.64 vs $421.42), triggering the classic exit signal. VIX rising above its SMA20 (19.87 > 17.24) confirms volatility picking up, while the Fear & Greed index is parked at 33.7\u2014just plain fear, nothing extreme.",
-    "Sector rotation is quietly underway: XLF (Financials) is improving and triggered bull status ($52.67 > 20/50 MA), XLV (Healthcare), XLI (Industrials), and even some staples (XLP) are showing bullish bias and improving momentum. Meanwhile, XLK\u2019s RS is weakening with tech risk firmly MEDIUM and declining, and energy (XLE) and utilities (XLU) are lagging hard\u2014risk stays elevated here.",
-    "Contrarian/risk check: Institutional flows are not chasing tech. Daily closes under 20 MA for SPY ($735.35 < $746.12), QQQ ($704.98 < $721.87), and XLK ($180.19 < $183.63) all reinforce less trades = more wins. No extreme fear, so it\u2019s not an aggressive buy-the-dip; instead, watch for mean reversion on weekly 20 MA and sector rotation opportunities. If it's in the press, it's in the price."
+    "Right, so let\u2019s look at what the flows are telling us\u2026 The market\u2019s flashing elevated volatility with VIX at 22.22 (well above its 20-day at 17.46), SPY grinding up slightly to $728.32 but still below its 20 MA ($744.92)\u2014that\u2019s a textbook mean reversion warning. Fear & Greed is stuck at 27.2, proper 'Fear' territory, and a full reversal from the 'Greed' we saw a month ago.",
+    "Sector rotation is starting to pick up: XLK (Tech) is weakening despite relative strength, while XLF (Financials) and XLV (Healthcare) are improving, but at 'elevated' risk\u2014so don\u2019t go piling in. Utilities (XLU) are lagging, and Energy (XLE) flagged 'HIGH' risk, so avoid both. Spotting defensive improvement in XLV, XLP, and XLF, but nothing screams 'safe haven' yet.",
+    "Contrarian signals are blossoming: Fear & Greed this low (<25 would be a buy per the rule, but 27 is close), put/call is not extreme, and smart money hasn\u2019t flipped bullish yet. Most tech heavyweights\u2014AAPL, MSFT, GOOGL, META\u2014are all well below their daily 20 MAs, triggering the 'exit long positions' rule. If bonds freak out (which they aren\u2019t\u2014HYG, LQD, TLT all steady and above their 20s), everything breaks, but for now, patience trumps prediction. Retail isn\u2019t panic-selling, but the crowd\u2019s certainly nervous."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $746.12 (20 MA) \u2014 bear bias, watching<br>QQQ: $721.87 (20 MA) \u2014 bear bias, watching<br>XLK: $183.63 (20 MA) \u2014 exit active<br>XLF: $52.27 (200 MA) \u2014 bull zone, triggered<br>DHI: $175.67 (20 MA), active bull<br>VIX: 19.87 \u2014 rising volatility<br>IWM: $285.18 (20 MA) \u2014 bull zone, watching",
+  "callout_body": "SPY: $744.92 (20 MA), watch for rejection or reclaim<br>QQQ: $720.67 (20 MA), currently $702.09\u2014bear bias continue<br>XLK: $183.55 (20 MA), $178.77 and falling<br>XLF: $52.15, just above 20 MA $51.69\u2014triggered bullish but stay cautious<br>HYG, LQD, TLT: Above 20 MA, risk-off not triggered<br>Fear & Greed: 27.2\u2014near extreme fear zone, not quite there<br>VIX: 22.22 (Elevated), volatility regime in force",
   "action_items": [
-    "Reduce exposure on any lingering tech longs\u2014daily closes below 20 MA trigger exits (AAPL, MSFT, NVDA, AMZN, XLK, QQQ, SPY)",
-    "Rotate capital into improving sectors: XLF (financials), XLV, XLI, and select staples (XLP) above their short-term MAs"
+    "Exit or reduce longs in tech names below daily 20 MA (AAPL, MSFT, GOOGL, META)",
+    "Watch XLV, XLF, XLP for defensive sector rotation but wait for confirmation\u2014don\u2019t chase"
   ],
-  "closing_quote": "Patience, react, don\u2019t predict\u2014the 20 MA is king. Don\u2019t chase, abundance mindset!",
-  "generatedAt": "2026-06-10T13:54:23.163886+00:00",
+  "closing_quote": "If it\u2019s in the press, it\u2019s in the price \u2014 less trades = more wins.",
+  "generatedAt": "2026-06-11T14:14:19.638877+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
