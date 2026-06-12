@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Jun 11",
-  "headline": "Volatility\u2019s back, tech\u2019s stumbling, and fear is finally showing up in the crowd.",
+  "title": "Daily Briefing \u2014 Jun 12",
+  "headline": "Tech rebound is masking broad sector rotation \u2014 flows say patience, not chase.",
   "body": [
-    "Right, so let\u2019s look at what the flows are telling us\u2026 The market\u2019s flashing elevated volatility with VIX at 22.22 (well above its 20-day at 17.46), SPY grinding up slightly to $728.32 but still below its 20 MA ($744.92)\u2014that\u2019s a textbook mean reversion warning. Fear & Greed is stuck at 27.2, proper 'Fear' territory, and a full reversal from the 'Greed' we saw a month ago.",
-    "Sector rotation is starting to pick up: XLK (Tech) is weakening despite relative strength, while XLF (Financials) and XLV (Healthcare) are improving, but at 'elevated' risk\u2014so don\u2019t go piling in. Utilities (XLU) are lagging, and Energy (XLE) flagged 'HIGH' risk, so avoid both. Spotting defensive improvement in XLV, XLP, and XLF, but nothing screams 'safe haven' yet.",
-    "Contrarian signals are blossoming: Fear & Greed this low (<25 would be a buy per the rule, but 27 is close), put/call is not extreme, and smart money hasn\u2019t flipped bullish yet. Most tech heavyweights\u2014AAPL, MSFT, GOOGL, META\u2014are all well below their daily 20 MAs, triggering the 'exit long positions' rule. If bonds freak out (which they aren\u2019t\u2014HYG, LQD, TLT all steady and above their 20s), everything breaks, but for now, patience trumps prediction. Retail isn\u2019t panic-selling, but the crowd\u2019s certainly nervous."
+    "Right, so the big picture today: We\u2019ve got a relief bounce in tech \u2014 XLK up +3.7%, NVDA +2.2%, but all the megacaps except DELL and ARM are still trading below their daily 20 MAs (e.g. MSFT at $390.34 vs 20 MA $420.46). That\u2019s not bull confirmation, that\u2019s mean reversion after an ugly slide. Fear & Greed is at 30.9 \u2014 we're parked near 'Fear' but not at extreme, so this is a market looking for direction, not panic.",
+    "Sector rotation is heating up: Industrials (XLI), Healthcare (XLV), Financials (XLF) and Materials (XLB) are showing improving momentum in RRG, while Energy (XLE) and Utilities (XLU) are lagging hard. Watch XLF ($52.62 triggered above all MAs) as the canary \u2014 financials are healthy, so no macro alarms on that front, but tech is still leading on RS while breadth is clearly shifting.",
+    "Contrarian alert: Retail is flocking back to tech after weeks of FOMO sell-off, but almost every major name is below the daily 20 MA (R006) \u2014 don\u2019t chase. VIX is rising above its 20 MA (19.44 vs 17.57), market volatility is building, and the rebound lacks conviction. Patience, react, don\u2019t predict. If it's in the press, it's in the price \u2014 this squeeze isn\u2019t real until we see a proper daily close above 20 MA across the board."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $744.92 (20 MA), watch for rejection or reclaim<br>QQQ: $720.67 (20 MA), currently $702.09\u2014bear bias continue<br>XLK: $183.55 (20 MA), $178.77 and falling<br>XLF: $52.15, just above 20 MA $51.69\u2014triggered bullish but stay cautious<br>HYG, LQD, TLT: Above 20 MA, risk-off not triggered<br>Fear & Greed: 27.2\u2014near extreme fear zone, not quite there<br>VIX: 22.22 (Elevated), volatility regime in force",
+  "callout_body": "SPY: $737.76 (watch SMA20 $745.40 as resistance)<br>QQQ: $717.12 (SMA20 $721.42)<br>XLK: $183.21 (SMA20 $183.77, need a close above)<br>XLF: $52.62 (above all MAs \u2014 healthy)<br>MSFT: $390.34 (SMA20 $420.46)<br>NVDA: $204.87 (SMA20 $215.97)<br>HYG: $79.94 (approaching SMA20 $79.57)<br>VIX: 19.44 (above SMA20) \u2014 volatility regime up",
   "action_items": [
-    "Exit or reduce longs in tech names below daily 20 MA (AAPL, MSFT, GOOGL, META)",
-    "Watch XLV, XLF, XLP for defensive sector rotation but wait for confirmation\u2014don\u2019t chase"
+    "Do NOT chase tech until daily close above 20 MA \u2014 sit on hands, abundance mindset.",
+    "Monitor XLF and HYG for macro signals \u2014 as long as financials and high yield stay strong, risk isn\u2019t breaking. Watch for breakdown."
   ],
-  "closing_quote": "If it\u2019s in the press, it\u2019s in the price \u2014 less trades = more wins.",
-  "generatedAt": "2026-06-11T14:14:19.638877+00:00",
+  "closing_quote": "Less trades = more wins. Don\u2019t break something if it\u2019s simple and good.",
+  "generatedAt": "2026-06-12T13:45:10.305916+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
