@@ -485,14 +485,14 @@
         rowClass = 'alert-sell';
       }
 
-      // Build position cell HTML with optional dual-band overlay
+      // Build position cell HTML — anchor tick + marker only.
+      // Live-recentered band overlay was removed because at extreme breaches
+      // (>0.5σ) it floats off the visible track and reads as a meaningless
+      // teal blob. The breach magnitude label below already conveys "where
+      // would the band be if recentered to spot."
       var posCellInner =
         '<div class="em-pos-bar">' +
           '<div class="em-pos-fill" style="width:' + r.clampedPos + '%;background:' + r.riskColor + ';opacity:0.3;"></div>';
-      if (r.liveBandLeft != null) {
-        posCellInner +=
-          '<div class="em-pos-live-band" style="left:' + r.liveBandLeft + '%;width:' + r.liveBandWidth + '%;" title="Live-recentered EM band"></div>';
-      }
       if (r.anchorPct != null) {
         posCellInner +=
           '<div class="em-pos-anchor-tick" style="left:' + r.anchorPct + '%;" title="Anchor: $' + Number(r.anchor).toFixed(2) + '"></div>';
@@ -513,7 +513,12 @@
       posCellInner += '<div style="color:var(--text-dim);font-size:11px;margin-top:3px;">' + posLabel + '</div>';
 
       return '<tr class="' + rowClass + '" data-sym="' + r.symbol + '">' +
-        '<td class="ticker-cell">' + r.symbol + (r.proxy ? ' <span style="color:var(--text-dim);font-size:11px;">(' + r.proxy.futures + ')</span>' : '') + ' ' + alertTag + '</td>' +
+        '<td class="ticker-cell">' +
+          '<span class="ticker-cell-name">' + r.symbol +
+            (r.proxy ? ' <span class="ticker-cell-proxy">(' + r.proxy.futures + ')</span>' : '') +
+          '</span>' +
+          (alertTag ? alertTag : '') +
+        '</td>' +
         '<td>$' + r.current.toFixed(2) + '</td>' +
         '<td class="' + chgClass + '">' + chgSign + r.change.toFixed(2) + '%</td>' +
         '<td>±$' + r.em + '</td>' +

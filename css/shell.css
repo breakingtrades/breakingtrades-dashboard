@@ -229,10 +229,20 @@
   border: 1px solid var(--border);
   border-radius: 6px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-  z-index: var(--z-dropdown);
+  z-index: 1000;
   padding: 4px 0;
 }
 .nav-more-menu.open { display: block; }
+/* When the More menu is open, suppress pointer events on the TradingView
+   ticker tape and its wrappers below it. The iframe + its wrapper divs each
+   establish their own stacking context for hit-testing, so even with a higher
+   z-index on the menu, mouseclicks land on the wrappers instead of the menu
+   links. Disabling pointer-events on the entire ticker-tape subtree while
+   the menu is open routes the click correctly to the menu. */
+body:has(.nav-more-menu.open) #tv-ticker-tape,
+body:has(.nav-more-menu.open) #tv-ticker-tape * {
+  pointer-events: none;
+}
 .nav-more-item {
   display: flex !important;
   align-items: center; gap: 8px;
