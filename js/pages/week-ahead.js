@@ -397,17 +397,13 @@
       }
     }
 
-    // Convention banner: explain anchor + dual-band so users aren't confused
-    // by an "anchored" $743-$770 band when live SPY trades $729.
+    // Convention banner: explain anchor + accurate breach magnitude tooling
     var bannerHtml =
       '<div class="wa-em-banner">' +
         '<i data-lucide="info"></i>' +
         '<span>' +
           'Weekly EM bands anchored to <strong>last Friday\'s close</strong> and held constant Mon-Fri. ' +
-          '<span class="wa-em-band-key"><span class="wa-em-key-anchor"></span>anchored band</span>' +
-          ' &middot; ' +
-          '<span class="wa-em-band-key"><span class="wa-em-key-live"></span>live-recentered</span>' +
-          ' shown as overlay during market hours.' +
+          'Breach magnitudes shown in σ units when price exits the band.' +
         '</span>' +
       '</div>';
 
@@ -509,7 +505,6 @@
         '<div class="wa-em-track" title="Anchored to ' + (anchor ? '$' + Number(anchor).toFixed(2) : 'last Fri close') + '">' +
           (anchorPct != null ?
             '<div class="wa-em-anchor-tick" style="left:' + Math.max(0, Math.min(100, anchorPct)) + '%;" title="Anchor (Fri close)"></div>' : '') +
-          '<div class="wa-em-live-band" style="left:' + liveBandLeft + '%;width:' + liveBandWidth + '%;" title="Live-recentered EM band"></div>' +
           '<div class="wa-em-marker" style="left:' + posClamped + '%;"></div>' +
         '</div>' +
         '<span class="wa-em-hi">$' + Number(hi).toFixed(2) + '</span>' +
