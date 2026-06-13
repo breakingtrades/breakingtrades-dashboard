@@ -408,7 +408,7 @@ body.v3.sidebar-collapsed .v3-sidebar-toggle:hover::after {
     z-index: 100;
   }
   body.v3.sidebar-mobile-open .v3-sidebar {
-    transform: translateX(0);
+    transform: translateX(0) !important;
   }
   body.v3.sidebar-mobile-open::before {
     content: "";

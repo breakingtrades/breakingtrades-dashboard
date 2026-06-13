@@ -258,7 +258,13 @@
   }
 
   function toggleMobile() {
-    document.body.classList.toggle('sidebar-mobile-open');
+    var isOpen = document.body.classList.toggle('sidebar-mobile-open');
+    // Belt-and-suspenders: set inline transform on the sidebar itself in case the
+    // CSS cascade fights us (e.g. cached stylesheets, specificity collision).
+    var sidebar = document.getElementById('v3-sidebar');
+    if (sidebar) {
+      sidebar.style.transform = isOpen ? 'translateX(0)' : '';
+    }
   }
 
   // ─── Tape toggle (3-state) ─────────────────────────────────────────────────
@@ -288,6 +294,12 @@
     setTapeState(next);
   }
 
+  function closeMobileDrawer() {
+    document.body.classList.remove('sidebar-mobile-open');
+    var sidebar = document.getElementById('v3-sidebar');
+    if (sidebar) sidebar.style.transform = '';
+  }
+
   // ─── Bind ──────────────────────────────────────────────────────────────────
   function bind() {
     document.getElementById('v3-sidebar-toggle')?.addEventListener('click', toggleCollapse);
@@ -298,7 +310,7 @@
     document.querySelectorAll('.v3-nav-item').forEach(function(item) {
       item.addEventListener('click', function() {
         if (window.innerWidth <= 768) {
-          document.body.classList.remove('sidebar-mobile-open');
+          closeMobileDrawer();
         }
       });
     });
@@ -306,7 +318,7 @@
     // Esc closes mobile drawer
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
-        document.body.classList.remove('sidebar-mobile-open');
+        closeMobileDrawer();
       }
       // Cmd-K is handled by cmdbar.js (loaded separately). Don't double-bind here.
     });
@@ -317,7 +329,7 @@
         var sidebar = document.getElementById('v3-sidebar');
         var toggle = document.getElementById('v3-mobile-toggle');
         if (sidebar && !sidebar.contains(e.target) && toggle && !toggle.contains(e.target)) {
-          document.body.classList.remove('sidebar-mobile-open');
+          closeMobileDrawer();
         }
       }
     });
