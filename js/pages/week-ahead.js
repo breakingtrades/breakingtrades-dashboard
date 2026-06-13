@@ -255,7 +255,7 @@
     }).join('');
     var watching = brief.what_im_watching || {};
     var tickers = (watching.tickers || []).map(function(t) {
-      return '<span class="wa-ticker">' + escapeHtml(t) + '</span>';
+      return (window.BT && BT.tickerLink) ? BT.tickerLink(t, { className: 'wa-ticker' }) : '<span class="wa-ticker">' + escapeHtml(t) + '</span>';
     }).join(' ');
     el.innerHTML =
       '<div class="wa-brief-card">' +
@@ -332,14 +332,17 @@
     var color = SEVERITY_COLORS[sev] || SEVERITY_COLORS.medium;
     var meta = CAT_META[e.category] || CAT_META.macro;
     var tickers = (e.tickers || []).slice(0, 6).map(function(t) {
-      return '<span class="wa-card-tk">' + escapeHtml(t) + '</span>';
+      return (window.BT && BT.tickerLink) ? BT.tickerLink(t, { className: 'wa-card-tk' }) : '<span class="wa-card-tk">' + escapeHtml(t) + '</span>';
     }).join('');
     var extraBits = [];
     var ex = e.extra || {};
     if (ex.forecast) extraBits.push('fc <strong>' + escapeHtml(ex.forecast) + '</strong>');
     if (ex.previous) extraBits.push('prev ' + escapeHtml(ex.previous));
     if (ex.market_cap_b) extraBits.push('$' + Number(ex.market_cap_b).toFixed(1) + 'B');
-    if (ex.bmo_amc) extraBits.push(escapeHtml(ex.bmo_amc));
+    if (ex.bmo_amc) {
+      var bmoLabel = String(ex.bmo_amc).toUpperCase();
+      extraBits.push((window.BT && BT.glossaryTerm) ? BT.glossaryTerm(bmoLabel, ex.bmo_amc) : escapeHtml(ex.bmo_amc));
+    }
     if (ex.eps_forecast && ex.eps_forecast !== '--') extraBits.push('EPS fc ' + escapeHtml(ex.eps_forecast));
     if (ex.press_conference) extraBits.push('Press Conf');
     var extraLine = extraBits.length ? '<div class="wa-card-extra">' + extraBits.join(' \u00b7 ') + '</div>' : '';
@@ -421,7 +424,9 @@
     var staticSpot = d.spot, lo = d.lower, hi = d.upper, pct = d.pct;
     if (!staticSpot || !lo || !hi) {
       return '<div class="wa-em-card" data-sym="' + escapeHtml(sym) + '">' +
-        '<div class="wa-em-sym">' + escapeHtml(sym) + '</div>' +
+        '<div class="wa-em-sym">' +
+          ((window.BT && BT.tickerLink) ? BT.tickerLink(sym, { className: 'wa-em-sym-link' }) : escapeHtml(sym)) +
+        '</div>' +
         '<div class="wa-em-empty">no data</div></div>';
     }
 
@@ -497,7 +502,9 @@
 
     return '<div class="wa-em-card" data-sym="' + escapeHtml(sym) + '">' +
       '<div class="wa-em-head">' +
-        '<span class="wa-em-sym">' + escapeHtml(sym) + '</span>' +
+        '<span class="wa-em-sym">' +
+          ((window.BT && BT.tickerLink) ? BT.tickerLink(sym, { className: 'wa-em-sym-link' }) : escapeHtml(sym)) +
+        '</span>' +
         '<span class="wa-em-pct">\u00b1' + Number(pct).toFixed(2) + '%</span>' +
       '</div>' +
       '<div class="wa-em-range">' +
@@ -595,7 +602,9 @@
       var m = rec.metrics || null;
       if (!m) {
         return '<div class="wa-ipo-card wa-ipo-card-error">' +
-          '<div class="wa-ipo-sym">' + escapeHtml(rec.symbol || '?') + '</div>' +
+          '<div class="wa-ipo-sym">' +
+            ((window.BT && BT.tickerLink) ? BT.tickerLink(rec.symbol || '?', { className: 'wa-ipo-sym-link' }) : escapeHtml(rec.symbol || '?')) +
+          '</div>' +
           '<div class="wa-ipo-name">' + escapeHtml(rec.name || '') + '</div>' +
           '<div class="wa-ipo-err">no data (' + escapeHtml(rec.error || '') + ')</div>' +
         '</div>';
@@ -618,7 +627,9 @@
       return '<div class="wa-ipo-card">' +
         '<div class="wa-ipo-card-head">' +
           '<div>' +
-            '<div class="wa-ipo-sym">' + escapeHtml(rec.symbol) + '</div>' +
+            '<div class="wa-ipo-sym">' +
+              ((window.BT && BT.tickerLink) ? BT.tickerLink(rec.symbol, { className: 'wa-ipo-sym-link' }) : escapeHtml(rec.symbol)) +
+            '</div>' +
             '<div class="wa-ipo-name">' + escapeHtml(rec.name || '') + '</div>' +
           '</div>' +
           '<div class="wa-ipo-tag-wrap">' +

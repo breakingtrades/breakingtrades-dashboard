@@ -1,0 +1,102 @@
+/* css/ticker-link.css — Shared chip + tooltip styling. */
+
+/* ─── Ticker chip ────────────────────────────────────────────────────────── */
+.bt-ticker-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 7px;
+  border-radius: 3px;
+  background: rgba(45, 212, 191, 0.10);
+  color: var(--v3-cyan, var(--cyan, #2DD4BF));
+  font-family: var(--font-mono, "SF Mono", "Fira Code", monospace);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+.bt-ticker-chip:hover {
+  background: rgba(45, 212, 191, 0.22);
+  border-color: rgba(45, 212, 191, 0.35);
+  color: #5eead4;
+}
+.bt-ticker-chip:active {
+  transform: translateY(1px);
+}
+
+/* Optional inline live price (when showLivePrice option is on) */
+.bt-tlk-px {
+  font-weight: 500;
+  color: var(--text-bright, #fff);
+}
+.bt-tlk-px.up { color: var(--cyan, #2DD4BF); }
+.bt-tlk-px.down { color: var(--red, #ef5350); }
+.bt-tlk-chg {
+  font-size: 10px;
+  opacity: 0.75;
+  margin-left: 2px;
+}
+
+/* When chip is used inside an existing class context like .wa-ticker, we
+   layer onto it gracefully — caller-supplied class wins on visual styling
+   if it uses higher specificity. */
+
+/* ─── Glossary term ──────────────────────────────────────────────────────── */
+.bt-glossary-term {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  cursor: help;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.25);
+  padding-bottom: 1px;
+}
+.bt-glossary-marker {
+  font-size: 9px;
+  opacity: 0.45;
+  margin-left: 1px;
+  color: var(--v3-cyan, var(--cyan, #2DD4BF));
+  user-select: none;
+  position: relative;
+  top: -1px;
+}
+.bt-glossary-term:hover .bt-glossary-marker { opacity: 0.9; }
+
+/* ─── Floating tooltip ───────────────────────────────────────────────────── */
+.bt-tooltip {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 1500;
+  max-width: 320px;
+  padding: 8px 12px;
+  background: var(--v3-bg-active, #1a1a36);
+  color: var(--text-bright, #fff);
+  border: 1px solid var(--v3-border-mid, rgba(255, 255, 255, 0.12));
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.1px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: opacity 120ms ease, transform 120ms ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  text-align: left;
+  white-space: pre-wrap;
+}
+.bt-tooltip.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Print: hide tooltips entirely */
+@media print {
+  .bt-tooltip { display: none !important; }
+  .bt-glossary-marker { display: none; }
+  .bt-ticker-chip { color: #000; background: transparent; border: none; }
+}

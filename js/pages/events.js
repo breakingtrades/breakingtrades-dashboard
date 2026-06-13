@@ -81,12 +81,14 @@
       fetch('data/events.jsonl').then(function(r) { return r.text(); }),
       fetch('data/market-hours.json').then(function(r) { return r.json(); }).catch(function() { return null; }),
       fetch('data/economic-calendar.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
-      fetch('data/watchlist.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
+      fetch('data/watchlist.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
+      fetch('data/fomc-calendar.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
     ]).then(function(results) {
       var text = results[0];
       var mh = results[1];
       var econ = results[2];
       var wl = results[3];
+      var fomc = results[4];
       var events = text.trim().split('\n')
         .filter(function(l) { return l.trim() && !l.startsWith('#'); })
         .map(function(l) { return JSON.parse(l); });
@@ -107,6 +109,92 @@
             tickers: ['SPY','QQQ','TLT','DXY','GLD'],
             notes: '★★★ from Investing.com economic calendar' + (e.forecast ? ' · forecast: ' + e.forecast : '') + (e.previous ? ' · previous: ' + e.previous : ''),
             _econ: true
+          });
+        });
+      }
+
+      // Inject FOMC meetings + Powell press conferences (federalreserve.gov).
+      // FOMC rate decisions are the single highest-impact macro events on the
+      // calendar — ±2-3% SPX moves are common in the 30 minutes after the
+      // statement drops. We inject the next 3 upcoming meetings + Fed speeches
+      // happening within the next 14 days.
+      if (fomc) {
+        var now = Date.now();
+        var horizon14 = now + 14 * 86400000;
+        var horizon90 = now + 90 * 86400000;
+
+        // Meetings (rate decisions)
+        (fomc.upcoming_meetings || []).forEach(function(m) {
+          if (!m.datetime_utc) return;
+          var ms = new Date(m.datetime_utc).getTime();
+          if (isNaN(ms) || ms < now || ms > horizon90) return;
+          var daysUntil = Math.round((ms - now) / 86400000);
+          // Critical if within 7 days, high if within 30
+          var sev = daysUntil <= 7 ? 'critical' : (daysUntil <= 30 ? 'high' : 'medium');
+          var pressLabel = m.press_conference ? ' + Press Conference' : '';
+          events.push({
+            id: 'fomc-' + m.year + '-' + m.month + '-' + m.day,
+            title: 'FOMC Rate Decision' + pressLabel,
+            category: 'fed',
+            severity: sev,
+            status: 'active',
+            deadline: m.datetime_utc,
+            created: fomc.fetched_at || new Date().toISOString(),
+            countdown: daysUntil <= 14,
+            market_impact: 'Federal Reserve interest-rate decision' +
+              (m.press_conference ? ' followed by Chair Powell press conference (30min after).' : '.') +
+              ' Highest single-event vol catalyst on the calendar — typical SPX move ±1.5–3% in the 30 minutes after the 2pm ET statement.',
+            tickers: ['SPY','QQQ','IWM','TLT','DXY','GLD','XLF'],
+            notes: 'Source: federalreserve.gov · ' + daysUntil + 'd away' +
+              (m.press_conference ? ' · press conference scheduled' : ' · no press conference'),
+            _fomc: true
+          });
+        });
+
+        // Speeches (within next 14 days only)
+        (fomc.events || []).forEach(function(ev) {
+          if (!ev.datetime_utc && !ev.date) return;
+          var dtStr = ev.datetime_utc || (ev.date + 'T17:00:00Z');
+          var ms = new Date(dtStr).getTime();
+          if (isNaN(ms) || ms < now || ms > horizon14) return;
+          var speaker = ev.speaker || ev.title || 'Fed speaker';
+          var isPowell = /powell/i.test(speaker);
+          var daysUntil = Math.round((ms - now) / 86400000);
+          events.push({
+            id: 'fed-speech-' + (ev.id || (ev.speaker_slug || 'unknown') + '-' + dtStr),
+            title: 'Fed Speech — ' + speaker,
+            category: 'fed',
+            severity: isPowell ? 'high' : 'medium',
+            status: 'active',
+            deadline: dtStr,
+            created: fomc.fetched_at || new Date().toISOString(),
+            countdown: daysUntil <= 7,
+            market_impact: 'Federal Reserve official remarks — watch for rate-path / inflation language. ' +
+              (isPowell ? 'Chair Powell speeches move markets directly.' : 'Voting members can shift expectations at the margin.'),
+            tickers: ['SPY','QQQ','TLT','DXY'],
+            notes: 'Source: federalreserve.gov' + (ev.url ? ' · ' + ev.url : ''),
+            _fed_speech: true
+          });
+        });
+
+        // Recent speeches (last 7 days) — keep them visible for context with status='past'
+        (fomc.recent_speeches || []).forEach(function(sp) {
+          if (!sp.date) return;
+          var ms = new Date(sp.date + 'T17:00:00Z').getTime();
+          if (isNaN(ms) || ms > now || ms < now - 7 * 86400000) return;
+          events.push({
+            id: 'fed-recent-' + sp.speaker_slug + '-' + sp.date,
+            title: sp.title || ('Fed: ' + (sp.speaker_slug || '')),
+            category: 'fed',
+            severity: 'low',
+            status: 'past',
+            deadline: sp.date + 'T17:00:00Z',
+            created: sp.date + 'T17:00:00Z',
+            countdown: false,
+            market_impact: 'Recent Fed remarks — context for the current rate-path narrative.',
+            tickers: [],
+            notes: 'Source: federalreserve.gov' + (sp.url ? ' · ' + sp.url : ''),
+            _fed_recent: true
           });
         });
       }
@@ -313,7 +401,13 @@
   function renderEventCard(ev, compact) {
     var cat = CAT_BADGES[ev.category] || '•';
     var color = SEVERITY_COLORS[ev.severity] || '#64748b';
-    var tickers = (ev.tickers || []).join(', ');
+    var tickerLinks = (ev.tickers || []).map(function(t) {
+      return (window.BT && BT.tickerLink) ? BT.tickerLink(t) : t;
+    }).join(' ');
+    var tickersInline = (ev.tickers || []).join(', ');
+
+    // Glossary-decorate severity label so users can hover to learn what it means
+    var sevLabel = (ev.severity || 'medium').toUpperCase();
 
     if (compact) {
       return '<div class="event-card-compact" style="border-left:3px solid ' + color + ';">' +
@@ -321,7 +415,7 @@
           '<span>' + cat + ' <strong>' + ev.title + '</strong></span>' +
           '<span class="event-countdown" data-deadline="' + (ev.deadline || '') + '" style="color:' + color + ';font-weight:600;font-size:12px;"></span>' +
         '</div>' +
-        (tickers ? '<div style="font-size:10px;color:var(--text-dim);margin-top:2px;">' + tickers + '</div>' : '') +
+        (tickerLinks ? '<div class="ev-tickers-row" style="margin-top:4px;">' + tickerLinks + '</div>' : '') +
       '</div>';
     }
 
@@ -331,7 +425,7 @@
       '<div style="display:flex;justify-content:space-between;align-items:flex-start;">' +
         '<div>' +
           '<span style="font-size:10px;background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:3px;margin-right:6px;">' + cat + ' ' + (CAT_LABELS[ev.category] || ev.category) + '</span>' +
-          '<span style="font-size:10px;color:' + color + ';font-weight:600;text-transform:uppercase;">' + ev.severity + '</span>' +
+          '<span style="font-size:10px;color:' + color + ';font-weight:600;text-transform:uppercase;">' + sevLabel + '</span>' +
         '</div>' +
         (ev.countdown && ev.deadline
           ? '<span class="event-countdown" data-deadline="' + ev.deadline + '" style="color:' + color + ';' + pulseStyle + 'font-weight:700;font-size:14px;font-family:monospace;"></span>'
@@ -339,10 +433,8 @@
       '</div>' +
       '<h4 style="margin:8px 0 4px;color:var(--text-bright);font-size:14px;">' + ev.title + '</h4>' +
       (ev.market_impact ? '<p style="font-size:12px;color:var(--text-dim);margin:4px 0;">' + ev.market_impact + '</p>' : '') +
-      (ev.tickers && ev.tickers.length
-        ? '<div style="margin-top:6px;">' + ev.tickers.map(function(t) {
-            return '<span style="font-size:10px;background:rgba(0,212,170,0.1);color:var(--cyan);padding:2px 6px;border-radius:3px;margin-right:4px;">' + t + '</span>';
-          }).join('') + '</div>'
+      (tickerLinks
+        ? '<div class="ev-tickers-row" style="margin-top:6px;">' + tickerLinks + '</div>'
         : '') +
       (ev.notes ? '<p style="font-size:11px;color:var(--text-dim);margin-top:6px;font-style:italic;">' + ev.notes + '</p>' : '') +
       (ev.deadline ? '<div style="font-size:10px;color:var(--text-dim);margin-top:6px;">Deadline: ' + new Date(ev.deadline).toLocaleString() + '</div>' : '') +
