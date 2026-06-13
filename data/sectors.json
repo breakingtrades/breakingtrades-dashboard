@@ -2,73 +2,73 @@
   {
     "symbol": "XLK",
     "name": "Technology",
-    "change": 19.8,
-    "rs": 213.6
-  },
-  {
-    "symbol": "XLY",
-    "name": "Discretionary",
-    "change": 2.1,
-    "rs": 46.4
+    "change": 3.0,
+    "rs": 99.7
   },
   {
     "symbol": "XLV",
     "name": "Healthcare",
-    "change": 2.4,
-    "rs": 21.3
+    "change": 4.9,
+    "rs": 42.2
   },
   {
     "symbol": "XLRE",
     "name": "Real Estate",
-    "change": -0.9,
-    "rs": 19.6
-  },
-  {
-    "symbol": "XLI",
-    "name": "Industrials",
-    "change": -0.8,
-    "rs": 18.8
+    "change": 3.3,
+    "rs": 33.0
   },
   {
     "symbol": "XLF",
     "name": "Financials",
-    "change": -1.1,
-    "rs": 11.2
-  },
-  {
-    "symbol": "XLB",
-    "name": "Materials",
-    "change": -0.6,
-    "rs": 7.3
-  },
-  {
-    "symbol": "XLC",
-    "name": "Communication",
-    "change": -0.7,
-    "rs": 6.7
+    "change": 4.0,
+    "rs": 33.0
   },
   {
     "symbol": "XLP",
     "name": "Staples",
+    "change": 1.0,
+    "rs": 28.5
+  },
+  {
+    "symbol": "XLI",
+    "name": "Industrials",
+    "change": 1.0,
+    "rs": 22.2
+  },
+  {
+    "symbol": "XLB",
+    "name": "Materials",
+    "change": 1.0,
+    "rs": 18.4
+  },
+  {
+    "symbol": "XLY",
+    "name": "Discretionary",
     "change": -1.7,
-    "rs": -1.4
-  },
-  {
-    "symbol": "IBIT",
-    "name": "Bitcoin",
-    "change": -3.9,
-    "rs": -19.2
-  },
-  {
-    "symbol": "XLU",
-    "name": "Utilities",
-    "change": -5.2,
-    "rs": -25.7
+    "rs": -3.7
   },
   {
     "symbol": "XLE",
     "name": "Energy",
-    "change": -5.6,
-    "rs": -34.8
+    "change": -0.9,
+    "rs": -4.3
+  },
+  {
+    "symbol": "XLU",
+    "name": "Utilities",
+    "change": -0.8,
+    "rs": -16.7
+  },
+  {
+    "symbol": "XLC",
+    "name": "Communication",
+    "change": -4.7,
+    "rs": -31.4
+  },
+  {
+    "symbol": "IBIT",
+    "name": "Bitcoin",
+    "change": -21.9,
+    "rs": -140.3
   }
 ]
