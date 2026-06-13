@@ -26,6 +26,7 @@ WATCHLIST = [
   {'symbol':'AAPL', 'name':'Apple', 'sector':'Technology', 'group':'Quality Stocks'},
   {'symbol':'MSFT', 'name':'Microsoft', 'sector':'Technology', 'group':'Quality Stocks'},
   {'symbol':'NVDA', 'name':'NVIDIA', 'sector':'Technology', 'group':'Quality Stocks'},
+  {'symbol':'AMD', 'name':'AMD', 'sector':'Technology', 'group':'Quality Stocks'},
   {'symbol':'GOOGL', 'name':'Alphabet', 'sector':'Technology', 'group':'Quality Stocks'},
   {'symbol':'AMZN', 'name':'Amazon', 'sector':'Technology', 'group':'Quality Stocks'},
   {'symbol':'META', 'name':'Meta', 'sector':'Technology', 'group':'Quality Stocks'},

@@ -654,8 +654,101 @@
       if (TICKERS[i].symbol === symbol) { t = TICKERS[i]; break; }
     }
     if (!t) return;
+
+    // Synthesize the richer "legacy" ticker shape that detail-modal expects.
+    // The live ticker (from watchlist.json) is a thin row; the modal wants
+    // pattern.{name,type,level}, entry/stop/t1/t2, vol.{atr,atrPct,rating,current,avgRatio},
+    // statusIcon/statusLabel/badgeClass, analysis, exitWarning. We compute these from
+    // the live row + status config so the modal renders cleanly. No bogus numbers.
+    var cfg = STATUS_CONFIG[t.status] || STATUS_CONFIG.watching;
+    var atr = t.atr || 0;
+    var entry, stop, t1, t2, patternName, patternType, patternLevel;
+
+    // Status-driven setup levels (entry/stop/targets) — derived deterministically
+    // from current price + ATR + nearest SMA so the bands are always plausible.
+    if (t.status === 'triggered') {
+      // Just reclaimed — use the reclaim level as entry, ATR for stop, 1R/2R for targets.
+      entry = t.price;
+      stop = Math.max(0.01, t.price - (atr * 1.0 || t.price * 0.02));
+      t1 = t.price + (atr * 1.5 || t.price * 0.03);
+      t2 = t.price + (atr * 3.0 || t.price * 0.06);
+      patternName = 'SMA Reclaim';
+      patternType = 'Bullish';
+      patternLevel = 'SMA20 $' + (t.sma20 != null ? t.sma20.toFixed(2) : '—');
+    } else if (t.status === 'approaching') {
+      // Watching for reclaim — entry at nearest MA above price (or below if bear-stack)
+      var maNear = t.sma20 || t.sma50 || t.price;
+      entry = maNear;
+      stop = Math.max(0.01, maNear - (atr * 1.5 || maNear * 0.025));
+      t1 = maNear + (atr * 2.0 || maNear * 0.04);
+      t2 = maNear + (atr * 4.0 || maNear * 0.08);
+      patternName = 'Approaching MA';
+      patternType = 'Bullish Setup';
+      patternLevel = 'SMA20 $' + (t.sma20 != null ? t.sma20.toFixed(2) : '—');
+    } else if (t.status === 'active') {
+      // Already in trend — trailing stop on SMA20, R:R based on extension
+      entry = t.sma20 || (t.price - atr);
+      stop = Math.max(0.01, (t.sma20 || t.price * 0.97) - (atr * 1.0 || 0));
+      t1 = t.price + (atr * 2.0 || t.price * 0.04);
+      t2 = t.price + (atr * 4.0 || t.price * 0.08);
+      patternName = 'Bullish Trend';
+      patternType = 'Bullish';
+      patternLevel = 'SMA20 $' + (t.sma20 != null ? t.sma20.toFixed(2) : '—') + ' (trailing)';
+    } else if (t.status === 'exit') {
+      // Lost SMA20 — exit signal, downside risk to next support
+      entry = t.sma20 || t.price;
+      stop = entry + (atr * 1.0 || entry * 0.02);  // for a short setup, "stop" is above
+      t1 = Math.max(0.01, t.price - (atr * 2.0 || t.price * 0.04));
+      t2 = Math.max(0.01, t.price - (atr * 4.0 || t.price * 0.08));
+      patternName = 'Lost SMA20';
+      patternType = 'Bearish';
+      patternLevel = 'Below SMA20 $' + (t.sma20 != null ? t.sma20.toFixed(2) : '—');
+    } else {
+      // watching — no actionable setup, neutral pattern
+      entry = t.price;
+      stop = Math.max(0.01, t.price - (atr * 1.5 || t.price * 0.03));
+      t1 = t.price + (atr * 2.0 || t.price * 0.04);
+      t2 = t.price + (atr * 4.0 || t.price * 0.08);
+      patternName = 'Monitoring';
+      patternType = 'Neutral';
+      patternLevel = 'No active trigger';
+    }
+
+    var fmt2 = function(x) { return Number(x || 0).toFixed(2); };
+    var enriched = Object.assign({}, t, {
+      // Setup levels
+      entry: Number(entry.toFixed(2)),
+      stop: Number(stop.toFixed(2)),
+      t1: Number(t1.toFixed(2)),
+      t2: Number(t2.toFixed(2)),
+      // Pattern
+      pattern: { name: patternName, type: patternType, level: patternLevel },
+      // Status display fields used in modal header
+      statusIcon: cfg.icon || '',
+      statusLabel: (cfg.label || t.status || '').toString().toUpperCase(),
+      badgeClass: cfg.badgeClass || '',
+      // Vol object the modal expects
+      vol: {
+        atr: t.atr != null ? t.atr : 0,
+        atrPct: t.atrPct != null ? t.atrPct.toFixed(1) : '0.0',
+        rating: t.volRating || 'Normal',
+        current: t.volume != null ? (t.volume >= 1e6 ? (t.volume/1e6).toFixed(1) + 'M' : (t.volume/1e3).toFixed(0) + 'K') : '—',
+        avgRatio: t.volumeRatio != null ? t.volumeRatio.toFixed(2) : '—'
+      },
+      // Analysis text — derived from buildStatusReasoning headline + key reasons
+      analysis: (function() {
+        var r = buildStatusReasoning(t);
+        var lines = [r.headline];
+        (r.reasons || []).slice(0, 3).forEach(function(x) {
+          lines.push('• ' + x.text);
+        });
+        return lines.join(' ');
+      })(),
+      exitWarning: t.status === 'exit' ? 'Crossed below SMA20 — risk-management trigger fired.' : null
+    });
+
     BT.components.detailModal.open(symbol, {
-      tickerData: t,
+      tickerData: enriched,
       tvSymbol: (window.BT && BT.tvSymbol) ? BT.tvSymbol(symbol) : null,
       exchange: getExchange(symbol),
       sections: ['charts', 'ta', 'pattern', 'range', 'levels', 'analysis']
@@ -694,6 +787,125 @@
 
     var sqEl = document.getElementById('sector-quadrant');
     if (sqEl) sqEl.innerHTML = html;
+  }
+
+  function renderRegime() {
+    var bodyEl = document.getElementById('body-signals-regime');
+    if (!bodyEl) return;
+    fetch('data/regime.json', { cache: 'no-store' })
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .catch(function() { return null; })
+      .then(function(reg) {
+        if (!reg) {
+          bodyEl.innerHTML =
+            '<div class="regime-card"><div class="regime-label">Current Regime</div>' +
+              '<div class="regime-value" style="color:var(--text-dim);">— no data</div>' +
+              '<div class="regime-desc">data/regime.json missing or unreachable.</div>' +
+            '</div>';
+          return;
+        }
+
+        // Color by regime label (BULL / NEUTRAL / BEAR / CRISIS)
+        var label = String(reg.regime || 'NEUTRAL').toUpperCase();
+        var color = reg.color || (
+          label === 'BULL' ? '#00d4aa' :
+          label === 'BEAR' ? '#ef5350' :
+          label === 'CRISIS' ? '#ef5350' : '#ffa726');
+        var icon = label === 'BULL' ? '↑' : label === 'BEAR' ? '↓' : label === 'CRISIS' ? '⚠' : '→';
+
+        // Risk level derived from score:
+        //   CRISIS or score≤25 → EXTREME, BEAR or score≤45 → ELEVATED,
+        //   NEUTRAL or score≤65 → MODERATE, BULL or score>65 → LOW
+        var score = (reg.score != null ? reg.score : 50);
+        var riskLabel, riskColor, riskIcon;
+        if (label === 'CRISIS' || score <= 25) { riskLabel = 'EXTREME'; riskColor = '#ef5350'; riskIcon = '⚠'; }
+        else if (label === 'BEAR' || score <= 45) { riskLabel = 'ELEVATED'; riskColor = '#ffa726'; riskIcon = '⚠'; }
+        else if (score <= 65) { riskLabel = 'MODERATE'; riskColor = '#ffa726'; riskIcon = '◐'; }
+        else { riskLabel = 'LOW'; riskColor = '#00d4aa'; riskIcon = '✓'; }
+
+        // Phase + duration line
+        var phase = reg.cycle && reg.cycle.phase
+          ? String(reg.cycle.phase).replace(/_/g, ' ')
+          : null;
+        var sinceLine = '';
+        if (reg.duration_days != null && reg.since) {
+          sinceLine = ' · ' + reg.duration_days + 'd since ' + reg.since;
+        }
+
+        // Component summary — top 3 contributors by absolute score weight
+        var components = reg.components || {};
+        var compEntries = Object.keys(components).map(function(k) {
+          var c = components[k];
+          return { key: k, score: c.score, signal: c.signal, weight: c.weight, value: c.value };
+        }).sort(function(a, b) { return (b.weight || 0) - (a.weight || 0); }).slice(0, 4);
+
+        var compChips = compEntries.map(function(c) {
+          var sigColor = (c.score >= 70) ? '#00d4aa' : (c.score <= 30) ? '#ef5350' : '#9ca3af';
+          var name = c.key.replace(/_/g, ' ').toUpperCase();
+          return '<span class="ratio-pill" style="margin-right:4px;font-size:10px;">' +
+            '<span class="name">' + name + '</span>' +
+            '<span class="signal" style="color:' + sigColor + '">' + (c.signal || '—') + '</span>' +
+            '</span>';
+        }).join('');
+
+        // Active rules — list top 2 if present
+        var rulesText = '';
+        if (Array.isArray(reg.active_rules) && reg.active_rules.length) {
+          rulesText = ' · ' + reg.active_rules.slice(0, 2).map(function(r) {
+            return typeof r === 'string' ? r : (r.id || r.label || '');
+          }).filter(Boolean).join(', ');
+        }
+
+        // Playbook one-liner (if available)
+        var playbookText = '';
+        if (reg.playbook && (reg.playbook.summary || reg.playbook.headline)) {
+          playbookText = reg.playbook.summary || reg.playbook.headline;
+        } else if (reg.playbook && Array.isArray(reg.playbook.actions) && reg.playbook.actions.length) {
+          playbookText = reg.playbook.actions[0];
+        }
+
+        // Updated timestamp formatting
+        var updatedStr = '';
+        if (reg.updated) {
+          try {
+            var dt = new Date(reg.updated);
+            updatedStr = ' · Updated ' + dt.toLocaleString('en-US', {
+              month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+              hour12: true, timeZone: 'America/New_York'
+            }) + ' ET';
+          } catch (e) {}
+        }
+
+        var html =
+          '<div class="regime-card">' +
+            '<div class="regime-label">Current Regime</div>' +
+            '<div class="regime-value" style="color:' + color + ';">' + icon + ' ' + label +
+              ' <span style="font-size:11px;color:var(--text-dim);font-weight:400;">' + score + '/100</span>' +
+            '</div>' +
+            '<div class="regime-desc">' +
+              (phase ? '<strong style="color:' + color + ';">' + phase + '</strong>' + sinceLine : '') +
+              (compChips ? '<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:3px;">' + compChips + '</div>' : '') +
+              (playbookText ? '<div style="margin-top:8px;color:var(--text);">' + esc(playbookText) + '</div>' : '') +
+              '<div style="margin-top:6px;font-size:10px;color:var(--text-dim);">' +
+                (rulesText ? rulesText.replace(/^ · /, '') : '') + updatedStr +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="regime-card">' +
+            '<div class="regime-label">Risk Level</div>' +
+            '<div class="regime-value" style="color:' + riskColor + ';">' + riskIcon + ' ' + riskLabel + '</div>' +
+            '<div class="regime-desc">' +
+              (compEntries.length
+                ? compEntries.map(function(c) {
+                    var lbl = c.key.replace(/_/g, ' ');
+                    var v = (c.value != null) ? Number(c.value).toFixed(2) : '—';
+                    return lbl + ' = ' + v + ' (' + (c.signal || '—') + ')';
+                  }).join(' · ')
+                : 'No component data available.') +
+            '</div>' +
+          '</div>';
+        bodyEl.innerHTML = html;
+      });
   }
 
   function renderBriefing() {
@@ -823,15 +1035,13 @@
           '<div class="briefing-panel">' +
             '<h3 id="hdr-signals-regime"><i data-lucide="bar-chart-3"></i> Market Regime</h3>' +
             '<div id="body-signals-regime">' +
-              '<div class="regime-card">' +
-                '<div class="regime-label">Current Regime</div>' +
-                '<div class="regime-value" style="color:var(--red);">⚠ CRISIS</div>' +
-                '<div class="regime-desc">Geopolitical conflict driving markets. Extreme fear (F&G 14.7). S&P 28% above linear trendline — mean reversion risk. Dark pool clusters at 6500-6600 put wall. Next 60-100 days critical.</div>' +
+              '<div class="regime-card"><div class="regime-label">Current Regime</div>' +
+                '<div class="regime-value" style="color:var(--text-dim);">…</div>' +
+                '<div class="regime-desc"><div class="skeleton skeleton-text"></div></div>' +
               '</div>' +
-              '<div class="regime-card">' +
-                '<div class="regime-label">Risk Level</div>' +
-                '<div class="regime-value" style="color:var(--red);"><i data-lucide="octagon-alert"></i> EXTREME</div>' +
-                '<div class="regime-desc">VIX elevated. F&G 14.7 (Extreme Fear). Junk bonds falling, CDS rising. Oracle CDS at GFC levels — AI/tech canary. Bears in control: S&P in lower lows/lower highs.</div>' +
+              '<div class="regime-card"><div class="regime-label">Risk Level</div>' +
+                '<div class="regime-value" style="color:var(--text-dim);">…</div>' +
+                '<div class="regime-desc"><div class="skeleton skeleton-text"></div></div>' +
               '</div>' +
             '</div>' +
           '</div>' +
@@ -906,6 +1116,7 @@
     renderCards();
     renderSectorRotation();
     renderBriefing();
+    renderRegime();
 
     // Fear & Greed
     BT.components.fearGreed.fetchAndRender('fg-gauge');
