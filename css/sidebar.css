@@ -420,10 +420,48 @@ body.v3.sidebar-collapsed .v3-sidebar-toggle:hover::after {
   }
   .v3-mobile-toggle {
     display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 32px;
+    padding: 6px;
+    color: var(--text);
+    border: 1px solid var(--v3-border-soft);
+    border-radius: 5px;
+    background: var(--v3-bg-elevated);
+    flex-shrink: 0;
+  }
+  .v3-mobile-toggle:hover,
+  .v3-mobile-toggle:active {
+    background: var(--v3-bg-active);
+    border-color: var(--v3-border-mid);
+    color: var(--v3-cyan);
+  }
+  .v3-mobile-toggle svg {
+    width: 20px;
+    height: 20px;
+    display: block;
   }
   .v3-cmdbar {
     min-width: 0;
     flex: 1;
+  }
+  /* Hide the timezone picker on very narrow screens to avoid overflow */
+  body.v3 .v3-topbar select {
+    max-width: 64px;
+  }
+  /* Trim cmdbar on narrow viewports */
+  body.v3 .v3-cmdbar {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  body.v3 .v3-cmdbar kbd {
+    display: none;
+  }
+  body.v3 .v3-cmdbar > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 .v3-mobile-toggle { display: none; }

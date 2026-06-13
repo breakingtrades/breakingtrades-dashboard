@@ -138,7 +138,7 @@
       '<header class="v3-topbar">' +
         '<div class="v3-topbar-left">' +
           '<button class="v3-icon-btn v3-mobile-toggle" id="v3-mobile-toggle" aria-label="Open menu">' +
-            ICON.menu +
+            '<svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h12M3 9h12M3 13h12"/></svg>' +
           '</button>' +
           '<div class="v3-cmdbar" id="v3-cmdbar" role="search">' +
             '<svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><path d="M12 12l4 4"/></svg>' +
@@ -186,12 +186,20 @@
       .catch(function() { return null; })
       .then(function(manifest) {
         if (!manifest || !manifest.feeds) return;
+        var now = Date.now();
         Object.keys(manifest.feeds).forEach(function(key) {
           var feed = manifest.feeds[key];
-          var age = feed.age_seconds;
           var ttl = feed.ttl_seconds || 300;
+          // Recompute age client-side from last_modified, not the stored age_seconds.
+          // The manifest is a static asset so its baked-in age drifts.
+          var age = null;
+          if (feed.last_modified) {
+            try {
+              age = Math.max(0, Math.floor((now - new Date(feed.last_modified).getTime()) / 1000));
+            } catch (e) { age = null; }
+          }
           var state = 'ok';
-          if (age == null) state = 'idle';
+          if (age == null || !feed.file) state = 'idle';
           else if (age >= ttl * 6) state = 'stale';
           else if (age >= ttl) state = 'warn';
           _freshState[key] = state;
