@@ -42,9 +42,23 @@
   margin-left: 2px;
 }
 
-/* When chip is used inside an existing class context like .wa-ticker, we
-   layer onto it gracefully — caller-supplied class wins on visual styling
-   if it uses higher specificity. */
+/* When the chip is the only content of a table cell or sym-link wrapper,
+   inherit a slightly larger size to match neighboring text */
+.em-sym-link.bt-ticker-chip,
+.wa-em-sym-link.bt-ticker-chip,
+.wa-ipo-sym-link.bt-ticker-chip {
+  font-size: 13px;
+  padding: 2px 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--cyan, #2DD4BF);
+}
+.em-sym-link.bt-ticker-chip:hover,
+.wa-em-sym-link.bt-ticker-chip:hover,
+.wa-ipo-sym-link.bt-ticker-chip:hover {
+  background: rgba(45, 212, 191, 0.15);
+  border-color: rgba(45, 212, 191, 0.3);
+}
 
 /* ─── Glossary term ──────────────────────────────────────────────────────── */
 .bt-glossary-term {

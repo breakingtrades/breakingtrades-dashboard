@@ -103,17 +103,17 @@
         '<div class="em-table-wrap">' +
           '<table class="em-table">' +
             '<thead><tr>' +
-              '<th data-col="symbol">Ticker</th>' +
-              '<th data-col="current">Price</th>' +
-              '<th data-col="change">Change</th>' +
-              '<th data-col="em">± EM</th>' +
-              '<th data-col="pct">EM %</th>' +
-              '<th data-col="lower">Low</th>' +
-              '<th data-col="upper">High</th>' +
-              '<th data-col="position" style="min-width:140px;">Position in Range</th>' +
-              '<th data-col="risk">Risk Level</th>' +
-              '<th data-col="riskbar" style="min-width:130px;">Risk Meter</th>' +
-              '<th data-col="bias">Bias</th>' +
+              '<th data-col="symbol" data-tooltip="Ticker symbol — click to open the watchlist detail.">Ticker</th>' +
+              '<th data-col="current" data-tooltip="Current live price (refreshes from prices.json every 60s).">Price</th>' +
+              '<th data-col="change" data-tooltip="Change since the previous close.">Change</th>' +
+              '<th data-col="em" data-tooltip="Expected Move — implied 1-sigma price range (±) from option straddles. The dealer\'s ±1σ bet for the period.">± EM</th>' +
+              '<th data-col="pct" data-tooltip="EM as a percentage of current price.">EM %</th>' +
+              '<th data-col="lower" data-tooltip="Lower bound of the 1-sigma band (anchor − EM).">Low</th>' +
+              '<th data-col="upper" data-tooltip="Upper bound of the 1-sigma band (anchor + EM).">High</th>' +
+              '<th data-col="position" style="min-width:140px;" data-tooltip="Where current price sits inside the band. 0% = at lower bound, 100% = at upper bound, 50% = at the anchor.">Position in Range</th>' +
+              '<th data-col="risk" data-tooltip="Plain-English risk label. BUY ZONE (15-35%), MODERATE (35-65%), HIGH (65-85%), EXTENDED (>85%), BREACH (outside band).">Risk Level</th>' +
+              '<th data-col="riskbar" style="min-width:130px;" data-tooltip="Visual fill of position-in-range. Width = how close to ceiling.">Risk Meter</th>' +
+              '<th data-col="bias" data-tooltip="MA stack bias — BULL = price above SMA20/50, BEAR = below, MIXED = between.">Bias</th>' +
             '</tr></thead>' +
             '<tbody id="em-tbody">' +
               Array(20).join('<tr><td colspan="11"><div class="skeleton skeleton-table-row"></div></td></tr>') +
@@ -469,19 +469,19 @@
 
       var alertTag = '', rowClass = '';
       if (r.position <= 10) {
-        alertTag = '<span class="em-alert-tag" style="color:#4caf50;background:rgba(76,175,80,0.2);border:1px solid #4caf5060;">AT SUPPORT</span>';
+        alertTag = '<span class="em-alert-tag" data-tooltip="Price is within 10% of the lower expected-move boundary — high-conviction long setup zone. Buyers historically step in here when the band is well-anchored." style="color:#4caf50;background:rgba(76,175,80,0.2);border:1px solid #4caf5060;">AT SUPPORT</span>';
         rowClass = 'alert-buy';
       } else if (r.position <= 20) {
-        alertTag = '<span class="em-alert-tag" style="color:#8bc34a;background:rgba(139,195,74,0.15);border:1px solid #8bc34a50;">NEAR LOW</span>';
+        alertTag = '<span class="em-alert-tag" data-tooltip="Price is in the lower 20% of the band — approaching support. Watch for a reclaim signal at the lower band." style="color:#8bc34a;background:rgba(139,195,74,0.15);border:1px solid #8bc34a50;">NEAR LOW</span>';
         rowClass = 'alert-buy';
       } else if (r.position < 0) {
-        alertTag = '<span class="em-alert-tag" style="color:#00e676;background:rgba(0,230,118,0.15);border:1px solid #00e67660;">BELOW EM</span>';
+        alertTag = '<span class="em-alert-tag" data-tooltip="Price has dropped below the 1-sigma band — capitulation or new regime. Mean-reversion candidate IF buyers can defend the breach." style="color:#00e676;background:rgba(0,230,118,0.15);border:1px solid #00e67660;">BELOW EM</span>';
         rowClass = 'alert-buy';
       } else if (r.position >= 100) {
-        alertTag = '<span class="em-alert-tag" style="color:#f44336;background:rgba(244,67,54,0.15);border:1px solid #f4433660;">ABOVE EM</span>';
+        alertTag = '<span class="em-alert-tag" data-tooltip="Price has exceeded the upper 1-sigma boundary — extension or breakout. Buyers exhausted at this level historically. Watch for mean-reversion or trend continuation." style="color:#f44336;background:rgba(244,67,54,0.15);border:1px solid #f4433660;">ABOVE EM</span>';
         rowClass = 'alert-sell';
       } else if (r.position >= 90) {
-        alertTag = '<span class="em-alert-tag" style="color:#ff5722;background:rgba(255,87,34,0.15);border:1px solid #ff572260;">AT CEILING</span>';
+        alertTag = '<span class="em-alert-tag" data-tooltip="Price is within 10% of the upper expected-move boundary — extension risk. Reduce size or trail tighter stops." style="color:#ff5722;background:rgba(255,87,34,0.15);border:1px solid #ff572260;">AT CEILING</span>';
         rowClass = 'alert-sell';
       }
 
@@ -504,9 +504,9 @@
       // Position label: bare percent for in-band, or breach magnitude for out-of-band
       var posLabel;
       if (r.breachDir === 'down') {
-        posLabel = '<span style="color:#26a69a;font-weight:600;">BREACH DOWN -$' + r.breachAmt.toFixed(2) + ' (' + r.breachSigma.toFixed(1) + '\u03c3)</span>';
+        posLabel = '<span data-tooltip="Price is below the lower 1-sigma boundary by ' + r.breachAmt.toFixed(2) + ' (' + r.breachSigma.toFixed(1) + ' standard deviations). Outside the dealer\'s expected ±1σ band — historically <16% probability." style="color:#26a69a;font-weight:600;">BREACH DOWN -$' + r.breachAmt.toFixed(2) + ' (' + r.breachSigma.toFixed(1) + '\u03c3)</span>';
       } else if (r.breachDir === 'up') {
-        posLabel = '<span style="color:#ef5350;font-weight:600;">BREACH UP +$' + r.breachAmt.toFixed(2) + ' (' + r.breachSigma.toFixed(1) + '\u03c3)</span>';
+        posLabel = '<span data-tooltip="Price is above the upper 1-sigma boundary by ' + r.breachAmt.toFixed(2) + ' (' + r.breachSigma.toFixed(1) + ' standard deviations). Outside the dealer\'s expected ±1σ band — historically <16% probability." style="color:#ef5350;font-weight:600;">BREACH UP +$' + r.breachAmt.toFixed(2) + ' (' + r.breachSigma.toFixed(1) + '\u03c3)</span>';
       } else {
         posLabel = r.position.toFixed(0) + '% of range';
       }
@@ -514,7 +514,8 @@
 
       return '<tr class="' + rowClass + '" data-sym="' + r.symbol + '">' +
         '<td class="ticker-cell">' +
-          '<span class="ticker-cell-name">' + r.symbol +
+          '<span class="ticker-cell-name">' +
+            ((window.BT && BT.tickerLink) ? BT.tickerLink(r.symbol, { className: 'em-sym-link' }) : r.symbol) +
             (r.proxy ? ' <span class="ticker-cell-proxy">(' + r.proxy.futures + ')</span>' : '') +
           '</span>' +
           (alertTag ? alertTag : '') +
