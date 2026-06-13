@@ -420,6 +420,59 @@ def main():
     except Exception as e:
         print(f"Error exporting empirical-priors layer: {e}")
 
+    # Export freshness manifest — sidebar reads this to color the per-section dots
+    try:
+        export_freshness_manifest()
+    except Exception as e:
+        print(f"Error exporting freshness manifest: {e}")
+
+
+# ===== Freshness Manifest =====
+# Emits data/freshness-manifest.json so the V3 sidebar can color-grade the
+# per-section data dots (cyan=fresh, amber=stale, red=very stale).
+# Each entry:
+#   { file, last_modified (ISO), age_seconds, ttl_seconds }
+def export_freshness_manifest():
+    """Build data/freshness-manifest.json from existing data/*.json mtimes."""
+    feeds = {
+        "market":         { "file": "data/sector-rotation.json",   "ttl_seconds": 300 },
+        "watchlist":      { "file": "data/watchlist.json",          "ttl_seconds": 300 },
+        "signals":        { "file": "data/signals.json",            "ttl_seconds": 300 },
+        "alerts":         { "file": None,                            "ttl_seconds": 600 },
+        "expected-moves": { "file": "data/expected-moves.json",     "ttl_seconds": 86400 },
+        "calendar":       { "file": "data/economic-calendar.json",  "ttl_seconds": 3600 },
+        "research":       { "file": "data/empirical-priors.json",   "ttl_seconds": 86400 },
+        "ai-trader":      { "file": "data/ai-trader-calls.json",    "ttl_seconds": 600 },
+        "holdings":       { "file": "data/ai-trader-holdings.json", "ttl_seconds": 86400 },
+    }
+    now = datetime.now(timezone.utc)
+    out = {}
+    for key, cfg in feeds.items():
+        f = cfg["file"]
+        if not f:
+            out[key] = { "file": None, "last_modified": None, "age_seconds": None, "ttl_seconds": cfg["ttl_seconds"] }
+            continue
+        # File path is relative to repo root (DATA_DIR is data/)
+        path = os.path.join(os.path.dirname(DATA_DIR), f)
+        if not os.path.exists(path):
+            out[key] = { "file": f, "last_modified": None, "age_seconds": None, "ttl_seconds": cfg["ttl_seconds"] }
+            continue
+        mtime = os.path.getmtime(path)
+        modified = datetime.fromtimestamp(mtime, tz=timezone.utc)
+        age = (now - modified).total_seconds()
+        out[key] = {
+            "file": f,
+            "last_modified": modified.isoformat(),
+            "age_seconds": int(age),
+            "ttl_seconds": cfg["ttl_seconds"],
+        }
+    print(f"  freshness-manifest.json: {len(out)} feeds")
+    with open(os.path.join(DATA_DIR, "freshness-manifest.json"), "w") as fp:
+        json.dump({
+            "generated_at": now.isoformat(),
+            "feeds": out,
+        }, fp, indent=2, default=str)
+
 
 # ===== Empirical-Priors Layer Export =====
 # Reads parent repo: data/empirical-priors.jsonl, data/trading-days.parquet,

@@ -75,13 +75,37 @@ body.v3.sidebar-collapsed .v3-shell {
   letter-spacing: 0.4px;
   color: var(--text-dim);
   text-transform: uppercase;
+  white-space: nowrap;
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .v3-market-pill .market-dot {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--v3-fresh-ok);
+  flex-shrink: 0;
 }
 .v3-market-pill.closed .market-dot { background: var(--v3-fresh-stale); }
 .v3-market-pill.after-hours .market-dot { background: var(--v3-fresh-warn); }
+
+/* Compact rendering when market-status.js writes its verbose template into our pill */
+body.v3 #market-status .ms-label { color: var(--text-dim); }
+body.v3 #market-status .ms-date,
+body.v3 #market-status .ms-holiday {
+  color: var(--text-dim);
+  font-size: 10px;
+}
+/* On narrower viewports, hide the date/holiday tail to keep the pill compact */
+@media (max-width: 1280px) {
+  body.v3 #market-status .ms-date { display: none; }
+}
+@media (max-width: 1024px) {
+  body.v3 #market-status .ms-holiday,
+  body.v3 #market-status .ms-sub { display: none; }
+}
+@media (max-width: 768px) {
+  body.v3 #market-status .ms-label { display: none; }
+}
 
 .v3-icon-btn {
   background: transparent;

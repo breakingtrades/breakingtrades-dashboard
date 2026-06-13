@@ -147,9 +147,11 @@
           '</div>' +
         '</div>' +
         '<div class="v3-topbar-right">' +
-          '<span class="v3-market-pill" id="v3-market-status">' +
+          '<span class="v3-market-pill" id="market-status">' +
+            // Market-status.js will replace this innerHTML when it loads. The default
+            // structure mirrors what V3's CSS expects so the dot+label show on first paint.
             '<span class="market-dot"></span>' +
-            '<span class="market-label">CLOSED</span>' +
+            '<span class="market-label">…</span>' +
           '</span>' +
           '<button class="v3-icon-btn v3-tape-toggle state-off" id="v3-tape-toggle" title="Toggle ticker strip">' +
             '<svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6h14M2 12h14"/></svg>' +
@@ -298,11 +300,7 @@
       if (e.key === 'Escape') {
         document.body.classList.remove('sidebar-mobile-open');
       }
-      // Cmd-K opens cmdbar (placeholder — real cmd palette later)
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        document.getElementById('v3-cmdbar')?.click();
-      }
+      // Cmd-K is handled by cmdbar.js (loaded separately). Don't double-bind here.
     });
 
     // Backdrop click closes drawer

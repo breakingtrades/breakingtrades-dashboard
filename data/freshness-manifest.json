@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-06-13T05:59:25.066169+00:00",
+  "feeds": {
+    "market": {
+      "file": "data/sector-rotation.json",
+      "last_modified": "2026-06-13T04:54:23.441823+00:00",
+      "age_seconds": 3901,
+      "ttl_seconds": 300
+    },
+    "watchlist": {
+      "file": "data/watchlist.json",
+      "last_modified": "2026-06-13T04:54:23.442696+00:00",
+      "age_seconds": 3901,
+      "ttl_seconds": 300
+    },
+    "signals": {
+      "file": "data/signals.json",
+      "last_modified": null,
+      "age_seconds": null,
+      "ttl_seconds": 300
+    },
+    "alerts": {
+      "file": null,
+      "last_modified": null,
+      "age_seconds": null,
+      "ttl_seconds": 600
+    },
+    "expected-moves": {
+      "file": "data/expected-moves.json",
+      "last_modified": "2026-06-13T04:54:23.436643+00:00",
+      "age_seconds": 3901,
+      "ttl_seconds": 86400
+    },
+    "calendar": {
+      "file": "data/economic-calendar.json",
+      "last_modified": "2026-06-13T04:54:23.435554+00:00",
+      "age_seconds": 3901,
+      "ttl_seconds": 3600
+    },
+    "research": {
+      "file": "data/empirical-priors.json",
+      "last_modified": "2026-06-06T04:54:56.876994+00:00",
+      "age_seconds": 608668,
+      "ttl_seconds": 86400
+    },
+    "ai-trader": {
+      "file": "data/ai-trader-calls.json",
+      "last_modified": null,
+      "age_seconds": null,
+      "ttl_seconds": 600
+    },
+    "holdings": {
+      "file": "data/ai-trader-holdings.json",
+      "last_modified": null,
+      "age_seconds": null,
+      "ttl_seconds": 86400
+    }
+  }
+}
