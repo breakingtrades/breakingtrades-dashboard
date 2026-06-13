@@ -12,6 +12,14 @@
     'events':         { css: 'css/events.css',           js: 'js/pages/events.js',         title: 'Events' },
     'week-ahead':     { css: 'css/week-ahead.css',        js: 'js/pages/week-ahead.js',     title: 'Week Ahead' },
     'airesearcher':   { css: 'css/autoresearch.css',     js: 'js/pages/autoresearch.js',   title: 'AI Researcher' },
+    // V3 routes
+    'calendar':       { css: null,                       js: 'js/pages/calendar.js',       title: 'Calendar' },
+    'research':       { css: 'css/autoresearch.css',     js: 'js/pages/autoresearch.js',   title: 'Research' },
+    'ai-trader':      { css: null,                       js: 'js/pages/stubs.js',          title: 'AI-Trader' },
+    'holdings':       { css: null,                       js: 'js/pages/stubs.js',          title: 'Holdings' },
+    'alerts':         { css: null,                       js: 'js/pages/stubs.js',          title: 'Alerts' },
+    'settings':       { css: null,                       js: 'js/pages/stubs.js',          title: 'Settings' },
+    'about':          { css: null,                       js: 'js/pages/stubs.js',          title: 'About' },
   };
 
   var _currentRoute = null;
@@ -19,12 +27,19 @@
   var _loadedJS = {};
 
   // Legacy route redirects
-  var ALIASES = { 'autoresearch': 'airesearcher' };
+  var ALIASES = {
+    'autoresearch': 'airesearcher',
+    // V3 → existing pages: research is the new front-door for AI Researcher
+    // (we register both 'research' and 'airesearcher' so old links + new sidebar both work).
+  };
 
   function parseHash() {
     var hash = location.hash.replace(/^#\/?/, '') || '';
     var parts = hash.split('/');
     var route = parts[0] || '';
+    // Strip any ?query suffix from the route segment (e.g. "calendar?tab=week" → "calendar")
+    var qIdx = route.indexOf('?');
+    if (qIdx >= 0) route = route.substring(0, qIdx);
     if (ALIASES[route]) {
       route = ALIASES[route];
       location.hash = '#' + route + (parts[1] ? '/' + parts[1] : '');

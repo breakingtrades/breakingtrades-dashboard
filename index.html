@@ -14,6 +14,10 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/sector-rotation.css">
 
+  <!-- V3 chrome (sidebar + refined dark palette). Active when body.v3 class set by sidebar.js -->
+  <link rel="stylesheet" href="css/v3-tokens.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+
   <!-- External deps -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3"></script>
@@ -46,12 +50,16 @@
   <script src="js/lib/sector-rotation.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/preferences.js"></script>
+  <!-- V3 sidebar — must load BEFORE shell.js so shell.js can detect window.V3Sidebar -->
+  <script src="js/lib/sidebar.js"></script>
   <script src="js/shell.js"></script>
   <script src="js/router.js"></script>
   <script src="js/components/collapsible.js"></script>
   <script src="js/components/fear-greed.js"></script>
   <script src="js/components/vix-regime.js"></script>
   <script src="js/components/detail-modal.js"></script>
+  <!-- V3 page stubs (ai-trader, holdings, alerts, settings, about) -->
+  <script src="js/pages/stubs.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

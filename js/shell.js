@@ -42,6 +42,43 @@
   ];
 
   function buildNav() {
+    // V3 mode — mount sidebar shell instead of legacy top nav
+    if (BT.preferences.getPref('v3') !== false && window.V3Sidebar) {
+      // Hide the legacy <nav id="nav"> element entirely
+      var legacyNav = document.getElementById('nav');
+      if (legacyNav) legacyNav.style.display = 'none';
+      // Mount V3 sidebar + topbar shell
+      window.V3Sidebar.mount(document.body);
+      // Wire snapshot/tape from V3 tape-toggle three-state into existing strip lifecycles
+      window.addEventListener('v3:tape-state-change', function(ev) {
+        var state = ev && ev.detail && ev.detail.state;
+        // Mutually exclusive: state can be 'off' | 'snapshot' | 'tape'
+        if (state === 'snapshot') {
+          BT.preferences.setPref('snapshotStrip', true);
+          BT.preferences.setPref('tickerTape', false);
+          if (window.snapshotStrip && window.snapshotStrip.mount) window.snapshotStrip.mount('body');
+          if (window.tickerTape && window.tickerTape.destroy) window.tickerTape.destroy();
+        } else if (state === 'tape') {
+          BT.preferences.setPref('snapshotStrip', false);
+          BT.preferences.setPref('tickerTape', true);
+          if (window.snapshotStrip && window.snapshotStrip.destroy) window.snapshotStrip.destroy();
+          // Tape mounts itself on nav:ready — but we've gated nav:ready, so mount manually if available
+          if (window.tickerTape && window.tickerTape.mount) {
+            try { window.tickerTape.mount('body'); } catch(e) { /* legacy tape may not have mount */ }
+          }
+        } else {
+          BT.preferences.setPref('snapshotStrip', false);
+          BT.preferences.setPref('tickerTape', false);
+          if (window.snapshotStrip && window.snapshotStrip.destroy) window.snapshotStrip.destroy();
+          if (window.tickerTape && window.tickerTape.destroy) window.tickerTape.destroy();
+        }
+      });
+      // Fire nav:ready so other scripts that wait for it (ticker-tape, market-status) still work
+      document.dispatchEvent(new Event('nav:ready'));
+      return;
+    }
+
+    // Legacy v2 path below — only runs if v3 explicitly disabled
     var nav = document.getElementById('nav');
     if (!nav) return;
 
@@ -226,6 +263,12 @@
 
   /** Update active nav link — called by router on route change */
   BT.updateNavActive = function(route) {
+    // V3 mode: delegate to V3Sidebar's setActive
+    if (window.V3Sidebar && window.V3Sidebar.setActive) {
+      // Map legacy-loaded routes back to v3 sidebar items
+      var v3Map = { 'airesearcher': 'research', 'events': 'calendar', 'week-ahead': 'calendar' };
+      window.V3Sidebar.setActive(v3Map[route] || route);
+    }
     var links = document.querySelectorAll('.nav-link');
     for (var i = 0; i < links.length; i++) {
       var link = links[i];

@@ -330,6 +330,21 @@ body.v3.sidebar-collapsed .v3-sidebar-toggle-label { display: none; }
   min-width: 0; /* prevents flex overflow */
 }
 
+/* When the legacy <main id="content"> is the v3-main host, add reasonable padding */
+body.v3 main#content.v3-main {
+  padding: 20px 24px;
+}
+@media (max-width: 1024px) {
+  body.v3 main#content.v3-main {
+    padding: 14px 16px;
+  }
+}
+
+/* Hide legacy ticker-tape wrapper completely in v3 mode (managed by tape toggle instead) */
+body.v3 #tv-ticker-tape:empty {
+  display: none;
+}
+
 /* Tooltip for collapsed-state hover */
 body.v3.sidebar-collapsed .v3-nav-item:hover::after,
 body.v3.sidebar-collapsed .v3-sidebar-toggle:hover::after {

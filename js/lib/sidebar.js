@@ -330,26 +330,38 @@
     // Restore tape state without dispatching event yet (will set up state)
     var tape = loadTapeState();
 
-    // Insert chrome — sidebar + topbar wrap content
-    var existingMain = _root.querySelector('.v3-main') || _root.querySelector('main');
-    var mainHTML = existingMain ? existingMain.outerHTML : '<main class="v3-main"></main>';
+    // Find existing main element (could be <main id="content">, <main class="v3-main">, or just first <main>)
+    // We RELOCATE it inside the new shell rather than cloning, so #content references stay valid.
+    var existingMain = _root.querySelector('main#content') || _root.querySelector('.v3-main') || _root.querySelector('main');
+
+    // If no main element exists, create a wrapper around any non-shell body content
     if (!existingMain) {
-      // Find body content to wrap
+      existingMain = document.createElement('main');
+      existingMain.className = 'v3-main';
+      // Move all current direct children of root into the new main
       var bodyChildren = Array.from(_root.children).filter(function(el) {
-        return !el.matches('.v3-shell, .v3-sidebar, .v3-topbar');
+        return !el.matches('.v3-shell, .v3-sidebar, .v3-topbar, script, style, link');
       });
-      var wrapper = document.createElement('main');
-      wrapper.className = 'v3-main';
-      bodyChildren.forEach(function(c) { wrapper.appendChild(c); });
-      _root.appendChild(wrapper);
-      mainHTML = wrapper.outerHTML;
-      wrapper.remove();
+      bodyChildren.forEach(function(c) { existingMain.appendChild(c); });
+    } else {
+      // Ensure the existing main has the v3-main class for our grid layout to apply
+      existingMain.classList.add('v3-main');
     }
 
+    // Build shell (sidebar + topbar) — main slot is placeholder, we'll move existingMain into it
     var shell = document.createElement('div');
     shell.className = 'v3-shell';
-    shell.innerHTML = renderSidebar() + renderTopbar() + mainHTML;
+    shell.innerHTML = renderSidebar() + renderTopbar() + '<div data-v3-main-slot></div>';
+
+    // Insert shell at the start of body, then swap the placeholder with the real main
     _root.insertBefore(shell, _root.firstChild);
+    var slot = shell.querySelector('[data-v3-main-slot]');
+    if (slot) {
+      // Move (not clone) existingMain into shell, replacing the placeholder
+      slot.parentNode.replaceChild(existingMain, slot);
+    } else {
+      shell.appendChild(existingMain);
+    }
 
     setActive(getCurrentRoute());
     setTapeState(tape);
