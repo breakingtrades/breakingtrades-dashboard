@@ -1,62 +1,58 @@
 {
-  "updated": "2026-06-13T02:35:13.062531",
+  "updated": "2026-06-13T08:08:09.097459+00:00",
   "source": "yfinance",
-  "tier": "all",
-  "failures": [
-    "BTC-USD",
-    "CL=F",
-    "STO.AX"
-  ],
-  "failure_count": 3,
+  "tier": "weekly",
+  "failures": [],
+  "failure_count": 0,
   "tickers": {
     "SPY": {
-      "close": 737.76,
-      "spot": 737.76,
-      "updated": "2026-06-13T02:35:02.039268",
+      "close": 741.75,
+      "spot": 741.75,
+      "updated": "2026-06-13T04:07:22.589344",
       "source": "yfinance",
       "futures_proxy": {
         "futures": "ES",
         "multiplier": 10
       },
-      "strike": 738.0,
-      "straddle": 13.05,
-      "call_close": 8.37,
-      "put_close": 4.68,
+      "strike": 742.0,
+      "straddle": 12.27,
+      "call_close": 5.9,
+      "put_close": 6.37,
       "weekly_expiry": "20260618",
       "weekly_dte": 5,
       "daily": {
-        "value": 4.96,
-        "pct": 0.67,
-        "upper": 742.72,
-        "lower": 732.8
+        "value": 4.66,
+        "pct": 0.63,
+        "upper": 746.41,
+        "lower": 737.09
       },
       "weekly": {
-        "value": 11.09,
-        "pct": 1.5,
-        "upper": 748.85,
-        "lower": 726.67,
-        "anchor_close": 737.76,
+        "value": 10.43,
+        "pct": 1.41,
+        "upper": 752.18,
+        "lower": 731.32,
+        "anchor_close": 741.75,
         "anchor_date": "2026-06-12",
-        "straddle": 13.05,
+        "straddle": 12.27,
         "expiry": "20260618"
       },
       "monthly": {
-        "value": 21.9,
-        "pct": 2.97,
-        "upper": 759.66,
-        "lower": 715.86
+        "value": 20.77,
+        "pct": 2.8,
+        "upper": 762.52,
+        "lower": 720.98
       },
       "quarterly": {
-        "value": 29.66,
-        "pct": 4.02,
-        "upper": 767.43,
-        "lower": 708.1
+        "value": 28.96,
+        "pct": 3.9,
+        "upper": 770.71,
+        "lower": 712.79
       },
-      "iv": 17.1,
+      "iv": 16.2,
       "monthly_expiry": "20260710",
-      "monthly_straddle": 25.77,
+      "monthly_straddle": 24.43,
       "quarterly_expiry": "20260731",
-      "quarterly_straddle": 34.9,
+      "quarterly_straddle": 34.07,
       "history": [
         {
           "date": "2026-04-03",
@@ -459,17 +455,17 @@
         },
         {
           "date": "2026-06-13",
-          "close": 737.76,
-          "straddle": 13.05,
-          "weekly_em": 11.09,
-          "daily_em": 4.96,
+          "close": 741.75,
+          "straddle": 12.27,
+          "weekly_em": 10.43,
+          "daily_em": 4.66,
           "is_friday": false
         }
       ]
     },
     "QQQ": {
-      "close": 717.12,
-      "spot": 717.12,
+      "close": 721.34,
+      "spot": 721.34,
       "updated": "2026-06-13T02:34:58.342451",
       "source": "yfinance",
       "futures_proxy": {
@@ -491,9 +487,9 @@
       "weekly": {
         "value": 17.26,
         "pct": 2.41,
-        "upper": 734.38,
-        "lower": 699.86,
-        "anchor_close": 717.12,
+        "upper": 738.6,
+        "lower": 704.08,
+        "anchor_close": 721.34,
         "anchor_date": "2026-06-12",
         "straddle": 20.31,
         "expiry": "20260618"
@@ -926,8 +922,8 @@
       ]
     },
     "IWM": {
-      "close": 290.41,
-      "spot": 290.41,
+      "close": 292.95,
+      "spot": 292.95,
       "updated": "2026-06-13T02:34:51.207308",
       "source": "yfinance",
       "futures_proxy": {
@@ -949,9 +945,9 @@
       "weekly": {
         "value": 6.69,
         "pct": 2.3,
-        "upper": 297.1,
-        "lower": 283.72,
-        "anchor_close": 290.41,
+        "upper": 299.64,
+        "lower": 286.26,
+        "anchor_close": 292.95,
         "anchor_date": "2026-06-12",
         "straddle": 7.87,
         "expiry": "20260618"
@@ -1384,8 +1380,8 @@
       ]
     },
     "DIA": {
-      "close": 509.36,
-      "spot": 509.36,
+      "close": 513.06,
+      "spot": 513.06,
       "updated": "2026-06-13T02:34:47.380899",
       "source": "yfinance",
       "futures_proxy": {
@@ -1407,9 +1403,9 @@
       "weekly": {
         "value": 7.36,
         "pct": 1.45,
-        "upper": 516.72,
-        "lower": 502.0,
-        "anchor_close": 509.36,
+        "upper": 520.42,
+        "lower": 505.7,
+        "anchor_close": 513.06,
         "anchor_date": "2026-06-12",
         "straddle": 8.66,
         "expiry": "20260618"
@@ -2752,8 +2748,8 @@
       ]
     },
     "USO": {
-      "close": 128.83,
-      "spot": 128.83,
+      "close": 125.43,
+      "spot": 125.43,
       "updated": "2026-06-13T02:35:07.449685",
       "source": "yfinance",
       "futures_proxy": {
@@ -2775,9 +2771,9 @@
       "weekly": {
         "value": 6.09,
         "pct": 4.73,
-        "upper": 134.92,
-        "lower": 122.74,
-        "anchor_close": 128.83,
+        "upper": 131.52,
+        "lower": 119.34,
+        "anchor_close": 125.43,
         "anchor_date": "2026-06-12",
         "straddle": 7.17,
         "expiry": "20260618"
@@ -3208,8 +3204,8 @@
       ]
     },
     "GLD": {
-      "close": 386.32,
-      "spot": 386.32,
+      "close": 386.54,
+      "spot": 386.54,
       "updated": "2026-06-13T02:34:48.580507",
       "source": "yfinance",
       "futures_proxy": {
@@ -3231,9 +3227,9 @@
       "weekly": {
         "value": 9.24,
         "pct": 2.39,
-        "upper": 395.56,
-        "lower": 377.08,
-        "anchor_close": 386.32,
+        "upper": 395.78,
+        "lower": 377.3,
+        "anchor_close": 386.54,
         "anchor_date": "2026-06-12",
         "straddle": 10.87,
         "expiry": "20260618"
@@ -3664,8 +3660,8 @@
       ]
     },
     "AA": {
-      "close": 68.98,
-      "spot": 68.98,
+      "close": 68.77,
+      "spot": 68.77,
       "updated": "2026-06-13T02:34:36.744878",
       "source": "yfinance",
       "strike": 69.0,
@@ -3683,9 +3679,9 @@
       "weekly": {
         "value": 3.94,
         "pct": 5.71,
-        "upper": 72.92,
-        "lower": 65.04,
-        "anchor_close": 68.98,
+        "upper": 72.71,
+        "lower": 64.83,
+        "anchor_close": 68.77,
         "anchor_date": "2026-06-12",
         "straddle": 4.63,
         "expiry": "20260618"
@@ -3844,8 +3840,8 @@
       ]
     },
     "AAPL": {
-      "close": 295.63,
-      "spot": 295.63,
+      "close": 291.13,
+      "spot": 291.13,
       "updated": "2026-06-13T02:34:37.198975",
       "source": "yfinance",
       "strike": 295.0,
@@ -3863,9 +3859,9 @@
       "weekly": {
         "value": 6.41,
         "pct": 2.17,
-        "upper": 302.04,
-        "lower": 289.22,
-        "anchor_close": 295.63,
+        "upper": 297.54,
+        "lower": 284.72,
+        "anchor_close": 291.13,
         "anchor_date": "2026-06-12",
         "straddle": 7.54,
         "expiry": "20260618"
@@ -4026,8 +4022,8 @@
       ]
     },
     "ABBV": {
-      "close": 224.77,
-      "spot": 224.77,
+      "close": 227.73,
+      "spot": 227.73,
       "updated": "2026-06-13T02:34:37.762784",
       "source": "yfinance",
       "strike": 225.0,
@@ -4045,9 +4041,9 @@
       "weekly": {
         "value": 5.4,
         "pct": 2.4,
-        "upper": 230.17,
-        "lower": 219.37,
-        "anchor_close": 224.77,
+        "upper": 233.13,
+        "lower": 222.33,
+        "anchor_close": 227.73,
         "anchor_date": "2026-06-12",
         "straddle": 6.35,
         "expiry": "20260618"
@@ -4206,8 +4202,8 @@
       ]
     },
     "ACI": {
-      "close": 15.39,
-      "spot": 15.39,
+      "close": 15.41,
+      "spot": 15.41,
       "updated": "2026-06-13T02:34:38.117763",
       "source": "yfinance",
       "strike": 15.5,
@@ -4225,9 +4221,9 @@
       "weekly": {
         "value": 0.48,
         "pct": 3.09,
-        "upper": 15.87,
-        "lower": 14.91,
-        "anchor_close": 15.39,
+        "upper": 15.89,
+        "lower": 14.93,
+        "anchor_close": 15.41,
         "anchor_date": "2026-06-12",
         "straddle": 0.56,
         "expiry": "20260618"
@@ -4386,8 +4382,8 @@
       ]
     },
     "ADSK": {
-      "close": 205.57,
-      "spot": 205.57,
+      "close": 198.43,
+      "spot": 198.43,
       "updated": "2026-06-13T02:34:38.990893",
       "source": "yfinance",
       "strike": 210.0,
@@ -4405,9 +4401,9 @@
       "weekly": {
         "value": 8.54,
         "pct": 4.16,
-        "upper": 214.11,
-        "lower": 197.03,
-        "anchor_close": 205.57,
+        "upper": 206.97,
+        "lower": 189.89,
+        "anchor_close": 198.43,
         "anchor_date": "2026-06-12",
         "straddle": 10.05,
         "expiry": "20260618"
@@ -4566,8 +4562,8 @@
       ]
     },
     "AMZN": {
-      "close": 241.51,
-      "spot": 241.51,
+      "close": 238.55,
+      "spot": 238.55,
       "updated": "2026-06-13T02:34:39.363765",
       "source": "yfinance",
       "strike": 242.5,
@@ -4585,9 +4581,9 @@
       "weekly": {
         "value": 7.4,
         "pct": 3.06,
-        "upper": 248.9,
-        "lower": 234.11,
-        "anchor_close": 241.51,
+        "upper": 245.95,
+        "lower": 231.16,
+        "anchor_close": 238.55,
         "anchor_date": "2026-06-12",
         "straddle": 8.7,
         "expiry": "20260618"
@@ -4748,8 +4744,8 @@
       ]
     },
     "AR": {
-      "close": 34.22,
-      "spot": 34.22,
+      "close": 34.83,
+      "spot": 34.83,
       "updated": "2026-06-13T02:34:39.807735",
       "source": "yfinance",
       "strike": 34.0,
@@ -4767,9 +4763,9 @@
       "weekly": {
         "value": 0.89,
         "pct": 2.61,
-        "upper": 35.11,
-        "lower": 33.33,
-        "anchor_close": 34.22,
+        "upper": 35.72,
+        "lower": 33.94,
+        "anchor_close": 34.83,
         "anchor_date": "2026-06-12",
         "straddle": 1.05,
         "expiry": "20260618"
@@ -4928,8 +4924,8 @@
       ]
     },
     "ARM": {
-      "close": 342.23,
-      "spot": 342.23,
+      "close": 380.81,
+      "spot": 380.81,
       "updated": "2026-06-13T02:34:40.176465",
       "source": "yfinance",
       "strike": 342.5,
@@ -4947,9 +4943,9 @@
       "weekly": {
         "value": 43.59,
         "pct": 12.74,
-        "upper": 385.82,
-        "lower": 298.64,
-        "anchor_close": 342.23,
+        "upper": 424.4,
+        "lower": 337.22,
+        "anchor_close": 380.81,
         "anchor_date": "2026-06-12",
         "straddle": 51.28,
         "expiry": "20260618"
@@ -5108,8 +5104,8 @@
       ]
     },
     "AVGO": {
-      "close": 385.57,
-      "spot": 385.57,
+      "close": 382.07,
+      "spot": 382.07,
       "updated": "2026-06-13T02:34:41.118479",
       "source": "yfinance",
       "strike": 385.0,
@@ -5127,9 +5123,9 @@
       "weekly": {
         "value": 16.35,
         "pct": 4.24,
-        "upper": 401.92,
-        "lower": 369.22,
-        "anchor_close": 385.57,
+        "upper": 398.42,
+        "lower": 365.72,
+        "anchor_close": 382.07,
         "anchor_date": "2026-06-12",
         "straddle": 19.24,
         "expiry": "20260618"
@@ -5283,8 +5279,8 @@
       ]
     },
     "BE": {
-      "close": 248.88,
-      "spot": 248.88,
+      "close": 260.22,
+      "spot": 260.22,
       "updated": "2026-06-13T02:34:42.066841",
       "source": "yfinance",
       "strike": 250.0,
@@ -5302,9 +5298,9 @@
       "weekly": {
         "value": 24.64,
         "pct": 9.9,
-        "upper": 273.52,
-        "lower": 224.24,
-        "anchor_close": 248.88,
+        "upper": 284.86,
+        "lower": 235.58,
+        "anchor_close": 260.22,
         "anchor_date": "2026-06-12",
         "straddle": 28.99,
         "expiry": "20260618"
@@ -5463,8 +5459,8 @@
       ]
     },
     "BILI": {
-      "close": 18.36,
-      "spot": 18.36,
+      "close": 17.86,
+      "spot": 17.86,
       "updated": "2026-06-13T02:34:42.441844",
       "source": "yfinance",
       "strike": 18.5,
@@ -5482,9 +5478,9 @@
       "weekly": {
         "value": 0.97,
         "pct": 5.28,
-        "upper": 19.33,
-        "lower": 17.39,
-        "anchor_close": 18.36,
+        "upper": 18.83,
+        "lower": 16.89,
+        "anchor_close": 17.86,
         "anchor_date": "2026-06-12",
         "straddle": 1.14,
         "expiry": "20260618"
@@ -5705,8 +5701,8 @@
       ]
     },
     "CAG": {
-      "close": 13.45,
-      "spot": 13.45,
+      "close": 13.74,
+      "spot": 13.74,
       "updated": "2026-06-13T02:34:43.915272",
       "source": "yfinance",
       "strike": 13.5,
@@ -5724,9 +5720,9 @@
       "weekly": {
         "value": 0.42,
         "pct": 3.16,
-        "upper": 13.88,
-        "lower": 13.02,
-        "anchor_close": 13.45,
+        "upper": 14.17,
+        "lower": 13.31,
+        "anchor_close": 13.74,
         "anchor_date": "2026-06-12",
         "straddle": 0.5,
         "expiry": "20260618"
@@ -5885,8 +5881,8 @@
       ]
     },
     "CHTR": {
-      "close": 139.14,
-      "spot": 139.14,
+      "close": 145.82,
+      "spot": 145.82,
       "updated": "2026-06-13T02:34:44.273216",
       "source": "yfinance",
       "strike": 139.0,
@@ -5904,9 +5900,9 @@
       "weekly": {
         "value": 2.59,
         "pct": 1.86,
-        "upper": 141.73,
-        "lower": 136.55,
-        "anchor_close": 139.14,
+        "upper": 148.41,
+        "lower": 143.23,
+        "anchor_close": 145.82,
         "anchor_date": "2026-06-12",
         "straddle": 3.05,
         "expiry": "20260618"
@@ -6065,8 +6061,8 @@
       ]
     },
     "COIN": {
-      "close": 160.43,
-      "spot": 160.43,
+      "close": 159.78,
+      "spot": 159.78,
       "updated": "2026-06-13T02:34:44.910063",
       "source": "yfinance",
       "strike": 160.0,
@@ -6084,9 +6080,9 @@
       "weekly": {
         "value": 9.63,
         "pct": 6.0,
-        "upper": 170.06,
-        "lower": 150.8,
-        "anchor_close": 160.43,
+        "upper": 169.41,
+        "lower": 150.15,
+        "anchor_close": 159.78,
         "anchor_date": "2026-06-12",
         "straddle": 11.33,
         "expiry": "20260618"
@@ -6245,8 +6241,8 @@
       ]
     },
     "DELL": {
-      "close": 391.45,
-      "spot": 391.45,
+      "close": 395.57,
+      "spot": 395.57,
       "updated": "2026-06-13T02:34:46.577224",
       "source": "yfinance",
       "strike": 392.5,
@@ -6264,9 +6260,9 @@
       "weekly": {
         "value": 23.82,
         "pct": 6.08,
-        "upper": 415.27,
-        "lower": 367.63,
-        "anchor_close": 391.45,
+        "upper": 419.39,
+        "lower": 371.75,
+        "anchor_close": 395.57,
         "anchor_date": "2026-06-12",
         "straddle": 28.02,
         "expiry": "20260618"
@@ -6425,8 +6421,8 @@
       ]
     },
     "DHR": {
-      "close": 180.79,
-      "spot": 180.79,
+      "close": 180.1,
+      "spot": 180.1,
       "updated": "2026-06-13T02:34:46.982602",
       "source": "yfinance",
       "strike": 180.0,
@@ -6444,9 +6440,9 @@
       "weekly": {
         "value": 4.55,
         "pct": 2.52,
-        "upper": 185.34,
-        "lower": 176.24,
-        "anchor_close": 180.79,
+        "upper": 184.65,
+        "lower": 175.55,
+        "anchor_close": 180.1,
         "anchor_date": "2026-06-12",
         "straddle": 5.35,
         "expiry": "20260618"
@@ -6605,8 +6601,8 @@
       ]
     },
     "GOOGL": {
-      "close": 357.77,
-      "spot": 357.77,
+      "close": 359.68,
+      "spot": 359.68,
       "updated": "2026-06-13T02:34:49.014341",
       "source": "yfinance",
       "strike": 357.5,
@@ -6624,9 +6620,9 @@
       "weekly": {
         "value": 10.27,
         "pct": 2.87,
-        "upper": 368.04,
-        "lower": 347.5,
-        "anchor_close": 357.77,
+        "upper": 369.95,
+        "lower": 349.41,
+        "anchor_close": 359.68,
         "anchor_date": "2026-06-12",
         "straddle": 12.08,
         "expiry": "20260618"
@@ -6967,8 +6963,8 @@
       ]
     },
     "IGV": {
-      "close": 90.92,
-      "spot": 90.92,
+      "close": 90.7,
+      "spot": 90.7,
       "updated": "2026-06-13T02:34:50.769069",
       "source": "yfinance",
       "strike": 91.0,
@@ -6986,9 +6982,9 @@
       "weekly": {
         "value": 3.01,
         "pct": 3.31,
-        "upper": 93.93,
-        "lower": 87.91,
-        "anchor_close": 90.92,
+        "upper": 93.71,
+        "lower": 87.69,
+        "anchor_close": 90.7,
         "anchor_date": "2026-06-12",
         "straddle": 3.54,
         "expiry": "20260618"
@@ -7147,8 +7143,8 @@
       ]
     },
     "KHC": {
-      "close": 24.22,
-      "spot": 24.22,
+      "close": 24.39,
+      "spot": 24.39,
       "updated": "2026-06-13T02:34:51.779562",
       "source": "yfinance",
       "strike": 24.0,
@@ -7166,9 +7162,9 @@
       "weekly": {
         "value": 0.6,
         "pct": 2.49,
-        "upper": 24.82,
-        "lower": 23.62,
-        "anchor_close": 24.22,
+        "upper": 24.99,
+        "lower": 23.79,
+        "anchor_close": 24.39,
         "anchor_date": "2026-06-12",
         "straddle": 0.71,
         "expiry": "20260618"
@@ -7327,8 +7323,8 @@
       ]
     },
     "KMB": {
-      "close": 101.54,
-      "spot": 101.54,
+      "close": 102.29,
+      "spot": 102.29,
       "updated": "2026-06-13T02:34:52.173355",
       "source": "yfinance",
       "strike": 102.0,
@@ -7346,9 +7342,9 @@
       "weekly": {
         "value": 2.14,
         "pct": 2.11,
-        "upper": 103.68,
-        "lower": 99.4,
-        "anchor_close": 101.54,
+        "upper": 104.43,
+        "lower": 100.15,
+        "anchor_close": 102.29,
         "anchor_date": "2026-06-12",
         "straddle": 2.52,
         "expiry": "20260618"
@@ -7507,8 +7503,8 @@
       ]
     },
     "LLY": {
-      "close": 1160.95,
-      "spot": 1160.95,
+      "close": 1133.0,
+      "spot": 1133.0,
       "updated": "2026-06-13T02:34:52.622144",
       "source": "yfinance",
       "strike": 1160.0,
@@ -7526,9 +7522,9 @@
       "weekly": {
         "value": 34.51,
         "pct": 2.97,
-        "upper": 1195.46,
-        "lower": 1126.44,
-        "anchor_close": 1160.95,
+        "upper": 1167.51,
+        "lower": 1098.49,
+        "anchor_close": 1133.0,
         "anchor_date": "2026-06-12",
         "straddle": 40.6,
         "expiry": "20260618"
@@ -7682,8 +7678,8 @@
       ]
     },
     "LQD": {
-      "close": 109.08,
-      "spot": 109.08,
+      "close": 109.01,
+      "spot": 109.01,
       "updated": "2026-06-13T02:34:53.109161",
       "source": "yfinance",
       "strike": 109.0,
@@ -7701,9 +7697,9 @@
       "weekly": {
         "value": 0.57,
         "pct": 0.52,
-        "upper": 109.65,
-        "lower": 108.51,
-        "anchor_close": 109.08,
+        "upper": 109.58,
+        "lower": 108.44,
+        "anchor_close": 109.01,
         "anchor_date": "2026-06-12",
         "straddle": 0.67,
         "expiry": "20260618"
@@ -7862,8 +7858,8 @@
       ]
     },
     "META": {
-      "close": 568.43,
-      "spot": 568.43,
+      "close": 566.98,
+      "spot": 566.98,
       "updated": "2026-06-13T02:34:53.858796",
       "source": "yfinance",
       "strike": 570.0,
@@ -7881,9 +7877,9 @@
       "weekly": {
         "value": 18.27,
         "pct": 3.21,
-        "upper": 586.7,
-        "lower": 550.16,
-        "anchor_close": 568.43,
+        "upper": 585.25,
+        "lower": 548.71,
+        "anchor_close": 566.98,
         "anchor_date": "2026-06-12",
         "straddle": 21.49,
         "expiry": "20260618"
@@ -8044,8 +8040,8 @@
       ]
     },
     "MSFT": {
-      "close": 390.34,
-      "spot": 390.34,
+      "close": 390.74,
+      "spot": 390.74,
       "updated": "2026-06-13T02:34:54.775606",
       "source": "yfinance",
       "strike": 390.0,
@@ -8063,9 +8059,9 @@
       "weekly": {
         "value": 10.92,
         "pct": 2.8,
-        "upper": 401.26,
-        "lower": 379.42,
-        "anchor_close": 390.34,
+        "upper": 401.66,
+        "lower": 379.82,
+        "anchor_close": 390.74,
         "anchor_date": "2026-06-12",
         "straddle": 12.85,
         "expiry": "20260618"
@@ -8226,8 +8222,8 @@
       ]
     },
     "NBIS": {
-      "close": 222.24,
-      "spot": 222.24,
+      "close": 232.36,
+      "spot": 232.36,
       "updated": "2026-06-13T02:34:55.225051",
       "source": "yfinance",
       "strike": 222.5,
@@ -8245,9 +8241,9 @@
       "weekly": {
         "value": 26.23,
         "pct": 11.8,
-        "upper": 248.47,
-        "lower": 196.01,
-        "anchor_close": 222.24,
+        "upper": 258.59,
+        "lower": 206.13,
+        "anchor_close": 232.36,
         "anchor_date": "2026-06-12",
         "straddle": 30.86,
         "expiry": "20260618"
@@ -8406,8 +8402,8 @@
       ]
     },
     "NEE": {
-      "close": 84.84,
-      "spot": 84.84,
+      "close": 85.99,
+      "spot": 85.99,
       "updated": "2026-06-13T02:34:55.727870",
       "source": "yfinance",
       "strike": 85.0,
@@ -8425,9 +8421,9 @@
       "weekly": {
         "value": 1.84,
         "pct": 2.17,
-        "upper": 86.68,
-        "lower": 83.0,
-        "anchor_close": 84.84,
+        "upper": 87.83,
+        "lower": 84.15,
+        "anchor_close": 85.99,
         "anchor_date": "2026-06-12",
         "straddle": 2.17,
         "expiry": "20260618"
@@ -8586,8 +8582,8 @@
       ]
     },
     "NVDA": {
-      "close": 204.87,
-      "spot": 204.87,
+      "close": 205.19,
+      "spot": 205.19,
       "updated": "2026-06-13T02:34:56.120616",
       "source": "yfinance",
       "strike": 205.0,
@@ -8605,9 +8601,9 @@
       "weekly": {
         "value": 6.43,
         "pct": 3.14,
-        "upper": 211.3,
-        "lower": 198.44,
-        "anchor_close": 204.87,
+        "upper": 211.62,
+        "lower": 198.76,
+        "anchor_close": 205.19,
         "anchor_date": "2026-06-12",
         "straddle": 7.56,
         "expiry": "20260618"
@@ -8768,8 +8764,8 @@
       ]
     },
     "PFE": {
-      "close": 26.17,
-      "spot": 26.17,
+      "close": 26.21,
+      "spot": 26.21,
       "updated": "2026-06-13T02:34:57.573235",
       "source": "yfinance",
       "strike": 26.0,
@@ -8787,9 +8783,9 @@
       "weekly": {
         "value": 0.47,
         "pct": 1.79,
-        "upper": 26.64,
-        "lower": 25.7,
-        "anchor_close": 26.17,
+        "upper": 26.68,
+        "lower": 25.74,
+        "anchor_close": 26.21,
         "anchor_date": "2026-06-12",
         "straddle": 0.55,
         "expiry": "20260618"
@@ -8948,8 +8944,8 @@
       ]
     },
     "S": {
-      "close": 14.76,
-      "spot": 14.76,
+      "close": 14.85,
+      "spot": 14.85,
       "updated": "2026-06-13T02:35:00.109456",
       "source": "yfinance",
       "strike": 15.0,
@@ -8967,9 +8963,9 @@
       "weekly": {
         "value": 0.71,
         "pct": 4.78,
-        "upper": 15.47,
-        "lower": 14.05,
-        "anchor_close": 14.76,
+        "upper": 15.56,
+        "lower": 14.14,
+        "anchor_close": 14.85,
         "anchor_date": "2026-06-12",
         "straddle": 0.83,
         "expiry": "20260618"
@@ -9128,8 +9124,8 @@
       ]
     },
     "TGT": {
-      "close": 132.64,
-      "spot": 132.64,
+      "close": 135.23,
+      "spot": 135.23,
       "updated": "2026-06-13T02:35:03.839462",
       "source": "yfinance",
       "strike": 133.0,
@@ -9147,9 +9143,9 @@
       "weekly": {
         "value": 4.16,
         "pct": 3.14,
-        "upper": 136.8,
-        "lower": 128.48,
-        "anchor_close": 132.64,
+        "upper": 139.39,
+        "lower": 131.07,
+        "anchor_close": 135.23,
         "anchor_date": "2026-06-12",
         "straddle": 4.9,
         "expiry": "20260618"
@@ -9308,8 +9304,8 @@
       ]
     },
     "TLT": {
-      "close": 85.98,
-      "spot": 85.98,
+      "close": 85.77,
+      "spot": 85.77,
       "updated": "2026-06-13T02:35:04.238367",
       "source": "yfinance",
       "strike": 86.0,
@@ -9327,9 +9323,9 @@
       "weekly": {
         "value": 0.66,
         "pct": 0.77,
-        "upper": 86.64,
-        "lower": 85.32,
-        "anchor_close": 85.98,
+        "upper": 86.43,
+        "lower": 85.11,
+        "anchor_close": 85.77,
         "anchor_date": "2026-06-12",
         "straddle": 0.78,
         "expiry": "20260618"
@@ -9488,8 +9484,8 @@
       ]
     },
     "TMO": {
-      "close": 475.66,
-      "spot": 475.66,
+      "close": 469.34,
+      "spot": 469.34,
       "updated": "2026-06-13T02:35:04.701791",
       "source": "yfinance",
       "strike": 475.0,
@@ -9507,9 +9503,9 @@
       "weekly": {
         "value": 14.42,
         "pct": 3.03,
-        "upper": 490.08,
-        "lower": 461.24,
-        "anchor_close": 475.66,
+        "upper": 483.76,
+        "lower": 454.92,
+        "anchor_close": 469.34,
         "anchor_date": "2026-06-12",
         "straddle": 16.97,
         "expiry": "20260618"
@@ -9668,8 +9664,8 @@
       ]
     },
     "TMUS": {
-      "close": 185.82,
-      "spot": 185.82,
+      "close": 189.1,
+      "spot": 189.1,
       "updated": "2026-06-13T02:35:05.115065",
       "source": "yfinance",
       "strike": 185.0,
@@ -9687,9 +9683,9 @@
       "weekly": {
         "value": 5.84,
         "pct": 3.14,
-        "upper": 191.66,
-        "lower": 179.98,
-        "anchor_close": 185.82,
+        "upper": 194.94,
+        "lower": 183.26,
+        "anchor_close": 189.1,
         "anchor_date": "2026-06-12",
         "straddle": 6.87,
         "expiry": "20260618"
@@ -9848,8 +9844,8 @@
       ]
     },
     "TSLA": {
-      "close": 399.15,
-      "spot": 399.15,
+      "close": 406.43,
+      "spot": 406.43,
       "updated": "2026-06-13T02:35:05.579232",
       "source": "yfinance",
       "strike": 400.0,
@@ -9867,9 +9863,9 @@
       "weekly": {
         "value": 18.98,
         "pct": 4.76,
-        "upper": 418.13,
-        "lower": 380.17,
-        "anchor_close": 399.15,
+        "upper": 425.41,
+        "lower": 387.45,
+        "anchor_close": 406.43,
         "anchor_date": "2026-06-12",
         "straddle": 22.33,
         "expiry": "20260618"
@@ -10023,8 +10019,8 @@
       ]
     },
     "UNP": {
-      "close": 268.28,
-      "spot": 268.28,
+      "close": 272.7,
+      "spot": 272.7,
       "updated": "2026-06-13T02:35:06.171497",
       "source": "yfinance",
       "strike": 267.5,
@@ -10042,9 +10038,9 @@
       "weekly": {
         "value": 7.01,
         "pct": 2.61,
-        "upper": 275.29,
-        "lower": 261.27,
-        "anchor_close": 268.28,
+        "upper": 279.71,
+        "lower": 265.69,
+        "anchor_close": 272.7,
         "anchor_date": "2026-06-12",
         "straddle": 8.25,
         "expiry": "20260618"
@@ -10203,8 +10199,8 @@
       ]
     },
     "UPS": {
-      "close": 108.65,
-      "spot": 108.65,
+      "close": 108.1,
+      "spot": 108.1,
       "updated": "2026-06-13T02:35:06.681244",
       "source": "yfinance",
       "strike": 109.0,
@@ -10222,9 +10218,9 @@
       "weekly": {
         "value": 2.64,
         "pct": 2.43,
-        "upper": 111.29,
-        "lower": 106.01,
-        "anchor_close": 108.65,
+        "upper": 110.74,
+        "lower": 105.46,
+        "anchor_close": 108.1,
         "anchor_date": "2026-06-12",
         "straddle": 3.11,
         "expiry": "20260618"
@@ -10383,8 +10379,8 @@
       ]
     },
     "URA": {
-      "close": 44.83,
-      "spot": 44.83,
+      "close": 45.52,
+      "spot": 45.52,
       "updated": "2026-06-13T02:35:07.076384",
       "source": "yfinance",
       "strike": 45.0,
@@ -10402,9 +10398,9 @@
       "weekly": {
         "value": 2.15,
         "pct": 4.8,
-        "upper": 46.98,
-        "lower": 42.68,
-        "anchor_close": 44.83,
+        "upper": 47.67,
+        "lower": 43.37,
+        "anchor_close": 45.52,
         "anchor_date": "2026-06-12",
         "straddle": 2.53,
         "expiry": "20260618"
@@ -10563,8 +10559,8 @@
       ]
     },
     "XLB": {
-      "close": 51.22,
-      "spot": 51.22,
+      "close": 52.18,
+      "spot": 52.18,
       "updated": "2026-06-13T02:35:08.205723",
       "source": "yfinance",
       "strike": 51.0,
@@ -10582,9 +10578,9 @@
       "weekly": {
         "value": 1.44,
         "pct": 2.82,
-        "upper": 52.66,
-        "lower": 49.78,
-        "anchor_close": 51.22,
+        "upper": 53.62,
+        "lower": 50.74,
+        "anchor_close": 52.18,
         "anchor_date": "2026-06-12",
         "straddle": 1.7,
         "expiry": "20260618"
@@ -10743,8 +10739,8 @@
       ]
     },
     "XLC": {
-      "close": 112.12,
-      "spot": 112.12,
+      "close": 111.65,
+      "spot": 111.65,
       "updated": "2026-06-13T02:35:08.593134",
       "source": "yfinance",
       "strike": 112.0,
@@ -10762,9 +10758,9 @@
       "weekly": {
         "value": 2.12,
         "pct": 1.9,
-        "upper": 114.24,
-        "lower": 110.0,
-        "anchor_close": 112.12,
+        "upper": 113.77,
+        "lower": 109.53,
+        "anchor_close": 111.65,
         "anchor_date": "2026-06-12",
         "straddle": 2.5,
         "expiry": "20260618"
@@ -10923,8 +10919,8 @@
       ]
     },
     "XLE": {
-      "close": 57.12,
-      "spot": 57.12,
+      "close": 57.55,
+      "spot": 57.55,
       "updated": "2026-06-13T02:35:09.009329",
       "source": "yfinance",
       "strike": 57.0,
@@ -10942,9 +10938,9 @@
       "weekly": {
         "value": 1.5,
         "pct": 2.62,
-        "upper": 58.62,
-        "lower": 55.62,
-        "anchor_close": 57.12,
+        "upper": 59.05,
+        "lower": 56.05,
+        "anchor_close": 57.55,
         "anchor_date": "2026-06-12",
         "straddle": 1.76,
         "expiry": "20260618"
@@ -11103,8 +11099,8 @@
       ]
     },
     "XLF": {
-      "close": 52.62,
-      "spot": 52.62,
+      "close": 53.34,
+      "spot": 53.34,
       "updated": "2026-06-13T02:35:09.448000",
       "source": "yfinance",
       "strike": 52.5,
@@ -11122,9 +11118,9 @@
       "weekly": {
         "value": 1.12,
         "pct": 2.13,
-        "upper": 53.74,
-        "lower": 51.5,
-        "anchor_close": 52.62,
+        "upper": 54.46,
+        "lower": 52.22,
+        "anchor_close": 53.34,
         "anchor_date": "2026-06-12",
         "straddle": 1.32,
         "expiry": "20260618"
@@ -11283,8 +11279,8 @@
       ]
     },
     "XLI": {
-      "close": 175.15,
-      "spot": 175.15,
+      "close": 176.18,
+      "spot": 176.18,
       "updated": "2026-06-13T02:35:09.883451",
       "source": "yfinance",
       "strike": 175.0,
@@ -11302,9 +11298,9 @@
       "weekly": {
         "value": 3.22,
         "pct": 1.84,
-        "upper": 178.37,
-        "lower": 171.93,
-        "anchor_close": 175.15,
+        "upper": 179.4,
+        "lower": 172.96,
+        "anchor_close": 176.18,
         "anchor_date": "2026-06-12",
         "straddle": 3.79,
         "expiry": "20260618"
@@ -11463,8 +11459,8 @@
       ]
     },
     "XLK": {
-      "close": 183.21,
-      "spot": 183.21,
+      "close": 184.8,
+      "spot": 184.8,
       "updated": "2026-06-13T02:35:10.302084",
       "source": "yfinance",
       "strike": 183.0,
@@ -11482,9 +11478,9 @@
       "weekly": {
         "value": 37.55,
         "pct": 20.5,
-        "upper": 220.76,
-        "lower": 145.66,
-        "anchor_close": 183.21,
+        "upper": 222.35,
+        "lower": 147.25,
+        "anchor_close": 184.8,
         "anchor_date": "2026-06-12",
         "straddle": 44.18,
         "expiry": "20260618"
@@ -11643,8 +11639,8 @@
       ]
     },
     "XLP": {
-      "close": 85.27,
-      "spot": 85.27,
+      "close": 85.82,
+      "spot": 85.82,
       "updated": "2026-06-13T02:35:10.798118",
       "source": "yfinance",
       "strike": 85.5,
@@ -11662,9 +11658,9 @@
       "weekly": {
         "value": 1.14,
         "pct": 1.34,
-        "upper": 86.41,
-        "lower": 84.13,
-        "anchor_close": 85.27,
+        "upper": 86.96,
+        "lower": 84.68,
+        "anchor_close": 85.82,
         "anchor_date": "2026-06-12",
         "straddle": 1.34,
         "expiry": "20260618"
@@ -11823,8 +11819,8 @@
       ]
     },
     "XLU": {
-      "close": 44.05,
-      "spot": 44.05,
+      "close": 44.53,
+      "spot": 44.53,
       "updated": "2026-06-13T02:35:11.599388",
       "source": "yfinance",
       "strike": 44.0,
@@ -11842,9 +11838,9 @@
       "weekly": {
         "value": 0.75,
         "pct": 1.7,
-        "upper": 44.8,
-        "lower": 43.3,
-        "anchor_close": 44.05,
+        "upper": 45.28,
+        "lower": 43.78,
+        "anchor_close": 44.53,
         "anchor_date": "2026-06-12",
         "straddle": 0.88,
         "expiry": "20260618"
@@ -12003,8 +11999,8 @@
       ]
     },
     "XLV": {
-      "close": 154.09,
-      "spot": 154.09,
+      "close": 153.81,
+      "spot": 153.81,
       "updated": "2026-06-13T02:35:12.080811",
       "source": "yfinance",
       "strike": 154.0,
@@ -12022,9 +12018,9 @@
       "weekly": {
         "value": 2.02,
         "pct": 1.31,
-        "upper": 156.11,
-        "lower": 152.07,
-        "anchor_close": 154.09,
+        "upper": 155.83,
+        "lower": 151.79,
+        "anchor_close": 153.81,
         "anchor_date": "2026-06-12",
         "straddle": 2.38,
         "expiry": "20260618"
@@ -12183,8 +12179,8 @@
       ]
     },
     "XLY": {
-      "close": 116.3,
-      "spot": 116.3,
+      "close": 116.6,
+      "spot": 116.6,
       "updated": "2026-06-13T02:35:12.548152",
       "source": "yfinance",
       "strike": 116.5,
@@ -12202,9 +12198,9 @@
       "weekly": {
         "value": 2.65,
         "pct": 2.28,
-        "upper": 118.95,
-        "lower": 113.65,
-        "anchor_close": 116.3,
+        "upper": 119.25,
+        "lower": 113.95,
+        "anchor_close": 116.6,
         "anchor_date": "2026-06-12",
         "straddle": 3.12,
         "expiry": "20260618"
@@ -12363,8 +12359,8 @@
       ]
     },
     "ZM": {
-      "close": 92.32,
-      "spot": 92.32,
+      "close": 93.68,
+      "spot": 93.68,
       "updated": "2026-06-13T02:35:12.901274",
       "source": "yfinance",
       "strike": 92.5,
@@ -12382,9 +12378,9 @@
       "weekly": {
         "value": 3.66,
         "pct": 3.96,
-        "upper": 95.98,
-        "lower": 88.66,
-        "anchor_close": 92.32,
+        "upper": 97.34,
+        "lower": 90.02,
+        "anchor_close": 93.68,
         "anchor_date": "2026-06-12",
         "straddle": 4.3,
         "expiry": "20260618"
@@ -12634,8 +12630,8 @@
       ]
     },
     "SLV": {
-      "close": 60.82,
-      "spot": 60.82,
+      "close": 61.29,
+      "spot": 61.29,
       "updated": "2026-06-13T02:35:00.525648",
       "source": "yfinance",
       "strike": 61.0,
@@ -12653,9 +12649,9 @@
       "weekly": {
         "value": 2.62,
         "pct": 4.3,
-        "upper": 63.44,
-        "lower": 58.2,
-        "anchor_close": 60.82,
+        "upper": 63.91,
+        "lower": 58.67,
+        "anchor_close": 61.29,
         "anchor_date": "2026-06-12",
         "straddle": 3.08,
         "expiry": "20260618"
@@ -12785,8 +12781,8 @@
       ]
     },
     "ADM": {
-      "close": 78.9,
-      "spot": 78.9,
+      "close": 80.24,
+      "spot": 80.24,
       "updated": "2026-06-13T02:34:38.553582",
       "source": "yfinance",
       "strike": 80.0,
@@ -12804,9 +12800,9 @@
       "weekly": {
         "value": 2.16,
         "pct": 2.74,
-        "upper": 81.06,
-        "lower": 76.74,
-        "anchor_close": 78.9,
+        "upper": 82.4,
+        "lower": 78.08,
+        "anchor_close": 80.24,
         "anchor_date": "2026-06-12",
         "straddle": 2.54,
         "expiry": "20260618"
@@ -12937,8 +12933,8 @@
       ]
     },
     "AWK": {
-      "close": 124.45,
-      "spot": 124.45,
+      "close": 126.31,
+      "spot": 126.31,
       "updated": "2026-06-13T02:34:41.658486",
       "source": "yfinance",
       "strike": 125.0,
@@ -12956,9 +12952,9 @@
       "weekly": {
         "value": 3.68,
         "pct": 2.96,
-        "upper": 128.13,
-        "lower": 120.77,
-        "anchor_close": 124.45,
+        "upper": 129.99,
+        "lower": 122.63,
+        "anchor_close": 126.31,
         "anchor_date": "2026-06-12",
         "straddle": 4.33,
         "expiry": "20260618"
@@ -13089,8 +13085,8 @@
       ]
     },
     "BJ": {
-      "close": 90.93,
-      "spot": 90.93,
+      "close": 91.04,
+      "spot": 91.04,
       "updated": "2026-06-13T02:34:42.843087",
       "source": "yfinance",
       "strike": 90.0,
@@ -13108,9 +13104,9 @@
       "weekly": {
         "value": 2.05,
         "pct": 2.25,
-        "upper": 92.98,
-        "lower": 88.88,
-        "anchor_close": 90.93,
+        "upper": 93.09,
+        "lower": 88.99,
+        "anchor_close": 91.04,
         "anchor_date": "2026-06-12",
         "straddle": 2.41,
         "expiry": "20260618"
@@ -13241,8 +13237,8 @@
       ]
     },
     "BYD": {
-      "close": 86.55,
-      "spot": 86.55,
+      "close": 87.46,
+      "spot": 87.46,
       "updated": "2026-06-13T02:34:43.530666",
       "source": "yfinance",
       "strike": 87.5,
@@ -13260,9 +13256,9 @@
       "weekly": {
         "value": 3.12,
         "pct": 3.6,
-        "upper": 89.67,
-        "lower": 83.43,
-        "anchor_close": 86.55,
+        "upper": 90.58,
+        "lower": 84.34,
+        "anchor_close": 87.46,
         "anchor_date": "2026-06-12",
         "straddle": 3.67,
         "expiry": "20260618"
@@ -13393,8 +13389,8 @@
       ]
     },
     "CP": {
-      "close": 89.31,
-      "spot": 89.31,
+      "close": 90.08,
+      "spot": 90.08,
       "updated": "2026-06-13T02:34:45.795761",
       "source": "yfinance",
       "strike": 90.0,
@@ -13412,9 +13408,9 @@
       "weekly": {
         "value": 2.12,
         "pct": 2.38,
-        "upper": 91.44,
-        "lower": 87.18,
-        "anchor_close": 89.31,
+        "upper": 92.21,
+        "lower": 87.95,
+        "anchor_close": 90.08,
         "anchor_date": "2026-06-12",
         "straddle": 2.5,
         "expiry": "20260618"
@@ -13545,8 +13541,8 @@
       ]
     },
     "D": {
-      "close": 66.69,
-      "spot": 66.69,
+      "close": 67.91,
+      "spot": 67.91,
       "updated": "2026-06-13T02:34:46.196905",
       "source": "yfinance",
       "strike": 67.5,
@@ -13564,9 +13560,9 @@
       "weekly": {
         "value": 1.27,
         "pct": 1.9,
-        "upper": 67.96,
-        "lower": 65.42,
-        "anchor_close": 66.69,
+        "upper": 69.18,
+        "lower": 66.64,
+        "anchor_close": 67.91,
         "anchor_date": "2026-06-12",
         "straddle": 1.49,
         "expiry": "20260618"
@@ -13697,8 +13693,8 @@
       ]
     },
     "GKOS": {
-      "close": 124.26,
-      "spot": 124.26,
+      "close": 126.81,
+      "spot": 126.81,
       "updated": "2026-06-13T02:34:48.187032",
       "source": "yfinance",
       "strike": 125.0,
@@ -13716,9 +13712,9 @@
       "weekly": {
         "value": 8.67,
         "pct": 6.98,
-        "upper": 132.93,
-        "lower": 115.59,
-        "anchor_close": 124.26,
+        "upper": 135.48,
+        "lower": 118.14,
+        "anchor_close": 126.81,
         "anchor_date": "2026-06-12",
         "straddle": 10.2,
         "expiry": "20260618"
@@ -13849,8 +13845,8 @@
       ]
     },
     "IFF": {
-      "close": 77.51,
-      "spot": 77.51,
+      "close": 78.27,
+      "spot": 78.27,
       "updated": "2026-06-13T02:34:50.330427",
       "source": "yfinance",
       "strike": 77.5,
@@ -13868,9 +13864,9 @@
       "weekly": {
         "value": 4.9,
         "pct": 6.33,
-        "upper": 82.41,
-        "lower": 72.61,
-        "anchor_close": 77.51,
+        "upper": 83.17,
+        "lower": 73.37,
+        "anchor_close": 78.27,
         "anchor_date": "2026-06-12",
         "straddle": 5.77,
         "expiry": "20260618"
@@ -14001,8 +13997,8 @@
       ]
     },
     "MOO": {
-      "close": 77.93,
-      "spot": 77.93,
+      "close": 78.59,
+      "spot": 78.59,
       "updated": "2026-06-13T02:34:54.356115",
       "source": "yfinance",
       "strike": 79.0,
@@ -14020,9 +14016,9 @@
       "weekly": {
         "value": 3.66,
         "pct": 4.69,
-        "upper": 81.59,
-        "lower": 74.28,
-        "anchor_close": 77.93,
+        "upper": 82.24,
+        "lower": 74.93,
+        "anchor_close": 78.59,
         "anchor_date": "2026-06-12",
         "straddle": 4.3,
         "expiry": "20260618"
@@ -14153,8 +14149,8 @@
       ]
     },
     "OIH": {
-      "close": 425.88,
-      "spot": 425.88,
+      "close": 428.17,
+      "spot": 428.17,
       "updated": "2026-06-13T02:34:56.692887",
       "source": "yfinance",
       "strike": 425.0,
@@ -14172,9 +14168,9 @@
       "weekly": {
         "value": 14.88,
         "pct": 3.49,
-        "upper": 440.76,
-        "lower": 411.0,
-        "anchor_close": 425.88,
+        "upper": 443.05,
+        "lower": 413.29,
+        "anchor_close": 428.17,
         "anchor_date": "2026-06-12",
         "straddle": 17.5,
         "expiry": "20260618"
@@ -14305,8 +14301,8 @@
       ]
     },
     "OMC": {
-      "close": 75.59,
-      "spot": 75.59,
+      "close": 76.68,
+      "spot": 76.68,
       "updated": "2026-06-13T02:34:57.122187",
       "source": "yfinance",
       "strike": 75.0,
@@ -14324,9 +14320,9 @@
       "weekly": {
         "value": 2.73,
         "pct": 3.61,
-        "upper": 78.32,
-        "lower": 72.86,
-        "anchor_close": 75.59,
+        "upper": 79.41,
+        "lower": 73.95,
+        "anchor_close": 76.68,
         "anchor_date": "2026-06-12",
         "straddle": 3.21,
         "expiry": "20260618"
@@ -14457,8 +14453,8 @@
       ]
     },
     "RVTY": {
-      "close": 101.52,
-      "spot": 101.52,
+      "close": 99.66,
+      "spot": 99.66,
       "updated": "2026-06-13T02:34:59.736242",
       "source": "yfinance",
       "strike": 100.0,
@@ -14476,9 +14472,9 @@
       "weekly": {
         "value": 3.74,
         "pct": 3.68,
-        "upper": 105.26,
-        "lower": 97.78,
-        "anchor_close": 101.52,
+        "upper": 103.4,
+        "lower": 95.92,
+        "anchor_close": 99.66,
         "anchor_date": "2026-06-12",
         "straddle": 4.4,
         "expiry": "20260618"
@@ -14609,8 +14605,8 @@
       ]
     },
     "SM": {
-      "close": 31.28,
-      "spot": 31.28,
+      "close": 31.15,
+      "spot": 31.15,
       "updated": "2026-06-13T02:35:00.927886",
       "source": "yfinance",
       "strike": 32.5,
@@ -14628,9 +14624,9 @@
       "weekly": {
         "value": 1.53,
         "pct": 4.89,
-        "upper": 32.81,
-        "lower": 29.75,
-        "anchor_close": 31.28,
+        "upper": 32.68,
+        "lower": 29.62,
+        "anchor_close": 31.15,
         "anchor_date": "2026-06-12",
         "straddle": 1.8,
         "expiry": "20260618"
@@ -14761,8 +14757,8 @@
       ]
     },
     "SYK": {
-      "close": 305.64,
-      "spot": 305.64,
+      "close": 312.2,
+      "spot": 312.2,
       "updated": "2026-06-13T02:35:02.915016",
       "source": "yfinance",
       "strike": 310.0,
@@ -14780,9 +14776,9 @@
       "weekly": {
         "value": 9.26,
         "pct": 3.03,
-        "upper": 314.9,
-        "lower": 296.38,
-        "anchor_close": 305.64,
+        "upper": 321.46,
+        "lower": 302.94,
+        "anchor_close": 312.2,
         "anchor_date": "2026-06-12",
         "straddle": 10.9,
         "expiry": "20260618"
@@ -14913,8 +14909,8 @@
       ]
     },
     "TAP": {
-      "close": 40.93,
-      "spot": 40.93,
+      "close": 41.58,
+      "spot": 41.58,
       "updated": "2026-06-13T02:35:03.414088",
       "source": "yfinance",
       "strike": 40.0,
@@ -14932,9 +14928,9 @@
       "weekly": {
         "value": 1.54,
         "pct": 3.76,
-        "upper": 42.47,
-        "lower": 39.39,
-        "anchor_close": 40.93,
+        "upper": 43.12,
+        "lower": 40.04,
+        "anchor_close": 41.58,
         "anchor_date": "2026-06-12",
         "straddle": 1.81,
         "expiry": "20260618"
@@ -15202,8 +15198,8 @@
       ]
     },
     "XLRE": {
-      "close": 44.92,
-      "spot": 44.92,
+      "close": 45.36,
+      "spot": 45.36,
       "updated": "2026-06-13T02:35:11.202831",
       "source": "yfinance",
       "strike": 45.0,
@@ -15221,9 +15217,9 @@
       "weekly": {
         "value": 0.51,
         "pct": 1.14,
-        "upper": 45.43,
-        "lower": 44.41,
-        "anchor_close": 44.92,
+        "upper": 45.87,
+        "lower": 44.85,
+        "anchor_close": 45.36,
         "anchor_date": "2026-06-12",
         "straddle": 0.6,
         "expiry": "20260618"
@@ -16471,8 +16467,8 @@
       ]
     },
     "COPX": {
-      "close": 83.16,
-      "spot": 83.16,
+      "close": 85.97,
+      "spot": 85.97,
       "updated": "2026-06-13T02:34:45.384850",
       "source": "yfinance",
       "strike": 83.0,
@@ -16490,9 +16486,9 @@
       "weekly": {
         "value": 4.16,
         "pct": 5.01,
-        "upper": 87.32,
-        "lower": 78.99,
-        "anchor_close": 83.16,
+        "upper": 90.14,
+        "lower": 81.81,
+        "anchor_close": 85.97,
         "anchor_date": "2026-06-12",
         "straddle": 4.9,
         "expiry": "20260618"
@@ -16572,8 +16568,8 @@
       ]
     },
     "ASTS": {
-      "close": 97.56,
-      "spot": 97.56,
+      "close": 82.41,
+      "spot": 82.41,
       "updated": "2026-06-13T02:34:40.635471",
       "source": "yfinance",
       "strike": 98.0,
@@ -16591,9 +16587,9 @@
       "weekly": {
         "value": 15.45,
         "pct": 15.84,
-        "upper": 113.01,
-        "lower": 82.11,
-        "anchor_close": 97.56,
+        "upper": 97.86,
+        "lower": 66.96,
+        "anchor_close": 82.41,
         "anchor_date": "2026-06-12",
         "straddle": 18.18,
         "expiry": "20260618"
@@ -16649,8 +16645,8 @@
       ]
     },
     "FLY": {
-      "close": 39.37,
-      "spot": 39.37,
+      "close": 31.87,
+      "spot": 31.87,
       "updated": "2026-06-13T02:34:47.832552",
       "source": "yfinance",
       "strike": 39.5,
@@ -16668,9 +16664,9 @@
       "weekly": {
         "value": 3.19,
         "pct": 8.1,
-        "upper": 42.56,
-        "lower": 36.18,
-        "anchor_close": 39.37,
+        "upper": 35.06,
+        "lower": 28.68,
+        "anchor_close": 31.87,
         "anchor_date": "2026-06-12",
         "straddle": 3.75,
         "expiry": "20260618"
@@ -16726,8 +16722,8 @@
       ]
     },
     "LUNR": {
-      "close": 30.64,
-      "spot": 30.64,
+      "close": 26.62,
+      "spot": 26.62,
       "updated": "2026-06-13T02:34:53.472138",
       "source": "yfinance",
       "strike": 30.5,
@@ -16745,9 +16741,9 @@
       "weekly": {
         "value": 3.97,
         "pct": 12.96,
-        "upper": 34.61,
-        "lower": 26.67,
-        "anchor_close": 30.64,
+        "upper": 30.59,
+        "lower": 22.65,
+        "anchor_close": 26.62,
         "anchor_date": "2026-06-12",
         "straddle": 4.67,
         "expiry": "20260618"
@@ -16803,8 +16799,8 @@
       ]
     },
     "PL": {
-      "close": 34.17,
-      "spot": 34.17,
+      "close": 31.15,
+      "spot": 31.15,
       "updated": "2026-06-13T02:34:57.947420",
       "source": "yfinance",
       "strike": 34.0,
@@ -16822,9 +16818,9 @@
       "weekly": {
         "value": 3.66,
         "pct": 10.7,
-        "upper": 37.83,
-        "lower": 30.52,
-        "anchor_close": 34.17,
+        "upper": 34.8,
+        "lower": 27.49,
+        "anchor_close": 31.15,
         "anchor_date": "2026-06-12",
         "straddle": 4.3,
         "expiry": "20260618"
@@ -16880,8 +16876,8 @@
       ]
     },
     "RDW": {
-      "close": 17.09,
-      "spot": 17.09,
+      "close": 15.12,
+      "spot": 15.12,
       "updated": "2026-06-13T02:34:58.893342",
       "source": "yfinance",
       "strike": 17.0,
@@ -16899,9 +16895,9 @@
       "weekly": {
         "value": 2.25,
         "pct": 13.18,
-        "upper": 19.34,
-        "lower": 14.84,
-        "anchor_close": 17.09,
+        "upper": 17.37,
+        "lower": 12.87,
+        "anchor_close": 15.12,
         "anchor_date": "2026-06-12",
         "straddle": 2.65,
         "expiry": "20260618"
@@ -16957,8 +16953,8 @@
       ]
     },
     "RKLB": {
-      "close": 114.78,
-      "spot": 114.78,
+      "close": 102.39,
+      "spot": 102.39,
       "updated": "2026-06-13T02:34:59.286537",
       "source": "yfinance",
       "strike": 115.0,
@@ -16976,9 +16972,9 @@
       "weekly": {
         "value": 13.95,
         "pct": 12.15,
-        "upper": 128.73,
-        "lower": 100.83,
-        "anchor_close": 114.78,
+        "upper": 116.34,
+        "lower": 88.44,
+        "anchor_close": 102.39,
         "anchor_date": "2026-06-12",
         "straddle": 16.41,
         "expiry": "20260618"

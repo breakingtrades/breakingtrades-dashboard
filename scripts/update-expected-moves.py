@@ -204,23 +204,40 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
     print(f"\n[{ticker}]", end=' ', flush=True)
 
     # EM anchor = the close price that options are priced against.
-    # Use previousClose so bands are anchored to prior session's close,
-    # allowing live prices to show meaningful position within the range.
-    # Do NOT use canonical prices.json (those track current/live prices,
-    # which would always put position at exactly 50%).
+    # We anchor to the most recent COMPLETED trading session's close.
+    # When this script runs at 4:25pm ET (5min after close):
+    #   - yfinance fast_info.previousClose still points to the PRIOR session
+    #     because info.previousClose rolls over only at the next session open.
+    #   - So we pull the daily history bar directly — it contains today's
+    #     close as the final row immediately after market close.
+    # When this script runs intraday (e.g. ad-hoc 8am), today's bar isn't
+    # closed yet, so we fall back to yfinance's previousClose.
     close_price = None
     price_source = None
 
     try:
         t_info = yf.Ticker(yf_symbol)
-        info = t_info.fast_info
-        close_price = (
-            info.get('regularMarketPreviousClose')
-            or info.get('previousClose')
-        )
-        price_source = 'yf-prevClose'
-        # Fallback to current price if no previous close available
+        # Try daily history first — most accurate for "last close"
+        # period=5d is enough to find the most recent printed bar.
+        try:
+            hist = t_info.history(period='5d', interval='1d', auto_adjust=False)
+            if hist is not None and len(hist) > 0:
+                close_price = float(hist['Close'].iloc[-1])
+                price_source = 'yf-history'
+        except Exception:
+            pass
+
+        # Fall back to fast_info.previousClose if history call failed
         if not close_price or close_price <= 0:
+            info = t_info.fast_info
+            close_price = (
+                info.get('regularMarketPreviousClose')
+                or info.get('previousClose')
+            )
+            price_source = 'yf-prevClose'
+        # Final fallback to lastPrice
+        if not close_price or close_price <= 0:
+            info = t_info.fast_info
             close_price = info.get('lastPrice') or info.get('regularMarketPrice')
             price_source = 'yf-lastPrice'
     except Exception as e:

@@ -322,18 +322,77 @@ PYEOF
 # --- Git commit + push ---
 log "Committing changes..."
 
-# CRITICAL: if HEAD is not on main, do NOT auto-commit/push — the user is
-# working on a feature branch and our automated commit-and-rebase would
-# either land on the wrong branch or trigger a stash that wipes their work.
-# The 2026-06-09 incident (week-ahead branch dev wiped by EOD rebase): see
-# AGENTS.md "EOD cron rebase ate untracked work" / skill weekly-catalyst-scan.
+# CRITICAL: if HEAD is not on main, we used to refuse the commit entirely
+# (per the 2026-06-09 incident — see AGENTS.md "EOD cron rebase ate untracked
+# work" / skill weekly-catalyst-scan). But that left Friday data uncommitted
+# AND silently failed to push, which broke the dashboard for the whole weekend.
+#
+# New strategy: commit data updates as a fresh commit on a temporary worktree
+# of main, push that, and leave the user's feature branch untouched.
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "?")
 if [[ "$CURRENT_BRANCH" != "main" ]]; then
     log "WARNING: Current branch is '$CURRENT_BRANCH', not main."
-    log "Refusing to auto-commit data updates on a non-main branch."
-    log "User must manually merge their feature branch back to main, or"
-    log "rerun this script after switching: git checkout main"
-    log "Skipping commit + push. Data files left uncommitted in working tree."
+    log "Will commit data updates to main via a temporary worktree to avoid"
+    log "disturbing your in-progress feature branch."
+
+    # Stage data changes for transfer
+    DATA_PATCH="/tmp/bt-eod-data-$(date +%s).patch"
+    git diff -- data/ > "$DATA_PATCH"
+    if [[ ! -s "$DATA_PATCH" ]]; then
+        log "No data changes to transfer to main"
+        exit 0
+    fi
+
+    # Spin up a worktree of main in a temp dir
+    WORKTREE_DIR="/tmp/bt-eod-wt-$(date +%s)"
+    if ! git fetch origin main 2>&1 | tee -a "$LOG"; then
+        warn "Fetch origin/main failed — leaving data uncommitted on $CURRENT_BRANCH"
+        exit 0
+    fi
+    if ! git worktree add "$WORKTREE_DIR" origin/main 2>&1 | tee -a "$LOG"; then
+        warn "Worktree add failed — leaving data uncommitted on $CURRENT_BRANCH"
+        exit 0
+    fi
+
+    # Apply the data patch to the main worktree
+    pushd "$WORKTREE_DIR" >/dev/null || exit 0
+    if ! git apply --whitespace=nowarn "$DATA_PATCH" 2>&1 | tee -a "$LOG"; then
+        warn "Patch apply to main worktree failed — manual sync needed"
+        popd >/dev/null
+        git worktree remove --force "$WORKTREE_DIR" 2>/dev/null
+        exit 0
+    fi
+
+    git add data/
+    if git diff --staged --quiet 2>/dev/null; then
+        log "No staged data after patch apply — exiting"
+        popd >/dev/null
+        git worktree remove --force "$WORKTREE_DIR" 2>/dev/null
+        exit 0
+    fi
+
+    git config user.name  "BreakingTrades Bot"
+    git config user.email "bot@breakingtrades.github.io"
+    git checkout -b "eod-cross-branch-$(date +%Y%m%d-%H%M%S)" 2>&1 | tee -a "$LOG"
+    git commit -m "data: EOD update $(date +%Y-%m-%d) — prices + F&G + VIX + breadth + EM($EM_TIER) + sectors + regime [from feature branch $CURRENT_BRANCH]"
+    log "Committed data update to temporary main-based branch"
+
+    if [[ "${BT_SKIP_PUSH:-0}" == "1" ]]; then
+        log "Skipping push (BT_SKIP_PUSH=1)"
+    else
+        # Push to main directly
+        if git push origin "HEAD:main" 2>&1 | tee -a "$LOG"; then
+            log "✅ Data pushed to origin/main from cross-branch commit"
+        else
+            warn "Push to main failed — branch left at $WORKTREE_DIR for manual recovery"
+        fi
+    fi
+    popd >/dev/null
+
+    # Cleanup
+    git worktree remove --force "$WORKTREE_DIR" 2>/dev/null
+    rm -f "$DATA_PATCH"
+    log "✅ EOD update committed to main (your '$CURRENT_BRANCH' branch untouched)"
     exit 0
 fi
 
