@@ -1,0 +1,36 @@
+/* css/v3-tokens.css — V3 design tokens layered on variables.css
+ * Wiz-inspired refined dark palette with deeper neutrals + softer borders.
+ * Loaded AFTER variables.css to override. Gated behind body.v3 class.
+ */
+
+body.v3 {
+  /* Refined neutrals */
+  --v3-bg-deep:      #07070d;
+  --v3-bg-surface:   #0e0e18;
+  --v3-bg-elevated:  #15152a;
+  --v3-bg-active:    #1a1a36;
+
+  /* Refined borders — softer */
+  --v3-border-soft:  rgba(255,255,255,0.06);
+  --v3-border-mid:   rgba(255,255,255,0.10);
+  --v3-border-hard:  rgba(255,255,255,0.14);
+
+  /* Cyan refined */
+  --v3-cyan:         #2DD4BF;
+  --v3-cyan-dim:     #14B8A6;
+  --v3-cyan-glow:    rgba(45, 212, 191, 0.18);
+
+  /* Freshness states */
+  --v3-fresh-ok:     #2DD4BF;
+  --v3-fresh-warn:   #F59E0B;
+  --v3-fresh-stale:  #DC2626;
+  --v3-fresh-idle:   #4B5563;
+
+  /* Layout */
+  --v3-sidebar-width:     240px;
+  --v3-sidebar-collapsed: 56px;
+  --v3-topbar-height:     44px;
+
+  /* Override global bg */
+  background: var(--v3-bg-deep);
+}
