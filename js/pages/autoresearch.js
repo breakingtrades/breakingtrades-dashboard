@@ -1274,4 +1274,9 @@
     init: init,
     destroy: destroy
   };
+  // Also register under the V3 route name 'research' — the V3 sidebar uses
+  // #research as the canonical hash; routes/aliases in router.js point both
+  // names at this file, but the page module needs to expose itself under both
+  // keys so router.js's BT.pages[route] lookup succeeds.
+  BT.pages.research = BT.pages.airesearcher;
 })();
