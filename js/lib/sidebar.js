@@ -259,11 +259,16 @@
 
   function toggleMobile() {
     var isOpen = document.body.classList.toggle('sidebar-mobile-open');
-    // Belt-and-suspenders: set inline transform on the sidebar itself in case the
-    // CSS cascade fights us (e.g. cached stylesheets, specificity collision).
+    // Belt-and-suspenders: explicitly set transform with !important via setProperty
+    // (style.transform = '...' cannot include !important — and we've seen the CSS
+    // cascade lose to a stale rule somewhere on this page).
     var sidebar = document.getElementById('v3-sidebar');
     if (sidebar) {
-      sidebar.style.transform = isOpen ? 'translateX(0)' : '';
+      if (isOpen) {
+        sidebar.style.setProperty('transform', 'translateX(0)', 'important');
+      } else {
+        sidebar.style.removeProperty('transform');
+      }
     }
   }
 
@@ -297,7 +302,7 @@
   function closeMobileDrawer() {
     document.body.classList.remove('sidebar-mobile-open');
     var sidebar = document.getElementById('v3-sidebar');
-    if (sidebar) sidebar.style.transform = '';
+    if (sidebar) sidebar.style.removeProperty('transform');
   }
 
   // ─── Bind ──────────────────────────────────────────────────────────────────
