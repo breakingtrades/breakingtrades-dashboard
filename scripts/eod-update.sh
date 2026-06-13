@@ -334,6 +334,30 @@ else:
         print('✅ prices.json already consistent with expected-moves.json')
 PYEOF
 
+# --- 8. AI-Trader Pipeline (paper-trading) ---
+# Runs the 5-stage agentic pipeline: scout → analyst → risk → executor → manager.
+# Phase 1 ships scout + stub analyst + risk + executor; manager arrives in Phase 3.
+# Pipeline lives in the PARENT repo (~/projects/breakingtrades/scripts/ai-trader/).
+# Failure here does NOT abort the EOD pipeline — last-run.json captures the
+# failure state and the AI-Trader page banner surfaces it on the dashboard.
+log "Step 8: AI-Trader pipeline"
+PARENT_REPO="$(dirname "$REPO")"
+AI_TRADER_RUN="$PARENT_REPO/scripts/ai-trader/run.py"
+AI_TRADER_VENV_PYTHON="$PARENT_REPO/.venv/bin/python"
+if [[ -f "$AI_TRADER_RUN" ]]; then
+    AT_PYTHON="$PYTHON"
+    if [[ -x "$AI_TRADER_VENV_PYTHON" ]]; then
+        AT_PYTHON="$AI_TRADER_VENV_PYTHON"
+    fi
+    if (cd "$PARENT_REPO" && "$AT_PYTHON" scripts/ai-trader/run.py 2>&1 | tee -a "$LOG"); then
+        log "✅ AI-Trader pipeline done"
+    else
+        warn "AI-Trader pipeline failed (EOD continues — see $PARENT_REPO/data/ai-trader/last-run.json)"
+    fi
+else
+    log "Step 8: AI-Trader pipeline — SKIPPED ($AI_TRADER_RUN not present)"
+fi
+
 # --- Git commit + push ---
 log "Committing changes..."
 
