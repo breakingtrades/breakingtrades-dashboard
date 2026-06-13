@@ -154,14 +154,29 @@ fi
 # Catches the "all-tier silent skip" mode: tickers yfinance refuses on
 # their nearest weekly expiry (GOOG, CRWD, MU, ROKU, TSM, UNH, XME, ...)
 # get force-refreshed individually every day so staleness caps at ~5 trading days.
-log "Step 4b: Stale-ticker patrol"
+#
+# Critical: check weekly.anchor_date NOT the top-level 'updated' timestamp.
+# The EM updater always bumps 'updated' on every run, but when yfinance refuses
+# the options chain it silently keeps the OLD weekly.anchor_close — so the row
+# looks fresh by 'updated' but its band is 7 weeks stale. The 2026-06-13
+# CRWD/MU/ROKU/UNH/BRK-B incident was caused by this: anchors on 2026-04-24
+# while 'updated' was current.
+log "Step 4b: Stale-ticker patrol (checks weekly.anchor_date)"
 STALE_TICKERS=$($PYTHON -c "
 import json
 from datetime import date, timedelta
 d = json.load(open('data/expected-moves.json'))
-cutoff = (date.today() - timedelta(days=5)).isoformat()
-stale = [s for s,v in d['tickers'].items()
-         if v.get('updated','')[:10] < cutoff and s.strip() and ' ' not in s and s != 'SPX']
+# A weekly anchor is stale if older than 7 calendar days (i.e. older than
+# last Friday's close). We allow a 1-day grace (8) for weekend runs.
+cutoff = (date.today() - timedelta(days=8)).isoformat()
+stale = []
+for s, v in d['tickers'].items():
+    if not s.strip() or ' ' in s or s == 'SPX':
+        continue
+    w = v.get('weekly', {}) or {}
+    anchor_dt = w.get('anchor_date', '')
+    if not anchor_dt or anchor_dt < cutoff:
+        stale.append(s)
 print(' '.join(stale))
 " 2>/dev/null || echo "")
 if [[ -n "$STALE_TICKERS" ]]; then
@@ -174,7 +189,7 @@ if [[ -n "$STALE_TICKERS" ]]; then
         fi
     done
 else
-    log "✅ No stale tickers (all within 5 trading days)"
+    log "✅ No stale anchors (all weekly bands < 8 days old)"
 fi
 
 # --- 5. yfinance fallback (refreshes spot prices for briefing) ---
