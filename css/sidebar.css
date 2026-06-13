@@ -133,26 +133,30 @@ body.v3.sidebar-collapsed .v3-shell {
   height: var(--v3-topbar-height);
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 14px;
   border-bottom: 1px solid var(--v3-border-soft);
-  gap: 10px;
+  gap: 8px;
   flex-shrink: 0;
+  text-decoration: none;
+  transition: background 120ms ease;
+}
+.v3-sidebar-header:hover {
+  background: var(--v3-bg-elevated);
 }
 .v3-logo-mark {
-  width: 24px; height: 24px;
   flex-shrink: 0;
+  display: block;
 }
-.v3-logo-mark svg { width: 100%; height: 100%; }
-.v3-logo-text {
-  font-size: 13px; font-weight: 700;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-  overflow: hidden;
+.v3-logo-wordmark {
+  flex-shrink: 0;
   transition: opacity 150ms ease;
+  display: block;
 }
-.v3-logo-text .brand-1 { color: var(--v3-cyan); }
-.v3-logo-text .brand-2 { color: var(--gold); }
-body.v3.sidebar-collapsed .v3-logo-text { opacity: 0; pointer-events: none; }
+body.v3.sidebar-collapsed .v3-logo-wordmark {
+  opacity: 0;
+  width: 0 !important;
+  pointer-events: none;
+}
 
 .v3-sidebar-body {
   flex: 1;
@@ -166,26 +170,40 @@ body.v3.sidebar-collapsed .v3-logo-text { opacity: 0; pointer-events: none; }
 .v3-sidebar-body::-webkit-scrollbar-thumb { background: var(--v3-border-mid); border-radius: 2px; }
 
 .v3-section {
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 .v3-section-label {
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--text-dim);
-  font-weight: 600;
-  padding: 8px 16px 4px;
+  letter-spacing: 1.2px;
+  color: var(--text);
+  font-weight: 800;
+  padding: 14px 16px 8px;
   white-space: nowrap;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   transition: opacity 150ms ease, height 150ms ease, padding 150ms ease;
 }
+.v3-section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--v3-border-soft);
+}
 body.v3.sidebar-collapsed .v3-section-label {
-  opacity: 0;
-  height: 8px;
-  padding: 0;
-  margin-top: 8px;
+  font-size: 0;
+  letter-spacing: 0;
+  padding: 6px 0;
+  height: auto;
+  opacity: 1;
   border-top: 1px solid var(--v3-border-soft);
-  border-bottom: none;
+  margin-top: 8px;
+  gap: 0;
+}
+body.v3.sidebar-collapsed .v3-section-label::after {
+  display: none;
 }
 
 .v3-nav-item {

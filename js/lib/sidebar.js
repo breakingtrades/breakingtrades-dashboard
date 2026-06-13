@@ -97,14 +97,29 @@
   function renderSidebar() {
     return (
       '<aside class="v3-sidebar" id="v3-sidebar" aria-label="Primary navigation">' +
-        '<div class="v3-sidebar-header">' +
-          '<div class="v3-logo-mark">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
-              '<path d="M3 12l4-6 3 4 4-8 3 6 4-2"/>' +
-            '</svg>' +
-          '</div>' +
-          '<div class="v3-logo-text"><span class="brand-1">BREAKING</span><span class="brand-2">TRADES</span></div>' +
-        '</div>' +
+        '<a href="#market" class="v3-sidebar-header" aria-label="BreakingTrades home">' +
+          // Logo mark — Market Pulse (rounded square + heartbeat line)
+          '<svg class="v3-logo-mark" viewBox="0 0 48 48" width="28" height="28">' +
+            '<rect width="48" height="48" rx="10" fill="#111122" stroke="#00d4aa" stroke-width="1.2"/>' +
+            '<path d="M8,32 L14,32 L17,24 L22,36 L26,14 L31,28 L34,22 L38,32" fill="none" stroke="#00d4aa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '<path d="M8,32 L14,32 L17,24 L22,36 L26,14 L31,28 L34,22 L38,32" fill="none" stroke="#00d4aa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.1"/>' +
+          '</svg>' +
+          // Wordmark — BREAKING (cyan) + TRADES (dim) with gradient pulse line
+          '<svg class="v3-logo-wordmark" viewBox="50 0 210 28" width="148" height="20" aria-hidden="true">' +
+            '<defs>' +
+              '<linearGradient id="v3-pulse-grad" x1="0" y1="0" x2="1" y2="0">' +
+                '<stop offset="0%" stop-color="#00d4aa" stop-opacity="0.3"/>' +
+                '<stop offset="42%" stop-color="#00d4aa"/>' +
+                '<stop offset="58%" stop-color="#ffd700"/>' +
+                '<stop offset="100%" stop-color="#ffa726" stop-opacity="0.3"/>' +
+              '</linearGradient>' +
+            '</defs>' +
+            '<text x="68" y="16" fill="#00d4aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="700" letter-spacing="1.5">BREAKING</text>' +
+            '<text x="182" y="16" fill="#8888aa" font-family="\'SF Mono\',\'Fira Code\',monospace" font-size="14" font-weight="400" letter-spacing="1.5">TRADES</text>' +
+            '<path d="M60,24 L152,24 L162,20 L168,26 L176,10 L184,22 L188,18 L196,24 L256,24" fill="none" stroke="url(#v3-pulse-grad)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '<circle cx="176" cy="10" r="1.8" fill="#ffd700" opacity="0.7"/>' +
+          '</svg>' +
+        '</a>' +
         '<nav class="v3-sidebar-body" role="navigation">' +
           NAV.map(renderSection).join('') +
         '</nav>' +

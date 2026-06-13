@@ -27,9 +27,9 @@ body.v3 {
   --v3-fresh-idle:   #4B5563;
 
   /* Layout */
-  --v3-sidebar-width:     240px;
+  --v3-sidebar-width:     250px;
   --v3-sidebar-collapsed: 56px;
-  --v3-topbar-height:     44px;
+  --v3-topbar-height:     48px;
 
   /* Override global bg */
   background: var(--v3-bg-deep);
