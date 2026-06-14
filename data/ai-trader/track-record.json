@@ -1,0 +1,73 @@
+{
+  "as_of": "2026-06-14T00:09:17.972287+00:00",
+  "by_direction": {
+    "long": {
+      "avg_loss": 0.0,
+      "avg_win": 0.0,
+      "best_trade": 0.0,
+      "expectancy": 0.0,
+      "losses": 0,
+      "sharpe": null,
+      "total_pnl": 0.0,
+      "trades": 0,
+      "win_rate": 0.0,
+      "wins": 0,
+      "worst_trade": 0.0
+    },
+    "short": {
+      "avg_loss": 0.0,
+      "avg_win": 0.0,
+      "best_trade": 0.0,
+      "expectancy": 0.0,
+      "losses": 0,
+      "sharpe": null,
+      "total_pnl": 0.0,
+      "trades": 0,
+      "win_rate": 0.0,
+      "wins": 0,
+      "worst_trade": 0.0
+    }
+  },
+  "by_fill_type": {},
+  "by_rule": [],
+  "cash": 100000.0,
+  "current_equity": 100000.0,
+  "drawdown": {
+    "current": 100000.0,
+    "current_drawdown_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "peak": 100000.0
+  },
+  "equity_curve": [
+    {
+      "date": "start",
+      "equity": 100000.0,
+      "kind": "start"
+    },
+    {
+      "date": "now",
+      "equity": 100000.0,
+      "kind": "current"
+    }
+  ],
+  "n_closes": 0,
+  "n_open": 0,
+  "open_pnl": 0.0,
+  "open_positions": [],
+  "realized_pnl": 0,
+  "starting_equity": 100000.0,
+  "summary": {
+    "avg_loss": 0.0,
+    "avg_win": 0.0,
+    "best_trade": 0.0,
+    "expectancy": 0.0,
+    "losses": 0,
+    "sharpe": null,
+    "total_pnl": 0.0,
+    "trades": 0,
+    "win_rate": 0.0,
+    "wins": 0,
+    "worst_trade": 0.0
+  },
+  "total_pnl": 0.0
+}

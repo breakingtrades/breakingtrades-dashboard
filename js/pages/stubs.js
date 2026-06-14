@@ -30,21 +30,8 @@
     };
   }
 
-  BT.pages['ai-trader'] = makeStub(
-    '🤖',
-    'AI-Trader',
-    'Live signal track record — equity curve, recent calls, by-category breakdown, accuracy metrics. ' +
-    'Reads from RULES.json + TRACK_RECORD.json + a live ai-trader-calls.json feed. ' +
-    '<br><br>Coming in Phase 2B.'
-  );
-
-  BT.pages.holdings = makeStub(
-    '💼',
-    'Holdings',
-    'Public read-only snapshot of current AI-Trader positions. Ticker, entry, current, P/L, source rule, conviction. ' +
-    'Not connected to brokerage — display only. ' +
-    '<br><br>Coming in Phase 2C.'
-  );
+  // Phase 3 has shipped real ai-trader + holdings pages — see js/pages/ai-trader.js.
+  // Stubs only register the still-pending pages (alerts, settings, about).
 
   BT.pages.alerts = makeStub(
     '🔔',

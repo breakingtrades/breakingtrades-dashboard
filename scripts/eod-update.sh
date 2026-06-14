@@ -351,6 +351,17 @@ if [[ -f "$AI_TRADER_RUN" ]]; then
     fi
     if (cd "$PARENT_REPO" && "$AT_PYTHON" scripts/ai-trader/run.py 2>&1 | tee -a "$LOG"); then
         log "✅ AI-Trader pipeline done"
+        # Copy track-record + holdings + risk-state to the dashboard data dir
+        # so js/pages/ai-trader.js can fetch them at runtime.
+        AT_DATA="$PARENT_REPO/data/ai-trader"
+        DASH_AT_DATA="$REPO/data/ai-trader"
+        mkdir -p "$DASH_AT_DATA"
+        for f in track-record.json holdings.json risk-state.json last-run.json; do
+            if [[ -f "$AT_DATA/$f" ]]; then
+                cp "$AT_DATA/$f" "$DASH_AT_DATA/$f"
+            fi
+        done
+        log "✅ AI-Trader artifacts synced to dashboard"
     else
         warn "AI-Trader pipeline failed (EOD continues — see $PARENT_REPO/data/ai-trader/last-run.json)"
     fi

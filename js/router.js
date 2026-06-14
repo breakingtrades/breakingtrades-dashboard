@@ -15,8 +15,8 @@
     // V3 routes
     'calendar':       { css: null,                       js: 'js/pages/calendar.js',       title: 'Calendar' },
     'research':       { css: 'css/autoresearch.css',     js: 'js/pages/autoresearch.js',   title: 'Research' },
-    'ai-trader':      { css: null,                       js: 'js/pages/stubs.js',          title: 'AI-Trader' },
-    'holdings':       { css: null,                       js: 'js/pages/stubs.js',          title: 'Holdings' },
+    'ai-trader':      { css: 'css/ai-trader.css',         js: 'js/pages/ai-trader.js',      title: 'AI-Trader' },
+    'holdings':       { css: 'css/ai-trader.css',         js: 'js/pages/ai-trader.js',      title: 'Holdings' },
     'alerts':         { css: null,                       js: 'js/pages/stubs.js',          title: 'Alerts' },
     'settings':       { css: null,                       js: 'js/pages/stubs.js',          title: 'Settings' },
     'about':          { css: null,                       js: 'js/pages/stubs.js',          title: 'About' },
