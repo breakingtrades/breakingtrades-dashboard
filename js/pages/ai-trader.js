@@ -195,7 +195,7 @@
       return '<div class="ai-trader-empty">No open positions. Pipeline scans for setups every trading day at 4:30 PM ET.</div>';
     }
     const rows = positions.map(p => `
-      <tr data-ticker="${p.ticker}" class="ai-trader-pos-row">
+      <tr data-ticker="${p.ticker}" class="ai-trader-pos-row" tabindex="0" role="button" aria-label="Position detail for ${p.ticker}">
         <td><strong>${p.ticker}</strong></td>
         <td>${p.direction}</td>
         <td>${p.shares}</td>
@@ -220,7 +220,117 @@
         </thead>
         <tbody>${rows}</tbody>
       </table>
+      <div class="ai-trader-table-hint">Click a row for full reasoning trace.</div>
     `;
+  }
+
+  // ─── Position detail modal ─────────────────────────────────────────────
+  // Per spec MUST: "clicking a position opens a detail modal showing Tom's
+  // rule citations with rule text, the empirical prior study used, the regime
+  // context at entry time, and the timestamp of every pipeline stage."
+  let _rulesCache = null;
+  function loadRules() {
+    if (_rulesCache !== null) return Promise.resolve(_rulesCache);
+    // Tom RULES.json lives in the parent repo, not the dashboard. We don't
+    // ship it as a static asset (296 rules ~140KB), so for now we display
+    // citation IDs without rule text; future fix: emit a thinned RULES.json
+    // with just the cited rules into data/ai-trader/cited-rules.json.
+    return fetch('data/ai-trader/cited-rules.json')
+      .then(r => r.ok ? r.json() : { rules: [] })
+      .catch(() => ({ rules: [] }))
+      .then(d => {
+        _rulesCache = {};
+        (d.rules || []).forEach(r => { _rulesCache[r.id] = r; });
+        return _rulesCache;
+      });
+  }
+
+  function openPositionDetail(ticker) {
+    fetch(DATA_PATHS.trackRecord)
+      .then(r => r.ok ? r.json() : null)
+      .then(tr => {
+        if (!tr) return;
+        const pos = (tr.open_positions || []).find(p => p.ticker === ticker);
+        if (!pos) return;
+        loadRules().then(rulesMap => buildModal(pos, tr, rulesMap));
+      });
+  }
+
+  function buildModal(pos, tr, rulesMap) {
+    // Remove any existing modal
+    const existing = document.getElementById('ai-trader-modal');
+    if (existing) existing.remove();
+
+    const ruleRows = (pos.rule_citations || []).map(rid => {
+      const rule = rulesMap[rid];
+      const text = rule ? rule.rule : '(rule text not yet bundled — citation only)';
+      const quote = rule && rule.quote ? `<div class="ai-trader-modal-quote">"${rule.quote}"</div>` : '';
+      const priority = rule && rule.priority ? rule.priority : '';
+      return `
+        <div class="ai-trader-modal-rule">
+          <div class="ai-trader-modal-rule-header"><code>${rid}</code> <span class="ai-trader-modal-rule-priority">${priority}</span></div>
+          <div class="ai-trader-modal-rule-text">${text}</div>
+          ${quote}
+        </div>
+      `;
+    }).join('');
+
+    const modal = document.createElement('div');
+    modal.id = 'ai-trader-modal';
+    modal.className = 'ai-trader-modal-backdrop';
+    modal.innerHTML = `
+      <div class="ai-trader-modal" role="dialog" aria-modal="true" aria-labelledby="ai-trader-modal-title">
+        <button class="ai-trader-modal-close" aria-label="Close">&times;</button>
+        <h2 id="ai-trader-modal-title">${pos.ticker} <span class="ai-trader-modal-dir">${pos.direction}</span></h2>
+        <div class="ai-trader-modal-meta">
+          ${pos.shares} shares @ ${fmtCurrency(pos.entry_price)} · current ${fmtCurrency(pos.current_price)} · ${pos.days_held}d held · sector ${pos.sector || '—'}
+        </div>
+        <div class="ai-trader-modal-pnl">
+          P&amp;L: ${fmtSigned(pos.pnl_dollars, 'currency')} (${fmtSigned(pos.pnl_pct)})
+          · stop ${fmtCurrency(pos.stop_price)} · target ${fmtCurrency(pos.target_2)}
+        </div>
+        <h3>Tom's Reasoning — ${(pos.rule_citations || []).length} rule${(pos.rule_citations || []).length === 1 ? '' : 's'} cited</h3>
+        ${ruleRows || '<div class="ai-trader-empty">No rule citations recorded for this position.</div>'}
+        <h3>Conviction</h3>
+        <div>Score: ${pos.conviction != null ? (pos.conviction * 100).toFixed(0) + '%' : '—'}</div>
+        <h3>Pipeline Timestamp</h3>
+        <div>Track-record refreshed: ${tr.as_of || '—'}</div>
+        <div class="ai-trader-modal-disclaimer">
+          ⚠ Paper trade. Not investment advice. Not real money.
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    // Close handlers
+    modal.querySelector('.ai-trader-modal-close').addEventListener('click', () => modal.remove());
+    modal.addEventListener('click', e => {
+      if (e.target === modal) modal.remove();
+    });
+    document.addEventListener('keydown', function escHandler(e) {
+      if (e.key === 'Escape') {
+        modal.remove();
+        document.removeEventListener('keydown', escHandler);
+      }
+    });
+  }
+
+  // Bind click handlers — runs after init() has populated the DOM
+  function bindPositionClicks() {
+    const tableHost = document.getElementById('ai-trader-open-positions');
+    if (!tableHost) return;
+    tableHost.addEventListener('click', e => {
+      const row = e.target.closest('.ai-trader-pos-row');
+      if (!row || !row.dataset.ticker) return;
+      openPositionDetail(row.dataset.ticker);
+    });
+    tableHost.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const row = e.target.closest('.ai-trader-pos-row');
+      if (!row || !row.dataset.ticker) return;
+      e.preventDefault();
+      openPositionDetail(row.dataset.ticker);
+    });
   }
 
   // ─── Rule attribution ───────────────────────────────────────────────────
@@ -334,6 +444,7 @@
         document.getElementById('ai-trader-recent-closes').innerHTML = renderRecentCloses(tr.equity_curve);
         document.getElementById('ai-trader-rule-attribution').innerHTML = renderRuleAttribution(tr.by_rule);
         document.getElementById('ai-trader-by-direction').innerHTML = renderByDirection(tr.by_direction);
+        bindPositionClicks();
       }
 
       document.getElementById('ai-trader-pipeline-status').innerHTML = renderPipelineStatus(lastRun);

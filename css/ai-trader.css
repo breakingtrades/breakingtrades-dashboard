@@ -125,6 +125,125 @@
 .ai-trader-pos-row {
   cursor: pointer;
 }
+.ai-trader-pos-row:focus {
+  outline: 2px solid #4dd0e1;
+  outline-offset: -2px;
+}
+.ai-trader-table-hint {
+  font-size: 11px;
+  color: var(--text-secondary, #888);
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* ─── Detail modal ────────────────────────────────────────────────────── */
+.ai-trader-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  overflow-y: auto;
+}
+.ai-trader-modal {
+  background: #14142a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px 24px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  color: var(--text, #e0e0e0);
+}
+.ai-trader-modal h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+.ai-trader-modal h3 {
+  font-size: 12px;
+  margin: 16px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-secondary, #999);
+}
+.ai-trader-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary, #999);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.ai-trader-modal-close:hover {
+  color: var(--text, #fff);
+}
+.ai-trader-modal-dir {
+  font-size: 13px;
+  padding: 2px 8px;
+  background: rgba(77, 208, 225, 0.2);
+  border: 1px solid #4dd0e1;
+  border-radius: 4px;
+  color: #4dd0e1;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+.ai-trader-modal-meta,
+.ai-trader-modal-pnl {
+  font-size: 12px;
+  color: var(--text-secondary, #999);
+  margin: 4px 0;
+}
+.ai-trader-modal-pnl {
+  font-weight: 600;
+  color: var(--text, #e0e0e0);
+}
+.ai-trader-modal-rule {
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid #4dd0e1;
+  padding: 8px 10px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.ai-trader-modal-rule-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+.ai-trader-modal-rule-priority {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary, #888);
+}
+.ai-trader-modal-rule-text {
+  color: var(--text, #e0e0e0);
+}
+.ai-trader-modal-quote {
+  margin-top: 6px;
+  font-style: italic;
+  color: var(--text-secondary, #999);
+  font-size: 11px;
+}
+.ai-trader-modal-disclaimer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  color: #ff9800;
+}
 
 /* ─── P&L colors ──────────────────────────────────────────────────────── */
 .ai-trader-pos { color: #4caf50; }
