@@ -76,7 +76,7 @@ body.v3.sidebar-collapsed .v3-shell {
   color: var(--text-dim);
   text-transform: uppercase;
   white-space: nowrap;
-  max-width: 320px;
+  max-width: 480px;          /* up from 320px so "Next holiday: X (date)" fits */
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -95,16 +95,24 @@ body.v3 #market-status .ms-holiday {
   color: var(--text-dim);
   font-size: 10px;
 }
-/* On narrower viewports, hide the date/holiday tail to keep the pill compact */
+/* On narrower viewports, hide the date/holiday tail to keep the pill compact.
+   At ≥1280px both visible. At 1024-1279px hide date first (less critical than
+   holiday warning). Below 1024px hide holiday + sub. Below 768px hide label. */
+@media (max-width: 1440px) {
+  .v3-market-pill { max-width: 380px; }
+}
 @media (max-width: 1280px) {
   body.v3 #market-status .ms-date { display: none; }
+  .v3-market-pill { max-width: 320px; }
 }
 @media (max-width: 1024px) {
   body.v3 #market-status .ms-holiday,
   body.v3 #market-status .ms-sub { display: none; }
+  .v3-market-pill { max-width: 200px; }
 }
 @media (max-width: 768px) {
   body.v3 #market-status .ms-label { display: none; }
+  .v3-market-pill { max-width: 140px; }
 }
 
 .v3-icon-btn {

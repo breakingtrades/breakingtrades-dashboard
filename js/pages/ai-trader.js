@@ -162,27 +162,44 @@
     const equities = curve.map(p => p.equity);
     const minE = Math.min(...equities);
     const maxE = Math.max(...equities);
+    // Add 2% padding so the line isn't pinned to the edges
     const range = Math.max(maxE - minE, 1);
-    const w = 800, h = 180, pad = 20;
+    const padE = range * 0.05;
+    const yMin = minE - padE;
+    const yMax = maxE + padE;
+    const yRange = yMax - yMin;
+    const w = 800, h = 220, pad = 12;
     const xStep = (w - 2 * pad) / Math.max(curve.length - 1, 1);
     const points = curve.map((p, i) => {
       const x = pad + i * xStep;
-      const y = pad + (h - 2 * pad) * (1 - (p.equity - minE) / range);
+      const y = pad + (h - 2 * pad) * (1 - (p.equity - yMin) / yRange);
       return `${x.toFixed(1)},${y.toFixed(1)}`;
     }).join(' ');
-    const lastY = pad + (h - 2 * pad) * (1 - (equities[equities.length - 1] - minE) / range);
-    const startY = pad + (h - 2 * pad) * (1 - (equities[0] - minE) / range);
+    const lastY = pad + (h - 2 * pad) * (1 - (equities[equities.length - 1] - yMin) / yRange);
+    const startY = pad + (h - 2 * pad) * (1 - (equities[0] - yMin) / yRange);
     const trendCls = equities[equities.length - 1] >= equities[0] ? 'pos' : 'neg';
+    // SVG without preserveAspectRatio="none" — preserves text aspect ratio.
+    // Labels rendered as HTML overlay (absolutely positioned) so they don't
+    // distort with the SVG viewBox scale at any container width.
     return `
-      <svg viewBox="0 0 ${w} ${h}" class="ai-trader-svg" preserveAspectRatio="none">
-        <line x1="${pad}" y1="${startY}" x2="${w - pad}" y2="${startY}"
-              stroke="#444" stroke-dasharray="4 4" stroke-width="1"/>
-        <polyline points="${points}" fill="none" stroke-width="2"
-                  class="ai-trader-curve-${trendCls}"/>
-        <circle cx="${w - pad}" cy="${lastY}" r="4" class="ai-trader-curve-dot-${trendCls}"/>
-        <text x="${pad}" y="${pad - 4}" class="ai-trader-svg-label">${fmtCurrency(maxE)}</text>
-        <text x="${pad}" y="${h - 4}" class="ai-trader-svg-label">${fmtCurrency(minE)}</text>
-      </svg>
+      <div class="ai-trader-equity-wrap">
+        <div class="ai-trader-equity-y-labels" aria-hidden="true">
+          <div class="ai-trader-equity-y-top">${fmtCurrency(maxE)}</div>
+          <div class="ai-trader-equity-y-bot">${fmtCurrency(minE)}</div>
+        </div>
+        <svg viewBox="0 0 ${w} ${h}" class="ai-trader-svg" preserveAspectRatio="none"
+             role="img" aria-label="Equity curve from ${fmtCurrency(equities[0])} to ${fmtCurrency(equities[equities.length - 1])}">
+          <title>Equity curve</title>
+          <line x1="${pad}" y1="${startY}" x2="${w - pad}" y2="${startY}"
+                stroke="#444" stroke-dasharray="4 4" stroke-width="1"
+                vector-effect="non-scaling-stroke"/>
+          <polyline points="${points}" fill="none" stroke-width="2"
+                    vector-effect="non-scaling-stroke"
+                    class="ai-trader-curve-${trendCls}"/>
+          <circle cx="${w - pad}" cy="${lastY}" r="4" class="ai-trader-curve-dot-${trendCls}"
+                  vector-effect="non-scaling-stroke"/>
+        </svg>
+      </div>
       <div class="ai-trader-curve-meta">
         ${curve.length} points · start ${fmtCurrency(equities[0])} → now ${fmtCurrency(equities[equities.length - 1])}
       </div>
@@ -210,16 +227,18 @@
       </tr>
     `).join('');
     return `
-      <table class="ai-trader-table">
-        <thead>
-          <tr>
-            <th>Ticker</th><th>Dir</th><th>Sh</th><th>Entry</th><th>Last</th>
-            <th>Stop</th><th>Tgt2</th><th>P&amp;L $</th><th>P&amp;L %</th>
-            <th>Days</th><th>Rules</th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>
+      <div class="ai-trader-table-wrap">
+        <table class="ai-trader-table">
+          <thead>
+            <tr>
+              <th scope="col">Ticker</th><th scope="col">Dir</th><th scope="col">Sh</th><th scope="col">Entry</th><th scope="col">Last</th>
+              <th scope="col">Stop</th><th scope="col">Tgt2</th><th scope="col">P&amp;L $</th><th scope="col">P&amp;L %</th>
+              <th scope="col">Days</th><th scope="col">Rules</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
       <div class="ai-trader-table-hint">Click a row for full reasoning trace.</div>
     `;
   }
@@ -348,10 +367,12 @@
       </tr>
     `).join('');
     return `
-      <table class="ai-trader-table">
-        <thead><tr><th>Rule</th><th>Trades</th><th>Win Rate</th><th>Avg P&amp;L</th><th>Total P&amp;L</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
+      <div class="ai-trader-table-wrap">
+        <table class="ai-trader-table">
+          <thead><tr><th scope="col">Rule</th><th scope="col">Trades</th><th scope="col">Win Rate</th><th scope="col">Avg P&amp;L</th><th scope="col">Total P&amp;L</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
     `;
   }
 
@@ -391,10 +412,12 @@
       </tr>
     `).join('');
     return `
-      <table class="ai-trader-table">
-        <thead><tr><th>Date</th><th>Ticker</th><th>Reason</th><th>P&amp;L</th><th>Equity</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
+      <div class="ai-trader-table-wrap">
+        <table class="ai-trader-table">
+          <thead><tr><th scope="col">Date</th><th scope="col">Ticker</th><th scope="col">Reason</th><th scope="col">P&amp;L</th><th scope="col">Equity</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
     `;
   }
 

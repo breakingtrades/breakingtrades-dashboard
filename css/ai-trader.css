@@ -3,6 +3,8 @@
 .ai-trader-page {
   padding: 16px;
   color: var(--text, #e0e0e0);
+  /* Tabular figures everywhere — keeps currency columns aligned */
+  font-variant-numeric: tabular-nums;
 }
 
 .ai-trader-disclaimer {
@@ -46,6 +48,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 6px;
   padding: 10px 12px;
+  min-width: 0;  /* prevent value overflow on long currency strings */
 }
 .ai-trader-tile-label {
   font-size: 11px;
@@ -57,10 +60,20 @@
   font-size: 22px;
   font-weight: 600;
   margin: 4px 0 2px;
+  line-height: 1.15;
+  /* Don't break inside the currency string; clamp with ellipsis on
+     extreme overflow */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
 }
 .ai-trader-tile-sub {
   font-size: 11px;
   color: var(--text-secondary, #999);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ─── Grid + sections ─────────────────────────────────────────────────── */
@@ -83,41 +96,52 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 6px;
   padding: 14px;
+  min-width: 0;
 }
 .ai-trader-section h3 {
-  font-size: 14px;
+  font-size: 13px;
   margin: 0 0 12px;
   color: var(--text, #e0e0e0);
   font-weight: 700;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
 }
 .ai-trader-section h4 {
-  font-size: 12px;
+  font-size: 11px;
   margin: 0 0 6px;
   color: var(--text, #e0e0e0);
   text-transform: uppercase;
   letter-spacing: 0.6px;
+  font-weight: 700;
 }
 
 /* ─── Tables ──────────────────────────────────────────────────────────── */
+.ai-trader-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .ai-trader-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  min-width: max-content;
 }
 .ai-trader-table th {
   text-align: left;
-  font-weight: 500;
-  font-size: 11px;
-  color: var(--text-secondary, #999);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-weight: 600;
+  font-size: 10px;
+  color: var(--text-secondary, #b0b0b0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
   padding: 6px 8px;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 .ai-trader-table td {
   padding: 6px 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
 }
 .ai-trader-table tbody tr:hover {
   background: rgba(255, 255, 255, 0.03);
@@ -125,13 +149,14 @@
 .ai-trader-pos-row {
   cursor: pointer;
 }
-.ai-trader-pos-row:focus {
+.ai-trader-pos-row:focus-visible {
   outline: 2px solid #4dd0e1;
   outline-offset: -2px;
+  background: rgba(77, 208, 225, 0.08);
 }
 .ai-trader-table-hint {
   font-size: 11px;
-  color: var(--text-secondary, #888);
+  color: var(--text-secondary, #999);
   margin-top: 6px;
   font-style: italic;
 }
@@ -163,13 +188,18 @@
 .ai-trader-modal h2 {
   margin: 0 0 4px;
   font-size: 22px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 .ai-trader-modal h3 {
-  font-size: 12px;
+  font-size: 11px;
   margin: 16px 0 8px;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  color: var(--text-secondary, #999);
+  color: var(--text-secondary, #b0b0b0);
+  font-weight: 700;
 }
 .ai-trader-modal-close {
   position: absolute;
@@ -177,7 +207,7 @@
   right: 12px;
   background: transparent;
   border: none;
-  color: var(--text-secondary, #999);
+  color: var(--text-secondary, #b0b0b0);
   font-size: 24px;
   line-height: 1;
   cursor: pointer;
@@ -193,13 +223,11 @@
   border: 1px solid #4dd0e1;
   border-radius: 4px;
   color: #4dd0e1;
-  vertical-align: middle;
-  margin-left: 8px;
 }
 .ai-trader-modal-meta,
 .ai-trader-modal-pnl {
   font-size: 12px;
-  color: var(--text-secondary, #999);
+  color: var(--text-secondary, #b0b0b0);
   margin: 4px 0;
 }
 .ai-trader-modal-pnl {
@@ -226,7 +254,7 @@
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--text-secondary, #888);
+  color: var(--text-secondary, #b0b0b0);
 }
 .ai-trader-modal-rule-text {
   color: var(--text, #e0e0e0);
@@ -234,7 +262,7 @@
 .ai-trader-modal-quote {
   margin-top: 6px;
   font-style: italic;
-  color: var(--text-secondary, #999);
+  color: var(--text-secondary, #b0b0b0);
   font-size: 11px;
 }
 .ai-trader-modal-disclaimer {
@@ -249,26 +277,49 @@
 .ai-trader-pos { color: #4caf50; }
 .ai-trader-neg { color: #ef5350; }
 
-/* ─── Equity curve SVG ────────────────────────────────────────────────── */
-.ai-trader-svg {
+/* ─── Equity curve SVG + HTML overlay ─────────────────────────────────── */
+/* The SVG uses preserveAspectRatio="none" to fill width — that stretches
+   the line geometry but NOT the labels (rendered as HTML overlay). */
+.ai-trader-equity-wrap {
+  position: relative;
   width: 100%;
-  height: 180px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  padding: 8px 12px 8px 80px;  /* leave room for y-axis labels */
+}
+.ai-trader-svg {
+  display: block;
+  width: 100%;
+  height: 200px;
+}
+.ai-trader-equity-y-labels {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-secondary, #999);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+.ai-trader-equity-y-top,
+.ai-trader-equity-y-bot {
+  white-space: nowrap;
 }
 .ai-trader-curve-pos { stroke: #4caf50; }
 .ai-trader-curve-neg { stroke: #ef5350; }
 .ai-trader-curve-dot-pos { fill: #4caf50; stroke: #1a1a30; stroke-width: 2; }
 .ai-trader-curve-dot-neg { fill: #ef5350; stroke: #1a1a30; stroke-width: 2; }
-.ai-trader-svg-label {
-  font-size: 10px;
-  fill: var(--text-secondary, #999);
-}
 .ai-trader-curve-meta {
   font-size: 11px;
   color: var(--text-secondary, #999);
   margin-top: 6px;
   text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ─── Direction grid ──────────────────────────────────────────────────── */
@@ -276,6 +327,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+}
+@media (max-width: 600px) {
+  .ai-trader-dir-grid { grid-template-columns: 1fr; }
 }
 .ai-trader-dir-block {
   padding: 10px;
@@ -303,4 +357,13 @@
   padding: 3px 8px;
   border-radius: 3px;
   font-size: 11px;
+}
+
+/* ─── Tighter mobile padding ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .ai-trader-page { padding: 10px; }
+  .ai-trader-section { padding: 10px; }
+  .ai-trader-tile-value { font-size: 18px; }
+  .ai-trader-equity-wrap { padding: 6px 8px 6px 60px; }
+  .ai-trader-equity-y-labels { width: 50px; left: 4px; }
 }
