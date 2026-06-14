@@ -1,110 +1,34 @@
 {
-  "fetched_at": "2026-06-09T19:44:02.061610Z",
+  "fetched_at": "2026-06-14T22:01:58.786526Z",
   "source": "investing.com",
   "country": "US",
   "weeks": 2,
   "min_cap_b": 5.0,
   "events": [
     {
-      "id": "earn-CHWY-2026-06-10",
+      "id": "earn-NJDCY-2026-06-15",
       "category": "earnings",
-      "title": "Chewy (CHWY) \u2014 Earnings",
-      "context": "Chewy (CHWY) reports before market open. $8.6B mkt cap. Small/mid-cap print.",
-      "deadline": "2026-06-10T08:30:00Z",
+      "title": "Nidec (NJDCY) \u2014 Earnings",
+      "context": "Nidec (NJDCY) reports after market close. $18.8B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-15T16:00:00Z",
       "tickers": [
-        "CHWY"
-      ],
-      "severity": "medium",
-      "stars": null,
-      "source": "investing.com",
-      "extra": {
-        "bmo_amc": "BMO",
-        "market_cap_b": 8.62,
-        "eps_forecast": "0.2405",
-        "name": "Chewy"
-      }
-    },
-    {
-      "id": "earn-ORCL-2026-06-10",
-      "category": "earnings",
-      "title": "Oracle (ORCL) \u2014 Earnings",
-      "context": "Oracle (ORCL) reports after market close. $587.7B mkt cap. Mega-cap quarterly print \u2014 sector tell + index weight.",
-      "deadline": "2026-06-10T16:00:00Z",
-      "tickers": [
-        "ORCL"
-      ],
-      "severity": "critical",
-      "stars": null,
-      "source": "investing.com",
-      "extra": {
-        "bmo_amc": "AMC",
-        "market_cap_b": 587.66,
-        "eps_forecast": "1.95",
-        "name": "Oracle"
-      }
-    },
-    {
-      "id": "earn-BMWKY-2026-06-11",
-      "category": "earnings",
-      "title": "BMW ADR (BMWKY) \u2014 Earnings",
-      "context": "BMW ADR (BMWKY) reports before market open. $48.4B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
-      "deadline": "2026-06-11T08:30:00Z",
-      "tickers": [
-        "BMWKY"
-      ],
-      "severity": "high",
-      "stars": null,
-      "source": "investing.com",
-      "extra": {
-        "bmo_amc": "BMO",
-        "market_cap_b": 48.41,
-        "eps_forecast": "--",
-        "name": "BMW ADR"
-      }
-    },
-    {
-      "id": "earn-ADBE-2026-06-11",
-      "category": "earnings",
-      "title": "Adobe (ADBE) \u2014 Earnings",
-      "context": "Adobe (ADBE) reports after market close. $96.4B mkt cap. Large-cap print \u2014 sector read with ATM-straddle implied move.",
-      "deadline": "2026-06-11T16:00:00Z",
-      "tickers": [
-        "ADBE"
-      ],
-      "severity": "critical",
-      "stars": null,
-      "source": "investing.com",
-      "extra": {
-        "bmo_amc": "AMC",
-        "market_cap_b": 96.4,
-        "eps_forecast": "5.82",
-        "name": "Adobe"
-      }
-    },
-    {
-      "id": "earn-LEN-2026-06-11",
-      "category": "earnings",
-      "title": "Lennar (LEN) \u2014 Earnings",
-      "context": "Lennar (LEN) reports after market close. $22.8B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
-      "deadline": "2026-06-11T16:00:00Z",
-      "tickers": [
-        "LEN"
+        "NJDCY"
       ],
       "severity": "high",
       "stars": null,
       "source": "investing.com",
       "extra": {
         "bmo_amc": "AMC",
-        "market_cap_b": 22.81,
-        "eps_forecast": "1.25",
-        "name": "Lennar"
+        "market_cap_b": 18.79,
+        "eps_forecast": "0.0344",
+        "name": "Nidec"
       }
     },
     {
       "id": "earn-JBL-2026-06-17",
       "category": "earnings",
       "title": "Jabil Circuit (JBL) \u2014 Earnings",
-      "context": "Jabil Circuit (JBL) reports before market open. $38.0B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "context": "Jabil Circuit (JBL) reports before market open. $40.6B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
       "deadline": "2026-06-17T08:30:00Z",
       "tickers": [
         "JBL"
@@ -114,7 +38,7 @@
       "source": "investing.com",
       "extra": {
         "bmo_amc": "BMO",
-        "market_cap_b": 37.95,
+        "market_cap_b": 40.6,
         "eps_forecast": "3.08",
         "name": "Jabil Circuit"
       }
@@ -123,7 +47,7 @@
       "id": "earn-KMX-2026-06-17",
       "category": "earnings",
       "title": "CarMax (KMX) \u2014 Earnings",
-      "context": "CarMax (KMX) reports before market open. $6.8B mkt cap. Small/mid-cap print.",
+      "context": "CarMax (KMX) reports before market open. $7.3B mkt cap. Small/mid-cap print.",
       "deadline": "2026-06-17T08:30:00Z",
       "tickers": [
         "KMX"
@@ -133,8 +57,8 @@
       "source": "investing.com",
       "extra": {
         "bmo_amc": "BMO",
-        "market_cap_b": 6.82,
-        "eps_forecast": "0.9537",
+        "market_cap_b": 7.27,
+        "eps_forecast": "0.9573",
         "name": "CarMax"
       }
     },
@@ -142,7 +66,7 @@
       "id": "earn-ACN-2026-06-18",
       "category": "earnings",
       "title": "Accenture (ACN) \u2014 Earnings",
-      "context": "Accenture (ACN) reports before market open. $105.8B mkt cap. Mega-cap quarterly print \u2014 sector tell + index weight.",
+      "context": "Accenture (ACN) reports before market open. $104.5B mkt cap. Mega-cap quarterly print \u2014 sector tell + index weight.",
       "deadline": "2026-06-18T08:30:00Z",
       "tickers": [
         "ACN"
@@ -152,7 +76,7 @@
       "source": "investing.com",
       "extra": {
         "bmo_amc": "BMO",
-        "market_cap_b": 105.85,
+        "market_cap_b": 104.54,
         "eps_forecast": "3.72",
         "name": "Accenture"
       }
@@ -161,7 +85,7 @@
       "id": "earn-TSCDY-2026-06-18",
       "category": "earnings",
       "title": "Tesco PLC (TSCDY) \u2014 Earnings",
-      "context": "Tesco PLC (TSCDY) reports before market open. $38.8B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "context": "Tesco PLC (TSCDY) reports before market open. $40.1B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
       "deadline": "2026-06-18T08:30:00Z",
       "tickers": [
         "TSCDY"
@@ -171,7 +95,7 @@
       "source": "investing.com",
       "extra": {
         "bmo_amc": "BMO",
-        "market_cap_b": 38.8,
+        "market_cap_b": 40.13,
         "eps_forecast": "--",
         "name": "Tesco PLC"
       }
@@ -180,7 +104,7 @@
       "id": "earn-KR-2026-06-18",
       "category": "earnings",
       "title": "Kroger (KR) \u2014 Earnings",
-      "context": "Kroger (KR) reports before market open. $38.6B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "context": "Kroger (KR) reports before market open. $39.6B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
       "deadline": "2026-06-18T08:30:00Z",
       "tickers": [
         "KR"
@@ -190,9 +114,237 @@
       "source": "investing.com",
       "extra": {
         "bmo_amc": "BMO",
-        "market_cap_b": 38.57,
+        "market_cap_b": 39.64,
         "eps_forecast": "1.58",
         "name": "Kroger"
+      }
+    },
+    {
+      "id": "earn-ANCTF-2026-06-22",
+      "category": "earnings",
+      "title": "Alimentation Couche Tard (ANCTF) \u2014 Earnings",
+      "context": "Alimentation Couche Tard (ANCTF) reports after market close. $55.3B mkt cap. Large-cap print \u2014 sector read with ATM-straddle implied move.",
+      "deadline": "2026-06-22T16:00:00Z",
+      "tickers": [
+        "ANCTF"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "AMC",
+        "market_cap_b": 55.34,
+        "eps_forecast": "0.5303",
+        "name": "Alimentation Couche Tard"
+      }
+    },
+    {
+      "id": "earn-CCL-2026-06-23",
+      "category": "earnings",
+      "title": "Carnival Corp (CCL) \u2014 Earnings",
+      "context": "Carnival Corp (CCL) reports before market open. $40.4B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-23T08:30:00Z",
+      "tickers": [
+        "CCL"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 40.36,
+        "eps_forecast": "0.3279",
+        "name": "Carnival Corp"
+      }
+    },
+    {
+      "id": "earn-FDX-2026-06-23",
+      "category": "earnings",
+      "title": "FedEx (FDX) \u2014 Earnings",
+      "context": "FedEx (FDX) reports after market close. $80.7B mkt cap. Large-cap print \u2014 sector read with ATM-straddle implied move.",
+      "deadline": "2026-06-23T16:00:00Z",
+      "tickers": [
+        "FDX"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "AMC",
+        "market_cap_b": 80.72,
+        "eps_forecast": "5.92",
+        "name": "FedEx"
+      }
+    },
+    {
+      "id": "earn-SUNB-2026-06-23",
+      "category": "earnings",
+      "title": "Sunbelt Rentals Holdings (SUNB) \u2014 Earnings",
+      "context": "Sunbelt Rentals Holdings (SUNB) reports after market close. $33.8B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-23T16:00:00Z",
+      "tickers": [
+        "SUNB"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "AMC",
+        "market_cap_b": 33.79,
+        "eps_forecast": "--",
+        "name": "Sunbelt Rentals Holdings"
+      }
+    },
+    {
+      "id": "earn-PAYX-2026-06-24",
+      "category": "earnings",
+      "title": "Paychex (PAYX) \u2014 Earnings",
+      "context": "Paychex (PAYX) reports before market open. $36.0B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-24T08:30:00Z",
+      "tickers": [
+        "PAYX"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 36.05,
+        "eps_forecast": "1.31",
+        "name": "Paychex"
+      }
+    },
+    {
+      "id": "earn-MU-2026-06-24",
+      "category": "earnings",
+      "title": "Micron (MU) \u2014 Earnings",
+      "context": "Micron (MU) reports after market close. $1110.0B mkt cap. Mega-cap quarterly print \u2014 sector tell + index weight.",
+      "deadline": "2026-06-24T16:00:00Z",
+      "tickers": [
+        "MU"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "AMC",
+        "market_cap_b": 1110.0,
+        "eps_forecast": "19.92",
+        "name": "Micron"
+      }
+    },
+    {
+      "id": "earn-TCOM-2026-06-24",
+      "category": "earnings",
+      "title": "Trip.com ADR (TCOM) \u2014 Earnings",
+      "context": "Trip.com ADR (TCOM) reports after market close. $29.3B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-24T16:00:00Z",
+      "tickers": [
+        "TCOM"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "AMC",
+        "market_cap_b": 29.26,
+        "eps_forecast": "6.14",
+        "name": "Trip.com ADR"
+      }
+    },
+    {
+      "id": "earn-DRI-2026-06-25",
+      "category": "earnings",
+      "title": "Darden Restaurants (DRI) \u2014 Earnings",
+      "context": "Darden Restaurants (DRI) reports before market open. $24.2B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-25T08:30:00Z",
+      "tickers": [
+        "DRI"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 24.22,
+        "eps_forecast": "3.63",
+        "name": "Darden Restaurants"
+      }
+    },
+    {
+      "id": "earn-MKC-2026-06-25",
+      "category": "earnings",
+      "title": "McCormick&Co (MKC) \u2014 Earnings",
+      "context": "McCormick&Co (MKC) reports before market open. $13.2B mkt cap. Mid/large-cap print \u2014 relevant to its sub-sector.",
+      "deadline": "2026-06-25T08:30:00Z",
+      "tickers": [
+        "MKC"
+      ],
+      "severity": "high",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 13.15,
+        "eps_forecast": "0.6964",
+        "name": "McCormick&Co"
+      }
+    },
+    {
+      "id": "earn-AYI-2026-06-25",
+      "category": "earnings",
+      "title": "Acuity Brands (AYI) \u2014 Earnings",
+      "context": "Acuity Brands (AYI) reports before market open. $8.9B mkt cap. Small/mid-cap print.",
+      "deadline": "2026-06-25T08:30:00Z",
+      "tickers": [
+        "AYI"
+      ],
+      "severity": "medium",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 8.95,
+        "eps_forecast": "5.16",
+        "name": "Acuity Brands"
+      }
+    },
+    {
+      "id": "earn-CMC-2026-06-25",
+      "category": "earnings",
+      "title": "Commercial Metals (CMC) \u2014 Earnings",
+      "context": "Commercial Metals (CMC) reports before market open. $8.6B mkt cap. Small/mid-cap print.",
+      "deadline": "2026-06-25T08:30:00Z",
+      "tickers": [
+        "CMC"
+      ],
+      "severity": "medium",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "BMO",
+        "market_cap_b": 8.62,
+        "eps_forecast": "1.7",
+        "name": "Commercial Metals"
+      }
+    },
+    {
+      "id": "earn-BB-2026-06-25",
+      "category": "earnings",
+      "title": "BlackBerry (BB) \u2014 Earnings",
+      "context": "BlackBerry (BB) reports after market close. $5.4B mkt cap. Small/mid-cap print.",
+      "deadline": "2026-06-25T16:00:00Z",
+      "tickers": [
+        "BB"
+      ],
+      "severity": "medium",
+      "stars": null,
+      "source": "investing.com",
+      "extra": {
+        "bmo_amc": "AMC",
+        "market_cap_b": 5.39,
+        "eps_forecast": "0.0283",
+        "name": "BlackBerry"
       }
     }
   ],

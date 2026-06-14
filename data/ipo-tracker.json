@@ -1,18 +1,19 @@
 {
   "schema_version": 1,
-  "fetched_at": "2026-06-10T00:50:59.665312Z",
+  "fetched_at": "2026-06-14T22:02:09.366503Z",
   "lookback_days": 90,
   "regime_summary": {
     "signal": "mixed",
-    "interpretation": "Mixed regime \u2014 3/6 held, 3/6 faded. Selectivity matters. Watch sector tilt: AI/quantum buying impulses are sector-specific not market-wide.",
+    "interpretation": "Mixed regime \u2014 2/6 held, 3/6 faded. Selectivity matters. Watch sector tilt: AI/quantum buying impulses are sector-specific not market-wide.",
     "ipos_tracked": 6,
     "broke_ipo_price_count": 3,
     "broke_ipo_price_pct": 50.0,
-    "avg_return_from_ipo_pct": 6.73,
-    "median_return_from_ipo_pct": 11.0,
+    "avg_return_from_ipo_pct": 4.05,
+    "median_return_from_ipo_pct": 2.8,
     "by_status_tag": {
       "sub-IPO-fade": 3,
-      "pop-and-hold": 3
+      "pop-and-hold": 2,
+      "holding-IPO": 1
     }
   },
   "ipos": [
@@ -30,26 +31,30 @@
       "regime_tag": "sub-IPO-fade",
       "note": "Upsized twice in roadshow, 20x oversubscribed. Opened $68 (+13%), intraday high $71.35, closed flat $60.38 day 1, broke $60 day 2 ($51.15 low). Validates Tom R122/R219.",
       "metrics": {
-        "days_since_ipo": 6,
-        "history_days": 4,
+        "days_since_ipo": 10,
+        "history_days": 7,
         "ipo_price": 60.0,
         "day1_close": 60.38,
         "day1_high": 71.35,
         "day1_close_pct": 0.63,
         "day1_high_pct": 18.92,
-        "last_date": "2026-06-09",
-        "last_close": 54.94,
-        "return_from_ipo_pct": -8.43,
-        "return_from_d1_high_pct": -23.0,
+        "last_date": "2026-06-12",
+        "last_close": 55.26,
+        "return_from_ipo_pct": -7.9,
+        "return_from_d1_high_pct": -22.55,
         "broke_ipo_price": true,
-        "day5": null,
+        "day5": {
+          "date": "2026-06-10",
+          "close": 51.4,
+          "pct_from_ipo": -14.33
+        },
         "day30": null,
         "volume_d1": 29612000,
-        "volume_last": 4539902,
-        "volume_collapse_pct": -84.7,
+        "volume_last": 1258300,
+        "volume_collapse_pct": -95.8,
         "status_tag": "sub-IPO-fade"
       },
-      "history_days": 4,
+      "history_days": 7,
       "error": null
     },
     {
@@ -66,17 +71,17 @@
       "regime_tag": "pop-and-hold",
       "note": "AI-chip rival to NVDA. First-day open above range, sustained the move \u2014 strong AI hardware appetite case.",
       "metrics": {
-        "days_since_ipo": 27,
-        "history_days": 18,
+        "days_since_ipo": 31,
+        "history_days": 21,
         "ipo_price": 185.0,
         "day1_close": 311.07,
         "day1_high": 386.34,
         "day1_close_pct": 68.15,
         "day1_high_pct": 108.83,
-        "last_date": "2026-06-09",
-        "last_close": 226.815,
-        "return_from_ipo_pct": 22.6,
-        "return_from_d1_high_pct": -41.29,
+        "last_date": "2026-06-12",
+        "last_close": 214.0,
+        "return_from_ipo_pct": 15.68,
+        "return_from_d1_high_pct": -44.61,
         "broke_ipo_price": false,
         "day5": {
           "date": "2026-05-20",
@@ -85,11 +90,11 @@
         },
         "day30": null,
         "volume_d1": 33497900,
-        "volume_last": 5678881,
-        "volume_collapse_pct": -83.0,
+        "volume_last": 4717100,
+        "volume_collapse_pct": -85.9,
         "status_tag": "pop-and-hold"
       },
-      "history_days": 18,
+      "history_days": 21,
       "error": null
     },
     {
@@ -106,17 +111,17 @@
       "regime_tag": "pop-and-hold",
       "note": "RF intel / space-based geolocation. Defense+space tailwind.",
       "metrics": {
-        "days_since_ipo": 34,
-        "history_days": 23,
+        "days_since_ipo": 38,
+        "history_days": 26,
         "ipo_price": 26.0,
         "day1_close": 34.0,
         "day1_high": 34.49,
         "day1_close_pct": 30.77,
         "day1_high_pct": 32.65,
-        "last_date": "2026-06-09",
-        "last_close": 24.34,
-        "return_from_ipo_pct": -6.38,
-        "return_from_d1_high_pct": -29.43,
+        "last_date": "2026-06-12",
+        "last_close": 23.81,
+        "return_from_ipo_pct": -8.42,
+        "return_from_d1_high_pct": -30.97,
         "broke_ipo_price": true,
         "day5": {
           "date": "2026-05-13",
@@ -125,11 +130,11 @@
         },
         "day30": null,
         "volume_d1": 11444900,
-        "volume_last": 1101299,
-        "volume_collapse_pct": -90.4,
+        "volume_last": 956800,
+        "volume_collapse_pct": -91.6,
         "status_tag": "sub-IPO-fade"
       },
-      "history_days": 23,
+      "history_days": 26,
       "error": null
     },
     {
@@ -146,30 +151,34 @@
       "regime_tag": "sub-IPO-fade",
       "note": "Bill Ackman closed-end fund. Broke IPO price within days, traded down to $42.71 \u2014 regime tell that even brand-name asset managers can't sustain auctions in this tape.",
       "metrics": {
-        "days_since_ipo": 42,
-        "history_days": 29,
+        "days_since_ipo": 46,
+        "history_days": 32,
         "ipo_price": 50.0,
         "day1_close": 40.9,
         "day1_high": 42.71,
         "day1_close_pct": -18.2,
         "day1_high_pct": -14.58,
-        "last_date": "2026-06-09",
-        "last_close": 37.99,
-        "return_from_ipo_pct": -24.02,
-        "return_from_d1_high_pct": -11.05,
+        "last_date": "2026-06-12",
+        "last_close": 37.88,
+        "return_from_ipo_pct": -24.24,
+        "return_from_d1_high_pct": -11.31,
         "broke_ipo_price": true,
         "day5": {
           "date": "2026-05-05",
           "close": 42.98,
           "pct_from_ipo": -14.04
         },
-        "day30": null,
+        "day30": {
+          "date": "2026-06-10",
+          "close": 37.9,
+          "pct_from_ipo": -24.2
+        },
         "volume_d1": 9103800,
-        "volume_last": 516520,
-        "volume_collapse_pct": -94.3,
+        "volume_last": 485300,
+        "volume_collapse_pct": -94.7,
         "status_tag": "sub-IPO-fade"
       },
-      "history_days": 29,
+      "history_days": 32,
       "error": null
     },
     {
@@ -186,17 +195,17 @@
       "regime_tag": "pop-and-hold",
       "note": "Defense / aerospace. +34% sustained post-debut.",
       "metrics": {
-        "days_since_ipo": 54,
-        "history_days": 37,
+        "days_since_ipo": 58,
+        "history_days": 40,
         "ipo_price": 20.0,
         "day1_close": 26.93,
         "day1_high": 27.96,
         "day1_close_pct": 34.65,
         "day1_high_pct": 39.8,
-        "last_date": "2026-06-09",
-        "last_close": 22.2,
-        "return_from_ipo_pct": 11.0,
-        "return_from_d1_high_pct": -20.6,
+        "last_date": "2026-06-12",
+        "last_close": 20.56,
+        "return_from_ipo_pct": 2.8,
+        "return_from_d1_high_pct": -26.47,
         "broke_ipo_price": false,
         "day5": {
           "date": "2026-04-23",
@@ -209,11 +218,11 @@
           "pct_from_ipo": 92.35
         },
         "volume_d1": 16686700,
-        "volume_last": 3634238,
-        "volume_collapse_pct": -78.2,
-        "status_tag": "pop-and-hold"
+        "volume_last": 2003900,
+        "volume_collapse_pct": -88.0,
+        "status_tag": "holding-IPO"
       },
-      "history_days": 37,
+      "history_days": 40,
       "error": null
     },
     {
@@ -230,17 +239,17 @@
       "regime_tag": "pop-and-hold",
       "note": "+38% sustained post-debut.",
       "metrics": {
-        "days_since_ipo": 55,
-        "history_days": 38,
+        "days_since_ipo": 59,
+        "history_days": 41,
         "ipo_price": 28.0,
         "day1_close": 38.75,
         "day1_high": 39.05,
         "day1_close_pct": 38.39,
         "day1_high_pct": 39.46,
-        "last_date": "2026-06-09",
-        "last_close": 40.77,
-        "return_from_ipo_pct": 45.61,
-        "return_from_d1_high_pct": 4.4,
+        "last_date": "2026-06-12",
+        "last_close": 40.99,
+        "return_from_ipo_pct": 46.39,
+        "return_from_d1_high_pct": 4.97,
         "broke_ipo_price": false,
         "day5": {
           "date": "2026-04-22",
@@ -253,11 +262,11 @@
           "pct_from_ipo": 67.25
         },
         "volume_d1": 19256400,
-        "volume_last": 772665,
-        "volume_collapse_pct": -96.0,
+        "volume_last": 749600,
+        "volume_collapse_pct": -96.1,
         "status_tag": "pop-and-hold"
       },
-      "history_days": 38,
+      "history_days": 41,
       "error": null
     }
   ]

@@ -1,53 +1,46 @@
 {
   "title": "Week Ahead \u2014 Jun 15-19",
-  "headline": "Binary week: CPI bombs, SpaceX mega-IPO liquidity drain, and the Fed plays referee.",
+  "headline": "Wednesday's FOMC turns the macro screws; expect volatility to spike and flows to shift hard off Powell's tone.",
   "thesis": [
-    "We\u2019re staring down back-to-back macro fireworks\u2014CPI & PPI Wednesday and Thursday, then the Fed\u2019s rate decision + dot-plot Wednesday June 17; SPY and QQQ are already breaching down below weekly EM ranges, so volatility is the base case.",
-    "Tech sector faces max stress: Oracle (ORCL) and Adobe (ADBE) print earnings on critical days, while the SpaceX IPO ($75B) Thursday is a liquidity vampire for QQQ/NVDA/MSFT\u2014expect rebalancing flows and possible rotation into Energy (EROC IPO validates) and Defensives (XLV holds ground).",
-    "Contrarian alert: massive retail is likely chasing these mega IPOs and tech earnings, but flows are showing potential unwind\u2014don\u2019t chase the noise, especially day-one SpaceX (R010/R022 active); financials (XLF) and breadth deteriorating, canary in the coal mine for late cycle risk."
+    "The whole week orbits the FOMC and economic projections on Wednesday (2026-06-17) \u2014 core retail sales and Powell's press conference create a binary risk window for SPY, QQQ, TLT, and DXY.",
+    "Watch mega-cap earnings Thursday: Accenture (ACN) and sector bellwethers like Kroger (KR), Tesco (TSCDY) \u2014 XLV defensives are leading, tech is still volatile ahead of the AI IPO liquidity drain in July.",
+    "Retail is still piling in, IPO calendar is frothy, and everyone's convinced 'soft landing' is priced \u2014 classic setup for a contrarian fade if flows turn post-FOMC; patience, don't chase."
   ],
   "hot_days": [
     {
-      "date": "2026-06-10",
-      "weekday": "Wednesday",
-      "reason": "CPI (BMO), Oracle earnings (AMC), plus crude/oil inventories \u2014 could open box of volatility."
-    },
-    {
-      "date": "2026-06-11",
-      "weekday": "Thursday",
-      "reason": "PPI (BMO), Adobe earnings (AMC), SpaceX IPO (AMC) \u2014 every catalyst is binary, liquidity gets sucked out."
-    },
-    {
       "date": "2026-06-17",
       "weekday": "Wednesday",
-      "reason": "FOMC Decision & Press Conference; Core/Retail Sales \u2014 your macro compass for summer."
+      "reason": "FOMC decision, press conference, and retail sales \u2014 everything moves on Powell's dot-plot and guidance"
+    },
+    {
+      "date": "2026-06-18",
+      "weekday": "Thursday",
+      "reason": "Accenture (ACN), Kroger (KR), Tesco (TSCDY) earnings \u2014 defensive sector tells plus jobless claims and Philly Fed Index"
     }
   ],
   "rule_triggers": [
-    "R006 \u2014 SPY, QQQ have closed below the daily 20 MA, that\u2019s an exit trigger for longs.",
-    "R010/R022 \u2014 Don't chase day-one SpaceX IPO, especially after mega-raise; risk of waterfall if put walls get demolished.",
-    "R009 \u2014 XLF flirting with support, financials stressed; watch for further breakdown.",
-    "R029 \u2014 Energy IPO (EROC) after months of XLE rally + oil inventories, watch for dark pool profit-taking/consolidation.",
-    "R003/R004 \u2014 Contrarian sentiment: retail chasing, risk rising if AAII Bulls spike on tech/IPO excitement."
+    "R001 \u2014 HYG/LQD: If bonds break down on Wednesday, exit equity longs immediately. FOMC is the catalyst.",
+    "R003 \u2014 SentimenTrader Smart Money under 0.3, Dumb Money over 0.7: Defensive shift, don't trust the crowd post-FOMC.",
+    "R005 \u2014 Retail demand is still elevated and IPOs are everywhere; contrarian warning, not confirmation.",
+    "R012 \u2014 Tech earnings + FOMC create high probability rally OR unwind windows. Don't bet ahead, react after."
   ],
   "what_im_watching": {
     "tickers": [
       "SPY",
       "QQQ",
-      "ORCL",
-      "ADBE",
-      "XLF",
-      "XLE",
-      "SPCX",
-      "NVDA"
+      "TLT",
+      "XLV",
+      "ACN",
+      "KR",
+      "TSCDY"
     ],
-    "levels": "SPY 743 (weekly EM lower) // QQQ 716 (weekly EM lower) // ORCL post-earnings reaction at $587 support // ADBE post-earnings at 96.4B cap, watch implied move // SpaceX IPO day-one flow impact (watch NVDA/MSFT for weakness) // XLF at 52, close below triggers further risk-off // XLE at 59.94 (weekly EM high), EROC IPO tells if Energy rotation is exhausted"
+    "levels": "SPY 731.32 (weekly EM lower), 752.18 (upper) // QQQ 704.08\u2013738.6 // XLV 153.81 (spot), 151.79 (lower EM), ACN post-earnings volatility // IPO liquidity drain from Anthropic (ANTP) and OpenAI (OAI) July 9th."
   },
-  "what_im_skipping": "Small-cap IPOs (PBLS, FISN) and mid-cap earnings are noise this week\u2014there\u2019s only room for macro and mega-cap catalysts.",
-  "closing_quote": "If bonds freak out or mega IPOs drain liquidity, everything breaks. Patience, react\u2014don\u2019t predict, and don\u2019t chase the crowd.",
+  "what_im_skipping": "Small-cap IPOs (PBLS, FISN) on Monday are noise \u2014 only mega-cap AI IPOs (ANTP, OAI) in July matter for flows.",
+  "closing_quote": "Powell Day is binary \u2014 patience, react, don't predict. Flows > opinions, as usual.",
   "week_of": "2026-06-15",
-  "generatedAt": "2026-06-09T19:47:27.272385+00:00",
+  "generatedAt": "2026-06-14T22:02:49.817577+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution",
-  "catalyst_count": 25
+  "catalyst_count": 21
 }
