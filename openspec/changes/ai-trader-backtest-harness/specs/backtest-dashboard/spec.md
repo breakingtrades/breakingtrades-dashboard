@@ -40,27 +40,18 @@ a detail modal showing the rule text and per-year breakdown.
   win rate, total P&L, and a per-year breakdown table
 - **AND** Esc, X, and backdrop click MUST close the modal
 
-### Requirement: Pass criteria badges visible at the top
-The dashboard MUST surface the three Phase 5 pass criteria (Sharpe > 0.4,
-max DD < 25%, ≥ 50 net-positive rules) as colored badges at the top of the
-Overview tab.
-
-#### Scenario: All three badges render with pass/fail state
-- **WHEN** the Overview tab loads
-- **THEN** three badges MUST appear: "Sharpe ✓ 0.62" (green), "Max DD ✓ -16.4%"
-  (green), "Rules ✓ 67/296 net-positive" (green)
-- **AND** failed criteria MUST render in red with the actual failing value
-
 ### Requirement: Disclaimer chrome documents Phase 5 limitations
 The backtest page MUST display a disclaimer banner clearly listing the
 Phase 5 limitations: ATR proxy EM (not options-chain accurate), survivorship
-bias (current watchlist), no borrow costs on shorts, pre-tax P&L.
+bias (current watchlist), in-sample rule evaluation (rules curated through
+2026), no borrow costs on shorts, pre-tax P&L.
 
 #### Scenario: Disclaimer is visible on the page
 - **WHEN** the `/#backtest` page renders
 - **THEN** a styled disclaimer banner MUST appear at the top stating:
   - "Backtest uses ATR×√5 EM proxy (not real options chain)"
   - "Survivorship bias possible (current watchlist)"
+  - "In-sample rule evaluation: Tom rules curated through 2026; out-of-sample evaluation deferred to Phase 9"
   - "Pre-tax P&L. No borrow costs on shorts."
   - "For educational use only. Not investment advice."
 

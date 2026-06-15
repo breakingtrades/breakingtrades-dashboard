@@ -52,9 +52,7 @@ scripts/ai-trader/backtest_lib/
   __init__.py
   fixture_builder.py                              # build_day_fixture(D)
   data_fetcher.py                                 # yfinance OHLC + cache
-  em_proxy.py                                     # ATR×√5 + dailies
-  regime_replay.py                                # historical regime calc
-  breadth_replay.py                               # sector-ETF breadth
+  em_proxy.py                                     # ATR×1.5 daily, ATR×√N weekly/monthly/quarterly
   benchmark.py                                    # SPY + 60/40 calculators
   reporter.py                                     # equity curve + Sharpe + DD + attribution
   schemas.py                                      # BacktestRun, BacktestReport dataclasses
@@ -76,10 +74,59 @@ backtest/                                         # output dir (parent repo)
     log.txt                                       # per-day log
 
 breakingtrades-dashboard/data/ai-trader/
-  backtest-latest.json                            # symlink/copy of latest report.json
+  backtest-summary.json                           # latest run's summary for /#backtest page
   backtest-equity-curve.json                      # for the dashboard chart
   backtest-rule-attribution.json                  # for the rules table
 ```
+
+**No `regime_replay.py`, `breadth_replay.py`, or `signals_replay.py`.** The
+reviewer correctly flagged these as parallel implementations violating the
+"same code path" invariant. Instead, the live computation modules (`update-
+regime.py`, `update-breadth.py`, `update-signals.py`, etc.) MUST be
+**refactored to accept an `as_of_date` argument** and run with backfilled
+inputs (yfinance OHLC for the relevant dates). If those scripts are too
+opinionated to refactor, we either:
+
+(a) Treat them as "external data providers" and freeze their output at
+    backtest start, accepting that historical regime classifications will
+    use today's classifier logic on historical inputs, or
+(b) Build minimal replay shims that load `update-regime.py` as a module
+    and call its core function with a virtual `today=D`.
+
+Decision: **(b) for regime + breadth + signals + sector-rotation; (a) for
+F&G/VIX (those are external feeds, no logic to replay)**. The replay shims
+live in `backtest_lib/` and call into the live data scripts' core
+functions, NOT reimplement them.
+
+### Daily timing model — D-close is the single decision boundary
+
+The live AI-Trader pipeline runs at 4:25 PM ET on day D, AFTER market close.
+At that moment, ALL of the following are observable:
+  - D's OHLC (close just printed)
+  - D's VIX, MOVE, F&G, breadth (all close-of-day measures)
+  - D's regime classification (computed from D's macro state)
+  - D's signal scanner state (computed from D's price-vs-band geometry)
+
+The decision is made AT D close, the fill is at D close, the state is
+written stamped with D close.
+
+**There is no D-1 carve-out.** Every input file in the fixture for date D
+contains D's close-of-day values. The only "look-ahead" concern would be if
+a fixture file used D+1 data, which is what we MUST prevent.
+
+**Tomorrow's pipeline run (live)** sees:
+  - Yesterday's holdings.json (carry-forward)
+  - Today's price/regime/breadth (built from today's close)
+  - And makes today's entry decisions
+
+**Backtest day D** mirrors this exactly:
+  - Fixture is built from D close OHLC + D close macro
+  - State is restored from D-1 (the prior day's end state)
+  - Pipeline runs, generates fills at D close, writes state at D close
+  - Tomorrow's iteration restores from D's state
+
+This is the canonical model. The proposal's earlier "D-1 carve-out" framing
+was incorrect and is replaced by this section.
 
 ### The replay loop
 
@@ -174,37 +221,71 @@ watchlist.json  →  content: static current watchlist (snapshot at backtest sta
 
 ### EM proxy formula
 
+Manager.py:111-118 reads ATR back via `(daily.upper - daily.lower) / 2 / 1.5`,
+which means **the live `expected-moves.json` writes 1.5×ATR daily bands** (not
+1×ATR). Backtest fixtures MUST match this convention exactly or stop-out and
+trail-stop logic miscalibrate by 33%.
+
 ```python
 def compute_em_proxy(close: float, atr20: float, ticker_group: str) -> dict:
     """
-    weekly_1σ ≈ ATR × √5 (5 trading days/week)
-    monthly_1σ ≈ ATR × √21
-    quarterly_1σ ≈ ATR × √63
+    Magnitudes match LIVE expected-moves.json convention:
+      - daily band: ±1.5×ATR (matches manager.py:_atr20 inverse extraction)
+      - weekly band: ATR×√5 ≈ ±2.24×ATR (1σ weekly via HV proxy)
+      - monthly band: ATR×√21
+      - quarterly band: ATR×√63
 
     NOT options-chain accurate. Documented limitation. Real EM uses
     at-the-money implied vol from weekly options chains.
     """
+    daily_half_band = atr20 * 1.5  # matches live
     weekly_sigma = atr20 * math.sqrt(5)
-    daily_sigma = atr20  # 1σ daily ≈ 1×ATR
+    monthly_sigma = atr20 * math.sqrt(21)
+    quarterly_sigma = atr20 * math.sqrt(63)
 
     return {
         "anchor_close": close,
         "anchor_date": "...",
         "atr20": atr20,
+        "daily": {
+            "lower": close - daily_half_band,
+            "upper": close + daily_half_band,
+        },
         "weekly": {
+            "value": weekly_sigma,           # %-equiv field for live consumers
             "lower": close - weekly_sigma,
             "upper": close + weekly_sigma,
             "sigma": weekly_sigma,
-            "dte": 5,  # synthetic — proxy
+            "dte": 5,
+            "anchor_close": close,
             "iv_proxy": "atr_x_sqrt_5",
         },
-        "daily": {
-            "lower": close - daily_sigma,
-            "upper": close + daily_sigma,
+        "monthly": {
+            "value": monthly_sigma,
+            "lower": close - monthly_sigma,
+            "upper": close + monthly_sigma,
+            "sigma": monthly_sigma,
+            "dte": 21,
+            "anchor_close": close,
+            "iv_proxy": "atr_x_sqrt_21",
+        },
+        "quarterly": {
+            "value": quarterly_sigma,
+            "lower": close - quarterly_sigma,
+            "upper": close + quarterly_sigma,
+            "sigma": quarterly_sigma,
+            "dte": 63,
+            "anchor_close": close,
+            "iv_proxy": "atr_x_sqrt_63",
         },
         "updated": "...",
     }
 ```
+
+**Verification step (non-negotiable before backtest results are trusted):**
+dump a real production `data/expected-moves.json` and a backtest fixture
+produced for the same date side-by-side; the schema (every key path) MUST
+match. Magnitude differences are expected (proxy vs IV); structure is not.
 
 ### Calendar / trading day handling
 
@@ -236,6 +317,90 @@ state/2021-06-02/holdings.json    ← end of 6/2 (ready for 6/3)
 
 This is what makes the backtest match live behavior exactly — every day
 sees the same state restoration logic.
+
+### Time virtualization (CRITICAL)
+
+The pipeline contains wall-clock calls that MUST be virtualized to the
+simulated date D for backtest correctness:
+
+| Call site | What it computes | Backtest must override |
+|---|---|---|
+| `manager._days_held()` | days since position entry | `as_of_date - entry_date` instead of `now - entry_date` |
+| `risk._is_drawdown_paused()` | check pause expiry | virtual `now` |
+| `risk._is_in_cooldown()` | check resume date | virtual `now` |
+| `risk.run()` writes `state.as_of` | timestamp on risk-state.json | virtual `now` |
+| `executor.run()` fill_date stamping | day's fills.jsonl record | virtual `now` |
+| `manager._add_cooldown()` | resume = now + 5d | virtual `now + 5d` |
+| `track_record._open_pnl` `as_of` | snapshot timestamp | virtual `now` |
+
+We CANNOT just swap data root and run unmodified pipeline. Two options:
+
+**Option A: Inject `as_of_date` parameter (preferred — zero hidden state)**
+Add an optional `as_of: Optional[date] = None` arg to the `run()` function
+of every stage. Default `None` means "use wall-clock now" (live behavior
+unchanged). Backtest passes `as_of=D`. Inside the modules, replace
+`datetime.now(timezone.utc)` with a helper:
+
+```python
+# io_helpers.py
+_AS_OF: Optional[datetime] = None
+
+def virtual_now() -> datetime:
+    return _AS_OF if _AS_OF is not None else datetime.now(timezone.utc)
+
+def set_as_of(dt: Optional[datetime]) -> None:
+    global _AS_OF
+    _AS_OF = dt
+```
+
+Then refactor every wall-clock call site to use `virtual_now()`. Live
+behavior is preserved (None → wall clock). Backtest sets `_AS_OF = D` at
+the top of each day's loop.
+
+**Option B: Monkeypatch via `freezegun` (less invasive but spookier)**
+```python
+from freezegun import freeze_time
+for D in trading_days(start, end):
+    with freeze_time(D):
+        scout.run(); analyst.run(); ...
+```
+Pros: zero pipeline changes. Cons: freezegun has known weirdness with
+asyncio, threadpools, and `time.monotonic()`. Brittle.
+
+**Decision: Option A.** Adds ~10 line edits across the pipeline + a 1-line
+helper in io_helpers. Live unchanged when `as_of=None` is the default.
+
+Tests:
+- `test_virtual_now_defaults_to_wall_clock()` — backward-compat
+- `test_virtual_now_returns_set_value()` — backtest path
+- `test_pipeline_run_with_as_of_writes_correct_timestamps()` — round-trip
+
+### Module-level path binding audit (CRITICAL)
+
+The reviewer flagged that pipeline modules might cache path values at
+import time, defeating in-process `Paths.set_data_root()` swaps. We MUST
+audit every pipeline module before shipping backtest:
+
+```bash
+grep -n "= Paths\.\|= dashboard_file\|= candidates_path()\|= holdings_path()" \
+    scripts/ai-trader/{scout,analyst,risk,executor,manager,track_record}.py
+```
+
+Any top-level binding (outside a function) must be either:
+- Moved inside a function (so it re-resolves on each call), or
+- Documented as a backtest blocker
+
+If audit reveals top-level bindings, the orchestrator MUST `importlib.reload(module)`
+between days OR refactor the binding into the function body. Test:
+
+```python
+def test_pipeline_module_no_top_level_path_bindings():
+    """No pipeline module reads from Paths at import time."""
+    for mod in (scout, analyst, risk, executor, manager, track_record):
+        src = inspect.getsource(mod)
+        # Top-level Paths.* / *_path() calls outside def/class are forbidden
+        assert no_top_level_path_calls(src)
+```
 
 ### Determinism enforcement
 

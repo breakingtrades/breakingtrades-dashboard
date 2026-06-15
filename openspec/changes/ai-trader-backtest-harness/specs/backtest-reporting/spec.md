@@ -29,7 +29,11 @@ returns (mark-to-market equity changes).
 The report MUST contain per-rule P&L attribution computed across all closed
 trades in the run. The attribution algorithm MUST match the existing
 `track_record._by_rule` logic (each closed trade splits its P&L equally
-across cited rules) so backtest and live use the same accounting.
+across cited rules) so backtest and live use the same accounting. The
+backtest report MAY include additional fields (by_year breakdown,
+first_fired/last_fired dates, best/worst trade per rule) that are NOT
+present in live track_record output — these are reporting-layer extensions,
+not changes to the attribution algorithm itself.
 
 #### Scenario: Per-rule rollup includes all 296 rules with at least 1 firing
 - **WHEN** the backtest produces 487 closed trades over 5 years
@@ -47,7 +51,10 @@ across cited rules) so backtest and live use the same accounting.
 
 ### Requirement: Regime-bucketed performance breakdown
 The report MUST contain performance metrics segmented by the regime AT TIME
-OF ENTRY for each closed trade.
+OF ENTRY for each closed trade. The regime at entry is read from the
+existing `Position.regime_context` field already present in the live
+data model — this is purely a reporting-layer aggregation, not a write-side
+change to executor or fills.jsonl.
 
 #### Scenario: Regime breakdown segments closes by entry regime
 - **WHEN** a closed trade entered during a BULL regime
@@ -86,15 +93,3 @@ page load fast.
 - **AND** the dashboard summary MUST include: top 30 rules by total_pnl, top
   10 worst rules, regime breakdown, sector breakdown, summary metrics, and
   the downsampled curve with SPY + 60/40 overlays
-
-### Requirement: Acceptance criteria checked + reported
-The report MUST evaluate the Phase 5 acceptance criteria and emit a
-`pass_criteria` block with explicit pass/fail per check.
-
-#### Scenario: Phase 5 criteria reported on every run
-- **WHEN** a backtest run completes
-- **THEN** `report.json.pass_criteria` MUST contain:
-  - `sharpe_above_0_4`: bool + actual_value
-  - `max_dd_below_25pct`: bool + actual_value
-  - `rules_with_positive_pnl_above_50`: bool + actual_count
-- **AND** the dashboard MUST display each criterion as a pass/fail badge

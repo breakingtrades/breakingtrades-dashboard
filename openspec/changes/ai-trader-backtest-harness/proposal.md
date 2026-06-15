@@ -101,21 +101,41 @@ systematically *under-estimate* stress periods. We label results clearly:
 "EM proxy via ATR×√5; not options-chain accurate; v2 (Path B) requires
 historical options data."
 
-### 3. Look-ahead bias prevention
+### 3. Daily timing model — D-close is the single decision boundary
 
-Every fixture file built for date D MUST use only data through close of
-day D-1 unless explicitly representing day-D close (for the executor's
-fill price). This is enforced by:
+The live pipeline runs AT MARKET CLOSE on day D. All inputs (price, regime,
+VIX, F&G, breadth) are D's close-of-day values. The decision is made,
+state is updated, fills are recorded, all stamped with D's close timestamp.
 
-- `historical-data` fetches OHLC bars up to and including D, then trims
-  to D-1 for state files (regime, breadth, F&G), and uses D-close only
-  for `prices.json` (which the executor reads for fill price)
-- ATR(20) computed from D-19 through D close
-- Manager's intraday high/low check uses D's actual high/low (real OHLC)
-- The pipeline doesn't see D+1 anything
+Backtest mirrors this exactly:
+- Every fixture file for date D contains D's close-of-day values
+- ATR(20) is computed from D-19 through D close (20 bars including D)
+- Manager checks daily high/low against stops/targets using **yfinance's
+  D-day OHLC** — same logic as live but reading from a backfilled fixture
+- The pipeline never sees D+1 data
+- Tomorrow's iteration restores end-of-D state and processes D+1's close
 
-This is verified by an integration test: run backtest over a known historical
-window twice with mocked time, assert byte-identical output.
+The earlier "D-1 carve-out" framing in this proposal was incorrect. There
+is no D-1 split. Live and backtest both observe the same close-of-day
+state and make decisions on it.
+
+### 4. Time virtualization
+
+The pipeline contains wall-clock calls (`datetime.now()`) in manager,
+risk, executor, and track_record. Backtest swaps the data root via the
+`Paths` singleton, but that does NOT virtualize time. Without time
+virtualization:
+
+- `manager._days_held()` computes `wall_clock_today - entry_date`, so
+  every position from year 2021 in a 2026 backtest immediately fires
+  TIME_STOP (held > 42 days)
+- Cooldowns and drawdown pauses use real now, not simulated now
+- All output timestamps are wall-clock instead of D
+
+**Solution:** add `virtual_now()` to io_helpers.py + an `as_of_date`
+parameter on each pipeline stage's `run()`. Default `None` means
+"use wall clock" (live unchanged); backtest passes `as_of=D`. ~10
+single-line edits across the pipeline. Detailed in design.md.
 
 ### 4. Macro state backfill
 
@@ -171,6 +191,12 @@ rules actually add value vs simple alternatives.
   tuning. Phase 5 measures the system AS-IS. Phase 7 (`ai-trader-rule-
   weighting`) handles attribution-driven rule tuning with proper
   out-of-sample / walk-forward discipline.
+- **Pass/fail action policy.** The report includes per-rule attribution
+  and standard performance metrics, but does NOT include a pass/fail
+  badge or threshold-based "system needs work" classification. Decisions
+  about acting on backtest results (tuning rule weights, changing
+  conviction floor, retiring rules) belong in Phase 7. Phase 5 is purely
+  measurement, not prescription.
 - **Real-time / streaming backtest.** Batch only. Run, get report.
 - **Tax-aware accounting.** Pre-tax P&L. Phase 8 handles short-term/long-
   term gains tracking + wash-sale rules.
@@ -180,6 +206,14 @@ rules actually add value vs simple alternatives.
 - **Survivorship bias correction.** The 88-ticker universe is the *current*
   watchlist. Tickers that delisted (e.g. SVB) aren't in our universe at
   all. Phase 6 handles point-in-time universe with proper delisted bars.
+- **Out-of-sample rule evaluation.** Tom's 296 rules were curated from
+  videos through 2026. Running the backtest over 2021-2026 evaluates them
+  in-sample (the rule curator saw the same market data we're testing
+  on). This is acknowledged as the largest interpretive caveat; results
+  measure "how would today's rule set have done historically" not "how
+  do these rules predict the future". A future Phase 9 (`ai-trader-out-
+  of-sample-eval`) would freeze the rule set at backtest start and only
+  evaluate against periods AFTER the last rule's curation date.
 
 ## Phasing
 
@@ -189,8 +223,9 @@ review purposes (vs splitting across 3 changes):
 - **5a (this change body)**: backtest-engine + historical-data + reporting
   capabilities. Implement, smoke-test 3 months, then scale to 5 years.
 - **5b**: dashboard page (separate commit, same OpenSpec change).
-- **5c**: documentation, run published reports, calibrate the conviction
-  floor based on what the backtest reveals.
+- **5c**: documentation, run published reports. NO conviction-floor
+  calibration here — that's a Phase 7 deliverable backed by attribution
+  data this harness produces.
 
 A future `ai-trader-backtest-real-em` change (Phase 6) replaces the ATR
 proxy with real historical options data. A future `ai-trader-rule-
@@ -214,11 +249,14 @@ rule weights with proper walk-forward discipline.
    bias possible".
 5. **Compare two backtest runs side-by-side on dashboard?** Phase 5b ships
    single-run view. Compare-mode is a Phase 6 add-on.
-6. **What does "passing" look like?** A useful baseline: backtest must
-   show Sharpe > 0.4 and max drawdown < 25% over the 5-year window AND
-   show *positive* per-rule attribution for at least 50 of the 296 rules.
-   Failure to meet ANY of those = system needs work before going live for
-   real money. (Reminder: nothing in the live pipeline trades real money.)
+6. **What does "passing" look like?** Phase 5 explicitly does NOT define
+   pass/fail thresholds. The report emits standard metrics (Sharpe, max DD,
+   per-rule attribution) for inspection. Decisions about which numbers
+   constitute "good enough to keep paper-trading", "good enough to risk
+   real money", or "needs Phase 7 rule tuning" are policy decisions that
+   require human judgment + market context, not a hardcoded threshold in a
+   spec. Phase 7 (`ai-trader-rule-weighting`) introduces tuning policy
+   based on cumulative live + backtest evidence.
 
 ## Acceptance criteria
 

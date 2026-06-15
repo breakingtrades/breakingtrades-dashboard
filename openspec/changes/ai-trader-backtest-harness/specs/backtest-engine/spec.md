@@ -41,6 +41,43 @@ revisions, hash randomization) MUST be controlled.
 - **AND** subsequent days MUST read from the cache, not re-fetch from yfinance
 - **AND** a `--no-cache` flag MUST force a refetch and overwrite the cache
 
+### Requirement: Backtest virtualizes wall-clock time
+The backtest engine MUST replace wall-clock time references in the pipeline
+with a simulated `as_of_date` for each replayed day. The pipeline modules
+contain `datetime.now()` calls (in manager._days_held, risk.cooldown checks,
+risk.drawdown breaker, executor.fill_date stamping, manager._add_cooldown,
+track_record snapshot timestamps) that would silently produce wrong results
+if left unmodified.
+
+#### Scenario: Manager days_held uses simulated, not wall-clock, today
+- **WHEN** backtest replays day 2024-06-15 with a position entered 2024-06-10
+- **THEN** `_days_held()` MUST return 5 (calendar days between simulated dates)
+- **AND** MUST NOT return `(2026-06-13 - 2024-06-10).days = 729` (wall-clock)
+- **AND** test `test_manager_days_held_uses_virtual_now` MUST verify this
+
+#### Scenario: Cooldown resume date uses simulated time
+- **WHEN** a STOP_OUT fires on simulated day 2024-06-15
+- **THEN** `risk-state.json.cooldown_tickers[T]` MUST equal 2024-06-20 (simulated +5d)
+- **AND** MUST NOT equal `wall_clock_now + 5d`
+
+#### Scenario: Live behavior preserved when as_of is None
+- **WHEN** any pipeline stage runs with `as_of=None` (default, live behavior)
+- **THEN** the stage MUST use wall-clock `datetime.now(timezone.utc)`
+- **AND** existing live-mode unit tests MUST continue to pass unchanged
+
+### Requirement: Pipeline modules have no top-level path or time bindings
+The pipeline modules (scout, analyst, risk, executor, manager, track_record)
+MUST NOT cache `Paths.*` results, file paths, or time values at module-import
+time. All path and time resolution MUST happen inside function bodies so the
+backtest's in-process `Paths.set_data_root()` and `set_as_of()` swaps take
+effect on the next call.
+
+#### Scenario: No top-level Paths binding in any pipeline module
+- **WHEN** running `grep -n "^[A-Z_]* = Paths\." scripts/ai-trader/{scout,analyst,risk,executor,manager,track_record}.py`
+- **THEN** the output MUST be empty
+- **AND** test `test_no_top_level_path_bindings` MUST verify this via AST inspection
+- **AND** any new top-level bindings in PRs MUST be flagged in code review
+
 ### Requirement: Backtest carries state forward day-by-day
 The backtest engine MUST snapshot `holdings.json` and `risk-state.json` after
 each day's pipeline run and copy them to the next day's state directory before
