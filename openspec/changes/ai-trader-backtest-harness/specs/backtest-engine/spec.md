@@ -66,7 +66,7 @@ if left unmodified.
 - **AND** existing live-mode unit tests MUST continue to pass unchanged
 
 ### Requirement: Pipeline modules have no top-level path or time bindings
-The pipeline modules (scout, analyst, risk, executor, manager, track_record)
+Pipeline modules (scout, analyst, risk, executor, manager, track_record)
 MUST NOT cache `Paths.*` results, file paths, or time values at module-import
 time. All path and time resolution MUST happen inside function bodies so the
 backtest's in-process `Paths.set_data_root()` and `set_as_of()` swaps take
