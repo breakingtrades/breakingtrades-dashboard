@@ -1,7 +1,12 @@
 /**
- * ticker-tape.js — TradingView real-time ticker tape widget (v2)
- * Based on ticker-tape-tv.js with added show()/hide() API.
- * Injects compact ticker tape after <nav id="nav"> on every page.
+ * ticker-tape.js — TradingView real-time ticker tape widget (v3)
+ *
+ * Public API: mount(target?), destroy(), show(), hide(), isVisible(), isMounted()
+ * Symmetric with snapshotStrip so shell.js can swap them mutually-exclusively
+ * via the V3 tape-state cycle (off → snapshot → tape → off).
+ *
+ * Placement: prefers the v3 main content area (visible inside the V3 grid
+ * viewport). Falls back to inserting after <nav id="nav"> in legacy chrome.
  */
 var tickerTape = (function () {
   'use strict';
@@ -26,10 +31,21 @@ var tickerTape = (function () {
   var _injected = false;
   var _wrap = null;
 
+  /** Pick the best insert point based on which chrome is active. */
+  function findInsertSlot() {
+    // V3 chrome — drop the strip at the top of main so it lives in the viewport.
+    var v3Main = document.querySelector('main.v3-main');
+    if (v3Main) return { parent: v3Main, before: v3Main.firstChild };
+    // Legacy chrome — insert after <nav id="nav">.
+    var nav = document.getElementById('nav');
+    if (nav && nav.parentNode) return { parent: nav.parentNode, before: nav.nextSibling };
+    return null;
+  }
+
   function inject() {
     if (_injected) return;
-    var nav = document.getElementById('nav');
-    if (!nav) return;
+    var slot = findInsertSlot();
+    if (!slot) return;
 
     _wrap = document.createElement('div');
     _wrap.id = 'tv-ticker-tape';
@@ -58,8 +74,23 @@ var tickerTape = (function () {
     container.appendChild(script);
 
     _wrap.appendChild(container);
-    nav.parentNode.insertBefore(_wrap, nav.nextSibling);
+    slot.parent.insertBefore(_wrap, slot.before);
     _injected = true;
+  }
+
+  /** Symmetric API with snapshotStrip — bring the tape up. */
+  function mount(_target) {
+    inject();
+    show();
+  }
+
+  /** Symmetric API — fully remove the tape so a fresh mount() works after. */
+  function destroy() {
+    if (_wrap && _wrap.parentNode) {
+      _wrap.parentNode.removeChild(_wrap);
+    }
+    _wrap = null;
+    _injected = false;
   }
 
   function show() {
@@ -75,8 +106,24 @@ var tickerTape = (function () {
     return _wrap ? _wrap.style.display !== 'none' : false;
   }
 
-  // Wait for nav:ready event (fired by shell.js after building nav)
-  document.addEventListener('nav:ready', inject);
+  function isMounted() {
+    return !!(_wrap && _wrap.parentNode);
+  }
 
-  return { inject: inject, show: show, hide: hide, isVisible: isVisible };
+  // Auto-inject on nav:ready ONLY in legacy chrome. In V3 mode the
+  // tape-state-change handler in shell.js owns mount/destroy explicitly.
+  document.addEventListener('nav:ready', function () {
+    if (document.body.classList.contains('v3')) return;
+    inject();
+  });
+
+  return {
+    inject: inject,
+    mount: mount,
+    destroy: destroy,
+    show: show,
+    hide: hide,
+    isVisible: isVisible,
+    isMounted: isMounted,
+  };
 })();

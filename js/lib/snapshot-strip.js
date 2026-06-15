@@ -135,21 +135,24 @@
     if (typeof target === 'string') target = document.querySelector(target);
     if (!target) return;
 
-    // Remove TradingView ticker tape if present (we're replacing it)
-    var oldTape = document.querySelector('.tradingview-widget-container');
-    if (oldTape && oldTape.parentNode) {
-      oldTape.parentNode.removeChild(oldTape);
-    }
+    // Tape lifecycle is owned by shell.js (V3) / ticker-tape toggle (legacy).
+    // Don't reach into ticker-tape's DOM from here — it created a stale
+    // orphan wrapper that prevented the tape from coming back after a swap.
 
-    // Inject our strip after the nav
+    // Inject our strip
     var existing = document.getElementById('snapshot-strip');
     if (existing) existing.parentNode.removeChild(existing);
 
-    var nav = document.getElementById('nav');
     var holder = document.createElement('div');
     holder.innerHTML = buildHTML();
     var strip = holder.firstChild;
-    if (nav && nav.parentNode) {
+
+    // V3 chrome → top of main content (visible). Legacy → after <nav id="nav">.
+    var v3Main = document.querySelector('main.v3-main');
+    var nav = document.getElementById('nav');
+    if (v3Main) {
+      v3Main.insertBefore(strip, v3Main.firstChild);
+    } else if (nav && nav.parentNode) {
       nav.parentNode.insertBefore(strip, nav.nextSibling);
     } else {
       target.appendChild(strip);

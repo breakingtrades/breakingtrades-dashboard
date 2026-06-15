@@ -47,9 +47,11 @@
       // Hide the legacy <nav id="nav"> element entirely
       var legacyNav = document.getElementById('nav');
       if (legacyNav) legacyNav.style.display = 'none';
-      // Mount V3 sidebar + topbar shell
-      window.V3Sidebar.mount(document.body);
-      // Wire snapshot/tape from V3 tape-toggle three-state into existing strip lifecycles
+      // Wire the snapshot/tape handler BEFORE V3Sidebar.mount() — sidebar.js
+      // calls setTapeState() at the end of its mount, which dispatches
+      // v3:tape-state-change to apply the saved state. If we attach the
+      // listener after mount(), that initial dispatch is lost and the page
+      // renders with no strip even when the saved state is snapshot/tape.
       window.addEventListener('v3:tape-state-change', function(ev) {
         var state = ev && ev.detail && ev.detail.state;
         // Mutually exclusive: state can be 'off' | 'snapshot' | 'tape'
@@ -73,6 +75,9 @@
           if (window.tickerTape && window.tickerTape.destroy) window.tickerTape.destroy();
         }
       });
+      // Mount V3 sidebar + topbar shell. setTapeState() at end of mount
+      // dispatches v3:tape-state-change, which the handler above now picks up.
+      window.V3Sidebar.mount(document.body);
       // Fire nav:ready so other scripts that wait for it (ticker-tape, market-status) still work
       document.dispatchEvent(new Event('nav:ready'));
       return;
