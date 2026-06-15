@@ -1,0 +1,551 @@
+{
+  "benchmarks": {
+    "sixty_forty": {
+      "alpha_vs_system_pct": -12.21,
+      "max_drawdown_pct": 0.66,
+      "sharpe": 4.78,
+      "total_return_pct": 2.29
+    },
+    "spy": {
+      "alpha_vs_system_pct": -13.37,
+      "max_drawdown_pct": 0.73,
+      "sharpe": 6.57,
+      "total_return_pct": 3.44
+    }
+  },
+  "by_regime": {
+    "UNKNOWN": {
+      "avg_holding_days": 0.6,
+      "avg_pnl": -1240.23,
+      "best_trade": 2684.67,
+      "expectancy": -1240.23,
+      "losses": 7,
+      "profit_factor": 0.213,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -2148.4
+    }
+  },
+  "curves": {
+    "sixty_forty": [
+      {
+        "date": "2024-06-03",
+        "equity": 100000.0,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-04",
+        "equity": 100286.11,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-05",
+        "equity": 101146.05,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-06",
+        "equity": 101127.75,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-07",
+        "equity": 100628.63,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-10",
+        "equity": 100730.31,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-11",
+        "equity": 101087.41,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-12",
+        "equity": 101812.08,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-13",
+        "equity": 102202.28,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-14",
+        "equity": 102334.29,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-17",
+        "equity": 102636.39,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-18",
+        "equity": 102970.51,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-20",
+        "equity": 102698.04,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-21",
+        "equity": 102623.28,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-24",
+        "equity": 102455.78,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-25",
+        "equity": 102728.49,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-26",
+        "equity": 102561.22,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-27",
+        "equity": 102749.49,
+        "kind": "60_40"
+      },
+      {
+        "date": "2024-06-28",
+        "equity": 102289.54,
+        "kind": "60_40"
+      }
+    ],
+    "spy": [
+      {
+        "date": "2024-06-03",
+        "equity": 100000.0,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-04",
+        "equity": 100111.76,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-05",
+        "equity": 101301.61,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-06",
+        "equity": 101299.74,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-07",
+        "equity": 101176.57,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-10",
+        "equity": 101489.18,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-11",
+        "equity": 101733.6,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-12",
+        "equity": 102569.14,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-13",
+        "equity": 102775.66,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-14",
+        "equity": 102838.19,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-17",
+        "equity": 103656.66,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-18",
+        "equity": 103920.03,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-20",
+        "equity": 103637.73,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-21",
+        "equity": 103498.79,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-24",
+        "equity": 103162.35,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-25",
+        "equity": 103559.62,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-26",
+        "equity": 103688.86,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-27",
+        "equity": 103852.32,
+        "kind": "SPY"
+      },
+      {
+        "date": "2024-06-28",
+        "equity": 103443.65,
+        "kind": "SPY"
+      }
+    ],
+    "system": [
+      {
+        "date": "2024-06-03",
+        "equity": 100000.0,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-04",
+        "equity": 100000.0,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-05",
+        "equity": 100000.0,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-06",
+        "equity": 100000.0,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-07",
+        "equity": 93690.01,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-10",
+        "equity": 93690.01,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-11",
+        "equity": 93690.01,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-12",
+        "equity": 93690.01,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-13",
+        "equity": 93690.01,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-14",
+        "equity": 93690.01,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-17",
+        "equity": 89688.9,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-18",
+        "equity": 89688.9,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-20",
+        "equity": 87836.39,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-21",
+        "equity": 87437.52,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-24",
+        "equity": 90078.15,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-25",
+        "equity": 90078.15,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-26",
+        "equity": 90078.15,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-27",
+        "equity": 90078.15,
+        "kind": "daily"
+      },
+      {
+        "date": "2024-06-28",
+        "equity": 90078.15,
+        "kind": "daily"
+      }
+    ]
+  },
+  "fills_count": 16,
+  "final_equity": 90078.15,
+  "metrics": {
+    "cagr_pct": -78.27,
+    "calmar": -6.23,
+    "max_drawdown_days": 13,
+    "max_drawdown_pct": 12.56,
+    "max_drawdown_recovered": null,
+    "sharpe": -4.66,
+    "sortino": -4.77,
+    "total_return_pct": -9.92,
+    "volatility_annual_pct": 31.28
+  },
+  "phase_5_caveats": [
+    "ATR\u00d7\u221a5 EM proxy (not real options-chain IV)",
+    "Survivorship bias: current watchlist used for entire window",
+    "In-sample rule evaluation: rules curated through 2026",
+    "F&G stub at 50 (Phase 6 swaps in CNN historical)",
+    "Pre-tax P&L, no borrow cost on shorts"
+  ],
+  "run_id": "run-smoke-jun-2024-v6",
+  "starting_equity": 100000.0,
+  "top_rules": [
+    {
+      "avg_pnl": -248.05,
+      "best_trade": 536.93,
+      "by_year": {
+        "2024": {
+          "pnl": -1984.37,
+          "trades": 8
+        }
+      },
+      "first_fired": "2024-06-07",
+      "last_fired": "2024-06-24",
+      "losses": 7,
+      "rule_id": "R001",
+      "total_pnl": -1984.37,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -429.68
+    },
+    {
+      "avg_pnl": -248.05,
+      "best_trade": 536.93,
+      "by_year": {
+        "2024": {
+          "pnl": -1984.37,
+          "trades": 8
+        }
+      },
+      "first_fired": "2024-06-07",
+      "last_fired": "2024-06-24",
+      "losses": 7,
+      "rule_id": "R052",
+      "total_pnl": -1984.37,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -429.68
+    },
+    {
+      "avg_pnl": -248.05,
+      "best_trade": 536.93,
+      "by_year": {
+        "2024": {
+          "pnl": -1984.37,
+          "trades": 8
+        }
+      },
+      "first_fired": "2024-06-07",
+      "last_fired": "2024-06-24",
+      "losses": 7,
+      "rule_id": "R053",
+      "total_pnl": -1984.37,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -429.68
+    },
+    {
+      "avg_pnl": -248.05,
+      "best_trade": 536.93,
+      "by_year": {
+        "2024": {
+          "pnl": -1984.37,
+          "trades": 8
+        }
+      },
+      "first_fired": "2024-06-07",
+      "last_fired": "2024-06-24",
+      "losses": 7,
+      "rule_id": "R111",
+      "total_pnl": -1984.37,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -429.68
+    },
+    {
+      "avg_pnl": -248.05,
+      "best_trade": 536.93,
+      "by_year": {
+        "2024": {
+          "pnl": -1984.37,
+          "trades": 8
+        }
+      },
+      "first_fired": "2024-06-07",
+      "last_fired": "2024-06-24",
+      "losses": 7,
+      "rule_id": "R231",
+      "total_pnl": -1984.37,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -429.68
+    }
+  ],
+  "trades": {
+    "avg_holding_days": 0.6,
+    "avg_pnl": -1240.23,
+    "best_trade": 2684.67,
+    "expectancy": -1240.23,
+    "losses": 7,
+    "profit_factor": 0.213,
+    "trades": 8,
+    "win_rate": 0.125,
+    "wins": 1,
+    "worst_trade": -2148.4
+  },
+  "worst_rules": [
+    {
+      "avg_pnl": -248.05,
+      "best_trade": 536.93,
+      "by_year": {
+        "2024": {
+          "pnl": -1984.37,
+          "trades": 8
+        }
+      },
+      "first_fired": "2024-06-07",
+      "last_fired": "2024-06-24",
+      "losses": 7,
+      "rule_id": "R231",
+      "total_pnl": -1984.37,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -429.68
+    },
+    {
+      "avg_pnl": -248.05,
+      "best_trade": 536.93,
+      "by_year": {
+        "2024": {
+          "pnl": -1984.37,
+          "trades": 8
+        }
+      },
+      "first_fired": "2024-06-07",
+      "last_fired": "2024-06-24",
+      "losses": 7,
+      "rule_id": "R111",
+      "total_pnl": -1984.37,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -429.68
+    },
+    {
+      "avg_pnl": -248.05,
+      "best_trade": 536.93,
+      "by_year": {
+        "2024": {
+          "pnl": -1984.37,
+          "trades": 8
+        }
+      },
+      "first_fired": "2024-06-07",
+      "last_fired": "2024-06-24",
+      "losses": 7,
+      "rule_id": "R053",
+      "total_pnl": -1984.37,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -429.68
+    },
+    {
+      "avg_pnl": -248.05,
+      "best_trade": 536.93,
+      "by_year": {
+        "2024": {
+          "pnl": -1984.37,
+          "trades": 8
+        }
+      },
+      "first_fired": "2024-06-07",
+      "last_fired": "2024-06-24",
+      "losses": 7,
+      "rule_id": "R052",
+      "total_pnl": -1984.37,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -429.68
+    },
+    {
+      "avg_pnl": -248.05,
+      "best_trade": 536.93,
+      "by_year": {
+        "2024": {
+          "pnl": -1984.37,
+          "trades": 8
+        }
+      },
+      "first_fired": "2024-06-07",
+      "last_fired": "2024-06-24",
+      "losses": 7,
+      "rule_id": "R001",
+      "total_pnl": -1984.37,
+      "trades": 8,
+      "win_rate": 0.125,
+      "wins": 1,
+      "worst_trade": -429.68
+    }
+  ]
+}

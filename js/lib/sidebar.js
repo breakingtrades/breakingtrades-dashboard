@@ -24,6 +24,7 @@
     research:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><path d="M12 12l4 4"/></svg>',
     aiTrader:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1.5l1.6 4.4 4.4 1.6-4.4 1.6L9 13.5l-1.6-4.4L3 7.5l4.4-1.6z"/><circle cx="14" cy="14" r="2"/></svg>',
     holdings:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h14v9H2zM2 6l2-3h10l2 3"/><path d="M7 10h4"/></svg>',
+    backtest:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14l4-5 3 3 5-7"/><path d="M11 5h3v3"/><path d="M2 16h14"/></svg>',
     settings:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="2.5"/><path d="M14.5 9l1.2-.6-.6-1.5-1.3.3-.9-.9.3-1.3-1.5-.6-.6 1.2H9l-.6-1.2-1.5.6.3 1.3-.9.9-1.3-.3-.6 1.5 1.2.6v1L3.4 11l.6 1.5 1.3-.3.9.9-.3 1.3 1.5.6.6-1.2H9l.6 1.2 1.5-.6-.3-1.3.9-.9 1.3.3.6-1.5-1.2-.6z"/></svg>',
     about:      '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="7"/><path d="M9 6v3M9 12h.01"/></svg>',
     collapse:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4l-5 5 5 5"/></svg>',
@@ -55,6 +56,7 @@
       items: [
         { route: 'ai-trader',  label: 'AI-Trader',      icon: 'aiTrader',   freshKey: 'ai-trader'     },
         { route: 'holdings',   label: 'Holdings',       icon: 'holdings',   freshKey: 'holdings'      },
+        { route: 'backtest',   label: 'Backtest',       icon: 'backtest',   freshKey: 'backtest'      },
       ]
     },
     {

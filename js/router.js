@@ -17,6 +17,7 @@
     'research':       { css: 'css/autoresearch.css',     js: 'js/pages/autoresearch.js',   title: 'Research' },
     'ai-trader':      { css: 'css/ai-trader.css',         js: 'js/pages/ai-trader.js',      title: 'AI-Trader' },
     'holdings':       { css: 'css/ai-trader.css',         js: 'js/pages/ai-trader.js',      title: 'Holdings' },
+    'backtest':       { css: 'css/backtest.css',          js: 'js/pages/backtest.js',       title: 'Backtest' },
     'alerts':         { css: null,                       js: 'js/pages/stubs.js',          title: 'Alerts' },
     'settings':       { css: null,                       js: 'js/pages/stubs.js',          title: 'Settings' },
     'about':          { css: null,                       js: 'js/pages/stubs.js',          title: 'About' },
