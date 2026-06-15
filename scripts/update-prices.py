@@ -179,9 +179,29 @@ def update_prices():
                 if prev > 0:
                     change = round((price - prev) / prev * 100, 2)
 
+            # day_high / day_low for the most recent bar — required by AI-Trader
+            # manager.py to detect intraday stop-outs and target-hits. Without
+            # these, the manager falls back to the EM proxy daily band, which
+            # mathematically equals stop_price ± slippage and force-stops every
+            # position on its entry day. See ai-trader.manager._daily_high_low
+            # for the read site (Phase 6 fix).
+            day_high = None
+            day_low = None
+            try:
+                high = df["High"].dropna()
+                low = df["Low"].dropna()
+                if not high.empty:
+                    day_high = round(float(high.iloc[-1]), 4)
+                if not low.empty:
+                    day_low = round(float(low.iloc[-1]), 4)
+            except Exception:
+                pass
+
             result[sym] = {
                 "price": price,
                 "change": change,
+                "day_high": day_high,
+                "day_low": day_low,
                 "updated": now,
             }
         except Exception as e:
