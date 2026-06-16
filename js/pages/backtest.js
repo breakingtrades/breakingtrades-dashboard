@@ -319,8 +319,18 @@
   }
 
   // ─── Init / fetch ───────────────────────────────────────────────────────
-  function init() {
-    const root = document.getElementById('page-root') || document.querySelector('.app-content') || document.body;
+  function init(contentEl) {
+    // Router passes the page mount point to render(); fall back to #content
+    // (the canonical SPA mount in index.html) if called directly. Never write
+    // to document.body — that wipes the V3 sidebar/topbar shell and strands
+    // the user with no nav.
+    const root = (contentEl && contentEl.nodeType === 1)
+      ? contentEl
+      : document.getElementById('content');
+    if (!root) {
+      console.error('[backtest] no mount point — refusing to render to body');
+      return;
+    }
     root.innerHTML = renderShell();
     const content = document.getElementById('bt-content');
     fetch(SUMMARY_PATH, { cache: 'no-cache' })
