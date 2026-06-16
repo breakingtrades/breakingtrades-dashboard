@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Jun 15",
-  "headline": "Tech surges but rotation signals and elevated sector risk mean this rally needs scrutiny.",
+  "title": "Daily Briefing \u2014 Jun 16",
+  "headline": "Tech's showing a rebound but flows and rotation are warning: patience, don't chase.",
   "body": [
-    "Right, so let's look at what the flows are telling us. We\u2019re seeing a broad bounce across US equities \u2014 SPY up 2.0% to 756.33, QQQ up 3.2% to 744.14, and XLK (tech) leading the charge with a 3.8% pop at 191.84. VIX is creeping higher (17.68 above the 20-day MA), signalling volatility is on the rise even as folks chase the green. Fear & Greed is sitting at 34 \u2014 low, but not extreme panic territory.",
-    "Sector rotation data is mental \u2014 materials (XLB) and utilities (XLU) are quietly improving, while energy (XLE), financials (XLF), staples (XLP), and healthcare (XLV) all flag high risk and remain laggards. The leadership is concentrated in tech, but sectors that should act as the canary (XLF, XLV, XLP) are sick. Breadth is narrow, with momentum clustering around a handful of mega-caps (XLK, AMD, DELL, ARM), while cyclicals and defensive sectors are either lagging or only starting to improve.",
-    "Contrarian warning: most tech tickers \u2014 AAPL, MSFT, NVDA, GOOGL, META, AMZN \u2014 are still below their daily 20 MA, so don\u2019t chase; this isn\u2019t confirmation, it\u2019s rebound noise. Energy is getting hammered: USO -4.6%, CL=F -5.4%. Financials (XLF) are up, but still below my mean reversion weekly trigger. Watch for retail piling in after today's squeeze \u2014 the rally is suspect until we see genuine dark pool accumulation and a weekly close above 20 MA across leaders. Abundance mindset: don\u2019t chase, look for the next rotational play."
+    "Right, big picture: Markets are bouncing with SPY up 1.5% at $752.93, and QQQ holding above the weekly 20 MA. Fear & Greed is at 40.5 \u2014 that's still in the 'fear' zone, so there's no overcrowding, but we've come off extreme greed last month. Volatility is easing; VIX is down to 16.2 and trending below its 20-day average, so the panic phase is long gone.",
+    "Rotation-wise, XLK (tech) stays strong but momentum is weakening, while Materials (XLB), Industrials (XLI), and Utilities (XLU) are improving. Financials (XLF) and Energy (XLE) are lagging with high risk \u2014 notably, XLE dropped 4.1% and SM got crushed (-9%). That\u2019s a classic rollover signal. Defensive sectors (Staples, Utilities) are picking up, confirming a shift away from frothy growth.",
+    "Contrarian note: Tech names like AAPL, MSFT, and NVDA are rallying but still below their daily 20 MA \u2014 do NOT chase here (R001, R011). Retail hasn\u2019t piled in, but flows in Energy and Space stocks have broken down hard. This looks eerily like past cycle tops; leadership is narrowing and laggards are rolling over. If it's in the press, it's already in the price \u2014 wait for a proper mean reversion or dark pool accumulation before stepping in. Abundance mindset."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: 745.93 (SMA20) \u2014 watch for daily close<br>QQQ: 723.26 (SMA20) \u2014 mean reversion zone<br>XLK: 184.81 (SMA20) \u2014 sector momentum<br>AAPL: 303.74 (SMA20) \u2014 resistance overhead<br>HYG: 80.14 \u2014 any breakdown = instant risk reduction<br>XLF: 53.92 (watch weekly MA for health)<br>USO: 135.80 (SMA20), 119.68 price \u2014 high risk energy trade",
+  "callout_body": "SPY: $752.93 (watch daily/weekly 20 MA)<br>QQQ: $735.88 (above SMA20 $724.75)<br>AAPL: $298.24 (below SMA20 $303.78)<br>NVDA: $209.14 (watch SMA20 $213.66)<br>XLE: $55.21 (breakdown, SMA20 $58.13)<br>XLF: $54.21 (lagging)<br>XLB: $52.73 (momentum improving)<br>HYG: $80.03 (bull, above all MAs \u2014 bonds calming)",
   "action_items": [
-    "Do NOT chase tech breakout unless daily closes reclaim 20 MA (AAPL, MSFT, NVDA, GOOGL, META, AMZN)",
-    "Watch for rotational setups in XLB, XLU, XLI \u2014 improving momentum and lower risk"
+    "Do NOT chase tech laggards until daily close > 20 MA (AAPL, MSFT, NVDA) \u2014 wait for the flows.",
+    "Watch for further breakdown in Energy and Space (XLE, SM, PL, LUNR) for defensive rotation plays \u2014 consider Staples, Utilities, Materials as rotational winners."
   ],
-  "closing_quote": "If bonds freak out, everything breaks. Patience, react, don\u2019t predict.",
-  "generatedAt": "2026-06-15T16:07:23.712308+00:00",
+  "closing_quote": "Less trades = more wins. If bonds freak out, everything breaks \u2014 but right now, patience and react, don't predict.",
+  "generatedAt": "2026-06-16T15:26:45.482212+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }

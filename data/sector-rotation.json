@@ -2,7 +2,7 @@
   "benchmark": "SPY",
   "lookback": 13,
   "trailLength": 26,
-  "generatedAt": "2026-06-15T16:07:12.793232+00:00",
+  "generatedAt": "2026-06-16T15:26:32.720206+00:00",
   "source": "yfinance",
   "sectors": [
     {
@@ -138,8 +138,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 80.733,
-          "momentum": 90.313
+          "rs": 80.515,
+          "momentum": 90.068
         }
       ]
     },
@@ -276,8 +276,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 96.271,
-          "momentum": 101.47
+          "rs": 96.851,
+          "momentum": 102.081
         }
       ]
     },
@@ -285,7 +285,7 @@
       "symbol": "XLI",
       "name": "Industrials",
       "color": "#607D8B",
-      "quadrant": "Lagging",
+      "quadrant": "Improving",
       "trail": [
         {
           "date": "2025-12-22",
@@ -414,8 +414,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 95.176,
-          "momentum": 99.611
+          "rs": 96.069,
+          "momentum": 100.546
         }
       ]
     },
@@ -552,8 +552,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 94.495,
-          "momentum": 100.695
+          "rs": 95.168,
+          "momentum": 101.412
         }
       ]
     },
@@ -561,7 +561,7 @@
       "symbol": "XLP",
       "name": "Staples",
       "color": "#28A745",
-      "quadrant": "Lagging",
+      "quadrant": "Improving",
       "trail": [
         {
           "date": "2025-12-22",
@@ -690,8 +690,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 90.265,
-          "momentum": 99.535
+          "rs": 91.253,
+          "momentum": 100.624
         }
       ]
     },
@@ -828,8 +828,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 90.564,
-          "momentum": 98.643
+          "rs": 90.703,
+          "momentum": 98.794
         }
       ]
     },
@@ -966,8 +966,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 94.466,
-          "momentum": 96.741
+          "rs": 95.393,
+          "momentum": 97.69
         }
       ]
     },
@@ -975,7 +975,7 @@
       "symbol": "XLK",
       "name": "Technology",
       "color": "#00BCD4",
-      "quadrant": "Leading",
+      "quadrant": "Weakening",
       "trail": [
         {
           "date": "2025-12-22",
@@ -1104,8 +1104,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 121.392,
-          "momentum": 100.792
+          "rs": 119.615,
+          "momentum": 99.317
         }
       ]
     },
@@ -1242,8 +1242,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 85.964,
-          "momentum": 98.647
+          "rs": 86.045,
+          "momentum": 98.74
         }
       ]
     },
@@ -1380,8 +1380,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 86.325,
-          "momentum": 101.527
+          "rs": 87.715,
+          "momentum": 103.162
         }
       ]
     },
@@ -1518,8 +1518,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 95.942,
-          "momentum": 99.689
+          "rs": 96.047,
+          "momentum": 99.799
         }
       ]
     }
