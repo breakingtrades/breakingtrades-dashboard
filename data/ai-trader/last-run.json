@@ -1,0 +1,32 @@
+{
+  "failed_stage": null,
+  "finished": "2026-06-16T20:25:31.234786+00:00",
+  "stages": [
+    {
+      "exit_code": 0,
+      "stage": "scout"
+    },
+    {
+      "exit_code": 0,
+      "stage": "analyst"
+    },
+    {
+      "exit_code": 0,
+      "stage": "risk"
+    },
+    {
+      "exit_code": 0,
+      "stage": "executor"
+    },
+    {
+      "exit_code": 0,
+      "stage": "manager"
+    },
+    {
+      "exit_code": 0,
+      "stage": "track_record"
+    }
+  ],
+  "started": "2026-06-16T20:25:29.500535+00:00",
+  "status": "ok"
+}

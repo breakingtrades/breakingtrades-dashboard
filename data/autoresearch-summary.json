@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-11T20:28:25.049179+00:00",
+  "generated_at": "2026-06-16T20:25:27.634561+00:00",
   "last_tuning": {
-    "date": "2026-06-06",
-    "improvement_pct": 0.0,
-    "experiments_run": 10,
+    "date": "2026-06-12",
+    "improvement_pct": 0.77,
+    "experiments_run": 20,
     "winners": [],
     "dead_ends": []
   },
@@ -15,9 +15,8 @@
     "Risk 2.0% of account per trade",
     "Structure trades around volume-profile value area (institutional zones)",
     "Stops respect value-area boundaries, not just volatility",
+    "Skip entries when VIX > 22 (volatility too high)",
     "Skip entries when bonds signal risk-off",
-    "Skip entries when long-term trend is against the setup",
-    "Skip entries when macro breadth is weak",
-    "Require dark-pool confirmation before entering"
+    "Skip entries when macro breadth is weak"
   ]
 }

@@ -3,7 +3,7 @@
   "sectors": {
     "COM": {
       "name": "Communication Services",
-      "above_20d": 38.9
+      "above_20d": 45.5
     },
     "CND": {
       "name": "Consumer Discretionary",
@@ -11,7 +11,7 @@
     },
     "CNS": {
       "name": "Consumer Staples",
-      "above_20d": 75.0
+      "above_20d": 93.8
     },
     "ENE": {
       "name": "Energy",
@@ -39,7 +39,7 @@
     },
     "TEC": {
       "name": "Technology",
-      "above_20d": 35.0
+      "above_20d": 25.0
     },
     "UTL": {
       "name": "Utilities",
