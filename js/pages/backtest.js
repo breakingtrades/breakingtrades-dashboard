@@ -291,6 +291,39 @@
     `;
   }
 
+  // ─── Sleeve attribution (SPY base vs momentum sleeve) ──────────────────
+  function renderSleeves(summary) {
+    const sleeves = summary.sleeve_attribution || {};
+    const keys = Object.keys(sleeves);
+    if (!keys.length) return '';  // non-overlay run — hide panel entirely
+    // Order: SPY Base, Momentum Sleeve, Other
+    const order = ['SPY Base', 'Momentum Sleeve', 'Other'];
+    keys.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+    const rows = keys.map(k => {
+      const v = sleeves[k];
+      return `
+        <tr>
+          <td><strong>${k}</strong></td>
+          <td>${v.trades}</td>
+          <td>${((v.win_rate || 0) * 100).toFixed(0)}%</td>
+          <td class="${colorClass(v.total_pnl)}">${fmtCurrency(v.total_pnl)}</td>
+          <td class="${colorClass(v.avg_pnl)}">${fmtCurrency(v.avg_pnl)}</td>
+          <td>${v.avg_holding_days}d</td>
+        </tr>
+      `;
+    }).join('');
+    return `
+      <h3>Sleeve Attribution</h3>
+      <p class="bt-section-note">Which sleeve carries the return — the index base or the momentum picks.</p>
+      <div class="bt-table-wrap">
+        <table class="bt-table">
+          <thead><tr><th scope="col">Sleeve</th><th scope="col">Trades</th><th scope="col">Win%</th><th scope="col">Total P&amp;L</th><th scope="col">Avg P&amp;L</th><th scope="col">Avg Hold</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
   // ─── Render the page once data is loaded ────────────────────────────────
   function renderDossier(summary) {
     const tilesHtml = renderTiles(summary);
@@ -298,6 +331,7 @@
     const benchHtml = renderBenchmarks(summary);
     const rulesHtml = renderRules(summary);
     const regimesHtml = renderRegimes(summary);
+    const sleevesHtml = renderSleeves(summary);
     return `
       ${tilesHtml}
       <div class="bt-section">
@@ -308,6 +342,7 @@
         <div class="bt-section">${benchHtml}</div>
         <div class="bt-section">${regimesHtml}</div>
       </div>
+      ${sleevesHtml ? `<div class="bt-section">${sleevesHtml}</div>` : ''}
       <div class="bt-section">${rulesHtml}</div>
       <div class="bt-section bt-meta">
         <strong>Run:</strong> <code>${summary.run_id || '—'}</code>

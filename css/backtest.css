@@ -93,6 +93,12 @@
   letter-spacing: 0.6px;
   text-transform: uppercase;
 }
+.bt-section-note {
+  font-size: 11.5px;
+  color: var(--text-muted, #8a93a3);
+  margin: -6px 0 12px;
+  line-height: 1.4;
+}
 .bt-grid {
   display: grid;
   grid-template-columns: 1fr;
