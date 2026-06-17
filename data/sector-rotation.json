@@ -2,7 +2,7 @@
   "benchmark": "SPY",
   "lookback": 13,
   "trailLength": 26,
-  "generatedAt": "2026-06-16T20:25:26.806638+00:00",
+  "generatedAt": "2026-06-17T20:25:22.160974+00:00",
   "source": "yfinance",
   "sectors": [
     {
@@ -69,7 +69,7 @@
         {
           "date": "2026-03-09",
           "rs": 131.237,
-          "momentum": 103.885
+          "momentum": 103.886
         },
         {
           "date": "2026-03-16",
@@ -138,8 +138,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 80.987,
-          "momentum": 90.597
+          "rs": 80.989,
+          "momentum": 90.599
         }
       ]
     },
@@ -276,8 +276,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 97.165,
-          "momentum": 102.412
+          "rs": 97.087,
+          "momentum": 102.33
         }
       ]
     },
@@ -414,8 +414,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 96.166,
-          "momentum": 100.647
+          "rs": 97.246,
+          "momentum": 101.778
         }
       ]
     },
@@ -423,7 +423,7 @@
       "symbol": "XLY",
       "name": "Discretionary",
       "color": "#FFA500",
-      "quadrant": "Improving",
+      "quadrant": "Lagging",
       "trail": [
         {
           "date": "2025-12-22",
@@ -552,8 +552,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 94.97,
-          "momentum": 101.201
+          "rs": 93.76,
+          "momentum": 99.911
         }
       ]
     },
@@ -561,7 +561,7 @@
       "symbol": "XLP",
       "name": "Staples",
       "color": "#28A745",
-      "quadrant": "Improving",
+      "quadrant": "Lagging",
       "trail": [
         {
           "date": "2025-12-22",
@@ -690,8 +690,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 91.273,
-          "momentum": 100.647
+          "rs": 90.376,
+          "momentum": 99.657
         }
       ]
     },
@@ -828,8 +828,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 91.089,
-          "momentum": 99.215
+          "rs": 90.896,
+          "momentum": 99.005
         }
       ]
     },
@@ -966,8 +966,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 95.949,
-          "momentum": 98.26
+          "rs": 96.626,
+          "momentum": 98.953
         }
       ]
     },
@@ -1104,8 +1104,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 118.941,
-          "momentum": 98.758
+          "rs": 120.032,
+          "momentum": 99.663
         }
       ]
     },
@@ -1242,8 +1242,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 86.547,
-          "momentum": 99.316
+          "rs": 85.207,
+          "momentum": 97.778
         }
       ]
     },
@@ -1380,8 +1380,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 87.602,
-          "momentum": 103.029
+          "rs": 87.529,
+          "momentum": 102.943
         }
       ]
     },
@@ -1389,7 +1389,7 @@
       "symbol": "XLRE",
       "name": "Real Estate",
       "color": "#009688",
-      "quadrant": "Improving",
+      "quadrant": "Lagging",
       "trail": [
         {
           "date": "2025-12-22",
@@ -1518,8 +1518,8 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 96.424,
-          "momentum": 100.19
+          "rs": 95.197,
+          "momentum": 98.915
         }
       ]
     }
