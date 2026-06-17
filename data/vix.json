@@ -1,10 +1,10 @@
 {
-  "current": 16.41,
-  "sma20": 17.37,
-  "sma50": 17.9,
-  "percentile30d": 30,
+  "current": 18.44,
+  "sma20": 17.42,
+  "sma50": 17.85,
+  "percentile30d": 80,
   "regime": "Normal",
   "color": "#8bc34a",
-  "description": "VIX is normal. Trending below SMA20 (17.37), showing easing volatility.",
-  "updated": "2026-06-16T22:24:31.904354+00:00"
+  "description": "VIX is normal. Trending above SMA20 (17.42), showing rising volatility.",
+  "updated": "2026-06-17T22:16:02.420979+00:00"
 }

@@ -1,17 +1,17 @@
 {
-  "updated": "2026-06-16T22:24:53.195552+00:00",
+  "updated": "2026-06-17T22:16:21.234078+00:00",
   "sectors": {
     "COM": {
       "name": "Communication Services",
-      "above_20d": 45.5
+      "above_20d": 22.2
     },
     "CND": {
       "name": "Consumer Discretionary",
-      "above_20d": 70.0
+      "above_20d": 55.0
     },
     "CNS": {
       "name": "Consumer Staples",
-      "above_20d": 93.8
+      "above_20d": 25.0
     },
     "ENE": {
       "name": "Energy",
@@ -19,67 +19,67 @@
     },
     "FIN": {
       "name": "Financials",
-      "above_20d": 89.5
+      "above_20d": 84.2
     },
     "HLC": {
       "name": "Health Care",
-      "above_20d": 65.0
+      "above_20d": 45.0
     },
     "IND": {
       "name": "Industrials",
-      "above_20d": 95.0
+      "above_20d": 65.0
     },
     "MAT": {
       "name": "Materials",
-      "above_20d": 65.0
+      "above_20d": 75.0
     },
     "RLE": {
       "name": "Real Estate",
-      "above_20d": 68.4
+      "above_20d": 26.3
     },
     "TEC": {
       "name": "Technology",
-      "above_20d": 25.0
+      "above_20d": 30.0
     },
     "UTL": {
       "name": "Utilities",
-      "above_20d": 95.0
+      "above_20d": 50.0
     }
   },
   "indices": {
     "SPX": {
-      "20d": 64.0,
-      "50d": 62.1,
-      "100d": 57.9,
-      "200d": 69.6
+      "20d": 43.9,
+      "50d": 47.2,
+      "100d": 50.0,
+      "200d": 66.4
     },
     "NDX": {
-      "20d": 54.0,
-      "50d": 62.0,
-      "100d": 66.0,
-      "200d": 62.0
+      "20d": 40.0,
+      "50d": 54.0,
+      "100d": 62.0,
+      "200d": 64.0
     },
     "DJI": {
-      "20d": 65.5,
-      "50d": 75.9,
+      "20d": 55.2,
+      "50d": 72.4,
       "100d": 58.6,
-      "200d": 79.3
+      "200d": 75.9
     },
     "RUT": {
-      "20d": 64.0,
-      "50d": 62.1,
-      "100d": 57.9,
-      "200d": 69.6
+      "20d": 43.9,
+      "50d": 47.2,
+      "100d": 50.0,
+      "200d": 66.4
     },
     "VTI": {
-      "20d": 64.0,
-      "50d": 62.1,
-      "100d": 57.9,
-      "200d": 69.6
+      "20d": 43.9,
+      "50d": 47.2,
+      "100d": 50.0,
+      "200d": 66.4
     }
   },
   "total": {
-    "stacked": 696.8,
-    "average": 63.3
+    "stacked": 477.7,
+    "average": 43.4
   }
 }
