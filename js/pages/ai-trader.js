@@ -45,6 +45,11 @@
         </div>
 
         <div class="ai-trader-grid">
+          <section class="ai-trader-section ai-picks-section">
+            <h3>📌 AI Picks — Tracked Portfolio</h3>
+            <div id="ai-trader-ai-picks"><div class="ai-trader-loading">Loading AI picks…</div></div>
+          </section>
+
           <section class="ai-trader-section">
             <h3>Equity Curve</h3>
             <div id="ai-trader-equity-curve" class="ai-trader-equity-curve"></div>
@@ -444,13 +449,83 @@
     `;
   }
 
+  // ─── AI Picks tracked portfolio ─────────────────────────────────────────
+  function renderAiPicks(tracker) {
+    if (!tracker || !tracker.positions || !tracker.positions.length) {
+      return '<div class="ai-trader-empty">No AI picks tracked yet.</div>';
+    }
+    const pos = tracker.positions;
+    // Portfolio-level rollup
+    const totalCost = pos.reduce((s, p) => s + (p.cost_basis || 0), 0);
+    const totalValue = pos.reduce((s, p) => s + (p.last_price * p.shares), 0);
+    const totalPnl = totalValue - totalCost;
+    const totalPct = totalCost ? totalPnl / totalCost : 0;
+    const openCount = pos.filter(p => p.status === 'OPEN').length;
+    const rows = pos.map(p => {
+      const mktVal = p.last_price * p.shares;
+      const pnl = mktVal - p.cost_basis;
+      const pnlPct = p.cost_basis ? pnl / p.cost_basis : 0;
+      const statusCls = p.status === 'STOPPED' ? 'neg' : (p.status === 'TARGET' ? 'pos' : '');
+      return `
+        <tr>
+          <td><strong>${p.ticker}</strong><div class="ai-picks-sector">${p.sector || ''}</div></td>
+          <td>${p.weight_pct}%</td>
+          <td>${p.shares}</td>
+          <td>${fmtCurrency(p.entry_price)}</td>
+          <td>${fmtCurrency(p.last_price)}</td>
+          <td>${fmtSigned(pnl, 'currency')}</td>
+          <td>${fmtSigned(pnlPct)}</td>
+          <td>${fmtCurrency(p.stop_price)} <span class="ai-picks-muted">(-${p.stop_pct}%)</span></td>
+          <td>${fmtCurrency(p.target_2)} <span class="ai-picks-muted">(+${p.target_2_pct}%)</span></td>
+          <td><span class="ai-picks-status ${statusCls}">${p.status}</span></td>
+        </tr>
+        <tr class="ai-picks-thesis-row"><td colspan="10"><span class="ai-picks-thesis">${p.thesis || ''}</span></td></tr>
+      `;
+    }).join('');
+    const created = tracker.created ? new Date(tracker.created).toLocaleDateString() : '—';
+    return `
+      <div class="ai-picks-summary">
+        <div class="ai-picks-stat">
+          <div class="ai-picks-stat-label">Portfolio P&amp;L</div>
+          <div class="ai-picks-stat-value ${totalPnl >= 0 ? 'pos' : 'neg'}">${fmtCurrency(totalPnl)} (${fmtPct(totalPct)})</div>
+        </div>
+        <div class="ai-picks-stat">
+          <div class="ai-picks-stat-label">Market Value</div>
+          <div class="ai-picks-stat-value">${fmtCurrency(totalValue + (tracker.cash || 0))}</div>
+        </div>
+        <div class="ai-picks-stat">
+          <div class="ai-picks-stat-label">Open / Total</div>
+          <div class="ai-picks-stat-value">${openCount} / ${pos.length}</div>
+        </div>
+        <div class="ai-picks-stat">
+          <div class="ai-picks-stat-label">Entry Date</div>
+          <div class="ai-picks-stat-value">${created}</div>
+        </div>
+      </div>
+      <p class="ai-picks-note">${tracker.thesis || ''}</p>
+      <div class="ai-trader-table-wrap">
+        <table class="ai-trader-table ai-picks-table">
+          <thead>
+            <tr>
+              <th scope="col">Ticker</th><th scope="col">Wt</th><th scope="col">Sh</th>
+              <th scope="col">Entry</th><th scope="col">Last</th><th scope="col">P&amp;L $</th><th scope="col">P&amp;L %</th>
+              <th scope="col">Stop</th><th scope="col">Target</th><th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
   // ─── Init ───────────────────────────────────────────────────────────────
   function init() {
     Promise.all([
       fetch(DATA_PATHS.trackRecord).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch(DATA_PATHS.riskState).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch(DATA_PATHS.lastRun).then(r => r.ok ? r.json() : null).catch(() => null),
-    ]).then(([tr, riskState, lastRun]) => {
+      fetch('data/ai-trader/ai-picks-tracker.json').then(r => r.ok ? r.json() : null).catch(() => null),
+    ]).then(([tr, riskState, lastRun, aiPicks]) => {
       const headerEl = document.getElementById('ai-trader-header');
       if (headerEl) headerEl.innerHTML = renderHeader(tr);
 
@@ -460,6 +535,9 @@
         bannerEl.innerHTML = bannerHTML;
         bannerEl.style.display = 'block';
       }
+
+      const picksEl = document.getElementById('ai-trader-ai-picks');
+      if (picksEl) picksEl.innerHTML = renderAiPicks(aiPicks);
 
       if (tr) {
         document.getElementById('ai-trader-equity-curve').innerHTML = renderEquityCurve(tr.equity_curve);

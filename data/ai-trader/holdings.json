@@ -1,1 +1,181 @@
-{"cash": 100000, "positions": []}
+{
+  "cash": 4663.45,
+  "positions": [
+    {
+      "ticker": "TGT",
+      "direction": "LONG",
+      "shares": 105,
+      "entry_price": 133.02,
+      "entry_date": "2026-06-18",
+      "stop_price": 127.55,
+      "target_1": 140.32,
+      "target_2": 147.62,
+      "high_water_mark": 133.02,
+      "days_held": 0,
+      "conviction": 0.7,
+      "decision_id": "TGT-2026-06-18-AI_PICK",
+      "fill_id": "20260618-0001-TGT",
+      "sector": "Retail",
+      "rule_citations": [
+        "regime:BULL",
+        "theme:AI Pick",
+        "overlay:AI_PICK"
+      ],
+      "thesis": "Perfect stack + golden cross, RSI 62, favored discretionary"
+    },
+    {
+      "ticker": "AMD",
+      "direction": "LONG",
+      "shares": 27,
+      "entry_price": 511.7,
+      "entry_date": "2026-06-18",
+      "stop_price": 461.9,
+      "target_1": 578.1,
+      "target_2": 644.5,
+      "high_water_mark": 511.7,
+      "days_held": 0,
+      "conviction": 0.7,
+      "decision_id": "AMD-2026-06-18-AI_PICK",
+      "fill_id": "20260618-0002-AMD",
+      "sector": "Technology",
+      "rule_citations": [
+        "regime:BULL",
+        "theme:AI Pick",
+        "overlay:AI_PICK"
+      ],
+      "thesis": "Perfect stack + golden cross, RSI 58, favored Tech"
+    },
+    {
+      "ticker": "ARM",
+      "direction": "LONG",
+      "shares": 29,
+      "entry_price": 403.31,
+      "entry_date": "2026-06-18",
+      "stop_price": 353.13,
+      "target_1": 470.21,
+      "target_2": 537.11,
+      "high_water_mark": 403.31,
+      "days_held": 0,
+      "conviction": 0.6,
+      "decision_id": "ARM-2026-06-18-AI_PICK",
+      "fill_id": "20260618-0003-ARM",
+      "sector": "Technology",
+      "rule_citations": [
+        "regime:BULL",
+        "theme:AI Pick",
+        "overlay:AI_PICK"
+      ],
+      "thesis": "Perfect stack + golden cross, RSI 65, AI chip momentum"
+    },
+    {
+      "ticker": "D",
+      "direction": "LONG",
+      "shares": 189,
+      "entry_price": 68.56,
+      "entry_date": "2026-06-18",
+      "stop_price": 66.56,
+      "target_1": 71.22,
+      "target_2": 73.88,
+      "high_water_mark": 68.56,
+      "days_held": 0,
+      "conviction": 0.65,
+      "decision_id": "D-2026-06-18-AI_PICK",
+      "fill_id": "20260618-0004-D",
+      "sector": "Utilities",
+      "rule_citations": [
+        "regime:BULL",
+        "theme:AI Pick",
+        "overlay:AI_PICK"
+      ],
+      "thesis": "Perfect stack + golden cross, RSI 64, low-vol defensive"
+    },
+    {
+      "ticker": "UPS",
+      "direction": "LONG",
+      "shares": 110,
+      "entry_price": 109.07,
+      "entry_date": "2026-06-18",
+      "stop_price": 104.85,
+      "target_1": 114.69,
+      "target_2": 120.31,
+      "high_water_mark": 109.07,
+      "days_held": 0,
+      "conviction": 0.6,
+      "decision_id": "UPS-2026-06-18-AI_PICK",
+      "fill_id": "20260618-0005-UPS",
+      "sector": "Industrials",
+      "rule_citations": [
+        "regime:BULL",
+        "theme:AI Pick",
+        "overlay:AI_PICK"
+      ],
+      "thesis": "Perfect stack + golden cross, RSI 59, logistics turnaround"
+    },
+    {
+      "ticker": "COPX",
+      "direction": "LONG",
+      "shares": 122,
+      "entry_price": 90.07,
+      "entry_date": "2026-06-18",
+      "stop_price": 84.7,
+      "target_1": 97.23,
+      "target_2": 104.39,
+      "high_water_mark": 90.07,
+      "days_held": 0,
+      "conviction": 0.55,
+      "decision_id": "COPX-2026-06-18-AI_PICK",
+      "fill_id": "20260618-0006-COPX",
+      "sector": "Materials",
+      "rule_citations": [
+        "regime:BULL",
+        "theme:AI Pick",
+        "overlay:AI_PICK"
+      ],
+      "thesis": "Perfect stack + golden cross, RSI 57, copper/reflation"
+    },
+    {
+      "ticker": "IFF",
+      "direction": "LONG",
+      "shares": 154,
+      "entry_price": 77.79,
+      "entry_date": "2026-06-18",
+      "stop_price": 74.18,
+      "target_1": 82.61,
+      "target_2": 87.43,
+      "high_water_mark": 77.79,
+      "days_held": 0,
+      "conviction": 0.6,
+      "decision_id": "IFF-2026-06-18-AI_PICK",
+      "fill_id": "20260618-0007-IFF",
+      "sector": "Materials",
+      "rule_citations": [
+        "regime:BULL",
+        "theme:AI Pick",
+        "overlay:AI_PICK"
+      ],
+      "thesis": "Perfect stack + golden cross, RSI 57, turnaround momentum"
+    },
+    {
+      "ticker": "NBIS",
+      "direction": "LONG",
+      "shares": 29,
+      "entry_price": 273.58,
+      "entry_date": "2026-06-18",
+      "stop_price": 239.03,
+      "target_1": 319.64,
+      "target_2": 365.7,
+      "high_water_mark": 273.58,
+      "days_held": 0,
+      "conviction": 0.4,
+      "decision_id": "NBIS-2026-06-18-AI_PICK",
+      "fill_id": "20260618-0008-NBIS",
+      "sector": "Technology",
+      "rule_citations": [
+        "regime:BULL",
+        "theme:AI Pick",
+        "overlay:AI_PICK"
+      ],
+      "thesis": "AI-infra momentum leader, RSI 67, high upside/high vol"
+    }
+  ]
+}

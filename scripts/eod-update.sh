@@ -369,6 +369,19 @@ else
     log "Step 8: AI-Trader pipeline — SKIPPED ($AI_TRADER_RUN not present)"
 fi
 
+# --- Step 8b: refresh the AI Picks tracked portfolio with live prices ---
+# The AI Picks tracker (data/ai-trader/ai-picks-tracker.json) is a curated
+# paper portfolio separate from the pipeline holdings. Refresh its live P&L
+# from the freshly-updated watchlist prices. Idempotent; flips status to
+# STOPPED/TARGET when price crosses the level.
+if [[ -f "$REPO/data/ai-trader/ai-picks-tracker.json" ]]; then
+    if $PYTHON scripts/update-ai-picks-tracker.py 2>&1 | tee -a "$LOG"; then
+        log "✅ AI Picks tracker refreshed"
+    else
+        warn "AI Picks tracker update failed (EOD continues)"
+    fi
+fi
+
 # --- Git commit + push ---
 log "Committing changes..."
 
