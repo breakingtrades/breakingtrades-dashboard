@@ -221,3 +221,23 @@
   .bt-equity-wrap { padding: 6px 8px 6px 60px; }
   .bt-equity-y-labels { width: 50px; left: 4px; }
 }
+
+/* ─── Performance by year (bar viz) ──────────────────────────────────── */
+.bt-year-table .bt-bar-cell { width: 40%; padding-right: 4px; }
+.bt-bar {
+  height: 14px;
+  border-radius: 3px;
+  min-width: 2px;
+  transition: width 0.3s ease;
+}
+.bt-bar-pos { background: linear-gradient(90deg, #1b5e57, #26a69a); }
+.bt-bar-neg { background: linear-gradient(90deg, #7a2622, #ef5350); }
+.bt-exit-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  color: #aab2c0;
+  white-space: nowrap;
+}

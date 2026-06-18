@@ -324,6 +324,85 @@
     `;
   }
 
+  // ─── Performance by year (computed from trades_list) ───────────────────
+  function renderByYear(summary) {
+    const trades = summary.trades_list || [];
+    if (!trades.length) return '';
+    const byYear = {};
+    trades.forEach(t => {
+      const yr = (t.exit_date || '').slice(0, 4);
+      if (!yr) return;
+      if (!byYear[yr]) byYear[yr] = { pnl: 0, trades: 0, wins: 0 };
+      byYear[yr].pnl += (t.pnl_dollars || 0);
+      byYear[yr].trades += 1;
+      if ((t.pnl_dollars || 0) > 0) byYear[yr].wins += 1;
+    });
+    const years = Object.keys(byYear).sort();
+    if (!years.length) return '';
+    // Find max abs pnl for bar scaling
+    const maxAbs = Math.max(...years.map(y => Math.abs(byYear[y].pnl)), 1);
+    const rows = years.map(y => {
+      const d = byYear[y];
+      const wr = d.trades ? (d.wins / d.trades * 100).toFixed(0) : 0;
+      const barPct = Math.abs(d.pnl) / maxAbs * 100;
+      const barCls = d.pnl >= 0 ? 'bt-bar-pos' : 'bt-bar-neg';
+      return `
+        <tr>
+          <td><strong>${y}</strong></td>
+          <td class="${colorClass(d.pnl)}">${fmtCurrency(d.pnl)}</td>
+          <td>${d.trades}</td>
+          <td>${wr}%</td>
+          <td class="bt-bar-cell">
+            <div class="bt-bar ${barCls}" style="width:${barPct}%"></div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+    return `
+      <h3>Performance by Year</h3>
+      <p class="bt-section-note">Where the system makes and loses money across regimes.</p>
+      <div class="bt-table-wrap">
+        <table class="bt-table bt-year-table">
+          <thead><tr><th scope="col">Year</th><th scope="col">P&amp;L</th><th scope="col">Trades</th><th scope="col">Win%</th><th scope="col"></th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  // ─── Recent trades table (last 15 closed) ──────────────────────────────
+  function renderTrades(summary) {
+    const trades = (summary.trades_list || []).slice().sort((a, b) =>
+      (b.exit_date || '').localeCompare(a.exit_date || ''));
+    if (!trades.length) return '';
+    const rows = trades.slice(0, 15).map(t => `
+      <tr>
+        <td><strong>${t.ticker}</strong></td>
+        <td>${t.entry_date || '—'}</td>
+        <td>${t.exit_date || '—'}</td>
+        <td>${t.days_held}d</td>
+        <td>${fmtCurrency(t.entry_price)}</td>
+        <td>${fmtCurrency(t.exit_price)}</td>
+        <td class="${colorClass(t.pnl_dollars)}">${fmtCurrency(t.pnl_dollars)}</td>
+        <td class="${colorClass(t.pnl_pct)}">${(t.pnl_pct || 0).toFixed(1)}%</td>
+        <td><span class="bt-exit-tag">${t.exit_reason || '—'}</span></td>
+      </tr>
+    `).join('');
+    return `
+      <h3>Recent Trades</h3>
+      <p class="bt-section-note">Last 15 closed positions (of ${trades.length} total).</p>
+      <div class="bt-table-wrap">
+        <table class="bt-table">
+          <thead><tr>
+            <th scope="col">Ticker</th><th scope="col">Entry</th><th scope="col">Exit</th><th scope="col">Held</th>
+            <th scope="col">In</th><th scope="col">Out</th><th scope="col">P&amp;L $</th><th scope="col">P&amp;L %</th><th scope="col">Reason</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
   // ─── Render the page once data is loaded ────────────────────────────────
   function renderDossier(summary) {
     const tilesHtml = renderTiles(summary);
@@ -332,6 +411,8 @@
     const rulesHtml = renderRules(summary);
     const regimesHtml = renderRegimes(summary);
     const sleevesHtml = renderSleeves(summary);
+    const byYearHtml = renderByYear(summary);
+    const tradesHtml = renderTrades(summary);
     return `
       ${tilesHtml}
       <div class="bt-section">
@@ -342,8 +423,10 @@
         <div class="bt-section">${benchHtml}</div>
         <div class="bt-section">${regimesHtml}</div>
       </div>
+      ${byYearHtml ? `<div class="bt-section">${byYearHtml}</div>` : ''}
       ${sleevesHtml ? `<div class="bt-section">${sleevesHtml}</div>` : ''}
       <div class="bt-section">${rulesHtml}</div>
+      ${tradesHtml ? `<div class="bt-section">${tradesHtml}</div>` : ''}
       <div class="bt-section bt-meta">
         <strong>Run:</strong> <code>${summary.run_id || '—'}</code>
         · Starting equity ${fmtCurrency(summary.starting_equity)}
