@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-17T20:25:23Z",
+  "updated": "2026-06-17T22:16:26Z",
   "regime": "BULL",
   "score": 58,
   "color": "#00d4aa",
@@ -15,26 +15,26 @@
   },
   "components": {
     "move": {
-      "score": 93,
-      "value": 67.28,
+      "score": 89,
+      "value": 70.66,
       "signal": "collapsing",
       "weight": 18
     },
     "fear_greed": {
       "score": 33,
-      "value": 32.8,
+      "value": 32.7,
       "signal": "fear",
       "weight": 10
     },
     "vix": {
       "score": 66,
-      "value": 18.4,
+      "value": 18.44,
       "signal": "normal",
       "weight": 10
     },
     "breadth": {
       "score": 50,
-      "value": 43.3,
+      "value": 43.4,
       "signal": "weak",
       "weight": 8
     },
@@ -46,7 +46,7 @@
     },
     "hyg_spy": {
       "score": 20,
-      "value": -1.49,
+      "value": -1.53,
       "signal": "weak",
       "weight": 8
     },
@@ -58,7 +58,7 @@
     },
     "dxy": {
       "score": 35,
-      "value": 100.48,
+      "value": 100.39,
       "signal": "elevated",
       "weight": 5
     },
@@ -100,7 +100,7 @@
     },
     "xly_xlp": {
       "score": 20,
-      "value": -1.87,
+      "value": -1.85,
       "signal": "weak",
       "weight": 2
     }
@@ -128,13 +128,13 @@
     "conditions": [
       {
         "label": "F&G > 65",
-        "current": 32.8,
+        "current": 32.7,
         "target": 65,
         "met": false
       },
       {
         "label": "Breadth > 65%",
-        "current": 43.3,
+        "current": 43.4,
         "target": 65,
         "met": false
       },
