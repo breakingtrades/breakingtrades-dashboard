@@ -1,35 +1,9 @@
 {
-  "fetched_at": "2026-06-17T22:16:26.784036Z",
+  "fetched_at": "2026-06-19T21:38:59.841351Z",
   "source": "investing.com",
   "country": "US",
   "stars": 3,
   "events": [
-    {
-      "id": "econ-551173",
-      "title": "Initial Jobless Claims",
-      "deadline": "2026-06-18T12:30:00Z",
-      "category": "macro",
-      "severity": "high",
-      "stars": 3,
-      "forecast": "225K",
-      "previous": "229K",
-      "countdown": true,
-      "status": "active",
-      "source": "investing.com"
-    },
-    {
-      "id": "econ-550556",
-      "title": "Philadelphia Fed Manufacturing Index (Jun)",
-      "deadline": "2026-06-18T12:30:00Z",
-      "category": "macro",
-      "severity": "high",
-      "stars": 3,
-      "forecast": "11.4",
-      "previous": "-0.4",
-      "countdown": true,
-      "status": "active",
-      "source": "investing.com"
-    },
     {
       "id": "econ-550851",
       "title": "S&P Global Manufacturing PMI (Jun)",
@@ -39,6 +13,32 @@
       "stars": 3,
       "forecast": null,
       "previous": "55.1",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-550849",
+      "title": "S&P Global Services PMI (Jun)",
+      "deadline": "2026-06-23T13:45:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": null,
+      "previous": "50.7",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-550889",
+      "title": "New Home Sales (May)",
+      "deadline": "2026-06-24T14:00:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": "640K",
+      "previous": "622K",
       "countdown": true,
       "status": "active",
       "source": "investing.com"
