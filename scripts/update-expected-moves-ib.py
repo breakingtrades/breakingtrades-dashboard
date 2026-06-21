@@ -447,7 +447,17 @@ def main():
     ib.disconnect()
 
     output = {'updated': datetime.now().isoformat(), 'tickers': results}
-    OUT_FILE.write_text(json.dumps(output, indent=2))
+    # Sanitize NaN/Inf -> None: bare NaN tokens are invalid JSON and break the
+    # browser EM page (JSON.parse throws). allow_nan=False is the hard backstop.
+    def _scrub(o):
+        if isinstance(o, float):
+            return None if math.isnan(o) or math.isinf(o) else o
+        if isinstance(o, dict):
+            return {k: _scrub(v) for k, v in o.items()}
+        if isinstance(o, (list, tuple)):
+            return [_scrub(v) for v in o]
+        return o
+    OUT_FILE.write_text(json.dumps(_scrub(output), indent=2, allow_nan=False))
 
     print(f"\n{'='*50}")
     print(f"Done: {processed}/{len(tickers)} | Saved: {OUT_FILE}")

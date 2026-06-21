@@ -42,6 +42,21 @@ OUT_FILE = DATA_DIR / 'expected-moves.json'
 WATCHLIST_FILE = DATA_DIR / 'watchlist.json'
 PRICES_FILE = DATA_DIR / 'prices.json'
 
+
+def _json_sanitize(obj):
+    """Recursively replace NaN / +Inf / -Inf floats with None so the result
+    serializes to VALID JSON. json.dumps(allow_nan=True) (the default) emits
+    bare `NaN`/`Infinity` tokens that browsers' JSON.parse() rejects, which is
+    exactly what broke the Expected Moves page (deep-ITM strike grabs produce
+    NaN closes)."""
+    if isinstance(obj, float):
+        return None if math.isnan(obj) or math.isinf(obj) else obj
+    if isinstance(obj, dict):
+        return {k: _json_sanitize(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_json_sanitize(v) for v in obj]
+    return obj
+
 # --- Ticker Tiers ---
 DAILY_TICKERS = ['SPX', 'SPY', 'QQQ', 'DIA', 'IWM', 'IBIT', 'USO', 'UNG', 'GLD']
 
@@ -817,7 +832,13 @@ def main():
         'failure_count': len(errors),
         'tickers': results,
     }
-    OUT_FILE.write_text(json.dumps(output, indent=2))
+    # Sanitize NaN/Infinity -> None. Python's json emits bare `NaN`/`Infinity`
+    # tokens by default (allow_nan=True), which are INVALID JSON: the browser's
+    # JSON.parse() throws "Unexpected token 'N'" and the EM page fails to load.
+    # Broken option-chain reads (deep-ITM strike grabs) produce NaN closes, so
+    # this must be scrubbed at write time. allow_nan=False is the hard backstop.
+    output = _json_sanitize(output)
+    OUT_FILE.write_text(json.dumps(output, indent=2, allow_nan=False))
 
     print(f"\n{'='*50}")
     print(f"Done: {processed}/{len(tickers)} tickers | Source: {'yfinance' if use_yfinance else 'IB'}")

@@ -272,7 +272,20 @@
     var pricesReady = btPrices && btPrices.load ? btPrices.load() : Promise.resolve();
 
     Promise.all([
-      fetch('data/expected-moves.json').then(function(r) { return r.ok ? r.json() : {}; }),
+      // Parse EM data defensively: a malformed producer file (bare `NaN`/`Infinity`
+      // tokens = invalid JSON) used to reject the whole Promise.all and blank the
+      // page. Read as text and retry with NaN/Infinity -> null so the valid tickers
+      // still render. Rows with null bands are filtered out by buildRows().
+      fetch('data/expected-moves.json').then(function(r) {
+        if (!r.ok) return {};
+        return r.text().then(function(txt) {
+          try { return JSON.parse(txt); }
+          catch (e) {
+            try { return JSON.parse(txt.replace(/\bNaN\b/g, 'null').replace(/-?\bInfinity\b/g, 'null')); }
+            catch (e2) { console.error('EM data unparseable even after NaN scrub:', e2); return {}; }
+          }
+        });
+      }),
       fetch('data/watchlist.json').then(function(r) { return r.ok ? r.json() : []; }),
       fetch('data/em-quarterly-history.json').then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; }),
       pricesReady
