@@ -23,7 +23,7 @@ Usage:
 """
 import json
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta, date
 from pathlib import Path
 
 EXPECTED_COMPONENTS = {
@@ -43,11 +43,81 @@ SENTINEL_SIGNALS = {'no_data', 'no_sma'}
 # is wired. Don't false-alarm on it.
 ALLOWED_ZERO_WITH_NODATA = {'put_call'}
 
-MAX_AGE_HOURS = 24
+# Freshness is measured in TRADING days, not wall-clock hours. The EOD pipeline
+# only runs on trading days, so on a Monday (or after a long weekend / holiday)
+# the committed regime.json is legitimately 60-90h old yet perfectly current.
+# A flat 24h check therefore false-fails every weekend in CI. We allow the file
+# to be as old as the last completed trading day plus a same-day grace window.
+MAX_AGE_HOURS = 24  # retained for back-compat / same-day pipeline use
+GRACE_HOURS = 30    # slack past the last trading day's close for the cron to land
 
 
-def validate(path: Path) -> list[str]:
-    """Return a list of violation messages. Empty list = valid."""
+def _load_holidays() -> set:
+    """Return a set of US market holiday date objects from market-hours.json.
+    Empty set if the file is missing/unreadable (degrades to weekend-only)."""
+    try:
+        mh = json.loads((Path(__file__).resolve().parent.parent / "data" / "market-hours.json").read_text())
+    except (OSError, json.JSONDecodeError):
+        return set()
+    out = set()
+    for _yr, items in (mh.get('holidays') or {}).items():
+        for h in items:
+            try:
+                out.add(date.fromisoformat(h['date']))
+            except (KeyError, ValueError):
+                continue
+    return out
+
+
+def _is_trading_day(d: date, holidays: set) -> bool:
+    return d.weekday() < 5 and d not in holidays
+
+
+def _last_trading_day(ref: date, holidays: set) -> date:
+    """Most recent trading day on or before ref."""
+    d = ref
+    for _ in range(15):  # safety bound covers any holiday cluster
+        if _is_trading_day(d, holidays):
+            return d
+        d -= timedelta(days=1)
+    return ref
+
+
+def _freshness_problem(updated: datetime, now: datetime) -> str | None:
+    """Trading-day-aware staleness. Returns a violation string or None.
+
+    The file is fresh if it was written at/after the close of the last
+    completed trading day (minus a grace window for cron timing). On any
+    non-trading day, or the morning of a trading day before the EOD run,
+    yesterday's (or Friday's) file is correct and must not fail.
+    """
+    holidays = _load_holidays()
+    last_td = _last_trading_day(now.date(), holidays)
+    # If 'now' is itself a trading day but before ~end of day, the freshest the
+    # file can be is the PRIOR trading day's EOD run. Use the prior trading day
+    # as the expected anchor whenever today's EOD run hasn't plausibly happened.
+    expected_anchor = last_td
+    if _is_trading_day(now.date(), holidays):
+        prior = _last_trading_day(last_td - timedelta(days=1), holidays)
+        # today's EOD lands ~21:40 UTC; before that, prior day's file is current
+        if now.hour < 22:
+            expected_anchor = prior
+    # Allowed cutoff: start of expected_anchor day, with grace past it.
+    cutoff = datetime(expected_anchor.year, expected_anchor.month, expected_anchor.day,
+                      tzinfo=timezone.utc) - timedelta(hours=GRACE_HOURS)
+    if updated < cutoff:
+        age_h = (now - updated).total_seconds() / 3600
+        return (f"regime.json is {age_h:.1f}h old; older than the last trading day "
+                f"({expected_anchor.isoformat()}) minus {GRACE_HOURS}h grace — pipeline may be stalled")
+    return None
+
+
+def validate(path: Path, check_freshness: bool = True) -> list[str]:
+    """Return a list of violation messages. Empty list = valid.
+
+    check_freshness=False skips the trading-day staleness rule — used when
+    validating a committed file in CI, where recency of data is not a code gate.
+    """
     problems: list[str] = []
 
     if not path.exists():
@@ -100,34 +170,39 @@ def validate(path: Path) -> list[str]:
                 f"(stale conditions must NOT count as met)"
             )
 
-    # Rule 6: file freshness
-    updated_raw = data.get('updated') or data.get('timestamp')
-    if updated_raw:
-        try:
-            updated = datetime.fromisoformat(updated_raw.replace('Z', '+00:00'))
-            if updated.tzinfo is None:
-                updated = updated.replace(tzinfo=timezone.utc)
-            age_hours = (datetime.now(timezone.utc) - updated).total_seconds() / 3600
-            if age_hours > MAX_AGE_HOURS:
-                problems.append(
-                    f"regime.json is {age_hours:.1f}h old (max {MAX_AGE_HOURS}h) — "
-                    f"pipeline may be stalled"
-                )
-        except (ValueError, TypeError) as exc:
-            problems.append(f"could not parse 'updated' timestamp: {exc}")
+    # Rule 6: file freshness (trading-day aware — see _freshness_problem)
+    if check_freshness:
+        updated_raw = data.get('updated') or data.get('timestamp')
+        if updated_raw:
+            try:
+                updated = datetime.fromisoformat(updated_raw.replace('Z', '+00:00'))
+                if updated.tzinfo is None:
+                    updated = updated.replace(tzinfo=timezone.utc)
+                fp = _freshness_problem(updated, datetime.now(timezone.utc))
+                if fp:
+                    problems.append(fp)
+            except (ValueError, TypeError) as exc:
+                problems.append(f"could not parse 'updated' timestamp: {exc}")
 
     return problems
 
 
 def main(argv: list[str]) -> int:
-    path = Path(argv[1]) if len(argv) > 1 else Path(__file__).resolve().parent.parent / "data" / "regime.json"
-    problems = validate(path)
+    args = [a for a in argv[1:] if not a.startswith('-')]
+    flags = {a for a in argv[1:] if a.startswith('-')}
+    # CI validates the COMMITTED file on every push, including weekends/holidays
+    # when the EOD pipeline legitimately hasn't run — recency is not a code gate
+    # there. Pass --no-freshness in CI to validate structure only.
+    check_freshness = '--no-freshness' not in flags
+    path = Path(args[0]) if args else Path(__file__).resolve().parent.parent / "data" / "regime.json"
+    problems = validate(path, check_freshness=check_freshness)
     if problems:
         print(f"[validate-regime] ❌ {len(problems)} violation(s) in {path}:")
         for p in problems:
             print(f"  - {p}")
         return 1
-    print(f"[validate-regime] ✓ {path.name} passes all checks")
+    suffix = "" if check_freshness else " (freshness skipped)"
+    print(f"[validate-regime] ✓ {path.name} passes all checks{suffix}")
     return 0
 
 

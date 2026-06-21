@@ -143,3 +143,41 @@ def test_stale_file_flagged(vr, tmp_path):
     p = _write(tmp_path, d)
     problems = vr.validate(p)
     assert any("old" in x.lower() for x in problems)
+
+
+def test_no_freshness_skips_age_check(vr, tmp_path):
+    """--no-freshness path (CI on push) must NOT flag an old committed file."""
+    d = _good_regime(vr)
+    d['updated'] = '2025-01-01T00:00:00Z'  # ancient, would fail freshness
+    p = _write(tmp_path, d)
+    problems = vr.validate(p, check_freshness=False)
+    assert not any("old" in x.lower() or "stalled" in x.lower() for x in problems), problems
+
+
+def test_freshness_weekend_not_flagged(vr):
+    """Friday EOD file checked on Sat/Sun must be fresh (markets closed).
+
+    This is the exact weekend false-positive that broke the Pipeline Tests CI
+    job: a flat 24h check fails every weekend because no EOD run happens.
+    """
+    friday_eod = datetime(2026, 6, 19, 21, 38, tzinfo=timezone.utc)
+    saturday = datetime(2026, 6, 20, 12, 0, tzinfo=timezone.utc)
+    sunday = datetime(2026, 6, 21, 18, 0, tzinfo=timezone.utc)
+    assert vr._freshness_problem(friday_eod, saturday) is None
+    assert vr._freshness_problem(friday_eod, sunday) is None
+
+
+def test_freshness_monday_pre_eod_not_flagged(vr):
+    """Monday morning before the EOD run: Friday's file is still current."""
+    friday_eod = datetime(2026, 6, 19, 21, 38, tzinfo=timezone.utc)
+    monday_9am_et = datetime(2026, 6, 22, 13, 0, tzinfo=timezone.utc)  # 9am ET
+    assert vr._freshness_problem(friday_eod, monday_9am_et) is None
+
+
+def test_freshness_genuine_stall_flagged(vr):
+    """A real stall (EOD never ran Monday, still Friday's file Monday night)
+    MUST still be caught — the fix must not blanket-disable stall detection."""
+    friday_eod = datetime(2026, 6, 19, 21, 38, tzinfo=timezone.utc)
+    monday_night = datetime(2026, 6, 22, 23, 0, tzinfo=timezone.utc)
+    assert vr._freshness_problem(friday_eod, monday_night) is not None
+

@@ -26,4 +26,4 @@ jobs:
       - name: Run pipeline tests
         run: python -m pytest tests/test_update_regime.py tests/test_update_prices.py tests/test_transition_signals.py tests/test_validate_regime.py -v
       - name: Validate committed regime.json
-        run: python scripts/validate-regime.py
+        run: python scripts/validate-regime.py --no-freshness
