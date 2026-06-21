@@ -25,6 +25,17 @@ LOG="${BT_LOG:-/tmp/bt-eod-update.log}"
 PYTHON="${BT_PYTHON:-$(command -v python3 || echo /opt/homebrew/bin/python3)}"
 DOW=$(date +%u)  # 1=Mon, 5=Fri, 6=Sat, 7=Sun
 IS_FRIDAY=$([[ "$DOW" == "5" ]] && echo 1 || echo 0)
+TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+ERRORS=0
+
+cd "$REPO"
+
+# Define log/warn EARLY — the holiday-eve check below calls log() and was
+# blowing up under `set -euo pipefail` with `log: command not found` (exit 127)
+# on any pre-holiday run. Latent since April 2026; first triggered on the
+# Juneteenth-eve cron 2026-06-18.
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG"; }
+warn() { log "⚠️  WARN: $*"; ERRORS=$((ERRORS + 1)); }
 
 # Check if tomorrow is a market holiday (makes today the effective last trading day of the week)
 # Reads holidays from market-hours.json if available
@@ -49,13 +60,6 @@ fi
 
 # Effective Friday = actual Friday OR day before a holiday closure
 IS_EFFECTIVE_FRIDAY=$([[ "$IS_FRIDAY" == "1" || "$IS_PRE_HOLIDAY" == "1" ]] && echo 1 || echo 0)
-TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-ERRORS=0
-
-cd "$REPO"
-
-log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG"; }
-warn() { log "⚠️  WARN: $*"; ERRORS=$((ERRORS + 1)); }
 
 log "=== EOD Update Starting (dow=$DOW, friday=$IS_FRIDAY, pre_holiday=$IS_PRE_HOLIDAY, effective_friday=$IS_EFFECTIVE_FRIDAY) ==="
 

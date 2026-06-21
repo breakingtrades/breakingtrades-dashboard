@@ -50,6 +50,160 @@ def load_text(path):
         return ""
 
 
+def build_seasonality_context():
+    """Deterministic seasonality framing — injected before LLM call so Tom can't
+    skip naming the macro pattern. Covers June swoon (R521), midterm-year first-
+    half hiccup (R529), VIX seasonal pickup (R498), and known annual flavors.
+
+    Why deterministic: yesterday's briefing (2026-06-18) described every June-
+    swoon symptom (F&G 61.5→32, defensive rotation, tech exhaustion, energy
+    breakdown, rising VIX) WITHOUT ever naming the seasonal frame. Tom's rules
+    file has R521/R529/R498 but the LLM didn't pull them. Inject explicitly.
+    """
+    now = datetime.now(timezone.utc)
+    month = now.month
+    day = now.day
+    year = now.year
+    # US House midterms: every 2 years offset from presidential cycle.
+    # 2022, 2024, 2026, 2028 ... — even years where year % 4 == 2 are midterms.
+    # (2024 was presidential, 2026 IS midterm, 2028 presidential.)
+    is_midterm_year = (year % 4 == 2)
+
+    notes = []
+
+    # JUNE — the swoon window
+    if month == 6:
+        notes.append("## SEASONALITY (JUNE — read carefully)")
+        notes.append(
+            "- **June swoon window.** June is historically one of the weaker months "
+            "for SPX — average return modest, hit-rate <50%. Defensive rotation "
+            "and breadth deterioration in June are the rule, not the exception."
+        )
+        if is_midterm_year:
+            notes.append(
+                f"- **R521 — midterm-year June stat is LIVE this year ({year}).** "
+                "In midterm election years, SPX June average = -2.11%, hit-rate "
+                "36.8%. That means ~63% of midterm Junes finish red. Treat any "
+                "F&G slide, breadth thinning, tech exhaustion, or energy "
+                "breakdown in this window as confirming the seasonal pattern, "
+                "not as a contrarian buy."
+            )
+            notes.append(
+                "- **R529 — midterm-year H1 +10% YTD pattern.** When SPX is up "
+                "~10% YTD by mid-year of a midterm cycle (Tom Lee / Fundstrat "
+                "playbook), expect a 30-50 trading-day 'hiccup' / 5-10% "
+                "drawdown June-July-August BEFORE the seasonally-strong Q4 "
+                "rally. The path to H2 strength runs THROUGH a mid-year "
+                "drawdown, not around it."
+            )
+            notes.append(
+                "- **R145 / R159 / R163 — midterm-year ROADMAP.** April-May "
+                "rally → June-Aug top → 15-20% correction → Q4 bottom + "
+                "pre-election rally. Russell and NASDAQ usually take the worst "
+                "of it. Position-size with this map in mind."
+            )
+        notes.append(
+            "- **R498 — VIX seasonal pickup.** VIX July monthly low ~13.73 → "
+            "Aug-Oct peak ~18.28. Any sustained VIX trend above SMA20 in late "
+            "June = early confirmation of that seasonal rise."
+        )
+        # End-of-month sharpening: by mid-to-late June, the pattern is in flight
+        if day >= 15:
+            notes.append(
+                f"- **Calendar position.** It is {now.strftime('%B %d')} — "
+                "we are inside the swoon window now. Reference R521/R529 by "
+                "name in today's read if the data corroborates "
+                "(defensive rotation, F&G slide, breadth thinning, sector risk "
+                "stepping up, VIX above SMA20)."
+            )
+
+    # JULY — VIX trough then climb
+    elif month == 7:
+        notes.append("## SEASONALITY (JULY)")
+        notes.append(
+            "- **R498 — VIX seasonal trough.** July tends to print the "
+            "monthly VIX low (~13.73 historical). Calm regime, but it is the "
+            "calm BEFORE the Aug-Oct vol expansion."
+        )
+        if is_midterm_year:
+            notes.append(
+                "- **R529 — midterm-year hiccup window continues** through "
+                "late July / August. Don't read a calm tape as confirmation "
+                "of melt-up — the seasonal map says drawdown precedes Q4."
+            )
+
+    # AUG-SEP — vol expansion
+    elif month in (8, 9):
+        notes.append("## SEASONALITY (AUG-SEP)")
+        notes.append(
+            "- **R498 — VIX seasonal rise toward Oct peak.** August-September "
+            "historically see vol expansion. September is the worst-performing "
+            "calendar month for SPX (historical avg slightly negative)."
+        )
+
+    # OCT — vol peak
+    elif month == 10:
+        notes.append("## SEASONALITY (OCT)")
+        notes.append(
+            "- **R498 — VIX seasonal peak (~18.28).** October contains the "
+            "annual VIX high. Headline-driven vol spikes common."
+        )
+
+    # NOV-DEC — Santa / year-end strength
+    elif month in (11, 12):
+        notes.append("## SEASONALITY (NOV-DEC)")
+        notes.append(
+            "- **Seasonally strong.** Nov-Dec historically the strongest "
+            "two-month stretch for SPX. Watch for Thanksgiving-to-year-end "
+            "drift higher; Santa Claus rally = last 5 trading days of Dec + "
+            "first 2 of Jan."
+        )
+
+    # JAN — January effect / small-cap kickoff
+    elif month == 1:
+        notes.append("## SEASONALITY (JAN)")
+        notes.append(
+            "- **January Effect** (small-caps tend to outperform early Jan). "
+            "First-five-days and full-month indicators have a multi-decade "
+            "track record as full-year barometers."
+        )
+
+    # FEB — historically weak in midterm years
+    elif month == 2:
+        notes.append("## SEASONALITY (FEB)")
+        notes.append(
+            "- **February is historically the weakest month of Q1.** Midterm "
+            "years in particular can see early-year choppiness."
+        )
+
+    # MAR-APR — pre-rally setup
+    elif month in (3, 4):
+        notes.append("## SEASONALITY (MAR-APR)")
+        notes.append(
+            "- **April historically bullish** (best month for SPX over the "
+            "last 20 years). 'Sell in May' = R048 useless statistic except "
+            "in midterm years where the H2 rotation pattern (R145/R159/R163) "
+            "actually matters."
+        )
+
+    # MAY — sell in may + midterm-year top setup
+    elif month == 5:
+        notes.append("## SEASONALITY (MAY)")
+        notes.append(
+            "- **R048 — 'Sell in May' is mostly useless** as a year-round "
+            "rule. Ignore EXCEPT in midterm-election years."
+        )
+        if is_midterm_year:
+            notes.append(
+                f"- **Midterm year ({year}) — May/June top setup.** Per "
+                "R145/R159/R163, the midterm-year roadmap calls for a "
+                "April-May rally → top → 15-20% correction into Q4 bottom. "
+                "Late May = position-trim window before June swoon (R521)."
+            )
+
+    return "\n".join(notes) if notes else ""
+
+
 def build_market_context():
     """Assemble current market data into a text summary for Tom."""
     parts = []
@@ -209,13 +363,16 @@ def generate_briefing():
 
     system_prompt = build_system_prompt()
     market_context = build_market_context()
+    seasonality_context = build_seasonality_context()
+
+    seasonality_block = f"\n\n{seasonality_context}\n" if seasonality_context else ""
 
     user_prompt = f"""Today is {weekday}, {today}.
 
 Here is today's market data from the BreakingTrades dashboard:
 
 {market_context}
-
+{seasonality_block}
 ---
 
 Write today's Daily Briefing in your voice (Tom from FXEvolution). This goes on the BreakingTrades dashboard as the daily briefing section.
@@ -246,6 +403,11 @@ Rules:
 - If Fear & Greed is extreme, call it out per R013
 - If sectors are shifting quadrants, highlight the rotation
 - Flag any critical rule triggers (R001, R006, R009, etc.)
+- **If a SEASONALITY block is provided above, you MUST name the seasonal frame
+  explicitly in the briefing** — don't just describe symptoms (defensive
+  rotation, F&G slide, breadth thinning, VIX rising). Tie them back to the
+  named rule (R521 / R529 / R498 / R145 / R159 / R163 / R048) so the reader
+  knows WHY the symptoms cluster the way they do.
 - Output ONLY valid JSON, no markdown fences
 """
 
