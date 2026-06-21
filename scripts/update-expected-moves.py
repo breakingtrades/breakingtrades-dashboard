@@ -43,6 +43,18 @@ WATCHLIST_FILE = DATA_DIR / 'watchlist.json'
 PRICES_FILE = DATA_DIR / 'prices.json'
 
 
+def _valid_px(x) -> bool:
+    """True only for a real, positive, FINITE price. Rejects None, 0, negatives,
+    and crucially NaN/Inf. A NaN close from a flaky yfinance read passes a naive
+    `not x or x <= 0` guard (both `not NaN` and `NaN <= 0` are False) and then
+    poisons ATM strike selection into a deep-ITM grab (the deep-ITM/null-close
+    bug class: ADSK, DHR, TGT, SPX, etc.)."""
+    try:
+        return x is not None and math.isfinite(x) and x > 0
+    except (TypeError, ValueError):
+        return False
+
+
 def _json_sanitize(obj):
     """Recursively replace NaN / +Inf / -Inf floats with None so the result
     serializes to VALID JSON. json.dumps(allow_nan=True) (the default) emits
@@ -237,13 +249,20 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
         try:
             hist = t_info.history(period='5d', interval='1d', auto_adjust=False)
             if hist is not None and len(hist) > 0:
-                close_price = float(hist['Close'].iloc[-1])
-                price_source = 'yf-history'
+                cp = float(hist['Close'].iloc[-1])
+                # yfinance can return a NaN close even when the row exists
+                # (flaky read during big batch runs). NaN slips past a naive
+                # `not cp or cp <= 0` guard, then the ATM selector grabs a
+                # deep-ITM strike -> garbage straddle. Reject it here so the
+                # fallbacks (prevClose / lastPrice / canonical) get a chance.
+                if _valid_px(cp):
+                    close_price = cp
+                    price_source = 'yf-history'
         except Exception:
             pass
 
         # Fall back to fast_info.previousClose if history call failed
-        if not close_price or close_price <= 0:
+        if not _valid_px(close_price):
             info = t_info.fast_info
             close_price = (
                 info.get('regularMarketPreviousClose')
@@ -251,7 +270,7 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
             )
             price_source = 'yf-prevClose'
         # Final fallback to lastPrice
-        if not close_price or close_price <= 0:
+        if not _valid_px(close_price):
             info = t_info.fast_info
             close_price = info.get('lastPrice') or info.get('regularMarketPrice')
             price_source = 'yf-lastPrice'
@@ -259,11 +278,11 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
         pass
 
     # Final fallback to canonical prices (better than nothing)
-    if (not close_price or close_price <= 0) and canonical_prices and ticker in canonical_prices:
+    if not _valid_px(close_price) and canonical_prices and ticker in canonical_prices:
         close_price = canonical_prices[ticker]
         price_source = 'prices-fallback'
 
-    if not close_price or close_price <= 0:
+    if not _valid_px(close_price):
         print("no price", flush=True)
         return None
 
@@ -361,6 +380,15 @@ def yf_process_ticker(ticker, include_monthly=False, include_quarterly=False, ca
 
     straddle = call_price + put_price
     atm_strike = atm_call['strike']
+
+    # Sanity guard: the ATM strike must be within ~40% of the close. A deep-ITM
+    # grab (strike far below close, call≈straddle, put≈0) signals a bad close or
+    # an unusably sparse chain — reject rather than emit a garbage straddle.
+    # This is the second line of defense behind _valid_px(close_price) above.
+    if not _valid_px(atm_strike) or abs(atm_strike - close_price) / close_price > 0.40:
+        print(f"ATM strike {atm_strike} too far from close {close_price:.2f} "
+              f"(bad price or sparse chain) — skipping", flush=True)
+        return None
 
     # Weekly anchor: if caller provided last Friday's close, use that for
     # the weekly band. Otherwise anchor to today's close (first run / Friday run).
