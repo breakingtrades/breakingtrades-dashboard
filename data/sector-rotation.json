@@ -2,7 +2,7 @@
   "benchmark": "SPY",
   "lookback": 13,
   "trailLength": 26,
-  "generatedAt": "2026-06-19T13:53:31.811633+00:00",
+  "generatedAt": "2026-06-22T15:34:43.276028+00:00",
   "source": "yfinance",
   "sectors": [
     {
@@ -11,11 +11,6 @@
       "color": "#FF5722",
       "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 92.644,
-          "momentum": 94.737
-        },
         {
           "date": "2025-12-29",
           "rs": 101.148,
@@ -138,8 +133,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 78.836,
-          "momentum": 88.191
+          "rs": 79.039,
+          "momentum": 88.418
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 73.076,
+          "momentum": 92.455
         }
       ]
     },
@@ -147,13 +147,8 @@
       "symbol": "XLB",
       "name": "Materials",
       "color": "#795548",
-      "quadrant": "Improving",
+      "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 99.698,
-          "momentum": 102.136
-        },
         {
           "date": "2025-12-29",
           "rs": 100.772,
@@ -276,8 +271,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 95.7,
-          "momentum": 100.868
+          "rs": 95.947,
+          "momentum": 101.128
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 90.243,
+          "momentum": 94.055
         }
       ]
     },
@@ -287,11 +287,6 @@
       "color": "#607D8B",
       "quadrant": "Improving",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 98.898,
-          "momentum": 99.497
-        },
         {
           "date": "2025-12-29",
           "rs": 100.268,
@@ -414,8 +409,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 96.948,
-          "momentum": 101.465
+          "rs": 97.197,
+          "momentum": 101.727
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 97.2,
+          "momentum": 100.003
         }
       ]
     },
@@ -423,13 +423,8 @@
       "symbol": "XLY",
       "name": "Discretionary",
       "color": "#FFA500",
-      "quadrant": "Improving",
+      "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 97.513,
-          "momentum": 99.146
-        },
         {
           "date": "2025-12-29",
           "rs": 97.384,
@@ -552,8 +547,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 94.137,
-          "momentum": 100.313
+          "rs": 94.379,
+          "momentum": 100.572
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 93.383,
+          "momentum": 98.944
         }
       ]
     },
@@ -563,11 +563,6 @@
       "color": "#28A745",
       "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 96.58,
-          "momentum": 99.386
-        },
         {
           "date": "2025-12-29",
           "rs": 98.023,
@@ -690,8 +685,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 89.029,
-          "momentum": 98.172
+          "rs": 89.258,
+          "momentum": 98.425
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 86.646,
+          "momentum": 97.073
         }
       ]
     },
@@ -701,11 +701,6 @@
       "color": "#DC3545",
       "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 110.591,
-          "momentum": 100.307
-        },
         {
           "date": "2025-12-29",
           "rs": 105.324,
@@ -828,8 +823,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 89.179,
-          "momentum": 97.134
+          "rs": 89.409,
+          "momentum": 97.385
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 89.014,
+          "momentum": 99.559
         }
       ]
     },
@@ -837,13 +837,8 @@
       "symbol": "XLF",
       "name": "Financials",
       "color": "#1E90FF",
-      "quadrant": "Lagging",
+      "quadrant": "Improving",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 99.039,
-          "momentum": 100.415
-        },
         {
           "date": "2025-12-29",
           "rs": 100.217,
@@ -966,8 +961,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 94.783,
-          "momentum": 97.065
+          "rs": 95.027,
+          "momentum": 97.315
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 96.024,
+          "momentum": 101.049
         }
       ]
     },
@@ -977,11 +977,6 @@
       "color": "#00BCD4",
       "quadrant": "Leading",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 100.594,
-          "momentum": 99.635
-        },
         {
           "date": "2025-12-29",
           "rs": 99.149,
@@ -1104,8 +1099,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 122.403,
-          "momentum": 101.632
+          "rs": 122.718,
+          "momentum": 101.894
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 125.499,
+          "momentum": 102.266
         }
       ]
     },
@@ -1113,13 +1113,8 @@
       "symbol": "XLC",
       "name": "Communication",
       "color": "#9C27B0",
-      "quadrant": "Lagging",
+      "quadrant": "Improving",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 95.761,
-          "momentum": 100.562
-        },
         {
           "date": "2025-12-29",
           "rs": 98.414,
@@ -1242,8 +1237,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 84.523,
-          "momentum": 96.994
+          "rs": 84.741,
+          "momentum": 97.244
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 84.952,
+          "momentum": 100.25
         }
       ]
     },
@@ -1251,13 +1251,8 @@
       "symbol": "XLU",
       "name": "Utilities",
       "color": "#6366F1",
-      "quadrant": "Improving",
+      "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 94.848,
-          "momentum": 96.527
-        },
         {
           "date": "2025-12-29",
           "rs": 95.578,
@@ -1380,8 +1375,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 87.213,
-          "momentum": 102.571
+          "rs": 87.437,
+          "momentum": 102.835
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 84.063,
+          "momentum": 96.141
         }
       ]
     },
@@ -1391,11 +1391,6 @@
       "color": "#009688",
       "quadrant": "Lagging",
       "trail": [
-        {
-          "date": "2025-12-22",
-          "rs": 93.192,
-          "momentum": 98.687
-        },
         {
           "date": "2025-12-29",
           "rs": 94.747,
@@ -1518,8 +1513,13 @@
         },
         {
           "date": "2026-06-15",
-          "rs": 93.982,
-          "momentum": 97.652
+          "rs": 94.224,
+          "momentum": 97.904
+        },
+        {
+          "date": "2026-06-22",
+          "rs": 94.074,
+          "momentum": 99.84
         }
       ]
     }
