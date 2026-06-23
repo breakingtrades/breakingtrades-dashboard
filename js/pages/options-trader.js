@@ -22,6 +22,7 @@
     holdings:        'data/options-trader/opt-holdings.json',
     recommendations: 'data/options-trader/opt-recommendations.json',
     candidates:      'data/options-trader/opt-candidates.json',
+    backtest:        'data/options-trader/opt-backtest.json',
   };
 
   // ─── Formatters ──────────────────────────────────────────────────────────
@@ -52,10 +53,17 @@
           <div class="ai-trader-loading">Loading options book…</div>
         </div>
 
+        <div id="opt-trader-backtest-banner"></div>
+
         <div class="ai-trader-grid">
           <section class="ai-trader-section ai-picks-section">
             <h3>🎯 Open Spreads — Defined-Risk Book</h3>
             <div id="opt-trader-positions"><div class="ai-trader-loading">Loading positions…</div></div>
+          </section>
+
+          <section class="ai-trader-section">
+            <h3>📊 Backtest — Honest Validation (27y, proxy IV)</h3>
+            <div id="opt-trader-backtest"><div class="ai-trader-loading">Loading backtest…</div></div>
           </section>
 
           <section class="ai-trader-section">
@@ -239,17 +247,87 @@
     `;
   }
 
+  // ─── Backtest (honest validation) ────────────────────────────────────────
+  function renderBacktestBanner(bt) {
+    if (!bt) return '';
+    // The honest verdict: the result is carried entirely by long-call-spreads
+    // (a levered long-equity bet); credit/premium-selling is flat-to-negative.
+    return `
+      <div class="ai-trader-disclaimer opt-verdict" role="alert">
+        <strong>📊 Backtest verdict — read before trusting this:</strong>
+        Over 27 years (proxy IV), this book returns ${bt.total_return_pct >= 0 ? '+' : ''}${Math.round(bt.total_return_pct)}%
+        but with a <strong>${bt.max_drawdown_pct.toFixed(0)}% max drawdown</strong> and a
+        <strong>${(bt.win_rate * 100).toFixed(0)}% win rate</strong>. The entire gain comes from
+        <strong>long debit spreads</strong> (a leveraged directional long), not from premium-selling —
+        the credit-spread logic is flat-to-negative even under a proxy biased in its favor.
+        <strong>This is not yet a validated options edge.</strong> Treated as research, not a strategy.
+      </div>
+    `;
+  }
+
+  function renderBacktest(bt) {
+    if (!bt) return '<div class="ai-trader-empty">No backtest results yet. Run opt_backtest.py.</div>';
+    const byStrat = bt.by_strategy || {};
+    const stratRows = Object.keys(byStrat).map(k => {
+      const v = byStrat[k];
+      return `
+        <tr>
+          <td>${k.replace(/_/g, ' ')}</td>
+          <td>${v.trades}</td>
+          <td class="${v.pnl >= 0 ? 'pos' : 'neg'}">${fmtSigned(v.pnl, 'currency')}</td>
+        </tr>`;
+    }).join('');
+    return `
+      <div class="ai-trader-tiles opt-bt-tiles">
+        <div class="ai-trader-tile">
+          <div class="ai-trader-tile-label">Total Return</div>
+          <div class="ai-trader-tile-value ${bt.total_return_pct >= 0 ? 'pos' : 'neg'}">${bt.total_return_pct >= 0 ? '+' : ''}${Math.round(bt.total_return_pct)}%</div>
+          <div class="ai-trader-tile-sub">${bt.period || ''}</div>
+        </div>
+        <div class="ai-trader-tile">
+          <div class="ai-trader-tile-label">Win Rate</div>
+          <div class="ai-trader-tile-value">${(bt.win_rate * 100).toFixed(1)}%</div>
+          <div class="ai-trader-tile-sub">${bt.wins}W / ${bt.losses}L · ${bt.trades} trades</div>
+        </div>
+        <div class="ai-trader-tile">
+          <div class="ai-trader-tile-label">Profit Factor</div>
+          <div class="ai-trader-tile-value">${bt.profit_factor != null ? bt.profit_factor.toFixed(2) : '—'}</div>
+          <div class="ai-trader-tile-sub">gross win / gross loss</div>
+        </div>
+        <div class="ai-trader-tile">
+          <div class="ai-trader-tile-label">Max Drawdown</div>
+          <div class="ai-trader-tile-value neg">${bt.max_drawdown_pct.toFixed(1)}%</div>
+          <div class="ai-trader-tile-sub">peak-to-trough</div>
+        </div>
+      </div>
+      <div class="ai-trader-table-wrap">
+        <table class="ai-trader-table opt-table">
+          <thead><tr><th scope="col">Strategy</th><th scope="col">Trades</th><th scope="col">P&amp;L</th></tr></thead>
+          <tbody>${stratRows}</tbody>
+        </table>
+      </div>
+      <p class="ai-picks-note">Method: ${bt.method || 'walk-forward'}. IV is an ATR/VIX <strong>proxy</strong>,
+      not real implied vol — and the proxy is biased <em>toward</em> credit-spread success, so credit losing money
+      is a strong negative signal. Hold-to-expiry (no early management). ${(bt.universe || []).length}-ticker universe.</p>
+    `;
+  }
+
   // ─── Init ────────────────────────────────────────────────────────────────
   function init() {
     Promise.all([
       fetch(DATA_PATHS.holdings).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch(DATA_PATHS.candidates).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch(DATA_PATHS.recommendations).then(r => r.ok ? r.json() : null).catch(() => null),
-    ]).then(([holdings, candidates, recs]) => {
+      fetch(DATA_PATHS.backtest).then(r => r.ok ? r.json() : null).catch(() => null),
+    ]).then(([holdings, candidates, recs, backtest]) => {
       const headerEl = document.getElementById('opt-trader-header');
       if (headerEl) headerEl.innerHTML = renderHeader(holdings);
+      const bannerEl = document.getElementById('opt-trader-backtest-banner');
+      if (bannerEl) bannerEl.innerHTML = renderBacktestBanner(backtest);
       const posEl = document.getElementById('opt-trader-positions');
       if (posEl) posEl.innerHTML = renderPositions(holdings);
+      const btEl = document.getElementById('opt-trader-backtest');
+      if (btEl) btEl.innerHTML = renderBacktest(backtest);
       const candEl = document.getElementById('opt-trader-candidates');
       if (candEl) candEl.innerHTML = renderCandidates(candidates);
       const recEl = document.getElementById('opt-trader-recommendations');

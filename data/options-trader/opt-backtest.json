@@ -1,0 +1,41 @@
+{
+  "as_of": "2026-06-23T17:39:58.269670",
+  "method": "walk-forward, ATR/VIX-proxy IV, hold-to-expiry intrinsic settlement",
+  "period": "1999-03-31 \u2192 2026-03-02",
+  "universe": [
+    "SPY",
+    "QQQ",
+    "IWM",
+    "NVDA",
+    "AAPL",
+    "MSFT"
+  ],
+  "trades": 3529,
+  "wins": 1749,
+  "losses": 1780,
+  "win_rate": 0.4956,
+  "start_equity": 100000.0,
+  "end_equity": 1645397.08,
+  "total_return_pct": 1545.4,
+  "profit_factor": 1.531,
+  "max_drawdown_pct": 52.75,
+  "by_strategy": {
+    "BULL_PUT_SPREAD": {
+      "trades": 169,
+      "pnl": 4899.36
+    },
+    "LONG_CALL_SPREAD": {
+      "trades": 2319,
+      "pnl": 1744507.0
+    },
+    "BEAR_CALL_SPREAD": {
+      "trades": 407,
+      "pnl": -23433.94
+    },
+    "LONG_PUT_SPREAD": {
+      "trades": 634,
+      "pnl": -180575.26
+    }
+  },
+  "equity_curve_points": 1355
+}
