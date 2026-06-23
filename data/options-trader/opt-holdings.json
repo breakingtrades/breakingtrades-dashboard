@@ -1,0 +1,403 @@
+{
+  "created": "2026-06-23T05:47:24.505073+00:00",
+  "as_of": "2026-06-23T05:47:36.299860+00:00",
+  "portfolio_name": "AI Options Trader (paper)",
+  "starting_equity": 100000.0,
+  "cash": 103515.0,
+  "reserved_buying_power": 17430.86,
+  "equity": 103260.83,
+  "positions": [
+    {
+      "ticker": "USO",
+      "decision_id": "20260623-OPT-USO-00",
+      "fill_id": "20260623-001-USO",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "contracts": 2,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 130.0,
+          "price": 3.62
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 140.0,
+          "price": 1.96
+        }
+      ],
+      "expiry": "20260807",
+      "entry_date": "2026-06-20",
+      "entry_net_premium": 1.62,
+      "max_loss_total": 1668.22,
+      "max_profit_total": 331.78,
+      "breakeven": 131.66,
+      "pop_estimate": 0.804,
+      "conviction": 0.839,
+      "sector": null,
+      "thesis": "",
+      "last_spread_value": 1.66,
+      "unrealized_pnl": -7.78,
+      "unrealized_pct": -0.5,
+      "status": "OPEN",
+      "days_held": 2,
+      "dte_remaining": 45
+    },
+    {
+      "ticker": "MU",
+      "decision_id": "20260623-OPT-MU-01",
+      "fill_id": "20260623-002-MU",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "contracts": 1,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 1590.0,
+          "price": 91.51
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 1610.0,
+          "price": 87.66
+        }
+      ],
+      "expiry": "20260807",
+      "entry_date": "2026-06-20",
+      "entry_net_premium": 3.81,
+      "max_loss_total": 1614.82,
+      "max_profit_total": 385.18,
+      "breakeven": 1593.85,
+      "pop_estimate": 0.805,
+      "conviction": 0.815,
+      "sector": null,
+      "thesis": "",
+      "last_spread_value": 3.85,
+      "unrealized_pnl": -4.18,
+      "unrealized_pct": -0.3,
+      "status": "OPEN",
+      "days_held": 2,
+      "dte_remaining": 45
+    },
+    {
+      "ticker": "AA",
+      "decision_id": "20260623-OPT-AA-02",
+      "fill_id": "20260623-003-AA",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "contracts": 4,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 70.0,
+          "price": 1.8
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 75.0,
+          "price": 1.04
+        }
+      ],
+      "expiry": "20260807",
+      "entry_date": "2026-06-20",
+      "entry_net_premium": 0.72,
+      "max_loss_total": 1694.16,
+      "max_profit_total": 305.84,
+      "breakeven": 70.76,
+      "pop_estimate": 0.821,
+      "conviction": 0.81,
+      "sector": null,
+      "thesis": "",
+      "last_spread_value": 0.76,
+      "unrealized_pnl": -17.82,
+      "unrealized_pct": -1.1,
+      "status": "OPEN",
+      "days_held": 2,
+      "dte_remaining": 45
+    },
+    {
+      "ticker": "FLY",
+      "decision_id": "20260623-OPT-FLY-17",
+      "fill_id": "20260623-004-FLY",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "contracts": 12,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 41.0,
+          "price": 2.24
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 43.0,
+          "price": 1.89
+        }
+      ],
+      "expiry": "20260807",
+      "entry_date": "2026-06-20",
+      "entry_net_premium": 0.31,
+      "max_loss_total": 1980.0,
+      "max_profit_total": 420.0,
+      "breakeven": 41.35,
+      "pop_estimate": 0.815,
+      "conviction": 0.807,
+      "sector": null,
+      "thesis": "",
+      "last_spread_value": 0.35,
+      "unrealized_pnl": -48.04,
+      "unrealized_pct": -2.4,
+      "status": "OPEN",
+      "days_held": 2,
+      "dte_remaining": 45
+    },
+    {
+      "ticker": "LUNR",
+      "decision_id": "20260623-OPT-LUNR-18",
+      "fill_id": "20260623-005-LUNR",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "contracts": 24,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 29.5,
+          "price": 1.55
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 30.5,
+          "price": 1.36
+        }
+      ],
+      "expiry": "20260807",
+      "entry_date": "2026-06-20",
+      "entry_net_premium": 0.15,
+      "max_loss_total": 1952.88,
+      "max_profit_total": 447.12,
+      "breakeven": 29.69,
+      "pop_estimate": 0.807,
+      "conviction": 0.804,
+      "sector": null,
+      "thesis": "",
+      "last_spread_value": 0.19,
+      "unrealized_pnl": -87.1,
+      "unrealized_pct": -4.5,
+      "status": "OPEN",
+      "days_held": 2,
+      "dte_remaining": 45
+    },
+    {
+      "ticker": "RVTY",
+      "decision_id": "20260623-OPT-RVTY-15",
+      "fill_id": "20260623-006-RVTY",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "contracts": 2,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 115.0,
+          "price": 3.26
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 125.0,
+          "price": 1.62
+        }
+      ],
+      "expiry": "20260807",
+      "entry_date": "2026-06-20",
+      "entry_net_premium": 1.59,
+      "max_loss_total": 1673.34,
+      "max_profit_total": 326.66,
+      "breakeven": 116.63,
+      "pop_estimate": 0.803,
+      "conviction": 0.802,
+      "sector": null,
+      "thesis": "",
+      "last_spread_value": 1.63,
+      "unrealized_pnl": -8.66,
+      "unrealized_pct": -0.5,
+      "status": "OPEN",
+      "days_held": 2,
+      "dte_remaining": 45
+    },
+    {
+      "ticker": "ASTS",
+      "decision_id": "20260623-OPT-ASTS-16",
+      "fill_id": "20260623-007-ASTS",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "contracts": 4,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 102.5,
+          "price": 5.18
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 107.5,
+          "price": 4.26
+        }
+      ],
+      "expiry": "20260807",
+      "entry_date": "2026-06-20",
+      "entry_net_premium": 0.88,
+      "max_loss_total": 1630.68,
+      "max_profit_total": 369.32,
+      "breakeven": 103.42,
+      "pop_estimate": 0.804,
+      "conviction": 0.802,
+      "sector": null,
+      "thesis": "",
+      "last_spread_value": 0.92,
+      "unrealized_pnl": -17.32,
+      "unrealized_pct": -1.1,
+      "status": "OPEN",
+      "days_held": 2,
+      "dte_remaining": 45
+    },
+    {
+      "ticker": "COIN",
+      "decision_id": "20260623-OPT-COIN-07",
+      "fill_id": "20260623-008-COIN",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "contracts": 2,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 195.0,
+          "price": 6.91
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 205.0,
+          "price": 5.08
+        }
+      ],
+      "expiry": "20260807",
+      "entry_date": "2026-06-20",
+      "entry_net_premium": 1.79,
+      "max_loss_total": 1633.6,
+      "max_profit_total": 366.4,
+      "breakeven": 196.83,
+      "pop_estimate": 0.801,
+      "conviction": 0.8,
+      "sector": null,
+      "thesis": "",
+      "last_spread_value": 1.83,
+      "unrealized_pnl": -8.4,
+      "unrealized_pct": -0.5,
+      "status": "OPEN",
+      "days_held": 2,
+      "dte_remaining": 45
+    },
+    {
+      "ticker": "URA",
+      "decision_id": "20260623-OPT-URA-11",
+      "fill_id": "20260623-009-URA",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "contracts": 12,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 55.0,
+          "price": 1.52
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 57.0,
+          "price": 1.14
+        }
+      ],
+      "expiry": "20260807",
+      "entry_date": "2026-06-20",
+      "entry_net_premium": 0.34,
+      "max_loss_total": 1944.6,
+      "max_profit_total": 455.4,
+      "breakeven": 55.38,
+      "pop_estimate": 0.795,
+      "conviction": 0.798,
+      "sector": null,
+      "thesis": "",
+      "last_spread_value": 0.38,
+      "unrealized_pnl": -47.43,
+      "unrealized_pct": -2.4,
+      "status": "OPEN",
+      "days_held": 2,
+      "dte_remaining": 45
+    },
+    {
+      "ticker": "CHTR",
+      "decision_id": "20260623-OPT-CHTR-06",
+      "fill_id": "20260623-010-CHTR",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "contracts": 2,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 145.0,
+          "price": 4.45
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 155.0,
+          "price": 2.64
+        }
+      ],
+      "expiry": "20260807",
+      "entry_date": "2026-06-20",
+      "entry_net_premium": 1.77,
+      "max_loss_total": 1638.56,
+      "max_profit_total": 361.44,
+      "breakeven": 146.81,
+      "pop_estimate": 0.793,
+      "conviction": 0.796,
+      "sector": null,
+      "thesis": "",
+      "last_spread_value": 1.81,
+      "unrealized_pnl": -7.44,
+      "unrealized_pct": -0.5,
+      "status": "OPEN",
+      "days_held": 2,
+      "dte_remaining": 45
+    }
+  ],
+  "open_count": 10,
+  "total_unrealized_pnl": -254.17
+}

@@ -55,6 +55,7 @@
       label: 'PERFORMANCE',
       items: [
         { route: 'ai-trader',  label: 'AI-Trader',      icon: 'aiTrader',   freshKey: 'ai-trader'     },
+        { route: 'options-trader', label: 'Options Trader', icon: 'aiTrader', freshKey: null         },
         { route: 'holdings',   label: 'Holdings',       icon: 'holdings',   freshKey: 'holdings'      },
         { route: 'backtest',   label: 'Backtest',       icon: 'backtest',   freshKey: 'backtest'      },
       ]

@@ -1,0 +1,729 @@
+{
+  "as_of": "2026-06-23T05:47:24.384142+00:00",
+  "regime": "BULL",
+  "expiry": "20260807",
+  "dte": 45,
+  "count": 20,
+  "recommendations": [
+    {
+      "ticker": "USO",
+      "decision_id": "20260623-OPT-USO-00",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 130.0,
+          "price": 3.62
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 140.0,
+          "price": 1.96
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 1.66,
+      "max_profit": 165.89,
+      "max_loss": 834.11,
+      "width": 10.0,
+      "breakeven": 131.66,
+      "pop_estimate": 0.804,
+      "conviction": 0.839,
+      "iv": 58.9,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on USO: IV 59 (rich), bearish bias, credit $1.66, max-profit $166 / max-loss $834 (R:R 0.2), POP 80%"
+    },
+    {
+      "ticker": "MU",
+      "decision_id": "20260623-OPT-MU-01",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 1590.0,
+          "price": 91.51
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 1610.0,
+          "price": 87.66
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 3.85,
+      "max_profit": 385.18,
+      "max_loss": 1614.82,
+      "width": 20.0,
+      "breakeven": 1593.85,
+      "pop_estimate": 0.805,
+      "conviction": 0.815,
+      "iv": 120.7,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on MU: IV 121 (rich), bearish bias, credit $3.85, max-profit $385 / max-loss $1615 (R:R 0.24), POP 80%"
+    },
+    {
+      "ticker": "AA",
+      "decision_id": "20260623-OPT-AA-02",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 70.0,
+          "price": 1.8
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 75.0,
+          "price": 1.04
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 0.76,
+      "max_profit": 76.46,
+      "max_loss": 423.54,
+      "width": 5.0,
+      "breakeven": 70.76,
+      "pop_estimate": 0.821,
+      "conviction": 0.81,
+      "iv": 61.8,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on AA: IV 62 (rich), bearish bias, credit $0.76, max-profit $76 / max-loss $424 (R:R 0.18), POP 82%"
+    },
+    {
+      "ticker": "FLY",
+      "decision_id": "20260623-OPT-FLY-17",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 41.0,
+          "price": 2.24
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 43.0,
+          "price": 1.89
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 0.35,
+      "max_profit": 35.0,
+      "max_loss": 165.0,
+      "width": 2.0,
+      "breakeven": 41.35,
+      "pop_estimate": 0.815,
+      "conviction": 0.807,
+      "iv": 120.0,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on FLY: IV 120 (rich), bearish bias, credit $0.35, max-profit $35 / max-loss $165 (R:R 0.21), POP 82%"
+    },
+    {
+      "ticker": "LUNR",
+      "decision_id": "20260623-OPT-LUNR-18",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 29.5,
+          "price": 1.55
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 30.5,
+          "price": 1.36
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 0.19,
+      "max_profit": 18.63,
+      "max_loss": 81.37,
+      "width": 1.0,
+      "breakeven": 29.69,
+      "pop_estimate": 0.807,
+      "conviction": 0.804,
+      "iv": 111.3,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on LUNR: IV 111 (rich), bearish bias, credit $0.19, max-profit $19 / max-loss $81 (R:R 0.23), POP 81%"
+    },
+    {
+      "ticker": "RVTY",
+      "decision_id": "20260623-OPT-RVTY-15",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 115.0,
+          "price": 3.26
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 125.0,
+          "price": 1.62
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 1.63,
+      "max_profit": 163.33,
+      "max_loss": 836.67,
+      "width": 10.0,
+      "breakeven": 116.63,
+      "pop_estimate": 0.803,
+      "conviction": 0.802,
+      "iv": 58.6,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on RVTY: IV 59 (rich), bearish bias, credit $1.63, max-profit $163 / max-loss $837 (R:R 0.2), POP 80%"
+    },
+    {
+      "ticker": "ASTS",
+      "decision_id": "20260623-OPT-ASTS-16",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 102.5,
+          "price": 5.18
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 107.5,
+          "price": 4.26
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 0.92,
+      "max_profit": 92.33,
+      "max_loss": 407.67,
+      "width": 5.0,
+      "breakeven": 103.42,
+      "pop_estimate": 0.804,
+      "conviction": 0.802,
+      "iv": 105.2,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on ASTS: IV 105 (rich), bearish bias, credit $0.92, max-profit $92 / max-loss $408 (R:R 0.23), POP 80%"
+    },
+    {
+      "ticker": "COIN",
+      "decision_id": "20260623-OPT-COIN-07",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 195.0,
+          "price": 6.91
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 205.0,
+          "price": 5.08
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 1.83,
+      "max_profit": 183.2,
+      "max_loss": 816.8,
+      "width": 10.0,
+      "breakeven": 196.83,
+      "pop_estimate": 0.801,
+      "conviction": 0.8,
+      "iv": 74.7,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on COIN: IV 75 (rich), bearish bias, credit $1.83, max-profit $183 / max-loss $817 (R:R 0.22), POP 80%"
+    },
+    {
+      "ticker": "URA",
+      "decision_id": "20260623-OPT-URA-11",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 55.0,
+          "price": 1.52
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 57.0,
+          "price": 1.14
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 0.38,
+      "max_profit": 37.95,
+      "max_loss": 162.05,
+      "width": 2.0,
+      "breakeven": 55.38,
+      "pop_estimate": 0.795,
+      "conviction": 0.798,
+      "iv": 58.1,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on URA: IV 58 (rich), bearish bias, credit $0.38, max-profit $38 / max-loss $162 (R:R 0.23), POP 80%"
+    },
+    {
+      "ticker": "CHTR",
+      "decision_id": "20260623-OPT-CHTR-06",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 145.0,
+          "price": 4.45
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 155.0,
+          "price": 2.64
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 1.81,
+      "max_profit": 180.72,
+      "max_loss": 819.28,
+      "width": 10.0,
+      "breakeven": 146.81,
+      "pop_estimate": 0.793,
+      "conviction": 0.796,
+      "iv": 60.6,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on CHTR: IV 61 (rich), bearish bias, credit $1.81, max-profit $181 / max-loss $819 (R:R 0.22), POP 79%"
+    },
+    {
+      "ticker": "S",
+      "decision_id": "20260623-OPT-S-10",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 17.5,
+          "price": 0.59
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 18.5,
+          "price": 0.4
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 0.19,
+      "max_profit": 18.77,
+      "max_loss": 81.23,
+      "width": 1.0,
+      "breakeven": 17.69,
+      "pop_estimate": 0.792,
+      "conviction": 0.796,
+      "iv": 66.8,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on S: IV 67 (rich), bearish bias, credit $0.19, max-profit $19 / max-loss $81 (R:R 0.23), POP 79%"
+    },
+    {
+      "ticker": "PL",
+      "decision_id": "20260623-OPT-PL-19",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 35.0,
+          "price": 1.83
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 37.0,
+          "price": 1.45
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 0.39,
+      "max_profit": 38.8,
+      "max_loss": 161.2,
+      "width": 2.0,
+      "breakeven": 35.39,
+      "pop_estimate": 0.793,
+      "conviction": 0.796,
+      "iv": 100.7,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on PL: IV 101 (rich), bearish bias, credit $0.39, max-profit $39 / max-loss $161 (R:R 0.24), POP 79%"
+    },
+    {
+      "ticker": "GKOS",
+      "decision_id": "20260623-OPT-GKOS-14",
+      "strategy": "BULL_PUT_SPREAD",
+      "direction": "BULLISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "PUT",
+          "action": "SELL",
+          "strike": 110.0,
+          "price": 2.83
+        },
+        {
+          "right": "PUT",
+          "action": "BUY",
+          "strike": 100.0,
+          "price": 1.1
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 1.73,
+      "max_profit": 172.55,
+      "max_loss": 827.45,
+      "width": 10.0,
+      "breakeven": 108.27,
+      "pop_estimate": 0.789,
+      "conviction": 0.794,
+      "iv": 59.1,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BULLISH"
+      ],
+      "thesis": "Bull Put Spread on GKOS: IV 59 (rich), bullish bias, credit $1.73, max-profit $173 / max-loss $827 (R:R 0.21), POP 79%"
+    },
+    {
+      "ticker": "BILI",
+      "decision_id": "20260623-OPT-BILI-05",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 19.5,
+          "price": 0.66
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 20.5,
+          "price": 0.45
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 0.21,
+      "max_profit": 20.7,
+      "max_loss": 79.3,
+      "width": 1.0,
+      "breakeven": 19.71,
+      "pop_estimate": 0.773,
+      "conviction": 0.786,
+      "iv": 60.2,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on BILI: IV 60 (rich), bearish bias, credit $0.21, max-profit $21 / max-loss $79 (R:R 0.26), POP 77%"
+    },
+    {
+      "ticker": "DELL",
+      "decision_id": "20260623-OPT-DELL-08",
+      "strategy": "BULL_PUT_SPREAD",
+      "direction": "BULLISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "PUT",
+          "action": "SELL",
+          "strike": 315.0,
+          "price": 11.35
+        },
+        {
+          "right": "PUT",
+          "action": "BUY",
+          "strike": 305.0,
+          "price": 9.15
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 2.19,
+      "max_profit": 219.35,
+      "max_loss": 780.65,
+      "width": 10.0,
+      "breakeven": 312.81,
+      "pop_estimate": 0.772,
+      "conviction": 0.786,
+      "iv": 85.7,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BULLISH"
+      ],
+      "thesis": "Bull Put Spread on DELL: IV 86 (rich), bullish bias, credit $2.19, max-profit $219 / max-loss $781 (R:R 0.28), POP 77%"
+    },
+    {
+      "ticker": "ARM",
+      "decision_id": "20260623-OPT-ARM-03",
+      "strategy": "BULL_PUT_SPREAD",
+      "direction": "BULLISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "PUT",
+          "action": "SELL",
+          "strike": 295.0,
+          "price": 15.47
+        },
+        {
+          "right": "PUT",
+          "action": "BUY",
+          "strike": 285.0,
+          "price": 13.13
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 2.34,
+      "max_profit": 234.02,
+      "max_loss": 765.98,
+      "width": 10.0,
+      "breakeven": 292.66,
+      "pop_estimate": 0.76,
+      "conviction": 0.78,
+      "iv": 125.2,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BULLISH"
+      ],
+      "thesis": "Bull Put Spread on ARM: IV 125 (rich), bullish bias, credit $2.34, max-profit $234 / max-loss $766 (R:R 0.31), POP 76%"
+    },
+    {
+      "ticker": "BE",
+      "decision_id": "20260623-OPT-BE-04",
+      "strategy": "BULL_PUT_SPREAD",
+      "direction": "BULLISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "PUT",
+          "action": "SELL",
+          "strike": 215.0,
+          "price": 12.08
+        },
+        {
+          "right": "PUT",
+          "action": "BUY",
+          "strike": 205.0,
+          "price": 9.74
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 2.34,
+      "max_profit": 234.11,
+      "max_loss": 765.89,
+      "width": 10.0,
+      "breakeven": 212.66,
+      "pop_estimate": 0.758,
+      "conviction": 0.779,
+      "iv": 133.2,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BULLISH"
+      ],
+      "thesis": "Bull Put Spread on BE: IV 133 (rich), bullish bias, credit $2.34, max-profit $234 / max-loss $766 (R:R 0.31), POP 76%"
+    },
+    {
+      "ticker": "NBIS",
+      "decision_id": "20260623-OPT-NBIS-09",
+      "strategy": "BULL_PUT_SPREAD",
+      "direction": "BULLISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "PUT",
+          "action": "SELL",
+          "strike": 195.0,
+          "price": 10.78
+        },
+        {
+          "right": "PUT",
+          "action": "BUY",
+          "strike": 185.0,
+          "price": 8.4
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 2.38,
+      "max_profit": 237.62,
+      "max_loss": 762.38,
+      "width": 10.0,
+      "breakeven": 192.62,
+      "pop_estimate": 0.753,
+      "conviction": 0.776,
+      "iv": 125.4,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BULLISH"
+      ],
+      "thesis": "Bull Put Spread on NBIS: IV 125 (rich), bullish bias, credit $2.38, max-profit $238 / max-loss $762 (R:R 0.31), POP 75%"
+    },
+    {
+      "ticker": "XLY",
+      "decision_id": "20260623-OPT-XLY-13",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 125.0,
+          "price": 8.36
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 135.0,
+          "price": 5.42
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 2.94,
+      "max_profit": 293.93,
+      "max_loss": 706.07,
+      "width": 10.0,
+      "breakeven": 127.94,
+      "pop_estimate": 0.685,
+      "conviction": 0.743,
+      "iv": 70.2,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on XLY: IV 70 (rich), bearish bias, credit $2.94, max-profit $294 / max-loss $706 (R:R 0.42), POP 68%"
+    },
+    {
+      "ticker": "XLC",
+      "decision_id": "20260623-OPT-XLC-12",
+      "strategy": "BEAR_CALL_SPREAD",
+      "direction": "BEARISH",
+      "is_credit": true,
+      "legs": [
+        {
+          "right": "CALL",
+          "action": "SELL",
+          "strike": 115.0,
+          "price": 11.27
+        },
+        {
+          "right": "CALL",
+          "action": "BUY",
+          "strike": 125.0,
+          "price": 8.0
+        }
+      ],
+      "expiry": "20260807",
+      "dte": 45,
+      "net_premium": 3.27,
+      "max_profit": 326.69,
+      "max_loss": 673.31,
+      "width": 10.0,
+      "breakeven": 118.27,
+      "pop_estimate": 0.657,
+      "conviction": 0.729,
+      "iv": 88.6,
+      "rule_citations": [
+        "IV-RICH",
+        "DIR-BEARISH"
+      ],
+      "thesis": "Bear Call Spread on XLC: IV 89 (rich), bearish bias, credit $3.27, max-profit $327 / max-loss $673 (R:R 0.49), POP 66%"
+    }
+  ]
+}

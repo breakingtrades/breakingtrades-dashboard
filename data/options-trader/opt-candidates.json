@@ -1,0 +1,396 @@
+{
+  "as_of": "2026-06-23T05:47:24.334224+00:00",
+  "regime": "BULL",
+  "regime_score": 59,
+  "universe_size": 93,
+  "candidates_found": 82,
+  "skipped": {
+    "no_straddle": 2,
+    "iv_oob": 1,
+    "cheap_underlying": 3,
+    "earnings": 0,
+    "no_band": 0
+  },
+  "candidates": [
+    {
+      "ticker": "USO",
+      "score": 0.8744,
+      "iv": 58.9,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 112.69,
+      "em_position_pct": 31.4,
+      "weekly_lower": 109.01,
+      "weekly_upper": 120.73,
+      "atr_pct": 5.33,
+      "sector": "Commodity",
+      "notes": [
+        "IV 59 (RICH)",
+        "bias BEARISH",
+        "EM-pos 31%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "score": 0.825,
+      "iv": 120.7,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 1211.38,
+      "em_position_pct": 100.0,
+      "weekly_lower": 371.72,
+      "weekly_upper": 621.72,
+      "atr_pct": null,
+      "sector": null,
+      "notes": [
+        "IV 121 (RICH)",
+        "bias BEARISH",
+        "EM-pos 100%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "AA",
+      "score": 0.8,
+      "iv": 61.8,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 59.37,
+      "em_position_pct": 50.0,
+      "weekly_lower": 56.18,
+      "weekly_upper": 62.56,
+      "atr_pct": 6.29,
+      "sector": "Materials",
+      "notes": [
+        "IV 62 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "ARM",
+      "score": 0.8,
+      "iv": 125.2,
+      "iv_regime": "RICH",
+      "direction_bias": "BULLISH",
+      "spot": 439.46,
+      "em_position_pct": 50.0,
+      "weekly_lower": 391.42,
+      "weekly_upper": 487.5,
+      "atr_pct": 8.57,
+      "sector": "Technology",
+      "notes": [
+        "IV 125 (RICH)",
+        "bias BULLISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "BE",
+      "score": 0.8,
+      "iv": 133.2,
+      "iv_regime": "RICH",
+      "direction_bias": "BULLISH",
+      "spot": 328.91,
+      "em_position_pct": 50.0,
+      "weekly_lower": 290.78,
+      "weekly_upper": 367.04,
+      "atr_pct": 7.43,
+      "sector": "Clean Energy",
+      "notes": [
+        "IV 133 (RICH)",
+        "bias BULLISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "BILI",
+      "score": 0.8,
+      "iv": 60.2,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 17.2,
+      "em_position_pct": 50.0,
+      "weekly_lower": 16.42,
+      "weekly_upper": 17.98,
+      "atr_pct": 4.5,
+      "sector": "Communication",
+      "notes": [
+        "IV 60 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "CHTR",
+      "score": 0.8,
+      "iv": 60.6,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 126.23,
+      "em_position_pct": 50.0,
+      "weekly_lower": 119.34,
+      "weekly_upper": 133.12,
+      "atr_pct": 5.61,
+      "sector": "Communication",
+      "notes": [
+        "IV 61 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "score": 0.8,
+      "iv": 74.7,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 163.26,
+      "em_position_pct": 50.0,
+      "weekly_lower": 152.72,
+      "weekly_upper": 173.8,
+      "atr_pct": 6.79,
+      "sector": "Financials",
+      "notes": [
+        "IV 75 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "DELL",
+      "score": 0.8,
+      "iv": 85.7,
+      "iv_regime": "RICH",
+      "direction_bias": "BULLISH",
+      "spot": 409.5,
+      "em_position_pct": 50.0,
+      "weekly_lower": 378.14,
+      "weekly_upper": 440.86,
+      "atr_pct": 6.6,
+      "sector": "Technology",
+      "notes": [
+        "IV 86 (RICH)",
+        "bias BULLISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "NBIS",
+      "score": 0.8,
+      "iv": 125.4,
+      "iv_regime": "RICH",
+      "direction_bias": "BULLISH",
+      "spot": 286.69,
+      "em_position_pct": 50.0,
+      "weekly_lower": 256.0,
+      "weekly_upper": 317.38,
+      "atr_pct": 8.53,
+      "sector": "Technology",
+      "notes": [
+        "IV 125 (RICH)",
+        "bias BULLISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "S",
+      "score": 0.8,
+      "iv": 66.8,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 15.02,
+      "em_position_pct": 50.0,
+      "weekly_lower": 14.23,
+      "weekly_upper": 15.81,
+      "atr_pct": 5.32,
+      "sector": "Technology",
+      "notes": [
+        "IV 67 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "URA",
+      "score": 0.8,
+      "iv": 58.1,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 47.78,
+      "em_position_pct": 50.0,
+      "weekly_lower": 45.32,
+      "weekly_upper": 50.24,
+      "atr_pct": 4.79,
+      "sector": "Energy",
+      "notes": [
+        "IV 58 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "XLC",
+      "score": 0.8,
+      "iv": 88.6,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 109.45,
+      "em_position_pct": 50.0,
+      "weekly_lower": 107.71,
+      "weekly_upper": 111.19,
+      "atr_pct": 1.71,
+      "sector": "ETF",
+      "notes": [
+        "IV 89 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "XLY",
+      "score": 0.8,
+      "iv": 70.2,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 117.16,
+      "em_position_pct": 50.0,
+      "weekly_lower": 115.21,
+      "weekly_upper": 119.11,
+      "atr_pct": 1.89,
+      "sector": "ETF",
+      "notes": [
+        "IV 70 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "GKOS",
+      "score": 0.8,
+      "iv": 59.1,
+      "iv_regime": "RICH",
+      "direction_bias": "BULLISH",
+      "spot": 130.68,
+      "em_position_pct": 50.0,
+      "weekly_lower": 123.97,
+      "weekly_upper": 137.39,
+      "atr_pct": 4.84,
+      "sector": "Healthcare",
+      "notes": [
+        "IV 59 (RICH)",
+        "bias BULLISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "RVTY",
+      "score": 0.8,
+      "iv": 58.6,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 100.0,
+      "em_position_pct": 50.0,
+      "weekly_lower": 95.77,
+      "weekly_upper": 104.23,
+      "atr_pct": 3.77,
+      "sector": "Healthcare",
+      "notes": [
+        "IV 59 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "ASTS",
+      "score": 0.8,
+      "iv": 105.2,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 80.66,
+      "em_position_pct": 50.0,
+      "weekly_lower": 73.14,
+      "weekly_upper": 88.18,
+      "atr_pct": 13.48,
+      "sector": "Space",
+      "notes": [
+        "IV 105 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "FLY",
+      "score": 0.8,
+      "iv": 120.0,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 30.95,
+      "em_position_pct": 50.0,
+      "weekly_lower": 27.69,
+      "weekly_upper": 34.21,
+      "atr_pct": 15.77,
+      "sector": "Space",
+      "notes": [
+        "IV 120 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "LUNR",
+      "score": 0.8,
+      "iv": 111.3,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 22.85,
+      "em_position_pct": 50.0,
+      "weekly_lower": 20.6,
+      "weekly_upper": 25.1,
+      "atr_pct": 16.99,
+      "sector": "Space",
+      "notes": [
+        "IV 111 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    },
+    {
+      "ticker": "PL",
+      "score": 0.8,
+      "iv": 100.7,
+      "iv_regime": "RICH",
+      "direction_bias": "BEARISH",
+      "spot": 28.23,
+      "em_position_pct": 50.0,
+      "weekly_lower": 25.81,
+      "weekly_upper": 30.65,
+      "atr_pct": 13.54,
+      "sector": "Space",
+      "notes": [
+        "IV 101 (RICH)",
+        "bias BEARISH",
+        "EM-pos 50%",
+        "premium-selling candidate"
+      ]
+    }
+  ]
+}
