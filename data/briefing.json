@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Jun 22",
-  "headline": "June swoon is live \u2014 defensive rotation, tech cracks, and VIX picking up right on cue.",
+  "title": "Daily Briefing \u2014 Jun 23",
+  "headline": "June swoon is in full force: defensive flows, tech cracks, and fear grinding lower.",
   "body": [
-    "Right, so we're smack-dab in the R521 'June swoon window' and the data isn't subtle: Fear & Greed has slid below 36, VIX is not only trending above its SMA20 but expanding, and heavyweights in tech (MSFT -2.1%, GOOGL -6.0%, META -2.7%) are closing below their 20 MAs. This lines up perfectly with the R529 midterm-year pattern \u2014 SPX up >10% YTD, now giving us a textbook 5\u201310% drawdown setup into July-August before any Q4 rally.",
-    "Sector rotation confirms defensive flow: Technology (XLK) remains in the 'Low Risk/Leading' corner, but breadth is thinning \u2014 just look at AAPL and MSFT both turning bearish while Industrials (XLI) and Financials (XLF) are improving. Energy (XLE), Utilities (XLU), and Healthcare (XLV) are lagging and at 'HIGH risk' \u2014 classic weakness for June, as mapped by the R521/R145 seasonal analog.",
-    "Contrarian signals? Not today. The bearish bias across mega-cap tech, negative F&G, and seasonally rising VIX (R498) means risk is not cheap here. If it's in the press, it's in the price; this is not a 'buy the dip' setup \u2014 patience, react, don't predict. HYG, LQD, and TLT are still holding above their MAs, which keeps the macro deck calm... but if those break down, it's lights out for equities. Watch those levels closely."
+    "Right, so we're deep inside the June swoon window (R521/R529) and the symptoms are classic: Fear & Greed slips further to 34.3, breadth thinning, and the big tech names are rolling over versus their 20MA. SPY ($744.39) and QQQ ($737.95) both hugging their 20MA, with tech leadership (XLK) softening despite still 'leading' on RRG \u2013 but caution, the F&G slide plus midterm-year stat paint a 5-10% correction risk dead ahead.",
+    "Sector rotation is textbook: Industrials (XLI $181.8), Financials (XLF $53.7), and Utilities (XLU $44.72) are moving up, while Energy, Materials, Staples, Healthcare and Discretionary keep lagging with elevated sector risk. This is classic defensive play during the midterm-year H1 hiccup (R529), as large-cap tech (AAPL, MSFT, GOOGL, META) see daily closes below their 20MA\u2014a technical exit level per rule R011.",
+    "Contrarian warning: Don't chase AMD, DELL, and ARM breakouts here. Retail demand and 'bull' tickers are just pockets in a nervous tape. With VIX in a normal regime but seasonality (R498) points to an August volatility spike, keep risk tight. 'If it's in the press, it's in the price' \u2014 and midterm June drawdowns are not a contrarian buy, they're a rulebook feature, not a bug. Abundance mindset: Patient until Q4 rotation."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $744.99 (below 20 MA $745.46 \u2014 close to triggering exit rule)<br>MSFT: $371.25 (well below 20 MA $410.76)<br>GOOGL: $345.85 (well below 20 MA $369.42)<br>AMD: $545.23 (bullish, above 20 MA $506.64 \u2014 stick to winners)<br>XLK: $191.90 (triggered bull, above 20 MA $187.42)<br>HYG: $79.94 (bullish, above all MAs)<br>VIX: 17.67 (trending above SMA20, R498 seasonal confirmation)<br>Fear & Greed: 35.2 ('Fear' zone, risk is not contrarian)",
+  "callout_body": "SPY: Daily close $744.39 (watch for close below $745.43 20MA)<br>QQQ: Holding $737.95, testing 20MA ($727.29), next support $694.99 (SMA50)<br>XLK: $192.15, still leading but RSI softening, 20MA $187.22<br>AAPL/MSFT/GOOGL: All below or pressing up against 20MA \u2013 risk exits<br>HYG/LQD/TLT: No breakdown\u2014macro stable, but watch bonds for fast signals<br>VIX: 17.28, below SMA20 but eyes on July/Aug seasonal lift (R498)<br>AMD: $551.63 ripping above 20MA ($506.96)\u2014do not chase",
   "action_items": [
-    "If SPY closes below $745.46 (20 MA), trigger exit for long positions per rule \u2014 do NOT ignore.",
-    "Stay defensive: avoid lagging sectors (Energy, Healthcare, Staples); stick to names above their 20 MA with improving momentum (AMD, XLK, XLI, XLF)."
+    "Rotate out of lagging sectors (Energy, Materials, Staples, Healthcare, Discretionary) and trim tech exposure if daily closes stay under 20MA (AAPL $303, MSFT $410.56)",
+    "Watch Financials (XLF $53.70), Industrials (XLI $181.80), and Utilities (XLU $44.72) for relative strength\u2014these are your mean reversion and defensive picklist right now"
   ],
-  "closing_quote": "Patience, react, don\u2019t predict\u2014June\u2019s cycles grind, not rip. Follow the flows, not the headlines.",
-  "generatedAt": "2026-06-22T15:34:56.799726+00:00",
+  "closing_quote": "Patience, react, don't predict\u2014June swoon is a feature, not a bug. If bonds freak out, everything breaks.",
+  "generatedAt": "2026-06-23T13:20:38.227172+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
