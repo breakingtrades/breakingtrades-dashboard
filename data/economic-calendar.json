@@ -1,35 +1,9 @@
 {
-  "fetched_at": "2026-06-22T22:18:50.549128Z",
+  "fetched_at": "2026-06-23T21:53:43.783125Z",
   "source": "investing.com",
   "country": "US",
   "stars": 3,
   "events": [
-    {
-      "id": "econ-550851",
-      "title": "S&P Global Manufacturing PMI (Jun)",
-      "deadline": "2026-06-23T13:45:00Z",
-      "category": "macro",
-      "severity": "high",
-      "stars": 3,
-      "forecast": "54.6",
-      "previous": "55.1",
-      "countdown": true,
-      "status": "active",
-      "source": "investing.com"
-    },
-    {
-      "id": "econ-550849",
-      "title": "S&P Global Services PMI (Jun)",
-      "deadline": "2026-06-23T13:45:00Z",
-      "category": "macro",
-      "severity": "high",
-      "stars": 3,
-      "forecast": "51.0",
-      "previous": "50.7",
-      "countdown": true,
-      "status": "active",
-      "source": "investing.com"
-    },
     {
       "id": "econ-550889",
       "title": "New Home Sales (May)",
@@ -37,8 +11,34 @@
       "category": "macro",
       "severity": "high",
       "stars": 3,
-      "forecast": "637K",
+      "forecast": "638K",
       "previous": "622K",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-551896",
+      "title": "Crude Oil Inventories",
+      "deadline": "2026-06-24T14:30:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": "-5.100M",
+      "previous": "-8.263M",
+      "countdown": true,
+      "status": "active",
+      "source": "investing.com"
+    },
+    {
+      "id": "econ-550966",
+      "title": "Core PCE Price Index (MoM) (May)",
+      "deadline": "2026-06-25T12:30:00Z",
+      "category": "macro",
+      "severity": "high",
+      "stars": 3,
+      "forecast": "0.3%",
+      "previous": "0.2%",
       "countdown": true,
       "status": "active",
       "source": "investing.com"
