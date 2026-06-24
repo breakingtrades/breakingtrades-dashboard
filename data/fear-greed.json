@@ -1,14 +1,14 @@
 {
   "current": {
-    "value": 27.5,
+    "value": 27.7,
     "label": "Fear"
   },
   "previousClose": {
-    "value": 34.7,
+    "value": 27.5,
     "label": "Fear"
   },
   "oneWeekAgo": {
-    "value": 39.1,
+    "value": 32.2,
     "label": "Fear"
   },
   "oneMonthAgo": {
@@ -16,9 +16,9 @@
     "label": "Greed"
   },
   "oneYearAgo": {
-    "value": 56.6,
+    "value": 57.9,
     "label": "Greed"
   },
-  "updated": "2026-06-24T02:57:17.607841+00:00",
+  "updated": "2026-06-24T06:51:07.573743+00:00",
   "source": "cnn"
 }
