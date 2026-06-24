@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-06-19T20:38:33.862905+00:00",
+  "generated_at": "2026-06-24T20:26:08.972009+00:00",
   "last_tuning": {
-    "date": "2026-06-19",
-    "improvement_pct": 0.0,
+    "date": "2026-06-23",
+    "improvement_pct": 0.03,
     "experiments_run": 20,
     "winners": [],
     "dead_ends": []
@@ -16,7 +16,6 @@
     "Structure trades around volume-profile value area (institutional zones)",
     "Stops respect value-area boundaries, not just volatility",
     "Skip entries when VIX > 22 (volatility too high)",
-    "Skip entries when bonds signal risk-off",
-    "Skip entries when macro breadth is weak"
+    "Skip entries when bonds signal risk-off"
   ]
 }

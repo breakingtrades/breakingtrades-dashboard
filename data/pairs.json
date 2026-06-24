@@ -1,79 +1,7 @@
 [
   {
-    "pair": "XLY/XLP",
-    "desc": "American Consumer Strength (Discretionary/Staples)",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
-  },
-  {
-    "pair": "IWF/IWD",
-    "desc": "Growth vs Value (Russell 1000)",
-    "signal": "\u2198 FALLING",
-    "color": "down"
-  },
-  {
-    "pair": "HYG/SPY",
-    "desc": "Credit vs Equity \u2014 risk appetite",
-    "signal": "\u2198 FALLING",
-    "color": "down"
-  },
-  {
-    "pair": "RSP/SPY",
-    "desc": "Breadth \u2014 equal vs cap weight",
-    "signal": "\u2192 FLAT DOWN",
-    "color": "neutral"
-  },
-  {
-    "pair": "XLV/SPY",
-    "desc": "Defensive rotation",
-    "signal": "\u2192 FLAT DOWN",
-    "color": "neutral"
-  },
-  {
-    "pair": "IWM/SPY",
-    "desc": "Small caps vs Large caps",
-    "signal": "\u2197 RISING",
-    "color": "up"
-  },
-  {
-    "pair": "IWM/QQQ",
-    "desc": "Value vs Growth (broad)",
-    "signal": "\u2192 FLAT DOWN",
-    "color": "neutral"
-  },
-  {
-    "pair": "XLE/SPY",
-    "desc": "Energy outperformance",
-    "signal": "\u2198 FALLING",
-    "color": "down"
-  },
-  {
-    "pair": "GLD/SPY",
-    "desc": "Safe haven demand",
-    "signal": "\u2198 FALLING",
-    "color": "down"
-  },
-  {
-    "pair": "TLT/SPY",
-    "desc": "Flight to bonds",
-    "signal": "\u2192 FLAT DOWN",
-    "color": "neutral"
-  },
-  {
     "pair": "SLV/GLD",
     "desc": "Industrial vs safe haven",
-    "signal": "\u2192 FLAT UP",
-    "color": "neutral"
-  },
-  {
-    "pair": "HYG/TLT",
-    "desc": "Credit vs treasuries",
-    "signal": "\u2198 FALLING",
-    "color": "down"
-  },
-  {
-    "pair": "IGV/QQQ",
-    "desc": "Software vs Broad Tech",
     "signal": "\u2198 FALLING",
     "color": "down"
   }
