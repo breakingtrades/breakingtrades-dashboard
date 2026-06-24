@@ -441,3 +441,11 @@
   color: #d4a843;
 }
 .opt-bt-tiles { margin-bottom: 10px; }
+
+/* "illustrative" badge on machinery-output section headers */
+.opt-illustrative {
+  font-size: 0.62rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+  color: #d4a843; background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.30); border-radius: 4px;
+  padding: 2px 7px; margin-left: 8px; vertical-align: middle;
+}

@@ -67,12 +67,12 @@
           </section>
 
           <section class="ai-trader-section">
-            <h3>🔍 Top Opportunities — Live Scan</h3>
+            <h3>🔍 Opportunity Scan — Machinery Output <span class="opt-illustrative">illustrative</span></h3>
             <div id="opt-trader-candidates"><div class="ai-trader-loading">Loading scan…</div></div>
           </section>
 
           <section class="ai-trader-section">
-            <h3>🧠 Latest Recommendations</h3>
+            <h3>🧠 Spread Constructor — Machinery Output <span class="opt-illustrative">illustrative · not advice</span></h3>
             <div id="opt-trader-recommendations"></div>
           </section>
         </div>
@@ -233,7 +233,7 @@
     }).join('');
     const expiry = r.expiry ? `exp ${r.expiry} (${r.dte}d)` : '';
     return `
-      <div class="opt-scan-meta"><span class="ai-picks-muted">${r.count || 0} priced spreads · ${expiry}</span></div>
+      <div class="opt-scan-meta"><span class="ai-picks-muted">${r.count || 0} constructed spreads · ${expiry} · <em>illustrative machinery output — backtest shows no validated edge; not trade advice</em></span></div>
       <div class="ai-trader-table-wrap">
         <table class="ai-trader-table opt-table">
           <thead>
