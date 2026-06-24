@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T20:26:09Z",
+  "updated": "2026-06-24T21:51:11Z",
   "regime": "BULL",
   "score": 59,
   "color": "#00d4aa",
@@ -7,7 +7,7 @@
     "regime": "BULL",
     "score": 59
   },
-  "duration_days": 10,
+  "duration_days": 11,
   "since": "2026-06-09",
   "cycle": {
     "phase": "EXPANSION",
@@ -16,49 +16,49 @@
   "components": {
     "move": {
       "score": 91,
-      "value": 68.78,
+      "value": 69.06,
       "signal": "collapsing",
       "weight": 18
     },
     "fear_greed": {
       "score": 26,
-      "value": 26.0,
+      "value": 25.9,
       "signal": "fear",
       "weight": 10
     },
     "vix": {
       "score": 65,
-      "value": 18.69,
+      "value": 18.63,
       "signal": "normal",
       "weight": 10
     },
     "breadth": {
       "score": 50,
-      "value": 51.7,
+      "value": 54.6,
       "signal": "neutral",
       "weight": 8
     },
     "sp_vs_d200": {
       "score": 90,
-      "value": 6.9,
+      "value": 6.97,
       "signal": "above",
       "weight": 8
     },
     "hyg_spy": {
       "score": 50,
-      "value": -0.02,
+      "value": -0.13,
       "signal": "neutral",
       "weight": 8
     },
     "xlf_spy": {
       "score": 70,
-      "value": 3.18,
+      "value": 3.15,
       "signal": "strong",
       "weight": 6
     },
     "dxy": {
       "score": 35,
-      "value": 101.61,
+      "value": 101.58,
       "signal": "elevated",
       "weight": 5
     },
@@ -70,13 +70,13 @@
     },
     "growth_value": {
       "score": 50,
-      "value": -0.16,
+      "value": -0.14,
       "signal": "balanced",
       "weight": 4
     },
     "rsp_spy": {
       "score": 70,
-      "value": 0.73,
+      "value": 0.76,
       "signal": "broadening",
       "weight": 4
     },
@@ -94,13 +94,13 @@
     },
     "international": {
       "score": 25,
-      "value": -2.83,
+      "value": -2.84,
       "signal": "all_negative",
       "weight": 4
     },
     "xly_xlp": {
       "score": 20,
-      "value": -3.62,
+      "value": -3.69,
       "signal": "weak",
       "weight": 2
     }
@@ -128,19 +128,19 @@
     "conditions": [
       {
         "label": "F&G > 65",
-        "current": 26.0,
+        "current": 25.9,
         "target": 65,
         "met": false
       },
       {
         "label": "Breadth > 65%",
-        "current": 51.7,
+        "current": 54.6,
         "target": 65,
         "met": false
       },
       {
         "label": "S&P > 5% above D200",
-        "current": 6.9,
+        "current": 6.97,
         "target": 5,
         "met": true
       }
