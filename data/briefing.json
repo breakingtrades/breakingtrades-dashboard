@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Jun 25",
-  "headline": "Swoon window in full swing: Fear, rotation, and tech breaking down \u2014 seasonality says brace for volatility.",
+  "title": "Daily Briefing \u2014 Jun 26",
+  "headline": "June swoon is live: extreme fear, tech breakdown, and sector rotation confirm the midterm drawdown roadmap.",
   "body": [
-    "Right, big picture first: SPY ($733.24) and QQQ ($710.62) dipped further below their 20 MAs, with Fear & Greed at 25.8 flashing 'Fear' for a second day \u2014 this isn't random jitters, it's textbook R521/R529 midterm-year June swoon, with sector risk elevated and volatility rising. We've got the seasonal stats LIVE: SPX June hit-rate is just 36.8% green, and VIX is trending above its 20 MA (18.63 > 17.66) exactly as R498 says \u2014 early confirmation for the usual Aug-Oct volatility ramp.",
-    "Sector rotation is shifting fast: XLK (tech) is weakening with both MSFT ($365.46) and NVDA ($199.00) well under their 20 MAs, and Energy (XLE) lagging hard (risk = HIGH) \u2014 while defensive sectors (Healthcare, Financials, Utilities, Staples) are all 'Improving' on RRG and triggering upside. This is classic defensive rotation during the midterm swoon, as per R145/R159/R529 \u2014 don't treat this as a contrarian buy, it's confirmation of the seasonal roadmap, so play defense.",
-    "Contrarian/risk check: With Fear & Greed scraping the bottom (near 'Extreme Fear'), it might look tempting to counter-trade \u2014 but with breadth thinning, defensive sectors strengthening, and the major indexes breaking key MAs, my rule says patience. Tech exhaustion is real, but we've not yet reached capitulation. Record flows and mega-cap leadership still need to unwind. If it's in the press, it's in the price \u2014 right now the price is telling you to stay defensive."
+    "Right, so let's look at what the flows are telling us. We\u2019re deep in the midterm-year 'June swoon' window (R521/R529), and the tape is playing by the book: Fear & Greed just tagged 24.9 (Extreme Fear, R013), tech majors are cracking the 20 MA (AAPL, MSFT, NVDA, AMZN \u2014 see the price/SMA20 gap), and VIX stepped up above the 20-day. This isn\u2019t a contrarian buy \u2014 it\u2019s textbook seasonal weakness, with breadth thin and defensive rotation kicking in.",
+    "Sector rotation shows Industrials (XLI), Healthcare (XLV), Financials (XLF), Utilities (XLU), and Real Estate (XLRE) improving or leading \u2014 classic defensive turn as Tech (XLK) loses momentum and Energy (XLE), Materials (XLB) lag hard. Look at the SMAs: XLI, XLV, XLU, XLRE are all above their 20 and 50, while XLK and XLE break down or stagnate. The roadmap (R145/R159/R163) says Q4 rally starts AFTER this correction, not before.",
+    "Contrarian signals? Extreme fear is usually opportunity (R013), but the seasonality rules override: retail's not piling in, and dark pool flow isn\u2019t showing mega accumulation at these levels. Bond ETFs (HYG/LQD/TLT) are holding steady \u2014 if they break, everything breaks (R001), but they're not flashing red yet. Rule triggers: 20 MA break = exit longs, don't chase, abundance mindset. Missed the move? Reposition for the next rotational play, not the fallen tech knives."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: $733.24 (below 20 MA $744.15) \u2014 bear bias<br>QQQ: $710.62 (below 20 MA $726.19) \u2014 bear bias<br>NVDA: $199.00 (below 20 MA $209.62) \u2014 bear bias<br>MSFT: $365.46 (below 20 MA $405.80) \u2014 bear bias<br>XLK: $183.05 (below 20 MA $187.33) \u2014 bear bias<br>XLV: $153.35 (above 20 MA $150.71) \u2014 bull bias<br>XLF: $53.72 (above 20 MA $52.44) \u2014 bull bias<br>Fear & Greed: 25.8 \u2014 nearly Extreme Fear<br>VIX: 18.63 (> SMA20 17.66) \u2014 volatility regime rising<br>Watch Healthcare, Utilities, Staples for continued rotation.",
+  "callout_body": "AAPL $275.15 (-6.1%), MSFT $352.83 (-3.5%), NVDA $195.74 (-1.6%) \u2014 all below 20 MA: bearish<br>SPY $734.30 below 20 MA: watch for weekly mean reversion to SMA200 ($686)<br>XLI $184.12, XLV $155.63, XLU $45.85 \u2014 all above SMA20/50, sector rotation play<br>HYG $79.88, TLT $87.35, LQD $109.50 \u2014 bond ETFs steady: no macro breakdown (yet)<br>Fear & Greed 24.9, VIX 18.89 > SMA20: R013/R498 triggered, not contrarian buy (midterm-year rules apply)",
   "action_items": [
-    "Reduce exposure or tighten stops on any tech long \u2014 everything below 20 MA, rule R006, exit or stay sidelined.",
-    "Watch defensive sectors for relative strength: XLV (healthcare), XLP (staples), and XLU (utilities) now triggering bull signals above their key MAs."
+    "Exit tech longs: AAPL, MSFT, NVDA, AMZN \u2014 all triggered daily close below 20 MA",
+    "Watch for defensive rotation entries: XLV, XLU, XLI, XLRE on pullbacks to SMA20"
   ],
-  "closing_quote": "Patience, react, don\u2019t predict \u2014 this is the swoon playbook, not a dip-buying frenzy. If bonds freak out, everything breaks.",
-  "generatedAt": "2026-06-25T12:37:01.543178+00:00",
+  "closing_quote": "If it's in the press, it's in the price. Patience, react, don't predict \u2014 abundance mindset prevails.",
+  "generatedAt": "2026-06-26T12:30:12.874865+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
