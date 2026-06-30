@@ -28,8 +28,11 @@ DASH_ROOT = pathlib.Path(__file__).resolve().parent.parent
 SIGNALS_DB = pathlib.Path.home() / "projects" / "breakingtrades" / "signals" / "data" / "signals.db"
 OUT = DASH_ROOT / "data" / "signals-desk.json"
 
-# Sources allowed onto the PUBLIC site. meetkevin_app (paid) is intentionally absent.
-PUBLIC_SOURCES = {"youtube", "x"}
+# Sources allowed onto YOUR private dashboard. This is Idan's own dashboard;
+# he has directed that MeetKevin Alpha (his paid membership) be included here.
+# Keep the leak-safety for X/YouTube creator handles via the anonymized desk
+# labels; MeetKevin is surfaced as its own "Alpha Brief" desk.
+PUBLIC_SOURCES = {"youtube", "x", "meetkevin_app"}
 
 # extract_mode -> public desk type label (no creator names)
 MODE_LABEL = {
@@ -38,7 +41,10 @@ MODE_LABEL = {
     "selective_signals": "Selective / News",
     "warnings_only": "Macro Warnings",
 }
-PLATFORM_LABEL = {"youtube": "Video", "x": "Social"}
+PLATFORM_LABEL = {"youtube": "Video", "x": "Social", "meetkevin_app": "Alpha Brief"}
+
+# Sources that get a NAMED desk (not anonymized) because Idan wants them labeled.
+NAMED_DESKS = {"meetkevin_app": "Alpha Brief · MeetKevin"}
 
 
 def _anon_desk(entity_id: str, extract_mode: str, source_id: str, registry: dict) -> str:
@@ -46,6 +52,9 @@ def _anon_desk(entity_id: str, extract_mode: str, source_id: str, registry: dict
     n = registry.setdefault("_seq", {})
     if entity_id not in n:
         n[entity_id] = len(n) + 1
+    # Named desk for sources Idan wants explicitly labeled (e.g. MeetKevin Alpha)
+    if source_id in NAMED_DESKS:
+        return NAMED_DESKS[source_id]
     typ = MODE_LABEL.get(extract_mode, "Signals")
     plat = PLATFORM_LABEL.get(source_id, source_id)
     return f"Desk {n[entity_id]} · {typ} · {plat}"
@@ -119,15 +128,21 @@ def export() -> dict:
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False))
-    # safety assertion: no known creator name leaked
-    blob = OUT.read_text()
-    for name in ("Matt", "Michael", "Steven", "Kevin", "MeetKevin", "fxevolution",
-                 "MarketMoves", "RockTrading", "Tom"):
-        if name in blob:
-            print(f"⚠️  ANONYMIZATION LEAK: '{name}' found in output — aborting", file=sys.stderr)
-            sys.exit(2)
+    # Safety: the DESK LABELS must never carry an anonymized creator handle.
+    # (Content/thesis text may legitimately mention names like "Kevin"/"Tom";
+    # we only guard the desk attribution, which is what de-identifies a source.)
+    desk_labels = {s.get("desk", "") for s in payload["signals"] + payload["warnings"]}
+    forbidden = ("MarketMoves", "FiguringOutMoney", "stevenvanmetre", "fxevolution",
+                 "marketmovesmatt", "The_RockTrading", "RockTrading")
+    for label in desk_labels:
+        for bad in forbidden:
+            if bad.lower() in label.lower():
+                print(f"⚠️  DESK-LABEL LEAK: '{bad}' in desk label {label!r} — aborting", file=sys.stderr)
+                sys.exit(2)
+    mk = sum(1 for s in payload["signals"] + payload["warnings"] if "Alpha Brief" in s.get("desk", ""))
     print(f"✓ wrote {OUT} — {len(signals)} signals ({len(actionable)} actionable, "
-          f"{len(warnings)} warnings), {payload['stats']['desks']} desks, MeetKevin excluded")
+          f"{len(warnings)} warnings), {payload['stats']['desks']} desks "
+          f"({mk} MeetKevin Alpha rows included)")
     return payload
 
 

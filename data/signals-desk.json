@@ -1,15 +1,63 @@
 {
   "_schema": "signals-desk/v1",
   "_note": "Anonymized social-signal aggregate. Desk labels are anonymized; no creator names. Paid-membership content excluded. Educational use only — not investment advice.",
-  "generated_at": "2026-06-30T08:34:29.602510+00:00",
+  "generated_at": "2026-06-30T21:27:06.096049+00:00",
   "stats": {
-    "signals": 18,
-    "actionable": 13,
-    "warnings": 5,
-    "tickers": 7,
-    "desks": 4
+    "signals": 61,
+    "actionable": 52,
+    "warnings": 9,
+    "tickers": 24,
+    "desks": 5
   },
   "top_tickers": [
+    {
+      "ticker": "MRVL",
+      "count": 3,
+      "bull": 2,
+      "bear": 0
+    },
+    {
+      "ticker": "AMD",
+      "count": 3,
+      "bull": 2,
+      "bear": 0
+    },
+    {
+      "ticker": "MU",
+      "count": 3,
+      "bull": 2,
+      "bear": 0
+    },
+    {
+      "ticker": "MSFT",
+      "count": 2,
+      "bull": 1,
+      "bear": 0
+    },
+    {
+      "ticker": "CVNA",
+      "count": 2,
+      "bull": 0,
+      "bear": 2
+    },
+    {
+      "ticker": "OPEN",
+      "count": 2,
+      "bull": 0,
+      "bear": 2
+    },
+    {
+      "ticker": "SOXL",
+      "count": 2,
+      "bull": 2,
+      "bear": 0
+    },
+    {
+      "ticker": "ENPH",
+      "count": 2,
+      "bull": 2,
+      "bear": 0
+    },
     {
       "ticker": "TEM",
       "count": 2,
@@ -17,9 +65,63 @@
       "bear": 0
     },
     {
-      "ticker": "MSFT",
+      "ticker": "PLTR",
+      "count": 1,
+      "bull": 0,
+      "bear": 0
+    },
+    {
+      "ticker": "META",
+      "count": 1,
+      "bull": 0,
+      "bear": 0
+    },
+    {
+      "ticker": "TSLA",
+      "count": 1,
+      "bull": 0,
+      "bear": 0
+    },
+    {
+      "ticker": "FCEL",
+      "count": 1,
+      "bull": 0,
+      "bear": 0
+    },
+    {
+      "ticker": "MRNA",
       "count": 1,
       "bull": 1,
+      "bear": 0
+    },
+    {
+      "ticker": "QQQ",
+      "count": 1,
+      "bull": 1,
+      "bear": 0
+    },
+    {
+      "ticker": "MNDY",
+      "count": 1,
+      "bull": 0,
+      "bear": 0
+    },
+    {
+      "ticker": "CRM",
+      "count": 1,
+      "bull": 0,
+      "bear": 0
+    },
+    {
+      "ticker": "ADBE",
+      "count": 1,
+      "bull": 0,
+      "bear": 0
+    },
+    {
+      "ticker": "NOW",
+      "count": 1,
+      "bull": 0,
       "bear": 0
     },
     {
@@ -199,6 +301,885 @@
       "platform": "Social"
     },
     {
+      "ticker": null,
+      "asset_class": null,
+      "signal_type": "idea",
+      "direction": "bearish",
+      "conviction": "medium",
+      "thesis": "Kevin expects SpaceX to underperform for about a year before it could become a buy later on.",
+      "catalyst": "post-IPO dynamics and lockup expirations",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "private",
+        "IPO",
+        "watchlist"
+      ],
+      "context": "Kevin is bearish on SpaceX for one year post-listing before reconsidering.",
+      "source_section": "MEDIUM-TERM LIST",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "CVNA",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bearish",
+      "conviction": "high",
+      "thesis": "Carvana is viewed as a continued bearish trade due to concerns about alleged circular financing and structural risks.",
+      "catalyst": "funding/capital structure concerns",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "bearish",
+        "distressed"
+      ],
+      "context": "Kevin expects Carvana to remain weak given suspected circular financing risks.",
+      "source_section": "MEDIUM-TERM LIST",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "OPEN",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bearish",
+      "conviction": "medium",
+      "thesis": "Opendoor remains a bearish setup after sliding below $5 and Kevin keeps a negative stance.",
+      "catalyst": "continued financial weakness / price below $5",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "bearish",
+        "consumer"
+      ],
+      "context": "Opendoor under $5 and Kevin maintains a bearish view.",
+      "source_section": "MEDIUM-TERM LIST",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": null,
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "SanDisk (ambiguous ticker) is expected to participate in a medium-term hardware uptrend alongside other memory names.",
+      "catalyst": "hardware demand / memory cycle",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "memory",
+        "medium-term"
+      ],
+      "context": "Sandisk named among medium-term hardware beneficiaries, ticker not specified.",
+      "source_section": "MEDIUM-TERM LIST",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "SOXL",
+      "asset_class": "etf",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Leveraged AI/hardware exposure via SOXL could benefit through hardware rallies and volatility around the SpaceX IPO.",
+      "catalyst": "hardware rally / SpaceX IPO volatility",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "semiconductors",
+        "etf",
+        "medium-term"
+      ],
+      "context": "SOXL cited as likely to boost with AI/hardware tailwinds and SpaceX IPO noise.",
+      "source_section": "MEDIUM-TERM LIST",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "ENPH",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Enphase could move higher in Q3/Q4 driven by hardware build-out and next earnings results.",
+      "catalyst": "next earnings and continued hardware deployments",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "hardware",
+        "renewables",
+        "medium-term"
+      ],
+      "context": "Enphase flagged as a medium-term long contingent on upcoming earnings.",
+      "source_section": "MEDIUM-TERM LIST",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "PLTR",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "Palantir is on the radar to recover if leaders regain upside after an early bullish open.",
+      "catalyst": "early-session strength",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "intraday",
+      "tags": [
+        "software",
+        "watchlist"
+      ],
+      "context": "PLTR called out as a name to watch on a potential market bounce.",
+      "source_section": "THE PLAY",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "META",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "Meta could see renewed buying if early-market momentum picks up and software names get short-covering relief.",
+      "catalyst": "short-covering / market bounce",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "intraday",
+      "tags": [
+        "advertising",
+        "watchlist"
+      ],
+      "context": "Meta included as a potential beneficiary of a market recovery.",
+      "source_section": "THE PLAY",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "MSFT",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "Microsoft may attract buying if the market shows early-session strength and leadership rotates back to large caps.",
+      "catalyst": "broader market bounce / sector rotation",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "intraday",
+      "tags": [
+        "large-cap",
+        "watchlist"
+      ],
+      "context": "MSFT listed among large-cap names to watch on a market rebound.",
+      "source_section": "THE PLAY",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "TSLA",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "Tesla is a candidate to rebound intraday if market leadership returns after an early QQQ push.",
+      "catalyst": "intraday market recovery",
+      "entry": "Monitor for bounce setups contingent on QQQ early strength",
+      "targets": [],
+      "stop": null,
+      "timeframe": "intraday",
+      "tags": [
+        "auto",
+        "watchlist",
+        "intraday"
+      ],
+      "context": "Tesla flagged as a name to watch for recovery if market opens strong.",
+      "source_section": "THE PLAY",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "MRVL",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Marvell is viewed positively for the medium term as a hardware name likely to benefit from a sector rally.",
+      "catalyst": "hardware rally / SpaceX IPO-driven volatility",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "hardware",
+        "medium-term"
+      ],
+      "context": "Marvell appears on Kevin's medium-term list as a hardware play.",
+      "source_section": "MEDIUM-TERM LIST",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "MRVL",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "Marvell could bounce intraday if market leadership emerges after an early rally in QQQ.",
+      "catalyst": "intraday QQQ strength",
+      "entry": "Watch for intraday recovery setups following early-session market strength",
+      "targets": [],
+      "stop": null,
+      "timeframe": "intraday",
+      "tags": [
+        "hardware",
+        "watchlist",
+        "intraday"
+      ],
+      "context": "Marvell listed among chips that may get a recovery lift if QQQ pushes up.",
+      "source_section": "THE PLAY",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "AMD",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "AMD is favored for the medium term as part of a broader hardware uptrend.",
+      "catalyst": "hardware rally and AI/hardware demand",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "semiconductor",
+        "medium-term"
+      ],
+      "context": "AMD called out as a medium-term hardware beneficiary.",
+      "source_section": "MEDIUM-TERM LIST",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "AMD",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "AMD is a name to watch for an intraday recovery if broader market momentum returns.",
+      "catalyst": "early-session market recovery",
+      "entry": "Look for intraday bounce setup if QQQ shows strength in first 10 minutes",
+      "targets": [],
+      "stop": null,
+      "timeframe": "intraday",
+      "tags": [
+        "semiconductor",
+        "intraday",
+        "watchlist"
+      ],
+      "context": "AMD listed among names that may recover on a market bounce.",
+      "source_section": "THE PLAY",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "MU",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Micron is expected to benefit in the medium term as hardware names recover and AI/hardware demand improves.",
+      "catalyst": "hardware rally / AI hardware tailwinds",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "semiconductor",
+        "medium-term"
+      ],
+      "context": "Micron cited as a medium-term beneficiary of a hardware-led rally.",
+      "source_section": "MEDIUM-TERM LIST",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "MU",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "Micron could participate in an intraday recovery if QQQ prints early-session strength.",
+      "catalyst": "intraday bounce following QQQ's first-10m strength",
+      "entry": "Consider intraday long on a bounce if market opens green and QQQ holds >715",
+      "targets": [],
+      "stop": null,
+      "timeframe": "intraday",
+      "tags": [
+        "semiconductor",
+        "watchlist",
+        "intraday"
+      ],
+      "context": "Micron called as a name to watch for recovery if QQQ rallies early.",
+      "source_section": "THE PLAY",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "FCEL",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "FuelCell Energy is listed for focused analysis this session but no explicit trade trigger was given.",
+      "catalyst": "short-term market leadership shifts",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "watchlist",
+        "analysis"
+      ],
+      "context": "FCEL called out for today's analysis; monitor for actionable moves.",
+      "source_section": "PLAY THIS WEEK",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "MRNA",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Moderna is beginning to show an upward trend within healthcare leadership and deserves attention this week.",
+      "catalyst": "sector rotation / short-covering in healthcare",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "healthcare",
+        "momentum",
+        "watchlist"
+      ],
+      "context": "Healthcare names like Moderna are starting to trend up and are on the radar.",
+      "source_section": "PLAY THIS WEEK",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "QQQ",
+      "asset_class": "etf",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "If QQQ is green in the first ten minutes and holds support around 715, expect a soft intraday push toward 720.",
+      "catalyst": "Early-session strength / market reaction to Warsh and economic data this week",
+      "entry": "Buy if QQQ is positive in the first 10 minutes and holding >715",
+      "targets": [
+        "720"
+      ],
+      "stop": "Fail to hold 715 in the first 10 minutes",
+      "timeframe": "intraday",
+      "tags": [
+        "momentum",
+        "intraday",
+        "market-open"
+      ],
+      "context": "Key short-term trade: green first 10m on QQQ with 715 critical; target 720.",
+      "source_section": "THE PLAY",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "MRVL",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Marvell is highlighted as a medium-term hardware play likely to benefit from the ongoing capex/hardware cycle.",
+      "catalyst": "hardware capex trends",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "MRVL",
+        "hardware"
+      ],
+      "context": "Marvell listed among medium-term hardware picks expected to benefit from capex.",
+      "source_section": "medium-term-list",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "MNDY",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "medium",
+      "thesis": "Listed Monday.com in the 'dirty software' bucket as a business that may not yet show durable pricing power.",
+      "catalyst": "product replaceability concerns",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "MNDY",
+        "software",
+        "warning"
+      ],
+      "context": "Monday.com categorized as 'dirty software' and flagged for watchful caution on pricing power.",
+      "source_section": "dirty-software-bucket",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "CRM",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "medium",
+      "thesis": "Salesforce is included in the 'dirty software' list as potentially vulnerable to pricing and replacement pressures.",
+      "catalyst": "pricing-power uncertainty",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "CRM",
+        "software",
+        "warning"
+      ],
+      "context": "Salesforce placed in 'dirty software' group—monitor pricing and competitive risks.",
+      "source_section": "dirty-software-bucket",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "ADBE",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "medium",
+      "thesis": "Labeled Adobe as 'dirty software' that may lack defensible pricing power and faces replacement risk.",
+      "catalyst": "pricing/competitive concerns",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "ADBE",
+        "software",
+        "warning"
+      ],
+      "context": "Adobe is in the 'dirty software' bucket due to questions around pricing power.",
+      "source_section": "dirty-software-bucket",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "NOW",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "medium",
+      "thesis": "Classified Now as 'dirty software' that hasn't proven strong pricing power and could be vulnerable to displacement.",
+      "catalyst": "lack of clear pricing power vs. peers",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "NOW",
+        "software",
+        "warning"
+      ],
+      "context": "NOW placed in a 'dirty software' bucket—watch for pricing-power risks.",
+      "source_section": "dirty-software-bucket",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": null,
+      "asset_class": null,
+      "signal_type": "idea",
+      "direction": "bearish",
+      "conviction": "medium",
+      "thesis": "Expect SpaceX to underperform for about a year after its IPO and significant debt issuance signaled broader industry funding weakness.",
+      "catalyst": "high bond premia on SpaceX debt and IPO behavior",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "SpaceX",
+        "IPO",
+        "debt"
+      ],
+      "context": "Kevin expects SpaceX to be weak for roughly a year after its IPO and debt pricing signaled issues.",
+      "source_section": "bottom-line",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "CVNA",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bearish",
+      "conviction": "medium",
+      "thesis": "Continues to hold a bearish stance on Carvana given ongoing structural concerns.",
+      "catalyst": "structural business and financing worries",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "CVNA",
+        "bearish"
+      ],
+      "context": "Kevin continues to be bearish on Carvana.",
+      "source_section": "medium-term-list",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "OPEN",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bearish",
+      "conviction": "medium",
+      "thesis": "Remains bearish on Opendoor after its share price fell below $5 and fundamentals remain weak.",
+      "catalyst": "very low share price / business weakness",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "OPEN",
+        "bearish",
+        "real-estate"
+      ],
+      "context": "Kevin remains bearish on Opendoor after its shares fell below $5.",
+      "source_section": "medium-term-list",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": null,
+      "asset_class": null,
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "low",
+      "thesis": "Private credit appears to be bottoming slowly and may be a recovery opportunity over time.",
+      "catalyst": "gradual stabilization of private credit markets",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "private credit"
+      ],
+      "context": "Private credit is showing signs of bottoming slowly.",
+      "source_section": "medium-term-list",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": null,
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Sandisk (storage-related name) is listed as a medium-term hardware beneficiary and likely to appreciate with the cycle.",
+      "catalyst": "hardware demand",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "storage",
+        "hardware"
+      ],
+      "context": "Sandisk named among medium-term hardware beneficiaries expected to rally.",
+      "source_section": "medium-term-list",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "AMD",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Expect AMD to rise over the medium term alongside broader hardware and AI tailwinds.",
+      "catalyst": "hardware/capex trends",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "AMD",
+        "hardware",
+        "AI"
+      ],
+      "context": "AMD expected to perform well medium-term due to hardware and AI tailwinds.",
+      "source_section": "medium-term-list",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "MU",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Micron should benefit over the medium term from a hardware cycle and memory demand recovery.",
+      "catalyst": "hardware/data center movement",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "MU",
+        "memory",
+        "hardware"
+      ],
+      "context": "Micron is positioned to rally medium-term with hardware and data center demand.",
+      "source_section": "medium-term-list",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "SOXL",
+      "asset_class": "etf",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Levered semiconductor exposure may benefit from AI/hardware momentum tied to SpaceX liquidity events and capex flows.",
+      "catalyst": "SpaceX IPO-related market moves and hardware capex",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "semiconductors",
+        "ETF",
+        "AI-hardware"
+      ],
+      "context": "SOXL may gain from AI hardware tailwinds around the SpaceX IPO and capex rotation.",
+      "source_section": "medium-term-list",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "ENPH",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Expect Enphase to rally in Q3/Q4 after the next earnings report as hardware deployment continues.",
+      "catalyst": "upcoming earnings",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "ENPH",
+        "hardware",
+        "earnings"
+      ],
+      "context": "Enphase is expected to rally in Q3/Q4 after upcoming earnings and continued hardware deployment.",
+      "source_section": "medium-term-list",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": null,
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Plan to buy dips in hardware names over the next three weeks ahead of the upcoming earnings window.",
+      "catalyst": "near-term earnings season",
+      "entry": "buyable dips over next 3 weeks",
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "hardware",
+        "buy-the-dip"
+      ],
+      "context": "Kevin will buy hardware dips over the next 3 weeks before earnings.",
+      "source_section": "medium-term-list",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": null,
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Buy oversold mega-cap names that should benefit from a capex reversal.",
+      "catalyst": "capex rotation/reversal",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "capex",
+        "mega-cap"
+      ],
+      "context": "Buy oversold megacaps positioned to benefit from a capex rebound.",
+      "source_section": "bottom-line",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": null,
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Prefer high‑margin advertising companies as beneficiaries of consumer spending and job growth.",
+      "catalyst": "ongoing consumer spending and jobs data",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "advertising",
+        "consumer"
+      ],
+      "context": "Favor high-margin ad winners as consumer spending and jobs support profits.",
+      "source_section": "bottom-line",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": null,
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Favor software stocks that have durable moats and pricing power rather than easily replaceable offerings.",
+      "catalyst": "expected software bottom in Q3/Q4",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "software",
+        "moat"
+      ],
+      "context": "Only buy software names with strong moats; expects a software bottom in Q3/Q4.",
+      "source_section": "bottom-line",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": null,
+      "asset_class": null,
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Advise buying actual real estate as a deflation-sensitive asset to complement rate plays.",
+      "catalyst": "deflation dynamics and lower rates",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "real estate",
+        "deflation"
+      ],
+      "context": "Kevin recommends purchasing physical real estate as a deflation play.",
+      "source_section": "bottom-line",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": null,
+      "asset_class": "bond",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Recommend buying 10-year Treasury exposure because the economy looks stable and rate expectations should slowly ease.",
+      "catalyst": "gradual decay in rate expectations",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "rates",
+        "treasury",
+        "deflation"
+      ],
+      "context": "Buy 10-year debt as a confident play amid perceived economy stability and potential rate easing.",
+      "source_section": "bottom-line",
+      "published_at": "2026-06-26T04:36:32.489358",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
       "ticker": "TEM",
       "asset_class": "stock",
       "signal_type": "option-trade",
@@ -221,7 +1202,7 @@
       "context": "Sell puts on TEM as an income/assignment strategy instead of buying LEAPs outright.",
       "source_section": "option-strategies",
       "published_at": null,
-      "desk": "Desk 4 · Trade Ideas · Video",
+      "desk": "Desk 5 · Trade Ideas · Video",
       "platform": "Video"
     },
     {
@@ -247,7 +1228,7 @@
       "context": "Use UTLS put selling to generate income and potentially buy leveraged utilities at a discount.",
       "source_section": "option-strategies",
       "published_at": null,
-      "desk": "Desk 4 · Trade Ideas · Video",
+      "desk": "Desk 5 · Trade Ideas · Video",
       "platform": "Video"
     },
     {
@@ -273,7 +1254,7 @@
       "context": "Sell puts on UBRL to earn high premium and/or obtain leveraged Uber exposure if assigned.",
       "source_section": "option-strategies",
       "published_at": null,
-      "desk": "Desk 4 · Trade Ideas · Video",
+      "desk": "Desk 5 · Trade Ideas · Video",
       "platform": "Video"
     },
     {
@@ -300,7 +1281,7 @@
       "context": "Tempest AI has an engulfing monthly candle and runway; buying LEAPs (e.g., 75 strike) could see big multiples.",
       "source_section": "momentum-list",
       "published_at": null,
-      "desk": "Desk 4 · Trade Ideas · Video",
+      "desk": "Desk 5 · Trade Ideas · Video",
       "platform": "Video"
     },
     {
@@ -327,7 +1308,7 @@
       "context": "Uber back in activation; buy 350d LEAPs (85–95 strikes) targeting a move to new highs.",
       "source_section": "momentum-list",
       "published_at": null,
-      "desk": "Desk 4 · Trade Ideas · Video",
+      "desk": "Desk 5 · Trade Ideas · Video",
       "platform": "Video"
     },
     {
@@ -352,7 +1333,7 @@
       "context": "SO has an engulfing monthly candle indicating likely gains over the next 1–2 months.",
       "source_section": "momentum-list",
       "published_at": null,
-      "desk": "Desk 4 · Trade Ideas · Video",
+      "desk": "Desk 5 · Trade Ideas · Video",
       "platform": "Video"
     },
     {
@@ -381,7 +1362,7 @@
       "context": "Thinks XLU just started a move; buy 300d ~10% OTM LEAPs aiming for ~$48–$50.",
       "source_section": "momentum-list",
       "published_at": null,
-      "desk": "Desk 4 · Trade Ideas · Video",
+      "desk": "Desk 5 · Trade Ideas · Video",
       "platform": "Video"
     }
   ],
@@ -484,6 +1465,94 @@
       "platform": "Social"
     },
     {
+      "ticker": "MNDY",
+      "asset_class": "stock",
+      "signal_type": "warning",
+      "direction": "watching",
+      "conviction": "medium",
+      "thesis": "Monday.com is in the 'dirty software' bucket and considered easier to 'vibe-code' away relative to more defensible software.",
+      "catalyst": "limited pricing defensibility",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "software",
+        "warning"
+      ],
+      "context": "MNDY listed as a potentially vulnerable software name.",
+      "source_section": "DIRTY SOFTWARE BUCKET",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "CRM",
+      "asset_class": "stock",
+      "signal_type": "warning",
+      "direction": "watching",
+      "conviction": "medium",
+      "thesis": "Salesforce is grouped as 'dirty software' and may face risk from easier-to-replace customer support products.",
+      "catalyst": "competitive disruption to ticketing/design/support software",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "software",
+        "warning"
+      ],
+      "context": "Salesforce included among software names Kevin views as at-risk.",
+      "source_section": "DIRTY SOFTWARE BUCKET",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "ADBE",
+      "asset_class": "stock",
+      "signal_type": "warning",
+      "direction": "watching",
+      "conviction": "medium",
+      "thesis": "Adobe is in the 'dirty software' group and may be susceptible to customers being priced out or replaced.",
+      "catalyst": "pricing power concerns and competitive risk",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "software",
+        "warning"
+      ],
+      "context": "Adobe flagged as vulnerable in Kevin's 'dirty software' bucket.",
+      "source_section": "DIRTY SOFTWARE BUCKET",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
+      "ticker": "NOW",
+      "asset_class": "stock",
+      "signal_type": "warning",
+      "direction": "watching",
+      "conviction": "medium",
+      "thesis": "ServiceNow is labeled a 'dirty software' name that may lack durable pricing power and is vulnerable to churn.",
+      "catalyst": "concerns about pricing power and competitive replacement",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "software",
+        "warning"
+      ],
+      "context": "ServiceNow placed in the 'dirty software' bucket as potentially vulnerable to being replaced.",
+      "source_section": "DIRTY SOFTWARE BUCKET",
+      "published_at": "2026-06-29T13:16:59.06832",
+      "desk": "Alpha Brief · MeetKevin",
+      "platform": "Alpha Brief"
+    },
+    {
       "ticker": "ETH",
       "asset_class": "crypto",
       "signal_type": "macro",
@@ -507,7 +1576,7 @@
       "context": "Calls an October crypto cycle bottom; recommends scaling into Ethereum for a 3–4 year bull market.",
       "source_section": "macro",
       "published_at": null,
-      "desk": "Desk 4 · Trade Ideas · Video",
+      "desk": "Desk 5 · Trade Ideas · Video",
       "platform": "Video"
     }
   ]

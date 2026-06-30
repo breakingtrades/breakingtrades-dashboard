@@ -471,3 +471,16 @@
 .sd-muted { color: var(--text-dim, #8b93a7); }
 .sd-warn { border-left: 3px solid #f59e0b; padding-left: 12px; margin-bottom: 12px; }
 .sd-warn-src { color: var(--text-dim, #8b93a7); font-size: 11px; margin-top: 2px; }
+
+/* Signals Desk — clickable rows + modal */
+.sd-click { cursor: pointer; transition: background .12s; }
+.sd-table tbody tr.sd-click:hover { background: rgba(127,140,255,.10); }
+.sd-warn.sd-click:hover { background: rgba(245,158,11,.08); }
+.sd-modal { max-width: 560px; }
+.sd-modal-body { padding: 16px 20px 20px; }
+.sd-m-thesis { font-size: 14px; line-height: 1.55; color: #e6e9f0; margin: 0 0 14px; }
+.sd-m-row { display: flex; justify-content: space-between; gap: 16px;
+  padding: 7px 0; border-bottom: 1px solid #1a1e2b; font-size: 13px; }
+.sd-m-k { color: var(--text-dim, #8b93a7); text-transform: uppercase; font-size: 11px; letter-spacing: .3px; }
+.sd-m-v { color: #cfd5e6; text-align: right; font-variant-numeric: tabular-nums; }
+.sd-m-note { color: var(--text-dim, #8b93a7); font-size: 11px; margin-top: 14px; font-style: italic; }
