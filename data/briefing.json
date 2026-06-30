@@ -1,19 +1,19 @@
 {
-  "title": "Daily Briefing \u2014 Jun 29",
-  "headline": "June swoon is landing right on cue: defensive flows and extreme fear rule the board.",
+  "title": "Daily Briefing \u2014 Jun 30",
+  "headline": "June swoon in full effect: defensive rotation, rising sector risk, and Fear & Greed stuck in the basement.",
   "body": [
-    "Right, so the big picture: We're deep inside the midterm-year June swoon window (R521/R529), and the data lines up. Fear & Greed at 24.8 is screaming extreme fear (R013), VIX trending above its 20-day (R498), and SPY/QQQ are hugging their 20 MAs from below as tech sells off. Seasonality stats say 63% of midterm Junes finish red \u2014 don't treat this weakness as a contrarian buy, treat it as confirmation.",
-    "Key rotation: Tech (XLK, XLK $181.48) is weakening with broad leadership cracking \u2014 AAPL, NVDA, AMD, DELL, ARM all trading below their daily 20 MAs. Financials (XLF) and Communications (XLC) are lagging and showing high risk, while defensive sectors (XLU, XLP, XLV) are improving, but even those are not runaway safe havens given elevated risk readings. RRG quadrant shifts confirm the move: Industrials and Discretionary are the only bright spots, but nothing is leading strongly.",
-    "Contrarian/Risk: Extreme fear gauges usually mean opportunity, but this is an R521/R529 window \u2014 weakness is expected and can persist. Don't chase bounces here. If bonds were breaking (HYG, LQD), I'd reduce exposure, but they're stable for now. Any sustained VIX expansion will nod to further downside. Tech exhaustion, defensive drift, and midterm patterns all reinforce the risk \u2014 patience, react, don't predict."
+    "Right, so we've got classic midterm-year 'June swoon' playing out \u2014 R521/R529 are flashing bright red here. SPX is clinging to the SMA20 at 741, but breadth looks rubbish and Fear & Greed is stuck at 27.2 \u2014 that's proper fear territory. Seasonality says this is the drawdown window, not a contrarian buy-the-dip moment.",
+    "Sector rotation is telling the story: XLK (Tech) is 'weakening' with RS 120.5, and Energy (XLE) and Materials (XLB) both sitting at elevated and high risk levels, respectively. Defensive moves in XLP (Staples, RS 91.6) and XLY (Discretionary, RS 95.8) are improving, but most sectors are lagging. This is exactly how R521 and R529 describe the midterm-year hiccup \u2014 sector risk rises, and tech exhausts just as defensives rotate higher.",
+    "Contrarians: Don't fall for the bounce. Retail F&G is low, but that's NOT an opportunity per the rules \u2014 record sector risk and weak leadership trump sentiment here. QQQ, XLK, and SPY are at mean reversion levels; failed closes below their 20 MA = exit longs. If you're fishing for mean reversion, wait for the Q4 setup \u2014 cycles within cycles, guys."
   ],
   "callout_title": "Key levels today",
-  "callout_body": "SPY: 736.74 | 20 MA: 741.37 (watch for rejection)<br>QQQ: 713.09 | 20 MA: 722.94 (mean reversion zone)<br>AAPL: 280.43 | 20 MA: 296.71 (failed bounce)<br>HYG: 79.89 | 200 MA: 78.68 (risk trigger if breaks)<br>XLK: 181.48 | 20 MA: 186.61 (watch for further weakness)<br>Fear & Greed: 24.8 (extreme fear \u2013 sit tight)<br>VIX: 19.23 (> SMA20: 18.11, expansion confirming R498 seasonal volatility rise)<br>",
+  "callout_body": "SPY: 741 (SMA20) \u2014 close below triggers exit per rule<br>QQQ: 723.49 (SMA20) \u2014 watch daily close<br>XLK: 186.80 (SMA20) \u2014 trigger zone<br>XLE: 55.81 (SMA20) \u2014 risk rising<br>Fear & Greed: 27.2 \u2014 stuck on 'fear', but not contrarian buy per R521/R529<br>VIX: 17.65 \u2014 below SMA20 but watch for July/Aug seasonal spike per R498<br>Energy, Financials, Materials, Industrials: HIGH/ELEVATED risk \u2014 avoid chasing sector bounces",
   "action_items": [
-    "Do NOT chase any tech bounces \u2013 stay patient until daily closes recover 20 MA",
-    "Monitor bond ETFs (HYG, LQD) for breakdown; any slip below 200 MA = instant risk-off"
+    "Reduce any tech overweight: XLK, QQQ, AAPL, MSFT sit below 20 MA \u2014 rule triggers apply.",
+    "If SPY or XLK close below their daily SMA20, trim risk \u2014 less trades = more wins, react don't predict."
   ],
-  "closing_quote": "If it's in the press, it's in the price \u2014 but this time, seasonal stats are in the ice bath with us.",
-  "generatedAt": "2026-06-29T14:32:10.180679+00:00",
+  "closing_quote": "Patience, react, don't predict \u2014 June swoons and midterm hiccups are cycles within cycles. Next trade!",
+  "generatedAt": "2026-06-30T12:28:46.467949+00:00",
   "model": "gpt-4.1",
   "agent": "tom-fxevolution"
 }
