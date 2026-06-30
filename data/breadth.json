@@ -1,41 +1,41 @@
 {
-  "updated": "2026-06-29T21:47:00.837934+00:00",
+  "updated": "2026-06-30T21:50:29.868742+00:00",
   "sectors": {
     "COM": {
       "name": "Communication Services",
-      "above_20d": 38.9
+      "above_20d": 33.3
     },
     "CND": {
       "name": "Consumer Discretionary",
-      "above_20d": 55.0
+      "above_20d": 50.0
     },
     "CNS": {
       "name": "Consumer Staples",
-      "above_20d": 75.0
+      "above_20d": 65.0
     },
     "ENE": {
       "name": "Energy",
-      "above_20d": 27.8
+      "above_20d": 16.7
     },
     "FIN": {
       "name": "Financials",
-      "above_20d": 68.4
+      "above_20d": 57.9
     },
     "HLC": {
       "name": "Health Care",
-      "above_20d": 75.0
+      "above_20d": 70.0
     },
     "IND": {
       "name": "Industrials",
-      "above_20d": 65.0
+      "above_20d": 70.0
     },
     "MAT": {
       "name": "Materials",
-      "above_20d": 40.0
+      "above_20d": 50.0
     },
     "RLE": {
       "name": "Real Estate",
-      "above_20d": 84.2
+      "above_20d": 68.4
     },
     "TEC": {
       "name": "Technology",
@@ -48,38 +48,38 @@
   },
   "indices": {
     "SPX": {
-      "20d": 60.7,
-      "50d": 59.8,
-      "100d": 58.4,
-      "200d": 65.4
+      "20d": 56.5,
+      "50d": 56.5,
+      "100d": 56.5,
+      "200d": 63.1
     },
     "NDX": {
-      "20d": 46.0,
-      "50d": 42.0,
+      "20d": 48.0,
+      "50d": 46.0,
       "100d": 62.0,
       "200d": 60.0
     },
     "DJI": {
       "20d": 51.7,
-      "50d": 58.6,
+      "50d": 62.1,
       "100d": 58.6,
-      "200d": 65.5
+      "200d": 62.1
     },
     "RUT": {
-      "20d": 60.7,
-      "50d": 59.8,
-      "100d": 58.4,
-      "200d": 65.4
+      "20d": 56.5,
+      "50d": 56.5,
+      "100d": 56.5,
+      "200d": 63.1
     },
     "VTI": {
-      "20d": 60.7,
-      "50d": 59.8,
-      "100d": 58.4,
-      "200d": 65.4
+      "20d": 56.5,
+      "50d": 56.5,
+      "100d": 56.5,
+      "200d": 63.1
     }
   },
   "total": {
-    "stacked": 664.3,
-    "average": 60.4
+    "stacked": 616.3,
+    "average": 56.0
   }
 }
