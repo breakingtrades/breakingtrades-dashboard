@@ -449,3 +449,25 @@
   border: 1px solid rgba(251, 191, 36, 0.30); border-radius: 4px;
   padding: 2px 7px; margin-left: 8px; vertical-align: middle;
 }
+
+/* ─── Signals Desk (#signals-desk) ─────────────────────────────────────── */
+.sd-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.sd-chip { background: var(--bg-elev, #1a1e2b); border: 1px solid var(--border, #232838);
+  border-radius: 20px; padding: 6px 12px; font-size: 13px; }
+.sd-chip b { font-weight: 700; }
+.sd-chip .sd-n { color: var(--text-dim, #8b93a7); margin-left: 6px; font-size: 11px; }
+.sd-desk-h { margin: 16px 0 6px; font-size: 13px; font-weight: 700;
+  color: var(--accent, #7f8cff); }
+.sd-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.sd-table th { text-align: left; color: var(--text-dim, #8b93a7); font-weight: 600;
+  padding: 7px 8px; border-bottom: 1px solid var(--border, #232838);
+  font-size: 11px; text-transform: uppercase; }
+.sd-table td { padding: 8px; border-bottom: 1px solid #1a1e2b; vertical-align: top; }
+.sd-tk { font-weight: 700; }
+.sd-dir { font-size: 11px; padding: 2px 7px; border-radius: 10px;
+  color: #0c0e14; font-weight: 700; }
+.sd-lvl { font-variant-numeric: tabular-nums; color: #cfd5e6; }
+.sd-thesis { color: #cfd5e6; }
+.sd-muted { color: var(--text-dim, #8b93a7); }
+.sd-warn { border-left: 3px solid #f59e0b; padding-left: 12px; margin-bottom: 12px; }
+.sd-warn-src { color: var(--text-dim, #8b93a7); font-size: 11px; margin-top: 2px; }

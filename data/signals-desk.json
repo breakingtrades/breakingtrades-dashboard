@@ -1,0 +1,514 @@
+{
+  "_schema": "signals-desk/v1",
+  "_note": "Anonymized social-signal aggregate. Desk labels are anonymized; no creator names. Paid-membership content excluded. Educational use only — not investment advice.",
+  "generated_at": "2026-06-30T08:34:29.602510+00:00",
+  "stats": {
+    "signals": 18,
+    "actionable": 13,
+    "warnings": 5,
+    "tickers": 7,
+    "desks": 4
+  },
+  "top_tickers": [
+    {
+      "ticker": "TEM",
+      "count": 2,
+      "bull": 2,
+      "bear": 0
+    },
+    {
+      "ticker": "MSFT",
+      "count": 1,
+      "bull": 1,
+      "bear": 0
+    },
+    {
+      "ticker": "UTLS",
+      "count": 1,
+      "bull": 1,
+      "bear": 0
+    },
+    {
+      "ticker": "UBRL",
+      "count": 1,
+      "bull": 1,
+      "bear": 0
+    },
+    {
+      "ticker": "UBER",
+      "count": 1,
+      "bull": 1,
+      "bear": 0
+    },
+    {
+      "ticker": "SO",
+      "count": 1,
+      "bull": 1,
+      "bear": 0
+    },
+    {
+      "ticker": "XLU",
+      "count": 1,
+      "bull": 1,
+      "bear": 0
+    }
+  ],
+  "signals": [
+    {
+      "ticker": "MSFT",
+      "asset_class": "stock",
+      "signal_type": "option-trade",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Initiated a bullish call option position on Microsoft after a recent price dip.",
+      "catalyst": "recent dip/pullback in MSFT price",
+      "entry": "bought MSFT calls today on the dip",
+      "targets": [],
+      "stop": null,
+      "timeframe": "intraday",
+      "tags": [
+        "options",
+        "call",
+        "MSFT",
+        "buy",
+        "dip"
+      ],
+      "context": "Creator reports buying Microsoft call options after a price dip — a short-term bullish options trade.",
+      "source_section": "call",
+      "published_at": "Mon Jun 29 22:44:57 +0000 2026",
+      "desk": "Desk 2 · Selective / News · Social",
+      "platform": "Social"
+    },
+    {
+      "ticker": null,
+      "asset_class": null,
+      "signal_type": "idea",
+      "direction": "hedge",
+      "conviction": "medium",
+      "thesis": "In weak markets, defensive actions outperform aggressive bets, so prioritize protection over offense.",
+      "catalyst": null,
+      "entry": "Favor defensive positioning and risk controls during market downturns rather than seeking aggressive gains.",
+      "targets": [],
+      "stop": null,
+      "timeframe": "long-term",
+      "tags": [
+        "defense",
+        "bear-market",
+        "risk-management"
+      ],
+      "context": "During bad markets, adopt defensive strategies as the primary approach instead of aggressive moves.",
+      "source_section": null,
+      "published_at": "Mon Jun 29 18:01:52 +0000 2026",
+      "desk": "Desk 3 · Trade Ideas · Social",
+      "platform": "Social"
+    },
+    {
+      "ticker": null,
+      "asset_class": null,
+      "signal_type": "idea",
+      "direction": "watching",
+      "conviction": "high",
+      "thesis": "When a market trend breaks, halt adding to positions and shift focus to protecting existing capital.",
+      "catalyst": null,
+      "entry": "Stop scaling into positions when the trend reverses; implement protective measures such as hedges or tighter risk controls.",
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "trend",
+        "risk-management",
+        "hedging"
+      ],
+      "context": "If the trend breaks, stop adding and prioritize protection of capital over new exposure.",
+      "source_section": null,
+      "published_at": "Mon Jun 29 18:01:52 +0000 2026",
+      "desk": "Desk 3 · Trade Ideas · Social",
+      "platform": "Social"
+    },
+    {
+      "ticker": null,
+      "asset_class": "stock",
+      "signal_type": "option-trade",
+      "direction": "bullish",
+      "conviction": "high",
+      "thesis": "Sell puts only on equities you would be happy to own to ensure comfortable assignment outcomes.",
+      "catalyst": null,
+      "entry": "Write cash-secured puts on stocks you genuinely want to own if assigned (strike & expiration not specified).",
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "options",
+        "puts",
+        "income",
+        "cash-secured"
+      ],
+      "context": "Prefer selling puts only on names you'd want to hold to avoid being stuck with undesirable assignments.",
+      "source_section": null,
+      "published_at": "Mon Jun 29 18:01:52 +0000 2026",
+      "desk": "Desk 3 · Trade Ideas · Social",
+      "platform": "Social"
+    },
+    {
+      "ticker": null,
+      "asset_class": null,
+      "signal_type": "idea",
+      "direction": "hedge",
+      "conviction": "high",
+      "thesis": "Always keep a cash buffer so you never face full exposure during market stress.",
+      "catalyst": null,
+      "entry": "Maintain at least 30% cash allocation in portfolio at all times.",
+      "targets": [],
+      "stop": null,
+      "timeframe": "long-term",
+      "tags": [
+        "risk-management",
+        "allocation",
+        "cash"
+      ],
+      "context": "Keep a minimum 30% cash reserve to avoid being fully invested into market drawdowns.",
+      "source_section": null,
+      "published_at": "Mon Jun 29 18:01:52 +0000 2026",
+      "desk": "Desk 3 · Trade Ideas · Social",
+      "platform": "Social"
+    },
+    {
+      "ticker": null,
+      "asset_class": "option-trade",
+      "signal_type": "option-trade",
+      "direction": "bullish",
+      "conviction": "high",
+      "thesis": "Concentrate capital into a few high‑conviction LEAP positions instead of holding many small, low‑conviction ones.",
+      "catalyst": null,
+      "entry": "Close the majority of low‑conviction LEAPs and redeploy size into the top ~5 LEAP positions.",
+      "targets": [],
+      "stop": null,
+      "timeframe": "long-term",
+      "tags": [
+        "LEAP",
+        "options",
+        "position-sizing",
+        "concentration",
+        "risk-management",
+        "conviction"
+      ],
+      "context": "Advised a student to close 35 of 40 LEAPs and build five larger positions, producing outsized returns.",
+      "source_section": null,
+      "published_at": "Mon Jun 29 13:01:57 +0000 2026",
+      "desk": "Desk 3 · Trade Ideas · Social",
+      "platform": "Social"
+    },
+    {
+      "ticker": "TEM",
+      "asset_class": "stock",
+      "signal_type": "option-trade",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "As an alternative to buying LEAPs, selling puts on Tempest AI allows collecting premium and potentially acquiring the stock at a lower price while betting on upside.",
+      "catalyst": "TEM exhibits similar IV characteristics to other names and a bullish technical setup",
+      "entry": "Sell ATM or OTM puts to collect premium or set an entry price for assignment",
+      "targets": [
+        "Premium collected; assignment at a discount to current price"
+      ],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "put-sell",
+        "AI",
+        "income",
+        "options-selling"
+      ],
+      "context": "Sell puts on TEM as an income/assignment strategy instead of buying LEAPs outright.",
+      "source_section": "option-strategies",
+      "published_at": null,
+      "desk": "Desk 4 · Trade Ideas · Video",
+      "platform": "Video"
+    },
+    {
+      "ticker": "UTLS",
+      "asset_class": "etf",
+      "signal_type": "option-trade",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Selling puts on a 2x utilities ETF offers a lower‑volatility income path to participate in the utilities rally versus buying LEAPs outright.",
+      "catalyst": "recent fast weekly gains in leveraged utilities and attractive option premium",
+      "entry": "Sell ATM or OTM puts as cash‑secured income trades depending on risk tolerance",
+      "targets": [
+        "Collect premium / own leveraged utilities at a discount if assigned"
+      ],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "put-sell",
+        "leveraged-etf",
+        "utilities",
+        "income"
+      ],
+      "context": "Use UTLS put selling to generate income and potentially buy leveraged utilities at a discount.",
+      "source_section": "option-strategies",
+      "published_at": null,
+      "desk": "Desk 4 · Trade Ideas · Video",
+      "platform": "Video"
+    },
+    {
+      "ticker": "UBRL",
+      "asset_class": "etf",
+      "signal_type": "option-trade",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Selling puts on the 2x Uber ETF monetizes elevated IV and either produces income or allows acquisition of leveraged Uber exposure at a discount.",
+      "catalyst": "high implied volatility (~70%) on the leveraged ETF and doubled upside when Uber rallies",
+      "entry": "Sell cash‑secured puts (ATM or OTM) depending on desired assignment level",
+      "targets": [
+        "Collect premium; generate steady income or be assigned leveraged shares at a discount"
+      ],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "put-sell",
+        "leveraged-etf",
+        "income",
+        "options-selling"
+      ],
+      "context": "Sell puts on UBRL to earn high premium and/or obtain leveraged Uber exposure if assigned.",
+      "source_section": "option-strategies",
+      "published_at": null,
+      "desk": "Desk 4 · Trade Ideas · Video",
+      "platform": "Video"
+    },
+    {
+      "ticker": "TEM",
+      "asset_class": "stock",
+      "signal_type": "option-trade",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Tempest AI shows a monthly bullish engulfing candle and consolidation breakout potential, offering large upside for LEAP buyers in a volatile small‑cap AI/healthcare name.",
+      "catalyst": "monthly engulfing candle, institutional/ARC buying and a clear runway for growth",
+      "entry": "Buy LEAP calls; aggressive example cited is a 75 strike LEAP",
+      "targets": [
+        "$100 (example target)",
+        "Large multiple returns (300–500% possible if stock rallies strongly)"
+      ],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "AI",
+        "healthcare",
+        "LEAP",
+        "volatility"
+      ],
+      "context": "Tempest AI has an engulfing monthly candle and runway; buying LEAPs (e.g., 75 strike) could see big multiples.",
+      "source_section": "momentum-list",
+      "published_at": null,
+      "desk": "Desk 4 · Trade Ideas · Video",
+      "platform": "Video"
+    },
+    {
+      "ticker": "UBER",
+      "asset_class": "stock",
+      "signal_type": "option-trade",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Uber has consolidated for months and shows activation signals that could drive a push to a new all‑time high, making long‑dated calls appealing.",
+      "catalyst": "multi‑month consolidation, bullish engulfing-like price action and channel activation",
+      "entry": "Buy ~350‑day LEAP calls; consider 85 strike or 95 strike depending on risk/target",
+      "targets": [
+        "Push to a new all‑time high",
+        "95 strike as a profit target example (200%+ LEAP potential)"
+      ],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "LEAP",
+        "ride-hailing",
+        "consolidation",
+        "momentum"
+      ],
+      "context": "Uber back in activation; buy 350d LEAPs (85–95 strikes) targeting a move to new highs.",
+      "source_section": "momentum-list",
+      "published_at": null,
+      "desk": "Desk 4 · Trade Ideas · Video",
+      "platform": "Video"
+    },
+    {
+      "ticker": "SO",
+      "asset_class": "stock",
+      "signal_type": "idea",
+      "direction": "bullish",
+      "conviction": "medium",
+      "thesis": "Southern Company formed a bullish monthly engulfing candle suggesting likely follow‑through higher over coming months.",
+      "catalyst": "monthly engulfing candlestick at a support/activation level",
+      "entry": "Buy shares on current levels or on defined pullbacks (no specific price given)",
+      "targets": [
+        "Expect one-to-two monthly candles higher (near-term continuation)"
+      ],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "utilities",
+        "candlestick",
+        "SO"
+      ],
+      "context": "SO has an engulfing monthly candle indicating likely gains over the next 1–2 months.",
+      "source_section": "momentum-list",
+      "published_at": null,
+      "desk": "Desk 4 · Trade Ideas · Video",
+      "platform": "Video"
+    },
+    {
+      "ticker": "XLU",
+      "asset_class": "etf",
+      "signal_type": "option-trade",
+      "direction": "bullish",
+      "conviction": "high",
+      "thesis": "Utilities ETF is showing a bottom/momentum signal amid sector rotation and should push to new highs, making LEAPs attractive.",
+      "catalyst": "momentum indicator flashing bottom; rising energy demand (data centers) and macro rotation into utilities",
+      "entry": "Buy LEAP calls ~300 days out, roughly 10% out‑of‑the‑money (systemic LEAP picker)",
+      "targets": [
+        "$48",
+        "$50",
+        ">$52 (extension)"
+      ],
+      "stop": null,
+      "timeframe": "position",
+      "tags": [
+        "utilities",
+        "LEAP",
+        "sector-rotation",
+        "momentum",
+        "energy-demand"
+      ],
+      "context": "Thinks XLU just started a move; buy 300d ~10% OTM LEAPs aiming for ~$48–$50.",
+      "source_section": "momentum-list",
+      "published_at": null,
+      "desk": "Desk 4 · Trade Ideas · Video",
+      "platform": "Video"
+    }
+  ],
+  "warnings": [
+    {
+      "ticker": "GLD",
+      "asset_class": "etf",
+      "signal_type": "macro",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "The creator notes GLD saw its first sizable transaction in months — the 11th largest print — taking place around potential technical demand.",
+      "catalyst": "Large non-dark-pool transaction (11th largest print)",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": null,
+      "tags": [
+        "GLD",
+        "gold",
+        "flows",
+        "technical-demand"
+      ],
+      "context": "First sizable GLD transaction in months; 11th largest print near potential technical demand.",
+      "source_section": null,
+      "published_at": "Tue Jun 30 01:31:13 +0000 2026",
+      "desk": "Desk 1 · Selective / News · Social",
+      "platform": "Social"
+    },
+    {
+      "ticker": "MSTR",
+      "asset_class": "stock",
+      "signal_type": "macro",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "MicroStrategy issued a major announcement that may affect its shares and related bitcoin flows, warranting monitoring.",
+      "catalyst": "recent unspecified company announcement by MicroStrategy",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "MSTR",
+        "microstrategy",
+        "announcement",
+        "flows"
+      ],
+      "context": "MicroStrategy made a big announcement; watch flow movements this week for potential market impact.",
+      "source_section": "tweet",
+      "published_at": "Tue Jun 30 01:27:24 +0000 2026",
+      "desk": "Desk 1 · Selective / News · Social",
+      "platform": "Social"
+    },
+    {
+      "ticker": "BTC",
+      "asset_class": "crypto",
+      "signal_type": "macro",
+      "direction": "watching",
+      "conviction": "medium",
+      "thesis": "Recent bitcoin-native fund outflows were severe and could continue to influence price via flow dynamics.",
+      "catalyst": "last week's large outflows from bitcoin-native products",
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "flows",
+        "bitcoin",
+        "crypto",
+        "fund-flows"
+      ],
+      "context": "Noted brutal outflows from bitcoin-native products; monitor flows this week for price impact.",
+      "source_section": "tweet",
+      "published_at": "Tue Jun 30 01:27:24 +0000 2026",
+      "desk": "Desk 1 · Selective / News · Social",
+      "platform": "Social"
+    },
+    {
+      "ticker": "XLV",
+      "asset_class": "etf",
+      "signal_type": "macro",
+      "direction": "watching",
+      "conviction": "low",
+      "thesis": "Health-care ETF XLV has been the top-performing major sector over the past five trading days while other names have started to show strength.",
+      "catalyst": null,
+      "entry": null,
+      "targets": [],
+      "stop": null,
+      "timeframe": "swing",
+      "tags": [
+        "sector",
+        "etf",
+        "health-care",
+        "momentum",
+        "5-day"
+      ],
+      "context": "XLV led major sectors over the past five days; other names have begun to show strength.",
+      "source_section": "momentum-list",
+      "published_at": "Tue Jun 30 00:51:42 +0000 2026",
+      "desk": "Desk 1 · Selective / News · Social",
+      "platform": "Social"
+    },
+    {
+      "ticker": "ETH",
+      "asset_class": "crypto",
+      "signal_type": "macro",
+      "direction": "bullish",
+      "conviction": "high",
+      "thesis": "Crypto cycles indicate a bottom around October; Ethereum is positioned to bottom soon and start a multi‑year bull market, so scale into positions now.",
+      "catalyst": "4‑year crypto cycle pattern, historical bottoms timing, and anticipated institutional/regulatory adoption",
+      "entry": "Begin scaling in now and continue building position over the next ~60 days toward the expected October bottom",
+      "targets": [
+        "Multi‑year bull market gains over the next 3–4 years"
+      ],
+      "stop": null,
+      "timeframe": "long-term",
+      "tags": [
+        "crypto",
+        "Ethereum",
+        "cycle",
+        "positioning",
+        "macro"
+      ],
+      "context": "Calls an October crypto cycle bottom; recommends scaling into Ethereum for a 3–4 year bull market.",
+      "source_section": "macro",
+      "published_at": null,
+      "desk": "Desk 4 · Trade Ideas · Video",
+      "platform": "Video"
+    }
+  ]
+}

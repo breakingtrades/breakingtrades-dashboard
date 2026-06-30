@@ -47,6 +47,7 @@
       label: 'ANALYSIS',
       items: [
         { route: 'expected-moves', label: 'Expected Moves', icon: 'em',       freshKey: 'expected-moves' },
+        { route: 'signals-desk',   label: 'Signals Desk',   icon: 'signals',  freshKey: null             },
         { route: 'calendar',       label: 'Calendar',       icon: 'calendar', freshKey: 'calendar'       },
         { route: 'research',       label: 'Research',       icon: 'research', freshKey: 'research'       },
       ]

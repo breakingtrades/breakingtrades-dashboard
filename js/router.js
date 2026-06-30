@@ -7,6 +7,7 @@
   var ROUTES = {
     'market':         { css: 'css/market.css',          js: 'js/pages/market.js',         title: 'Market' },
     'signals':        { css: 'css/signals.css',         js: 'js/pages/signals.js',        title: 'Signals' },
+    'signals-desk':   { css: 'css/ai-trader.css',        js: 'js/pages/signals-desk.js',   title: 'Signals Desk' },
     'watchlist':      { css: 'css/watchlist.css',        js: 'js/pages/watchlist.js',      title: 'Watchlist' },
     'expected-moves': { css: 'css/expected-moves.css',   js: 'js/pages/expected-moves.js', title: 'Expected Moves' },
     'events':         { css: 'css/events.css',           js: 'js/pages/events.js',         title: 'Events' },
