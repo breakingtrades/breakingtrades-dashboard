@@ -1,6 +1,6 @@
 {
   "created": "2026-06-18T06:38:37.239203+00:00",
-  "as_of": "2026-06-30T21:50:35.075217+00:00",
+  "as_of": "2026-07-01T21:53:33.163482+00:00",
   "portfolio_name": "AI Picks — 2026-06-17",
   "thesis": "Trend-following longs screened from the BreakingTrades watchlist in a BULL/EXPANSION regime (VIX 16, F&G 39, sector bias XLK/XLY/XLF). Each pick: perfect SMA trend stack (price>20>50>200), bull bias, golden cross, RSI 50-67. ATR-based stops (1.5x) and targets (2x/4x).",
   "starting_equity": 100000.0,
@@ -23,12 +23,12 @@
       "stop_pct": 4.1,
       "target_2_pct": 11.0,
       "thesis": "Perfect stack + golden cross, RSI 62, favored discretionary",
-      "last_price": 133.92,
-      "unrealized_pnl": 94.5,
-      "unrealized_pct": 0.68,
+      "last_price": 130.61,
+      "unrealized_pnl": -253.05,
+      "unrealized_pct": -1.81,
       "status": "OPEN",
       "high_water_mark": 141.2,
-      "days_held": 8
+      "days_held": 9
     },
     {
       "ticker": "AMD",
@@ -44,12 +44,12 @@
       "stop_pct": 9.7,
       "target_2_pct": 26.0,
       "thesis": "Perfect stack + golden cross, RSI 58, favored Tech",
-      "last_price": 539.49,
-      "unrealized_pnl": 750.33,
-      "unrealized_pct": 5.43,
+      "last_price": 580.91,
+      "unrealized_pnl": 1868.67,
+      "unrealized_pct": 13.53,
       "status": "OPEN",
-      "high_water_mark": 551.63,
-      "days_held": 8
+      "high_water_mark": 580.91,
+      "days_held": 9
     },
     {
       "ticker": "ARM",
@@ -65,12 +65,12 @@
       "stop_pct": 12.4,
       "target_2_pct": 33.2,
       "thesis": "Perfect stack + golden cross, RSI 65, AI chip momentum",
-      "last_price": 343.58,
-      "unrealized_pnl": -1732.17,
-      "unrealized_pct": -14.81,
+      "last_price": 354.57,
+      "unrealized_pnl": -1413.46,
+      "unrealized_pct": -12.08,
       "status": "STOPPED",
       "high_water_mark": 439.46,
-      "days_held": 8,
+      "days_held": 9,
       "exit_price": 347.71,
       "exit_date": "2026-06-26"
     },
@@ -88,12 +88,12 @@
       "stop_pct": 2.9,
       "target_2_pct": 7.8,
       "thesis": "Perfect stack + golden cross, RSI 64, low-vol defensive",
-      "last_price": 69.18,
-      "unrealized_pnl": 117.18,
-      "unrealized_pct": 0.9,
+      "last_price": 68.29,
+      "unrealized_pnl": -51.03,
+      "unrealized_pct": -0.39,
       "status": "OPEN",
       "high_water_mark": 69.51,
-      "days_held": 8
+      "days_held": 9
     },
     {
       "ticker": "UPS",
@@ -109,12 +109,12 @@
       "stop_pct": 3.9,
       "target_2_pct": 10.3,
       "thesis": "Perfect stack + golden cross, RSI 59, logistics turnaround",
-      "last_price": 108.01,
-      "unrealized_pnl": -116.6,
-      "unrealized_pct": -0.97,
+      "last_price": 107.5,
+      "unrealized_pnl": -172.7,
+      "unrealized_pct": -1.44,
       "status": "OPEN",
       "high_water_mark": 109.31,
-      "days_held": 8
+      "days_held": 9
     },
     {
       "ticker": "COPX",
@@ -130,12 +130,12 @@
       "stop_pct": 6.0,
       "target_2_pct": 15.9,
       "thesis": "Perfect stack + golden cross, RSI 57, copper/reflation",
-      "last_price": 75.74,
-      "unrealized_pnl": -1748.26,
-      "unrealized_pct": -15.91,
+      "last_price": 76.97,
+      "unrealized_pnl": -1598.2,
+      "unrealized_pct": -14.54,
       "status": "STOPPED",
       "high_water_mark": 90.07,
-      "days_held": 8,
+      "days_held": 9,
       "exit_price": 84.65,
       "exit_date": "2026-06-22"
     },
@@ -153,12 +153,12 @@
       "stop_pct": 4.6,
       "target_2_pct": 12.4,
       "thesis": "Perfect stack + golden cross, RSI 57, turnaround momentum",
-      "last_price": 76.5,
-      "unrealized_pnl": -198.66,
-      "unrealized_pct": -1.66,
+      "last_price": 79.22,
+      "unrealized_pnl": 220.22,
+      "unrealized_pct": 1.84,
       "status": "OPEN",
-      "high_water_mark": 77.79,
-      "days_held": 8
+      "high_water_mark": 79.22,
+      "days_held": 9
     },
     {
       "ticker": "NBIS",
@@ -174,16 +174,16 @@
       "stop_pct": 12.6,
       "target_2_pct": 33.7,
       "thesis": "AI-infra momentum leader, RSI 67, high upside/high vol",
-      "last_price": 261.15,
-      "unrealized_pnl": -360.47,
-      "unrealized_pct": -4.54,
+      "last_price": 276.17,
+      "unrealized_pnl": 75.11,
+      "unrealized_pct": 0.95,
       "status": "OPEN",
       "high_water_mark": 286.69,
-      "days_held": 8
+      "days_held": 9
     }
   ],
-  "market_value": 96805.85,
-  "total_unrealized_pnl": -3194.15,
-  "total_unrealized_pct": -3.35,
+  "market_value": 98675.56,
+  "total_unrealized_pnl": -1324.44,
+  "total_unrealized_pct": -1.39,
   "open_count": 6
 }
